@@ -105,9 +105,9 @@ public class DatePickerDemo extends ControlContainer {
 		});
 
 		Button btn4 = new Button(this, "btn4");
-		btn3.setTitle("setDate(null)");
+		btn4.setTitle("setDate(null)");
 
-		btn3.addSelectionListener(new SelectionListener() {
+		btn4.addSelectionListener(new SelectionListener() {
 
 			public void objectSelected(SelectionEvent event) {
 				datePickerControl.setDate(null);
