@@ -33,7 +33,7 @@ import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
 /**
- *
+ * 
  * @author bogdan
  */
 public class DatePickerDemo extends ControlContainer {
@@ -44,77 +44,92 @@ public class DatePickerDemo extends ControlContainer {
 	 */
 	public DatePickerDemo(final IControlContainer container, String name) {
 		super(container, name);
-		
-		final DatePickerControl datePickerControl = new DatePickerControl(this, "datePicker");
-		//datePickerControl.setLocale(Locale.KOREAN);
-		
-		
-		Button btn = new Button(this,"btn");
+
+		final DatePickerControl datePickerControl = new DatePickerControl(this,
+				"datePicker");
+		// datePickerControl.setLocale(Locale.KOREAN);
+
+		Button btn = new Button(this, "btn");
 		btn.setTitle("Switch locale");
-		
+
 		btn.addSelectionListener(new SelectionListener() {
 			private boolean DE = true;
+
 			public void objectSelected(SelectionEvent event) {
-				if(DE){
+				if (DE) {
 					datePickerControl.setLocale(Locale.ENGLISH);
 					datePickerControl.getLocale();
 					DE = false;
-				}else{
+				} else {
 					datePickerControl.setLocale(Locale.GERMAN);
 					DE = true;
 				}
 				System.out.println(datePickerControl.getLocale().toString());
-				
+
 			}
 		});
-		
-		Button btn2 = new Button(this,"btn2");
+
+		Button btn2 = new Button(this, "btn2");
 		btn2.setTitle("Toggle Show Month");
-		
+
 		btn2.addSelectionListener(new SelectionListener() {
-			
+
 			public void objectSelected(SelectionEvent event) {
-				if(datePickerControl.isShowMonth()){
+				if (datePickerControl.isShowMonth()) {
 					datePickerControl.setShowMonth(false);
-					
-				}else{
+
+				} else {
 					datePickerControl.setShowMonth(true);
-					
+
 				}
 				System.out.println(datePickerControl.getLocale().toString());
-				
+
 			}
 		});
-		Button btn3 = new Button(this,"btn3");
+		Button btn3 = new Button(this, "btn3");
 		btn3.setTitle("Toggle Show Year");
-		
+
 		btn3.addSelectionListener(new SelectionListener() {
-			
+
 			public void objectSelected(SelectionEvent event) {
-				if(datePickerControl.isShowYear()){
+				if (datePickerControl.isShowYear()) {
 					datePickerControl.setShowYear(false);
-					
-				}else{
+
+				} else {
 					datePickerControl.setShowYear(true);
-					
+
 				}
 				System.out.println(datePickerControl.getLocale().toString());
-				
+
 			}
 		});
-		
-		final LabelControl lbl = new LabelControl(this,"label");
-		
+
+		Button btn4 = new Button(this, "btn4");
+		btn3.setTitle("setDate(null)");
+
+		btn3.addSelectionListener(new SelectionListener() {
+
+			public void objectSelected(SelectionEvent event) {
+				datePickerControl.setDate(null);
+			}
+		});
+
+		final LabelControl lbl = new LabelControl(this, "label");
+
 		datePickerControl.addDateChangedListener(new DateChangedListener() {
-			
+
 			public void onDateChanged(Date oldDate, Date newDate) {
-				
-				DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.LONG,datePickerControl.getLocale());
-				
-				lbl.setText("Selected Date is: " + dateFormatter.format(newDate));			
+				DateFormat dateFormatter = DateFormat.getDateInstance(
+						DateFormat.LONG, datePickerControl.getLocale());
+				if (newDate != null) {
+					lbl.setText("Selected Date is: "
+							+ dateFormatter.format(newDate));
+				}else{
+					lbl.setText("Selected Date is: null");
+				}
 			}
 		});
-		
+
 	}
 
 }

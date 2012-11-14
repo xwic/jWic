@@ -36,7 +36,7 @@ import de.jwic.controls.InputBoxControl;
  */
 public class DatePickerControl extends InputBoxControl {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Locale locale;
 	private Date date;
 	private final List<DateChangedListener> listeners = new ArrayList<DateChangedListener>();
@@ -64,7 +64,6 @@ public class DatePickerControl extends InputBoxControl {
 
 	private void init() {
 		locale = this.getSessionContext().getLocale();
-		this.setDate(new Date(System.currentTimeMillis()));
 	}
 
 	/**
@@ -83,11 +82,14 @@ public class DatePickerControl extends InputBoxControl {
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
-			this.setDate(new Date(Long.valueOf(parameter)));			
+			this.setDate(new Date(Long.valueOf(parameter)));
 		}
 		if ("localeNotFound".equals(actionId)) {
 			this.setLocale(Locale.ENGLISH);
 			log.info("The selected local was not found. Defaulting back to Locale.ENGLISH");
+		}
+		if ("dateisempty".equals(actionId)) {
+			this.setDate(null);
 		}
 
 	}
@@ -119,14 +121,16 @@ public class DatePickerControl extends InputBoxControl {
 	public void setDate(Date date) {
 		Date oldDate = this.getDate();
 		this.date = date;
-		
-		if (oldDate != null) {
-			this.notifyListeners(oldDate, this.date);
-		}		
-		DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT,
-				locale);
-		String formatedDate = formatter.format(getDate());
-		this.setText(formatedDate);
+		if (date != null) {
+			DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT,
+					locale);
+			String formatedDate = formatter.format(getDate());
+			this.setText(formatedDate);
+		} else {
+			this.setText("");
+		}
+		this.notifyListeners(oldDate, this.date);
+
 	}
 
 	/**
@@ -174,14 +178,16 @@ public class DatePickerControl extends InputBoxControl {
 	}
 
 	/**
-	 * @return true if this control is set to show the month selection dropdown list
+	 * @return true if this control is set to show the month selection dropdown
+	 *         list
 	 */
 	public boolean isShowMonth() {
 		return showMonth;
 	}
 
 	/**
-	 * @return true if this control is set to show the year selection dropdown list
+	 * @return true if this control is set to show the year selection dropdown
+	 *         list
 	 */
 	public boolean isShowYear() {
 		return showYear;

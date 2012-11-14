@@ -2,6 +2,7 @@
 	
 	afterUpdate: function(element){
 		
+		
 		var region = jQuery.datepicker.regional['${control.locale.language}'];
 		
 		if(region == undefined){
@@ -28,14 +29,29 @@
 		
 		JWic.fireAction('${control.controlID}','dateformat',''+datepicker.datepicker( "option", "dateFormat" ));
 
+		
+		function nullDateNotifier(e){			
+			if(this.value == ''){
+				JWic.fireAction(this.id, 'dateisempty', '');
+			}
+		}
+		
 		// AJAX stuff :D
 		datepicker.change(function(){
-			JWic.fireAction(this.id, 'datechanged', '' + datepicker.datepicker('getDate').getTime());
+			var date = datepicker.datepicker('getDate');
+			if(date!=null){
+				JWic.fireAction(this.id, 'datechanged', '' + date.getTime());
+			}else{
+				nullDateNotifier();
+			}
+			
 		});
+		
+		datepicker.keyup(nullDateNotifier);
 	},
 	
 	destroy: function(element) {
-				
+		
 	}
 
 }

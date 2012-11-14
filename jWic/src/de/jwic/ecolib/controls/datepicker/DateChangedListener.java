@@ -32,6 +32,7 @@ public interface DateChangedListener {
 	 * 
 	 * @param oldDate - the previous date
 	 * @param newDate - the current date
+	 * <br/>Both can be null
 	 */
 	public void onDateChanged(Date oldDate,Date newDate);
 }
