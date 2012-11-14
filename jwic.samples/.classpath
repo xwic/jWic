@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src_test"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/cglib-full-2.0.1.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/commons-collections-2.1.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/dom4j.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/jta-spec1_0_1.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/junit.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/log4j-1.2.8.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/spring_1-2.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/velocity-1.4.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/itext-1.4.3.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/jcommon-1.0.5.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/jfreechart-1.0.2.jar"/>
+	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/jfreechart-1.0.2-demo.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jWic"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jwic.maildemo"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jwic.sourceviewer"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/jwic.tabletools"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

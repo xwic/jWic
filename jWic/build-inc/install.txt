@@ -1,0 +1,25 @@
+Quick Installation Guide
+========================
+
+1. Setup a blank web project in your favorit IDE (i.e. Dynamic Web Project, Tomcat Project, ...)
+
+2. Copy the content of the default webapp folder (webapps/default) into the webfolder of your project
+
+3. Copy the required libraries from the lib folder to the lib folder of your webapp 
+   ({webRoot}/WEB-INF/lib. The minimum required libraries are:
+     - commons-collections-2.1.jar
+     - commons-lang-2.1.jar
+     - commons-logging.jar
+     - dom4j.jar
+     - log4j-1.2.8.jar
+     - velocity-1.4.jar
+     
+4. Copy the jWic libraries (jwic.jar and jwic-samples.jar) into the same lib folder of your webapp.
+
+Now you can start the server/webapp and run one of the samples.
+
+If you are going to update from an older version, always have a look at the migration guide that
+contains valuable informations. You find the guide here: 
+    
+    http://www.jwic.de/home/articles/migration_guide.html
+

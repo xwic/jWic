@@ -1,0 +1,7 @@
+<h3>Congratulations!</h3>
+#if($control.throwable)
+<p style="color: red;">Sorry, but the process ended with an error: $control.throwable</p>
+#else
+<p>The process is finished.<br>
+The result is: <b>$control.result</b></p>
+#end

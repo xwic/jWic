@@ -1,0 +1,15 @@
+This is the main page. Click the button to open the window.
+<br>
+$insert.control("btOpen")<br>
+<br>
+$insert.control("lbInfo")<br>
+<br>
+
+
+#if($control.openWindowUrl != "") 
+<script>
+	var win = window.open("$control.openWindowUrl", "popupWin", "height=200,menubar=no,status=no,width=300,toolbar=no");
+	win.originWin = window; // provide access to this "window".
+	$control.windowOpenend() #* notify control that the window has been "openend" *#
+</script>
+#end

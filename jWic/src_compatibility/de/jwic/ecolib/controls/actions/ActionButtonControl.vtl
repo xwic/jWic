@@ -1,0 +1,22 @@
+<button 
+#if (!$control.isEnabled())
+ disabled 
+#end
+#if ($control.isSubmitButton()) 
+ type=submit
+#else
+ type=button
+#end
+#if ($control.confirmMsg != "")
+ onClick="if(confirm('$control.confirmMsg')){$control.createActionURL('click', '');}return false"
+#else
+ onClick="$control.createActionURL('click', '');return false"
+#end
+$jwic.generateCssProperty($control)>
+<table cellspacing="0" cellpadding="0"><tr>
+#if ($control.hasIcon())
+<td><img border="0" src="$control.icon.path" #if($control.iconInfo != "")alt="$control.iconInfo"#end></td>
+#end
+#if ($control.title != "")<td class="buttonCaption">$control.title</td>#end
+</tr></table>
+</button>

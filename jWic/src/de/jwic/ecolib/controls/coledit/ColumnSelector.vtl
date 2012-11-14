@@ -1,0 +1,40 @@
+#set($fld = $control.getField("fldOrder"))
+<input id="rowOrder_$control.getControlID()" type="hidden" name="$fld.id" value="$jwic.formatInp($fld.value)">
+#set($height = $control.height)
+#if ($control.showActions)
+	#set($height = $height - 27)
+<div class="${control.cssClass}_actions" style="width: ${control.width}px; height: 26px;">
+	<div class="j-colAction">
+		<a href="$control.createActionURL("selectAll", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkall.gif" width="14" height="14" border="0"> Select All</a>
+	</div>
+	<div class="j-colAction">
+		<a href="$control.createActionURL("selectNone", "")"><img src="${jwic.contextPath}/ecolib/colselector/chknone.gif" width="14" height="14" border="0"> Select None</a>
+	</div>
+	<div class="j-colAction">
+		#if($control.hideInvisibles)
+		<a href="$control.createActionURL("hideInvisible", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkhide.gif" width="14" height="14" border="0"> Show Invisible</a>
+		#else
+		<a href="$control.createActionURL("hideInvisible", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkhide.gif" width="14" height="14" border="0"> Hide Invisible</a>
+		#end
+	</div>
+	<div class="j-colAction">
+		#if($control.hideDescription)
+		<a href="$control.createActionURL("hideDescription", "")"><img src="${jwic.contextPath}/ecolib/colselector/information.png" width="14" height="14" border="0"> Show Description</a>
+		#else
+		<a href="$control.createActionURL("hideDescription", "")"><img src="${jwic.contextPath}/ecolib/colselector/information.png" width="14" height="14" border="0"> Hide Description</a>
+		#end
+	</div>
+</div>
+#end
+<div id="$control.controlID" class="$control.cssClass" style="width: ${control.width}px; height: ${height}px;">
+	#foreach($col in $control.columns)
+		#if(!$control.hideInvisibles || $col.visible)
+		<div id="col_${control.controlID}_$col.id" class="j-colRow" jColId="$col.id">
+			<div class="j-colRowTitle" unselectable="on">$insert.control("chk${col.id}") $!col.title</div>
+			#if($!col.description != "" && !$control.hideDescription)
+			<div class="j-colRowDesc" unselectable="on">$!col.description</div>
+			#end
+		</div>
+		#end
+	#end
+</div>

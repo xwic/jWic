@@ -1,0 +1,4 @@
+#set($field = $control.getField("value"))
+<input type="hidden" name="$field.id" value="$jwic.formatInp($field.value)">
+<input id="$control.controlID" type="checkbox" class="$control.cssClass" name="chk_${field.id}" value="1" #if($control.infoText) title="$jwic.formatInp($control.infoText)" #end onClick="this.form.elements['$field.id'].value = this.checked ? '1' : '';#if ( $control.isChangeNotification() ) JWic.fireAction('$control.controlID', 'clicked', ''); #end" #if ( $field.value == "1" ) checked #end #if ( !$control.isEnabled()) disabled #end>
+#if($control.label)<label class="$control.cssClass" for="$control.controlID" #if($control.infoText) title="$jwic.formatInp($control.infoText)" #end>$jwic.formatHtml($control.label)</label> #end

@@ -1,0 +1,15 @@
+#if ($control.error != "")
+Error reading file: $control.error
+#else
+Application Name: $control.appSetup.name<br>
+#if ($control.appSetup.appClassName)
+Application Class: $control.appSetup.appClassName<br>
+#else
+#if ($control.appSetup.rootControlClass)Classfile: $control.appSetup.rootControlClass<br>#end
+#end
+Serializable: $control.appSetup.serializable<br>
+Uses AJAX: $control.appSetup.useAjaxRendering<br>
+
+
+
+#end

@@ -1,0 +1,55 @@
+#set($field = $control.getField())
+#if ( $control.multiple && $control.size == 1 )
+#* "Special" multiselect mode when size is 1 *#
+#set($onChange = "{var sel=document.getElementsByName('$field.id')[0];var opt=this.options[this.selectedIndex];/*if(opt.value==''){alert('leer');}else */{var selected=opt.className=='selected';sel.options[this.selectedIndex].selected=!selected;if(selected){opt.className='unselected';}else{opt.className='selected';}}}")
+<select name="$field.id" multiple style="position: absolute; z-index: -99; top: 0px; left: 0px; visibility:hidden; height: 0px; width: 0px;" size="$control.size">
+	#* #if (!$control.elements.contains("") && $field.value == "" && !$control.getElementsKeys().contains("")) <option value="" selected></option> #end *#
+	#foreach ($entry in $control.elements)
+		<option #if ( $control.isKeySelected($entry.key))selected #end value="$jwic.formatInp($entry.key)"></option>
+	#end
+</select>
+<select name="sel_$field.id" size="$control.size" 
+	$jwic.generateCssProperty($control)
+#if ( $control.changeNotification )
+#if ( $control.confirmMsg != "" )
+	onChange="if(confirm('$control.confirmMsg')){$onChange $control.createActionURL('valuechanged', '');}else{this.selectedIndex=this._oldIdx}"
+#else
+	onChange="$onChange $control.createActionURL('valuechanged', '')"
+#end
+#else
+#if ( $control.confirmMsg != "" )
+	onChange="if(!confirm('$control.confirmMsg')){this.selectedIndex=this._oldIdx}else{$onChange this._oldIdx=this.selectedIndex}"
+#else
+	onChange="$onChange"
+#end
+#end
+#if ( ! $control.enabled) disabled  #end>
+	#* #if (!$control.elements.contains("") && $field.value == "") <option value="" selected></option> #end *#
+	#foreach ($entry in $control.elements)
+		<option #if($entry.cssClass)class="$entry.cssClass"#end #if ( $control.isKeySelected($entry.key)) class="selected" selected #else class="unselected" #end value="$jwic.formatInp($entry.key)">$jwic.formatHtml($entry.title)</option>
+	#end
+</select>
+#else
+#* "standard" mode *#
+<select name="$field.id" size="$control.size" 
+	$jwic.generateCssProperty($control)
+#if ( $control.changeNotification )
+#if ( $control.confirmMsg != "" )
+	onChange="if(confirm('$control.confirmMsg')){this._oldIdx=this.selectedIndex;$control.createActionURL('valuechanged', '');}else{this.selectedIndex=this._oldIdx}"
+#else
+	onChange="$control.createActionURL('valuechanged', '')"
+#end
+#else
+#if ( $control.confirmMsg != "" )
+	onChange="if(!confirm('$control.confirmMsg')){this.selectedIndex=this._oldIdx}else{this._oldIdx=this.selectedIndex}"
+#end
+#end
+	onDblClick="$control.createActionURL('selected', 'dblClick')"
+#if ( $control.isMultiple()) multiple  #end
+#if ( ! $control.isEnabled()) disabled  #end>
+	#if ($control.size == 1 && $field.value == "" && !$control.getElementsKeys().contains("")) <option value="" selected></option> #end
+	#foreach ($entry in $control.elements)
+		<option #if($entry.cssClass)class="$entry.cssClass"#end #if ( $control.isKeySelected($entry.key) ) selected #end value="$jwic.formatInp($entry.key)">$jwic.formatHtml($entry.title)</option>
+	#end
+</select>
+#end

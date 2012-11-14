@@ -1,0 +1,36 @@
+<h4>Folder Content</h4>
+#if($control.navigationElement.badPath)
+<p style="color: red">The folders path, specified in the workspace configuration, does not exist:<br>
+<i>$control.navigationElement.path</i></p>
+#end<table class="folderlist">
+#foreach($element in $control.contentNames)
+ <tr>
+   <td>
+   	#set ($imgpath = "$jwic.contextPath/jwic/gfx/clear.gif")
+    #if ($element.elementType == "srcfldr")
+    	#set($imgpath = "icons/packagefolder_obj.gif")
+    #end
+    #if ($element.elementType == "folder")
+    	#set($imgpath = "icons/fldr_obj.gif")
+    #end
+    #if ($element.elementType == "package")
+    	#set($imgpath = "icons/package_obj.gif")
+    #end
+    #if ($element.elementType == "file")
+    	#set($imgpath = $element.type.image.path)
+    #end
+    #if ($element.elementType == "java")
+    	#if($element.javaType == 1)
+	    	#set($imgpath = "icons/int_obj.gif")
+    	#else
+    		#set($imgpath = "icons/class_obj.gif")
+    	#end
+    #end
+    <img src="$imgpath" width="16" height="16">
+   </td>
+   <td><a href="$control.createActionURL('select', $element.name)">$element.displayName</a></td>
+   <td>$element.shortComment</td>
+   <td>&nbsp;</td>
+ </tr>
+#end
+</table>

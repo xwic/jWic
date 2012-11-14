@@ -1,0 +1,904 @@
+Change History
+==============
+
+2012-09-02 FLI
+	- Added event support to the WebEngine. Listeners can be configured in the web.xml file to listen to certain basic events such as handleAction or rendering
+	
+2012-08-11 FLI
+	- In case a control is not found anymore during the delegation of a user event, no user warning
+	  is displayed anymore. Only a log entry is made with a WARN level. Due to the event queuing, it
+	  is quite likely that subsequent events might no longer be executed as a control is destroyed due
+	  to previous events. 
+
+2012-01-01 FLI
+	- Added notify message dialog (jwic_ui.js)
+	- Added scriptQueue to the SessionContext. This allows to execute script within the next page update, which is
+	  a convenient way for notifications
+	- Added SessionContext.notifyMessage(..) methods
+
+2011-08-12 FLI
+	- Fixed a visual issue with the Button control where the hover was indicated on disabled buttons
+	- Fixed an issue with the button where the click event was not detected if the user clicked on the edge of the button.
+	
+	THIS REQUIRES AN UPDATE OF THE FILES IN THE JWIC FOLDER (at least jwic_controls.js)!!
+	
+	
+2011-06-02 FLI
+	- Upgraded to use prototype 1.7.
+	- Enhanced JavaScript demo
+	
+2011-05-10 FLI
+	- Added JWicTools.escapeJavaScript(..)
+	
+2010-10-29 FLI (on behalf of K.Stein)
+	- Fixed positioning issue in the Combo control
+	
+2010-09-22 FLI
+	- ImageRef.text property is now rendered as TITLE attribute instead of ALT.
+	
+2010-07-15 FLI
+	- Added RadioButton control
+	
+2010-05-03 FLI
+	- Fixed issues with multiline InputBox control together with some JS effects
+	- Fixed a JS exception happening if a Button that is not rendered but flagged visible
+	- JavaScript pieces is no longer send if the control is not visible
+	
+2010-04-22 FLI
+	IMPORTANT NOTE: 4.0 is not yet released, so I took the freedom move some new interfaces into new packages. This
+	might lead to some refactoring needs if you already use this version in your project!
+	
+	- Some clean-up around the combo control:
+		- moved generic IContentProvider, IBaseLabelPriovider etc. into its own package: de.jwic.data
+		- The structure of the object being send to the client changed. It now contains the title as a default
+		  property in the wrapper and the properties in the object field. This object field is now only send
+		  if the comboBehaivior 'transferFullObject' property is set to true. This reduces unnecessary information
+		  send over the wire.
+		  
+	- Implemented Multi-Selection support for the Combo/Drop-Down control
+	- Started with Tree control <very basic, not yet read>
+		
+		
+2010-04-06 jbornema
+	- Fixed jwic_compatibility.js function MouseEventClass that might get fired before the jwic form is available.  
+
+2010-03-26 jbornema
+	- Fixed jwic 3 leftover in ImageControl.vtl
+
+2010-03-04 FLI
+	- Fixed an issue with the Button control beeing invisible in IE6
+	
+2010-02-23 FLI
+	- Fixed an issue with hidden SELECT elements inside of modal Window controls in IE
+	
+2010-02-11 FLI
+	- Button now properly supports fixed width
+	
+2010-02-10 FLI
+	- Made JavaScriptSupport annotation to be Inherited
+	- Combo: default minimum search key length is now 0. This makes the DropDownControl draw the full list if user
+	  deletes the content
+	- Combo: selection event now disables the filter to show full list after re-entering a dropdown
+	
+2010-02-08 FLI
+	- Added image rendering support to Combo control
+	- Added textValueChangedListener to Combo control
+	- Enhanced Combo demo
+	
+2010-02-07 FLI
+	- Added command queuing into jWic core. This helps to implement double-click events.
+	- Added proper double-click support to ListBoxControl. The property selection_mode is no longer required 
+	  and has been removed
+
+2010-01-26 FLI
+	- Made ComboBoxGroup and RadioGroup use labels to have selectable titles
+	- Moved ButtonControl into compatibility folder/jar
+	- Added new Button control that has a new layout
+	- Combo renderer now supports custom labelProvider for easy layouting
+	
+2010-01-25 FLI
+	- Finished the LifeSearch combo variations incl. demo
+	
+2010-01-10 FLI
+	- Added 'Combo' control/framework for controls with an input field and a content assistance window 
+	  like a drop-down. The control is yet under development and some classes might get moved into different
+	  packages.
+	- changed default css class names to j-xxxx
+	- added LabelControl.setStyle(..)
+	  
+2010-01-07 FLI
+	- Renamed Window control into InlineWindow (jWic 4.x is not released yet, so it should be ok.) 
+	- Added PWC window control Window
+	- Fixed some issues with .destroy not properly set on non-ajax page updates
+	- Window now properly "hides" the SELECT elements in IE6
+	
+2010-01-04 FLI
+	- Added .destroy support for JavaScriptSupport controls
+	- Added 'emptyInfoText' property, which is text that is displayed while the field is empty
+	- Refactored InputBoxControl JS focus/blur behaivior
+	- Added 'flagAsError' property, which highlights the field with a red border and red underline
+	- The InputBoxControl css class no longer uses default_ as prefix
+	- Minor css adjustments
+	
+2009-12-29 FLI
+	- Added simple, single CheckBox control
+	
+2009-10-30 FLI
+	- JWicUtil now uses the TimeZone property from the SessionContext to properly format datetime.
+	
+2009-08-31 FLI
+	- DateInputBox: Fixed calendar js issues with the new version and Firefox issues.
+	- DateInputBox - added setDatePattern() for customizable patterns.
+	
+2009-08-17 FLI
+	- Fixed an issue with the FileUploadControl
+	
+2009-08-09 FLI
+	- Control.requireRedraw() made public
+	- Added Dimension object for better width/height handling
+	- Page control now uses Dimension object for width/height
+	- Added static Page.findPage(..)
+	- Added event handling to the Page, starting with a pageSizeChanged event.
+	- Autorefresh if pageSize has changed
+	- New Window style: CENTER
+	
+2009-07-31 FLI
+	- Fixed a refresh problem when the session timed out.
+
+2008-09-16 FLI
+	- Added JavaScriptSupport for controls, allowing to implement control updates using
+	  JavaScript fragments.
+	- Added generic PropertyEditorView to the demos, to easily play around with properties
+	- Added new Window control
+	
+2008-09-15 FLI
+	- Started new jwic_core.js library, which will replace the old jwic.js library. It is
+	  now based upon the prototype.js library, currently used in version 1.6.0.2.
+	- Removed the empty span tag around any element. Updates are now done using prototype
+	  functions, which work without this workaround.
+	- Implemented JSON based response.
+
+2008-09-02 FLI
+	- Started to refactor the design of the controls.
+
+**** v3.2.1 RELEASE on 2008-08-13 (FLI) ****
+
+2008-07-21 JBO
+	- Added MouseEvent in SessionContext. jwic.js and pwic.page.body is updated as well.
+	- ImagesRef property text added.
+
+2008-06-12 FLI
+	- Added TimeZone support to the SessionContext.
+
+**** v3.2.0 RELEASE on 2008-05-15 (FLI) ****
+
+2008-05-08 FLI
+	- Added updateOnBlur functionality to the InputBoxControl (single-line)
+	
+2008-04-29 FLI
+	- Fixed a problem with the DPP when using layers. The change requires an update
+	  of the files jwic.ajax.page and jwic.page.body when updating.
+	
+2008-04-24 FLI
+	- Changed default .xwic file suffix to .xwic.xml - This way the files are automatically
+	  opened in an XML editor (if one is available) in a users development environment.
+	  
+2008-04-08 FLI
+	- Moved the DTDs to sourceforge to avoid problems during downtimes of www.jwic.de.
+
+2008-04-03 FLI
+	- The jwic.js client library is more robust now on executing submit and update listeners.
+	  This solves a problem where 3rd party libraries added functions to the Array prototype.
+
+2008-04-02 FLI
+	- Fixed a problem in the ListBoxControl in combination with the confirm message and
+	  the presence of another form object on the html page.
+
+2008-03-28 JBO
+	- Fixes "" entry usage in ListBoxControl.vtl
+	- UserAgentInfo new fields clientWidth, clientHeight, clientTop and clientLeft.
+	  Set in WebEngine and should replace Page field usage.
+	- ControlContainer controls HashMap changed to LinkedHashMap to reflect creation order.
+
+2008-02-18 JBO
+	- ListEntry cssClass property added.
+	- ListControl.addElement methods return now the new ListEntry object
+	  (updated CheckboxControl as well).
+	- ListBoxControl.vtl supports now the new cssClass property.
+
+2008-01-09 FLI
+	- Changed the standard charset to UTF-8 for ajax submits and response to fix
+	  problems with special characters.
+	  NOTE: If you update from a previous version, it is important that the file
+	  jwic.ajax.page under WEB-INF/jwic/pages is updated as well as the jwic.js
+	  file.
+
+2007-10-01 FLI
+	- Fixed a problem when using layers together with file-upload.
+
+**** v3.1.0 RELEASE on 2007-05-14 (FLI) ****
+
+2007-05-10 FLI
+	- Removed the following deprecated objects and methods:
+	  * JWicEvent, ObjectSelectedEvent, ObjectSelectedListener
+	  * LabelControl.getCSSClass(), LabelControl.setCSSClass(..)
+	  
+2007-05-07 FLI
+	- Fixed GroupControl layout
+	- Fixed a problem where the SessionReused event was fired on each request. Now the
+	  event is only thrown on a request with GET method.
+	
+2007-05-02 JBO
+	- Control.getTemplateName() detects inline classes and uses super class.
+	- TabStripControl.vtl fixed html (occures in firefox: too high tabs)
+	- TableLayoutContainer.unregisterControl(Control) implemented
+
+2007-04-26 FLI
+	- ScrollableContainer: Fixed layout if only plain text was inside the container
+	- TreeControl: fixed redraw problem when the root node was exchanged
+	
+2007-04-20 JBO
+	- Calendar Javascript fix.
+
+2007-04-19 FLI
+	- Fixed a problem where the IOuterLayout velocity renderer did not clear the requireRedraw
+	  flag if the control was invisible.
+	  
+2007-04-18 JBO
+	- Fixed missing charset property in jwic.js ajax submit and jwicfrom enytype,
+	  using iso-8859-1. This problem fixes jetty usage since without UFT-8 is used
+	  (http://docs.codehaus.org/display/JETTY/International+Characters+and+Character+Encodings)
+	  WebEngine.servletContainerFixes added as well for missing encoding (happens with jetty + ajp13)
+
+2007-04-13 JBO
+	- ImageRef.toImgTag(int width, int height) added
+
+2007-04-12 JBO
+	- Added WEB-INF/jwic/velocity.WebEngine.properties file to configure velocity
+	  used by WebEngine
+
+2007-04-03 JBO
+	- ListControl.getElementsKeys() added, elements now stored in LinkedHashMap
+
+2007-03-30 ARON
+	- added Group Control.
+
+2007-03-29 FLI
+	- Added ImageRef(path, width, height) constructor.
+	
+2007-03-28 FLI
+	- Added ImageRef class to the jWic core. It is now used by ButtonControl. The
+	  old properties have become deprecated.
+	- The calendar in the Date control is now moved up if it would exceed the current
+	  page size.
+	- Improved the demo apps a little in layout and functionality.
+
+2007-03-16 FLI
+	- updated jwic.js fixScrolling() to support custom panel names.
+	
+2007-03-15 FLI
+	- Added SelfRenderer that enables controls to render themself. Used for
+	  controls where templates are not suiteable.
+
+2007-03-09 FLI
+	- Fixed a problem when using the ecolib dhtmlHistory.js with jWic. The problem
+	  was that the dhtmlHistory library specifies an default entry for all Arrays that
+	  causes an javascript error during an page update. Entries in the listeners array
+	  are now checked if they are a function before executing.
+
+**** v3.0.5 RELEASE on 2007-03-09 (FLI) ****
+
+2007-03-09 FLI
+	- The DispatcherServlet does now destroy the JWicRuntime which
+	  destroys the SessionManager. This fixes a problem reported by
+	  hjkermit where the TimerTask produced NPEs after restarting
+	  the WebApp.
+	- Fixed a problem where the jwic-setup.xml was not found on
+	  some webservers.
+
+2007-02-19 JBO
+	- Control.requireRedraw calls Control.setRequireRedraw(true)
+	- CheckboxControl.setSelectedKey sets lastSelection (bug-fix)
+	- ButtonControl.vtl fixed strange Firefox button behaviour when type is missing
+
+2006-10-06 FLI
+	- JWicTools.formatInp and .formatHtml return an empty string now, if the argument is null.
+
+**** v3.0.4 RELEASE on 2006-09-28 (FLI) ****
+
+2006-09-26 FLI
+	- Controls may now be moved from one container to another, using the IControlContainer.adopt(..)
+	  method.
+
+2006-09-23 FLI
+	- ImageControl.setHeight and .setWidth now trigger the redraw flag
+
+2006-09-21 FLI
+	- The ListBoxControl does now support double-click selection.
+
+2006-09-14 FLI
+	- Added ControlTestCase superclass to make control-tests easier
+	- Added ControlTest to test basic control features
+	- Added ActionBarControl test
+	- Fixed a problem with the ActionBarControl when a control is removed from the bar
+	- Auto-Action invocation now uses a prefix 'action' for methods to look for. This solves 
+	  the secuirty issue described in an earlier change note.
+	- Added TestCases for ListControl, CheckboxControl, ListBoxControl, AnchorControl, ButtonControl
+
+2006-09-06 JBO
+	- Fixed missing "break;" in JWicTools.formatHtml(String).
+
+2006-09-04 JBO
+	- Fixed anoying IE message "do you want to display nonsecure items" in SSL environments caused by click blocker IFRAME.
+	  src shouldn't be "about:blank" and changed to "blank.html". That blank file had been added also.
+
+2006-08-24 FLI
+	- Control now implements the actionPerformed method. If it is invoked, it searches
+	  for a method that equals the actionId. If it finds an appropriated method, it is
+	  invoked with the parameter specified. This way we do not need those big if(actionId.equals("abc"))
+	  parts anymore.
+	  But this feature also has a downside: It can call ANY method that has none or one String arguments based
+	  upon parameters that where posted by the client. If a user modifies those parameters posted to the
+	  server, he can invoke methods that the programmer did not supposed to be invoked.
+	  
+
+2006-08-17 FLI
+	- Fixed a bad IMG reference in the TabStripControl template.
+
+2006-08-17 JBO
+	- ListEntry.equals, ListEntry.hashCode added.
+	- ListBoxControl.vtl supports now multi-select in drop-down mode (size = 1).
+	  Added two CSS classes option.selected and option.unselected in jwic.css.
+
+v3.0.3 RELEASE on 17.08.2006 (FLI)
+
+2006-08-17 FLI
+	- Added fillWidth property to the HTMLElement and moved the generation of the class and
+	  style property values into the JWicTools utility class used by renderers.
+	
+2006-08-14 JBO
+	- IHTMLElement.forceFocus added for setting browser focus to html element.
+	  ListControl.getElements returns Collection instead of List.
+	  LabelControl extends also HTMLElement.
+
+2006-08-14 FLI
+	- ListBoxControl, RadioGroupControl and CheckboxControl do now inherit from
+	  HTMLElement (by ListControl) and support all of the specified properties.
+	- Fixed some Date-Picker layout issues with transitional doctype
+	- DateInputControl now supports all HTMLElement properties
+	- Added DateInputControl sample to the ControlDemo
+
+2006-08-09 FLI
+	- Added HTMLElement superclass to combine the HTML specific attributes of the basic
+	  controls (i.e. InputBoxControl) into one. This makes it easier to build generic
+	  editor controls.
+
+2006-07-28 FLI
+	- Refactored the jwic.page file to 'include' jwic-specific content. This makes updates to
+	  new versions easier.
+	- Specified transitional mode with the DOCTYPE in the page header to fix the IE 
+	  boxmodel problems. If you encounter layout problems with your existing applications, 
+	  simply remove the DOCTYPE line in the page header.
+	- Fixed the PleaseWait dialog to work properly with Mozilla. The dialog is now always on 
+	  top of all other elements, including combo-boxes in IE.
+	- SELECT elements are now disabled when the pleaseWait dialog appears to prevent the
+	  user from triggering an action while the server is still processing a request.
+	  
+2006-07-26 FLI
+	- Added SerObserver and SerObservable classes as a serializable version of the java.util
+	  observer/observable classes. 
+	- Updated the TemperatureDemo to use the serializable observable versions to not "forget"
+	  the listeners after serialization/deserialization.
+
+2006-07-24 FLI
+	- All xml files (*.xwic, jwic-setup.xml) are now parsed using dom4j. This allowes
+	  jWic to run properly with other Java versions then 1.4.x where no internal XML
+	  parser is coming with the JRE. Addionaly, the DTD files are now read from the 
+	  classpath if the DOCTYPE header is correct. This prevents problems when the 
+	  DTDs are unavailable (i.e. if the server has no connection to the internet).
+
+2006-06-14 FLI
+	- Added support for the 'readonly' property in the DateInputBoxControl
+	
+2006-06-09 FLI
+	- Removed usage of HttpServletRequest.getParameterMap() and replaced it with a
+	  solution that is compatible to older Servlet-API versions.
+
+v3.0.2 RELEASE on 02.06.2006 (FLI)
+
+2006-06-02 FLI
+	- Fixed a bug in the FileBrowserDemo where directory-change events where no
+	  longer processed after the session had been serialized/deserialized. I had
+	  to replace the usage of the java.util.Observable class with a PropertyChangeSupport
+	  based implementation because the Observable class is not serializable and "lost"
+	  the observers because of this.
+	  
+2006-06-01 FLI
+	- added removeSessionListener() method to SessionContext
+	
+2006-05-26 FLI
+	- JWicTools.formatDate, formatDateTime and formatTime return "" now if the argument was [null].
+
+2006-05-23 FLI
+	- Removed usage of String.replaceAll() since this features does not exist in
+	  JDKs lower then 1.4
+	  
+2006-05-22 FLI
+	- Added isRenderingRelevant(Control) method to IControlContainer interface. The
+	  WebEngine is now using this method to determine if a childControl in a container
+	  is relevant for rendering. This is important for AJAX based updates, where the
+	  engine does not know if a container is rendering a child or not. 
+	  This fixes an issue where the content of all Tab's in a TabStripControl was 
+	  rendered when the user did the first action.
+	- Removed hard-wired style informations from ActionBarControl.vtl and WindowControl.vtl.
+	  They can now be modified using the .css files.	  
+	- Fixed some layout issues with images
+
+2006-04-27 FLI
+	- jwic.js: Controls can now add submitListeners that get invoked before data
+	  is sent to the server.
+
+2006-03-28 FLI
+	- ControlContainer: Checks if the control name contains '.' or ' ' (whitespace) characters
+	  and throws an exception if so.
+
+2006-03-23 FLI
+	- Fixed DateInputControl template
+	- DateInputControl: Added isValid() method
+	- InputBoxControl: New property 'readonly'
+
+v3.0.1 RELEASE on 20.03.2006 (FLI)
+
+2006-03-20 JBO
+	- Fixed a JavaScript error when using the ImageControl on a server with JDK lower then 1.5
+
+2006-03-17 FLI
+	- If an application-start failes, the session is removed from the SessionManager. This
+	  prevents that an application fails once and is then running in an unavailable state.
+
+2006-03-14 FLI
+	- Fixed an ArrayIndexOutOfBounds exception in the TableLayoutContainer when a colSpan
+	  exceeded the total number of columns.
+
+2006-03-09 FLI
+	- KeyListener is now serializable. (prevented serialization if used)
+	- JWicTools.linkResource() is now static, so it can be used easily in controls
+	  to specify images from the classpath.
+	- Enhanced the layout of the FileBrowserDemo 
+
+2006-03-02 FLI
+	- jwic.jar file now contains debug informations
+	- TableLayoutContainer: Fixed NullPointerException when setColumnCount(..) was not called.
+
+2006-02-14 FLI
+	- jwic.js file set's encoding type of the form to multipart if a file is detected
+	- FileUploadControl: added 'width' property
+	- FileUploadedEvent: added getFileSize() method
+	- FileUploadControl: The user can now 'discard' an uploaded file.
+	- SessionContext: Added a property 'userAgent' (type UserAgentInfo). This
+	  property contains information about the browser beeing used. This is helpfull to
+	  render browser specific pages, i.e. include extra css files for some browsers.
+
+2006-02-02 FLI (as proposed by FH)
+	- Key values are now escaped in the templates for CheckBox-, RadioGroup-, and ListBoxControl.
+	- Added StringEscapeUtils class as 'escape' to the velocity context.
+	
+2006-01-26 FLI
+	- Simplyfied the ScrollableContainer.vtl script code, due to enhancements within the jwic.js
+	  main library.
+	- Applied a workaround for a scrolling issue in the FileBrowser demo with Firefox
+	- Applied a patch from Felipe Hoffa to fix some CSS problems (thx!)
+
+2006-01-26 JBO
+	- jwic.js Fixed WindowSize()' scroll position for Netscape (caused crashing
+	  Netscape 7.2 when wait message had been displayed).
+
+2006-01-19 FLI
+	- ElementSelectedEvent takes 'Object' as eventSource now, instead of Control
+	- TabControl: title change flags the TabStripControl 'requireRedraw'
+	
+2006-01-18 FLI
+	- Added removeElementSelectionListener to ListControl
+
+v3.0.0 FINAL RELEASE (upon branch)
+
+2006-01-13 FLI
+	- CheckboxControl.setSelectedKey() bug fixed
+	- Typos in the logs
+
+2005-01-05 FLI
+	- Added getSessionContext() to the IControlContainer interface.
+
+2005-12-29 Released jWic 3.0.0 RC2
+
+2005-12-23 JBO
+	- Page.setClientSettings(Page), SessionContext.push-, popTopControl() updated to 
+	  set browser width and height to the Page being pushed or popped (request id 1388862).
+	- JavaScript: added browser size support for IE 6+ in "standard compliant mode".
+
+2005-12-22 JBO
+	- JavaScript: Double session initiation fixed for time-outed session.
+
+2005-12-21 FLI
+	- JavaScript within the templates is now executed during an AJAX based update on the IE
+	  (Firefox already did that). But it is not possible to use document.write during such
+	  an update.
+	- Added the ObjectSelectionListener again and marked it deprecated. I think it would be
+	  to hard to simply remove it from one RC to the other. It will be removed in Version 3.1.
+
+2005-12-20 FLI
+	- Fixed TabStripControl.removeControl: Did not remove the control from the tabs-list.
+
+2005-12-20 JBO
+	- JWicRuntime: minor fix in method setupSessionContext.
+	- SessionEvent: added SessionContext that is set in SessionContext.fireEvent.
+
+2005-12-19 JBO
+	- JWicRuntime: getSessionContext with HttpServletRequest parameter added to throw a
+	  SESSION_REUSED SessionEvent on access.
+	- WebEngine: debug messages added in scanForUpdates method to analyse performance.
+	- SessionContext.pushTopControl sets now the control always to visible=true. 
+
+2005-12-07 FLI
+	- Added forceFocusElement property to the Page object
+	- Addec forceFocus() method to InputBoxControl
+	- Added KeyListener to InputBoxControl, that listens to the key specified in the listenKeyCode property.
+
+2005-12-06 JBO
+	- Replaced in SessionManager.destroyClient usage of Iterator to solve 
+	  ConcurrentModificationException.
+
+2005-12-06 FLI
+	- Fixed TableLayoutContainer bug
+	- ScrollableContainer now fixes the scrollBarPosition using an ajaxUpdateEventListener.
+
+2005-12-05 FLI
+	- Added ClientNotifierControl
+	- Added sendResourceRequest method to the jWic() javascript object. Usefull for ajax based updates.
+
+2005-11-30 JBO
+	- Overwrote method isKeySelected(String) of CheckboxControl to fix it.
+
+2005-11-21 FLI
+	- Renamed ObjectSelectedListener to SelectionListener
+	- Renamed ObjectSelectedEvent to SelectionEvent
+	- Refactored all classes that used those listeners.
+	NOTE: This modification was required since an add<listener> must always has the same name
+	as the listener class. Otherwise its not JavaBean compliant, which we want to be.
+	- Removed the migration guide. This page will be available at the jwic homepage like the
+	  other articles.
+
+2005-11-18 FLI
+	- made Control.log protected (from private) and removed the method log()
+	- The log instance is now re-created after serialization
+	- ControlContainer now fires a JWicException if a named control is added where 
+	  a control with that name does already exist.
+
+Released jWic 3.0.0 RC1
+
+2005-11-16 FLI
+	- Changed visibility of Control.setName(..) from public to default.
+	- Renamed old ProgressBarControl to ProgressDialogControl and moved it to the ecolib.
+	- Created new control 'ProgressBarControl' that displays a progressbar.
+	- Added ProgressBarDemo to the control demo.
+	- InputBoxControl does not set the requiredRedraw flag when the value has changed. The
+	  requireRedraw flag is now set when the text is changed programaticaly (setText(..) method)
+
+2005-11-09 FLI
+	- Removed de.jwic.session package
+	- Added new SessionManager in de.jwic.base that handles the SessionContainer objects
+	- Implemented deamon that serializes sessions older > X
+	- Refactored DispatcherServlet. The most web specific work is now done by the WebEngine.
+	  This object will also handle the requests if used together with the springframework.
+	- JWicSpringController refactored. It does now render the page themself instead of 
+	  returning a ModelAndView object. This stops using the springframework internal 
+	  ViewResolvers as they turned out to be often configured for the static parts of
+	  the website and thus conflicted with the jWic requirements.
+
+2005-11-09 JBO
+	- added IResourceContrl interface that replaces IImageControl, updated ImageControl
+
+2005-11-08 FLI
+	- TableLayoutContainer: Added support for rowSpan.
+	- Classes use commons-logging API now instead of Log4j directly. Only the
+	  initialisation of Log4j is done using the Log4j API.
+
+2005-11-06 JBO
+	Ajax enhancements:
+	- BasicControlRenderer, ChildRenderer, OuterContainerRenderer create now
+	  a div tag for controls that are invisible, so they can be updated thru
+	  Ajax if they become visible
+	- Control.setVisible(true) sets now itself to require redraw
+	- small fix in JWicTools
+	- small fixes in DispatcherServlet
+	
+2005-11-04 FLI
+	- TableLayoutContainer: Entirely refactored. Completed except rowSpan.
+
+2005-11-03 FLI
+	- DispatcherServlet: Redirect/Exit is now handled in its own method. This was a problem caused
+	  by the 'redraw' feature, that ignored incoming requests.
+	- Removed ColumnLayoutContainer as it is the same as a GridLayoutContainer with 9999 columns.
+	- Removed IndexedControlContainer and merged its functionality into the GridLayoutContainer.
+	- Renamed GridLayoutContainer to TableLayoutContainer as it is basically a HTML table element,
+	  which is more common to web developers.
+	
+
+2005-11-02 FLI
+	- RadioGroupControl:
+		- Fixed template to match v3.0 behaivior
+		- Added 'columns' property to RadioGroupControl
+		- Removed 'align' property from RadioGroupControl. Use columns=1 for VERTICAL alignment.
+	- CheckboxControl: Removed 'align' property. Use columns=1 for VERTICAL alignment.
+	- Moved ErrorWarningControl to ecolib
+	- InputBoxControl:
+		- Fixed missing requireRedraw flags
+		- Added 'width' property support in multiline mode
+		- Added 'cols' support in single-line mode
+	- DispatcherServlet/jwic.js: If the server requests an 'redraw', the content of the post
+	  is ignored. This prevents the application from recieving field data that has been generated
+	  by an old session.
+	
+
+2005-10-31 FLI
+	- Changed argument order of TabStripControl.addTab(name, title) to addTab(title, name) and
+	  added a addTab(title) method.
+	- ListControl
+		- Fixed some refresh problems
+		- Added removeElement()
+		- Moved property 'size' to ListBoxControl
+	- ListBoxControl:
+		- Fixed some refresh problems
+		- Fixed ChangeConfirmMessage problem with ajax updates.
+		- Fixed a problem with multi-values not commited in AJAX mode.
+	- CheckboxControl
+		- Fixed an infinity loop in clear() method.
+		- The title for the checkbox is now always rendered. If you want only the checkbox, you must
+		  add an empty title --> addElement("", "key")
+		- Fixed a problem where the elementSelected() event was fired more then once.
+	- Set default with of the InputBoxControl to 0
+	- DateInputBoxControl does now use a default date pattern if the language is other then DE or EN.
+		
+
+2005-10-28 FLI
+	- Removed Localizer
+	- Moved WizardControl, InputDialog and MessageDialog to a new project: ecolib
+	- Added new sample: ControlDemo
+	- Fixed refresh problem at ButtonControl.setTitle()
+
+2005-09-20 JBO
+	- Click blocker blocks now the entire page and is always there positioned
+	  where the message should appear.
+	
+2005-09-18 JBO
+	- Enhanced in jwic.js ajax listener model. It now uses a generic Array for
+	  all supported events (right now only "update": ajax update Events are
+	  implemented). Now all registered listener of a control tree are called.
+
+2005-09-17 JBO
+	- Added to jwic.js ajax listener support for updating controls html.
+	  With jWic().ajaxAddUpdateListener("$control.controlId", function(event) {
+	  alert("control updated"); event.updateHTML();}) custom JavaScipt code
+	  can be added.
+
+Release: 3.0.0 beta 1
+
+2005-09-11 FLI
+	- Moved the skeleton renderer to the jWic Grid project.
+	- Removed the constructor Control(IControlContainer) to simplify the instantiation for
+	  new controls. Control(container, null) does now the same as Control(container). It is
+	  now up to the control implementor if he provides a simple Control(container) constructor
+	  or not. So this constructor is now optional.
+	- Removed the testapp from the samples.
+	- Added IApplication interface
+	- Added abstract class Application to simplify the IApplication usage
+	- Fixed IApplicationSetup implementations to support IApplication now
+	- Modified JWicRuntime to use the application class now.
+	  
+2005-09-04 FLI
+	- Moved the grid control to its own project -> jWic Grid.
+	- Added startSession and stopSession event ot the SessionContext.
+	- Changing the way controls are beeing added. Since this change makes this
+	  version incompatible with older version, the major version number needs to be
+	  increased, which results in version 3.0.0.
+	- Added constructor Control(IControlContainer) and Control(IControlContainer, String) to Control;
+	- Removed default constructor Control()
+	- Removed Interface IControl. (The downside is that you cant create proxys anymore, but it is
+	  easier to hide framework specific methods from the user).
+	- IApplicationSetup createRootControl now requries a container as argument; Applied the change
+	  to the ApplicationSetupBean and XmlApplicationSetup implementations.
+	- Moved the IImageControl interface to the base package, where the other special control interfaces
+	  like IFileReciever are.
+	- Fixed the following controls to fit the new constructor schema:
+		- ActionBarControl (Index-feature missing)
+		- AnchorLinkControl
+		- ButtonControl
+		- CheckboxControl
+		- DateInputBoxControl
+		- ErrorWarningControl
+		- FileUploadControl
+		- ImageControl
+		- InputDialogControl
+		- LabelControl
+		- ListBoxControl
+		- ListControl
+		- MessageDialogControl
+		- ProgressBarControl
+		- RadioGroupControl
+		- ScrollableContainer
+		- ScrollBarControl
+		- SelectableControl
+		- SubFrameControl
+		- TabControl
+		- TabStripControl
+		- TreeControl
+		- WindowControl
+		- WizardControl: Pages are now added like a normal control to a container
+	- Fixed skeleton and velocity renderers
+	- Fixed TestLauncher
+	- Fixed DispatcherServlet
+	- Fixed FileBrowserDemo and Samples 1, 2 and 3
+
+2005-08-28 FLI
+	- Started with version 2.2 of jWic
+	- Set JWicEvent to deprecated, replaced by de.jwic.base.Event
+	- Changed field processing to fix the bug #1272065
+	- The grid control has been extracted as an extra library
+
+(2.1.5 yet unreleased)
+
+2005-08-18 JBO
+	- Added WindowControl.setOuterTemplateName to better support extending classes.
+	- Fixed javascript error in jwic.js:blockClicks, AJAX mode not yet supported
+
+2005-08-09 JBO
+	- Added velocity object $insert.control to OuterContainerRenderer.
+
+(2.1.4 released)
+
+2005-08-07 FLI
+	- Fixed a problem with ScrollBars (ScrollableContainer) and Mozilla Firefox
+	- The ajax update no longer stops when an updated control causes an javascript error.
+
+2005-07-28 JBO
+	- Added IImageControl and abstract ImageControl for having a IControl rendering both html for the
+	  img tag and then writing the raw image data for that intro the servlet outstream.
+	  New ServletDispatcher parameter _imgreq=1 added for providing the image data rendering.
+
+(2.1.3 released)
+
+2005-07-09 FLI
+	- jwic.js: If the browser does not support ajax mode, the traditional mode is used.
+	- jwic.js: If the servers response takes longer then 500 ms, a please wait message is displayed
+	- jwic.js: After an ajax update, the duration and number of objects is displayed in the 
+			   window.status bar.
+	- TreeControl: Leaf's are now displayed with a foldericon instead of a file icon.
+	- FileBrowserDemo: Added a button "Thread.sleep(3000)" that demonstrates the please wait feature
+	- FileBrowserDemo: Empty directories are now discoverd upon first access so you dont need to "expand"
+					   them to see that they are empty.
+
+(2.1.2 released)
+
+2005-06-05 RPF
+	- Layout is now possible through a simple GridLayoutContainer
+	- Added GridLayoutContainer and GridData classes 
+	  to the de.jwic.controls.layout package
+	- Additionally GridLayoutContainer.vtl template added to that package
+
+2005-06-03 FLI
+	- Fixed Skeleton Renderer supporting ajax now
+	- GridControl requires redraw upon scrolling
+	- Spring controller supports ajax now.
+
+(2.1.1 released)
+	
+2005-05-27 FLI
+	- Fixed a problem using redirect or exit on SessionContext in AJAX mode.
+	- Added target "buildarchive" 
+	- HTML Documents are no longer part of the distribution. They will now be maintained
+      on the project website only.
+
+(2.1.0 M1 released)
+2005-05-25
+	- FLI:
+		Added property InfoMessage to the AnchorControl.
+		jWic now supports "smart" updates of controls within the client using the
+		ajax mechanism. This mechanism is used by default but it can be deactivated
+		in the application setup.
+
+2005-05-23
+	- FLI:
+		Added support for the Springframework. The de.jwic.spring package now contains
+		a controller implementation that replaces the DispatcherServlet. The most
+		important feature is the IocApplicationSetup wich allows the configuration of
+		the root control within the component container. 
+
+2005-05-21 (2.0.3)
+	- FLI:
+		Fixed a problem with the Calendar in the firefox browser. The problem was 
+		fixed within the jwic.js client library and the page file that includes this
+		library. If you replace the jwic.js file within your project, you must 
+		replace/fix your page file as well. 
+
+2005-05-19 
+	- FLI:
+		VelocityRenderer engine does now remember if a template does not exist and does
+		then no longer look for a template. This forces a reload if the template has
+		been created after the first access.
+		
+2005-05-18
+	- FLI:
+		Added a JUnit-Test to load as many sample3-applications as possible.
+
+Here is a list of changes from version 1.1 to version 2.0.2.
+
+Spring-Integration removed
+	jWic is now able to run "stand-alone" without the Springframework. An
+	optional integration will be implemented soon.
+	
+ControlFactory removed
+	Controls are no longer created with the ControlFactory, wich used the
+	Spring ComponentContainer feature to manage and pre-configure the
+	controls. 
+	It has turned out that this feature produced overhead (more to 
+	configure) without much benefit. 
+	
+	Controls are now instantiated using the standard java way: 
+	ButtonControl button = new ButtonControl();
+	
+	Because of this, the ControlContainer.addControl(..) method has 
+	changed as well. .addControl(control) adds the control and
+	sets an unique name to the control, while .addControl("name", control) 
+	adds the control and sets the specified name.
+	
+	The name of a control should not be set using .setName(String) 
+	since this usualy leads to an IllegalStateException when someone tries
+	to change the name later on.
+	
+IApplicationSetup replaces "Properties"
+	The .wic properties files used to configure and launch a jwic application
+	have been replaced by XML style .xwic files. These files are loaded by the
+	DispatcherServlet using	the XmlApplicationSetup. Other implementations
+	will follow along with the integration into other frameworks like 
+	Spring.
+	
+Renderer-Management moved to JWicRuntime
+	The renderer implementations are now setup and managed by the JWicRuntime.
+	The runtime is initialized by the DispatcherServlet passing a handle to the
+	jwic-setup.xml configuration file. While this file is planed to configure
+	the JWicRuntime in general, it does yet configure the renderers only.
+	Take a look into the jwic-setup.xml file for more details.
+	
+	It might sound a bit strange that the JWicRuntime initializes the
+	renderer, taking special care of the VelocityEngine. This is because
+	Velocity is the primary rendering engine and I didn't want to add more
+	complexity. But this should remain a point of discussion. Maybe we better
+	extract it and manage the renderers independent from the runtime.
+	
+ClasspathResourceServlet
+	The new ClasspathResourceServlet allows access to resources like
+	images from the classpath. This feature enables control programmers to
+	put everything they need into one package/jar file, wich makes
+	deployment very easy. 
+	In the .vtl template say:
+		<img src="$jwic.linkResource($control, "jwic_logo.gif")">
+	wich generates this HTML code:
+		<IMG src="/plain/cp/de/jwic/samples/sample2/jwic_logo.gif">
+	
+	The servlet must be mapped to the path /cp/* so that it can get the 
+	resource from the classpath.
+	
+Directory Organisation
+	The jwic.page file wich provided the "border" around all jwic 
+	applications is now loaded from the directory the application 
+	has been started from. This gives application programmers more
+	flexibility when customizing the pages (layouts).
+	
+	The common resources like the javascript libraries, images and
+	the basic css settings are now linked with an absolut path to
+	/jwic/... The application directory does now contain only files
+	relevant to the "application". Any application installed on a
+	webapp will then share these resources. 
+	
+	
+	

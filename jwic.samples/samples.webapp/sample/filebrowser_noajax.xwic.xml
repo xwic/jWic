@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC '-//jWic//DTD xwic 3.2//EN' 'http://jwic.sourceforge.net/xwic-3.2.dtd'>
+<application>
+
+	<name>FileBrowserNoAjax</name>
+	<class>de.jwic.samples.filebrowser.FileBrowserDemo</class>
+	<serializable>true</serializable>
+	<singlesession>true</singlesession>
+	<useAjaxRendering>false</useAjaxRendering>
+	<requireauth>false</requireauth>
+	
+</application>

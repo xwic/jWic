@@ -1,0 +1,22 @@
+$insert.control($control.button.name)
+
+#macro(parseSubmenu $submenu)
+	<li>
+		<a href="#" style="cursor:default" onclick="return false;">		
+			$insert.control($submenu.content.name)		
+		</a>	
+		#if ($submenu.isSubmenu())
+			<ul style="width:${control.width}px;">
+				#foreach ($i in $submenu.menuItems)
+					#parseSubmenu($i)
+				#end
+			</ul>
+		#end
+	</li>
+#end
+
+<ul id="${control.controlID}_menu" style="width:${control.width}px; display:none; position:absolute;">
+	#foreach($item in $control.menu.menuItems)
+		#parseSubmenu($item)
+	#end
+</ul>

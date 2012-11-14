@@ -1,0 +1,24 @@
+<p class="pdesc">
+#if ($!control.project.comment != "")
+	$control.fixComment($control.project.comment)
+#end
+</p>
+
+<h4>Group Content</h4>
+<table class="folderlist">
+#foreach($element in $control.contentNames)
+ <tr>
+   <td width="32">
+   	#set ($imgpath = "images/newjprj_wiz.png")
+    <img src="$imgpath">
+   </td>
+   <td><a href="$control.createActionURL('select', $element.name)">$element.displayName</a></td>
+ </tr>
+ #if($element.shortComment != "")
+ <tr>
+  <td>&nbsp;</td>
+  <td>$element.shortComment</td>
+ </tr>
+ #end
+#end
+</table>

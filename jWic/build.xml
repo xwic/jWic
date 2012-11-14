@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     18.04.2005 10:19:08                                                        
+
+     jWic    
+     The next generation Web-UI Framework.
+                   
+     Florian Lippisch                                                                
+     ====================================================================== -->
+<project name="jWic" default="default">
+    <description>
+            The next generation Web-UI Framework.
+    </description>
+	
+	<property name="release" value="4.0.4"/>
+	<property name="dist" location="_dist"/>
+	<property name="distfiles" location="_distfiles"/>
+	<property name="build" location="${java.io.tmpdir}/.temp.jarbuild"/>
+	<property name="default_exclude" value=".project,.classpath,.cvsignore,build.xml,build_compile.xml,**/*.jar"/>
+	<property name="srcdir" location="src"/>
+	<property name="srcdir_comp" location="src_compatibility"/>
+	<property name="samplesrcdir" location="samples"/>
+	<property name="classpath" value="lib/dom4j.jar;lib/commons-lang-2.1.jar;lib/spring-1.2.6.jar;build-req/junit.jar;build-req/servlet-api-2.5.jar;lib/log4j-1.2.8.jar;lib/velocity-1.4.jar;lib/commons-logging.jar;lib/jfreechart-1.0.2.jar;lib/jfreechart-1.0.2-demo.jar;lib/jcommon-1.0.5.jar;lib/poi-3.0.jar"/>
+
+	<taskdef name="java2html" classpath="build-req/j2h.jar" classname="com.java2html.Java2HTMLTask"/>
+
+	
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="build,build_compatibility,javadoc" description="Create the distribution including jwic.jar and other files.">
+        
+    	<copy todir="${dist}">
+      		<fileset dir="build-inc"/>
+    	</copy>
+
+    	<mkdir dir="${dist}/lib"/>
+    	<copy todir="${dist}/lib" preservelastmodified="true">
+      		<fileset dir="lib"/>
+    	</copy>
+
+    	<mkdir dir="${dist}/doc"/>
+    	<copy todir="${dist}/doc" preservelastmodified="true">
+      		<fileset dir="doc"/>
+    	</copy>
+
+    	
+    </target>
+
+	<target name="buildarchive" depends="default,sample2html">
+		
+		<delete dir="${distfiles}"/>
+    	<mkdir dir="${distfiles}"/>
+    	<zip 
+    		basedir="${dist}/." 
+    		destfile="${distfiles}/jwic-${release}.zip"
+    		update="true"
+    		compress="true"
+    	/>
+		
+    	<zip
+    		destfile="${distfiles}/jwic-${release}-source.zip"
+    		update="true"
+    		compress="true"
+    		>
+	    		<zipfileset dir="${srcdir}" prefix="src" />
+    			<zipfileset dir="build-inc" excludes="**/readme.txt"/>
+		</zip>
+		
+<!--		<zip 
+			basedir="${samplesrcdir}/." 
+			destfile="${distfiles}/jwic-${release}-samples.zip"
+			update="true"
+    		compress="true"
+		/>
+-->
+		
+	</target>
+	
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: build
+          Build the jwic.jar                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="build">
+    	
+       	<delete dir="${build}/classes"/>
+        <mkdir dir="${build}/classes"/>
+    	
+      	<javac fork="java$$javac.exe" target="1.5" compiler="javac1.5" destdir="${build}/classes" 
+      		classpath="${classpath}" debug="true" >
+    	  <src path="${srcdir}"/>
+        </javac>
+        <jar jarfile="${build}/jwic-${release}.jar" >
+     	  <fileset dir="${build}/classes"/>
+      	  <fileset dir="${srcdir}" excludes="${exclude}"/>
+        </jar>
+    	
+    	<copy todir="${dist}" file="${build}/jwic-${release}.jar"/>
+    	
+    </target>
+
+    <target name="build_compatibility">
+    	
+       	<delete dir="${build}/classes"/>
+        <mkdir dir="${build}/classes"/>
+    	
+      	<javac fork="java$$javac.exe" target="1.5" compiler="javac1.5" destdir="${build}/classes" 
+      		classpath="${classpath};${dist}/jwic-${release}.jar" debug="true" >
+      		
+    	  <src path="${srcdir_comp}"/>
+        </javac>
+        <jar jarfile="${build}/jwic_compatibility.jar" >
+     	  <fileset dir="${build}/classes"/>
+      	  <fileset dir="${srcdir_comp}" excludes="${exclude}"/>
+        </jar>
+    	
+    	<copy todir="${dist}" file="${build}/jwic_compatibility.jar"/>
+    	
+    </target>
+
+   <!-- <target name="build_sample">
+    	
+       	<delete dir="${build}/classes"/>
+        <mkdir dir="${build}/classes"/>
+    	
+      	<javac fork="java$$javac.exe" target="1.5" compiler="javac1.5" destdir="${build}/classes" 
+      		classpath="bin;${classpath}">
+    	  <src path="${samplesrcdir}"/>
+        </javac>
+        <jar jarfile="${build}/jwic_samples.jar" >
+     	  <fileset dir="${build}/classes"/>
+      	  <fileset dir="${samplesrcdir}" excludes="${exclude}"/>
+        </jar>
+    	
+    	<copy todir="${dist}" file="${build}/jwic_samples.jar"/>
+    	
+    </target> -->
+
+	
+	<target name="javadoc">
+    	<mkdir dir="${dist}/doc/api"/>
+        <javadoc destdir="${dist}/doc/api" access="protected" use="true" notree="false" nonavbar="false" noindex="false" splitindex="true" author="true" version="true" nodeprecatedlist="false" nodeprecated="false" 
+        	packagenames="de.jwic.base,de.jwic.controls,de.jwic.controls.layout,de.jwic.controls.combo,de.jwic.json,de.jwic.spring,de.jwic.util,de.jwic.upload,de.jwic.renderer.self,de.jwic.renderer.velocity,de.jwic.renderer.util,de.jwic.renderer.jsp,de.jwic.web,de.jwic.session,de.jwic.test,de.jwic.events" 
+        	sourcepath="src" classpath="." doctitle="jWic ${release}"/>
+	</target>
+		
+	<target name="sample2html" depends="javadoc">
+    	<mkdir dir="${distfiles}/sample2html"/>
+		<java2html title="jWic Samples" 
+				simple="no"
+		        tabsize="4"
+				marginsize="0"
+				header="true"
+				footer="true"
+				destination="_distfiles/sample2html">
+				<fileset dir="${samplesrcdir}">
+					<include name="**/*.java"/>
+				</fileset>
+				<javadoc localRef="${dist}/doc/api" httpRef="http://www.jwic.de/home/api/${release}"/>
+			</java2html>
+
+	</target>
+
+</project>
+

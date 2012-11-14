@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT session-swap-time (#PCDATA)>
+<!ATTLIST session-swap-time
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT session-storage-path (#PCDATA)>
+<!ATTLIST session-storage-path
+  xmlns CDATA #FIXED ''>
+  
+<!ELEMENT jwic (session-swap-time,session-storage-path,velocity-engine,renderer+)>
+<!ATTLIST jwic
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT velocity-engine (properties)>
+<!ATTLIST velocity-engine
+  xmlns CDATA #FIXED ''
+  id NMTOKEN #REQUIRED>
+
+<!ELEMENT renderer (engine)?>
+<!ATTLIST renderer
+  xmlns CDATA #FIXED ''
+  classname CDATA #REQUIRED
+  id NMTOKEN #REQUIRED
+  type NMTOKEN #REQUIRED>
+
+<!ELEMENT properties (prop)+>
+<!ATTLIST properties
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT engine (#PCDATA)>
+<!ATTLIST engine
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT prop (#PCDATA)>
+<!ATTLIST prop
+  xmlns CDATA #FIXED ''
+  key NMTOKEN #REQUIRED>

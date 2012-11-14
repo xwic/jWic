@@ -1,0 +1,25 @@
+<table>  
+  <tr>         
+    <td>$insert.control("lbcHour")</td>
+#if($control.showQuartersOnly)
+	<td>:$insert.control("lbcQuarterMinute")</td>
+#else
+	#if($control.showHalvesOnly)
+		<td>:$insert.control("lbcHalfMinute")</td>
+	#else
+    	<td>:$insert.control("lbcMinute")</td>
+	#end
+#end	
+#if($control.showSeconds)
+	<td>:$insert.control("lbcSecond")</td>
+#end
+#if($control.amPmMode)
+	<td>$insert.control("lbcAmPm")</td>
+#end
+#if ($control.hint != "")
+	<td>
+		$control.hint
+	</td>
+#end
+  </tr>
+</table>

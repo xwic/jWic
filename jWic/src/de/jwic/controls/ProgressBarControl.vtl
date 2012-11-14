@@ -1,0 +1,15 @@
+#set ($monitor = $control.monitor)
+<div class="$control.cssClass" style="width: ${control.width}px; height: ${control.height}px">
+#if ($control.smooth)
+<div class="progressBarSmooth" style="width: ${control.percent}%; height: 100%"></div>
+#else
+#set ($size = $control.height - 8)
+<table width="100%" height="100%" cellspacing="1">
+<tr>
+#foreach($block in $control.buildBlocks())
+<td class=#if($block)"done"#else"notdone"#end style="width: ${size}px; height: ${size}px"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="1" height="1"></td>
+#end
+</tr>
+</table>
+#end
+</div>

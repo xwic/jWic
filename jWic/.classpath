@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src_compatibility"/>
+	<classpathentry exported="true" kind="lib" path="lib/velocity-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/dom4j.jar"/>
+	<classpathentry exported="true" kind="lib" path="build-req/servlet-api-2.5.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/spring-1.2.6.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.2-demo.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.0.jar"/>
+	<classpathentry kind="lib" path="lib/itext-1.4.3.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.5.jar"/>
+	<classpathentry kind="lib" path="jetty/jetty-6.0.1.jar"/>
+	<classpathentry kind="lib" path="jetty/jetty-util-6.0.1.jar"/>
+	<classpathentry kind="lib" path="jetty/start.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

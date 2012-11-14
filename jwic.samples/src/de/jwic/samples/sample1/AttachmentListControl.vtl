@@ -1,0 +1,11 @@
+#set($list = $control.names)
+#if($list.size() == 0) 
+	<p>No Attachments Available</p>
+#else
+	<ul class="$!control.cssClassName">
+
+	#foreach($name in $list)
+		<li>$jwic.formatHtml($name)</li>
+	#end
+	</ul>
+#end

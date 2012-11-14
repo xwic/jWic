@@ -1,0 +1,13 @@
+<table border="0" cellpadding="0" cellspacing="0" width="$control.width">
+  <tr height="15">
+    <td class="e_pan_title">&nbsp;$control.title</td>
+    #if($control.closeable)<td width="20" class="e_pan_title"><p align="right"><a href="$control.createActionURL('closeframe', '')"><img src="$jwic.contextPath/jwic/gfx/close.gif" border="0" width="15" height="13"></a></p></td>#end
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="$control.width" style="border-bottom: 1 solid #808080">
+  <tr height="$control.height" valign="top">
+    <td>
+    $content.render()
+    </td>
+  </tr>
+</table>

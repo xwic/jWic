@@ -1,0 +1,45 @@
+<h3>Test Application</h3>
+
+<table>
+	<tr>
+		<td>Simple</td><td>$insert.control("chart1")</td>
+	</tr>
+	<tr>
+		<td>Simple 2</td><td>$insert.control("chart2")</td>
+	</tr>
+
+</table>
+
+<h3>Indirect references</h3>
+#set($img = $control.getControl("chart1"))
+
+<table>
+	<tr>
+		<td>Simple 1</td>
+		<td><img src="$img.getImageURL("test1")" width="$img.width" height="$img.height"/></td>
+	</tr>
+	<tr>
+		<td>Simple 2</td>
+		<td><img src="$img.getImageURL("test2")" width="$img.width" height="$img.height"/></td>
+	</tr>
+	<tr>
+		<td>Simple 3</td>
+		<td><img src="$img.getImageURL("test3")" width="$img.width" height="$img.height"/></td>
+	</tr>
+</table>
+
+#set($img = $control.getControl("chart2"))
+<table>
+	<tr>
+		<td>Simple 1</td>
+		<td><img src="$img.getImageURL("test1")" width="$img.width" height="$img.height"/></td>
+	</tr>
+	<tr>
+		<td>Simple 2</td>
+		<td><img src="$img.getImageURL("test2")" width="$img.width" height="$img.height"/></td>
+	</tr>
+	<tr>
+		<td>Simple 3</td>
+		<td><img src="$img.getImageURL("test3")" width="$img.width" height="$img.height"/></td>
+	</tr>
+</table>

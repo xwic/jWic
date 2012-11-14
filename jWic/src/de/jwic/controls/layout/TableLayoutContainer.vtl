@@ -1,0 +1,20 @@
+<table 
+#if ($control.width != "")width="$control.width" #end
+#if ($control.height != "")height="$control.height" #end
+#if ($control.borderSize != -1)border="$control.borderSize" #end
+#if ($control.cellSpacing != -1)cellspacing="$control.cellSpacing" #end
+#if ($control.cellPadding != -1)cellpadding="$control.cellPadding" #end
+#if ($control.align != "")align="$control.align" #end
+#if ($control.CSSClass != "")class="$control.CSSClass" #end
+>
+
+#foreach ($row in $control.rows)
+ <tr>
+#foreach ($cell in $control.getCells($row))
+#if ($cell.render)
+  <td #if($cell.rowSpan > 1)rowspan="$cell.rowSpan"#end #if($cell.width != "" && $cell.colSpan == 1)width="$cell.width"#end #if($cell.CSSClass != "")class="$cell.CSSClass"#end #if($cell.vAlign != "")valign="$cell.vAlign"#end #if($cell.align != "")align="$cell.align"#end #if($cell.colSpan != 1)colspan="$cell.colSpan" #end >$insert.control($cell.controlName)</td>
+#end
+#end
+ </tr>
+#end
+</table>

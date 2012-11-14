@@ -1,0 +1,28 @@
+<table id="tbl_$control.controlID" cellspacing="0" cellpadding="0" class="$control.cssClass" style="width: auto; empty-cells:show">
+ <tr>
+  <td class="j-button-nw"></td>
+  <td class="j-button-n"></td>
+  <td class="j-button-ne"></td>
+ </tr>
+ <tr>
+  <td class="j-button-w"></td>
+  <td class="j-button-c">
+<em unselectable="on">
+<button id="btn_$control.controlID" class="j-button-btn" #if($control.tooltip != "")title="$control.tooltip"#end   #if (!$control.isEnabled()) disabled #end
+#if ($control.isSubmitButton()) type=submit #else type=button #end
+>
+#if ($control.hasIcon())
+<img border="0" src="$control.icon.path" #if($control.tooltip != "")alt="$control.tooltip"#end align="absmiddle">
+#end
+$!control.title
+</button>
+</em>
+  </td>
+  <td class="j-button-e"></td>
+ </tr>
+ <tr>
+  <td class="j-button-sw"></td>
+  <td class="j-button-s"></td>
+  <td class="j-button-se"></td>
+ </tr>
+</table>

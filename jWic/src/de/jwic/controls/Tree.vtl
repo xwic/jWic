@@ -1,0 +1,11 @@
+#set($fldTop = $control.getField("top"))
+#set($fldLeft = $control.getField("left"))
+#set($id = "$control.controlID")
+<input type="hidden" name="$fldTop.id" value="$fldTop.value">
+<input type="hidden" name="$fldLeft.id" value="$fldLeft.value">
+<div 
+	id="$id" 
+	style="overflow: auto; width: $!{control.width}px; height: #if($control.height > 0) ${control.height}px #else auto #end"
+	class="$control.cssClass" 
+	onscroll="if(!_ajaxProcessing){document.forms['jwicform'].elements['$fldTop.id'].value=this.scrollTop;document.forms['jwicform'].elements['$fldLeft.id'].value=this.scrollLeft;}"
+>&nbsp;</div>

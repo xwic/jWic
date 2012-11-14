@@ -1,0 +1,17 @@
+#set( $imgdir = "$jwic.contextPath/jwic/tree")
+<table width="100%" cellspacing="0" class="tbl" cellpadding="1">
+	#foreach($file in $control.files)
+	<tr>
+		<td><table cellspacing="0" cellpadding="0">
+			<tr>
+				<td><img src="${imgdir}#if ($file.directory)/foldericon.png#else/file.png#end" border="0" alt=""></td>
+				<td>&nbsp;<a href="$control.createActionURL("select", "$file.name")">$control.getFileName($file)</a></td>
+			</tr>
+			</table>
+		</td>
+		<td width="80"><p align="right">$control.getNamedSize($file)</p></td>
+		<td width="150">&nbsp;&nbsp;&nbsp;$control.getFileType($file)</td>
+		<td width="150">$jwic.format("{0,date} {0,time,short}", $file.lastModified())</td>		
+	</tr>
+	#end
+</table>

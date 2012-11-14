@@ -1,0 +1,53 @@
+<h4>Package Description</h4>
+<p class="pdesc">
+#if ($control.model.currentElement.comment != "")
+	$control.model.currentElement.comment
+#else
+	A description is not available for this package.
+#end
+</p>
+<h4>Package Content</h4>
+<table class="folderlist">
+#set($oldType = "")
+#foreach($element in $control.contentNames)
+
+#if($oldType =="java" && $element.elementType != "java")
+ <tr>
+ 	<td colspan=3><b>Other Resources</b></td>
+ </tr>
+#end
+
+ <tr>
+   <td>
+   	#set ($imgpath = "$jwic.contextPath/jwic/gfx/clear.gif")
+    #if ($element.elementType == "srcfldr")
+    	#set($imgpath = "icons/packagefolder_obj.gif")
+    #end
+    #if ($element.elementType == "folder")
+    	#set($imgpath = "icons/fldr_obj.gif")
+    #end
+    #if ($element.elementType == "package")
+    	#set($imgpath = "icons/package_obj.gif")
+    #end
+    #if ($element.elementType == "file")
+    	#set($imgpath = $element.type.image.path)
+    #end
+    #if ($element.elementType == "java")
+    	#if($element.javaType == 1)
+	    	#set($imgpath = "icons/int_obj.gif")
+    	#else
+    		#set($imgpath = "icons/class_obj.gif")
+    	#end
+    #end
+    <img src="$imgpath" width="16" height="16">
+   </td>
+   <td><a href="$control.createActionURL('select', $element.name)">$element.displayName</a></td>
+   #if ($element.elementType == "java")
+   <td>$element.shortComment</td>
+   #else
+   <td>&nbsp;</td>
+   #end
+ </tr>
+ #set($oldType = $element.elementType)
+#end
+</table>

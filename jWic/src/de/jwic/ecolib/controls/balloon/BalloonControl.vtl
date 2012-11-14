@@ -1,0 +1,67 @@
+#set($js_check_failed = "(typeof(BalloonClass) == 'undefined') { alert('The BalloonClass object is not definied. Please check if the required javascript libraries are registered in the page file.'); }")
+
+#if($control.balloonVisible()) #* render balloon *#
+
+<table id="balloon_$control.controlID" class="balloon_hide" cellpadding="0" cellspacing="0" border="0">
+
+<thead>
+	<tr><td colspan="3">
+		<table class="balloon_head" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="left"></td>
+				<td class="center"><div>&nbsp;</div></td>
+				<td class="right"></td>
+			</tr>
+		</table>
+	</td></tr>
+</thead>
+
+<tbody class="balloon">
+	<tr>
+		<td class="balloon_left"></td>
+		<td class="balloon_content">$content.render()</td>
+		<td class="balloon_right"></td>
+	</tr>
+</tbody>
+
+<tfoot>
+	<tr><td colspan="3">
+		<table class="balloon_foot" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td class="left"></td>
+				<td class="center"><div>&nbsp;</div></td>
+				<td class="right"></td>
+			</tr>
+		</table>
+	</td></tr>
+</tfoot>
+
+</table>
+
+#* position balloon *#
+
+<script type="text/javascript">
+	if $js_check_failed else {
+		balloon().show("$control.controlID", $control.x, $control.y, "$control.cssClass", $control.defaultPointingDirection);
+	};
+</script>
+
+#else 
+
+#* registered controls *#
+<script type="text/javascript">
+	if $js_check_failed else {
+		#foreach($reg in $control.registeredOnClick)
+			#set($ctrl = $reg.control)
+			balloon().registerOn("$control.controlID", "$ctrl.controlID", "click");
+		#end
+		#foreach($reg in $control.registeredOnContextMenu)
+			#set($ctrl = $reg.control)
+			balloon().registerOn("$control.controlID", "$ctrl.controlID", "contextmenu");
+		#end
+		#* balloon().hide("$control.controlID"); *#
+	};
+</script>
+
+#end
+

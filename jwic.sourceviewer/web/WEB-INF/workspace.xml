@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspace>
+
+	<filter>
+		<name>CVS</name>
+		<name>META-INF</name>		
+	</filter>
+
+	<group name="Samples">
+	
+		<project name="MailClient Demo" parent="Samples" commentFile="../../jwic.maildemo/project.html">
+			<source path="../../jwic.maildemo/src"/>
+			<folder name="web" path="../../jwic.maildemo/web"/>
+		</project>
+		
+		<project name="FileBrowser">
+			<source path="../../jwic/samples" scan="false">
+				<package>de.jwic.samples.filebrowser</package>
+				<package>de.jwic.samples.filebrowser.viewer</package>
+			</source>
+			<source name="tests" path="../../jwic/src_tests"/>
+			<folder name="web" path="../../jwic/build-inc/webapps/default"/>
+		</project>
+
+		<project name="Testing">
+			<source path="../../nonexisting/samples" />
+			<source name="tests" path="../../nonexisting/src_tests"/>
+			<folder name="web" path="../../nonexisting"/>
+			<folder name="web" path="D:\insttemp"/>
+		</project>
+		
+	</group>
+
+	<group name="jWic Core">
+		<project name="jWic Main Source">
+			<source path="../../jwic/src"/>
+			<source name="tests" path="../../jwic/src_tests"/>
+			<folder name="web" path="../../jwic/build-inc/webapps/default"/>
+		</project>
+	</group>
+	
+	<group name="Tools">
+		<project name="SourceViewer">
+			<source path="../src"/>
+			<folder name="web" path="sv"/>
+		</project>
+	</group>
+	
+</workspace>

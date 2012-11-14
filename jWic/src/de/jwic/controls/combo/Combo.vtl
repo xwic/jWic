@@ -1,0 +1,24 @@
+#set($fld = $control.getField("text"))
+#set($fldKey = $control.getField("key"))
+<div id="$control.controlID" class="$control.cssClass" style="width: ${control.width}px;">
+#if($control.comboBehavior.showOpenBoxIcon)
+<a id="${control.controlID}_open" class="${control.cssClass}_open" href="#" #if ( $control.enabled ) onClick="JWic.controls.Combo.openContentBox('$control.controlID');return false;" #end></a>
+#end
+<input 
+	autocomplete="off"
+    #if($control.emptyInfoText) xEmptyInfoText="$jwic.formatInp($control.emptyInfoText)" #end
+    #if($fld.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
+	#if ( !$control.enabled )disabled #end
+	#if ( $control.readonly )readonly #end	
+	name="${fld.id}"
+	id="${fld.id}"
+	value="$jwic.formatInp(${fld.value})"
+	style="width: 20px;"
+	j-controlId="$control.controlID"
+>
+<input type="hidden" name="$fldKey.id" id="$fldKey.id" value="$jwic.formatInp($fldKey.value)">
+#if($control.sessionContext.userAgent.isIE() && $control.sessionContext.userAgent.getMajorVersion() < 7) 
+<iframe src="javascript:'&lt;html&gt;&lt;/html&gt;';" scrolling="no" frameborder="0" id="win_${control.controlID}_blocker"
+  style="position:absolute;width:50px;height:120px;top:0px;left:0px;border:none;display:none;z-index:0"></iframe>
+#end
+</div>

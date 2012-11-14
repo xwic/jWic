@@ -1,0 +1,38 @@
+<h3>System Informations retrieved from the client</h3>
+
+<table border="0" cellspacing="5" cellpadding="5">
+ <tr>
+  <td height="50">
+#set($ua = $control.userAgentInfo)
+<table border="0">
+	<tr>
+		<td>UserAgent (browser ident)</td>
+		<td>$ua.userAgentID</td>
+	</tr>
+	<tr>
+		<td>UserAgent (Identified Type)</td>
+		<td>$ua.type</td>
+	</tr>
+	<tr>
+		<td>UserAgent (Identified Version)</td>
+		<td>$ua.version</td>
+	</tr>
+	<tr>
+		<td>Client Width/Height:</td>
+		<td>$insert.control("lblDimension")</td>
+	</tr>
+	<tr>
+		<td>Client Top/Left:</td>
+		<td>$ua.clientTop, $ua.clientLeft</td>
+	</tr>
+</table>
+  </td>
+ </tr>
+</table>
+<hr>
+<table>
+	<tr>
+		<td>&nbsp;</td>
+		<td>$insert.control("btRefresh")</td>
+	</tr>
+</table>

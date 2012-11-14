@@ -1,0 +1,27 @@
+<h4>Project Description</h4>
+<p class="pdesc">
+#if ($!control.project.comment != "")
+	$control.fixComment($control.project.comment)
+#else
+	There is no description available.
+#end
+</p>
+
+<h4>Project Content</h4>
+<table class="folderlist">
+#foreach($element in $control.project.childs)
+ <tr>
+   <td>
+   	#set ($imgpath = "$jwic.contextPath/jwic/gfx/clear.gif")
+    #if ($element.elementType == "srcfldr")
+    	#set($imgpath = "icons/packagefolder_obj.gif")
+    #end
+    #if ($element.elementType == "folder")
+    	#set($imgpath = "icons/fldr_obj.gif")
+    #end
+    <img src="$imgpath" width="16" height="16">
+   </td>
+   <td><a href="$control.createActionURL('select', $element.name)">$element.displayName</a></td>
+ </tr>
+#end
+</table>

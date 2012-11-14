@@ -1,0 +1,28 @@
+<table $jwic.generateCssProperty($control) cellspacing="0" cellpadding="0" border="0">
+ <tr>
+   <td class="grpTL"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+   #if ($control.title != "")
+   <td class="grpTTL" valign="top">
+	<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td class="grpTitle"><nobr>$control.title</nobr></td>
+			<td class="grpTH" width="100%">&nbsp;</td>
+		</tr>
+	</table>
+   </td>
+   #else 
+   <td class="grpTH"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="1" height="12"></td>
+   #end
+   <td class="grpTR"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+ </tr>
+ <tr>
+   <td class="grpML"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+   <td class="grpMM">$content.render()</td>
+   <td class="grpMR"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+ </tr>
+ <tr>
+   <td class="grpBL"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+   <td class="grpBH"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="1" height="12"></td>
+   <td class="grpBR"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="12"></td>
+ </tr>
+</table>

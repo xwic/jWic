@@ -1,0 +1,14 @@
+<input id="$control.controlID" type="text" autocomplete="off"  onKeydown="keydownAutoComplete(this, event)" onBlur="blurAutoComplete()" onChange="$control.createActionURL('valuechanged', '')"/>
+<script type="text/javascript">
+
+var inp = document.getElementById("$control.controlID");
+#set( $loopCnt = 0 )
+inp.acData = [
+	#foreach($data in $control.elements)
+		#if ($loopCnt > 0),#end		
+		"$jwic.formatHtml($data)"
+		#set( $loopCnt = $loopCnt + 1)
+	#end
+];
+
+</script>

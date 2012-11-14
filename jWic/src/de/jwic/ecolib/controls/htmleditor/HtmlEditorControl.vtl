@@ -1,0 +1,34 @@
+#if($control.enabled)
+<textarea id="info_$control.field.id" name="$control.field.id" style="width: ${control.width}px; height: ${control.height}px">$jwic.formatInp($control.field.value)</textarea>
+<script language="JavaScript">
+	if (typeof(tinyMCE) == "undefined") {
+		document.getElementById("info_$control.field.id").outerHTML = "<div style=\"color: red; background-color: white; width: ${control.width}px; height: ${control.height}px\"> tinyMCE library not loaded or initialized. See the HtmlEditorControl documentation for details.</div>";
+	} else {
+		var editorID = "mce_editor_" + tinyMCE.idCounter;
+		tinyMCE.addMCEControl(document.forms['jwicform'].elements['$control.field.id'], '$control.field.id', document);
+		jWic().addSubmitListener('$control.controlID', new Function("callback", "tinyMCE.triggerSave(false, false)"));
+		jWic().ajaxAddUpdateListener("$control.controlID", function(event) {
+			tinyMCE.removeMCEControl(editorID);
+			event.updateHTML();
+	#*        /*var text = event.getHTML().match(/<textarea\b[^>]*>((.*\n.*)|(.*))<\/textarea>/m);
+		 	if (text) {
+		 		var value = text[1];
+		 		// now transform the code back to valid HTML
+				value = value.replace(/&lt;/g, "<");
+		 		value = value.replace(/&gt;/g, ">");	 		
+		 		value = value.replace(/&quot;/g, "\"");	 		
+		 		value = value.replace(/&amp;/g, "&");
+		 		document.forms['jwicform'].elements['$control.field.id'].value = value;
+		 		tinyMCE.updateContent('$control.field.id');
+		 	} else {
+		 		log("No match");
+				//event.updateHTML();
+			}*/ *#
+		});
+	}
+</script>
+#else 
+<div style="overflow: auto; width: ${control.width}px; height: ${control.height}px; background-color: #ffffff; border: 1px solid #808080;">
+$control.HTML
+</div>
+#end

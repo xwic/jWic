@@ -1,0 +1,18 @@
+#if($control.mail)
+ #set($mail = $control.mail)
+ <table width="100%" class="mailInfo">
+  <tr>
+   <th width="80">Subject</th>
+   <td colspan="3">$jwic.formatHtml($mail.subject)</td>
+  </tr>
+  <tr>
+  	<th width="80">From</th>
+  	<td>$jwic.formatHtml($mail.from)</td>
+  	<th width="80">Recieved</th>
+  	<td width="120">$jwic.formatDateTime($mail.recieved)</td>
+  </tr>
+ </table>
+   
+#else
+ - No mail selected -
+#end

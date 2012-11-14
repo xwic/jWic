@@ -1,0 +1,16 @@
+<table cellspacing="0" cellpadding="0" #if ($control.isEnabled())class="action_balloon" onMouseOver="this.className='actionSel_balloon'" onMouseOut="this.className='action_balloon'" 
+#if ($control.confirmMsg != "")
+ onClick="if(confirm('$control.confirmMsg')){$control.createActionURL('click', '');}return false"
+#else
+ onClick="$control.createActionURL('click', '');return false" 
+#end
+#else class="actionDis_balloon" #end> 
+ <tr>
+  <td class="action_left_balloon" height="26"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="3" height="1"></td>
+#if ($control.hasIcon())
+ <td class="action_middle_balloon">#if ($control.isEnabled())<a href="#">#end<img border="0" src="$control.icon.path" #if($control.iconInfo != "")alt="$control.iconInfo"#end>#if ($control.isEnabled())</a>#end<img src="$jwic.contextPath/jwic/gfx/clear.gif" width="5" height="1"></td>
+#end
+#if ($control.title != "")<td class="action_middle_balloon">#if ($control.isEnabled())<a class="actionCaption_balloon" href="#">$control.title</a>#else $control.title#end</td>#end
+<td class="action_right_balloon" height="26"><img src="$jwic.contextPath/jwic/gfx/clear.gif" width="3" height="1"></td>
+</tr></table>
+

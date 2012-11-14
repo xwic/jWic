@@ -1,0 +1,13 @@
+This is the page in the seperated window.
+<br>
+$insert.control("listbox")
+<br>
+$insert.control("button")
+
+#if($control.closePage) 
+<script>
+	window.originWin.jWic().fireAction('', 'redraw', ''); // simply redraw the page.
+	window.close();
+	$control.setClosePage(false) #* clear closePage flag *#
+</script>
+#end

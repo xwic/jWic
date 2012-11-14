@@ -1,0 +1,3 @@
+#set($radId = "rad_${control.controlID}")
+#set($field = $control.getFormField())
+<input class="$control.cssClass" id="$radId" #if ( $control.changeNotification ) onClick="$control.createActionURL('valuechanged', '')" #end name="$field.id" type="radio" #if ( $control.isSelected() ) checked #end value="$control.controlID" #if ( ! $control.isEnabled()) disabled  #end>#if($control.title != "")<label class="$control.cssClass" for="$radId">$control.title</label>#end

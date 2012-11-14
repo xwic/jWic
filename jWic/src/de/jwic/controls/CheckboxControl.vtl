@@ -1,0 +1,36 @@
+#if ($control.elements.size() > 1)
+	<table cellspacing="1" cellpadding="0" 	#if ( $control.width != 0 || $control.height != 0 ) style="#if( $control.width != 0) width: ${control.width}px;#end #if( $control.height != 0 )height: ${control.height}px;#end" #end>
+#end
+#set ($doBreak = true)
+#set ( $form = "this.form.elements['" )
+#set ( $value = "'].value" )
+#foreach ( $entry in $control.elements )
+	#set ( $field = $control.getFieldByKey( $entry.key ) )
+	#set ( $elementField = $field.id )
+	#set ( $checkField = "chk_${control.controlID}.$field.name" )
+	#set ( $formField = "$form$elementField$value" )
+    #if ($control.elements.size() > 1)
+		#if ($doBreak)
+			<tr>
+		#end
+		<td>
+	#end
+	<table cellspacing="0" cellpadding="0"><tr><td>
+	<input type="hidden" name="$elementField" value="$jwic.formatInp($field.value)">
+	<input id="chkfld_$field.id" type="checkbox" name="$checkField" value="1" onClick="$formField = this.checked ? '$jwic.formatInp($escape.escapeJavaScript($entry.key))' : '';#if ( $control.isChangeNotification() ) $control.createActionURL('valuechanged', '') #end" #if ( $field.value == $entry.key ) checked #end #if ( !$control.isEnabled()) disabled #end>
+	</td>
+	#if ( $entry.title != "" )
+		<td><span class="e_frm_cap"><label for="chkfld_$field.id">$entry.title</label></span></td>
+	#end
+	</tr></table>
+	#set($doBreak = $control.isDoBreak($velocityCount))
+    #if ($control.elements.size() > 1)
+		</td>
+		#if ($doBreak)
+			</tr>
+		#end
+	#end
+#end
+#if ($control.elements.size() > 1)
+	</table>
+#end

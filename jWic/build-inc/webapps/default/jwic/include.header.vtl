@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- jWic Application '$context.applicationSetup.name' | http://www.jwic.de -->
+<html>
+<head>
+	<title>#if($page.title)$page.title#else $page.name#end</title>
+	<META http-equiv="Cache-Control" content="no-cache">
+	<META http-equiv="Pragma" content="no-cache">
+	<META http-equiv="Expires" content="-1">
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="$contextPath/jwic/lib/jQuery/js/jquery-1.8.2.js"></script>
+    <script src="$contextPath/jwic/lib/jQuery/js/jquery-ui-1.9.1.custom.js"></script> 
+	<script language="JavaScript">
+		var _contextPath = "$contextPath";
+		var _ajaxMode = $context.applicationSetup.useAjaxRendering;
+		jQuery.noConflict();
+		
+		var JQryEscape = function (str){
+			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+		};
+		(function(jQuery) {
+			//german language support
+        	jQuery.datepicker.regional['de'] = {
+        		monthNames: ['Januar','Februar','März','April','Mai','Juni',
+        		'Juli','August','September','Oktober','November','Dezember'],
+        		monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
+        		'Jul','Aug','Sep','Okt','Nov','Dez'],
+        		dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
+        		dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+        		dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
+        		dateFormat: 'dd.mm.yy', firstDay: 1,
+        		renderer: jQuery.datepicker.defaultRenderer,
+        		prevText: '&#x3c;zurück', prevStatus: 'letzten Monat zeigen',
+        		prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: '',
+        		nextText: 'Vor&#x3e;', nextStatus: 'nächsten Monat zeigen',
+        		nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: '',
+        		currentText: 'heute', currentStatus: '',
+        		todayText: 'heute', todayStatus: '',
+        		clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
+        		closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
+        		yearStatus: 'anderes Jahr anzeigen', monthStatus: 'anderen Monat anzeigen',
+        		weekText: 'Wo', weekStatus: 'Woche des Monats',
+        		dayStatus: 'Wähle D, M d', defaultStatus: 'Wähle ein Datum',
+        		isRTL: false
+    		};
+    					
+		})(jQuery)
+	</script>
+
+#* prototype js library - tool library required by jWic 4.x *#	
+	##<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/prototype.js"></SCRIPT>
+	##<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/scriptaculous.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/prototype_1.7.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/scriptaculous_1.9/scriptaculous.js"></SCRIPT>
+#* Prototype Window Class Library *#
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/window.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/calendar/calendar.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_core.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_controls.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_compatibility.js"></SCRIPT>
+		
+	<!-- <link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic.css"> -->
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic_compatibility.css">	
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic_default.css">	
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/default.css">
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/jwicdefault.css">		
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/j-combo.css">		
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/alphacube.css">	
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/jQuery/css/overcast/jquery-ui-1.9.1.custom.css">	
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/calendar/calendar_localize_${page.getSessionContext().getLocale().getLanguage().toUpperCase()}.js"></SCRIPT>	
+	

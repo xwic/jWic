@@ -1,0 +1,26 @@
+<table cellspacing="0" width="100%" class="tbl">
+	<tr>
+		<th>File Details</th>
+	</tr>
+</table>
+<table width="100%">
+	<tr>
+		<td width="150">Filename</td>
+		<td>$control.file.name #if($control.downloadPath)(<a href="$jwic.contextPath$control.downloadPath" target="_blank">Download</a>)#end</td>
+	</tr>
+	<tr>
+		<td width="150">Size</td>
+		<td>$control.file.length()</td>
+	</tr>
+	<tr>
+		<td width="150">Last Modified</td>
+		<td>$jwic.format("{0,date} {0,time,short}", $control.file.lastModified())</td>
+	</tr>
+	<tr>
+		<td width="150" valign="top">Preview</td>
+		<td style="border: 1px solid #000000; background-color: #ffffff">$insert.control("preview")</td>
+	</tr>
+	
+</table>
+<br>
+<p align="center">$insert.control("btOk")&nbsp;&nbsp;</p>

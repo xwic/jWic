@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC '-//jWic//DTD xwic 3.2//EN' 'http://jwic.sourceforge.net/xwic-3.2.dtd'>
+<application>
+	<name>jWic StackPanel Demo</name>
+	<class>de.jwic.ecolib.samples.stackpanel.ApplicationEntry</class>
+</application>

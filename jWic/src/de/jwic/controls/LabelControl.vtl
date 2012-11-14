@@ -1,0 +1,5 @@
+#if ($control.cssClass != "" || $control.styles.size() != 0)
+<span #if($control.cssClass)class="$control.cssClass" #end #if($control.styles.size() != 0) style="$control.computeStyle()" #end>$control.text</span>
+#else
+$control.text
+#end

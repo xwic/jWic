@@ -1,0 +1,27 @@
+   =====================================================================
+   == NOTICE file corresponding to section 4 d of the Apache License, ==
+   == Version 2.0, in this case for the jWic Framework distribution.  ==
+   =====================================================================
+
+   This product includes software developed by
+   the Apache Software Foundation (http://www.apache.org).
+
+   This product includes software developed by the Spring Framework
+   Project (http://www.springframework.org).
+   
+   This product includes software developed by MetaStuff Ltd.
+   (http://www.dom4j.org)
+   
+   The end-user documentation included with a redistribution, if any,
+   must include the following acknowledgement:
+
+     "This product includes software developed by the jWic Group
+      (http://www.jwic.de)."
+
+   Alternately, this acknowledgement may appear in the software itself,
+   if and wherever such third-party acknowledgements normally appear.
+
+   The names "jWic" and "jWic Framework" must not be used to
+   endorse or promote products derived from this software without
+   prior written permission. For written permission, please contact
+   florian.lippisch@netapp.com.

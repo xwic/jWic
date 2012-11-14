@@ -1,0 +1,7 @@
+<div id="$control.controlID" class="${control.cssClass}">
+	#foreach($elm in $control.controls)
+		<div class="j-toolbar-elm">
+			$insert.control($elm.name)
+		</div>
+	#end
+</div>

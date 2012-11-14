@@ -1,0 +1,24 @@
+#set( $imgdir = "$jwic.contextPath/jwic/tree")
+<table cellspacing="0" border=0 cellpadding="0">
+
+	#foreach ( $entry in $control.entries )
+		<tr>
+			#if($entry.expanded)
+				#set($CROSS_IMG="minus.png")
+				#set($expandcollapse="collapse")
+			#else
+				#set($CROSS_IMG="plus.png")
+				#set($expandcollapse="expand")
+			#end
+			<td>
+				<table cellspacing="0" cellpadding="0">
+					<tr>
+						<td nowrap>
+							#foreach($node in $entry.path)<img src="$imgdir#if($node.last)/blank.png#else/I.png#end" width="19" height="16">#end#if(!$entry.readOnly && !$entry.node.leaf)<a class="e_a_lst" href="$control.createActionURL($expandcollapse, $entry.nodeID)">#end#if($entry.node.leaf)<img src="$imgdir#if($entry.last)/L.png#else/T.png#end" width="19" height="16" border="0"><img src="$imgdir/foldericon.png" width="16" height="16" border="0">#else<img src="$imgdir#if($entry.last)/L$CROSS_IMG#else/T$CROSS_IMG#end" width="19" height="16" border="0"><img src="$imgdir#if($entry.expanded)/openfoldericon.png#else/foldericon.png#end" width="16" height="16" border="0">#end#if(!$entry.readOnly && !$entry.node.leaf)</a>#end</td><td nowrap><span class="e_lst_txt">&nbsp;#if(!$entry.readOnly)<a class="e_a_lst" href="$control.createActionURL('click', $entry.nodeID)">#end#if($entry.selected)<span style="background-color: #000080; color: #FFFFFF">$entry.node</span>#else$entry.node#end#if(!$entry.isReadOnly)</a>#end
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	#end
+</table>

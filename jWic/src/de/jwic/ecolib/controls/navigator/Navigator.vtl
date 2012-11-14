@@ -1,0 +1,22 @@
+<div>
+#set($first = "1")
+#foreach($key in $control.actionKeys) 
+#set($action = $control.getActionByKey($key))
+#set($enabled = $control.enabled)
+#if($enabled)
+  #set($enabled = $action.enabled)
+#end
+ #if($action.visible)	
+  #if($first == "1")
+  	#set($first = "0")
+  #else
+  	#if($control.orientation == 0) | #else <br> #end
+  #end
+  #if($enabled)
+	<a href="$control.createActionURL("click", "$key")" class="navigator">$action.title</a>
+  #else
+	$action.title
+  #end
+ #end
+#end
+</div>

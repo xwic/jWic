@@ -1,0 +1,10 @@
+#if($control.hasImage)
+<div style="margin: 5px;">
+#* <h3>$control.file.name</h3>
+<p>Size: $control.file.length()</p>
+<br> *#
+<img src="$control.imageURL">
+</div>
+#else
+No Image
+#end

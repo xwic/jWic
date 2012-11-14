@@ -1,0 +1,55 @@
+ body	{ font-family: Verdana,Helvetica; font-size: 10pt; background-color: #ffffff }
+ td		{ font-size: 10pt; }
+ 
+ table.tbl th     {
+     font-size: 10pt;
+     text-align: left;
+     font-weight: heavy;
+     border-bottom: 1px solid #808080;
+     background-color: #c0c0c0;
+ }
+
+ table.tbl td     {
+     font-size: 10pt;
+     text-align: left;
+ }
+ 
+ a {
+     text-decoration: none;
+     color: #0000ff;
+ }
+ a:visited {
+     color: #0000ff;
+ }
+ 
+ a:hover {
+     text-decoration: underline;
+ }
+ 
+ td.caption { color: #4040FF; text-weight: heavy; }
+
+ /**
+  * Custom cell CSS for TableViewer demo.
+  */
+ table.tblVFlat table.tblData td.taskDemoRed {
+ 	color: #ffffff;
+ 	background-color: #ff0000;
+ }
+ 
+ table.tblViewer table.tblData td.taskDemoRed {
+ 	color: #C00000;
+ 	font-weight: bold;
+ } 
+  table.tblViewer table.tblData tr.selected td.taskDemoRed {
+ 	background-color: highlight;
+ 	color: #FF0000;
+ 	font-weight: bold;
+ } 
+ table.tblViewer table.tblData tr.lastRowselected td.taskDemoRed {
+ 	background-color: highlight;
+ 	color: highlighttext;
+	border-bottom: 0px solid threedlightshadow;
+ 	color: #FF0000;
+ 	font-weight: bold;
+ } 
+ 

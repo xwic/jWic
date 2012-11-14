@@ -1,0 +1,32 @@
+#if($control.width != 0)
+	#set($width = $control.width)
+#else
+	#set($width = 100)
+#end
+#set($inpWidth = $width - 13)
+<table width="$width" #if($control.height != 0)height="$control.height"#end cellspacing="0" cellpadding="0" #if($control.cssClassBorder != "")class="$control.cssClassBorder"#end>
+	<tr>
+		<td width="$inpWidth">
+		<input 
+			#if ( $control.password )type="password" #else type="text" #end
+			#if ( !$control.enabled )disabled #end
+			#if ( $control.readonly || !$control.textInputEnabled )readonly #end			
+			#if ( $control.maxLength != 0) maxlength="$control.maxLength" #end
+			#if ( $control.cssClass ) class="$control.cssClass" #end
+			style="width: ${inpWidth}px; #if($control.height != 0)height: ${control.height}px #end"
+			#if ( $control.cols != 0 ) size="${control.cols}" #end
+			#if ( $control.listenKeyCode != 0) onkeyup="if(event.keyCode == $control.listenKeyCode)jWic().fireAction('$control.controlID', 'keyPressed', '' + event.keyCode)" #end
+			name="${control.field.id}"
+			value="$jwic.formatInp(${control.field.value})"
+		>
+		</td>
+		<td width="13">
+		#if ( $control.enabled && !$control.readonly )
+			<a href="#" onClick="jWic().calendar.show(this, document.forms['jwicform'].elements['${control.field.id}'], '$control.getDatePattern().toLowerCase()', -1, -1); return false"><img src="$jwic.contextPath/jwic/calendar/calendar.gif" width="13" height="11" border="0"></a> 
+		#else 
+			<img src="$jwic.contextPath/jwic/calendar/calendar.gif" width="13" height="11" border="0">
+		#end
+		</td>
+	</tr>
+</table>
+

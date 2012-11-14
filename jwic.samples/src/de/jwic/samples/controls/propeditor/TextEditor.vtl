@@ -1,0 +1,7 @@
+#set($field = $control.getField("text"))
+<table width="265" cellspacing="0" cellpadding="0" style="border: 0px;">
+	<tr>
+		<td style="border: 0px;"><input type="text" name="$field.id" style="width: 240px; border: 0px; font-size: 8pt; color: blue;" value="$jwic.formatInp($field.value)"></td>
+		<td style="border: 0px;" width="30"><button type="button" id="${control.controlID}_bt" style="font-size: 8pt; border: 0px;" onClick="$control.createActionURL("apply", "")">Ok</button></td>
+	</tr>
+</table>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT application (name,(class|rootcontrol),serializable?,singlesession?,useAjaxRendering?,requireauth?,property*)>
+<!ATTLIST application
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT name (#PCDATA)>
+<!ATTLIST name
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT class (#PCDATA)>
+<!ATTLIST class
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT serializable (#PCDATA)>
+<!ATTLIST serializable
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT singlesession (#PCDATA)>
+<!ATTLIST singlesession
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT useAjaxRendering (#PCDATA)>
+<!ATTLIST useAjaxRendering
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT requireauth (#PCDATA)>
+<!ATTLIST requireauth
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT rootcontrol EMPTY>
+<!ATTLIST rootcontrol
+  xmlns CDATA #FIXED ''
+  classname NMTOKEN #REQUIRED
+  name NMTOKEN #REQUIRED>
+
+<!ELEMENT property (#PCDATA)>
+<!ATTLIST property
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED>

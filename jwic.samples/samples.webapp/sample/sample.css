@@ -1,0 +1,165 @@
+ td		{ font-size: 10pt; }
+ 
+ table.tbl th     {
+     font-size: 10pt;
+     text-align: left;
+     font-weight: bold;
+     border-bottom: 1px solid #808080;
+     background-color: #c0c0c0;
+ }
+
+ table.tbl td     {
+     font-size: 10pt;
+     text-align: left;
+ }
+ 
+ a {
+     text-decoration: none;
+     color: #0000ff;
+ }
+ a:visited {
+     color: #0000ff;
+ }
+ 
+ a:hover {
+     text-decoration: underline;
+ }
+ 
+ td.caption { color: #4040FF; font-weight: bold; }
+ 
+ select.small {
+ 	font-size: 8pt;
+ }
+ 
+  /** datalist **/
+ 
+ table.datalist {
+ 	border-collapse: collapse;
+ }
+ table.datalist th {
+ 	text-align: left;
+ 	font-size: 8pt;
+ 	font-weight: bold;
+ 	background-color: #e0e0e0;
+ 	border: 1px solid #808080;
+ }
+ table.datalist td {
+ 	text-align: left;
+ 	font-size: 8pt;
+ 	font-weight: normal;
+ 	background-color: #f0f0f0;
+ 	border: 1px solid #808080; 	
+ }
+
+ table.datalist tr.highlight td {
+ 	cursor: pointer;
+ 	text-align: left;
+ 	font-size: 8pt;
+ 	font-weight: normal;
+ 	background-color: #3030f0;
+ 	color: #ffffff;
+ 	border: 1px solid #808080; 	
+ }
+ 
+  /*Group defaults*/
+  table.grpDefault td.grpTitle {
+  	font-size: 8pt;
+  	padding-left: 2px;
+  	padding-right: 8px;
+  }
+  table.grpDefault td.grpTL {
+ 	background-image: url("gfx/grp_tl.png") ;
+	background-repeat: no-repeat; 
+	background-position: left top;
+	width: 8px; 
+  }
+  table.grpDefault td.grpTTL {
+  	vertical-align: top;
+  }
+  table.grpDefault td.grpTR {
+ 	background-image: url("gfx/grp_tr.png") ;
+	background-repeat: no-repeat; 
+	background-position: left top;
+	width: 8px; 
+  }
+  table.grpDefault td.grpML {
+ 	background-image: url("gfx/grp_vl.png") ;
+	background-repeat: repeat-y; 
+	width: 8px; 
+  }
+  table.grpDefault td.grpMR {
+ 	background-image: url("gfx/grp_vr.png") ;
+	background-repeat: repeat-y; 
+	width: 8px; 
+  }
+  
+  table.grpDefault td.grpTH {
+ 	background-image: url("gfx/grp_hor.png") ;
+	background-repeat: repeat-x; 
+  }
+  table.grpDefault td.grpBH {
+ 	background-image: url("gfx/grp_hor.png") ;
+	background-repeat: repeat-x; 
+  }
+  table.grpDefault td.grpBL {
+ 	background-image: url("gfx/grp_bl.png") ;
+	background-repeat: no-repeat; 
+  }
+  table.grpDefault td.grpBR {
+ 	background-image: url("gfx/grp_br.png") ;
+	background-repeat: no-repeat; 
+  }
+  
+  /*Demo group styles*/
+  table.grpDemo td.grpTitle {
+  	font-size: 8pt;
+  	padding-left: 2px;
+  	padding-right: 8px;
+  	vertical-align: bottom;
+  }
+  
+  table.grpDemo td.grpTL {
+  	border-bottom: 1px solid #000000
+  }
+  
+  table.grpDemo td.grpTTL {
+  	vertical-align: bottom;
+  }
+  
+  table.grpDemo td.grpTR {
+  	border-bottom: 1px solid #000000
+  }
+  
+  table.grpDemo td.grpML {
+  	border-left: 1px solid #000000
+  }
+  
+  table.grpDemo td.grpMR {
+	border-right:1px solid #000000
+  }
+  
+  table.grpDemo td.grpTH {
+    border-bottom: 1px solid #000000
+  }
+  
+  table.grpDemo td.grpBH {
+ 	border-top: 1px solid #000000
+  }
+  
+  table.grpDemo td.grpBL {
+	border-top: 1px solid #000000
+  }
+  table.grpDemo td.grpBR {
+	border-top: 1px solid #000000
+  }
+  
+  
+  div.myNotifyer {
+	background-color: #FF0000;
+	color: #FFFFFF;
+	font-weight: bold;
+	position: absolute;
+	font-size: 12pt;
+	padding: 10px 35px 10px 15px;
+	text-align: center;
+  }
