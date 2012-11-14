@@ -20,6 +20,7 @@
 package de.jwic.ecolib.controls.menucontrols;
 
 import de.jwic.base.IControl;
+import de.jwic.base.ImageRef;
 
 /**
  * An item in a menu. It can contain other items representing a submenu.
@@ -28,6 +29,7 @@ import de.jwic.base.IControl;
  */
 public class MenuItem extends PopupMenuContainer {
 
+	private ImageRef icon;
 	private IControl content;
 
 	protected MenuItem() {
@@ -50,10 +52,30 @@ public class MenuItem extends PopupMenuContainer {
 	}
 
 	/**
+	 * @return the icon
+	 */
+	public ImageRef getIcon() {
+		return icon;
+	}
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(ImageRef icon) {
+		this.icon = icon;
+	}
+	
+	/**
 	 * @return true if the item contains other items
 	 */
 	public boolean isSubmenu() {
 		return getMenuItems().size() > 0;
 	}
+	
+	public boolean hasIcon() {
+		return icon != null;
+	}
+
+
 
 }

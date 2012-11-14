@@ -48,4 +48,17 @@ public class PopupMenuContainer {
 		return menuItems;
 	}
 
+	/**
+	 * Checks if any of the menu items must render an icon.
+	 * 
+	 * @return
+	 */
+	public boolean hasIcons() {
+		for (MenuItem item : menuItems) {
+			if (item.hasIcon())
+				return true;
+		}
+		return false;
+	}
+
 }

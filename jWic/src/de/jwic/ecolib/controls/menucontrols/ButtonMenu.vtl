@@ -1,14 +1,21 @@
 $insert.control($control.button.name)
 
-#macro(parseSubmenu $submenu)
+#macro(parseSubmenu $submenu $hasIcons)
 	<li>
-		<a href="#" style="cursor:default" onclick="return false;">		
+		<a href="#" style="cursor:default;" onclick="return false;">
+			#if ($hasIcons)
+				<span class="smallIcon"  
+					#if ($submenu.hasIcon())					
+						style="background-image:url('${submenu.icon.path}');"
+					#end
+				></span>
+			#end
 			$insert.control($submenu.content.name)		
 		</a>	
 		#if ($submenu.isSubmenu())
 			<ul style="width:${control.width}px;">
 				#foreach ($i in $submenu.menuItems)
-					#parseSubmenu($i)
+					#parseSubmenu($i $submenu.hasIcons())
 				#end
 			</ul>
 		#end
@@ -17,6 +24,6 @@ $insert.control($control.button.name)
 
 <ul id="${control.controlID}_menu" style="width:${control.width}px; display:none; position:absolute;">
 	#foreach($item in $control.menu.menuItems)
-		#parseSubmenu($item)
+		#parseSubmenu($item $control.menu.hasIcons())
 	#end
 </ul>

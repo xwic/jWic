@@ -17,13 +17,15 @@
  * Created on 12.11.2012
  * $Id:$
  */
-package de.jwic.ecolib.controls.datapicker;
+package de.jwic.ecolib.controls.datepicker;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import org.apache.log4j.Logger;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.InputBoxControl;
@@ -34,9 +36,14 @@ import de.jwic.controls.InputBoxControl;
  */
 public class DatePickerControl extends InputBoxControl {
 	private static final long serialVersionUID = 1L;
+	
 	private Locale locale;
 	private Date date;
 	private final List<DateChangedListener> listeners = new ArrayList<DateChangedListener>();
+	private boolean showMonth = true;
+	private boolean showYear = true;
+
+	private static final Logger log = Logger.getLogger(DatePickerControl.class);
 
 	/**
 	 * @param container
@@ -56,7 +63,8 @@ public class DatePickerControl extends InputBoxControl {
 	}
 
 	private void init() {
-		locale = getSessionContext().getLocale();
+		locale = this.getSessionContext().getLocale();
+		this.setDate(new Date(System.currentTimeMillis()));
 	}
 
 	/**
@@ -75,9 +83,11 @@ public class DatePickerControl extends InputBoxControl {
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
-			Date oldDate = this.getDate();
-			this.date = new Date(Long.valueOf(parameter));
-			this.notifyListeners(oldDate, date);
+			this.setDate(new Date(Long.valueOf(parameter)));			
+		}
+		if ("localeNotFound".equals(actionId)) {
+			this.setLocale(Locale.ENGLISH);
+			log.info("The selected local was not found. Defaulting back to Locale.ENGLISH");
 		}
 
 	}
@@ -91,6 +101,10 @@ public class DatePickerControl extends InputBoxControl {
 	/**
 	 * @param locale
 	 *            the locale to set
+	 * 
+	 * <br/>
+	 *            If the locale is not supported the control defaults to
+	 *            Locale.ENGLISH
 	 */
 	public void setLocale(Locale locale) {
 		this.locale = locale;
@@ -100,14 +114,19 @@ public class DatePickerControl extends InputBoxControl {
 	/**
 	 * @param date
 	 *            the date to set
+	 * 
 	 */
 	public void setDate(Date date) {
 		Date oldDate = this.getDate();
 		this.date = date;
-		DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.SHORT,
-				DateFormat.SHORT, locale);
-		this.setText(formatter.format(date));
-		this.notifyListeners(oldDate, date);
+		
+		if (oldDate != null) {
+			this.notifyListeners(oldDate, this.date);
+		}		
+		DateFormat formatter = DateFormat.getDateInstance(DateFormat.SHORT,
+				locale);
+		String formatedDate = formatter.format(getDate());
+		this.setText(formatedDate);
 	}
 
 	/**
@@ -116,12 +135,56 @@ public class DatePickerControl extends InputBoxControl {
 	public Date getDate() {
 		return date;
 	}
-	
-	public void addDateChangedListener(DateChangedListener d){
-		this.listeners.add(d);
+
+	/**
+	 * 
+	 * @param dcl
+	 *            Add a DateChangeListener to this DatePickerControl that fires
+	 *            when a new date for this control is selected or set form code
+	 * 
+	 * 
+	 */
+	public void addDateChangedListener(DateChangedListener dcl) {
+		this.listeners.add(dcl);
 	}
-	public void removeDateChangedListener(DateChangedListener d){
-		this.listeners.remove(d);
+
+	public void removeDateChangedListener(DateChangedListener dcl) {
+		this.listeners.remove(dcl);
+	}
+
+	/**
+	 * @param showMonth
+	 *            set true to show month drop down list <br/>
+	 *            Default is true
+	 */
+	public void setShowMonth(boolean showMonth) {
+
+		this.showMonth = showMonth;
+		this.requireRedraw();
+	}
+
+	/**
+	 * @param showYear
+	 *            set true to show year drop down list <br/>
+	 *            Default is true
+	 */
+	public void setShowYear(boolean showYear) {
+		this.showYear = showYear;
+		this.requireRedraw();
+	}
+
+	/**
+	 * @return true if this control is set to show the month selection dropdown list
+	 */
+	public boolean isShowMonth() {
+		return showMonth;
+	}
+
+	/**
+	 * @return true if this control is set to show the year selection dropdown list
+	 */
+	public boolean isShowYear() {
+		return showYear;
 	}
 
 }

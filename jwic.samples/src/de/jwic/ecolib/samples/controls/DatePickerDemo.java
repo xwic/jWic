@@ -25,15 +25,12 @@ import java.util.Locale;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.ImageRef;
+import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
-import de.jwic.controls.combo.Combo;
-import de.jwic.controls.combo.DropDown;
-import de.jwic.data.ISelectElement;
-import de.jwic.ecolib.controls.datapicker.DateChangedListener;
-import de.jwic.ecolib.controls.datapicker.DatePickerControl;
-import de.jwic.events.ElementSelectedEvent;
-import de.jwic.events.ElementSelectedListener;
+import de.jwic.ecolib.controls.datepicker.DateChangedListener;
+import de.jwic.ecolib.controls.datepicker.DatePickerControl;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 
 /**
  *
@@ -45,78 +42,78 @@ public class DatePickerDemo extends ControlContainer {
 	 * @param container
 	 * @param name
 	 */
-	public DatePickerDemo(IControlContainer container, String name) {
+	public DatePickerDemo(final IControlContainer container, String name) {
 		super(container, name);
 		
 		final DatePickerControl datePickerControl = new DatePickerControl(this, "datePicker");
+		//datePickerControl.setLocale(Locale.KOREAN);
+		
+		
+		Button btn = new Button(this,"btn");
+		btn.setTitle("Switch locale");
+		
+		btn.addSelectionListener(new SelectionListener() {
+			private boolean DE = true;
+			public void objectSelected(SelectionEvent event) {
+				if(DE){
+					datePickerControl.setLocale(Locale.ENGLISH);
+					datePickerControl.getLocale();
+					DE = false;
+				}else{
+					datePickerControl.setLocale(Locale.GERMAN);
+					DE = true;
+				}
+				System.out.println(datePickerControl.getLocale().toString());
+				
+			}
+		});
+		
+		Button btn2 = new Button(this,"btn2");
+		btn2.setTitle("Toggle Show Month");
+		
+		btn2.addSelectionListener(new SelectionListener() {
+			
+			public void objectSelected(SelectionEvent event) {
+				if(datePickerControl.isShowMonth()){
+					datePickerControl.setShowMonth(false);
+					
+				}else{
+					datePickerControl.setShowMonth(true);
+					
+				}
+				System.out.println(datePickerControl.getLocale().toString());
+				
+			}
+		});
+		Button btn3 = new Button(this,"btn3");
+		btn3.setTitle("Toggle Show Year");
+		
+		btn3.addSelectionListener(new SelectionListener() {
+			
+			public void objectSelected(SelectionEvent event) {
+				if(datePickerControl.isShowYear()){
+					datePickerControl.setShowYear(false);
+					
+				}else{
+					datePickerControl.setShowYear(true);
+					
+				}
+				System.out.println(datePickerControl.getLocale().toString());
+				
+			}
+		});
 		
 		final LabelControl lbl = new LabelControl(this,"label");
 		
 		datePickerControl.addDateChangedListener(new DateChangedListener() {
 			
 			public void onDateChanged(Date oldDate, Date newDate) {
-				lbl.setText("Selected Date is: "+newDate.toString());
-			
+				
+				DateFormat dateFormatter = DateFormat.getDateInstance(DateFormat.LONG,datePickerControl.getLocale());
+				
+				lbl.setText("Selected Date is: " + dateFormatter.format(newDate));			
 			}
 		});
-		
-		final DropDown localeCombo = new DropDown(this, "cbLocale");
-		for (Locale locale : Locale.getAvailableLocales()) {
-			localeCombo.addElement(new LocaleDd(locale));
-		}
-		
-		localeCombo.addElementSelectedListener(new ElementSelectedListener() {
-			
-			public void elementSelected(ElementSelectedEvent event) {
-				datePickerControl.setLocale(((LocaleDd)localeCombo.getSelectedElement()).getLocale()); 
-			}
-		});
-		
-	}
-	
-	private class LocaleDd implements ISelectElement {
-
-		private Locale locale;
-		
-		public LocaleDd(Locale locale){
-			this.locale = locale;
-		}
-		/* (non-Javadoc)
-		 * @see de.jwic.data.ISelectElement#getKey()
-		 */
-		public String getKey() {
-			
-			return locale.getLanguage();
-		}
-
-		/* (non-Javadoc)
-		 * @see de.jwic.data.ISelectElement#getTitle()
-		 */
-		public String getTitle() {
-			
-			return locale.getDisplayLanguage() + " - " + locale.getLanguage();
-		}
-
-		/* (non-Javadoc)
-		 * @see de.jwic.data.ISelectElement#getImage()
-		 */
-		public ImageRef getImage() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		/* (non-Javadoc)
-		 * @see de.jwic.data.ISelectElement#isSelectable()
-		 */
-		public boolean isSelectable() {
-			return true;
-		}
-		/**
-		 * @return the locale
-		 */
-		public Locale getLocale() {
-			return locale;
-		}
 		
 	}
 

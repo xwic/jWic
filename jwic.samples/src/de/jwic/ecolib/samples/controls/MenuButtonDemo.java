@@ -21,11 +21,12 @@ package de.jwic.ecolib.samples.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.ImageRef;
 import de.jwic.controls.AnchorLinkControl;
 import de.jwic.controls.Button;
 import de.jwic.controls.CheckBox;
 import de.jwic.controls.LabelControl;
-import de.jwic.ecolib.controls.datapicker.DatePickerControl;
+import de.jwic.ecolib.controls.datepicker.DatePickerControl;
 import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
 import de.jwic.ecolib.controls.menucontrols.MenuItem;
 import de.jwic.events.SelectionEvent;
@@ -54,13 +55,15 @@ public class MenuButtonDemo extends ControlContainer {
 		btn.setTitle("Open Sesame!");
 
 		MenuItem item = menu.getMenu().addMenuItem();
+		item.setIcon(new ImageRef("icons/flag_blue.png"));
 		LabelControl l = new LabelControl(menu);
 		l.setText("Option 1");
 		item.setContent(l);
 
 		MenuItem item2 = item.addMenuItem();
-		DatePickerControl datePickerControl = new DatePickerControl(menu, "datePicker");
-		item2.setContent(datePickerControl);
+		l = new LabelControl(menu);
+		l.setText("Option 1-1");
+		item2.setContent(l);
 
 		item = menu.getMenu().addMenuItem();
 		final Button b = new Button(menu);
@@ -82,26 +85,30 @@ public class MenuButtonDemo extends ControlContainer {
 		});
 		item2.setContent(b1);
 		
-		MenuItem item3 = item2.addMenuItem();
-		final CheckBox b2 = new CheckBox(menu,"checkBox");
-		b2.setLabel("Option 2-1-1");
-		b2.addValueChangedListener(new ValueChangedListener() {
-			
-			public void valueChanged(ValueChangedEvent event) {
-				display(b2.getLabel());
-			}
-		});
-		item3.setContent(b2);
-
-		item = menu.getMenu().addMenuItem();
+		item2 = item.addMenuItem();
 		final AnchorLinkControl link = new AnchorLinkControl(menu);
-		link.setTitle("Option 3");
+		link.setTitle("Option 2-2");
 		link.addSelectionListener(new SelectionListener() {
 			public void objectSelected(SelectionEvent event) {
 				display(link.getTitle());
 			}
 		});
-		item.setContent(link);
+		item2.setContent(link);
+
+		MenuItem item3 = item2.addMenuItem();
+		l = new LabelControl(menu);
+		l.setText("Option 2-2-1");
+		item3.setContent(l);
+
+		item = menu.getMenu().addMenuItem();
+		final AnchorLinkControl link2 = new AnchorLinkControl(menu);
+		link2.setTitle("Option 3");
+		link2.addSelectionListener(new SelectionListener() {
+			public void objectSelected(SelectionEvent event) {
+				display(link2.getTitle());
+			}
+		});
+		item.setContent(link2);
 
 		item2 = item.addMenuItem();
 		final AnchorLinkControl link1 = new AnchorLinkControl(menu);

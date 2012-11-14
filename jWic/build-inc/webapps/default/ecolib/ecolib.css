@@ -181,3 +181,13 @@ div.progressBarActive {
 	background-color: #0000FF;
 	background-image: url(images/progbar.png);
 }
+
+.smallIcon {
+	display:block;
+	float:left;
+	clear:left;
+	background-repeat: no-repeat;
+	background-position: left center;
+	width:20px;
+	height:20px;	
+}
