@@ -112,16 +112,19 @@ var JWic = {
 		if (idx != -1) {
 			url = url.substring(0, idx);
 		}
-		new Ajax.Request(url, {
-			method :'post',
-			parameters :paramData,
-			onSuccess : function(response) {
-				JWicInternal.handleResponse(response);
+		jQuery.ajax({
+			url: url,
+			type :'post',
+			dataType: 'json',
+			data : paramData,
+			success : function(data, textStatus, jqXHR) {
+		
+				JWicInternal.handleResponse(jqXHR);
 			},
-			onException : function(response, error) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				alert(
 						"An exception has occured processing the server response: "
-								+ error, "Error Notification.");
+								+ errorThrown, "Error Notification.");
 				JWicInternal.endRequest();
 			}
 		});
@@ -148,12 +151,19 @@ var JWic = {
 		if (idx != -1) {
 			url = url.substring(0, idx);
 		}
-		new Ajax.Request(url, {
-			method :'post',
-			parameters :paramData,
-			onSuccess : callBack,
-			onFailure : function(response) { if (response.status == 404) { callBack(response)} else {alert('resource request failed:' + response.status + " " + response.statusText)} },
-			onException : function(response) { alert('resource request failed (exception):' + response.status + " " + response.statusText) }
+		
+		jQuery.ajax({
+			url: url,
+			type :'post',
+			data : paramData,
+			success : callback,
+			error : function(jqXHR, textStatus, errorThrown) {
+				if (jqXHR.status == 404) { 
+					callBack(jqXHR);
+				} else {
+					alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
+				}
+			}
 		});
 		
 	},
