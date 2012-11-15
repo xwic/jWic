@@ -191,3 +191,6 @@ div.progressBarActive {
 	width:20px;
 	height:20px;	
 }
+.datePickerControl {
+	width: 80px;
+}

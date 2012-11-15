@@ -37,6 +37,7 @@ public class DatePickerControl extends InputBoxControl {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NO_FORMAT = "noformat";
+	private static final String CSS_CLASS = "datePickerControl";
 
 	private Locale locale;
 	private Date date;
@@ -53,6 +54,7 @@ public class DatePickerControl extends InputBoxControl {
 	public DatePickerControl(IControlContainer container) {
 		super(container);
 		init();
+		this.setEnabled(false);
 
 	}
 
@@ -67,6 +69,7 @@ public class DatePickerControl extends InputBoxControl {
 
 	private void init() {
 		locale = this.getSessionContext().getLocale();
+		setCssClass(CSS_CLASS);
 	}
 
 	/**

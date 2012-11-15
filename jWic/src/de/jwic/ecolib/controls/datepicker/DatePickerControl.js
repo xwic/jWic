@@ -36,7 +36,6 @@
 		});
 		
 		datepicker.datepicker("option",region);		
-		datepicker.addClass("x-readonly");
 		
 		/*
 		 * set datepicker date from java
