@@ -116,6 +116,20 @@ public class DatePickerDemo extends ControlContainer {
 				datePickerControl.setDate(null);
 			}
 		});
+		
+		final Button btn5 = new Button(this, "btn5");
+		btn5.setTitle("setDisabled");
+
+		btn5.addSelectionListener(new SelectionListener() {
+			boolean enabled = true;
+			public void objectSelected(SelectionEvent event) {
+				enabled = !enabled;
+				datePickerControl.setEnabled(enabled);
+				btn5.setTitle(enabled ? "setDisabled" : "setEnabled");
+				
+			}
+		});
+
 
 		final LabelControl lbl = new LabelControl(this, "label");
 
