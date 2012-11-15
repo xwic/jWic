@@ -2,33 +2,54 @@
 	
 	afterUpdate: function(element){
 		
+		/*
+		 * clone the region info
+		 * so you can maintain language date but change date format only on this instance of the datepicker
+		 */
+		var region = jQuery.extend(true, {}, jQuery.datepicker.regional['${control.locale.language}']);
+		/*
+		 * set date format in needed
+		 */
+		#if($control.dateFormat != "noformat")
+			region.dateFormat = '${control.dateFormat}'			
+		#end
 		
-		var region = jQuery.datepicker.regional['${control.locale.language}'];
-		
+		/*
+		 *	default back to English if selected region is undefined 
+		 */
 		if(region == undefined){
-			jQuery.datepicker.setDefaults(jQuery.datepicker.regional['']);
-			region = jQuery.datepicker.regional[''];
+			region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
+			/*
+			 * notify java control to default back to Locale.ENGLISH as well
+			 */
 			JWic.fireAction('${control.controlID}','localeNotFound','');
-		}else{
-			jQuery.datepicker.setDefaults(region);			
 		}
 		
+		/*
+		 * init the datepicker
+		 */
 		var id = JQryEscape('${control.controlID}');
 		var datepicker = jQuery( "#" + id ).datepicker({
-			changeMonth : ${control.isShowMonth()},
+			changeMonth : ${control.isShowMonth()},			
 			changeYear : ${control.isShowYear()}
+			
 		});
 		
-		
-		
-		// localize here :D
-		
-		datepicker.datepicker( "option",region);
-		
+		datepicker.datepicker("option",region);		
 		datepicker.addClass("x-readonly");
 		
-		JWic.fireAction('${control.controlID}','dateformat',''+datepicker.datepicker( "option", "dateFormat" ));
-
+		/*
+		 * set datepicker date from java
+		 */
+		var timeStamp = '${control.getDate().getTime()}';
+		timeStamp = parseInt(timeStamp);
+		if(!isNaN(timeStamp)){			
+			var date = new Date(timeStamp);			
+			datepicker.datepicker('setDate',date);
+		}else{
+			datepicker.datepicker('setDate',null);
+		}
+		
 		
 		function nullDateNotifier(e){			
 			if(this.value == ''){
@@ -36,7 +57,9 @@
 			}
 		}
 		
-		// AJAX stuff :D
+		/*
+		 *  AJAX stuff :D
+		 */
 		datepicker.change(function(){
 			var date = datepicker.datepicker('getDate');
 			if(date!=null){

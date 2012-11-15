@@ -26,6 +26,7 @@ import java.util.Locale;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
+import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.LabelControl;
 import de.jwic.ecolib.controls.datepicker.DateChangedListener;
 import de.jwic.ecolib.controls.datepicker.DatePickerControl;
@@ -47,6 +48,8 @@ public class DatePickerDemo extends ControlContainer {
 
 		final DatePickerControl datePickerControl = new DatePickerControl(this,
 				"datePicker");
+		
+		
 		// datePickerControl.setLocale(Locale.KOREAN);
 
 		Button btn = new Button(this, "btn");
@@ -124,9 +127,24 @@ public class DatePickerDemo extends ControlContainer {
 				if (newDate != null) {
 					lbl.setText("Selected Date is: "
 							+ dateFormatter.format(newDate));
-				}else{
+				} else {
 					lbl.setText("Selected Date is: null");
 				}
+			}
+		});
+
+		final InputBoxControl dateFormat = new InputBoxControl(this,
+				"dateFormat");
+		Button btnDateFormat = new Button(this, "btnDateFormat");
+		btnDateFormat.setTitle("Set Date Format");
+		btnDateFormat.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				String format = dateFormat.getText();
+
+				datePickerControl.setDateFormat(dateFormat.getText());
+
 			}
 		});
 
