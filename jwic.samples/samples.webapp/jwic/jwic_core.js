@@ -136,15 +136,18 @@ var JWic = {
 	 */
 	resourceRequest: function(controlId, callBack, parameter) {
 		
-		var paramData = new Hash();
+		var paramData = new Object();
 		if (Object.isHash(parameter)) {
-			paramData.update(parameter);
+			parameter.each(function(pair){
+				paramData[pair.key] = pair.value;
+			});
+			//paramData.update(parameter);
 		} else {
-			paramData.set('parameter', parameter);
+			paramData['parameter'] = parameter;
 		}
-		paramData.set('controlId', controlId);
-		paramData.set('_resreq', '1');
-		paramData.set('_msid', document.forms['jwicform'].elements['_msid'].value);
+		paramData['controlId'] = controlId;
+		paramData['_resreq'] = '1';
+		paramData['_msid'] = document.forms['jwicform'].elements['_msid'].value;
 
 		var url = document.location.href;
 		var idx = url.indexOf('#');
@@ -156,7 +159,7 @@ var JWic = {
 			url: url,
 			type :'post',
 			data : paramData,
-			success : callback,
+			success : function(data, textStatus, jqXHR) { callBack(jqXHR); } ,
 			error : function(jqXHR, textStatus, errorThrown) {
 				if (jqXHR.status == 404) { 
 					callBack(jqXHR);
