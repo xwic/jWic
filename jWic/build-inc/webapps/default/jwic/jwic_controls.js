@@ -23,39 +23,51 @@ JWic.controls = {
 	/**
 	 * InputBoxControl script extensions.
 	 */
-	InputBoxControl : {
-		/**
-		 * Initialize a new control.
-		 */
-		initialize : function(inpElm) {
-			Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
-			
-			if (inpElm.readAttribute("xListenKeyCode") != 0) {
-				Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
-			}
-			
-			if (inpElm.readAttribute("xEmptyInfoText")) {
-				if(inpElm.readAttribute("xIsEmpty") == "true" && 
-					(inpElm.value == inpElm.readAttribute("xEmptyInfoText") || inpElm.value == "")) {
-					inpElm.addClassName("x-empty");
-					inpElm.value = inpElm.readAttribute("xEmptyInfoText");
-				} else {
-					inpElm.writeAttribute("xIsEmpty", "false");
-					inpElm.removeClassName("x-empty");
+		InputBoxControl : {
+			/**
+			 * Initialize a new control.
+			 */
+			initialize : function(inpElm) {
+
+				inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
+				inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+				if (inpElm.attr("xListenKeyCode") != 0) {
+					inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
 				}
-			}
-			
-			// override the getValue() method to "fix" the serialization
-			inpElm.getValue = function() {
-				if (this.readAttribute("xEmptyInfoText") && this.readAttribute("xIsEmpty") == "true") {
-					return "";
-				} else {
-					return this.value;
+				
+				if (inpElm.attr("xEmptyInfoText")) {
+					if(inpElm.attr("xIsEmpty") == "true" && 
+						(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+						inpElm.addClass("x-empty");
+						inpElm.val(inpElm.attr("xEmptyInfoText"));
+					} else {
+						inpElm.attr("xIsEmpty", "false");
+						inpElm.removeClass("x-empty");
+					}
 				}
-			}
+				
+				// override the getValue() method to "fix" the serialization
+				inpElm.getValue = function() {
+					if (this.attr("xEmptyInfoText") && this.attr("xIsEmpty") == "true") {
+						return "";
+					} else {
+						return this.value;
+					}
+				}
+				
+			},
 			
-		},
+			/**
+			 * Clean up..
+			 */
+			destroy : function(inpElm) {
+				inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
+				inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			
+				if (inpElm.attr("xListenKeyCode") != 0) {
+					inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
+				}
+			},
 		
 		/**
 		 * Clean up..

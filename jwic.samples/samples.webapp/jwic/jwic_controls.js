@@ -28,27 +28,31 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(inpElm) {
-			Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
+
+			inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			//Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
+			//Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			
-			if (inpElm.readAttribute("xListenKeyCode") != 0) {
-				Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
+				//Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
 			
-			if (inpElm.readAttribute("xEmptyInfoText")) {
-				if(inpElm.readAttribute("xIsEmpty") == "true" && 
-					(inpElm.value == inpElm.readAttribute("xEmptyInfoText") || inpElm.value == "")) {
-					inpElm.addClassName("x-empty");
-					inpElm.value = inpElm.readAttribute("xEmptyInfoText");
+			if (inpElm.attr("xEmptyInfoText")) {
+				if(inpElm.attr("xIsEmpty") == "true" && 
+					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+					inpElm.addClass("x-empty");
+					inpElm.val(inpElm.attr("xEmptyInfoText"));
 				} else {
-					inpElm.writeAttribute("xIsEmpty", "false");
-					inpElm.removeClassName("x-empty");
+					inpElm.attr("xIsEmpty", "false");
+					inpElm.removeClass("x-empty");
 				}
 			}
 			
 			// override the getValue() method to "fix" the serialization
 			inpElm.getValue = function() {
-				if (this.readAttribute("xEmptyInfoText") && this.readAttribute("xIsEmpty") == "true") {
+				if (this.attr("xEmptyInfoText") && this.attr("xIsEmpty") == "true") {
 					return "";
 				} else {
 					return this.value;
@@ -61,10 +65,13 @@ JWic.controls = {
 		 * Clean up..
 		 */
 		destroy : function(inpElm) {
-			Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
-			if (inpElm.readAttribute("xListenKeyCode") != 0) {
-				Event.stopObserving(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
+			inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			
+			//Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
+			//Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
 		},
 		
@@ -72,13 +79,14 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		focusHandler : function(e) {
-			this.addClassName("x-focus");
+			var elm =  jQuery(e.target);
+			elm.addClass("x-focus");
 			
-			if (this.readAttribute("xEmptyInfoText")) {
-				if (this.readAttribute("xIsEmpty") == "true") {
-					this.value = "";
-					this.removeClassName("x-empty");
-					this.writeAttribute("xIsEmpty", "false");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.attr("xIsEmpty") == "true") {
+					elm.val('');
+					elm.removeClass("x-empty");
+					elm.attr("xIsEmpty", "false");
 				} 
 			}
 			
@@ -86,22 +94,26 @@ JWic.controls = {
 		/**
 		 * Invoked when the focus is lost.
 		 */
-		lostFocusHandler : function() {
-			this.removeClassName("x-focus");
-			if (this.readAttribute("xEmptyInfoText")) {
-				if (this.value == "") { // still empty
-					this.addClassName("x-empty");
-					this.value = this.readAttribute("xEmptyInfoText");
-					this.writeAttribute("xIsEmpty", "true");
+		lostFocusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			elm.removeClass("x-focus");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.val() == "") { // still empty
+					elm.addClass("x-empty");
+					elm.val(elm.attr("xEmptyInfoText"));
+					elm.attr("xIsEmpty", "true");
 				} else {
-					this.writeAttribute("xIsEmpty", "false");
+					elm.attr("xIsEmpty", "false");
 				}
 			}
 		},
 		
 		keyHandler : function(e) {
-			if (e.keyCode == this.readAttribute("xListenKeyCode")) {
-				JWic.fireAction(this.id, 'keyPressed', '' + e.keyCode);
+			var elm =  jQuery(e.target);
+			
+			if (e.keyCode == elm.attr("xListenKeyCode")) {
+				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
 			}
 		}
 		
@@ -920,7 +932,7 @@ JWic.controls = {
 		 * Invoked when the button is clicked.
 		 */
 		clickHandler : function(e) {
-			Event.stop(e);
+			e.stopPropagation();
 			//console.log(e);
 			var elm = jQuery(e.target);
 			//console.log(elm);
