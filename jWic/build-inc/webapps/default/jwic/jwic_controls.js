@@ -893,20 +893,21 @@ JWic.controls = {
 	Button : {
 		
 		initialize : function(tblElm, btnElm) {
-			if("true" == tblElm.readAttribute("_ctrlEnabled")) {
-				Event.observe(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
-				Event.observe(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
-				Event.observe(tblElm, "click", JWic.controls.Button.clickHandler);
-				Event.observe(btnElm, "click", JWic.controls.Button.clickHandler);
+			if("true" == tblElm.attr("_ctrlEnabled")) {
+				 //$(document).bind("mousemove scroll click focus blur keypress", doStuff);
+				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
+				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
+				tblElm.bind('click', JWic.controls.Button.clickHandler);
+				btnElm.bind('click', JWic.controls.Button.clickHandler);
 			}
 		},
 		
 		destroy : function(tblElm, btnElm) {
-			if("true" == tblElm.readAttribute("_ctrlEnabled")) {
-				Event.stopObserving(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
-				Event.stopObserving(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
-				Event.stopObserving(tblElm, "click", JWic.controls.Button.clickHandler);
-				Event.stopObserving(btnElm, "click", JWic.controls.Button.clickHandler);
+			if("true" == tblElm.attr("_ctrlEnabled")) {
+				tblElm.unbind("mouseover", JWic.controls.Button.mouseOverHandler);
+				tblElm.unbind("mouseout", JWic.controls.Button.mouseOutHandler);
+				tblElm.unbind("click", JWic.controls.Button.clickHandler);
+				btnElm.unbind("click", JWic.controls.Button.clickHandler);
 			}
 		},
 		/**
@@ -914,12 +915,15 @@ JWic.controls = {
 		 */
 		clickHandler : function(e) {
 			Event.stop(e);
-			var elm = e.element();
-			while (!elm.id || elm.id.indexOf('tbl_') != 0) {
-				elm = elm.up();
+			//console.log(e);
+			var elm = jQuery(e.target);
+			//console.log(elm);
+			while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
+				//console.log(elm.parent.id);
+				elm = jQuery(elm).parent();
 			}
-			var ctrlId = elm.id.substring(4);
-			var msg = elm.readAttribute("_confirmMsg");
+			var ctrlId = elm.attr('id').substring(4);
+			var msg = elm.attr("_confirmMsg");
 			if (msg && msg != "") {
 				if (!confirm(msg)) {
 					return false;
@@ -931,13 +935,13 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		mouseOverHandler : function(e) {
-			this.addClassName("j-hover");
+			jQuery(e.target).addClass("j-hover");
 		},
 		/**
 		 * Invoked when the focus is lost.
 		 */
-		mouseOutHandler : function() {
-			this.removeClassName("j-hover");
+		mouseOutHandler : function(e) {
+			jQuery(e.target).removeClass("j-hover");
 		}
 	},
 	
