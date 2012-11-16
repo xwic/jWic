@@ -20,7 +20,14 @@
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/history/dhtmlHistory.js"></SCRIPT>
 
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/ecolib.js"></SCRIPT>
-
+	
+	<!-- DatePickerControl Locale files -->
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/datepicker_locale/DatePickerControl_en.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/datepicker_locale/DatePickerControl_de.js"></SCRIPT>
+	<!-- Add your DatePickerControl Locale files here -->
+	
+	
+	
 	<!-- ecolib css -->
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/balloon/balloon.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/rsmenu/menu.css">
