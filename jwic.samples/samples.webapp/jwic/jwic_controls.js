@@ -117,10 +117,10 @@ JWic.controls = {
 			if (win) {
 				var size = win.getSize();
 				var location = win.getLocation();
-				var fldWidth = $("fld_" + controlId + ".width");
-				var fldHeight = $("fld_" + controlId + ".height");
-				var fldTop = $("fld_" + controlId + ".top");
-				var fldLeft = $("fld_" + controlId + ".left");
+				var fldWidth = jQuery("fld_" + JQryEscape(controlId)).width;
+				var fldHeight = jQuery("fld_" + JQryEscape(controlId)).height;
+				var fldTop = jQuery("fld_" + JQryEscape(controlId)).top;
+				var fldLeft = jQuery("fld_" + JQryEscape(controlId)).left;
 				if (fldWidth) { // assume that if one field exists, the others exist as well.
 					fldWidth.value = size.width; 
 					fldHeight.value = size.height;
@@ -137,8 +137,9 @@ JWic.controls = {
 		 * it moves the below IFRAME to hide the select elements.
 		 */
 		adjustIEBlocker : function(controlId) {
-			var blocker = $("win_" + controlId + "_blocker");
-			var source = $(controlId); // get the window
+			jQuery("win_" + JQryEscape(controlId)+ "_blocker");
+			var blocker = jQuery("win_" + JQryEscape(controlId)+ "_blocker");
+			var source =jQuery("win_" + JQryEscape(controlId)); // get the window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
 		/**
