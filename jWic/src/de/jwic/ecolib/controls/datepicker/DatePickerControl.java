@@ -46,7 +46,9 @@ public class DatePickerControl extends InputBoxControl {
 	private boolean showYear = true;
 	private String dateFormat = NO_FORMAT;
 	private int numberOfMonths = 1;
-	
+	private boolean showWeek = false;
+
+	private boolean iconTriggered = false;
 
 	private static final Logger log = Logger.getLogger(DatePickerControl.class);
 
@@ -225,10 +227,8 @@ public class DatePickerControl extends InputBoxControl {
 			this.dateFormat = NO_FORMAT;
 		}
 		this.requireRedraw();
-		
+
 	}
-	
-	
 
 	/**
 	 * 
@@ -239,19 +239,57 @@ public class DatePickerControl extends InputBoxControl {
 	public String getDateFormat() {
 		return dateFormat;
 	}
+
 	/**
 	 * 
-	 * @return the number of months to be displayed 
+	 * @return the number of months to be displayed
 	 */
 	public int getNumberOfMonths() {
 		return numberOfMonths;
 	}
+
 	/**
 	 * 
-	 * @param the number of months to be displayed 
+	 * @param the
+	 *            number of months to be displayed
 	 */
 	public void setNumberOfMonths(int numberOfMonths) {
 		this.numberOfMonths = numberOfMonths;
+		this.requireRedraw();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isShowWeek() {
+		return showWeek;
+	}
+
+	/**
+	 * 
+	 * @param showWeek
+	 */
+	public void setShowWeek(boolean showWeek) {
+		this.showWeek = showWeek;
+		this.requireRedraw();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public boolean isIconTriggered() {
+		return iconTriggered;
+	}
+
+	/**
+	 * 
+	 * @param iconTriggered
+	 */
+	public void setIconTriggered(boolean iconTriggered) {
+		this.iconTriggered = iconTriggered;
+		this.requireRedraw();
 	}
 
 }

@@ -32,11 +32,17 @@
 		var datepicker = jQuery( "#" + id ).datepicker({
 			changeMonth : ${control.isShowMonth()},			
 			changeYear : ${control.isShowYear()},
-			numberOfMonths: ${control.numberOfMonths}
+			showWeek: ${control.isShowWeek()},
+
+			numberOfMonths: ${control.numberOfMonths},
 			
-			
+			#if($control.isIconTriggered())
+				showOn: "button",
+				buttonImage: _contextPath+'/jwic/calendar/calendar.gif',
+				buttonImageOnly: true,
+			#end
 		});
-		
+		console.log(_contextPath);
 		datepicker.datepicker("option",region);		
 		
 		/*
