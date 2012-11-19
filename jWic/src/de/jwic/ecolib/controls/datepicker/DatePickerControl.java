@@ -45,6 +45,8 @@ public class DatePickerControl extends InputBoxControl {
 	private boolean showMonth = true;
 	private boolean showYear = true;
 	private String dateFormat = NO_FORMAT;
+	private int numberOfMonths = 1;
+	
 
 	private static final Logger log = Logger.getLogger(DatePickerControl.class);
 
@@ -236,6 +238,20 @@ public class DatePickerControl extends InputBoxControl {
 	 */
 	public String getDateFormat() {
 		return dateFormat;
+	}
+	/**
+	 * 
+	 * @return the number of months to be displayed 
+	 */
+	public int getNumberOfMonths() {
+		return numberOfMonths;
+	}
+	/**
+	 * 
+	 * @param the number of months to be displayed 
+	 */
+	public void setNumberOfMonths(int numberOfMonths) {
+		this.numberOfMonths = numberOfMonths;
 	}
 
 }

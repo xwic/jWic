@@ -31,7 +31,9 @@
 		var id = JQryEscape('${control.controlID}');
 		var datepicker = jQuery( "#" + id ).datepicker({
 			changeMonth : ${control.isShowMonth()},			
-			changeYear : ${control.isShowYear()}
+			changeYear : ${control.isShowYear()},
+			numberOfMonths: ${control.numberOfMonths}
+			
 			
 		});
 		
