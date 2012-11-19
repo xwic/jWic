@@ -26,7 +26,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.TreeControl;
 import de.jwic.ecolib.controls.StackedContainer;
-import de.jwic.ecolib.controls.stackpanel.Stack;
+import de.jwic.ecolib.controls.stackpanel.Panel;
 import de.jwic.ecolib.controls.stackpanel.StackPanelControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -115,20 +115,18 @@ public class MailClientControl extends ControlContainer {
 		
 		
 		stackPanel = new StackPanelControl(this, "leftStack");
-		InboxTreeControl inboxTreeControl = new InboxTreeControl(stackPanel, "ibt", model);
-		Stack mailStack = stackPanel.createStackControl("Mail", inboxTreeControl);
+		Panel mailStack = stackPanel.createPanel("Mail");
+		InboxTreeControl inboxTreeControl = new InboxTreeControl(mailStack, "ibt", model);
 		
-		LabelControl label = new LabelControl(stackPanel);
+		Panel tasks = stackPanel.createPanel("Tasks");
+		LabelControl label = new LabelControl(tasks);
 		label.setText("Not Implemented");
-		stackPanel.createStackControl("Tasks", label);
 		
-		label = new LabelControl(stackPanel);
+		
+		Panel contacts = stackPanel.createPanel("Contacts");
+		label = new LabelControl(contacts);
 		label.setText("Not Implemented");
-		stackPanel.createStackControl("Contacts", label);
-		
-		stackPanel.setWidth(200);
-		stackPanel.setSelectedStack(mailStack.getUniqueIdentifier());
-		
+
 		mainView = new StackedContainer(this, "mainView");
 	
 		mailViewer = new MailViewer(mainView, model);
@@ -160,7 +158,6 @@ public class MailClientControl extends ControlContainer {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
-		stackPanel.setHeight(height - 45); // TODO stackPanel height does not match exactly
 		mailViewer.setHeight(height - 27);
 		requireRedraw();
 	}

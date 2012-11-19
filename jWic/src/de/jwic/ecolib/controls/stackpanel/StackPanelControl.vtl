@@ -1,21 +1,6 @@
-<table class="stackpanel" style="height:${control.height}px;width:${control.width}px">
-	#foreach ($stack in $control.stacks)
-	  #if($stack.uniqueIdentifier == $control.selectedStack)
-	  	#set($display = "block")
-	  #else
-	  	#set($display = "none")
-	  #end
-  	<tr>
-		<td valign="top">
-			<table class="stackpanel-item" height="${control.calculateHeight($stack.uniqueIdentifier, false)}px">
-				<tr>
-					<td height="${control.stackHeight}" onClick="${control.createActionURL("selectStack", $stack.uniqueIdentifier)}" class="stackpanel-item-header">$stack.title</td>
-				</tr>		
-				<tr>
-					<td valign="top" height="${control.calculateHeight($stack.uniqueIdentifier, true)}px" style="display:$display" class="stackpanel-item-content">$insert.control($stack.controlName)</td>
-				</tr>
-			</table>
-		</td>  	
-  	</tr>
-  	#end
-</table>
+<div id='${control.controlID}_accordion'>
+	#foreach($c in $control.controls)
+    	<h3>$c.title</h3>
+    	<div>$insert.control($c.name)</div>
+	#end
+</div>
