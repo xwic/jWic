@@ -20,4 +20,4 @@ IMPORTANT NOTE **FLI - 2008-09-15 **: I started jWic version 4.0, which will inc
 - The new version will depend on Java 5.0 and support its new features
 - Entire refactoring of the JavaScript libraries. We will make use of the prototype.js library
 - Changing the ajax communication response to JSON format
- 
+ .
