@@ -124,20 +124,33 @@ JWic.controls = {
 	 */
 	Window : {
 		
+		
+		_windows : new Hash(),
+		
+		
+		getWindow: function(elmId){
+			var win = JWic.controls.Window._windows[elmId];
+			if(!win){
+				win = jQuery('#'+JQryEscape(elmId)).dialog();
+
+				jQuery('#'+JQryEscape(elmId)).parent().appendTo(jQuery("#jwicform"));
+				JWic.controls.Window._windows[elmId] = win;
+			}
+			return win;
+		},
+		
+		initialize : function(elmId){
+		},
+		
 		updateHandler : function(controlId) {
-			var win = Windows.getWindow(controlId);
+			var win = jQuery('#'+JQryEscape(controlId));
 			if (win) {
-				var size = win.getSize();
-				var location = win.getLocation();
-				var fldWidth = jQuery("fld_" + JQryEscape(controlId)).width;
-				var fldHeight = jQuery("fld_" + JQryEscape(controlId)).height;
-				var fldTop = jQuery("fld_" + JQryEscape(controlId)).top;
-				var fldLeft = jQuery("fld_" + JQryEscape(controlId)).left;
-				if (fldWidth) { // assume that if one field exists, the others exist as well.
-					fldWidth.value = size.width; 
-					fldHeight.value = size.height;
-					fldTop.value = parseInt(location.top); 
-					fldLeft.value = parseInt(location.left); 
+				//var size = win.getSize();
+				var field = jQuery("fld_" + JQryEscape(controlId));
+				if (field) { // assume that if one field exists, the others exist as well.
+					field.width(win.width()); 
+					field.height(win.height);
+					field.offset(win.offset());
 				}
 			} else {
 				alert("No Window with ID " + controlId);
