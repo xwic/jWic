@@ -58,8 +58,7 @@ public class DatePickerControl extends InputBoxControl {
 	public DatePickerControl(IControlContainer container) {
 		super(container);
 		init();
-		this.setEnabled(false);
-
+		this.setDateFormat(this.getSessionContext().getDateFormat());
 	}
 
 	/**
