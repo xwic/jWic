@@ -10,10 +10,10 @@
 			JWic.controls.Button.initialize(tblElm, btn);
 			#* Add IE6 fix *#
 			#if(!$control.modal && $control.sessionContext.userAgent.isIE() && $control.sessionContext.userAgent.getMajorVersion() < 7)
-				btn.style.width = "1px";
+				btn.width(1);
 			#end
 			#if($control.width > 0)
-				btn.style.width = "${control.width}px";
+				btn.width("${control.width}");
 			#end
 		}
 	#end
