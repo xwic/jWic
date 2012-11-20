@@ -30,34 +30,14 @@
 			draggable: #if($control.draggable) true, #else false, #end
 			resizable : #if($control.resizable) true, #else false, #end
 			modal: #if($control.modal) true, #else false, #end
-			cache:false,
+			cache:false
 			
 			
 		});
 		
 		console.log(win.dialog('option'));
-//		minimizable : #if($control.minimizable) true, #else false,#end
-//		maximizable : #if($control.maximizable) true, #else false, #end
-		
+	
 		win.dialog('open');		
-//		win.bind('updateIcons',function(event){
-//			var dialog = jQuery(this);
-//			var visible = dialog.is(':visible');
-//			
-//			if(!visible){				
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_maximize').find('span').removeClass('ui-icon-newwin');
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_maximize').find('span').addClass('ui-icon-extlink');
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_minimize').find('span').removeClass('ui-icon-minusthick')
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_minimize').find('span').addClass('ui-icon-extlink')
-//				
-//			}else{
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_maximize').find('span').addClass('ui-icon-newwin')
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_maximize').find('span').removeClass('ui-icon-extlink')
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_minimize').find('span').addClass('ui-icon-minusthick')
-//				jQuery('#'+JQryEscape('${control.controlID}')+'_minimize').find('span').removeClass('ui-icon-extlink')
-//				
-//			}
-//		});
 		
 		var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');	
 		//minimize
@@ -101,8 +81,6 @@
 					
 				}
 				
-//				win.trigger({type:'updateIcons',action:'minimize'});
-				//custom event for minimize
 				win.trigger({type:'minimize'});
 			});
 
@@ -146,9 +124,6 @@
 				}
 				
 			})();
-						
-//			win.trigger({type:'updateIcons',action:'maximize'});
-			//custom event for maximize
 			win.trigger({type:'maximize'})
 		});
 	
