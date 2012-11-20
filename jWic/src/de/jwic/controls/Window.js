@@ -12,7 +12,6 @@
 		
 		var win = JWic.controls.Window.getWindow('win_${control.controlID}_div');	
 		
-				
 		win.dialog('option',{
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
 			#if($control.width != 0) width : $control.width, #end
@@ -31,99 +30,18 @@
 			resizable : #if($control.resizable) true, #else false, #end
 			modal: #if($control.modal) true, #else false, #end
 			cache:false
-			
-			
+					
 		});
 		
-		win.dialog('open');		
-		
-		var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');	
-		//minimize
-		jQuery('<a href="#" id="${control.controlID}_minimize" role="button" class="ui-corner-all ui-dialog ui-dialog-titlebar-min"><span class="ui-icon ui-icon-minusthick">minimize</span></button>')
-			.appendTo(titlebar)
-			.mouseover(function(){
-				jQuery(this).addClass('ui-state-hover');
-			})
-			.mouseout(function(){
-				jQuery(this).removeClass('ui-state-hover');
-			})
-			.click(function() {
-				if(jQuery.data(win,'isMaximized')){
-					jQuery.data(win,'isMaximized',false);
-					var dialogParent = win.parent();					
-					var width  = jQuery.data(win,'originalSize').width;
-					var height = jQuery.data(win,'originalSize').height;					 
-					dialogParent.offset(jQuery.data(win,'originalPosition'));					
-					dialogParent.width(width);
-					dialogParent.height(height);
-				}
-				
-				if(!jQuery.data(win,'isMinimized')){
-					var dialogParent = win.parent();						
-					jQuery.data(win,'isMinimized',true);					
-					jQuery.data(win,'minOriginalSize',{width:dialogParent.width(),height:dialogParent.height()});
-					
-					var titlebar = dialogParent.find('.ui-dialog-titlebar');
-					var dialogPadding = (dialogParent.outerHeight(true) - dialogParent.innerHeight());
-					
-					dialogParent.width(titlebar.width()+dialogPadding);
-					dialogParent.height(titlebar.height()+dialogPadding);
-					win.hide();
-					
-				}else{
-					var dialogParent = win.parent();						
-					jQuery.data(win,'isMinimized',false);
-					dialogParent.width(jQuery.data(win,'minOriginalSize').width);
-					dialogParent.height(jQuery.data(win,'minOriginalSize').height);
-					win.show();
-					
-				}
-				
-				win.trigger({type:'minimize'});
-			});
+			
+		#if($control.isMinimizable())
+			addMinimizeToDialog(win);
+		#end
+		#if($control.isMaximizable())
+			addMaximizeToDialog(win);
+		#end
 
-		
-		//maximize
-		jQuery('<a href="#" id="${control.controlID}_maximize" role="button" class="ui-corner-all ui-dialog ui-dialog-titlebar-max"><span class="ui-icon ui-icon-newwin">maximize</span></button>')
-		.appendTo(titlebar)
-		.mouseover(function(){
-			jQuery(this).addClass('ui-state-hover');
-		})
-		.mouseout(function(){
-			jQuery(this).removeClass('ui-state-hover');
-		})
-		.click(function() {
-			(function(){
-				if(!jQuery.data(win,'isMaximized')){				
-					jQuery.data(win,'isMaximized',true);
-					var dialogParent = win.parent();
-					jQuery.data(win,'maxOriginalSize',{width: dialogParent.width(),height: dialogParent.height()});
-					jQuery.data(win,'originalPosition',dialogParent.offset());
-					
-					dialogParent.width(jQuery(window).width());
-					dialogParent.height(jQuery(window).height());
-					dialogParent.offset({top:0,left:0});
-					
-				}else{
-					jQuery.data(win,'isMaximized',false);
-					var dialogParent = win.parent();					
-					var width  = jQuery.data(win,'maxOriginalSize').width;
-					var height = jQuery.data(win,'maxOriginalSize').height;					 
-					dialogParent.offset(jQuery.data(win,'originalPosition'));					
-					dialogParent.width(width);
-					dialogParent.height(height);
-				}
-				if(jQuery.data(win,'isMinimized')){
-					var dialogParent = win.parent();						
-					jQuery.data(win,'isMinimized',false);
-					dialogParent.width(jQuery.data(win,'minOriginalSize').width);
-					dialogParent.height(jQuery.data(win,'minOriginalSize').height);
-					win.show();
-				}
-				
-			})();
-			win.trigger({type:'maximize'})
-		});
+		win.dialog('open');	
 	
 	},
 	
