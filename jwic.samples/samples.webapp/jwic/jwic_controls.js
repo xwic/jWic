@@ -132,7 +132,8 @@ JWic.controls = {
 			var win = JWic.controls.Window._windows[elmId];
 			if(!win){
 				win = jQuery('#'+JQryEscape(elmId)).dialog();
-
+				win.dialog('destroy').remove();
+				win.dialog();				
 				jQuery('#'+JQryEscape(elmId)).parent().appendTo(jQuery("#jwicform"));
 				JWic.controls.Window._windows[elmId] = win;
 			}
