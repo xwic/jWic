@@ -16,53 +16,8 @@
 		
 		var JQryEscape = function (str){
 			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
-		};
+		};		
 		
-		//german language support
-    	jQuery.datepicker.regional['de'] = {
-    		monthNames: ['Januar','Februar','März','April','Mai','Juni',
-    		'Juli','August','September','Oktober','November','Dezember'],
-    		monthNamesShort: ['Jan','Feb','Mär','Apr','Mai','Jun',
-    		'Jul','Aug','Sep','Okt','Nov','Dez'],
-    		dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'],
-    		dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'],
-    		dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'],
-    		dateFormat: 'dd.mm.yy', firstDay: 1,
-    		renderer: jQuery.datepicker.defaultRenderer,
-    		prevText: '&#x3c;zurück', prevStatus: 'letzten Monat zeigen',
-    		prevJumpText: '&#x3c;&#x3c;', prevJumpStatus: '',
-    		nextText: 'Vor&#x3e;', nextStatus: 'nächsten Monat zeigen',
-    		nextJumpText: '&#x3e;&#x3e;', nextJumpStatus: '',
-    		currentText: 'heute', currentStatus: '',
-    		todayText: 'heute', todayStatus: '',
-    		clearText: 'löschen', clearStatus: 'aktuelles Datum löschen',
-    		closeText: 'schließen', closeStatus: 'ohne Änderungen schließen',
-    		yearStatus: 'anderes Jahr anzeigen', monthStatus: 'anderen Monat anzeigen',
-    		weekText: 'Wo', weekStatus: 'Woche des Monats',
-    		dayStatus: 'Wähle D, M d', defaultStatus: 'Wähle ein Datum',
-    		isRTL: false
-		};
-		
-		//english language support
-		jQuery.datepicker.regional['en'] = {
-            closeText: 'Done',
-            prevText: 'Prev',
-            nextText: 'Next',
-            currentText: 'Today',
-            monthNames: ['January','February','March','April','May','June',
-            'July','August','September','October','November','December'],
-            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            dayNamesMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
-            weekHeader: 'Wk',
-            dateFormat: 'mm/dd/yy',
-            firstDay: 1,
-            isRTL: false,
-            showMonthAfterYear: false,
-            yearSuffix: ''
-		};
 	</script>
 
 #* prototype js library - tool library required by jWic 4.x *#	

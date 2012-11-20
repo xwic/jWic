@@ -121,7 +121,7 @@
 				if(!jQuery.data(win,'isMaximized')){				
 					jQuery.data(win,'isMaximized',true);
 					var dialogParent = win.parent();
-					jQuery.data(win,'originalSize',{width: dialogParent.width(),height: dialogParent.height()});
+					jQuery.data(win,'maxOriginalSize',{width: dialogParent.width(),height: dialogParent.height()});
 					jQuery.data(win,'originalPosition',dialogParent.offset());
 					
 					dialogParent.width(jQuery(window).width());
@@ -131,13 +131,20 @@
 				}else{
 					jQuery.data(win,'isMaximized',false);
 					var dialogParent = win.parent();					
-					var width  = jQuery.data(win,'originalSize').width;
-					var height = jQuery.data(win,'originalSize').height;					 
+					var width  = jQuery.data(win,'maxOriginalSize').width;
+					var height = jQuery.data(win,'maxOriginalSize').height;					 
 					dialogParent.offset(jQuery.data(win,'originalPosition'));					
 					dialogParent.width(width);
 					dialogParent.height(height);
 				}
-				console.log(jQuery.data(win,'originalSize'))
+				if(jQuery.data(win,'isMinimized')){
+					var dialogParent = win.parent();						
+					jQuery.data(win,'isMinimized',false);
+					dialogParent.width(jQuery.data(win,'minOriginalSize').width);
+					dialogParent.height(jQuery.data(win,'minOriginalSize').height);
+					win.show();
+				}
+				
 			})();
 						
 //			win.trigger({type:'updateIcons',action:'maximize'});
