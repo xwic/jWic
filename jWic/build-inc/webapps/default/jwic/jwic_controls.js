@@ -926,12 +926,9 @@ JWic.controls = {
 		 * Invoked when the button is clicked.
 		 */
 		clickHandler : function(e) {
-			Event.stop(e);
-			//console.log(e);
+			Event.stop(e);;
 			var elm = jQuery(e.target);
-			//console.log(elm);
 			while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
-				//console.log(elm.parent.id);
 				elm = jQuery(elm).parent();
 			}
 			var ctrlId = elm.attr('id').substring(4);

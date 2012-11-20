@@ -35,8 +35,6 @@
 			
 		});
 		
-		console.log(win.dialog('option'));
-	
 		win.dialog('open');		
 		
 		var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');	

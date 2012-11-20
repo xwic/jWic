@@ -946,11 +946,8 @@ JWic.controls = {
 		 */
 		clickHandler : function(e) {
 			e.stopPropagation();
-			//console.log(e);
 			var elm = jQuery(e.target);
-			//console.log(elm);
 			while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
-				//console.log(elm.parent.id);
 				elm = jQuery(elm).parent();
 			}
 			var ctrlId = elm.attr('id').substring(4);
