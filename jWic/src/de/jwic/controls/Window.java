@@ -80,9 +80,10 @@ public class Window extends ControlContainer {
 	 * Invoked when the window is closed.
 	 */
 	public void actionClose() {
+		System.out.println("\n\nClosing\n\n");
 		setVisible(false);
 	}
-	
+		
 	/**
 	 * @return the title
 	 */

@@ -25,10 +25,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.Page;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
-import de.jwic.ecolib.controls.stackpanel.Stack;
-import de.jwic.ecolib.controls.stackpanel.StackPanelChangeEvent;
-import de.jwic.ecolib.controls.stackpanel.StackPanelChangeListener;
-import de.jwic.ecolib.controls.stackpanel.StackPanelControl;
+import de.jwic.ecolib.controls.StackedContainer;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
@@ -55,14 +52,14 @@ public class ApplicationEntry extends Application {
 		lc.setText("Messages...");
 
 		// create stack control
-		StackPanelControl panelControl = new StackPanelControl(page, "stack");
+		StackedContainer panelControl = new StackedContainer(page, "stack");
 
 		// set stack height (height of the stackhead)
-		panelControl.setStackHeight(50);
-
-		// set width and height
-		panelControl.setWidth(250);
-		panelControl.setHeight(500);
+//		panelControl.setStackHeight(50);
+//
+//		// set width and height
+//		panelControl.setWidth(250);
+//		panelControl.setHeight(500);
 
 		// create buttons
 		// create one button for every stack
@@ -92,21 +89,21 @@ public class ApplicationEntry extends Application {
 		});
 
 		// create stacks with corresponding buttons as children
-		panelControl.createStackControl("Stack 1", b1);
-		panelControl.createStackControl("Stack 2", b2);
-		Stack stck = panelControl.createStackControl("Stack 3", b3);
-
-		// select stack 3
-		panelControl.setSelectedStack(stck.getUniqueIdentifier());
-
-		panelControl.registerStackPanelChangeListener(new StackPanelChangeListener() {
-
-			public void stackPanelChanged(StackPanelChangeEvent evt) {
-				showInfoMessage("Changed Stack from '" + evt.getOldStack().getTitle() + 
-						" to " + evt.getSelectedStack().getTitle());
-			}
-
-		});
+//		panelControl.createStackControl("Stack 1", b1);
+//		panelControl.createStackControl("Stack 2", b2);
+//		Stack stck = panelControl.createStackControl("Stack 3", b3);
+//
+//		// select stack 3
+//		panelControl.setSelectedStack(stck.getUniqueIdentifier());
+//
+//		panelControl.registerStackPanelChangeListener(new StackPanelChangeListener() {
+//
+//			public void stackPanelChanged(StackPanelChangeEvent evt) {
+//				showInfoMessage("Changed Stack from '" + evt.getOldStack().getTitle() + 
+//						" to " + evt.getSelectedStack().getTitle());
+//			}
+//
+//		});
 
 		return page;
 	}

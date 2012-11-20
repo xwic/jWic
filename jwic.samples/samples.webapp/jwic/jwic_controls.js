@@ -28,27 +28,31 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(inpElm) {
-			Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
+
+			inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			//Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
+			//Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			
-			if (inpElm.readAttribute("xListenKeyCode") != 0) {
-				Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
+				//Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
 			
-			if (inpElm.readAttribute("xEmptyInfoText")) {
-				if(inpElm.readAttribute("xIsEmpty") == "true" && 
-					(inpElm.value == inpElm.readAttribute("xEmptyInfoText") || inpElm.value == "")) {
-					inpElm.addClassName("x-empty");
-					inpElm.value = inpElm.readAttribute("xEmptyInfoText");
+			if (inpElm.attr("xEmptyInfoText")) {
+				if(inpElm.attr("xIsEmpty") == "true" && 
+					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+					inpElm.addClass("x-empty");
+					inpElm.val(inpElm.attr("xEmptyInfoText"));
 				} else {
-					inpElm.writeAttribute("xIsEmpty", "false");
-					inpElm.removeClassName("x-empty");
+					inpElm.attr("xIsEmpty", "false");
+					inpElm.removeClass("x-empty");
 				}
 			}
 			
 			// override the getValue() method to "fix" the serialization
 			inpElm.getValue = function() {
-				if (this.readAttribute("xEmptyInfoText") && this.readAttribute("xIsEmpty") == "true") {
+				if (this.attr("xEmptyInfoText") && this.attr("xIsEmpty") == "true") {
 					return "";
 				} else {
 					return this.value;
@@ -61,10 +65,13 @@ JWic.controls = {
 		 * Clean up..
 		 */
 		destroy : function(inpElm) {
-			Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
-			if (inpElm.readAttribute("xListenKeyCode") != 0) {
-				Event.stopObserving(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
+			inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			
+			//Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
+			//Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
 		},
 		
@@ -72,13 +79,14 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		focusHandler : function(e) {
-			this.addClassName("x-focus");
+			var elm =  jQuery(e.target);
+			elm.addClass("x-focus");
 			
-			if (this.readAttribute("xEmptyInfoText")) {
-				if (this.readAttribute("xIsEmpty") == "true") {
-					this.value = "";
-					this.removeClassName("x-empty");
-					this.writeAttribute("xIsEmpty", "false");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.attr("xIsEmpty") == "true") {
+					elm.val('');
+					elm.removeClass("x-empty");
+					elm.attr("xIsEmpty", "false");
 				} 
 			}
 			
@@ -86,22 +94,26 @@ JWic.controls = {
 		/**
 		 * Invoked when the focus is lost.
 		 */
-		lostFocusHandler : function() {
-			this.removeClassName("x-focus");
-			if (this.readAttribute("xEmptyInfoText")) {
-				if (this.value == "") { // still empty
-					this.addClassName("x-empty");
-					this.value = this.readAttribute("xEmptyInfoText");
-					this.writeAttribute("xIsEmpty", "true");
+		lostFocusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			elm.removeClass("x-focus");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.val() == "") { // still empty
+					elm.addClass("x-empty");
+					elm.val(elm.attr("xEmptyInfoText"));
+					elm.attr("xIsEmpty", "true");
 				} else {
-					this.writeAttribute("xIsEmpty", "false");
+					elm.attr("xIsEmpty", "false");
 				}
 			}
 		},
 		
 		keyHandler : function(e) {
-			if (e.keyCode == this.readAttribute("xListenKeyCode")) {
-				JWic.fireAction(this.id, 'keyPressed', '' + e.keyCode);
+			var elm =  jQuery(e.target);
+			
+			if (e.keyCode == elm.attr("xListenKeyCode")) {
+				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
 			}
 		}
 		
@@ -112,20 +124,33 @@ JWic.controls = {
 	 */
 	Window : {
 		
+		
+		_windows : new Hash(),
+		
+		
+		getWindow: function(elmId){
+			var win = JWic.controls.Window._windows[elmId];
+			if(!win){
+				win = jQuery('#'+JQryEscape(elmId)).dialog();
+
+				jQuery('#'+JQryEscape(elmId)).parent().appendTo(jQuery("#jwicform"));
+				JWic.controls.Window._windows[elmId] = win;
+			}
+			return win;
+		},
+		
+		initialize : function(elmId){
+		},
+		
 		updateHandler : function(controlId) {
-			var win = Windows.getWindow(controlId);
+			var win = jQuery('#'+JQryEscape(controlId));
 			if (win) {
-				var size = win.getSize();
-				var location = win.getLocation();
-				var fldWidth = $("fld_" + controlId + ".width");
-				var fldHeight = $("fld_" + controlId + ".height");
-				var fldTop = $("fld_" + controlId + ".top");
-				var fldLeft = $("fld_" + controlId + ".left");
-				if (fldWidth) { // assume that if one field exists, the others exist as well.
-					fldWidth.value = size.width; 
-					fldHeight.value = size.height;
-					fldTop.value = parseInt(location.top); 
-					fldLeft.value = parseInt(location.left); 
+				//var size = win.getSize();
+				var field = jQuery("fld_" + JQryEscape(controlId));
+				if (field) { // assume that if one field exists, the others exist as well.
+					field.width(win.width()); 
+					field.height(win.height);
+					field.offset(win.offset());
 				}
 			} else {
 				alert("No Window with ID " + controlId);
@@ -137,8 +162,9 @@ JWic.controls = {
 		 * it moves the below IFRAME to hide the select elements.
 		 */
 		adjustIEBlocker : function(controlId) {
-			var blocker = $("win_" + controlId + "_blocker");
-			var source = $(controlId); // get the window
+			jQuery("win_" + JQryEscape(controlId)+ "_blocker");
+			var blocker = jQuery("win_" + JQryEscape(controlId)+ "_blocker");
+			var source =jQuery("win_" + JQryEscape(controlId)); // get the window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
 		/**
@@ -893,33 +919,42 @@ JWic.controls = {
 	Button : {
 		
 		initialize : function(tblElm, btnElm) {
-			if("true" == tblElm.readAttribute("_ctrlEnabled")) {
-				Event.observe(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
-				Event.observe(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
-				Event.observe(tblElm, "click", JWic.controls.Button.clickHandler);
-				Event.observe(btnElm, "click", JWic.controls.Button.clickHandler);
+			if("true" == tblElm.attr("_ctrlEnabled")) {
+				 //$(document).bind("mousemove scroll click focus blur keypress", doStuff);
+				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
+				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
+				tblElm.bind('click', JWic.controls.Button.clickHandler);
+				btnElm.bind('click', JWic.controls.Button.clickHandler);
+				
+//				Event.observe(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
+//				Event.observe(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
+//				Event.observe(tblElm, "click", JWic.controls.Button.clickHandler);
+//				Event.observe(btnElm, "click", JWic.controls.Button.clickHandler);
 			}
 		},
 		
 		destroy : function(tblElm, btnElm) {
-			if("true" == tblElm.readAttribute("_ctrlEnabled")) {
-				Event.stopObserving(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
-				Event.stopObserving(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
-				Event.stopObserving(tblElm, "click", JWic.controls.Button.clickHandler);
-				Event.stopObserving(btnElm, "click", JWic.controls.Button.clickHandler);
+			if("true" == tblElm.attr("_ctrlEnabled")) {
+				tblElm.unbind("mouseover", JWic.controls.Button.mouseOverHandler);
+				tblElm.unbind("mouseout", JWic.controls.Button.mouseOutHandler);
+				tblElm.unbind("click", JWic.controls.Button.clickHandler);
+				btnElm.unbind("click", JWic.controls.Button.clickHandler);
 			}
 		},
 		/**
 		 * Invoked when the button is clicked.
 		 */
 		clickHandler : function(e) {
-			Event.stop(e);
-			var elm = e.element();
-			while (!elm.id || elm.id.indexOf('tbl_') != 0) {
-				elm = elm.up();
+			e.stopPropagation();
+			//console.log(e);
+			var elm = jQuery(e.target);
+			//console.log(elm);
+			while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
+				//console.log(elm.parent.id);
+				elm = jQuery(elm).parent();
 			}
-			var ctrlId = elm.id.substring(4);
-			var msg = elm.readAttribute("_confirmMsg");
+			var ctrlId = elm.attr('id').substring(4);
+			var msg = elm.attr("_confirmMsg");
 			if (msg && msg != "") {
 				if (!confirm(msg)) {
 					return false;
@@ -931,13 +966,13 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		mouseOverHandler : function(e) {
-			this.addClassName("j-hover");
+			jQuery(e.target).addClass("j-hover");
 		},
 		/**
 		 * Invoked when the focus is lost.
 		 */
-		mouseOutHandler : function() {
-			this.removeClassName("j-hover");
+		mouseOutHandler : function(e) {
+			jQuery(e.target).removeClass("j-hover");
 		}
 	},
 	
