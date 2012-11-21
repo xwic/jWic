@@ -33,11 +33,16 @@ import de.jwic.events.SelectionListener;
 /**
  * A Button which offers support for IAction
  * @author Adrian Ionescu
+ * 
+ * @deprecated use a regular button instead, as it offers support to IAction as well
  */
 @JavaScriptSupport
+@Deprecated
 public class ActionButton extends Button {
 
 	private IAction action;
+	
+
 
 	/**
 	 * @param container
