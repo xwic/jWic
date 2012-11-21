@@ -26,6 +26,7 @@ import de.jwic.controls.AnchorLinkControl;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.combo.DropDown;
+import de.jwic.ecolib.actions.Action;
 import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
 import de.jwic.ecolib.controls.menucontrols.MenuItem;
 import de.jwic.ecolib.toolbar.Toolbar;
@@ -92,6 +93,23 @@ public class ToolbarDemo extends ControlContainer {
 		button.setTitle("I am disabled");
 		button.setIconEnabled(new ImageRef("icons/flag_green.png"));
 		button.setEnabled(false);
+		
+		Action a = new Action(){
+
+			@Override
+			public void run() {
+				System.out.println("I am a cool action!");
+				
+			}};
+			
+			a.setTitle("Link With Action");
+			a.setVisible(true);
+			a.setEnabled(true);
+			
+		
+		AnchorLinkControl control = grp.addActionAnchorLink(a);
+		
+		
 
 	}
 
@@ -138,7 +156,7 @@ public class ToolbarDemo extends ControlContainer {
 		link1.setTitle("Option 3-1");
 
 		item2.setContent(link1);
-
+		
 	}
 
 }
