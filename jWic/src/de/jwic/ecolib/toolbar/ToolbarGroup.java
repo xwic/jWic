@@ -21,9 +21,11 @@ package de.jwic.ecolib.toolbar;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.AnchorLinkControl;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.ecolib.actions.IAction;
+import de.jwic.ecolib.controls.actions.ActionAnchorLink;
 import de.jwic.ecolib.controls.actions.ActionButton;
 
 /**
@@ -67,6 +69,17 @@ public class ToolbarGroup extends ControlContainer {
 		Button bt = new ActionButton(this, action);
 		bt.setCssClass("j-button-h j-btn-small");
 		return bt;
+	}
+
+	/**
+	 * Add and action wrapped in a AnchorLinkControl
+	 * @param action
+	 * @return
+	 */
+	public AnchorLinkControl addActionAnchorLink(IAction action){
+		AnchorLinkControl anchorLinkControl = new ActionAnchorLink(this, action);
+		
+		return anchorLinkControl;
 	}
 	
 	/**
