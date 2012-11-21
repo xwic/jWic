@@ -10,9 +10,10 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var win = JWic.controls.Window.getWindow('win_${control.controlID}_div');	
+		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div')).dialog();	
 		
 		win.dialog('option',{
+			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
 			#if($control.width != 0) width : $control.width, #end
 			#if($control.height != 0) height : $control.height, #end
@@ -40,12 +41,12 @@
 			addMinimizeToDialog(win);
 		#end
 
+		win.parent().appendTo(jQuery("#jwicform"));		
 		win.dialog('open');	
+
 		
 		function addMinimizeToDialog(dialog){
 			if(dialog !== undefined){
-				
-				
 				dialog.bind('dialogresize',function(){
 					jQuery.data(dialog,'width',dialog.parent().width());
 					dialog.parent().css('height', 'auto');
@@ -61,7 +62,7 @@
 				
 				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');
 				//minimize
-				jQuery('<a href="#" id="${control.controlID}_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-minusthick">minimize</span></button>')
+				jQuery('<a href="#" id="'+dialog.attr('id')+'_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-minusthick">minimize</span></a>')
 					.appendTo(titlebar)
 					.mouseover(function(){
 						jQuery(this).addClass('ui-state-hover');
@@ -98,7 +99,7 @@
 		}
 		
 		function addMaximizeToDialog(dialog){
-			if(dialog!==undefined ){
+			if(dialog!==undefined){
 				
 				dialog.bind('dialogresize',function(){
 					jQuery.data(dialog,'width',dialog.parent().width());
@@ -115,7 +116,7 @@
 				
 				
 				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');			
-				jQuery('<a href="#" id="${control.controlID}_maximize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-newwin">maximize</span></button>')
+				jQuery('<a href="#" id="'+dialog.attr('id')+'_maximize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-newwin">maximize</span></a>')
 				.appendTo(titlebar)
 				.mouseover(function(){
 					jQuery(this).addClass('ui-state-hover');
@@ -155,9 +156,9 @@
 					dialog.trigger({type:'maximize',source:dialog})
 				});
 				
-				
 			}
 		}
+		
 	
 	},
 	
@@ -165,8 +166,8 @@
 	 * Destroy the window if it still exists.
 	 */
 	destroy : function(element) {
-		var win = JWic.controls.Window.getWindow('win_${control.controlID}_div');	
-		win.dialog('close');
+		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div'));	
+		win.dialog('destroy').remove();
 		
 	}
 }

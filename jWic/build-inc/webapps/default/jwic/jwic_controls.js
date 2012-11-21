@@ -123,22 +123,7 @@ JWic.controls = {
 	 * Window control script extensions.
 	 */
 	Window : {
-		
-		_windows : new Hash(),
-		
-		
-		getWindow: function(elmId){
-			var win = JWic.controls.Window._windows[elmId];
-			if(!win){
-				win = jQuery('#'+JQryEscape(elmId)).dialog();
-				win.dialog('destroy').remove();
-				win.dialog();				
-				jQuery('#'+JQryEscape(elmId)).parent().appendTo(jQuery("#jwicform"));
-				JWic.controls.Window._windows[elmId] = win;
-			}
-			return win;
-		},
-		
+				
 		updateHandler : function(controlId) {
 			var win = Windows.getWindow(controlId);
 			if (win) {
