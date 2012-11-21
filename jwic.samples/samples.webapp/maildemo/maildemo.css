@@ -18,7 +18,7 @@
  }
  
  /** the main client */
- table.mailClient {
+ .mailClient {
  	border: 1px solid #808080;
  }
  
@@ -139,3 +139,11 @@
  table.inboxtree a:hover {
  	text-decoration: underline;
  }
+ 
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
