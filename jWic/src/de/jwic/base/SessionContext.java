@@ -70,7 +70,8 @@ public class SessionContext implements IControlContainer, Serializable {
 	private IApplication application = null;
 	private IApplicationSetup appSetup = null;
 	private Locale locale = null;
-	private TimeZone timeZone;
+
+	private TimeZone timeZone; 
 
 	private String dateFormat = null;
 	
