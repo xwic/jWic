@@ -28,15 +28,11 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(inpElm) {
-
 			inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
 			inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
-			//Event.observe(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			//Event.observe(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			
 			if (inpElm.attr("xListenKeyCode") != 0) {
 				inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
-				//Event.observe(inpElm, "keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
 			
 			if (inpElm.attr("xEmptyInfoText")) {
@@ -68,8 +64,6 @@ JWic.controls = {
 			inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
 			inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			
-			//Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			//Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			if (inpElm.attr("xListenKeyCode") != 0) {
 				inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
 			}
@@ -123,13 +117,11 @@ JWic.controls = {
 	 * Window control script extensions.
 	 */
 	Window : {
-		
-		
 		updateHandler : function(controlId) {
 			var win = jQuery('#'+JQryEscape(controlId));
 			if (win) {
 				//var size = win.getSize();
-				var field = jQuery("fld_" + JQryEscape(controlId));
+				var field = jQuery("#fld_" + JQryEscape(controlId));
 				if (field) { // assume that if one field exists, the others exist as well.
 					field.width(win.width()); 
 					field.height(win.height);
@@ -145,9 +137,9 @@ JWic.controls = {
 		 * it moves the below IFRAME to hide the select elements.
 		 */
 		adjustIEBlocker : function(controlId) {
-			jQuery("win_" + JQryEscape(controlId)+ "_blocker");
-			var blocker = jQuery("win_" + JQryEscape(controlId)+ "_blocker");
-			var source =jQuery("win_" + JQryEscape(controlId)); // get the window
+			jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
+			var blocker = jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
+			var source =jQuery("#win_" + JQryEscape(controlId)); // get the window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
 		/**
@@ -190,68 +182,72 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(controlId, inpElm) {
-			var comboBox = $(controlId);
-			var iconElm = $(controlId + "_open");
+			var escapedControlId = JQryEscape(controlId);
+			var comboBox = jQuery("#" + escapedControlId).get(0);
+			var iconElm = jQuery("#" + escapedControlId + "_open").get(0);
 			
 			comboBox.jComboField = inpElm;
-			comboBox.jComboKey = $("fld_" + controlId + ".key");
+			comboBox.jComboKey = jQuery("#fld_" + escapedControlId + "\\.key").get(0);
 			comboBox.dataFilter = JWic.controls.Combo.StringDataFilter;
 			comboBox.keyDelayTime = 100;
-			Event.observe(inpElm, "focus", JWic.controls.Combo.focusHandler);
-			Event.observe(inpElm, "blur", JWic.controls.Combo.lostFocusHandler);
-			Event.observe(inpElm, "click", JWic.controls.Combo.textClickHandler);
-			Event.observe(inpElm, "keyup", JWic.controls.Combo.textKeyPressedHandler);
 			
+			var jInpElm = jQuery(inpElm);
+			jInpElm.focus(JWic.controls.Combo.focusHandler);
+			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
+			jInpElm.click(JWic.controls.Combo.textClickHandler);
+			jInpElm.keyup(JWic.controls.Combo.textKeyPressedHandler);
+						
 			// adjust sizes
-			var totalWidth = comboBox.getLayout().get('width');
+			var totalWidth = jQuery(comboBox).width();
 			if (totalWidth == 0) { // seems like the control is not yet displayed - take from style.
-				var s = comboBox.getStyle("width");
+				var s = jQuery(comboBox).css("width");
 				totalWidth = parseInt(s);
 			}
 			var iconWidth = 0;
 			if (iconElm) {
-				iconWidth = iconElm.getLayout().get('width');
+				iconWidth = jQuery(iconElm).width();
 				if (iconWidth == 0) { // assume default width
 					iconWidth = 20;
 				}
 			}
 			var inpWidth = iconElm ? totalWidth - iconWidth - 7 : totalWidth - 3;
-			if (Prototype.Browser.IE) {
+			if (jQuery.browser.msie) {
 				inpWidth -= 4;
 			}
 			inpElm.style.width = inpWidth + "px";
 			
-			if (inpElm.readAttribute("xEmptyInfoText")) {
-				if(inpElm.readAttribute("xIsEmpty") == "true" && 
-					(inpElm.value == inpElm.readAttribute("xEmptyInfoText") || inpElm.value == "")) {
-					inpElm.addClassName("x-empty");
-					inpElm.value = inpElm.readAttribute("xEmptyInfoText");
+			if (jInpElm.attr("xEmptyInfoText")) {
+				if(jInpElm.attr("xIsEmpty") == "true" && 
+					(jInpElm.value == jInpElm.attr("xEmptyInfoText") || inpElm.value == "")) {
+					jInpElm.addClass("x-empty");
+					jInpElm.value = jInpElm.attr("xEmptyInfoText");
 				} else {
-					inpElm.writeAttribute("xIsEmpty", "false");
-					inpElm.removeClassName("x-empty");
+					jInpElm.attr("xIsEmpty", "false");
+					jInpElm.removeClass("x-empty");
 				}
 			}
 			
 			// override the getValue() method to "fix" the serialization
 			inpElm.getValue = function() {
-				if (this.readAttribute("xEmptyInfoText") && this.readAttribute("xIsEmpty") == "true") {
+				if (jQuery(this).attr("xEmptyInfoText") && jQuery(this).attr("xIsEmpty") == "true") {
 					return "";
 				} else {
 					return this.value;
 				}
-			}
-			
+			}			
 		},
 		
 		/**
 		 * Clean up..
 		 */
 		destroy : function(controlId, inpElm) {
-			Event.stopObserving(inpElm, "focus", JWic.controls.InputBoxControl.focusHandler);
-			Event.stopObserving(inpElm, "blur", JWic.controls.InputBoxControl.lostFocusHandler);
-			Event.stopObserving(inpElm, "click", JWic.controls.Combo.textClickHandler);
-			Event.stopObserving(inpElm, "keyup", JWic.controls.Combo.textKeyPressedHandler);
-			var comboBox = $(controlId);
+			var jInpElem = jQuery(inpElm);
+			jInpElem.unbind("focus")
+
+			jInpElem.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
+			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			jInpElem.unbind("click", JWic.controls.Combo.textClickHandler);
+			jInpElem.unbind("keyup", JWic.controls.Combo.textKeyPressedHandler);
 			var winId = controlId + "_contentBox";
 			var win = Windows.getWindow(winId);
 			if (win) {
@@ -263,10 +259,10 @@ JWic.controls = {
 		 * Invoked on KeyUp to handle user input.
 		 */
 		textKeyPressedHandler : function(e) {
-			var ctrlId = this.readAttribute("j-controlId");
+			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("key pressed: " + e.keyCode + " --");
-				var comboBox = $(ctrlId);
+				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 				if (comboBox.multiSelect) { // behave differently if multiSelect is on
 					// no actions yet -- might go for scrolling etc. via keyboard later on.
 				} else {
@@ -300,7 +296,7 @@ JWic.controls = {
 		afterKeySearchStart : function(triggeredIndex) {
 			if (triggeredIndex == JWic.controls.Combo._delayKeySearchIdx && JWic.controls.Combo._delayControlId != null) {
 				var ctrlId = JWic.controls.Combo._delayControlId;
-				var comboBox = $(ctrlId);
+				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 
 				JWic.controls.Combo._delayControlId = null; // clear
 				
@@ -331,7 +327,7 @@ JWic.controls = {
 
 		selectRow : function(ctrlId, newSelection) {
 			JWic.log("selectRow: " + newSelection);
-			var comboBox = $(ctrlId);
+			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 			if (newSelection >= 0 && newSelection < comboBox.dataItems.length) {
 				var newItem = comboBox.dataItems[newSelection];
 				comboBox.contentRenderer.updateSelection(ctrlId, newSelection);
@@ -342,7 +338,7 @@ JWic.controls = {
 		
 		finishSelection : function (ctrlId, noSelection) {
 			JWic.log("finished Selection");
-			var comboBox = $(ctrlId);
+			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 			var fld = comboBox.jComboField;
 			var changed = false;
 			if (comboBox && comboBox.suggestedObject) {
@@ -350,7 +346,7 @@ JWic.controls = {
 				changed = JWic.controls.Combo.selectElement(ctrlId, comboBox.suggestedObject.title, comboBox.suggestedObject.key, noSelection);
 				comboBox.suggestedObject = null;
 				
-			} else if ((fld.value == "" || (fld.readAttribute("xEmptyInfoText") != null && fld.readAttribute("xIsEmpty") == "true")) && comboBox.jComboKey.value != "") { // a key is still selected but the entry was deleted
+			} else if ((fld.value == "" || (jQuery(fld).attr("xEmptyInfoText") != null && jQuery(fld).attr("xIsEmpty") == "true")) && comboBox.jComboKey.value != "") { // a key is still selected but the entry was deleted
 				JWic.log("clear values");
 				changed = JWic.controls.Combo.selectElement(ctrlId, "", "", noSelection);
 			}
@@ -370,12 +366,12 @@ JWic.controls = {
 			if (obj == null) {
 				JWic.log("SearchSuggestion : NULL Object");
 				if (!comboElm.allowFreeText) {
-					comboElm.addClassName("x-error");
+					jQuery(comboElm).addClass("x-error");
 					comboElm.jComboKey.value = "";
 				}
 			} else {
 				JWic.log("SearchSuggestion : obj.key=" + obj.key);
-				comboElm.removeClassName("x-error");
+				jQuery(comboElm).removeClass("x-error");
 				comboElm.jComboField.value = obj.title;
 				comboElm.jComboField.focus();
 				comboElm.jComboField.select();
@@ -396,9 +392,9 @@ JWic.controls = {
 		 */
 		textClickHandler : function(e) {
 			JWic.log("textClickHandler: Use clicked on textbox.");
-			var ctrlId = this.readAttribute("j-controlId");
+			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
-				var box = $(ctrlId);
+				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
 				if (box && box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 					JWic.controls.Combo.openContentBox(ctrlId);
 				}
@@ -409,12 +405,12 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		focusHandler : function(e) {
-			var ctrlId = this.readAttribute("j-controlId");
+			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("focusHandler: received Focus");
-				var box = $(ctrlId);
+				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
 				if (box) {
-					box.addClassName("x-focus");
+					jQuery(box).addClass("x-focus");
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 						JWic.controls.Combo.openContentBox(ctrlId);
 					}
@@ -424,37 +420,36 @@ JWic.controls = {
 						
 				}
 			}
-			if (this.readAttribute("xEmptyInfoText")) {
-				if (this.readAttribute("xIsEmpty") == "true") {
+			if (jQuery(this).attr("xEmptyInfoText")) {
+				if (jQuery(this).attr("xIsEmpty") == "true") {
 					this.value = "";
-					this.removeClassName("x-empty");
+					jQuery(this).removeClass("x-empty");
 				} 
 			}
-
 		},
 		/**
 		 * Invoked when the focus is lost.
 		 */
 		lostFocusHandler : function() {
 			JWic.log("Combo.lostFocusHandler");
-			var ctrlId = this.readAttribute("j-controlId");
+			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
-				var box = $(ctrlId);
+				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
 				if (box) {
-					box.removeClassName("x-focus");
+					jQuery(box).removeClass("x-focus");
 					box.applyFilter = false;
 					// delay lostFocusCheck in case it was due to a selection click.
 					JWic.controls.Combo._lostFocusClose = true;
 					window.setTimeout("JWic.controls.Combo.finishSelection('" + ctrlId + "', true);", 300);
 				}
 			}
-			if (this.readAttribute("xEmptyInfoText")) {
+			if (jQuery(this).attr("xEmptyInfoText")) {
 				if (this.value == "") { // still empty
-					this.addClassName("x-empty");
-					this.value = this.readAttribute("xEmptyInfoText");
-					this.writeAttribute("xIsEmpty", "true");
+					jQuery(this).addClass("x-empty");
+					this.value = jQuery(this).attr("xEmptyInfoText");
+					jQuery(this).attr("xIsEmpty", "true");
 				} else {
-					this.writeAttribute("xIsEmpty", "false");
+					jQuery(this).attr("xIsEmpty", "false");
 				}
 			}
 		},
@@ -479,11 +474,11 @@ JWic.controls = {
 				}
 			}
 			
-			var comboBox = $(controlId);
+			var comboBox = jQuery("#" + JQryEscape(controlId)).get(0);
 			var winId = "j-combo_contentBox";
 			var win = Windows.getWindow(winId);
-			var boxWidth = comboBox.getWidth();
-			var boxLoc = comboBox.cumulativeOffset();
+			var boxWidth = jQuery(comboBox).width();
+			var boxLoc = jQuery(comboBox).offset();
 			if (!win) {
 				win = new Window({
 					className : "j-combo-content",
@@ -496,9 +491,9 @@ JWic.controls = {
 					height: 200,
 					title : "",
 					left: boxLoc.left + 1,
-					top: boxLoc.top + comboBox.getHeight(),
+					top: boxLoc.top + jQuery(comboBox).height(),
 					id : winId,
-					parent : $("jwicform"),
+					parent : jQuery("#jwicform").get(0),
 					onResize : JWic.controls.Combo.resizeHandler,
 					onMove : JWic.controls.Combo.moveHandler
 				});
@@ -510,7 +505,7 @@ JWic.controls = {
 				
 				JWic.controls.Combo._openTime = new Date().getTime();
 				JWic.controls.Combo._activeComboContentBox = controlId;
-				Event.observe(document, "click", JWic.controls.Combo.closeBoxDocumentHandler);
+				jQuery(document).bind("click", JWic.controls.Combo.closeBoxDocumentHandler);
 				if (comboBox.loadCompleted) {
 					comboBox.contentRenderer.renderData(controlId);
 				} else {
@@ -526,7 +521,7 @@ JWic.controls = {
 		/**
 		 * Invoked when the box is resized.
 		 */
-		resizeHandler : function(e) {
+		resizeHandler : function(e) {			
 			if (JWic.controls.Combo._activeComboContentBox) {
 				var comboBox = $(JWic.controls.Combo._activeComboContentBox);
 				if (comboBox.adjustIEBlockerId) {
@@ -567,7 +562,7 @@ JWic.controls = {
 				JWic.controls.Combo._closeControlId = JWic.controls.Combo._activeComboContentBox; 
 
 				JWic.controls.Combo._activeComboContentBox = null;
-				Event.stopObserving(document, "click", JWic.controls.Combo.closeBoxDocumentHandler);
+				jQuery(document).unbind("click", JWic.controls.Combo.closeBoxDocumentHandler);
 			}
 		},
 		
@@ -576,7 +571,9 @@ JWic.controls = {
 		 */
 		closeBoxDocumentHandler : function(e) {
 			if (JWic.controls.Combo._activeComboContentBox) {
-				var tpl = e.findElement("#j-combo_contentBox");
+				//fix this!!!!!!
+				var tpl = jQuery(e.target).parents(".j-combo_contentBox").get(0);
+				//var tpl = e.findElement("#j-combo_contentBox");
 				if (!tpl) { // user clicked outside the content box -> close it.
 					//JWic.log("Clicked outside of combo box");
 					var age = new Date().getTime() - JWic.controls.Combo._openTime;
@@ -595,13 +592,13 @@ JWic.controls = {
 		 * Make a selection. Toggles selection if combo box is in multi select mode.
 		 */
 		selectElement: function(controlId, title, key, noSelection, keepBoxOpen) {
-			var comboBox = $(controlId);
+			var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
 			if (comboBox) {
 				comboBox.suggestedObject = null;
-				comboBox.removeClassName("x-error");
+				jQuery(comboBox).removeClass("x-error");
 				var changed = false;
 				if (comboBox.multiSelect) {
-					if (comboBox.jComboField.readAttribute("xIsEmpty") == "true") {
+					if (jQuery(comboBox.jComboField).attr("xIsEmpty") == "true") {
 						comboBox.jComboField.value = "";
 						comboBox.jComboKey.value = "";
 					}
@@ -626,14 +623,14 @@ JWic.controls = {
 						changed = true;
 					}
 				}
-				if (comboBox.jComboField.readAttribute("xEmptyInfoText")) {
+				if (jQuery(comboBox.jComboField).attr("xEmptyInfoText")) {
 					if (comboBox.jComboKey.value != "") {
-						comboBox.jComboField.writeAttribute("xIsEmpty", "false");
-						comboBox.jComboField.removeClassName("x-empty");
+						jQuery(comboBox.jComboField).attr("xIsEmpty", "false");
+						jQuery(comboBox.jComboField).removeClass("x-empty");
 					} else {
-						comboBox.jComboField.writeAttribute("xIsEmpty", "true");
-						comboBox.jComboField.addClassName("x-empty");
-						comboBox.jComboField.value = comboBox.jComboField.readAttribute("xEmptyInfoText");
+						jQuery(comboBox.jComboField).attr("xIsEmpty", "true");
+						jQuery(comboBox.jComboField).addClass("x-empty");
+						comboBox.jComboField.value = jQuery(comboBox.jComboField).attr("xEmptyInfoText");
 					}
 				}
 				if (!noSelection) {
@@ -654,7 +651,7 @@ JWic.controls = {
 		 * Checks if the specified key is selected.
 		 */
 		isSelected: function(combo, key) {
-			var comboBox = $(combo);
+			var comboBox = combo;
 			if (comboBox && comboBox.jComboKey.value != "") {
 				var keys = comboBox.jComboKey.value.split(";");
 				for (var a = 0; a < keys.length; a++) {
@@ -677,7 +674,7 @@ JWic.controls = {
 				var win = Windows.getWindow(winId);
 				if (win) {
 					win.getContent().update("Loading...");
-					var comboBox = $(controlId);
+					var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
 					var param = new Hash();
 					param.set("action", "load");
 					if (comboBox.applyFilter && comboBox.dataFilterValue) {
@@ -705,11 +702,11 @@ JWic.controls = {
 			 */
 			prepareData : function(controlId) {
 				JWic.log("BeanLoader.prepareData(..)");
-				var comboBox = $(controlId);
+				var comboBox = jQuery('#' + JQryEscape(controlId)).get(0);
 				if (comboBox.dataStore) {
 					comboBox.dataItems = new Array();
 					if (comboBox.clientSideFilter) {
-						comboBox.dataStore.each(function(obj) {
+						jQuery(comboBox.dataStore).each(function(i,obj) {
 							var title = obj.title;
 							if (!comboBox.applyFilter || (comboBox.dataFilter && comboBox.dataFilter.match(comboBox, obj))) {
 								comboBox.dataItems.push(obj);
@@ -728,7 +725,7 @@ JWic.controls = {
 					var winId = "j-combo_contentBox";
 					var win = Windows.getWindow(winId);
 					if (win) {
-						var comboBox = $(response.controlId);
+						var comboBox = jQuery('#' + JQryEscape(response.controlId)).get(0);
 						comboBox.dataStore = $A(response.data);
 						JWic.controls.Combo.BeanLoader.prepareData(response.controlId);
 						comboBox.loadCompleted = comboBox.cacheData; // only set load to complete if cacheData behavior is on
@@ -749,19 +746,19 @@ JWic.controls = {
 		ComboElementListRenderer : {
 			renderData : function(controlId) {
 				JWic.log("ComboElementListRenderer.renderData(..)");
-				var comboBox = $(controlId);
+				var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
 				var winId = "j-combo_contentBox";
 				var win = Windows.getWindow(winId);
 				if (win && controlId == JWic.controls.Combo._activeComboContentBox) {
 					// in case the content is re-drawn, we remove any pre-existing listeners...
-					Event.stopObserving(win.getContent(), "mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
-					Event.stopObserving(win.getContent(), "mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+					jQuery(win.getContent()).unbind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
+					jQuery(win.getContent()).unbind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler)
 					var code = "";
 					var idx = 0;
 					var first = true;
 					var currentKey = comboBox.jComboKey.value;
 					comboBox.selectionIdx = null;
-					comboBox.dataItems.each(function(obj) {
+					jQuery(comboBox.dataItems).each(function(i,obj) {
 						var content = comboBox.labelProvider.getLabel(obj);
 						var extraClasses = "";
 						if (comboBox.pickFirstFinding && first) {
@@ -800,9 +797,9 @@ JWic.controls = {
 					if (first && comboBox.pickFirstFinding) { // no entry was found at all
 						JWic.controls.Combo.searchSuggestion(comboBox, null);
 					}
-					win.getContent().update(code);
-					Event.observe(win.getContent(), "mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
-					Event.observe(win.getContent(), "mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+					jQuery(win.getContent()).html(code);
+					jQuery(win.getContent()).bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
+					jQuery(win.getContent()).bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
 				}
 			},
 			
@@ -810,26 +807,31 @@ JWic.controls = {
 			 * Update selection entry by index..
 			 */
 			updateSelection : function(ctrlId, newSelection) {
-				var comboBox = $(ctrlId);
+				var comboBox = jQuery("#"+ JQryEscape(ctrlId)).get(0);
 				var winId = "j-combo_contentBox";
 				var win = Windows.getWindow(winId);
 				if (win && ctrlId == JWic.controls.Combo._activeComboContentBox) {
 					// clear selection
-					win.getContent().select("div[comboElement].selected").each(function(obj) {
-						obj.removeClassName("selected");
+					jQuery(win.getContent()).find("div[comboElement].selected").each(function(i,obj) {
+						jQuery(obj).removeClass("selected");
 					});
-					var boxSize = win.getContent().getDimensions();
+					
+//					win.getContent().select("div[comboElement].selected").each(function(obj) {
+//						obj.removeClassName("selected");
+//					});					
+					var height = jQuery(win.getContent()).height();
 					var boxScrollTop = win.getContent().scrollTop;
-					win.getContent().select("div[comboElement=" + newSelection + "]").each(function(obj) {
-						obj.addClassName("selected");
-						var top = obj.positionedOffset().top;
-						var elmHeight = obj.getDimensions().height;
+					jQuery(win.getContent()).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
+						obj=jQuery(obj);
+						obj.addClass("selected");
+						var top = obj.position().top;
+						var elmHeight = obj.height();
 						if (top < boxScrollTop) {
 							win.getContent().scrollTop = top;
-						} else if ((top + elmHeight) > (boxSize.height + boxScrollTop)) {
-							win.getContent().scrollTop = top - boxSize.height + elmHeight;
+						} else if ((top + elmHeight) > (height + boxScrollTop)) {
+							win.getContent().scrollTop = top - height + elmHeight;
 						}
-						JWic.log("viewPort: " + obj.positionedOffset().top);
+						JWic.log("viewPort: " + obj.position().top);
 					});
 				}				
 			},
@@ -838,18 +840,18 @@ JWic.controls = {
 			 * Handle mouse over on content box.
 			 */
 			mouseOverHandler : function(e) {
-				var elm = e.findElement("div[comboElement]");
+				var elm = jQuery(e.target).closest("div[comboElement]");				
 				if (elm) {
-					elm.addClassName("hover");
+					elm.addClass("hover");
 				}
 			},
 			/**
 			 * Handle mouse out on content box.
 			 */
 			mouseOutHandler : function(e) {
-				var elm = e.findElement("div[comboElement]");
+				var elm = jQuery(e.target).closest("div[comboElement]");
 				if (elm) {
-					elm.removeClassName("hover");
+					elm.removeClass("hover");
 				}
 				
 			},
@@ -858,14 +860,14 @@ JWic.controls = {
 			 */
 			handleSelection : function(controlId, key) {
 				// find the element by key
-				var comboBox = $(controlId);
+				var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
 				var title = key;
 				var isSelected = JWic.controls.Combo.isSelected(comboBox, key);
 				for (var index = 0, len = comboBox.dataStore.length; index < len; ++index) {
 					var item = comboBox.dataStore[index];
 					if (item.key == key) {
 						title = item.title;
-						var cbc = $("cbc_" + controlId + "." + index);
+						var cbc = jQuery("#cbc_" + JQryEscape(controlId) + "\\." + index);
 						if (comboBox.multiSelect && cbc) {
 							cbc.checked = !isSelected;
 						}

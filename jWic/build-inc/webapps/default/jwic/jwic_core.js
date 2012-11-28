@@ -69,7 +69,7 @@ var JWic = {
 		window.setTimeout("JWicInternal.showClickBlocker(true)",
 				JWic.pleaseWaitDelayTime);
 
-		var jwicform = $('jwicform');
+		var jwicform = jQuery('#jwicform').get(0);
 		jwicform.elements['__ctrlid'].value = cmd.senderControl;
 		jwicform.elements['__action'].value = cmd.actionName;
 		jwicform.elements['__acpara'].value = cmd.actionParameter;
@@ -180,9 +180,9 @@ var JWic = {
 		if (typeof paneId == "undefined") {
 			paneId = "div_" + ctrlId;
 		}
-		var pane = $(paneId);
+		var pane = jQuery('#' + JQryEscape(paneId)).get(0);
 		if (pane) {
-			var form = $('jwicform');
+			var form = jQuery('#jwicform').get(0);
 			var top = form.elements['fld_' + ctrlId + '.top'].value;
 			var left = form.elements['fld_' + ctrlId + '.left'].value;
 			pane.scrollTop = top;
@@ -278,7 +278,7 @@ var JWicInternal = {
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse) {
-		var jwicform = $('jwicform');
+		var jwicform = jQuery('#jwicform').get(0);
 
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
 			alert("The server did not respond to the request. Please check your network connectivity and try again.");
@@ -311,7 +311,7 @@ var JWicInternal = {
 
 			if (response.updateables) {
 				response.updateables.each( function(elm) {
-					var control = $("ctrl_" + elm.key);
+					var control = jQuery("#ctrl_" + JQryEscape(elm.key)).get(0);
 					var scripts = new Array();
 					if (elm.scripts) {
 						for ( var i = 0; i < elm.scripts.length; i++) {
@@ -412,12 +412,12 @@ var JWicInternal = {
 
 		var removeBlock = !showBlocker;
 		// log("blockClicks (" + (removeBlock ? "remove" : "initiate") + ")");
-		var elem = $("click_blocker");
+		var elem = jQuery("#click_blocker").get(0);
 		_blocked = !removeBlock;
 		if (elem) {
 			if (!removeBlock) {
 				var sysinfoXY = this.getWindowSize();
-				var msg = $("click_blocker_message");
+				var msg = jQuery("#click_blocker_message").get(0);
 				var bodyHeight = (msg ? document.body.scrollHeight
 						: sysinfoXY[1]) - 5;
 				var bodyWidth = (msg ? document.body.scrollWidth : sysinfoXY[0]) - 5;
