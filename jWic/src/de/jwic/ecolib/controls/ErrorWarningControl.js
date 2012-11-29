@@ -9,9 +9,9 @@
 	 */
 	afterUpdate: function(element) {
 		#if($control.visible) 
-			Effect.SlideDown('${control.controlID}'); 
+			jQuery('#'+JQryEscape('${control.controlID}')).slideDown(); 
 			#if($control.autoClose && $control.autoCloseDelay != 0)
-			window.setTimeout("Effect.SlideUp('${control.controlID}')", $control.autoCloseDelay);
+			window.setTimeout("jQuery('#'+JQryEscape('${control.controlID}')).slideUp()", $control.autoCloseDelay);
 			#end
 		#end
 	}
