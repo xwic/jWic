@@ -323,6 +323,9 @@ JWic.controls = {
 			}
 		},
 
+		/**
+		* Called when selecting a row via keyboard.
+		*/
 		selectRow : function(ctrlId, newSelection) {
 			JWic.log("selectRow: " + newSelection);
 			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
@@ -330,17 +333,30 @@ JWic.controls = {
 				var newItem = comboBox.dataItems[newSelection];
 				comboBox.contentRenderer.updateSelection(ctrlId, newSelection);
 				comboBox.selectionIdx = newSelection;
-				JWic.controls.Combo.selectElement(ctrlId, newItem.title, newItem.key, false, true);
+				//remember the highlighted element
+				var winId = "j-combo_contentBox";
+				var win = Windows.getWindow(winId);
+				if (win) {
+					//don't select the item, just highlight it.
+					comboBox.suggestedObject = newItem;					
+				} else {
+					//select the item
+					JWic.controls.Combo.selectElement(ctrlId, newItem.title, newItem.key, false);
+				}
+				
 			}
 		},
 		
+		/**
+		* Called to submit a keyboard selection via enter press.
+		*/
 		finishSelection : function (ctrlId, noSelection) {
 			JWic.log("finished Selection");
 			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 			var fld = comboBox.jComboField;
 			var changed = false;
 			if (comboBox && comboBox.suggestedObject) {
-
+				//submit the highlighted element
 				changed = JWic.controls.Combo.selectElement(ctrlId, comboBox.suggestedObject.title, comboBox.suggestedObject.key, noSelection);
 				comboBox.suggestedObject = null;
 				
@@ -438,7 +454,7 @@ JWic.controls = {
 					box.applyFilter = false;
 					// delay lostFocusCheck in case it was due to a selection click.
 					JWic.controls.Combo._lostFocusClose = true;
-					window.setTimeout("JWic.controls.Combo.finishSelection('" + ctrlId + "', true);", 300);
+					//window.setTimeout("JWic.controls.Combo.finishSelection('" + ctrlId + "', true);", 300);
 				}
 			}
 			if (jQuery(this).attr("xEmptyInfoText")) {
@@ -869,7 +885,8 @@ JWic.controls = {
 					}
 				}
 				comboBox.suggestedElement = null;
-				JWic.controls.Combo.selectElement(controlId, title, key);
+				var keepComboOpen = comboBox.multiselect; 
+				JWic.controls.Combo.selectElement(controlId, title, key, keepComboOpen);
 				JWic.log("Combo: handleSelection(" + controlId + ", '" + key + "') -> title: " + title);
 			}
 		
