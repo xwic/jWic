@@ -27,16 +27,16 @@
 			only: 'j-colRow',
 			scroll: '$control.controlID',
 			onUpdate: function() {
-				var fld = $('rowOrder_$control.getControlID()');
+				var fld = jQuery('#'+JQryEscape('rowOrder_${control.getControlID()}')).get(0);
 				if (fld) {
 					var s = "";
-					$('$control.controlID').select('div.j-colRow').each(function(item) {
-						s += item.readAttribute("jColId") + ";";
+					jQuery('#' + JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
+						s += jQuery(item).attr("jColId") + ";";
 					});
 					fld.value = s;
-#if($control.immediateUpdate)
-					JWic.fireAction('$control.controlID', 'orderUpdated', '');
-#end
+					#if($control.immediateUpdate)
+						JWic.fireAction('$control.controlID', 'orderUpdated', '');
+					#end
 				}
 			}
 		});
