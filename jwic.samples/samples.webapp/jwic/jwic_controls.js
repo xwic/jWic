@@ -569,7 +569,7 @@ JWic.controls = {
 		 */
 		closeBoxDocumentHandler : function(e) {
 			if (JWic.controls.Combo._activeComboContentBox) {
-				var tpl = jQuery(e.target).closest(".j-combo_contentBox").get(0);
+				var tpl = jQuery(e.target).closest("#j-combo_contentBox").get(0);
 				//var tpl = e.findElement("#j-combo_contentBox");
 				if (!tpl) { // user clicked outside the content box -> close it.
 					//JWic.log("Clicked outside of combo box");
@@ -861,7 +861,7 @@ JWic.controls = {
 					var item = comboBox.dataStore[index];
 					if (item.key == key) {
 						title = item.title;
-						var cbc = jQuery("#cbc_" + JQryEscape(controlId) + "\\." + index);
+						var cbc = jQuery("#cbc_" + JQryEscape(controlId) + "\\." + index).get(0);
 						if (comboBox.multiSelect && cbc) {
 							cbc.checked = !isSelected;
 						}
