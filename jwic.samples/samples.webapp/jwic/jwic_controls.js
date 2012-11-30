@@ -916,16 +916,10 @@ JWic.controls = {
 		
 		initialize : function(tblElm, btnElm) {
 			if("true" == tblElm.attr("_ctrlEnabled")) {
-				 //$(document).bind("mousemove scroll click focus blur keypress", doStuff);
 				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
 				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
 				tblElm.bind('click', JWic.controls.Button.clickHandler);
 				btnElm.bind('click', JWic.controls.Button.clickHandler);
-				
-//				Event.observe(tblElm, "mouseover", JWic.controls.Button.mouseOverHandler);
-//				Event.observe(tblElm, "mouseout", JWic.controls.Button.mouseOutHandler);
-//				Event.observe(tblElm, "click", JWic.controls.Button.clickHandler);
-//				Event.observe(btnElm, "click", JWic.controls.Button.clickHandler);
 			}
 		},
 		
