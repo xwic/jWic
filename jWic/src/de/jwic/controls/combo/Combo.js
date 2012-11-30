@@ -9,8 +9,8 @@
 	 */
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var inpElm = $("${fld.id}");
-		var comboElm = $("$control.controlID");
+		var inpElm = jQuery('#' + JQryEscape('${fld.id}')).get(0);
+		var comboElm = jQuery('#' + JQryEscape('${control.controlID}')).get(0);
 		if (inpElm) {
 				JWic.controls.Combo.initialize("$control.controlID", inpElm);
 				comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
@@ -47,10 +47,10 @@
 				comboElm.adjustIEBlockerId = "win_${control.controlID}_blocker";
 			#end
 			#if($control.readonly)
-				inpElm.addClassName("x-readonly");
+				jQuery(inpElm).addClass("x-readonly");
 			#end
 			#if($control.flagAsError)
-				comboElm.addClassName("x-error");
+				jQuery(comboElm).addClass("x-error");
 			#end
 		}
 
@@ -61,7 +61,7 @@
 	 * ..
 	 */
 	destroy : function(element) {
-		var inpElm = $("${fld.id}");
+		var inpElm = jQuery("#" + JQryEscape("${fld.id}")).get(0);
 		if (inpElm) {
 			JWic.controls.Combo.destroy("$control.controlID", inpElm);
 		}

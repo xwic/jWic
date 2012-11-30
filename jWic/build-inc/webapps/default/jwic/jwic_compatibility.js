@@ -47,7 +47,7 @@
 	function jWic_FireAction(srcCtrl, sAction, sParam, trueSubmit) {
 		
 		if (trueSubmit) {
-			$('jwicform').submit();
+			jQuery('jwicform').get(0).submit();
 		} else { 
 			JWic.fireAction(srcCtrl, sAction, sParam);
 		}
