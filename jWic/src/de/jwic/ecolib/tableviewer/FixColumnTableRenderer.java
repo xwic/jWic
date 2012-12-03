@@ -56,6 +56,7 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.tableviewer.ITableRenderer#renderTable(de.jwic.base.RenderContext, de.jwic.ecolib.tableviewer.TableViewer, de.jwic.ecolib.tableviewer.TableModel)
 	 */
+	@SuppressWarnings("unused")
 	public void renderTable(RenderContext renderContext, TableViewer viewer, TableModel model, ITableLabelProvider labelProvider) {
 		
 		if (!viewer.isScrollable() || fixColumn < 0) {
@@ -442,7 +443,7 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 	 * @param writer
 	 * @param rootIterator
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected int renderRows(int level, boolean hasNext, PrintWriter writer, Iterator<?> it, TableViewer viewer, ITableLabelProvider labelProvider, boolean right, String tblView) {
 		int expandIconWidth = getExpandIconWidth();
 		int expandIconHeight = getExpandIconHeight();

@@ -42,7 +42,7 @@ import de.jwic.util.Messages;
  * @version $Revision: 1.6 $
  */
 public class WizardContainer extends BasicDialog {
-
+	private static final long serialVersionUID = 1L;
 	private Button btBack = null;
 	private Button btNext = null;
 	private Button btFinish = null;
@@ -218,6 +218,7 @@ public class WizardContainer extends BasicDialog {
 	 * @version $Revision: 1.6 $
 	 */
 	private class NavigationController implements SelectionListener {
+		private static final long serialVersionUID = 1L;
 		public void objectSelected(SelectionEvent event) {
 			if (event.getEventSource() == btBack) {
 				performBack();

@@ -37,7 +37,7 @@ import de.jwic.events.SelectionListener;
  */
 @JavaScriptSupport
 public class ActionButton extends Button {
-
+	private static final long serialVersionUID = 1L;
 	private IAction action;
 	
 
@@ -74,6 +74,7 @@ public class ActionButton extends Button {
 		});
 		
 		addSelectionListener(new SelectionListener() {
+			private static final long serialVersionUID = 1L;
 			public void objectSelected(SelectionEvent event) {
 				onClick(event);
 			}			

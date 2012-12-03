@@ -52,7 +52,7 @@ import de.jwic.ecolib.tableviewer.TableViewer;
  * @author Aron Cotrau
  */
 public class ExcelExportControl extends Button implements IResourceControl {
-
+	private static final long serialVersionUID = 1L;
 	private boolean showDownload = false;
 	private boolean plain = false;
 
@@ -162,7 +162,7 @@ public class ExcelExportControl extends Button implements IResourceControl {
 		return wb;
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected void renderRows(Iterator<?> iter, int level, TableModel model, HSSFSheet sheet, HSSFCellStyle styleDate) {
 		while (iter.hasNext()) {
 			short col = 0;

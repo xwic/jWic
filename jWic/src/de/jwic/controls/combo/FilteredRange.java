@@ -26,7 +26,7 @@ import de.jwic.base.Range;
  * @author lippisch
  */
 public class FilteredRange extends Range {
-
+	private static final long serialVersionUID = 1L;
 	private String filter = null;
 
 	

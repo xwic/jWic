@@ -38,7 +38,7 @@ import de.jwic.base.IResourceControl;
  */
 public abstract class JsonResourceControl extends Control implements
 		IResourceControl {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * @param container
 	 * @param name

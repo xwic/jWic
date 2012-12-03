@@ -10,7 +10,7 @@ import de.jwic.base.IControlContainer;
  * @author lippisch
  */
 public class Notifyer extends Control {
-
+	private static final long serialVersionUID = 1L;
 	public Notifyer(IControlContainer container, String name) {
 		super(container, name);
 

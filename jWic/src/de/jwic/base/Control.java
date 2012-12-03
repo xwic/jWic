@@ -45,6 +45,8 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.12 $
  */
 public abstract class Control implements Serializable, IControl {
+
+	private static final long serialVersionUID = 1L;
 	
 	protected final static String DEFAULT_RENDERER = "jwic.renderer.Default";
 	protected final static String DEFAULT_OUTER_RENDERER = "jwic.renderer.OuterContainer";

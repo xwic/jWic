@@ -18,7 +18,7 @@ import de.jwic.util.SerObservable;
  * @author Mark Frewin
  */
 public class TimeModel extends SerObservable implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	public final static int DF_STYLE_SHORT = DateFormat.SHORT;
 	public final static int DF_STYLE_MEDIUM = DateFormat.MEDIUM;
 	private Locale locale;

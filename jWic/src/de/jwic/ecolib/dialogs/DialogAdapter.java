@@ -24,7 +24,7 @@ package de.jwic.ecolib.dialogs;
  * @version $Revision: 1.1 $
  */
 public class DialogAdapter implements DialogListener {
-
+	private static final long serialVersionUID = 1L;
 	/* (non-Javadoc)
 	 * @see de.jwic.wap.events.DialogListener#dialogFinished(de.jwic.wap.events.DialogEvent)
 	 */

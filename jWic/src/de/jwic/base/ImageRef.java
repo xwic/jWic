@@ -27,7 +27,8 @@ import java.io.Serializable;
  * @author Florian Lippisch
  */
 public class ImageRef implements Serializable {
-
+	private static final long serialVersionUID = 1L;
+	
 	private boolean bundled = false;
 	private String path = "";
 	private int width = -1;

@@ -195,7 +195,7 @@ public class MenuControl extends Control {
 	 *
 	 */
 	class MenuItemListener implements PropertyChangeListener, Serializable {
-
+		private static final long serialVersionUID = 1L;
 		public void propertyChange(PropertyChangeEvent evt) {
 			MenuControl.this.setRequireRedraw(true);
 		}		

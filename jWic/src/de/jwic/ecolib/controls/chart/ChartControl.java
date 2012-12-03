@@ -50,7 +50,7 @@ import de.jwic.controls.ImageControl;
  */
 
 public class ChartControl extends ImageControl implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	protected JFreeChart chart = null;
 	//protected long rendered = 0;
 	

@@ -16,14 +16,14 @@ import javax.servlet.http.HttpServletRequest;
  * Standard Upload 
  */
 
-@SuppressWarnings("unchecked")
 public class Upload {
 
     private static final int DEFAULT_MAX_POST_SIZE = 1024 * 1024; // 1 Meg
     private static final int DEFAULT_MEMORY_USAGE = 1 * 1024 * 1024; // 1 Meg
     private static final String FIELD_PREFIX = "FLD";
     private HashMap<String, String> htFieldValue = null;
-    private HashMap htFields = null;
+    @SuppressWarnings("rawtypes")
+	private HashMap htFields = null;
     private HashMap<String, UploadFile> htFiles = null;
     private HashMap<String, String> htParams = null;
     private static final String FIELD_ORGFILENAME_SUFFIX = "@@ORGFILENAME";
@@ -85,6 +85,7 @@ public class Upload {
 	 * @exception java.io.IOException
 	 */
 	 
+	@SuppressWarnings("rawtypes")
 	public Upload(HttpServletRequest req, String sDirSave, long maxPostSize, int memoryUsage) throws IOException {
 	
 		String FieldName = null;
@@ -173,6 +174,7 @@ public class Upload {
 	 * @deprecated
 	 */
 	 
+	@SuppressWarnings("rawtypes")
 	public Upload(HttpServletRequest req, String sDirSave, String sFileName, long maxPostSize) throws IOException {
 	
 		String FieldName = null;
@@ -258,6 +260,7 @@ public class Upload {
 	 * Erstellungsdatum: (08.03.01 19:41:46)
 	 * @param sFieldName java.lang.String
 	 */ 
+	@SuppressWarnings("rawtypes")
 	public Map getFields() {
 		return htFields;
 	}

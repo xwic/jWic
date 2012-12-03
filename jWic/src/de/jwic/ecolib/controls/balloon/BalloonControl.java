@@ -38,7 +38,7 @@ import de.jwic.events.SelectionListener;
  * @author jbornema
  */
 public class BalloonControl extends ControlContainer implements IOuterLayout {
-
+	private static final long serialVersionUID = 1L;
 	public final static int DIRECTION_POINTING_BOTTUM_LEFT = 0;
 	public final static int DIRECTION_POINTING_TOP_LEFT = 1;
 	public final static int DIRECTION_POINTING_BOTTUM_RIGHT = 2;
@@ -60,6 +60,7 @@ public class BalloonControl extends ControlContainer implements IOuterLayout {
 	 * @author jbornema
 	 */
 	public class RegisterOnEvent implements Serializable {
+		private static final long serialVersionUID = 1L;
 		private String type;
 		private IControl control;
 		private SelectionListener selectionListener;

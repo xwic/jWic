@@ -27,7 +27,7 @@ import de.jwic.base.IControlContainer;
  * @author lippisch
  */
 public class Toolbar extends ControlContainer {
-
+	private static final long serialVersionUID = 1L;
 	private String cssClass = "j-toolbar";
 	
 	/**

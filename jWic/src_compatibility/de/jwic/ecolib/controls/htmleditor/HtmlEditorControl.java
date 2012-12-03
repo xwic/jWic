@@ -33,7 +33,7 @@ import de.jwic.controls.HTMLElement;
  */
 @JavaScriptSupport
 public class HtmlEditorControl extends HTMLElement {
-
+	private static final long serialVersionUID = 1L;
 	private Field field;
 	
 	/**

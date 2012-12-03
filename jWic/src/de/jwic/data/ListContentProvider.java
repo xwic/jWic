@@ -11,7 +11,7 @@ import de.jwic.base.Range;
  * @author Florian Lippisch
  */
 public class ListContentProvider<A> implements IContentProvider<A> {
-	
+	private static final long serialVersionUID = 1L;
 	protected List<A> data;
 
 	/**
