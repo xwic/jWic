@@ -19,6 +19,7 @@
  */
 package de.jwic.ecolib.controls.menucontrols;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ import java.util.List;
  * 
  * @author Andrei
  */
-public class PopupMenuContainer {
+public class PopupMenuContainer implements Serializable{
 	private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	/**

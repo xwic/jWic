@@ -19,11 +19,13 @@
  */
 package de.jwic.ecolib.controls.coledit;
 
+import java.io.Serializable;
+
 /**
  * Listen to ColumnSelector events.
  * @author lippisch
  */
-public interface IColumnSelectorListener {
+public interface IColumnSelectorListener extends Serializable {
 
 	/**
 	 * Fired when the column order or visibility was updated.

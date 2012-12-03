@@ -19,13 +19,14 @@
  */
 package de.jwic.ecolib.controls.datepicker;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author bogdan
  */
-public interface DateChangedListener {
+public interface DateChangedListener extends Serializable{
 	
 	
 	/**
