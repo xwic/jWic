@@ -39,6 +39,10 @@
 		#end
 		#if($control.isMinimizable())
 			addMinimizeToDialog(win);
+			var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');
+			titlebar.dblclick(function(event){
+				maximize(win);
+			});
 		#end
 
 		win.parent().appendTo(jQuery("#jwicform"));		
@@ -71,28 +75,7 @@
 						jQuery(this).removeClass('ui-state-hover');
 					})
 					.click(function() {
-						(function(){
-							var dialogParent = dialog.parent();					
-							dialogParent.css('overflow','hidden');
-							if(jQuery.data(dialog,'isMaximized')){
-								jQuery.data(dialog,'isMaximized',false);
-								dialogParent.offset(jQuery.data(dialog,'originalPosition'));
-								dialogParent.css('width',jQuery.data(dialog,'width'));	
-								dialogParent.css('height', 'auto');
-							}
-							
-							if(!jQuery.data(dialog,'isMinimized')){
-								jQuery.data(dialog,'isMinimized',true);
-								jQuery.data(dialog,'width',dialogParent.width());					
-								dialog.hide();
-								
-							}else{
-								jQuery.data(dialog,'isMinimized',false);
-								dialogParent.css('width',jQuery.data(dialog,'width'));	
-								dialog.show();				
-							}
-						})();
-						dialog.trigger({type:'minimize',source:dialog});
+						minimize(dialog);
 					});
 				
 			}
@@ -124,9 +107,16 @@
 				.mouseout(function(){
 					jQuery(this).removeClass('ui-state-hover');
 				})
-				.click(function() {
-					(function(){
-						var dialogParent = dialog.parent();
+				.click(function(){
+					maximize(dialog);
+					
+				});
+				
+			}
+		}
+		
+		function maximize(dialog){
+			var dialogParent = dialog.parent();
 						dialogParent.css('overflow','hidden');
 						if(jQuery.data(dialog,'isMinimized')){
 							jQuery.data(dialog,'isMinimized',false);	
@@ -151,13 +141,33 @@
 							dialogParent.css('height', 'auto');
 						}
 						
-					})();
-					
-					dialog.trigger({type:'maximize',source:dialog})
-				});
+						dialog.trigger({type:'maximize',source:dialog})
+		};
 				
-			}
-		}
+		function minimize(dialog){
+			var dialogParent = dialog.parent();					
+							dialogParent.css('overflow','hidden');
+							if(jQuery.data(dialog,'isMaximized')){
+								jQuery.data(dialog,'isMaximized',false);
+								dialogParent.offset(jQuery.data(dialog,'originalPosition'));
+								dialogParent.css('width',jQuery.data(dialog,'width'));	
+								dialogParent.css('height', 'auto');
+							}
+							
+							if(!jQuery.data(dialog,'isMinimized')){
+								jQuery.data(dialog,'isMinimized',true);
+								jQuery.data(dialog,'width',dialogParent.width());					
+								dialog.hide();
+								
+							}else{
+								jQuery.data(dialog,'isMinimized',false);
+								dialogParent.css('width',jQuery.data(dialog,'width'));	
+								dialog.show();				
+							}
+						
+						dialog.trigger({type:'minimize',source:dialog});
+		};
+	
 		
 	
 	},
