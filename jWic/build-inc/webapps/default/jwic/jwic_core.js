@@ -382,6 +382,16 @@ var JWicInternal = {
 						// alert("A control with the ID '" + elm.key + "' does
 						// not exist on the page and can not be updated.");
 					}
+					
+					if (response.scriptQueue) {
+						response.scriptQueue.each(function(line) {
+							try {
+								eval(line);
+							} catch (e) {
+								JWic.log("Error executing script queue: " + e + " for line " + line);
+							}
+						});
+					}
 				});
 			}
 			this.endRequest();
