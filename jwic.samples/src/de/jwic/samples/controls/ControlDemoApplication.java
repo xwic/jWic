@@ -134,6 +134,9 @@ public class ControlDemoApplication extends Application {
 		tab = tabStrip.addTab("JavaScript");
 		new JavaScriptDemo(tab);
 
+		tab = tabStrip.addTab("AsyncContainer");
+		new AsyncRenderContainerDemo(tab);
+
 	}
 
 	/**
