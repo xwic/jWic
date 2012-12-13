@@ -14,15 +14,28 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
+import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
+import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
+import de.jwic.base.ImageRef;
+import de.jwic.base.JWicException;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.base.RenderContext;
 import de.jwic.web.ContentRenderer;
 
 /**
- * This control is rendering the content asynchronously.
+ * Renders the controls within the container asynchronously without blocking
+ * the main thread. This can be useful if either the creation of child controls or 
+ * the rendering itself is slow. By performing the initialization and rendering
+ * after the control has been placed into the UI, the user can continue using the 
+ * application while a wait image/message is displayed until the rendering is completed
+ * and the child controls are displayed.
+ * 
+ * Controls may either be added right away or be initialized only at the first rendering
+ * attempt. For this, a LazyInitializationHandler must be registered, which is invoked
+ * the first time the control is rendered.
  * 
  * @author lippisch
  *
@@ -34,6 +47,10 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private LazyInitializationHandler lazyInitializationHandler = null;
 	private boolean initialized = false;
 	private long seqNum = 0;
+	
+	private ImageRef waitImage = new ImageRef("/jwic/gfx/loading3.gif");
+	private Dimension waitBlockDimension = null;
+	private String waitText = null;
 	
 	/**
 	 * Constructor.
@@ -80,7 +97,19 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	public IControlContainer getContainer() {
 		return container;
 	}
-	
+	/* (non-Javadoc)
+	 * @see de.jwic.base.ControlContainer#registerControl(de.jwic.base.Control, java.lang.String)
+	 */
+	@Override
+	public void registerControl(Control control, String name) throws JWicException {
+		if (container == null) {
+			// until the container is created, add all controls as childs. This is most likely only
+			// the container itself.
+			super.registerControl(control, name);
+		} else {
+			container.registerControl(control, name);
+		}
+	}
 	
 	/* (non-Javadoc)
 	 * @see de.jwic.base.IResourceControl#attachResource(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -162,6 +191,48 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	public long nextSeqNum() {
 		seqNum++;
 		return seqNum;
+	}
+
+	/**
+	 * @return the waitImage
+	 */
+	public ImageRef getWaitImage() {
+		return waitImage;
+	}
+
+	/**
+	 * @param waitImage the waitImage to set
+	 */
+	public void setWaitImage(ImageRef waitImage) {
+		this.waitImage = waitImage;
+	}
+
+	/**
+	 * @return the waitBlockDimension
+	 */
+	public Dimension getWaitBlockDimension() {
+		return waitBlockDimension;
+	}
+
+	/**
+	 * @param waitBlockDimension the waitBlockDimension to set
+	 */
+	public void setWaitBlockDimension(Dimension waitBlockDimension) {
+		this.waitBlockDimension = waitBlockDimension;
+	}
+
+	/**
+	 * @return the waitText
+	 */
+	public String getWaitText() {
+		return waitText;
+	}
+
+	/**
+	 * @param waitText the waitText to set
+	 */
+	public void setWaitText(String waitText) {
+		this.waitText = waitText;
 	}
 
 

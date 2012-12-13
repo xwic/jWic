@@ -4,6 +4,7 @@
 package de.jwic.samples.controls;
 
 import de.jwic.base.ControlContainer;
+import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.AsyncRenderContainer;
 import de.jwic.controls.InputBoxControl;
@@ -30,7 +31,9 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 
 		// Adding a control that takes a long time to render
 		arContainer1 = new AsyncRenderContainer(this, "arContainer1");
-		new SlowRenderingControl(arContainer1.getContainer(), null);
+		new SlowRenderingControl(arContainer1, null);
+		arContainer1.setWaitBlockDimension(new Dimension(600, 150));
+		arContainer1.setWaitText("Searching for the answer...");
 		
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
 		propEditor.setBean(arContainer1);
@@ -39,7 +42,7 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 		// A complex control, without delay.
 		arContainer2 = new AsyncRenderContainer(this, "arContainer2");
 
-		TableLayoutContainer tlc = new TableLayoutContainer(arContainer2.getContainer());
+		TableLayoutContainer tlc = new TableLayoutContainer(arContainer2);
 		tlc.setColumnCount(2);
 		tlc.setWidth("400");
 		new LabelControl(tlc).setText("Your Name");
