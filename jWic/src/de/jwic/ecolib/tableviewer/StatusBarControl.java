@@ -34,7 +34,7 @@ import de.jwic.events.ElementSelectedListener;
  * @author jbornema
  */
 public class StatusBarControl extends ControlContainer {
-
+	private static final long serialVersionUID = 1L;
 	private ListBoxControl lbcMaxLines;
 	private PagingControl ctrlPaging;
 
@@ -65,6 +65,7 @@ public class StatusBarControl extends ControlContainer {
 		lbcMaxLines.addElement("- All -", "-1");
 		lbcMaxLines.addElement("- Auto -", "0");
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
+			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
 				model.setMaxLines(Integer.parseInt((String)event.getElement()));
 			}
@@ -74,6 +75,7 @@ public class StatusBarControl extends ControlContainer {
 		// add tableModelListener to flag the control "requireRedraw" when
 		// the range has been modified.
 		model.addTableModelListener(new TableModelAdapter() {
+			private static final long serialVersionUID = 1L;
 			public void rangeUpdated(TableModelEvent event) {
 				container.setRequireRedraw(true);
 				String key = Integer.toString(model.getRange().getMax());

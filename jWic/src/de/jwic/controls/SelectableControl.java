@@ -18,7 +18,7 @@ import de.jwic.events.SelectionListener;
  * @author Florian Lippisch
  */
 public abstract class SelectableControl extends HTMLElement {
-	
+	private static final long serialVersionUID = 1L;
 	private List<SelectionListener> selectedListeners = null;
 	
 	/**

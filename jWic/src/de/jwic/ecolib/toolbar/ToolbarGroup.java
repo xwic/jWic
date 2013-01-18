@@ -33,7 +33,7 @@ import de.jwic.ecolib.controls.actions.ActionButton;
  * @author lippisch
  */
 public class ToolbarGroup extends ControlContainer {
-	
+	private static final long serialVersionUID = 1L;
 	private String cssClass = "j-toolbar-grp";
 	
 	/**

@@ -28,7 +28,7 @@ import de.jwic.events.ValueChangedListener;
  * @version $Revision: 1.11 $
  */
 public abstract class ListControl extends HTMLElement {
-
+	private static final long serialVersionUID = 1L;
 	protected Map<String, ListEntry> elements = new LinkedHashMap<String, ListEntry>();
 	protected boolean changeNotification = false;
 	protected List<ElementSelectedListener> selectionListeners = null;

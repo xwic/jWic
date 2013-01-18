@@ -14,6 +14,7 @@ import de.jwic.events.ValueChangedListener;
  * @author Mark Frewin
  */
 public class EditableListBoxControl extends ControlContainer {
+	private static final long serialVersionUID = 1L;
 	private List<String> elements;
 	private List<ValueChangedListener> listeners;
 	/**

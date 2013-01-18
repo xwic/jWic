@@ -32,7 +32,7 @@ import de.jwic.controls.ImageControl;
  *
  */
 public class MiniChart extends Control implements IResourceControl {
-
+	private static final long serialVersionUID = 1L;
 	private IChartDataProvider dataProvider = null;
 	private int width = 48;
 	private int height = 16;

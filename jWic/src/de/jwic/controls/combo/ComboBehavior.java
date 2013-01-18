@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author lippisch
  */
 public class ComboBehavior implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	protected boolean openContentOnTextboxFocus = false;
 	protected boolean selectTextOnFocus = false;
 	protected boolean textEditable = true;

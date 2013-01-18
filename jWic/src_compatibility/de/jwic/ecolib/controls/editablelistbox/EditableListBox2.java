@@ -15,7 +15,7 @@ import de.jwic.events.ValueChangedListener;
  * @author Mark Frewin
  */
 public class EditableListBox2 extends HTMLElement {
-
+	private static final long serialVersionUID = 1L;
 	private Field field;
 	private List<String> elements;
 	private List<ValueChangedListener> listeners;
@@ -31,7 +31,7 @@ public class EditableListBox2 extends HTMLElement {
 		
 		field = new Field(this);
 		field.addValueChangedListener(new ValueChangedListener() {
-
+			private static final long serialVersionUID = 1L;
 			public void valueChanged(ValueChangedEvent event) {
 				notifyListeners(event);
 			}

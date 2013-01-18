@@ -31,7 +31,7 @@ import de.jwic.base.ImageRef;
  * @version $Revision: 1.7 $
  */
 public abstract class Action implements IAction {
-
+	private static final long serialVersionUID = 1L;
 	private String title = "Untitled";
 	private ImageRef iconEnabled = null;
 	private ImageRef iconDisabled = null;

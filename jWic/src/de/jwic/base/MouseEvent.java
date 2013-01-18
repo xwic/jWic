@@ -25,6 +25,8 @@ package de.jwic.base;
  */
 public class MouseEvent extends Event {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static String CLICK = "click";
 	public static String CONTEXTMENU = "contextmenu";
 	

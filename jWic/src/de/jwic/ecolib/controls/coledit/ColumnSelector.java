@@ -43,7 +43,7 @@ import de.jwic.events.ValueChangedListener;
  */
 @JavaScriptSupport
 public class ColumnSelector extends ControlContainer {
-
+	private static final long serialVersionUID = 1L;
 	private enum EventType {
 		COLUMN_UPDATED
 	}
@@ -70,6 +70,7 @@ public class ColumnSelector extends ControlContainer {
 	
 	/** Listener for all checkboxes. */
 	private ValueChangedListener checkboxListener = new ValueChangedListener() {
+		private static final long serialVersionUID = 1L;
 		public void valueChanged(ValueChangedEvent event) {
 			onCheckboxStateChange();
 		};
@@ -132,6 +133,7 @@ public class ColumnSelector extends ControlContainer {
 		fldOrder = new Field(this, "fldOrder");
 		
 		fldOrder.addValueChangedListener(new ValueChangedListener() {
+			private static final long serialVersionUID = 1L;
 			public void valueChanged(ValueChangedEvent event) {
 				updateOrder();
 			}

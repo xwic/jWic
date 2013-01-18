@@ -29,7 +29,7 @@ import de.jwic.base.ImageRef;
  * @author lippisch
  */
 public class SelectElement implements ISelectElement, Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private String title = null;
 	private String key = null;
 	private boolean selectable = true;

@@ -28,6 +28,8 @@ import java.io.Serializable;
  */
 public class Range implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int start = 0;
 	private int max = -1; // all
 	

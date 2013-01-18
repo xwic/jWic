@@ -28,7 +28,7 @@ import java.util.List;
  * @author lippisch
  */
 public class ToolBarBand implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	/** Default Clipboard Buttons */
 	public final static ToolBarButton[] Default_Clipboard = {
 				ToolBarButton.Copy,

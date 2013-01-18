@@ -29,7 +29,7 @@ import de.jwic.base.IControlContainer;
  * @version $Revision: 1.4 $
  */
 public abstract class HTMLElement extends Control implements IHTMLElement {
-	
+	private static final long serialVersionUID = 1L;
 	protected String cssClass = null;
 	protected boolean enabled = true;
 	/** sets the width of the control to 100% to fill the available space **/ 

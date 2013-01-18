@@ -27,7 +27,7 @@ import de.jwic.base.IControlContainer;
  * @author lippisch
  */
 public class ToolbarSpacer extends Control {
-
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param container
