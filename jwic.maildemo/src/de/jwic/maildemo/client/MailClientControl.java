@@ -174,7 +174,7 @@ public class MailClientControl extends ControlContainer {
 	 */
 	public void setWidth(int width) {
 		this.width = width;
-		mailViewer.setWidth(width - 200);
+		mailViewer.setWidth(width - 250);
 		requireRedraw();
 	}
 

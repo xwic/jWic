@@ -1,9 +1,7 @@
-<table width="$control.width" cellspacing="0" cellpadding="0" align="center" class="mailClient">
- <tr>
-  <td colspan="2">$insert.control("abar")</td>
- </tr>
- <tr>
-  <td width="200" valign="top">$insert.control("leftStack")</td>
-  <td valign="top">$insert.control("mainView")</td>
- </tr>
-</table>
+<div style="width:${control.width}px" class="mailClient">
+	<div>$insert.control("abar")</div>
+	<div class="clearfix">
+		<div style="float:left; width:250px; clear:left;">$insert.control("leftStack")</div>
+		<div style="float:right; clear:right;">$insert.control("mainView")</div>
+	</div>
+</div>

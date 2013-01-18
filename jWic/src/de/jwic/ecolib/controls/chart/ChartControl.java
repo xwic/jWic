@@ -50,9 +50,9 @@ import de.jwic.controls.ImageControl;
  */
 
 public class ChartControl extends ImageControl implements Serializable {
-
+	private static final long serialVersionUID = 1L;
 	protected JFreeChart chart = null;
-	protected long rendered = 0;
+	//protected long rendered = 0;
 	
 	/**
 	 * Constructor.
@@ -71,14 +71,14 @@ public class ChartControl extends ImageControl implements Serializable {
 		super(container, name);
 	}
 	
-	/* (non-Javadoc)
+	/* (non-Javadoc)e
 	 * @see de.jwic.controls.ImageControl#getFilename()
 	 */
 	public String getFilename() {
 		if (chart == null) {
 			return getName();
 		}
-		return getName() + "_" + chart.getTitle() + "(" + rendered++ + "," + System.currentTimeMillis() + ").png";				
+		return getName() + "_" + chart.getTitle().getText().replace(' ', '_')+ ".png";				
 	}
 
 	/* (non-Javadoc)

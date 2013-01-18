@@ -32,6 +32,7 @@ var JWic = {
 	 */
 	isProcessing :false,
 	
+	//TODO: replace prototype
 	commandQueue : new Array(),
 
 	/**
@@ -45,7 +46,7 @@ var JWic = {
 	 * page.
 	 */
 	fireAction : function(senderControl, actionName, actionParameter) {
-		
+		//TODO: replace prototype
 		JWic.commandQueue.push({
 			senderControl : senderControl,
 			actionName : actionName,
@@ -69,7 +70,7 @@ var JWic = {
 		window.setTimeout("JWicInternal.showClickBlocker(true)",
 				JWic.pleaseWaitDelayTime);
 
-		var jwicform = $('jwicform');
+		var jwicform = jQuery('#jwicform').get(0);
 		jwicform.elements['__ctrlid'].value = cmd.senderControl;
 		jwicform.elements['__action'].value = cmd.actionName;
 		jwicform.elements['__acpara'].value = cmd.actionParameter;
@@ -82,6 +83,7 @@ var JWic = {
 			jwicform.elements['__sysinfo'].value = sysinfo;
 		}
 
+		//TODO: replace prototype
 		JWicInternal.beforeRequestCallbacks.each(function (item) {
 			item.value(item.key);
 		});
@@ -93,19 +95,18 @@ var JWic = {
 	        	// if a file-upload control is on the page that has a file assigned,
 	        	// a real submit is required to transfer the file to the server.
 	        	// make sure that the encoding type is multipart, before the data is submitted.
-	        	jwicform.fire("beforeSubmit");
+	        	jQuery(jwicform).trigger("beforeSubmit");
 	        	jwicform.encoding = 'multipart/form-data';
 	        	jwicform.submit();
 	        	return;
 	        }
 	    }
+	    jQuery(jwicform).trigger("beforeSerialization");	    
+		var paramData = jQuery(jwicform).serialize();
+		jQuery(jwicform).trigger("afterSerialization");
 
-	    jwicform.fire("beforeSerialization");
-		var paramData = jwicform.serialize(true);
-		jwicform.fire("afterSerialization");
-
-		paramData['_ajaxreq'] = '1';
-		paramData['_format'] = 'JSON';
+		paramData+="&_ajaxreq=1";
+		paramData+="&_format=JSON";
 
 		var url = document.location.href;
 		var idx = url.indexOf('#');
@@ -137,7 +138,9 @@ var JWic = {
 	resourceRequest: function(controlId, callBack, parameter) {
 		
 		var paramData = new Object();
+		//TODO: replace prototype
 		if (Object.isHash(parameter)) {
+			//TODO: replace prototype
 			parameter.each(function(pair){
 				paramData[pair.key] = pair.value;
 			});
@@ -180,9 +183,9 @@ var JWic = {
 		if (typeof paneId == "undefined") {
 			paneId = "div_" + ctrlId;
 		}
-		var pane = $(paneId);
+		var pane = jQuery('#' + JQryEscape(paneId)).get(0);
 		if (pane) {
-			var form = $('jwicform');
+			var form = jQuery('#jwicform').get(0);
 			var top = form.elements['fld_' + ctrlId + '.top'].value;
 			var left = form.elements['fld_' + ctrlId + '.left'].value;
 			pane.scrollTop = top;
@@ -198,6 +201,7 @@ var JWic = {
 	 * Show a dialog with a message. Encapsulates the PWC library functions.
 	 */
 	alert : function(message, title) {
+		//TODO: replace with jQuery
 		Dialog.alert(message, {
 			className :"alphacube",
 			options :"",
@@ -209,6 +213,7 @@ var JWic = {
 	 * Add a new callback.
 	 */
 	addBeforeRequestCallback : function(controlId, callback) {
+		//TODO: replace prototype
 		JWicInternal.beforeRequestCallbacks.set(controlId, callback);
 	},
 	
@@ -266,19 +271,21 @@ var JWicInternal = {
 	/**
 	 * List which contains all destroy functions for the existing controls.
 	 */
+	//TODO: replace prototype
 	destroyList :new Array(),
 
 	/**
 	 * List which contains an optional callback function per control that is
 	 * invoked before a request is send to the server.
 	 */
+	//TODO: replace prototype
 	beforeRequestCallbacks : new Hash(),
 
 	/**
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse) {
-		var jwicform = $('jwicform');
+		var jwicform = jQuery('#jwicform').get(0);
 
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
 			alert("The server did not respond to the request. Please check your network connectivity and try again.");
@@ -310,11 +317,14 @@ var JWicInternal = {
 			}
 
 			if (response.updateables) {
+				//TODO: replace prototype
 				response.updateables.each( function(elm) {
-					var control = $("ctrl_" + elm.key);
+					var control = jQuery("#ctrl_" + JQryEscape(elm.key)).get(0);
+					//TODO: replace prototype
 					var scripts = new Array();
 					if (elm.scripts) {
 						for ( var i = 0; i < elm.scripts.length; i++) {
+							//TODO: replace prototype
 							scripts.push({
 								key: elm.scripts[i].controlId, 
 								script: eval('(' + elm.scripts[i].script + ')')
@@ -351,10 +361,12 @@ var JWicInternal = {
 								}
 							}
 							// remove any beforeUpdateCallbacks
-							
+							//TODO: replace prototype
 							var allKeys = JWicInternal.beforeRequestCallbacks.keys().clone();
+							//TODO: replace prototype
 							allKeys.each(function(key) {
 								if (key.startsWith(elm.key)) {
+									//TODO: replace prototype
 									JWicInternal.beforeRequestCallbacks.unset(key);
 								}
 							});
@@ -369,7 +381,7 @@ var JWicInternal = {
 								}
 							}
 
-							control.replace(elm.html);
+							jQuery(control).replaceWith(elm.html);
 
 							// call afterUpdate in scripts
 							for ( var i = 0; i < scripts.length; i++) {
@@ -422,12 +434,12 @@ var JWicInternal = {
 
 		var removeBlock = !showBlocker;
 		// log("blockClicks (" + (removeBlock ? "remove" : "initiate") + ")");
-		var elem = $("click_blocker");
+		var elem = jQuery("#click_blocker").get(0);
 		_blocked = !removeBlock;
 		if (elem) {
 			if (!removeBlock) {
 				var sysinfoXY = this.getWindowSize();
-				var msg = $("click_blocker_message");
+				var msg = jQuery("#click_blocker_message").get(0);
 				var bodyHeight = (msg ? document.body.scrollHeight
 						: sysinfoXY[1]) - 5;
 				var bodyWidth = (msg ? document.body.scrollWidth : sysinfoXY[0]) - 5;

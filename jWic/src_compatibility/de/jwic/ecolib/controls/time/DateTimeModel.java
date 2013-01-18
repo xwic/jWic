@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class DateTimeModel implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	Locale locale;
 	Date dateTime;
 	

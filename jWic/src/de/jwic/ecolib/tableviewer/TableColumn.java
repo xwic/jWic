@@ -28,7 +28,7 @@ import de.jwic.base.ImageRef;
  * @author Florian Lippisch
  */
 public class TableColumn implements Serializable, Cloneable {
-	
+	private static final long serialVersionUID = 1L;
 	public final static int SORT_ICON_NONE = 0;
 	public final static int SORT_ICON_UP = 1;
 	public final static int SORT_ICON_DOWN = 2;

@@ -33,15 +33,13 @@
 			changeMonth : ${control.isShowMonth()},			
 			changeYear : ${control.isShowYear()},
 			showWeek: ${control.isShowWeek()},
-
-			
 			
 			#if($control.isIconTriggered())
 				showOn: "button",
 				buttonImage: _contextPath+'/jwic/calendar/calendar.gif',
 				buttonImageOnly: true,
 			#end
-			
+
 			numberOfMonths: ${control.numberOfMonths}
 		});
 		datepicker.datepicker("option",region);		

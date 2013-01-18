@@ -28,7 +28,7 @@ import de.jwic.base.ImageRef;
  * @author Andrei
  */
 public class MenuItem extends PopupMenuContainer {
-
+	private static final long serialVersionUID = 1L;
 	private ImageRef icon;
 	private IControl content;
 

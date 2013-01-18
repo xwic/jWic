@@ -25,7 +25,8 @@ package de.jwic.base;
  * @version $Revision: 1.1 $
  */
 public abstract class Application implements IApplication {
-
+	private static final long serialVersionUID = 1L;
+	
 	protected SessionContext sessionContext = null;
 	
 	

@@ -27,7 +27,7 @@ import java.io.Serializable;
  * @author lippisch
  */
 public class ColumnStub implements Comparable<ColumnStub>, Serializable {
-
+	private static final long serialVersionUID = 1L;
 	private int id = -1;	// Internal ID
 	
 	private boolean visible;

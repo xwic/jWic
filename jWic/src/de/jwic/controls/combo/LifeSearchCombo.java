@@ -26,7 +26,7 @@ import de.jwic.base.IControlContainer;
  * @author lippisch
  */
 public class LifeSearchCombo<A> extends Combo<A> {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * @param container
 	 * @param name

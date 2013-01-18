@@ -36,7 +36,7 @@ import de.jwic.events.SelectionListener;
  * @version $Revision: 1.4 $
  */
 public class MessageDialog extends BasicDialog {
-
+	private static final long serialVersionUID = 1L;
 	private String title = "";
 	private String message = "";
 	
@@ -44,6 +44,7 @@ public class MessageDialog extends BasicDialog {
 	private int selectedButton = -1;
 	
 	private class ButtonSelectionHandler implements SelectionListener {
+		private static final long serialVersionUID = 1L;
 		public void objectSelected(SelectionEvent event) {
 			Button button = (Button)event.getEventSource();
 			selectedButton = Integer.parseInt(button.getName());

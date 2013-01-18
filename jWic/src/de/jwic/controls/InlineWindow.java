@@ -32,7 +32,7 @@ import de.jwic.util.Util;
  */
 @JavaScriptSupport
 public class InlineWindow extends HTMLElementContainer implements IOuterLayout {
-
+	private static final long serialVersionUID = 1L;
 	public enum Position { INLINE, CENTER_SCREEN, CENTER }; 
 	
 	private String outerTemplateName = InlineWindow.class.getName();

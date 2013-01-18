@@ -28,7 +28,8 @@ import java.util.List;
  * 
  * @author Andrei
  */
-public class PopupMenuContainer implements Serializable {
+public class PopupMenuContainer implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private final List<MenuItem> menuItems = new ArrayList<MenuItem>();
 
 	/**

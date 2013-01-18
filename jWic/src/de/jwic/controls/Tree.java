@@ -42,7 +42,7 @@ import de.jwic.json.JsonResourceControl;
  */
 @JavaScriptSupport
 public class Tree<A> extends JsonResourceControl {
-
+	private static final long serialVersionUID = 1L;
 	private IContentProvider<A> contentProvider = null;
 	private IBaseLabelProvider<A> labelProvider = null;
 	

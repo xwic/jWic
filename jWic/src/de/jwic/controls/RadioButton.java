@@ -36,7 +36,7 @@ import de.jwic.events.ValueChangedListener;
  * @author lippisch
  */
 public class RadioButton extends Control {
-
+	private static final long serialVersionUID = 1L;
 	private String cssClass = "j-radiobutton";
 	
 	private Field field = null;

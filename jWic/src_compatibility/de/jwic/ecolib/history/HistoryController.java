@@ -53,6 +53,7 @@ public class HistoryController extends Control {
 	private boolean isHandleLocationChange = false;
 	
 	private class HistoryEntry implements Serializable {
+		private static final long serialVersionUID = 1L;
 		public HistoryListener listener;
 		public Object context = null;
 		public HistoryEntry(HistoryListener hisListener, Object ctx) {

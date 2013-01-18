@@ -132,14 +132,14 @@ public class ChartDemo extends ControlContainer {
 		 * Release the chart data on serialization and recreate it when the session is
 		 * reloaded 
 		 */
-		getSessionContext().addSessionListener(new SessionAdapter() {
-			public void beforeSerialization(SessionEvent event) {
-				chart.setChart(null); // release chart
-			}
-			public void afterDeserialization(SessionEvent event) {
-				changeChartType(demoType.getSelectedKey());
-			}
-		});
+//		getSessionContext().addSessionListener(new SessionAdapter() {
+//			public void beforeSerialization(SessionEvent event) {
+//				chart.setChart(null); // release chart
+//			}
+//			public void afterDeserialization(SessionEvent event) {
+//				changeChartType(demoType.getSelectedKey());
+//			}
+//		});
 		
 	}
 

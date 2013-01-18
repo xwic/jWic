@@ -28,7 +28,7 @@ import java.util.List;
  * @author lippisch
  */
 public class SelectElementContentProvider extends ListContentProvider<ISelectElement> {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * @param list
 	 */

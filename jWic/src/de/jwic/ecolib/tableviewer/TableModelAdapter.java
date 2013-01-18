@@ -25,7 +25,7 @@ package de.jwic.ecolib.tableviewer;
  * @author Florian Lippisch
  */
 public abstract class TableModelAdapter implements ITableModelListener {
-
+	private static final long serialVersionUID = 1L;
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.tableviewer.ITableModelListener#columnSelected(de.jwic.ecolib.tableviewer.TableModelEvent)
 	 */
