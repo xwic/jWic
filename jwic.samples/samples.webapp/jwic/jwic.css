@@ -10,6 +10,10 @@
  	font-weight: bold; 
  	border: 1px solid #000000;
  }
+ #click_blocker {
+ 	background-color: #A0A0A0;
+ 	border: 0px;
+ }
 
 /* WindowControl */ 
 table.e_dsk_win { 

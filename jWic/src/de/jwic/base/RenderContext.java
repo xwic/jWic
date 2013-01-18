@@ -96,7 +96,7 @@ public class RenderContext {
 	 * @param script
 	 */
 	public void addScript(String controlId, String script) {
-		if(!script.trim().isEmpty()){
+		if (script != null && script.trim().length() > 0) {
 			scripts.put(controlId, script);
 		}
 	}
