@@ -7,8 +7,9 @@
 			JWic.controls.InputBoxControl.initialize(inpElm);
 			#if($control.updateOnBlur)
 				inpElm.bind('blur',function() {
-					JWic.fireAction('$control.controlID', 'onBlur', '')
-				}));
+						JWic.fireAction('$control.controlID', 'onBlur', '');
+					}
+				);
 			#end
 			#if($control.readonly)
 				jQuery(inpElm).addClass("x-readonly");

@@ -22,7 +22,7 @@
  * JWic defines the public API for JWic server/client communication.
  */
 var JWic = {
-	version :'4.0.2',
+	version :'5.0.0',
 	debugMode : false,
 	_logCount : 0,
 	
@@ -317,6 +317,7 @@ var JWicInternal = {
 			}
 
 			if (response.updateables) {
+				debugger;
 				//TODO: replace prototype
 				response.updateables.each( function(elm) {
 					var control = jQuery("#ctrl_" + JQryEscape(elm.key)).get(0);
@@ -393,6 +394,16 @@ var JWicInternal = {
 					} else {
 						// alert("A control with the ID '" + elm.key + "' does
 						// not exist on the page and can not be updated.");
+					}
+				});
+			}
+			
+			if (response.scriptQueue) {
+				response.scriptQueue.each(function(line) {
+					try {
+						eval(line);
+					} catch (e) {
+						JWic.log("Error executing script queue: " + e + " for line " + line);
 					}
 				});
 			}

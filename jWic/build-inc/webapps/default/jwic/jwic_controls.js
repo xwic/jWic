@@ -915,7 +915,7 @@ JWic.controls = {
 	Button : {
 		
 		initialize : function(tblElm, btnElm) {
-			if("true" == tblElm.attr("_ctrlEnabled")) {
+			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
 				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
 				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
 				tblElm.bind('click', JWic.controls.Button.clickHandler);
@@ -924,7 +924,7 @@ JWic.controls = {
 		},
 		
 		destroy : function(tblElm, btnElm) {
-			if("true" == tblElm.attr("_ctrlEnabled")) {
+			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
 				tblElm.unbind("mouseover", JWic.controls.Button.mouseOverHandler);
 				tblElm.unbind("mouseout", JWic.controls.Button.mouseOutHandler);
 				tblElm.unbind("click", JWic.controls.Button.clickHandler);
