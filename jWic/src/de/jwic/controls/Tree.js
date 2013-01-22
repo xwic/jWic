@@ -8,9 +8,9 @@
 	 */
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var treeElm = $("$control.controlID");
+		var treeElm = jQuery('#'+JQryEscape('${control.controlID}'));
 		if (treeElm) {
-				JWic.controls.Tree.initialize("$control.controlID");
+				JWic.controls.Tree.initialize("${control.controlID}");
 				//comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
 			#if($control.defaultImage)
 				treeElm.defaultImage = {

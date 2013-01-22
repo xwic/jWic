@@ -2,23 +2,24 @@
 	// Attach to events...
 	afterUpdate: function(element) {
 		
-		var seqNumFld = $('seqnum_${control.controlID}');
-		var param = new Hash();
-		param.set("seqNum", seqNumFld.value);
+		var seqNumFld = jQuery('seqnum_${control.controlID}');
+		var param = {};
+		param["seqNum"] = seqNumFld.value;
 		
 		JWic.resourceRequest('$control.controlID', function(ajaxResponse) {
 			try {
 				JWic.log("AsyncRenderingStart ");
-				var elm = ajaxResponse.responseText.evalJSON(true);
+				var elm = jQuery.parseJSON(ajaxResponse.responseText);
 				
-				var seqNumFld = $('seqnum_${control.controlID}');
+				var seqNumFld = jQuery('seqnum_${control.controlID}');
 				if (seqNumFld.value != elm.seqNum) {
 					JWic.log("Invalid seqNum - skipping update (" + seqNumFld.value + "; received: " + elm.seqNum + ")");
 					return;
 				}
 								
-				var control = $('arc_${control.controlID}');
-				var scripts = new Array();
+				//var control = jQuery('arc_${control.controlID}');
+				var control = jQuery("#arc_" + JQryEscape('${control.controlID}')).get(0);
+				var scripts = [];
 				if (elm.scripts) {
 					for ( var i = 0; i < elm.scripts.length; i++) {
 						scripts.push({
@@ -50,20 +51,25 @@
 						// call destroy handler and remove them
 						var deLst = JWicInternal.destroyList;
 						for ( var i = deLst.length - 1; i >= 0; i--) {
-							if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.startsWith(elm.key + "."))) {
+							if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.indexOf(elm.key + ".") === 0)) {
 								JWic.log("Destroy: " + deLst[i].key + " because of " + elm.key);
 								deLst[i].destroy(control);
 								deLst.splice(i, 1);
 							}
 						}
 						// remove any beforeUpdateCallbacks
+						var allKeys = [];
+						jQuery.each(JWicInternal.beforeRequestCallbacks, function(key, value) {
+						      allKeys.push(key);
+						});
 						
-						var allKeys = JWicInternal.beforeRequestCallbacks.keys().clone();
-						allKeys.each(function(key) {
-							if (key.startsWith(elm.key)) {
-								JWicInternal.beforeRequestCallbacks.unset(key);
+						jQuery.each(allKeys, function(key, val) {
+							
+							if (val.indexOf(elm.key) === 0) {
+								delete JWicInternal.beforeRequestCallbacks[key];
 							}
 						});
+						
 						
 						// register destroy handler
 						for ( var i = 0; i < scripts.length; i++) {
@@ -74,9 +80,8 @@
 								});
 							}
 						}
-
-						control.replace(elm.html);
-
+						
+						jQuery(control).replaceWith(elm.html);
 						// call afterUpdate in scripts
 						for ( var i = 0; i < scripts.length; i++) {
 							if (scripts[i].script.afterUpdate) {

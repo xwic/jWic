@@ -32,8 +32,7 @@ var JWic = {
 	 */
 	isProcessing :false,
 	
-	//TODO: replace prototype
-	commandQueue : new Array(),
+	commandQueue : [],
 
 	/**
 	 * The time in milliseconds before the please wait message appears.
@@ -46,7 +45,7 @@ var JWic = {
 	 * page.
 	 */
 	fireAction : function(senderControl, actionName, actionParameter) {
-		//TODO: replace prototype
+		
 		JWic.commandQueue.push({
 			senderControl : senderControl,
 			actionName : actionName,
@@ -83,9 +82,8 @@ var JWic = {
 			jwicform.elements['__sysinfo'].value = sysinfo;
 		}
 
-		//TODO: replace prototype
-		JWicInternal.beforeRequestCallbacks.each(function (item) {
-			item.value(item.key);
+		jQuery.each(JWicInternal.beforeRequestCallbacks, function (key, item) {
+			item();
 		});
 		
 		// check for file attachments
@@ -137,14 +135,13 @@ var JWic = {
 	 */
 	resourceRequest: function(controlId, callBack, parameter) {
 		
-		var paramData = new Object();
-		//TODO: replace prototype
-		if (Object.isHash(parameter)) {
-			//TODO: replace prototype
-			parameter.each(function(pair){
-				paramData[pair.key] = pair.value;
+		var paramData = {};
+		
+		if (jQuery.isPlainObject(parameter)) {
+			jQuery.each(parameter, function(key, val){
+				paramData[key] = val;
 			});
-			//paramData.update(parameter);
+			
 		} else {
 			paramData['parameter'] = parameter;
 		}
@@ -213,8 +210,7 @@ var JWic = {
 	 * Add a new callback.
 	 */
 	addBeforeRequestCallback : function(controlId, callback) {
-		//TODO: replace prototype
-		JWicInternal.beforeRequestCallbacks.set(controlId, callback);
+		JWicInternal.beforeRequestCallbacks[controlId] = callback;
 	},
 	
 	log : function(message) {
@@ -271,15 +267,13 @@ var JWicInternal = {
 	/**
 	 * List which contains all destroy functions for the existing controls.
 	 */
-	//TODO: replace prototype
-	destroyList :new Array(),
+	destroyList : [],
 
 	/**
 	 * List which contains an optional callback function per control that is
 	 * invoked before a request is send to the server.
 	 */
-	//TODO: replace prototype
-	beforeRequestCallbacks : new Hash(),
+	beforeRequestCallbacks : {},
 
 	/**
 	 * Handle the response from an fireAction request.
@@ -294,7 +288,8 @@ var JWicInternal = {
 			jwicform.submit();
 			return;
 		}
-		var response = ajaxResponse.responseText.evalJSON(false);
+		//var response = ajaxResponse.responseText.evalJSON(false);
+		var response = jQuery.parseJSON(ajaxResponse.responseText);
 		if (response.exception) {
 			alert("A server side exception occured: " + response.exception + "\n"
 					+ "Hit ok to refresh.");
@@ -317,15 +312,14 @@ var JWicInternal = {
 			}
 
 			if (response.updateables) {
-				debugger;
-				//TODO: replace prototype
-				response.updateables.each( function(elm) {
+				
+				jQuery.each(response.updateables, function(idx, elm) {
 					var control = jQuery("#ctrl_" + JQryEscape(elm.key)).get(0);
-					//TODO: replace prototype
-					var scripts = new Array();
+					
+					var scripts = [];
 					if (elm.scripts) {
 						for ( var i = 0; i < elm.scripts.length; i++) {
-							//TODO: replace prototype
+							
 							scripts.push({
 								key: elm.scripts[i].controlId, 
 								script: eval('(' + elm.scripts[i].script + ')')
@@ -355,20 +349,22 @@ var JWicInternal = {
 							// call destroy handler and remove them
 							var deLst = JWicInternal.destroyList;
 							for ( var i = deLst.length - 1; i >= 0; i--) {
-								if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.startsWith(elm.key + "."))) {
+								if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.indexOf(elm.key + ".") === 0)) {
 									JWic.log("Destroy: " + deLst[i].key + " because of " + elm.key);
 									deLst[i].destroy(control);
 									deLst.splice(i, 1);
 								}
 							}
 							// remove any beforeUpdateCallbacks
-							//TODO: replace prototype
-							var allKeys = JWicInternal.beforeRequestCallbacks.keys().clone();
-							//TODO: replace prototype
-							allKeys.each(function(key) {
-								if (key.startsWith(elm.key)) {
-									//TODO: replace prototype
-									JWicInternal.beforeRequestCallbacks.unset(key);
+							var allKeys = [];
+							jQuery.each(JWicInternal.beforeRequestCallbacks, function(key, value) {
+							      allKeys.push(key);
+							});
+							
+							jQuery.each(allKeys, function(key, val) {
+								
+								if (val.indexOf(elm.key) === 0) {
+									delete JWicInternal.beforeRequestCallbacks[key];
 								}
 							});
 							

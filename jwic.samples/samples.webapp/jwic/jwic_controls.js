@@ -688,10 +688,10 @@ JWic.controls = {
 				if (win) {
 					win.getContent().update("Loading...");
 					var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
-					var param = new Hash();
-					param.set("action", "load");
+					var param = {};
+					param["action"] = "load";
 					if (comboBox.applyFilter && comboBox.dataFilterValue) {
-						param.set("filter", comboBox.dataFilterValue);
+						param["filter"] = comboBox.dataFilterValue;
 					}
 					JWic.controls.Combo.BeanLoader._requestIndexCall++;
 					var myIndex = JWic.controls.Combo.BeanLoader._requestIndexCall 
@@ -987,8 +987,8 @@ JWic.controls = {
 		loadData : function(tr, parent) {
 			var tree = $(tr);
 
-			var param = new Hash();
-			param.set("action", "load");
+			var param = {};
+			param["action"] = "load";
 			JWic.controls.Tree._requestIndexCall++;
 			var myIndex = JWic.controls.Tree._requestIndexCall 
 			JWic.resourceRequest(tree.id, function(ajaxResponse) {
@@ -1054,6 +1054,7 @@ JWic.controls = {
  * The following code patches a problem with the PWC library where child elements are not
  * properly detected - and re-enabled.
  */
+
 WindowUtilities._showSelect = function (id) {
 	if (Prototype.Browser.IE) {
 		
@@ -1090,3 +1091,4 @@ WindowUtilities._showSelect = function (id) {
    });
 	}	
 };
+
