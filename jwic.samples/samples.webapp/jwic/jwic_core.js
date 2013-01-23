@@ -245,14 +245,14 @@ JWic.util = {
 			if (!seperator) seperator = ";";
 			var x = val.split(seperator);
 			var n = "";
-			x.each(function(elm) {
+			jQuery.each(x, function(key, elm) {
 				if (elm != removeMe) {
 					if (n.length != 0) {
 						n += seperator;
 					}
 					n += elm;
 				}
-			})
+			});
 			return n;
 		}
 }
