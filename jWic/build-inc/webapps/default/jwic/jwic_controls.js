@@ -491,24 +491,7 @@ JWic.controls = {
 			var boxLoc = jQuery(comboBox).offset();
 			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
 			if (!comboBoxWin.wasInit) {
-//				win = new Window({
-//					className : "j-combo-content",
-//					closable : false,
-//					draggable : false,
-//					minimizable : false,
-//					maximizable : false,
-//					width: boxWidth - 3,
-//					showEffect : Element.show, //TODO: replace with jQuery effect
-//					height: 200,
-//					title : "",
-//					left: boxLoc.left + 1,
-//					top: boxLoc.top + jQuery(comboBox).height(),
-//					id : winId,
-//					parent : jQuery("#jwicform").get(0),
-//					onResize : JWic.controls.Combo.resizeHandler,
-//					onMove : JWic.controls.Combo.moveHandler
-//				});
-//				win.show();
+
 				comboBoxWin.dialog({
 					
 					dialogClass : "j-combo-content",
@@ -517,6 +500,14 @@ JWic.controls = {
 					width: boxWidth - 3,
 					position : [boxLoc.left + 1, boxLoc.top + jQuery(comboBox).height()]
 				});
+				
+				/*
+				 * Haven't included resize and move event, when switching to jQuery.
+				 * 
+				 * onResize : JWic.controls.Combo.resizeHandler,
+				 * onMove : JWic.controls.Combo.moveHandler
+				 */
+				
 				comboBoxWin.wasInit = true;
 				jQuery(".ui-dialog-titlebar").hide();
 				
@@ -741,7 +732,7 @@ JWic.controls = {
 					var comboBoxWin = jQuery("#win_" + JQryEscape(response.controlId));
 					if (comboBoxWin) {
 						var comboBox = jQuery('#' + JQryEscape(response.controlId)).get(0);
-						comboBox.dataStore = [];//$A(response.data);
+						comboBox.dataStore = [];
 						jQuery.each(response.data, function(key, value) {
 							comboBox.dataStore.push(value);
 						});
@@ -1056,45 +1047,3 @@ JWic.controls = {
 
 }
 
-/** 
- * The following code patches a problem with the PWC library where child elements are not
- * properly detected - and re-enabled.
- */
-/*
-WindowUtilities._showSelect = function (id) {
-	if (jQuery.browser.msie) {
-		
-		jQuery('select').each(function(element) {
-		  // Why?? Ask IE
-		  var myPath = "";
-		  var isChild = false;
-		  if (id == null || id == "") {
-			  isChild = true;
-		  } else {
-			  var x = element;
-			  while (!(x == null || x == document.body)) {
-				  if (x.id && x.id == id) {
-					  isChild = true;
-					  break;
-				  }
-				  x = x.parentNode;
-			  }
-		  }
-		  if (isChild) {
-			  if (WindowUtilities.isDefined(element.oldVisibility)) {
-			  try {
-			    element.style.visibility = element.oldVisibility;
-			  } catch(e) {
-			    element.style.visibility = "visible";
-			  }
-			  element.oldVisibility = null;
-	        } else {
-			  if (element.style.visibility) {
-				  element.style.visibility = "visible";
-	          }
-	        }
-		  }
-   });
-	}	
-};
-*/
