@@ -246,11 +246,7 @@ JWic.controls = {
 			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			jInpElem.unbind("click", JWic.controls.Combo.textClickHandler);
 			jInpElem.unbind("keyup", JWic.controls.Combo.textKeyPressedHandler);
-			var winId = controlId + "_contentBox";
-			var win = Windows.getWindow(winId);
-			if (win) {
-				win.destroy();
-			}
+			
 		},
 		
 		/**
@@ -490,28 +486,39 @@ JWic.controls = {
 			
 			var comboBox = jQuery("#" + JQryEscape(controlId)).get(0);
 			var winId = "j-combo_contentBox";
-			var win = Windows.getWindow(winId);
+			
 			var boxWidth = jQuery(comboBox).width();
 			var boxLoc = jQuery(comboBox).offset();
-			if (!win) {
-				win = new Window({
-					className : "j-combo-content",
-					closable : false,
-					draggable : false,
-					minimizable : false,
-					maximizable : false,
-					width: boxWidth - 3,
-					showEffect : Element.show, //TODO: replace with jQuery effect
+			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
+			if (!comboBoxWin.wasInit) {
+//				win = new Window({
+//					className : "j-combo-content",
+//					closable : false,
+//					draggable : false,
+//					minimizable : false,
+//					maximizable : false,
+//					width: boxWidth - 3,
+//					showEffect : Element.show, //TODO: replace with jQuery effect
+//					height: 200,
+//					title : "",
+//					left: boxLoc.left + 1,
+//					top: boxLoc.top + jQuery(comboBox).height(),
+//					id : winId,
+//					parent : jQuery("#jwicform").get(0),
+//					onResize : JWic.controls.Combo.resizeHandler,
+//					onMove : JWic.controls.Combo.moveHandler
+//				});
+//				win.show();
+				comboBoxWin.dialog({
+					
+					dialogClass : "j-combo-content",
+					resizable: false,
 					height: 200,
-					title : "",
-					left: boxLoc.left + 1,
-					top: boxLoc.top + jQuery(comboBox).height(),
-					id : winId,
-					parent : jQuery("#jwicform").get(0),
-					onResize : JWic.controls.Combo.resizeHandler,
-					onMove : JWic.controls.Combo.moveHandler
+					width: boxWidth - 3,
+					position : [boxLoc.left + 1, boxLoc.top + jQuery(comboBox).height()]
 				});
-				win.show();
+				comboBoxWin.wasInit = true;
+				jQuery(".ui-dialog-titlebar").hide();
 				
 				if (comboBox.adjustIEBlockerId) {
 					JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#"+JQryEscape(winId)).get(0));		
@@ -562,11 +569,8 @@ JWic.controls = {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				JWic.log("closing ActiveContentBox");
 				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox)).get(0);
-				var winId = "j-combo_contentBox";
-				var win = Windows.getWindow(winId);
-				if (win) {
-					win.destroy();
-				}
+				var comboBoxWin = jQuery("#win_"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
+				comboBoxWin.dialog("close");
 				if (comboBox.adjustIEBlockerId) {
 					jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).css("display","none");		
 				}
@@ -585,7 +589,7 @@ JWic.controls = {
 		 */
 		closeBoxDocumentHandler : function(e) {
 			if (JWic.controls.Combo._activeComboContentBox) {
-				var tpl = jQuery(e.target).closest("#j-combo_contentBox").get(0);
+				var tpl = jQuery(e.target).closest("#j-combo_contentBox");
 				//var tpl = e.findElement("#j-combo_contentBox");
 				if (!tpl) { // user clicked outside the content box -> close it.
 					//JWic.log("Clicked outside of combo box");
@@ -683,15 +687,14 @@ JWic.controls = {
 			_requestIndexCall : 0,
 			initializeData : function(controlId) {
 			JWic.log("BeanLoader.initializeData(..)");
-				var winId = "j-combo_contentBox";
-				var win = Windows.getWindow(winId);
-				if (win) {
-					win.getContent().update("Loading...");
+			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
+				if (comboBoxWin) {
+					comboBoxWin.text("Loading...");
 					var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
-					var param = new Hash();
-					param.set("action", "load");
+					var param = {};
+					param["action"] = "load";
 					if (comboBox.applyFilter && comboBox.dataFilterValue) {
-						param.set("filter", comboBox.dataFilterValue);
+						param["filter"] = comboBox.dataFilterValue;
 					}
 					JWic.controls.Combo.BeanLoader._requestIndexCall++;
 					var myIndex = JWic.controls.Combo.BeanLoader._requestIndexCall 
@@ -733,13 +736,15 @@ JWic.controls = {
 			
 			_handleResponse : function(ajaxResponse) {
 				JWic.log("BeanLoader._handleResponse(..)");
-				var response = ajaxResponse.responseText.evalJSON(true);
+				var response = jQuery.parseJSON(ajaxResponse.responseText);
 				if (response.controlId && response.controlId == JWic.controls.Combo._activeComboContentBox) {
-					var winId = "j-combo_contentBox";
-					var win = Windows.getWindow(winId);
-					if (win) {
+					var comboBoxWin = jQuery("#win_" + JQryEscape(response.controlId));
+					if (comboBoxWin) {
 						var comboBox = jQuery('#' + JQryEscape(response.controlId)).get(0);
-						comboBox.dataStore = $A(response.data);
+						comboBox.dataStore = [];//$A(response.data);
+						jQuery.each(response.data, function(key, value) {
+							comboBox.dataStore.push(value);
+						});
 						JWic.controls.Combo.BeanLoader.prepareData(response.controlId);
 						comboBox.loadCompleted = comboBox.cacheData; // only set load to complete if cacheData behavior is on
 						comboBox.contentRenderer.renderData(response.controlId);
@@ -760,12 +765,11 @@ JWic.controls = {
 			renderData : function(controlId) {
 				JWic.log("ComboElementListRenderer.renderData(..)");
 				var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
-				var winId = "j-combo_contentBox";
-				var win = Windows.getWindow(winId);
-				if (win && controlId == JWic.controls.Combo._activeComboContentBox) {
+				var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
+				if (comboBoxWin && controlId == JWic.controls.Combo._activeComboContentBox) {
 					// in case the content is re-drawn, we remove any pre-existing listeners...
-					jQuery(win.getContent()).unbind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
-					jQuery(win.getContent()).unbind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler)
+					jQuery(comboBoxWin).unbind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
+					jQuery(comboBoxWin).unbind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler)
 					var code = "";
 					var idx = 0;
 					var first = true;
@@ -810,9 +814,9 @@ JWic.controls = {
 					if (first && comboBox.pickFirstFinding) { // no entry was found at all
 						JWic.controls.Combo.searchSuggestion(comboBox, null);
 					}
-					jQuery(win.getContent()).html(code);
-					jQuery(win.getContent()).bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
-					jQuery(win.getContent()).bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+					jQuery(comboBoxWin).html(code);
+					jQuery(comboBoxWin).bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
+					jQuery(comboBoxWin).bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
 				}
 			},
 			
@@ -821,25 +825,24 @@ JWic.controls = {
 			 */
 			updateSelection : function(ctrlId, newSelection) {
 				var comboBox = jQuery("#"+ JQryEscape(ctrlId)).get(0);
-				var winId = "j-combo_contentBox";
-				var win = Windows.getWindow(winId);
-				if (win && ctrlId == JWic.controls.Combo._activeComboContentBox) {
+				var comboBoxWin = jQuery("#win_" + JQryEscape(ctrlId));
+				if (comboBoxWin && ctrlId == JWic.controls.Combo._activeComboContentBox) {
 					// clear selection
-					jQuery(win.getContent()).find("div[comboElement].selected").each(function(i,obj) {
+					jQuery(comboBoxWin).find("div[comboElement].selected").each(function(i,obj) {
 						jQuery(obj).removeClass("selected");
 					});
 		
-					var height = jQuery(win.getContent()).height();
+					var height = jQuery(comboBoxWin).height();
 					var boxScrollTop = win.getContent().scrollTop;
-					jQuery(win.getContent()).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
+					jQuery(comboBoxWin).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
 						obj=jQuery(obj);
 						obj.addClass("selected");
 						var top = obj.position().top;
 						var elmHeight = obj.height();
 						if (top < boxScrollTop) {
-							win.getContent().scrollTop = top;
+							comboBoxWin.scrollTop = top;
 						} else if ((top + elmHeight) > (height + boxScrollTop)) {
-							win.getContent().scrollTop = top - height + elmHeight;
+							comboBoxWin.scrollTop = top - height + elmHeight;
 						}
 						JWic.log("viewPort: " + obj.position().top);
 					});
@@ -973,7 +976,7 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(elm) {
-			var tree = $(elm);
+			var tree = jQuery("#" + JQryEscape(elm)).get(0);
 			JWic.controls.Tree.loadData(tree, "");
 		},
 		
@@ -985,10 +988,10 @@ JWic.controls = {
 		},
 		
 		loadData : function(tr, parent) {
-			var tree = $(tr);
+			var tree = tr;
 
-			var param = new Hash();
-			param.set("action", "load");
+			var param = {};
+			param["action"] = "load";
 			JWic.controls.Tree._requestIndexCall++;
 			var myIndex = JWic.controls.Tree._requestIndexCall 
 			JWic.resourceRequest(tree.id, function(ajaxResponse) {
@@ -1007,10 +1010,13 @@ JWic.controls = {
 		
 		_handleResponse : function(ajaxResponse, parent) {
 		
-			var response = ajaxResponse.responseText.evalJSON(true);
+			var response = jQuery.parseJSON(ajaxResponse.responseText);
 			if (response.controlId) {
-				var tree = $(response.controlId);
-				tree.dataStore = $A(response.data);
+				var tree = jQuery("#"  + JQryEscape(response.controlId)).get(0);
+				tree.dataStore = []; //$A(response.data);
+				jQuery.each(response.data, function(key, value) {
+					tree.dataStore.push(value);
+				});
 			}
 		
 			JWic.controls.Tree._renderTreeNodes(tree, parent);
@@ -1038,7 +1044,7 @@ JWic.controls = {
 					code += "</div>"
 				}
 			}
-			tree.update(code);
+			jQuery(tree).html(code);
 			
 		},
 		
@@ -1054,10 +1060,11 @@ JWic.controls = {
  * The following code patches a problem with the PWC library where child elements are not
  * properly detected - and re-enabled.
  */
+/*
 WindowUtilities._showSelect = function (id) {
-	if (Prototype.Browser.IE) {
+	if (jQuery.browser.msie) {
 		
-		$$('select').each(function(element) {
+		jQuery('select').each(function(element) {
 		  // Why?? Ask IE
 		  var myPath = "";
 		  var isChild = false;
@@ -1090,3 +1097,4 @@ WindowUtilities._showSelect = function (id) {
    });
 	}	
 };
+*/
