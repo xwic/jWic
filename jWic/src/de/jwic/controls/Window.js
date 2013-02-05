@@ -11,12 +11,15 @@
 	afterUpdate: function(element) {
 		
 		//var win = jQuery('#'+JQryEscape('win_${control.controlID}_div'));	
-		
+		var dialogWidth = $control.width;
+		dialogWidth += dialogWidth*10/100;
+		var dialogHeight= $control.height;
+		dialogHeight+= dialogHeight*10/100;
 		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div')).dialog({
 			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
-			#if($control.width != 0) width : $control.width, #end
-			#if($control.height != 0) height : $control.height, #end
+			#if($control.width != 0) width : dialogWidth, #end
+			#if($control.height != 0) height : dialogHeight, #end
 			#if($control.top != 0) top : $control.top, #end
 			#if($control.left != 0) left : $control.left, #end
 			#if(!$control.closable)
