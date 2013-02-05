@@ -1,4 +1,4 @@
-
+//Window
 {
 		
 	doUpdate: function(){		
@@ -10,9 +10,9 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div')).dialog();	
+		//var win = jQuery('#'+JQryEscape('win_${control.controlID}_div'));	
 		
-		win.dialog('option',{
+		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div')).dialog({
 			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
 			#if($control.width != 0) width : $control.width, #end
@@ -21,28 +21,34 @@
 			#if($control.left != 0) left : $control.left, #end
 			#if(!$control.closable)
 				closeOnEscape: false,
-				open: function(event, ui) { jQuery(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); },
+				open: function(event, ui) { 
+					JWic.log('opening');
+					jQuery(".ui-dialog-titlebar-close",jQuery(this).parent()).hide(); 
+					jQuery(".ui-dialog-titlebar-min",jQuery(this).parent()).show();
+					jQuery(".ui-dialog-titlebar-max",jQuery(this).parent()).show();
+				},
+							
 			#end
 			close: function () {
 				JWic.fireAction("$control.controlID", "close", "");	
 			},
-	
+			
 			draggable: #if($control.draggable) true, #else false, #end
 			resizable : #if($control.resizable) true, #else false, #end
 			modal: #if($control.modal) true, #else false, #end
 			cache:false
 					
 		});
-
+		
 		#if($control.isMaximizable())
-			addMaximizeToDialog(win);
-		#end
-		#if($control.isMinimizable())
-			addMinimizeToDialog(win);
+			var maxBtn = addMaximizeToDialog(win);
 			var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');
 			titlebar.dblclick(function(event){
 				maximize(win);
-			});
+			});			
+		#end
+		#if($control.isMinimizable())
+			var minBtn = addMinimizeToDialog(win);	
 		#end
 
 		win.parent().appendTo(jQuery("#jwicform"));		
@@ -67,7 +73,7 @@
 				
 				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');
 				//minimize
-				jQuery('<a href="#" id="'+dialog.attr('id')+'_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-minusthick">minimize</span></a>')
+				var minBtn = jQuery('<a href="#" id="'+dialog.attr('id')+'_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close ui-dialog-titlebar-min"><span class="ui-icon ui-icon-minusthick">minimize</span></a>')
 					.appendTo(titlebar)
 					.mouseover(function(){
 						jQuery(this).addClass('ui-state-hover');
@@ -78,6 +84,7 @@
 					.click(function() {
 						minimize(dialog);
 					});
+				return minBtn;
 				
 			}
 		}
@@ -100,7 +107,7 @@
 				
 				
 				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');			
-				jQuery('<a href="#" id="'+dialog.attr('id')+'_maximize" role="button" class="ui-corner-all ui-dialog-titlebar-close"><span class="ui-icon ui-icon-newwin">maximize</span></a>')
+				var maxBtn = jQuery('<a href="#" id="'+dialog.attr('id')+'_maximize" role="button" class="ui-corner-all ui-dialog-titlebar-close ui-dialog-titlebar-max"><span class="ui-icon ui-icon-newwin">maximize</span></a>')
 				.appendTo(titlebar)
 				.mouseover(function(){
 					jQuery(this).addClass('ui-state-hover');
@@ -112,6 +119,7 @@
 					maximize(dialog);
 					
 				});
+				return maxBtn;
 				
 			}
 		}
