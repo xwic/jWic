@@ -51,6 +51,7 @@ public class WindowDemo extends ControlContainer {
 		window = new Window(this, "WINDOW");
 		window.setTitle("Sample Window");
 		window.setModal(false);
+		
 		window.setWidth(500);
 		
 		// create a little demo content.
