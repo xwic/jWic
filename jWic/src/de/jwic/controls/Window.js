@@ -25,7 +25,6 @@
 			#if(!$control.closable)
 				closeOnEscape: false,
 				open: function(event, ui) { 
-					JWic.log('opening');
 					jQuery(".ui-dialog-titlebar-close",jQuery(this).parent()).hide(); 
 					jQuery(".ui-dialog-titlebar-min",jQuery(this).parent()).show();
 					jQuery(".ui-dialog-titlebar-max",jQuery(this).parent()).show();
