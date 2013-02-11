@@ -1,5 +1,5 @@
 <input
-    #if($control.emptyInfoText) xEmptyInfoText="$jwic.formatInp($control.emptyInfoText)" #end
+    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
     #if($control.field.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
     xListenKeyCode="$control.listenKeyCode"
 	#if ( $control.password )type="password" #else type="text" #end

@@ -6,7 +6,7 @@
 #end
 <input 
 	autocomplete="off"
-    #if($control.emptyInfoText) xEmptyInfoText="$jwic.formatInp($control.emptyInfoText)" #end
+    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
     #if($fld.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
 	#if ( !$control.enabled )disabled #end
 	#if ( $control.readonly )readonly #end	
