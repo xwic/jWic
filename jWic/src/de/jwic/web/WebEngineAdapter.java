@@ -15,7 +15,7 @@
  *
  * de.jwic.web.AbstractWebEngineListener
  * Created on Aug 31, 2012
- * $Id: WebEngineAdapter.java,v 1.1 2012/09/02 13:21:09 lordsam Exp $
+ * $Id: WebEngineAdapter.java,v 1.2 2013/02/23 22:33:31 lordsam Exp $
  */
 package de.jwic.web;
 
@@ -67,4 +67,17 @@ public class WebEngineAdapter implements IWebEngineListener {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see de.jwic.web.IWebEngineListener#postControlRendering(de.jwic.web.WebEngineEvent)
+	 */
+	public void postControlRendering(WebEngineEvent event) {
+		
+	}
+	/* (non-Javadoc)
+	 * @see de.jwic.web.IWebEngineListener#preControlRendering(de.jwic.web.WebEngineEvent)
+	 */
+	public void preControlRendering(WebEngineEvent event) {
+		
+	}
+	
 }
