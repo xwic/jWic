@@ -367,7 +367,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	 * @param writer
 	 * @param rootIterator
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	protected int renderRows(int level, boolean hasNext, PrintWriter writer, Iterator<?> it, TableViewer viewer, ITableLabelProvider labelProvider) {
 		
 		TableModel model = viewer.getModel();

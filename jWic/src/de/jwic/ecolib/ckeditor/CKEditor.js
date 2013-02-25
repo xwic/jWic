@@ -46,7 +46,8 @@
 	#if($control.fullRedraw)
 		#set($control.fullRedraw = false)
 	#else 
-		var field = $("${control.controlID}_content");
+		var field = jQuery("#" + JQryEscape('${control.controlID}') + "_content").get(0);
+	
 		if (field) { // if the field does not exist, the element needs to be created regulary.
 			field.value = this.content;
 			JWic.log("doUpdate");
@@ -62,14 +63,14 @@
 					JWic.log("disable");
 					editor.destroy();
 					field.value = this.content;
-					var elm = $("$control.controlID");
-					elm.update(this.content);
+					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+					elm.html(this.content);
 					return true;
 					
 				} else if (!editor && $control.enabled) {	// enable
 					JWic.log("enable it (" + this.content + ")");
-					var elm = $("$control.controlID");
-					elm.update("");
+					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+					elm.html("");
 					var editor =  CKEDITOR.replace(elm, this.editorCfg);
 					editor.setData(this.content);
 					JWic.addBeforeRequestCallback("$control.controlID", function() {
@@ -83,9 +84,9 @@
 				} else if (!editor && !$control.enabled) {
 					JWic.log("update content of disabled element");
 					
-					var elm = $("$control.controlID");
+					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
 					if (elm) {
-						elm.update(this.content);
+						elm.text(this.content);
 						return true;
 					}
 				}
@@ -100,12 +101,12 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var elm = $("$control.controlID");
-		var field = $("${control.controlID}_content");
+		var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+		var field = jQuery("#"+JQryEscape('${control.controlID}_content')).get(0);
 		if (elm && field) {
 			field.value = this.content;
 			if (typeof CKEDITOR == "undefined") {
-				elm.update("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
+				elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
 			} else {
 				#if($control.enabled)
 					//elm.update(this.content);
@@ -119,7 +120,7 @@
 						}
 					});
 				#else
-					elm.update(this.content);
+					elm.text(this.content);
 				#end
 			}
 		}

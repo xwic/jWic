@@ -26,7 +26,7 @@ import de.jwic.base.Event;
  * @version $Revision: 1.1 $
  */
 public class DialogEvent extends Event {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * @param eventSource
 	 */

@@ -48,9 +48,10 @@ public class WindowDemo extends ControlContainer {
 	public WindowDemo(IControlContainer container) {
 		super(container);
 		
-		window = new Window(this, "control");
+		window = new Window(this, "WINDOW");
 		window.setTitle("Sample Window");
 		window.setModal(false);
+		
 		window.setWidth(500);
 		
 		// create a little demo content.
@@ -64,26 +65,39 @@ public class WindowDemo extends ControlContainer {
 
 		LabelControl lbl = new LabelControl(cont);
 		lbl.setText("Property 1");
+		
 		final InputBoxControl inp = new InputBoxControl(cont);
 		inp.setFillWidth(true);
 		inp.setEmptyInfoText("Make Selection..");
 		
-		Button button =  new Button(cont);
+		Button button =  new Button(cont,"BUTTON");
 		button.setTitle("Apply");
 		button.addSelectionListener(new SelectionListener() {
 			public void objectSelected(SelectionEvent event) {
 				onApply();
+				System.out.println(inp.getText());
+				inp.setText("Hello");
 			}
 		});
 				
-		ListBoxControl lb = new ListBoxControl(cont);
+		ListBoxControl lb = new ListBoxControl(cont,"LISTBOX");
 		lb.setChangeNotification(true);
 		lb.addElement("Alpha");
 		lb.addElement("Red");
 		lb.addElement("Hot");
+		lb.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				System.out.println("\n\n"+event.toString()+"\n\n");
+				
+			}
+		});
 		lb.addElementSelectedListener(new ElementSelectedListener() {
 			public void elementSelected(ElementSelectedEvent event) {
+				System.out.println("\n\n"+event.getElement().toString()+"\n\n");
 				inp.setText(event.getElement().toString());
+				
 			}
 		});
 		
@@ -97,7 +111,10 @@ public class WindowDemo extends ControlContainer {
 	 * 
 	 */
 	protected void onApply() {
-		window.setVisible(false); // close it
+	//	window.setVisible(false); // close it
+		System.out.println("Hello world");
+		window.setTitle("Clicked on the button");
+		
 	}
 		
 }

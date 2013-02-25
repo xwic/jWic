@@ -31,7 +31,7 @@ import java.util.Map;
  * @version $Revision: 1.4 $
  */
 public class ValidationException extends Exception {
-
+	private static final long serialVersionUID = 1L;
 	private Map<String, String> errors = new HashMap<String, String>();
 	
 	/**

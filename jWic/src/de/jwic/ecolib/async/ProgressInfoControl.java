@@ -28,7 +28,7 @@ import de.jwic.controls.ProgressBarControl;
  * @author Florian Lippisch
  */
 public class ProgressInfoControl extends ControlContainer {
-
+	private static final long serialVersionUID = 1L;
 	private ProgressBarControl progBar;
 	private IAsyncProcess process = null;
 	

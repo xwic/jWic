@@ -26,7 +26,7 @@ import java.io.Serializable;
  * @author lippisch
  */
 public class SelectElementBaseLabelProvider implements IBaseLabelProvider<ISelectElement>, Serializable {
-
+	private static final long serialVersionUID = 1L;
 	/* (non-Javadoc)
 	 * @see de.jwic.data.IBaseLabelProvider#getBaseLabel(java.lang.Object)
 	 */

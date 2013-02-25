@@ -49,7 +49,7 @@ import de.jwic.base.IResourceControl;
  *
  */
 public abstract class ImageControl extends ControlContainer implements IResourceControl {
-
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Shap represents a html area for maps. Supported types are
 	 * SHAPE_TYPE_RECT, SHAPE_TYPE_CIRCLE and SHAPE_TYPE_POLY.

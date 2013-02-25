@@ -36,7 +36,7 @@ import de.jwic.data.SelectElementContentProvider;
  * @author lippisch
  */
 public class DropDown extends Combo<ISelectElement> {
-
+	private static final long serialVersionUID = 1L;
 	protected List<ISelectElement> elements = null; // default to null
 	
 	/**

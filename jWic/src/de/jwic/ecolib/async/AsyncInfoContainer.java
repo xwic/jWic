@@ -34,7 +34,7 @@ import de.jwic.ecolib.controls.StackedContainer;
  * @author Florian Lippisch
  */
 public class AsyncInfoContainer extends ControlContainer implements IHTMLElement, IProcessListener {
-
+	private static final long serialVersionUID = 1L;
 	private final static String LAYER_PREFIX = "async.";
 	
 	private String cssClass = "";

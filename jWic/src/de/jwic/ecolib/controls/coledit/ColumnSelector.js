@@ -21,31 +21,52 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		Position.includeScrollOffsets = true;
-		Sortable.create('$control.controlID', {
-			tag: 'div',
-			only: 'j-colRow',
-			scroll: '$control.controlID',
-			onUpdate: function() {
-				var fld = $('rowOrder_$control.getControlID()');
+		//Position.includeScrollOffsets = true;
+		var sorts = jQuery('#lst_'+JQryEscape('${control.controlID}'));
+		sorts.sortable({
+			update : function() {
+				var fld = jQuery('#'+JQryEscape('rowOrder_${control.getControlID()}')).get(0);
 				if (fld) {
 					var s = "";
-					$('$control.controlID').select('div.j-colRow').each(function(item) {
-						s += item.readAttribute("jColId") + ";";
+					jQuery('#lst_' + JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
+						s += jQuery(item).attr("jColId") + ";";
 					});
 					fld.value = s;
-#if($control.immediateUpdate)
-					JWic.fireAction('$control.controlID', 'orderUpdated', '');
-#end
+					#if($control.immediateUpdate)
+						JWic.fireAction('$control.controlID', 'orderUpdated', '');
+					#end
 				}
-			}
+			},
+			scroll : true
+			
 		});
+		sorts.sortable("enable");
+//		Sortable.create('$control.controlID', {
+//			tag: 'div',
+//			only: 'j-colRow',
+//			scroll: '$control.controlID',
+//			onUpdate: function() {
+//				var fld = jQuery('#'+JQryEscape('rowOrder_${control.getControlID()}')).get(0);
+//				if (fld) {
+//					var s = "";
+//					jQuery('#' + JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
+//						s += jQuery(item).attr("jColId") + ";";
+//					});
+//					fld.value = s;
+//					#if($control.immediateUpdate)
+//						JWic.fireAction('$control.controlID', 'orderUpdated', '');
+//					#end
+//				}
+//			}
+//		});
 	},
 	
 	/**
 	 * Invoked when the existing element is removed from the DOM tree.
 	 */
 	destroy : function(element) {
-		Sortable.destroy('$control.controlID');
+//		var sorts = jQuery('#lst_'+JQryEscape('${control.controlID}'));
+//		if(sorts)
+//			sorts.destroy();
 	}
 }

@@ -24,10 +24,13 @@ import java.util.Date;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 import de.jwic.samples.controls.propeditor.PropertyEditorView;
@@ -83,6 +86,16 @@ public class InputBoxDemo extends ControlContainer {
 		inputbox.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent event) {
 				log.info("Pressed " + event.getKeyCode() + " code (value=" + inputbox.getText() + ")");
+			}
+		});
+		
+		Button b = new Button(this, "Button");
+		b.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				inputbox.setText("Testing");
+				
 			}
 		});
 		

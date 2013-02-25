@@ -34,7 +34,7 @@ import de.jwic.util.Messages;
  * @version $Revision: 1.4 $
  */
 public class InputDialog extends BasicDialog {
-
+	private static final long serialVersionUID = 1L;
 	private String title = "";
 	private String message = "";
 	private String inputValue = "";
@@ -65,6 +65,7 @@ public class InputDialog extends BasicDialog {
 		Button btOk = new Button(win, "btOk");
 		btOk.setTitle(messages.getString("dialog.ok"));
 		btOk.addSelectionListener(new SelectionListener() {
+			private static final long serialVersionUID = 1L;
 			public void objectSelected(SelectionEvent event) {
 				finish();
 			};
@@ -72,6 +73,7 @@ public class InputDialog extends BasicDialog {
 		Button btAbort = new Button(win, "btAbort");
 		btAbort.setTitle(messages.getString("dialog.abort"));
 		btAbort.addSelectionListener(new SelectionListener() {
+			private static final long serialVersionUID = 1L;
 			public void objectSelected(SelectionEvent event) {
 				abort();
 			};

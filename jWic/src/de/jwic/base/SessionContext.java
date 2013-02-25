@@ -70,7 +70,9 @@ public class SessionContext implements IControlContainer, Serializable {
 	private IApplication application = null;
 	private IApplicationSetup appSetup = null;
 	private Locale locale = null;
-	private TimeZone timeZone;
+
+	private TimeZone timeZone; 
+	private String dateFormat = null;
 	
 	private String clientId = null;
 	private String sessionId = null;
@@ -674,6 +676,21 @@ public class SessionContext implements IControlContainer, Serializable {
 		this.locale = locale;
 	}
 
+	/**
+	 * Set the dateformat
+	 * @param dateFormat
+	 */
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
+	}
+	/**
+	 * 
+	 * @return the current dateformat
+	 */
+	public String getDateFormat() {
+		return dateFormat;
+	}
+	
 	/**
 	 * @return Returns the sessionId.
 	 */

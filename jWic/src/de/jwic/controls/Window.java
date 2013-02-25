@@ -49,7 +49,24 @@ public class Window extends ControlContainer {
 	protected boolean minimizable = true;
 	protected boolean maximizable = true;
 	protected boolean draggable = true;
+	protected boolean popup = false;
 	
+	public boolean isPopup() {
+		return popup;
+	}
+
+	public void setPopup(boolean popup) {
+		this.popup = popup;
+		if(popup == true) {
+			this.modal = false;
+			this.closable = false;
+			this.maximizable= false;
+			this.minimizable = false;
+			this.resizable = false;
+		}
+		requireRedraw();
+	}
+
 	protected Field height;
 	protected Field width;
 	protected Field top;
@@ -80,9 +97,10 @@ public class Window extends ControlContainer {
 	 * Invoked when the window is closed.
 	 */
 	public void actionClose() {
+		System.out.println("\n\nClosing\n\n");
 		setVisible(false);
 	}
-	
+		
 	/**
 	 * @return the title
 	 */

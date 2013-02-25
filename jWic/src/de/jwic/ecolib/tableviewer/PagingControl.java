@@ -29,7 +29,7 @@ import de.jwic.base.IControlContainer;
  * @author Florian Lippisch
  */
 public class PagingControl extends Control {
-
+	private static final long serialVersionUID = 1L;
 	private TableModel model;
 	private boolean enabled = true;
 	

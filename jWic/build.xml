@@ -12,7 +12,7 @@
             The next generation Web-UI Framework.
     </description>
 	
-	<property name="release" value="4.0.4"/>
+	<property name="release" value="5.0.0"/>
 	<property name="dist" location="_dist"/>
 	<property name="distfiles" location="_distfiles"/>
 	<property name="build" location="${java.io.tmpdir}/.temp.jarbuild"/>

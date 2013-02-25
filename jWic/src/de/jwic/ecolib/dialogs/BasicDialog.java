@@ -34,7 +34,7 @@ import de.jwic.base.SessionContext;
  * @version $Revision: 1.2 $
  */
 public abstract class BasicDialog implements Serializable {
-	
+	private static final long serialVersionUID = 1L;
 	private IControlContainer parent;
 	private ControlContainer container;
 	private List<DialogListener> listeners = null;

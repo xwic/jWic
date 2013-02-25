@@ -37,7 +37,7 @@ import de.jwic.base.ImageRef;
  * @author lippisch
  */
 public class BeanToJsonSerializer implements IObjectToJsonSerializer {
-
+	private static final long serialVersionUID = 1L;
 	private transient Class<?> lastClass = null;
 	private transient PropertyDescriptor[] readers = null;
 	

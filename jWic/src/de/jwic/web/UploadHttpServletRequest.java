@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
  * @author Florian Lippisch
  * @version $Revision: 1.2 $
  */
-@SuppressWarnings("unchecked")
+
 public class UploadHttpServletRequest implements HttpServletRequest {
 
 	private HttpServletRequest parentRequest = null;
@@ -39,7 +39,9 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	 * @author Florian Lippisch
 	 * @version $Revision: 1.2 $
 	 */
+	@SuppressWarnings("rawtypes")
 	private class Iterator2Enumerator implements Enumeration {
+		
 		private Iterator<String> it;
 		public Iterator2Enumerator(Iterator<String> iterator) {
 			it = iterator;
@@ -93,6 +95,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServletRequest#getHeaders(java.lang.String)
 	 */
+	@SuppressWarnings("rawtypes")
 	public Enumeration getHeaders(String arg0) {
 		return parentRequest.getHeaders(arg0);
 	}
@@ -100,6 +103,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServletRequest#getHeaderNames()
 	 */
+	@SuppressWarnings("rawtypes")
 	public Enumeration getHeaderNames() {
 		return parentRequest.getHeaderNames();
 	}
@@ -248,6 +252,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	/* (non-Javadoc)
 	 * @see javax.servlet.ServletRequest#getAttributeNames()
 	 */
+	@SuppressWarnings("rawtypes")
 	public Enumeration getAttributeNames() {
 		return parentRequest.getAttributeNames();
 	}
@@ -299,6 +304,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	/* (non-Javadoc)
 	 * @see javax.servlet.ServletRequest#getParameterNames()
 	 */
+	@SuppressWarnings("rawtypes")
 	public Enumeration getParameterNames() {
 		return new Iterator2Enumerator(paramMap.keySet().iterator());
 	}
@@ -393,6 +399,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	/* (non-Javadoc)
 	 * @see javax.servlet.ServletRequest#getLocales()
 	 */
+	@SuppressWarnings("rawtypes")
 	public Enumeration getLocales() {
 		return parentRequest.getLocales();
 	}

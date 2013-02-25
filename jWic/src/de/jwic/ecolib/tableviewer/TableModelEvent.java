@@ -26,7 +26,7 @@ import de.jwic.base.Event;
  * @author Florian Lippisch
  */
 public class TableModelEvent extends Event {
-
+	private static final long serialVersionUID = 1L;
 	private TableColumn tableColumn = null;
 	private String rowKey = null;
 	

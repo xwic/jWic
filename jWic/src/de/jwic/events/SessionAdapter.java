@@ -11,7 +11,7 @@ package de.jwic.events;
  * @version $Revision: 1.1 $
  */
 public abstract class SessionAdapter implements	SessionListener {
-
+	private static final long serialVersionUID = 1L;
 	/* (non-Javadoc)
 	 * @see de.jwic.events.SessionListener#afterDeserialization(de.jwic.events.SessionEvent)
 	 */

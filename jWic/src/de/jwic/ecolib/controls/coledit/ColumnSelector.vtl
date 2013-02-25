@@ -26,7 +26,7 @@
 	</div>
 </div>
 #end
-<div id="$control.controlID" class="$control.cssClass" style="width: ${control.width}px; height: ${height}px;">
+<div id="lst_$control.controlID" class="$control.cssClass" style="width: ${control.width}px; height: ${height}px;">
 	#foreach($col in $control.columns)
 		#if(!$control.hideInvisibles || $col.visible)
 		<div id="col_${control.controlID}_$col.id" class="j-colRow" jColId="$col.id">
