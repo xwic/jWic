@@ -14,7 +14,7 @@ public class NumberInputBoxControl extends InputBoxControl {
 	private double number = 0.0;
 
 
-	private String thounsendsSeparator = ",";
+	private String thousandsSeparator = ",";
 	private String decimalSeparator = ".";
 
 	public NumberInputBoxControl(IControlContainer container) {
@@ -56,19 +56,33 @@ public class NumberInputBoxControl extends InputBoxControl {
 	}
 	
 	
-
-	public String getThounsendsSeparator() {
-		return thounsendsSeparator;
+	/**
+	 * 
+	 * @return the separator for thounsends 
+	 */
+	public String getThousandsSeparator () {
+		return thousandsSeparator ;
 	}
 
-	public void setThounsendsSeparator(char thounsendsSeparator) {
-		this.thounsendsSeparator = String.valueOf(thounsendsSeparator);
+	/**
+	 * @param thounsendsSeparator to be set
+	 * Default is ',' (comma)
+	 */
+	public void setThousandsSeparator (char thounsendsSeparator) {
+		this.thousandsSeparator  = String.valueOf(thounsendsSeparator);
 	}
 
+	/**
+	 * @return
+	 */
 	public String getDecimalSeparator() {
 		return decimalSeparator;
 	}
 
+	/**
+	 * @param decimalSeparator to be set
+	 * Default is '.' (dot)
+	 */
 	public void setDecimalSeparator(char decimalSeparator) {
 		this.decimalSeparator = String.valueOf(decimalSeparator);
 	}

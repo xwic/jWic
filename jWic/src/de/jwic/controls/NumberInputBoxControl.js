@@ -5,7 +5,7 @@
 		
 		var inpElm = jQuery('#'+JQryEscape("${control.controlID}"));
 		var hidden = jQuery('#'+JQryEscape("${control.controlID}_field"));
-		var t = "$control.thounsendsSeparator" ;
+		var t = "$control.thousandsSeparator" ;
 		var d = "$control.decimalSeparator" ;
 		if (inpElm) {
 			JWic.controls.NumberInputBoxControl.initialize(inpElm,hidden,{thousends:	t,decimals:d});
