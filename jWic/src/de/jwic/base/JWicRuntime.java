@@ -20,6 +20,7 @@
 package de.jwic.base;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
@@ -82,7 +83,7 @@ public class JWicRuntime {
 	 * is closed by the server.
 	 * @author Florian Lippisch
 	 */
-	private class HttpSessionClosedListener implements HttpSessionBindingListener {
+	private class HttpSessionClosedListener implements HttpSessionBindingListener,Serializable {
 		private JWicRuntime runtime;
 		private String sessionID;
 		public HttpSessionClosedListener(JWicRuntime rt, String sessionID) {

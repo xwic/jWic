@@ -1,0 +1,15 @@
+<input type="hidden" name="${control.fieldNumber.id}" id="${control.controlID}_field" value="$jwic.formatInp(${control.fieldNumber.value})"/>
+<input
+    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
+    #if($control.field.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
+    xListenKeyCode="$control.listenKeyCode"
+	#if ( $control.password )type="password" #else type="text" #end
+	#if ( !$control.enabled )disabled #end
+	#if ( $control.readonly )readonly #end	
+	#if ( $control.maxLength != 0 )maxlength="$control.maxLength" #end
+	$jwic.generateCssProperty($control, "")
+	#if ( $control.cols != 0 ) size="${control.cols}" #end
+	id="${control.controlID}"
+	name="${control.field.id}"
+	style="text-align: right;"
+/>
