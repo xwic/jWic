@@ -189,8 +189,6 @@ public abstract class Control implements Serializable, IControl {
 			// remove this control from container
 			objContainer.removeControl(name);
 		} else {
-			// do nothing by default.
-			log.debug("destroy() [" + getControlID() + "]");
 			// remove from top control
 			if (objSessionContext != null) {
 				objSessionContext.removeTopControl(this);

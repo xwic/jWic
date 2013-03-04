@@ -1,6 +1,6 @@
 /*
  * de.jwic.web.DispatcherServlet
- * $Id: WebEngine.java,v 1.24 2012/09/02 13:21:09 lordsam Exp $
+ * $Id: WebEngine.java,v 1.25 2013/02/23 22:33:31 lordsam Exp $
  */
 package de.jwic.web;
 
@@ -69,7 +69,7 @@ import de.jwic.upload.UploadFile;
  * </p> 
  *   
  * @author Florian Lippisch
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public class WebEngine  {
     
@@ -95,6 +95,8 @@ public class WebEngine  {
 		postHandleAction,
 		preRendering,
 		postRendering,
+		preControlRendering,
+		postControlRendering,
 		preResourceRequest,
 		postResourceRequest
 	}
@@ -195,6 +197,14 @@ public class WebEngine  {
 	
 				case postRendering:
 					listener.postRendering(event);
+					break;
+
+				case preControlRendering:
+					listener.preControlRendering(event);
+					break;
+	
+				case postControlRendering:
+					listener.postControlRendering(event);
 					break;
 					
 				case preHandleAction:
@@ -608,6 +618,9 @@ public class WebEngine  {
 
 		String responseFormat = req.getParameter("_format");
 
+		WebEngineEvent event = new WebEngineEvent(sc, true);
+		fireEvent(EngineEvent.preRendering, event);
+
 		if (RESPONSE_FORMAT_JSON.equals(responseFormat)) {
 			res.setContentType("text/json; charset=UTF-8");
 		} else {
@@ -637,9 +650,6 @@ public class WebEngine  {
 			log.error("Error rendering controls.", e);
 			renderingException = e;
 		}
-
-		WebEngineEvent event = new WebEngineEvent(sc, true);
-		fireEvent(EngineEvent.preRendering, event);
 
 		if (RESPONSE_FORMAT_JSON.equals(responseFormat)) {
 			JSONWriter jsonOut = new JSONWriter(pw);
@@ -783,7 +793,13 @@ public class WebEngine  {
 			RenderContext context = new RenderContext(req, res, pw);
 			ContentRenderer cr = new ContentRenderer(ctrl, context);
 			try {
+				WebEngineEvent event = new WebEngineEvent(ctrl.getSessionContext(), ctrl.getControlID());
+				fireEvent(EngineEvent.preControlRendering, event);
+
 				cr.render();
+				
+				fireEvent(EngineEvent.postControlRendering, event);
+
 			} catch (Throwable t) {
 				log.error("Error rendering control " + ctrl.getControlID() + " type " + ctrl.getClass().getName(), t);
 				pw.print("Error rendering control: " + t.toString());

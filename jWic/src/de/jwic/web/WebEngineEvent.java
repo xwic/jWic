@@ -15,7 +15,7 @@
  *
  * de.jwic.web.EngineEvent
  * Created on Aug 31, 2012
- * $Id: WebEngineEvent.java,v 1.1 2012/09/02 13:21:09 lordsam Exp $
+ * $Id: WebEngineEvent.java,v 1.2 2013/02/23 22:33:31 lordsam Exp $
  */
 package de.jwic.web;
 
@@ -49,6 +49,16 @@ public class WebEngineEvent {
 	}
 	
 	
+	/**
+	 * @param ajaxRendering
+	 */
+	public WebEngineEvent(SessionContext sc, boolean ajaxRendering, String controlId) {
+		super();
+		this.sessionContext = sc;
+		this.ajaxRendering = ajaxRendering;
+		this.controlId = controlId;
+	}
+		
 
 	/**
 	 * @param sessionContext

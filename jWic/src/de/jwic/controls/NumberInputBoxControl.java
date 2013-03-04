@@ -5,6 +5,11 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.events.ValueChangedListener;
 
+/**
+ * 
+ * @author bogdan
+ *
+ */
 @JavaScriptSupport
 public class NumberInputBoxControl extends InputBoxControl {
 
@@ -17,26 +22,46 @@ public class NumberInputBoxControl extends InputBoxControl {
 	private String thousandsSeparator = ",";
 	private String decimalSeparator = ".";
 
+	/**
+	 * 
+	 * @param container
+	 */
 	public NumberInputBoxControl(IControlContainer container) {
 		this(container,"");
 		
 	}
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 */
 	public NumberInputBoxControl(IControlContainer container, String name) {
 		super(container, name);
 		this.fieldNumber = new Field(this);
 		this.fieldNumber.setValue(String.valueOf(number));
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Field getFieldNumber() {
 		return fieldNumber;
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double getNumber(){
 		return Double.parseDouble(this.fieldNumber.getValue());
 	}
 	
+	/**
+	 * 
+	 * @param d
+	 */
 	public void setNumber(double d){
 		
 		this.fieldNumber.setValue(String.valueOf(d));
@@ -44,11 +69,17 @@ public class NumberInputBoxControl extends InputBoxControl {
 		this.requireRedraw();		
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void removeValueChangedListener(ValueChangedListener listener) {
 		this.fieldNumber.removeValueChangedListener(listener);
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void addValueChangedListener(ValueChangedListener listener) {
 		super.addValueChangedListener(listener);
