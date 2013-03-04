@@ -27,6 +27,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.ListBoxControl;
+import de.jwic.controls.NumberInputBoxControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
@@ -70,18 +71,9 @@ public class InputBoxDemo extends ControlContainer {
 		inputbox.setEmptyInfoText("Enter some text here.");
 		
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
-		propEditor.setBean(inputbox);
 		
-		inputbox.addValueChangedListener(new ValueChangedListener() {
-			/* (non-Javadoc)
-			 * @see de.jwic.events.ValueChangedListener#valueChanged(de.jwic.events.ValueChangedEvent)
-			 */
-			public void valueChanged(ValueChangedEvent event) {
-				propEditor.loadValues();	 // reload values.			
-			}
-		});
-		propEditor.loadValues(); // refresh values.
-
+		
+	
 		inputbox.addValueChangedListener(new EventLogListener());
 		inputbox.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent event) {
@@ -98,6 +90,17 @@ public class InputBoxDemo extends ControlContainer {
 				
 			}
 		});
+		
+		final NumberInputBoxControl numbers = new NumberInputBoxControl(this,"numbers");
+		numbers.addValueChangedListener(new ValueChangedListener() {
+			
+			@Override
+			public void valueChanged(ValueChangedEvent event) {
+				System.out.println(numbers.getNumber());
+				propEditor.loadValues();
+			}
+		});
+		propEditor.setBean(numbers);
 		
 		eventLog = new ListBoxControl(this, "eventLog");
 		eventLog.setSize(8);
