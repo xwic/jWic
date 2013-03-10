@@ -960,7 +960,7 @@ JWic.controls = {
 			match : function(comboBox, object) {
 				if (comboBox.dataFilterValue) {
 					var value = comboBox.dataFilterValue.toLowerCase();
-					var objTitle = object.title.strip().toLowerCase()
+					var objTitle = jQuery.trim(object.title).toLowerCase();
 					return objTitle.startsWith(value);
 				}
 				return true;
@@ -1014,13 +1014,13 @@ JWic.controls = {
 		 * Invoked when the focus is received.
 		 */
 		mouseOverHandler : function(e) {
-			jQuery(e.target).addClass("j-hover");
+			jQuery(this).addClass("j-hover");
 		},
 		/**
 		 * Invoked when the focus is lost.
 		 */
 		mouseOutHandler : function(e) {
-			jQuery(e.target).removeClass("j-hover");
+			jQuery(this).removeClass("j-hover");
 		}
 	},
 	
