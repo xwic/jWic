@@ -9,7 +9,7 @@ JWic.ecolib.controls = {
 			 */
 			updateContent : function(controlId) {
 		
-					var ctrl = jQuery("#pi_" + JQryEscape(controlId)).get(0);
+					var ctrl = jQuery("#pi_" + JQryEscape(controlId));
 					if (ctrl && !ctrl.requestPending) {
 						ctrl.requestPending = true;
 						JWic.resourceRequest(controlId, function(ajaxResponse) {
@@ -28,8 +28,8 @@ JWic.ecolib.controls = {
 			 * Handle the response from the server and render the status.
 			 */
 			handleResponse : function(controlId, resp) {
-				var data = resp.responseText.evalJSON(true);
-				var container = jQuery("#pi_" + JQryEscape(controlId)).get(0);
+				var data = jQuery.parseJSON(resp.responseText);
+				var container = jQuery("#pi_" + JQryEscape(controlId));
 				
 				if (container) { // view container might have been removed in the meantime
 					if (data.monitor) {
