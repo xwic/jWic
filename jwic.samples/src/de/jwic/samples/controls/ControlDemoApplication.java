@@ -163,10 +163,7 @@ public class ControlDemoApplication extends Application {
 		new ListBoxDemo(tab); 
 
 		tab = tabStrip.addTab("Checkbox");
-		new SingleCheckBoxDemo(tab); 
-
-		tab = tabStrip.addTab("Checkbox Group");
-		new CheckboxDemo(tab); 
+		new CheckboxDemo(tab, "cbDemo"); 
 
 		tab = tabStrip.addTab("RadioGroup");
 		new RadioDemo(tab, "redemo"); 

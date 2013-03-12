@@ -235,7 +235,8 @@ public class PropertyEditorView extends ControlContainer {
 							lbc.addElement("True", "true");
 							lbc.addElement("False", "false");
 							lbc.setChangeNotification(true);
-							lbc.setFillWidth(true);
+							lbc.setFillWidth(false);
+							lbc.setWidth(100);
 							lbc.addElementSelectedListener(elementSelectedListener);
 							lbc.setCssClass("small");
 							control = lbc;
