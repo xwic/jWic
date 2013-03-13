@@ -116,11 +116,8 @@ public class ControlDemoApplication extends Application {
 		TabControl tab = tabStrip.addTab("MenuButton");
 		new MenuButtonDemo(tab); 
 		
-		tab = tabStrip.addTab("Menu");
-		new MenuDemo(tab); 
-
-//		tab = tabStrip.addTab("Dialogs");
-//		new DialogDemo(tab); 
+		tab = tabStrip.addTab("Dialogs");
+		new DialogDemo(tab); 
 
 		tab = tabStrip.addTab("Toolbar");
 		new ToolbarDemo(tab, "demo");
@@ -133,9 +130,6 @@ public class ControlDemoApplication extends Application {
 
 		tab = tabStrip.addTab("TableViewer (3)");
 		new TableViewerDemo3(tab); 
-
-		tab = tabStrip.addTab("HTML Editor");
-		new HtmlEditorDemo(tab); 
 
 		tab = tabStrip.addTab("CKEditor");
 		new CKEditorDemo(tab); 

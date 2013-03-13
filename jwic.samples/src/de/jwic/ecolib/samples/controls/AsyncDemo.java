@@ -111,6 +111,7 @@ public class AsyncDemo extends ControlContainer {
 		
 		infoContainer = new AsyncInfoContainer(this, "async");
 		infoContainer.setInfoMessage("Come on, hit the run button to see some Action!");
+		//infoContainer.setVisible(false);
 		
 		AsyncDemoResult result = new AsyncDemoResult(infoContainer.getFrameContainer(), "result");
 		infoContainer.setResultViewer(result);

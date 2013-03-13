@@ -30,8 +30,6 @@ import de.jwic.controls.ListBoxControl;
 import de.jwic.ecolib.controls.chart.ChartControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
-import de.jwic.events.SessionAdapter;
-import de.jwic.events.SessionEvent;
 import demo.AreaChartDemo1;
 import demo.BarChart3DDemo1;
 import demo.HistogramDemo1;
@@ -49,7 +47,9 @@ import demo.XYAreaChartDemo2;
 public class ChartDemo extends ControlContainer {
 
 	private ListBoxControl demoType;
-	private ChartControl chart; 
+	private ChartControl chart;
+	private ListBoxControl lbWidth;
+	private ListBoxControl lbHeight; 
 	
 	/**
 	 * @param container
@@ -100,8 +100,7 @@ public class ChartDemo extends ControlContainer {
 		
 		demoType.setSelectedKey("PIE3"); // will trigger the event and call changeChartType(..);
 		
-		// Change Listbox Width
-		ListBoxControl lbWidth = new ListBoxControl(this, "lbWidth");
+		lbWidth = new ListBoxControl(this, "lbWidth");
 		lbWidth.addElement("0 - Unspecified", "0");
 		for (int i = 50; i < 601; i += 50) {
 			lbWidth.addElement(Integer.toString(i) + "px", Integer.toString(i));
@@ -114,8 +113,7 @@ public class ChartDemo extends ControlContainer {
 			};
 		});
 		
-		// Change Listbox Height
-		ListBoxControl lbHeight = new ListBoxControl(this, "lbHeight");
+		lbHeight = new ListBoxControl(this, "lbHeight");
 		lbHeight.addElement("0 - Unspecified", "0");
 		for (int i = 50; i < 601; i += 50) {
 			lbHeight.addElement(Integer.toString(i) + "px", Integer.toString(i));
@@ -142,7 +140,7 @@ public class ChartDemo extends ControlContainer {
 //		});
 		
 	}
-
+	
 	protected void changeChartType(String type) {
 		
 		JFreeChart jfreechart = null;
