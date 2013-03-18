@@ -28,7 +28,7 @@ JWic.ecolib.controls = {
 			 * Handle the response from the server and render the status.
 			 */
 			handleResponse : function(controlId, resp) {
-				var data = resp.responseText.evalJSON(true);
+				var data = JSON.parse(resp.responseText);
 				var container = jQuery("#pi_" + JQryEscape(controlId)).get(0);
 				
 				if (container) { // view container might have been removed in the meantime
@@ -56,14 +56,17 @@ JWic.ecolib.controls = {
 							if (!piProgBar.hasClass("progressBarActive")) {
 								piProgBar.addClass("progressBarActive");
 							}
-							piProgBar.css("width", Math.abs(pr) + "px");
+							piProgBar.width( Math.abs(pr));
 						}
 						
 					}
 	
 					container.requestPending = false;
 					if (data.active) {
-						window.setTimeout("JWic.ecolib.controls.ProcessInfo.updateContent('" + controlId + "')", 500);
+						
+						window.setTimeout(function(){
+							JWic.ecolib.controls.ProcessInfo.updateContent(controlId)
+						}, 500);
 					}
 					if (data.globalRefresh) {
 						JWic.fireAction('', 'refresh', '');
