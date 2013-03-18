@@ -59,7 +59,6 @@
 		
 		function addMinimizeToDialog(dialog){
 			if(dialog !== undefined){
-				console.log(dialog.parent().css('position'));
 				dialog.bind('dialogresize',function(){
 					jQuery.data(dialog,'width',dialog.parent().width());
 					dialog.parent().css('height', 'auto');
