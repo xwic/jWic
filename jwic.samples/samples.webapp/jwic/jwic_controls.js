@@ -233,7 +233,9 @@ JWic.controls = {
 	 * de.jwic.controls.combo.Combo functions.
 	 */
 	Combo : {
-		
+		documentClickHander : function(){
+			
+		},
 		/**
 		 * Currently open combo content box.
 		 */
@@ -251,6 +253,7 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(controlId, inpElm) {
+			
 			var escapedControlId = JQryEscape(controlId);
 			var comboBox = jQuery("#" + escapedControlId).get(0);
 			var iconElm = jQuery("#" + escapedControlId + "_open").get(0);
@@ -669,7 +672,7 @@ JWic.controls = {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				var tpl = jQuery(e.target).closest("#j-combo_contentBox");
 				// var tpl = e.findElement("#j-combo_contentBox");
-				if (!tpl) { // user clicked outside the content box -> close it.
+				if (tpl.length == 0) { // user clicked outside the content box -> close it.
 					// JWic.log("Clicked outside of combo box");
 					var age = new Date().getTime() - JWic.controls.Combo._openTime;
 					if (age > 300) { // to avoid miss-clicks, ignore 300ms
@@ -677,6 +680,8 @@ JWic.controls = {
 						JWic.controls.Combo.closeActiveContentBox();
 					}
 				} else {
+					
+					
 					// JWic.log("Clicked inside of combo box.");
 					JWic.controls.Combo._lostFocusClose = false;
 				}
