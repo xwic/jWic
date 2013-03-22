@@ -159,6 +159,9 @@ public class ControlDemoApplication extends Application {
 		tab = tabStrip.addTab("InputBox");
 		new InputBoxDemo(tab); 
 
+		tab = tabStrip.addTab("NumberInputControl");
+		new NumericInputControlDemo(tab); 
+
 		tab = tabStrip.addTab("Listbox");
 		new ListBoxDemo(tab); 
 

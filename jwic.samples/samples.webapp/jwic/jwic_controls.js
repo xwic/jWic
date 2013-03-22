@@ -112,6 +112,104 @@ JWic.controls = {
 		}
 		
 	},
+
+	/**
+	 * InputBoxControl script extensions.
+	 */
+	NumericInputControl : {
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(inpElm, options) {
+			inpElm.bind("focus", JWic.controls.NumericInputControl.focusHandler);
+			inpElm.bind("blur", JWic.controls.NumericInputControl.lostFocusHandler);
+			inpElm.change(JWic.controls.NumericInputControl.changeHandler);
+			
+			inpElm.autoNumeric('init', options); 
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keyup", JWic.controls.NumericInputControl.keyHandler);
+			}
+			
+			if (inpElm.attr("xEmptyInfoText")) {
+				if(inpElm.attr("xIsEmpty") == "true" && 
+					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+					inpElm.addClass("x-empty");
+					inpElm.val(inpElm.attr("xEmptyInfoText"));
+				} else {
+					inpElm.attr("xIsEmpty", "false");
+					inpElm.removeClass("x-empty");
+				}
+			}
+			
+			// override the getValue() method to "fix" the serialization
+			inpElm.getValue = function() {
+				if (this.attr("xEmptyInfoText") && this.attr("xIsEmpty") == "true") {
+					return "";
+				} else {
+					return this.value;
+				}
+			}
+			
+		},
+		
+		/**
+		 * Clean up..
+		 */
+		destroy : function(inpElm) {
+			inpElm.unbind();
+		},
+		
+		changeHandler : function(e) {
+			var elm =  jQuery(e.target);
+			var elmHidden = jQuery('#'+JQryEscape(e.target.id + "_field"));
+			var value = elm.autoNumeric('get');
+			elmHidden.val(value);
+		},
+		
+		/**
+		 * Invoked when the focus is received.
+		 */
+		focusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			elm.addClass("x-focus");
+			
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.attr("xIsEmpty") == "true") {
+					elm.val('');
+					elm.removeClass("x-empty");
+					elm.attr("xIsEmpty", "false");
+				} 
+			}
+			
+		},
+		/**
+		 * Invoked when the focus is lost.
+		 */
+		lostFocusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			elm.removeClass("x-focus");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.val() == "") { // still empty
+					elm.addClass("x-empty");
+					elm.val(elm.attr("xEmptyInfoText"));
+					elm.attr("xIsEmpty", "true");
+				} else {
+					elm.attr("xIsEmpty", "false");
+				}
+			}
+		},
+		
+		keyHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			if (e.keyCode == elm.attr("xListenKeyCode")) {
+				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
+			}
+		}
+		
+	},
+	
 	/*
 	 * NumberInputBoxControl.js
 	 */ 

@@ -1,22 +1,3 @@
-/*
- * Copyright 2005 jWic group (http://www.jwic.de)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * de.jwic.samples.controls.LabelDemo
- * Created on 28.10.2005
- * $Id: InputBoxDemo.java,v 1.7 2010/04/29 20:02:08 lordsam Exp $
- */
 package de.jwic.samples.controls;
 
 import java.text.DateFormat;
@@ -26,27 +7,21 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
-import de.jwic.controls.NumberInputBoxControl;
 import de.jwic.controls.NumericInputControl;
-import de.jwic.events.KeyEvent;
-import de.jwic.events.KeyListener;
+import de.jwic.controls.NumericInputControl.ThousandSeparator;
+import de.jwic.events.ElementSelectedEvent;
+import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 import de.jwic.samples.controls.propeditor.PropertyEditorView;
 
-/**
- * 
- * Demonstrates the usage of the LabelControl.
- * 
- * @author Florian Lippisch
- * @version $Revision: 1.7 $
- */
-public class InputBoxDemo extends ControlContainer {
+public class NumericInputControlDemo extends ControlContainer {
 
-	private InputBoxControl inputbox;
+	private NumericInputControl inputbox;
 	private ListBoxControl eventLog;
 	
 	private class EventLogListener implements ValueChangedListener {
@@ -62,33 +37,41 @@ public class InputBoxDemo extends ControlContainer {
 		}
 	}
 
-	public InputBoxDemo(IControlContainer container) {
+	public NumericInputControlDemo(IControlContainer container) {
 		super(container);
 		
 		
 		
-		inputbox = new InputBoxControl(this, "inputbox");
+		inputbox = new NumericInputControl(this, "inputbox");
 		inputbox.setText("");
-		inputbox.setEmptyInfoText("Enter some text here.");
+		inputbox.setThousandSeparator(ThousandSeparator.SPACE);
+		inputbox.setEmptyInfoText("Enter some number here.");
 		
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
 		
 		
-	
 		inputbox.addValueChangedListener(new EventLogListener());
-		inputbox.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent event) {
-				log.info("Pressed " + event.getKeyCode() + " code (value=" + inputbox.getText() + ")");
-			}
-		});
+		
+		final InputBoxControl inpRawNumber = new InputBoxControl(this, "inpRaw");
 		
 		Button b = new Button(this, "Button");
+		b.setTitle("Set value");
 		b.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {
-				inputbox.setText("Testing");
-				
+				inputbox.setNumber(Double.parseDouble(inpRawNumber.getText()));
+			}
+		});
+		
+		final LabelControl lblRawValue = new LabelControl(this, "lblRaw");
+		b = new Button(this, "Button2");
+		b.setTitle("Get value");
+		b.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				lblRawValue.setText(inputbox.getNumber().toString());
 			}
 		});
 		
@@ -97,7 +80,17 @@ public class InputBoxDemo extends ControlContainer {
 		
 		eventLog = new ListBoxControl(this, "eventLog");
 		eventLog.setSize(8);
-	
+		
+		final EnumListBoxControl<ThousandSeparator> lstThousandSep = new EnumListBoxControl<NumericInputControl.ThousandSeparator>(this, "lstThousandSep", ThousandSeparator.class);
+		lstThousandSep.setChangeNotification(true);
+		lstThousandSep.addElementSelectedListener(new ElementSelectedListener() {
+			
+			@Override
+			public void elementSelected(ElementSelectedEvent event) {
+				inputbox.setThousandSeparator(lstThousandSep.getEnumObject());
+				
+			}
+		});
 	}
 	
 }
