@@ -47,7 +47,7 @@
 		/*
 		 * set datepicker date from java
 		 */
-		var timeStamp = '${control.getDate().getTime()}';
+		var timeStamp = '${control.currentTime}';
 		timeStamp = parseInt(timeStamp);
 		if(!isNaN(timeStamp)){			
 			var date = new Date(timeStamp);			

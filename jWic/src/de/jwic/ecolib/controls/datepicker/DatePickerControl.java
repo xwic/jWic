@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 
@@ -38,9 +39,8 @@ public class DatePickerControl extends InputBoxControl {
 
 	public static final String NO_FORMAT = "noformat";
 	private static final String CSS_CLASS = "datePickerControl";
-
 	private Locale locale;
-	private Date date;
+	private Long currentTime;
 	private final List<DateChangedListener> listeners = new ArrayList<DateChangedListener>();
 	private boolean showMonth = true;
 	private boolean showYear = true;
@@ -49,6 +49,7 @@ public class DatePickerControl extends InputBoxControl {
 	private boolean showWeek = false;
 
 	private boolean iconTriggered = false;
+	private TimeZone timeZone;
 
 	private static final Logger log = Logger.getLogger(DatePickerControl.class);
 
@@ -58,7 +59,7 @@ public class DatePickerControl extends InputBoxControl {
 	public DatePickerControl(IControlContainer container) {
 		super(container);
 		init();
-		this.setDateFormat(this.getSessionContext().getDateFormat());
+		
 	}
 
 	/**
@@ -70,9 +71,14 @@ public class DatePickerControl extends InputBoxControl {
 		init();
 	}
 
+	/**
+	 * 
+	 */
 	private void init() {
 		locale = this.getSessionContext().getLocale();
 		setCssClass(CSS_CLASS);
+		this.setDateFormat(this.getSessionContext().getDateFormat());
+		this.setTimeZone(getSessionContext().getTimeZone());
 	}
 
 	/**
@@ -82,6 +88,16 @@ public class DatePickerControl extends InputBoxControl {
 		return locale;
 	}
 
+	/**
+	 * Calculates timezone specific date.
+	 * @param time
+	 * @return
+	 */
+	private Date getTimezoneSpecificDate(Long time){
+		long offset = getTimeZone().getOffset(time);
+		return new Date(time-offset);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -91,7 +107,7 @@ public class DatePickerControl extends InputBoxControl {
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
-			this.setDate(new Date(Long.valueOf(parameter)));
+			currentTime = Long.valueOf(parameter);
 		}
 		if ("localeNotFound".equals(actionId)) {
 			this.setLocale(Locale.ENGLISH);
@@ -130,17 +146,49 @@ public class DatePickerControl extends InputBoxControl {
 	 */
 	public void setDate(Date date) {
 		Date oldDate = this.getDate();
-		this.date = date;
+		if(date != null){
+			currentTime = getTimezoneSpecificDate(date.getTime()).getTime();
+		}else {
+			currentTime = null;
+		}
 		this.requireRedraw();
-		this.notifyListeners(oldDate, this.date);
+		this.notifyListeners(oldDate, currentTime != null ? new Date(currentTime) : null);
 
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public TimeZone getTimeZone() {
+		return timeZone;
+	}
+
+	/**
+	 * 
+	 * @param timeZone
+	 */
+	public void setTimeZone(TimeZone timeZone) {
+		this.timeZone = timeZone;
+	}
+	
+	
+	/**
+	 * get current date as long. For internal use.
+	 * @return
+	 */
+	public Long getCurrentTime() {
+		return currentTime;
 	}
 
 	/**
 	 * @return the date
 	 */
 	public Date getDate() {
-		return date;
+		if(currentTime == null){
+			return null;
+		}
+		return getTimezoneSpecificDate(currentTime);
 	}
 
 	/**
