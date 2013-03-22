@@ -1018,8 +1018,13 @@ JWic.controls = {
 		
 		initialize : function(tblElm, btnElm) {
 			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
-				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
+				tblElm.bind('mouseover', function(){
+					tblElm.addClass('j-hover');
+				});
+				tblElm.bind('mouseout', function(){
+					tblElm.removeClass('j-hover');
+					
+				});
 				tblElm.bind('click', JWic.controls.Button.clickHandler);
 				btnElm.bind('click', JWic.controls.Button.clickHandler);
 			}
@@ -1027,8 +1032,8 @@ JWic.controls = {
 		
 		destroy : function(tblElm, btnElm) {
 			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.unbind("mouseover", JWic.controls.Button.mouseOverHandler);
-				tblElm.unbind("mouseout", JWic.controls.Button.mouseOutHandler);
+				tblElm.unbind("mouseover");
+				tblElm.unbind("mouseout");
 				tblElm.unbind("click", JWic.controls.Button.clickHandler);
 				btnElm.unbind("click", JWic.controls.Button.clickHandler);
 			}
@@ -1051,18 +1056,7 @@ JWic.controls = {
 			}
 			JWic.fireAction(ctrlId, 'click', '');
 		},
-		/**
-		 * Invoked when the focus is received.
-		 */
-		mouseOverHandler : function(e) {
-			jQuery(e.target).addClass("j-hover");
-		},
-		/**
-		 * Invoked when the focus is lost.
-		 */
-		mouseOutHandler : function(e) {
-			jQuery(e.target).removeClass("j-hover");
-		}
+	
 	},
 	
 	/**

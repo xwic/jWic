@@ -187,9 +187,10 @@ JWic.controls = {
 		updateHandler : function(controlId) {
 			var win = jQuery('#'+JQryEscape(controlId));
 			if (win) {
-				//var size = win.getSize();
+				// var size = win.getSize();
 				var field = jQuery("#fld_" + JQryEscape(controlId));
-				if (field) { // assume that if one field exists, the others exist as well.
+				if (field) { // assume that if one field exists, the others
+								// exist as well.
 					field.width(win.width()); 
 					field.height(win.height);
 					field.offset(win.offset());
@@ -200,13 +201,14 @@ JWic.controls = {
 		},
 		
 		/**
-		 * To fix the problem of overlaying SELECT (and other) elements in IE6, 
+		 * To fix the problem of overlaying SELECT (and other) elements in IE6,
 		 * it moves the below IFRAME to hide the select elements.
 		 */
 		adjustIEBlocker : function(controlId) {
 			jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
 			var blocker = jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
-			var source =jQuery("#win_" + JQryEscape(controlId)); // get the window
+			var source =jQuery("#win_" + JQryEscape(controlId)); // get the
+																	// window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
 		/**
@@ -231,7 +233,9 @@ JWic.controls = {
 	 * de.jwic.controls.combo.Combo functions.
 	 */
 	Combo : {
-		
+		documentClickHander : function(){
+			
+		},
 		/**
 		 * Currently open combo content box.
 		 */
@@ -249,6 +253,7 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(controlId, inpElm) {
+			
 			var escapedControlId = JQryEscape(controlId);
 			var comboBox = jQuery("#" + escapedControlId).get(0);
 			var iconElm = jQuery("#" + escapedControlId + "_open").get(0);
@@ -266,7 +271,8 @@ JWic.controls = {
 						
 			// adjust sizes
 			var totalWidth = jQuery(comboBox).width();
-			if (totalWidth == 0) { // seems like the control is not yet displayed - take from style.
+			if (totalWidth == 0) { // seems like the control is not yet
+									// displayed - take from style.
 				var s = jQuery(comboBox).css("width");
 				totalWidth = parseInt(s);
 			}
@@ -324,8 +330,10 @@ JWic.controls = {
 			if (ctrlId) {
 				JWic.log("key pressed: " + e.keyCode + " --");
 				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
-				if (comboBox.multiSelect) { // behave differently if multiSelect is on
-					// no actions yet -- might go for scrolling etc. via keyboard later on.
+				if (comboBox.multiSelect) { // behave differently if multiSelect
+											// is on
+					// no actions yet -- might go for scrolling etc. via
+					// keyboard later on.
 				} else {
 					if (e.keyCode == 13) { // enter
 						JWic.controls.Combo.finishSelection(ctrlId, false);
@@ -333,7 +341,8 @@ JWic.controls = {
 						// scroll up/down
 						var isUp = (e.keyCode == 38);
 						var newSelection = -1;
-						if (comboBox.selectionIdx == null) { // nothing selected
+						if (comboBox.selectionIdx == null) { // nothing
+																// selected
 							newSelection = isUp ? comboBox.visibleCount - 1 : 0;
 						} else {
 							newSelection = comboBox.selectionIdx + (isUp ? -1 : 1);
@@ -341,7 +350,8 @@ JWic.controls = {
 						if (newSelection >= 0 && newSelection < comboBox.dataItems.length) {
 							JWic.controls.Combo.selectRow(ctrlId, newSelection);
 						}
-					} else if (e.keyCode == 8 || e.keyCode >= 46) { // backspace or delete
+					} else if (e.keyCode == 8 || e.keyCode >= 46) { // backspace
+																	// or delete
 						
 						comboBox.pickFirstFinding = comboBox.autoPickFirstHit && !(e.keyCode == 8 || e.keyCode == 46);
 						JWic.controls.Combo._delayKeySearchIdx++;
@@ -387,8 +397,8 @@ JWic.controls = {
 		},
 
 		/**
-		* Called when selecting a row via keyboard.
-		*/
+		 * Called when selecting a row via keyboard.
+		 */
 		selectRow : function(ctrlId, newSelection) {
 			JWic.log("selectRow: " + newSelection);
 			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
@@ -396,14 +406,14 @@ JWic.controls = {
 				var newItem = comboBox.dataItems[newSelection];
 				comboBox.contentRenderer.updateSelection(ctrlId, newSelection);
 				comboBox.selectionIdx = newSelection;
-				//remember the highlighted element
+				// remember the highlighted element
 				var winId = "j-combo_contentBox";
 				var win = Windows.getWindow(winId);
 				if (win) {
-					//don't select the item, just highlight it.
+					// don't select the item, just highlight it.
 					comboBox.suggestedObject = newItem;					
 				} else {
-					//select the item
+					// select the item
 					JWic.controls.Combo.selectElement(ctrlId, newItem.title, newItem.key, false);
 				}
 				
@@ -411,19 +421,28 @@ JWic.controls = {
 		},
 		
 		/**
-		* Called to submit a keyboard selection via enter press.
-		*/
+		 * Called to submit a keyboard selection via enter press.
+		 */
 		finishSelection : function (ctrlId, noSelection) {
 			JWic.log("finished Selection");
 			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
 			var fld = comboBox.jComboField;
 			var changed = false;
 			if (comboBox && comboBox.suggestedObject) {
-				//submit the highlighted element
+				// submit the highlighted element
 				changed = JWic.controls.Combo.selectElement(ctrlId, comboBox.suggestedObject.title, comboBox.suggestedObject.key, noSelection);
 				comboBox.suggestedObject = null;
 				
-			} else if ((fld.value == "" || (jQuery(fld).attr("xEmptyInfoText") != null && jQuery(fld).attr("xIsEmpty") == "true")) && comboBox.jComboKey.value != "") { // a key is still selected but the entry was deleted
+			} else if ((fld.value == "" || (jQuery(fld).attr("xEmptyInfoText") != null && jQuery(fld).attr("xIsEmpty") == "true")) && comboBox.jComboKey.value != "") { // a
+																																										// key
+																																										// is
+																																										// still
+																																										// selected
+																																										// but
+																																										// the
+																																										// entry
+																																										// was
+																																										// deleted
 				JWic.log("clear values");
 				changed = JWic.controls.Combo.selectElement(ctrlId, "", "", noSelection);
 			}
@@ -436,7 +455,8 @@ JWic.controls = {
 		},
 		
 		/**
-		 * Invoked on the first match that is found by the renderer during a filtered rendering.
+		 * Invoked on the first match that is found by the renderer during a
+		 * filtered rendering.
 		 */
 		searchSuggestion : function(comboElm, obj) {
 			comboElm.suggestedObject = obj;
@@ -515,9 +535,11 @@ JWic.controls = {
 				if (box) {
 					jQuery(box).removeClass("x-focus");
 					box.applyFilter = false;
-					// delay lostFocusCheck in case it was due to a selection click.
+					// delay lostFocusCheck in case it was due to a selection
+					// click.
 					JWic.controls.Combo._lostFocusClose = true;
-					//window.setTimeout("JWic.controls.Combo.finishSelection('" + ctrlId + "', true);", 300);
+					// window.setTimeout("JWic.controls.Combo.finishSelection('"
+					// + ctrlId + "', true);", 300);
 				}
 			}
 			if (jQuery(this).attr("xEmptyInfoText")) {
@@ -547,7 +569,7 @@ JWic.controls = {
 			if (JWic.controls.Combo._closeControlId == controlId) {
 				var age = new Date().getTime() - JWic.controls.Combo._closeTime;
 				if (age < 100) {
-					return; //prevent re-open on immidiate re-focus event.
+					return; // prevent re-open on immidiate re-focus event.
 				}
 			}
 			
@@ -569,10 +591,11 @@ JWic.controls = {
 				});
 				
 				/*
-				 * Haven't included resize and move event, when switching to jQuery.
+				 * Haven't included resize and move event, when switching to
+				 * jQuery.
 				 * 
-				 * onResize : JWic.controls.Combo.resizeHandler,
-				 * onMove : JWic.controls.Combo.moveHandler
+				 * onResize : JWic.controls.Combo.resizeHandler, onMove :
+				 * JWic.controls.Combo.moveHandler
 				 */
 				
 				comboBoxWin.wasInit = true;
@@ -632,8 +655,8 @@ JWic.controls = {
 				if (comboBox.adjustIEBlockerId) {
 					jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).css("display","none");		
 				}
-				//comboBox.applyFilter = false; // clear filter
-				//comboBox.dataLoader.prepareData(ctrlId);
+				// comboBox.applyFilter = false; // clear filter
+				// comboBox.dataLoader.prepareData(ctrlId);
 				JWic.controls.Combo._closeTime = new Date().getTime();
 				JWic.controls.Combo._closeControlId = JWic.controls.Combo._activeComboContentBox; 
 
@@ -648,23 +671,26 @@ JWic.controls = {
 		closeBoxDocumentHandler : function(e) {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				var tpl = jQuery(e.target).closest("#j-combo_contentBox");
-				//var tpl = e.findElement("#j-combo_contentBox");
+				// var tpl = e.findElement("#j-combo_contentBox");
 				if (tpl.length == 0) { // user clicked outside the content box -> close it.
-					//JWic.log("Clicked outside of combo box");
+					// JWic.log("Clicked outside of combo box");
 					var age = new Date().getTime() - JWic.controls.Combo._openTime;
 					if (age > 300) { // to avoid miss-clicks, ignore 300ms
 						JWic.log("Closing ContentBox to do outside click..");
 						JWic.controls.Combo.closeActiveContentBox();
 					}
 				} else {
-					//JWic.log("Clicked inside of combo box.");
+					
+					
+					// JWic.log("Clicked inside of combo box.");
 					JWic.controls.Combo._lostFocusClose = false;
 				}
 			}
 		},
 		
 		/**
-		 * Make a selection. Toggles selection if combo box is in multi select mode.
+		 * Make a selection. Toggles selection if combo box is in multi select
+		 * mode.
 		 */
 		selectElement: function(controlId, title, key, noSelection, keepBoxOpen) {
 			var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
@@ -771,8 +797,8 @@ JWic.controls = {
 				}
 			},
 			
-			/** 
-			 * Invoked before rendering - used to apply filters, etc.. 
+			/**
+			 * Invoked before rendering - used to apply filters, etc..
 			 */
 			prepareData : function(controlId) {
 				JWic.log("BeanLoader.prepareData(..)");
@@ -804,7 +830,15 @@ JWic.controls = {
 							comboBox.dataStore.push(value);
 						});
 						JWic.controls.Combo.BeanLoader.prepareData(response.controlId);
-						comboBox.loadCompleted = comboBox.cacheData; // only set load to complete if cacheData behavior is on
+						comboBox.loadCompleted = comboBox.cacheData; // only
+																		// set
+																		// load
+																		// to
+																		// complete
+																		// if
+																		// cacheData
+																		// behavior
+																		// is on
 						comboBox.contentRenderer.renderData(response.controlId);
 					}
 				}
@@ -825,7 +859,8 @@ JWic.controls = {
 				var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
 				var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
 				if (comboBoxWin && controlId == JWic.controls.Combo._activeComboContentBox) {
-					// in case the content is re-drawn, we remove any pre-existing listeners...
+					// in case the content is re-drawn, we remove any
+					// pre-existing listeners...
 					jQuery(comboBoxWin).unbind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
 					jQuery(comboBoxWin).unbind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler)
 					var code = "";
@@ -852,7 +887,12 @@ JWic.controls = {
 							imgSrc = obj.image;
 						}
 						if (imgSrc) {
-							content = imgSrc.imgTag + content; //"<IMG src=\"" + imgSrc + "\" border=\"0\" align=\"absmiddle\"/>" + content;
+							content = imgSrc.imgTag + content; // "<IMG src=\""
+																// + imgSrc +
+																// "\"
+																// border=\"0\"
+																// align=\"absmiddle\"/>"
+																// + content;
 						}
 						var action = "JWic.controls.Combo.ComboElementListRenderer.handleSelection('" + controlId + "', '" + obj.key + "');";
 						if (comboBox.multiSelect) {
@@ -869,7 +909,8 @@ JWic.controls = {
 						idx++;
 					});
 					comboBox.visibleCount = idx;
-					if (first && comboBox.pickFirstFinding) { // no entry was found at all
+					if (first && comboBox.pickFirstFinding) { // no entry was
+																// found at all
 						JWic.controls.Combo.searchSuggestion(comboBox, null);
 					}
 					jQuery(comboBoxWin).html(code);
@@ -977,8 +1018,13 @@ JWic.controls = {
 		
 		initialize : function(tblElm, btnElm) {
 			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.bind('mouseover', JWic.controls.Button.mouseOverHandler);
-				tblElm.bind('mouseout', JWic.controls.Button.mouseOutHandler);
+				tblElm.bind('mouseover', function(){
+					tblElm.addClass('j-hover');
+				});
+				tblElm.bind('mouseout', function(){
+					tblElm.removeClass('j-hover');
+					
+				});
 				tblElm.bind('click', JWic.controls.Button.clickHandler);
 				btnElm.bind('click', JWic.controls.Button.clickHandler);
 			}
@@ -986,8 +1032,8 @@ JWic.controls = {
 		
 		destroy : function(tblElm, btnElm) {
 			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.unbind("mouseover", JWic.controls.Button.mouseOverHandler);
-				tblElm.unbind("mouseout", JWic.controls.Button.mouseOutHandler);
+				tblElm.unbind("mouseover");
+				tblElm.unbind("mouseout");
 				tblElm.unbind("click", JWic.controls.Button.clickHandler);
 				btnElm.unbind("click", JWic.controls.Button.clickHandler);
 			}
@@ -1010,18 +1056,7 @@ JWic.controls = {
 			}
 			JWic.fireAction(ctrlId, 'click', '');
 		},
-		/**
-		 * Invoked when the focus is received.
-		 */
-		mouseOverHandler : function(e) {
-			jQuery(e.target).addClass("j-hover");
-		},
-		/**
-		 * Invoked when the focus is lost.
-		 */
-		mouseOutHandler : function(e) {
-			jQuery(e.target).removeClass("j-hover");
-		}
+	
 	},
 	
 	/**
@@ -1071,7 +1106,7 @@ JWic.controls = {
 			var response = jQuery.parseJSON(ajaxResponse.responseText);
 			if (response.controlId) {
 				var tree = jQuery("#"  + JQryEscape(response.controlId)).get(0);
-				tree.dataStore = []; //$A(response.data);
+				tree.dataStore = []; // $A(response.data);
 				jQuery.each(response.data, function(key, value) {
 					tree.dataStore.push(value);
 				});
