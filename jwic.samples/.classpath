@@ -10,7 +10,7 @@
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/dom4j.jar"/>
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/jta-spec1_0_1.jar"/>
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/junit.jar"/>
-	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/log4j-1.2.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="samples.webapp/WEB-INF/lib/log4j-1.2.8.jar"/>
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/spring_1-2.jar"/>
 	<classpathentry kind="lib" path="samples.webapp/WEB-INF/lib/velocity-1.4.jar"/>

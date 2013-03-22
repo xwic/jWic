@@ -649,7 +649,7 @@ JWic.controls = {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				var tpl = jQuery(e.target).closest("#j-combo_contentBox");
 				//var tpl = e.findElement("#j-combo_contentBox");
-				if (!tpl) { // user clicked outside the content box -> close it.
+				if (tpl.length == 0) { // user clicked outside the content box -> close it.
 					//JWic.log("Clicked outside of combo box");
 					var age = new Date().getTime() - JWic.controls.Combo._openTime;
 					if (age > 300) { // to avoid miss-clicks, ignore 300ms

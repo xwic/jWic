@@ -92,6 +92,8 @@ public class InputBoxDemo extends ControlContainer {
 		});
 		
 		final NumberInputBoxControl numbers = new NumberInputBoxControl(this,"numbers");
+		numbers.setThousandsSeparator('.');
+		numbers.setDecimalSeparator(',');
 		numbers.addValueChangedListener(new ValueChangedListener() {
 			
 			@Override

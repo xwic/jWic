@@ -7,6 +7,7 @@
 	/**
 	 * Initialize
 	 */
+	
 	afterUpdate: function(element) {
 	#if($control.visible)
 		var inpElm = jQuery('#' + JQryEscape('${fld.id}')).get(0);
@@ -53,6 +54,7 @@
 				jQuery(comboElm).addClass("x-error");
 			#end
 		}
+		
 
 	#end
 	},
