@@ -15,7 +15,7 @@
  *
  * de.jwic.web.IWebEngineListener
  * Created on Aug 31, 2012
- * $Id: IWebEngineListener.java,v 1.1 2012/09/02 13:21:09 lordsam Exp $
+ * $Id: IWebEngineListener.java,v 1.2 2013/02/23 22:33:31 lordsam Exp $
  */
 package de.jwic.web;
 
@@ -42,6 +42,18 @@ public interface IWebEngineListener {
 	 */
 	public void postRendering(WebEngineEvent event);
 	
+	/**
+	 * This event is invoked before a single control is rendered.
+	 * @param event
+	 */
+	public void preControlRendering(WebEngineEvent event);
+	
+	/**
+	 * This event is invoked after a single control was rendered.
+	 * @param event
+	 */
+	public void postControlRendering(WebEngineEvent event);
+		
 	/**
 	 * This event is invoked before an action is handled. 
 	 * @param event

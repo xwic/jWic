@@ -1001,7 +1001,7 @@ JWic.controls = {
 			match : function(comboBox, object) {
 				if (comboBox.dataFilterValue) {
 					var value = comboBox.dataFilterValue.toLowerCase();
-					var objTitle = object.title.strip().toLowerCase()
+					var objTitle = jQuery.trim(object.title).toLowerCase();
 					return objTitle.startsWith(value);
 				}
 				return true;
@@ -1056,7 +1056,7 @@ JWic.controls = {
 			}
 			JWic.fireAction(ctrlId, 'click', '');
 		},
-	
+
 	},
 	
 	/**

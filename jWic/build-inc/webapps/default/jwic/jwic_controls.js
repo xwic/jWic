@@ -196,6 +196,7 @@ JWic.controls = {
 					field.offset(win.offset());
 				}
 			} else {
+			
 				alert("No Window with ID " + controlId);
 			}
 		},
