@@ -1,6 +1,7 @@
 package de.jwic.controls;
 
 import java.io.StringWriter;
+import java.text.DecimalFormatSymbols;
 
 import org.json.JSONException;
 import org.json.JSONWriter;
@@ -29,6 +30,7 @@ public class NumericInputControl extends InputBoxControl {
 	private LeadingZeroDisplay leadingZeroDisplay;
 	private NegativeBracketsDisplay negativeBracketsDisplay;
 	private boolean padding = true;
+	
 	/**
 	 * 
 	 * @param container
@@ -36,6 +38,51 @@ public class NumericInputControl extends InputBoxControl {
 	 */
 	public NumericInputControl(IControlContainer container, String name) {
 		super(container, name);
+		
+		init();
+	}
+	
+	/**
+	 * 
+	 * @param container
+	 */
+	public NumericInputControl(IControlContainer container) {
+		this(container, null);
+	}
+	
+	/**
+	 * Set some defaults
+	 */
+	private void init(){
+		DecimalFormatSymbols symbols = getSessionContext().getDecimalFormat().getDecimalFormatSymbols();
+		
+		switch(symbols.getDecimalSeparator()){
+			case ',':
+				setDecimalSeparator(DecimalSeparator.COMMA);
+				break;
+			case '.':
+				setDecimalSeparator(DecimalSeparator.PERIOD);
+				break;
+			default:
+				break;
+		}
+		
+		switch(symbols.getGroupingSeparator()){
+			case ',':
+				setThousandSeparator(ThousandSeparator.COMMA);
+				break;
+			case '.':
+				setThousandSeparator(ThousandSeparator.PERIOD);
+				break;
+			case ' ':
+				setThousandSeparator(ThousandSeparator.SPACE);
+				break;
+			case '\'':
+				setThousandSeparator(ThousandSeparator.APOSTROPHE);
+				break;
+			default:
+				break;
+		}
 	}
 	
 	/**

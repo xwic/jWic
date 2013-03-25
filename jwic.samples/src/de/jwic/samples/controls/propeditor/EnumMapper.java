@@ -19,7 +19,7 @@ public class EnumMapper extends AbstractPropertyMapper implements IPropertyMappe
 	public void updateControlValue(Control control, Object value) {
 		EnumListBoxControl<Enum<?>> lbc = (EnumListBoxControl<Enum<?>>)control;
 		if(value != null){
-			lbc.setSelectedKey(value.toString());
+			lbc.setSelectedKey(((Enum<?>)value).name());
 		}else {
 			lbc.setSelectedKey("");
 		}

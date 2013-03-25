@@ -19,6 +19,7 @@
 package de.jwic.base;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -73,6 +74,7 @@ public class SessionContext implements IControlContainer, Serializable {
 
 	private TimeZone timeZone; 
 	private String dateFormat = null;
+	private DecimalFormat decimalFormat;
 	
 	private String clientId = null;
 	private String sessionId = null;
@@ -117,6 +119,7 @@ public class SessionContext implements IControlContainer, Serializable {
 			throw new NullPointerException("ApplicationSetup must not be null");
 		}
 		
+		decimalFormat = (DecimalFormat) DecimalFormat.getInstance(locale);
 	}
 	
 	/**
@@ -491,6 +494,7 @@ public class SessionContext implements IControlContainer, Serializable {
 	public void setExitURL(String string) {
 		strExitURL = string;
 	}
+	
 	/**
 	 * Exit the session and clean up all controls.
 	 * @throws AgoraException
@@ -689,6 +693,22 @@ public class SessionContext implements IControlContainer, Serializable {
 	 */
 	public String getDateFormat() {
 		return dateFormat;
+	}
+	
+	/**
+	 * 
+	 * @return current decimal format
+	 */
+	public DecimalFormat getDecimalFormat() {
+		return decimalFormat;
+	}
+
+	/**
+	 * Set the decimal format. Default is based on current locale.
+	 * @param decimalFormat
+	 */
+	public void setDecimalFormat(DecimalFormat decimalFormat) {
+		this.decimalFormat = decimalFormat;
 	}
 	
 	/**
