@@ -395,7 +395,7 @@ var JWicInternal = {
 			}
 			
 			if (response.scriptQueue) {
-				response.scriptQueue.each(function(line) {
+				jQuery.each(response.scriptQueue,function(index,line) {
 					try {
 						eval(line);
 					} catch (e) {

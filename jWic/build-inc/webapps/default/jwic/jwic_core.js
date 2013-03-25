@@ -395,7 +395,7 @@ var JWicInternal = {
 			}
 			
 			if (response.scriptQueue) {
-				response.scriptQueue.each(function(line) {
+				jQuery.each(response.scriptQueue,function(index,line) {
 					try {
 						eval(line);
 					} catch (e) {
@@ -444,7 +444,7 @@ var JWicInternal = {
 				elem.style.height = bodyHeight + 'px';
 				elem.style.left = 0;
 				elem.style.width = bodyWidth + 'px';
-				//elem.style.backgroundImage = 'url(none)';
+				elem.style.backgroundImage = 'url(none)';
 				elem.style.backgroundColor = '#a0a0a0';
 				elem.style.filter = 'alpha(opacity=30)'; // IE compatibility
 				elem.style.opacity = '0.3'; // modern browsers
