@@ -212,75 +212,7 @@ JWic.controls = {
 		}
 		
 	},
-	
-	/*
-	 * NumberInputBoxControl.js
-	 */ 
-	NumberInputBoxControl:{
-		initialize:function(inpElem,hidden,opt){
-			var options = opt || {thousends:',',decimals:'.'};
-			var numberData = '0.0';
-			var thounsends = options.thousends;
-			var decimal = options.decimals;
-			
-			
-			
-			
-			function numberWithCommas(x) {
-			    var parts = x.toString().split(decimal);
-			    parts[0] = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1"+thounsends);
-			    return parts.join(decimal);
-			}
-			function trimLeadZeros(s){
-				if(s.substring(0,1)==='0' && s.substring(1,2)!=='.'){
-					return trimLeadZeros(s.substring(1));
-				}else{
-					return s;
-				}
-			}
-			inpElem.val(hidden.val()==='0' ? '':numberWithCommas(hidden.val()));
-			
-			inpElem.bind('input',function(e){
-				var numberString = trimLeadZeros(inpElem.val().replace(new RegExp(thounsends,"g"), '')); 
-				numberData = numberString ==='' ? '0' : numberString;
-				hidden.val(numberData);
-				inpElem.val(numberWithCommas(numberData));
-				
-			});
-			inpElem.bind('keyup',function(event){
-				//lets tell the back end 'bout this. shall we
-				//also validate in case of copy+paste (no cross browser way to prevent that from happening that i know of)
-				if(!isNaN(hidden.val())){
-					JWic.fireAction(inpElem.attr('id'), 'keyPressed', '' + event.keyCode);
-					inpElem.removeClass('ui-state-error');
-				}else{
-					inpElem.addClass('ui-state-error');
-				}
-				
-			});
-			//lets do the validations so only numbers and the separators get through
-			inpElem.bind('keypress',function(event) {				
-				if( ( event.which >= 48 && event.which <= 57 )|| event.which === 13){
-					//is number: let it slide also submit the data
-					return;
-				}else{
-		        	//is not number
-					if(event.which === decimal.charCodeAt(0)){
-		        		if(inpElem.val().toLowerCase().indexOf(decimal.toLowerCase()) >= 0 ){		        			
-		        			event.preventDefault();
-		        			return;
-		        		}
-		        	}else{
-		        		event.preventDefault();
-		        		return;
-		        	}
-		           
-		            
-		        }
-		    });
-		}
-	},
-	
+		
 	/**
 	 * Window control script extensions.
 	 */

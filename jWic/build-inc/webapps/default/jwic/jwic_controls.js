@@ -112,74 +112,107 @@ JWic.controls = {
 		}
 		
 	},
-	/*
-	 * NumberInputBoxControl.js
-	 */ 
-	NumberInputBoxControl:{
-		initialize:function(inpElem,hidden,opt){
-			var options = opt || {thousends:',',decimals:'.'};
-			var numberData = '0.0';
-			var thounsends = options.thousends;
-			var decimal = options.decimals;
+
+	/**
+	 * InputBoxControl script extensions.
+	 */
+	NumericInputControl : {
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(inpElm, hiddenInput, options) {
+			inpElm.bind("focus", JWic.controls.NumericInputControl.focusHandler);
+			inpElm.bind("blur", JWic.controls.NumericInputControl.lostFocusHandler);
+			inpElm.change(JWic.controls.NumericInputControl.changeHandler);
+			
+			inpElm.autoNumeric('init', options); 
+			inpElm.autoNumeric('set', hiddenInput.val());
 			
 			
-			
-			
-			function numberWithCommas(x) {
-			    var parts = x.toString().split(decimal);
-			    parts[0] = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1"+thounsends);
-			    return parts.join(decimal);
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keyup", JWic.controls.NumericInputControl.keyHandler);
 			}
-			function trimLeadZeros(s){
-				if(s.substring(0,1)==='0' && s.substring(1,2)!=='.'){
-					return trimLeadZeros(s.substring(1));
-				}else{
-					return s;
+			
+			if (inpElm.attr("xEmptyInfoText")) {
+				if(inpElm.attr("xIsEmpty") == "true" && 
+					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+					inpElm.addClass("x-empty");
+					inpElm.val(inpElm.attr("xEmptyInfoText"));
+				} else {
+					inpElm.attr("xIsEmpty", "false");
+					inpElm.removeClass("x-empty");
 				}
 			}
-			inpElem.val(hidden.val()==='0' ? '':numberWithCommas(hidden.val()));
 			
-			inpElem.bind('input',function(e){
-				var numberString = trimLeadZeros(inpElem.val().replace(new RegExp(thounsends,"g"), '')); 
-				numberData = numberString ==='' ? '0' : numberString;
-				hidden.val(numberData);
-				inpElem.val(numberWithCommas(numberData));
-				
-			});
-			inpElem.bind('keyup',function(event){
-				//lets tell the back end 'bout this. shall we
-				//also validate in case of copy+paste (no cross browser way to prevent that from happening that i know of)
-				if(!isNaN(hidden.val())){
-					JWic.fireAction(inpElem.attr('id'), 'keyPressed', '' + event.keyCode);
-					inpElem.removeClass('ui-state-error');
-				}else{
-					inpElem.addClass('ui-state-error');
+			// override the getValue() method to "fix" the serialization
+			inpElm.getValue = function() {
+				if (this.attr("xEmptyInfoText") && this.attr("xIsEmpty") == "true") {
+					return "";
+				} else {
+					return this.value;
 				}
-				
-			});
-			//lets do the validations so only numbers and the separators get through
-			inpElem.bind('keypress',function(event) {				
-				if( ( event.which >= 48 && event.which <= 57 )|| event.which === 13){
-					//is number: let it slide also submit the data
-					return;
-				}else{
-		        	//is not number
-					if(event.which === decimal.charCodeAt(0)){
-		        		if(inpElem.val().toLowerCase().indexOf(decimal.toLowerCase()) >= 0 ){		        			
-		        			event.preventDefault();
-		        			return;
-		        		}
-		        	}else{
-		        		event.preventDefault();
-		        		return;
-		        	}
-		           
-		            
-		        }
-		    });
+			}
+			
+		},
+		
+		/**
+		 * Clean up..
+		 */
+		destroy : function(inpElm) {
+			inpElm.unbind();
+		},
+		
+		changeHandler : function(e) {
+			var elm =  jQuery(e.target);
+			var elmHidden = jQuery('#'+JQryEscape(e.target.id + "_field"));
+			var value = elm.autoNumeric('get');
+			elmHidden.val(value);
+		},
+		
+		/**
+		 * Invoked when the focus is received.
+		 */
+		focusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			elm.addClass("x-focus");
+			
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.attr("xIsEmpty") == "true") {
+					elm.val('');
+					elm.removeClass("x-empty");
+					elm.attr("xIsEmpty", "false");
+				} 
+			}
+			
+		},
+		/**
+		 * Invoked when the focus is lost.
+		 */
+		lostFocusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			elm.removeClass("x-focus");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.val() == "") { // still empty
+					elm.addClass("x-empty");
+					elm.val(elm.attr("xEmptyInfoText"));
+					elm.attr("xIsEmpty", "true");
+				} else {
+					elm.attr("xIsEmpty", "false");
+				}
+			}
+		},
+		
+		keyHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			if (e.keyCode == elm.attr("xListenKeyCode")) {
+				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
+			}
 		}
+		
 	},
-	
+		
 	/**
 	 * Window control script extensions.
 	 */
@@ -196,7 +229,6 @@ JWic.controls = {
 					field.offset(win.offset());
 				}
 			} else {
-			
 				alert("No Window with ID " + controlId);
 			}
 		},
@@ -1002,7 +1034,7 @@ JWic.controls = {
 			match : function(comboBox, object) {
 				if (comboBox.dataFilterValue) {
 					var value = comboBox.dataFilterValue.toLowerCase();
-					var objTitle = object.title.strip().toLowerCase()
+					var objTitle = jQuery.trim(object.title).toLowerCase();
 					return objTitle.startsWith(value);
 				}
 				return true;
@@ -1057,7 +1089,7 @@ JWic.controls = {
 			}
 			JWic.fireAction(ctrlId, 'click', '');
 		},
-	
+
 	},
 	
 	/**

@@ -27,8 +27,6 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.ListBoxControl;
-import de.jwic.controls.NumberInputBoxControl;
-import de.jwic.controls.NumericInputControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
