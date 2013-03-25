@@ -120,12 +120,15 @@ JWic.controls = {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(inpElm, options) {
+		initialize : function(inpElm, hiddenInput, options) {
 			inpElm.bind("focus", JWic.controls.NumericInputControl.focusHandler);
 			inpElm.bind("blur", JWic.controls.NumericInputControl.lostFocusHandler);
 			inpElm.change(JWic.controls.NumericInputControl.changeHandler);
 			
 			inpElm.autoNumeric('init', options); 
+			inpElm.autoNumeric('set', hiddenInput.val());
+			
+			
 			if (inpElm.attr("xListenKeyCode") != 0) {
 				inpElm.bind("keyup", JWic.controls.NumericInputControl.keyHandler);
 			}
