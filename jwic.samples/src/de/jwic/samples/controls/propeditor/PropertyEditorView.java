@@ -150,6 +150,16 @@ public class PropertyEditorView extends ControlContainer {
 					value = new Integer(Integer.parseInt((String)value));
 				}
 			}
+			if (Double.class.equals(pi.descriptor.getPropertyType()) || double.class.equals(pi.descriptor.getPropertyType())) {
+				if (value instanceof String) {
+					value = new Double(Double.parseDouble((String)value));
+				}
+			}
+			if (Character.class.equals(pi.descriptor.getPropertyType()) || char.class.equals(pi.descriptor.getPropertyType())) {
+				if (value instanceof String) {
+					value = new Character(((String)value).charAt(0));
+				}
+			}
 			writeMethod.invoke(bean, value);
 		} catch (Exception e) {
 			setErrorMessage("Error updating value: " + e);
@@ -225,7 +235,8 @@ public class PropertyEditorView extends ControlContainer {
 					boolean readOnly = writeMethod == null || !Modifier.isPublic(writeMethod.getModifiers());
 					Control control = null;
 					if (!readOnly) {
-						if (String.class.equals(prop.getPropertyType()) || Integer.class.equals(prop.getPropertyType()) || int.class.equals(prop.getPropertyType())) {
+						if (String.class.equals(prop.getPropertyType()) || Integer.class.equals(prop.getPropertyType()) || int.class.equals(prop.getPropertyType())
+								|| Double.class.equals(prop.getPropertyType()) || double.class.equals(prop.getPropertyType()) || Character.class.equals(prop.getPropertyType()) || char.class.equals(prop.getPropertyType())) {
 							TextEditor ctrl = new TextEditor(this, null);
 							ctrl.addValueChangedListener(changeListener);
 							control = ctrl;
