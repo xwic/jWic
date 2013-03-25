@@ -1,4 +1,4 @@
-package de.jwic.samples.controls;
+package de.jwic.samples.controls.propeditor;
 
 import java.util.HashMap;
 import java.util.Map;

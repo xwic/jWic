@@ -241,6 +241,15 @@ public class PropertyEditorView extends ControlContainer {
 							lbc.setCssClass("small");
 							control = lbc;
 							pi.mapper = new BooleanMapper();
+						}else if(prop.getPropertyType().isEnum()){
+							EnumListBoxControl<Enum<?>> lbc = new EnumListBoxControl<Enum<?>>(this, null,(Class<Enum<?>>) prop.getPropertyType());
+							lbc.setChangeNotification(true);
+							lbc.setFillWidth(false);
+							lbc.setWidth(100);
+							lbc.addElementSelectedListener(elementSelectedListener);
+							lbc.setCssClass("small");
+							control = lbc;
+							pi.mapper = new EnumMapper();
 						}
 					}
 					if (control == null) {

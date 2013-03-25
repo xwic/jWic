@@ -7,12 +7,9 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
-import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.NumericInputControl;
 import de.jwic.controls.NumericInputControl.ThousandSeparator;
-import de.jwic.events.ElementSelectedEvent;
-import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
@@ -40,8 +37,6 @@ public class NumericInputControlDemo extends ControlContainer {
 	public NumericInputControlDemo(IControlContainer container) {
 		super(container);
 		
-		
-		
 		inputbox = new NumericInputControl(this, "inputbox");
 		inputbox.setText("");
 		inputbox.setThousandSeparator(ThousandSeparator.SPACE);
@@ -53,6 +48,7 @@ public class NumericInputControlDemo extends ControlContainer {
 		inputbox.addValueChangedListener(new EventLogListener());
 		
 		final InputBoxControl inpRawNumber = new InputBoxControl(this, "inpRaw");
+		inpRawNumber.setText("0");
 		
 		Button b = new Button(this, "Button");
 		b.setTitle("Set value");
@@ -64,14 +60,14 @@ public class NumericInputControlDemo extends ControlContainer {
 			}
 		});
 		
-		final LabelControl lblRawValue = new LabelControl(this, "lblRaw");
+		
 		b = new Button(this, "Button2");
 		b.setTitle("Get value");
 		b.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {
-				lblRawValue.setText(inputbox.getNumber().toString());
+				inpRawNumber.setText(inputbox.getNumber().toString());
 			}
 		});
 		
@@ -81,16 +77,6 @@ public class NumericInputControlDemo extends ControlContainer {
 		eventLog = new ListBoxControl(this, "eventLog");
 		eventLog.setSize(8);
 		
-		final EnumListBoxControl<ThousandSeparator> lstThousandSep = new EnumListBoxControl<NumericInputControl.ThousandSeparator>(this, "lstThousandSep", ThousandSeparator.class);
-		lstThousandSep.setChangeNotification(true);
-		lstThousandSep.addElementSelectedListener(new ElementSelectedListener() {
-			
-			@Override
-			public void elementSelected(ElementSelectedEvent event) {
-				inputbox.setThousandSeparator(lstThousandSep.getEnumObject());
-				
-			}
-		});
 	}
 	
 }
