@@ -13,6 +13,8 @@
 		var inpElm = jQuery('#' + JQryEscape('${fld.id}')).get(0);
 		var comboElm = jQuery('#' + JQryEscape('${control.controlID}')).get(0);
 		if (inpElm) {
+			console.log(inpElm);
+			console.log(comboElm);
 				JWic.controls.Combo.initialize("$control.controlID", inpElm);
 				comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
 				comboElm.contentRenderer = $control.comboBehavior.contentRendererJSClass;
@@ -27,9 +29,9 @@
 				comboElm.cacheData = $control.comboBehavior.cacheData;
 				comboElm.clientSideFilter = $control.comboBehavior.clientSideFilter;
 				comboElm.autoPickFirstHit = $control.comboBehavior.autoPickFirstHit;
-				comboElm.multiSelect = $control.multiSelect;
 			#if($control.multiSelect)
-				inpElm.readOnly = true;
+				comboElm.multiSelect = $control.multiSelect;
+				##inpElm.readOnly = true;
 			#end
 			#if($control.defaultImage)
 				comboElm.defaultImage = {
