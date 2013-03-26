@@ -7,7 +7,7 @@
 <iframe src="javascript:'&lt;html&gt;&lt;/html&gt;';" scrolling="no" frameborder="0" id="${winId}_blocker"
   style="position:absolute;width:50px;height:120px;top:0px;left:0px;border:none;display:block;z-index:0"></iframe>
 #end
-<div id="win_${control.controlID}_div" style="display:none" class="dialog">
+<div id="win_${control.controlID}_div" style="display:none; overflow: visible;" class="dialog">
 	#foreach($cn in $control.controls)
 		<span>
 			$insert.control($cn.name)
