@@ -369,7 +369,7 @@ JWic.controls = {
 		 * Invoked on KeyUp to handle user input.
 		 */
 		textKeyPressedHandler : function(e) {
-			e.prevendDefault();
+
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("key pressed: " + e.keyCode + " --");
