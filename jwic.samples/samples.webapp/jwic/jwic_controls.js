@@ -621,7 +621,6 @@ JWic.controls = {
 			var winId = "j-combo_contentBox";
 			
 			var boxWidth = jQuery(comboBox).width();
-			var boxLoc = jQuery(comboBox).offset();
 			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));			
 			if (!comboBoxWin.is(':data(dialog)')) {
 
@@ -630,13 +629,16 @@ JWic.controls = {
 					resizable: false,
 					height: 200,
 					width: boxWidth - 3,
-					position : [boxLoc.left + 1, boxLoc.top+jQuery(comboBox).height()],
-					autoOpen:false
-				
+					autoOpen:false,
+					position:{
+						my:'top',
+						at:'bottom',
+						of:jQuery(comboBox)
+					}
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
 				jQuery(".ui-dialog-titlebar").hide();
-			}				
+			}			
 				/*
 				 * Haven't included resize and move event, when switching to
 				 * jQuery.
@@ -663,7 +665,6 @@ JWic.controls = {
 			}
 			
 			comboBoxWin.dialog('open');
-			
 		},
 		/**
 		 * Invoked when the box is resized.
