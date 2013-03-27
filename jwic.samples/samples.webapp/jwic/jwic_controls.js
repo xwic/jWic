@@ -698,7 +698,7 @@ JWic.controls = {
 				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
 				var comboBoxWin = jQuery("#win_"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
 				comboBoxWin.dialog("close");
-				if (comboBox.adjustIEBlockerId) {
+				if (comboBox && comboBox.adjustIEBlockerId) {
 					jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).css("display","none");		
 				}
 				// comboBox.applyFilter = false; // clear filter
