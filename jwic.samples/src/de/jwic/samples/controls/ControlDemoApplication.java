@@ -104,9 +104,6 @@ public class ControlDemoApplication extends Application {
 		//TabStripControl tabStrip = new TabStripControl(tab);
 		TabControl tab;
 		
-		tab = tabStrip.addTab("DateInputBox");
-		new DateInputBoxDemo(tab); 
-
 		tab = tabStrip.addTab("Combo");
 		new ComboDemo(tab, "combo");
 

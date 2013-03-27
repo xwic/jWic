@@ -32,6 +32,7 @@ import de.jwic.ecolib.controls.datepicker.DateChangedListener;
 import de.jwic.ecolib.controls.datepicker.DatePickerControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
+import de.jwic.samples.controls.propeditor.PropertyEditorView;
 
 /**
  * 
@@ -46,6 +47,8 @@ public class DatePickerDemo extends ControlContainer {
 	public DatePickerDemo(final IControlContainer container, String name) {
 		super(container, name);
 
+		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
+		
 		final DatePickerControl datePickerControl = new DatePickerControl(this,
 				"datePicker");
 		
@@ -161,6 +164,8 @@ public class DatePickerDemo extends ControlContainer {
 
 			}
 		});
+		
+		propEditor.setBean(datePickerControl);
 
 	}
 
