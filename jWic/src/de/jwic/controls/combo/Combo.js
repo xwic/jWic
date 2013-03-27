@@ -2,7 +2,7 @@
 {
 	beforeUpdate: function() {},
 	doUpdate: function(element) {
-		return false;
+		//return false;
 	},
 	/**
 	 * Initialize
@@ -13,9 +13,6 @@
 		var inpElm = jQuery('#' + JQryEscape('${fld.id}')).get(0);
 		var comboElm = jQuery('#' + JQryEscape('${control.controlID}')).get(0);
 		if (inpElm) {
-			console.log(inpElm);
-			console.log(comboElm);
-				JWic.controls.Combo.initialize("$control.controlID", inpElm);
 				comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
 				comboElm.contentRenderer = $control.comboBehavior.contentRendererJSClass;
 				comboElm.labelProvider = $control.comboBehavior.labelProviderJSClass;
@@ -55,6 +52,7 @@
 			#if($control.flagAsError)
 				jQuery(comboElm).addClass("x-error");
 			#end
+			JWic.controls.Combo.initialize("$control.controlID", inpElm);
 		}
 		
 

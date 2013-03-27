@@ -265,18 +265,18 @@ JWic.controls = {
 		documentClickHander : function(){
 			
 		},
-		/**
-		 * Currently open combo content box.
-		 */
-		_activeComboContentBox : null,
-		
-		/** Time the box was opened/closed */
-		_openTime : 0,
-		_closeTime : 0,
-		_closeControlId : null,
-		_delayKeySearchIdx : 0,
-		_delayControlId : null,
-		_lostFocusClose : false,
+//		/**
+//		 * Currently open combo content box.
+//		 */
+//		_activeComboContentBox : null,
+//		
+//		/** Time the box was opened/closed */
+//		_openTime : 0,
+//		_closeTime : 0,
+//		_closeControlId : null,
+//		_delayKeySearchIdx : 0,
+//		_delayControlId : null,
+//		_lostFocusClose : false,
 		
 		/**
 		 * Initialize a new control.
@@ -324,9 +324,9 @@ JWic.controls = {
 			
 			if (jInpElm.attr("xEmptyInfoText")) {
 				if(jInpElm.attr("xIsEmpty") == "true" && 
-					(jInpElm.value == jInpElm.attr("xEmptyInfoText") || inpElm.value == "")) {
+					(jInpElm.val() == jInpElm.attr("xEmptyInfoText") || inpElm.value == "")) {
 					jInpElm.addClass("x-empty");
-					inpElm.value = jInpElm.attr("xEmptyInfoText");
+					jInpElm.val(jInpElm.attr("xEmptyInfoText"));
 				} else {
 					jInpElm.attr("xIsEmpty", "false");
 					jInpElm.removeClass("x-empty");
@@ -338,7 +338,7 @@ JWic.controls = {
 				if (jQuery(this).attr("xEmptyInfoText") && jQuery(this).attr("xIsEmpty") == "true") {
 					return "";
 				} else {
-					return this.value;
+					return jQuery(inpElm).val();
 				}
 			}			
 		},
@@ -348,10 +348,20 @@ JWic.controls = {
 		 */
 		destroy : function(controlId, inpElm) {
 			var jInpElem = jQuery(inpElm);
+			if (jQuery('#win_'+JQryEscape(controlId)).is(':data(dialog)')) {
+				jQuery('#win_'+JQryEscape(controlId)).dialog('destroy');
+			}
 			jInpElem.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
 			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			jInpElem.unbind("click", JWic.controls.Combo.textClickHandler);
 			jInpElem.unbind("keyup", JWic.controls.Combo.textKeyPressedHandler);
+			this._activeComboContentBox = null;			
+			this._openTime = 0;
+			this._closeTime = 0;
+			this._closeControlId = null;
+			this._delayKeySearchIdx = 0;
+			this._delayControlId = null;
+			this._lostFocusClose = false;
 			
 		},
 		
@@ -443,7 +453,7 @@ JWic.controls = {
 				comboBox.selectionIdx = newSelection;
 				// remember the highlighted element
 				var winId = "j-combo_contentBox";
-				var win = Windows.getWindow(winId);
+				var win = jQuery("#"+winId);
 				if (win) {
 					// don't select the item, just highlight it.
 					comboBox.suggestedObject = newItem;					
@@ -607,17 +617,21 @@ JWic.controls = {
 			
 			var boxWidth = jQuery(comboBox).width();
 			var boxLoc = jQuery(comboBox).offset();
-			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
-			if (!comboBoxWin.wasInit) {
+			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));			
+			if (!comboBoxWin.is(':data(dialog)')) {
 
 				comboBoxWin.dialog({					
 					dialogClass : "j-combo-content",
 					resizable: false,
 					height: 200,
 					width: boxWidth - 3,
-					position : [boxLoc.left + 1, boxLoc.top+jQuery(comboBox).height()]
+					position : [boxLoc.left + 1, boxLoc.top+jQuery(comboBox).height()],
+					autoOpen:false
+				
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
+				jQuery(".ui-dialog-titlebar").hide();
+			}				
 				/*
 				 * Haven't included resize and move event, when switching to
 				 * jQuery.
@@ -625,27 +639,25 @@ JWic.controls = {
 				 * onResize : JWic.controls.Combo.resizeHandler, onMove :
 				 * JWic.controls.Combo.moveHandler
 				 */
-				
-				comboBoxWin.wasInit = true;
-				jQuery(".ui-dialog-titlebar").hide();
-				
-				if (comboBox.adjustIEBlockerId) {
-					JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#"+JQryEscape(winId)).get(0));		
-				}
-				
-				JWic.controls.Combo._openTime = new Date().getTime();
-				JWic.controls.Combo._activeComboContentBox = controlId;
-				jQuery(document).bind("click", JWic.controls.Combo.closeBoxDocumentHandler);
-				if (comboBox.loadCompleted) {
-					comboBox.contentRenderer.renderData(controlId);
+			
+			if (comboBox.adjustIEBlockerId) {
+				JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#"+JQryEscape(winId)).get(0));		
+			}
+			
+			JWic.controls.Combo._openTime = new Date().getTime();
+			JWic.controls.Combo._activeComboContentBox = controlId;
+			jQuery(document).bind("click", JWic.controls.Combo.closeBoxDocumentHandler);
+			if (comboBox.loadCompleted) {
+				comboBox.contentRenderer.renderData(controlId);
+			} else {
+				if (comboBox.dataLoader) {
+					comboBox.dataLoader.initializeData(controlId);
 				} else {
-					if (comboBox.dataLoader) {
-						comboBox.dataLoader.initializeData(controlId);
-					} else {
-						alert("DataLoader is not specified/found");
-					}
+					alert("DataLoader is not specified/found");
 				}
 			}
+			
+			comboBoxWin.dialog('open');
 			
 		},
 		/**
@@ -677,7 +689,7 @@ JWic.controls = {
 		closeActiveContentBox : function() {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				JWic.log("closing ActiveContentBox");
-				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox)).get(0);
+				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
 				var comboBoxWin = jQuery("#win_"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
 				comboBoxWin.dialog("close");
 				if (comboBox.adjustIEBlockerId) {
@@ -720,20 +732,21 @@ JWic.controls = {
 		 */
 		selectElement: function(controlId, title, key, noSelection, keepBoxOpen) {
 			var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
+			
 			if (comboBox) {
 				comboBox.suggestedObject = null;
 				jQuery(comboBox).removeClass("x-error");
 				var changed = false;
 				if (comboBox.multiSelect) {
-					
-					if (jQuery(comboBox.jComboField).attr("xIsEmpty") === "true") {
+				
+					if (jQuery(comboBox.jComboField).val().length <1) {
 						jQuery(comboBox.jComboField).val("");
 						jQuery(comboBox.jComboKey).val("");
 					}
 					if (!JWic.controls.Combo.isSelected(comboBox, key)) {
-						// add to selection;
+						// add to selection;;
 						var sep = "";
-						if (comboBox.jComboKey.value.length != 0) {
+						if (jQuery(comboBox.jComboKey).val().length > 0) {
 							sep = ";"
 						}
 						jQuery(comboBox.jComboField).val(jQuery(comboBox.jComboField).val() + sep + title);
@@ -780,8 +793,8 @@ JWic.controls = {
 		 */
 		isSelected: function(combo, key) {
 			var comboBox = combo;
-			if (comboBox && comboBox.jComboKey.value != "") {
-				var keys = comboBox.jComboKey.value.split(";");
+			if (comboBox && jQuery(comboBox.jComboKey).val() != "") {
+				var keys = jQuery(comboBox.jComboKey).val().split(";");
 				for (var a = 0; a < keys.length; a++) {
 					if (keys[a] == key) {
 						return true;
@@ -922,14 +935,15 @@ JWic.controls = {
 																// + content;
 						}
 						var action = "JWic.controls.Combo.ComboElementListRenderer.handleSelection('" + controlId + "', '" + obj.key + "');";
+						
+						code += '<div comboElement="' + idx + '" onClick="' + action + 'return false;" class="j-combo_element ' + extraClasses + '">';
 						if (comboBox.multiSelect) {
 							code += "<input ";
 							if (JWic.controls.Combo.isSelected(comboBox, obj.key)) {
 								code += "checked";
 							}
-							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\" onClick=\"" + action + "\">";
+							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\" onClick=\"" + action + "\"/>";
 						}
-						code += '<div comboElement="' + idx + '" onClick="' + action + 'return false;" class="j-combo_element ' + extraClasses + '">';
 						code += content;
 						code += '</div>';
 						
@@ -1007,8 +1021,9 @@ JWic.controls = {
 					if (item.key == key) {
 						title = item.title;
 						var cbc = jQuery("#cbc_" + JQryEscape(controlId) + "\\." + index).get(0);
+						
 						if (comboBox.multiSelect && cbc) {
-							cbc.checked = !isSelected;
+							jQuery(cbc).attr('checked',!isSelected);
 						}
 						break;
 					}
