@@ -630,8 +630,12 @@ JWic.controls = {
 					resizable: false,
 					height: 200,
 					width: boxWidth - 3,
-					position : [boxLoc.left + 1, boxLoc.top+jQuery(comboBox).height()],
-					autoOpen:false
+					autoOpen:false,
+					position:{
+						my:'top',
+						at:'bottom',
+						of:jQuery(comboBox)
+					}
 				
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
