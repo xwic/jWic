@@ -24,6 +24,7 @@
 	var tblv_CtrlId;
 	var tblv_pushedCol = "";
 	var tblv_scrolledX = 0;
+	var tblv_fixed;
 
 	/**
 	 * Scroll the header and store scroll info for re-rendering.
@@ -52,6 +53,7 @@
 	 * Modifies the column css_class to simulate a pushed button.
 	 */
 	function tblViewer_pushColumn(colIdx, viewerCtrlId, fixed) {
+//		jQuery("#"+JQryEscape(viewerCtrlId)).width("100%");
 		var tableObject = document.getElementById("tblViewData_" + viewerCtrlId);
 		if (fixed) {
 			tableObject = document.getElementById("tblViewLeftData_" + viewerCtrlId);
@@ -91,11 +93,12 @@
 
 		// show a DIV layer
 		var resizer = document.getElementById("tblViewResizer_" + viewerCtrlId);
+		
 		var tableObject = document.getElementById("tblViewData_" + viewerCtrlId);
 		var tableContent = document.getElementById("tblContent_" + viewerCtrlId);
 		
-		var tblWidth = tableObject.parentNode.style.pixelWidth;
-		var tblHeight = tableObject.parentNode.style.pixelHeight;
+		var tblWidth = jQuery(tableObject).parent().width();//.parentNode.style.pixelWidth;
+		var tblHeight = jQuery(tableObject).parent().height();//.style.pixelHeight;
 		if (tableContent) tblHeight = tableContent.clientHeight;
 		var colIdx = imgSeperator.attributes.getNamedItem("colIdx").value;
 		if (fixed) {
@@ -115,11 +118,11 @@
 			var objTH = colNodes[i];
 			if (objTH.nodeName == "TH" && objTH.attributes.getNamedItem("colIdx")) {
 				var idx = objTH.attributes.getNamedItem("colIdx").value;
-				colWidth[idx] = objTH.width;
+				colWidth[idx] = jQuery(objTH).width();
 				if (idx == colIdx) {
 					break;
 				}
-				minX += parseInt(objTH.width);
+				minX += parseInt(jQuery(objTH).width());
 				minX += parseInt(tblViewer_getStyle(objTH, "borderRightWidth", "border-right-width")) +
 						+ parseInt(tblViewer_getStyle(objTH, "borderLeftWidth", "border-left-width"))
 						+ parseInt(tblViewer_getStyle(objTH, "paddingLeft", "padding-left"))	
@@ -139,14 +142,16 @@
 		tblv_minX = minX;
 		tblv_oldSize = colWidth[colIdx];
 		tblv_CtrlId = viewerCtrlId;
+		tblv_fixed = fixed;
 
 		var newWidth = tblViewer_getNewWidth(e);
 		resizer.style.display = "inline";
 		if (tblHeight > 30) {
-			resizer.style.height = tblHeight + "px";
+			jQuery(resizer).height(tblHeight);// + "px";
 		}
 		var newLeft = (minX + newWidth - tblv_scrolledX) + "px";
 		resizer.style.left = newLeft;
+		//resizer.style.left = e.x+'px';
 		
 		if (resizer.setCapture) { // IE mode
 			resizer.onmousemove = tblViewer_resizeColumMove;
@@ -177,14 +182,19 @@
 		if (!e) e = window.event;
 		var newWidth = tblViewer_getNewWidth(e);
 		tblv_currResizer.style.left = (tblv_minX + newWidth - tblv_scrolledX) + "px";
+		//tblv_currResizer.style.left = e.pageX+'px';
 	}
 	/**
 	 * Invoked when the user released the resizer.
 	 */
+	
 	function tblViewer_resizeColumnDone(e) {
-		if (!e) e = window.event;
+		if (!e){
+			e = window.event;
+		}
+
+		//tblv_currResizer.style.left = (tblv_minX + newWidth - tblv_scrolledX) + "px";
 		tblv_currResizer.style.display = "none";
-		
 		log("resizeColumnDone");
 		
 		if (tblv_currResizer.setCapture) { // IE mode
@@ -199,9 +209,153 @@
 		var newWidth = tblViewer_getNewWidth(e);
 		
 		if (newWidth != tblv_oldSize) {
-			jWic().fireAction(tblv_CtrlId, 'resizeColumn', tblv_colIdx + ";" + newWidth);
+			//clientseitige verschiebung
+			
+			tblViewer_resizeOnClientSide(tblv_colIdx,newWidth);
+			
+			//serverseitige verschiebung
+			jWic().fireAction(tblv_CtrlId, 'resizeColumnWithoutRedraw', tblv_colIdx + ";" + newWidth);
+
 		}
 	}
+
+	function tblViewer_resizeOnClientSide(localColIdx, newWidth){
+		
+		var contentTableName = "#tblContent_"+JQryEscape(tblv_CtrlId);
+		
+		var divLeftViewHeadName = "#tblViewLeftHead_"+JQryEscape(tblv_CtrlId);
+		var divLeftDataLayerName = "#tblViewLeftDataLayer_"+JQryEscape(tblv_CtrlId);
+
+		var divViewHeadName = "#tblViewHead_"+JQryEscape(tblv_CtrlId);
+		var divDataLayerName = "#tblViewDataLayer_"+JQryEscape(tblv_CtrlId);
+		
+		
+		
+		var contentTable = jQuery(contentTableName);
+		
+		var divLeftViewHead =  jQuery(divLeftViewHeadName);
+		var divLeftDataLayer = jQuery(divLeftDataLayerName);
+		
+		var divViewHead =  jQuery(divViewHeadName);
+		var divDataLayer = jQuery(divDataLayerName);
+		
+		
+		var contentTableWidth = contentTable.width();
+		var divDataLayerWidth = divDataLayer.width();
+		var divLeftDataLayerWidth;
+		var divLeftViewHeadWidth;
+		var divViewHeadWidth = divViewHead.width();
+		
+		var selectedHead;
+		var selectedBody;
+		var unselectedHead;
+		var unselectedBody;
+		
+		//eigenen index führen da es sich hier um 2 verschiedene Tabellen (left,right) handelt
+		var columnIndex;
+		
+		//es existiert nur eine Tabelle, die left Table Elemente sind somit unnütz
+		//diese bedingung berücksichtigt 3 Zustände
+		
+		//TableView mit 1 Tabelle
+		//TableView mit 2 Tabellen und die Linke selektiert
+		//TableView mit 2 Tabellen und die Rechte selektiert
+		if(typeof tblv_fixed=='undefined'){
+			columnIndex = localColIdx;
+			
+			//gibt kein left, also hauptlayer standardmäßig selektiert
+			selectedHead = divViewHead;
+			selectedBody = divDataLayer;
+
+		//welche Tabelle soll manipuliert werden, gleichzeitig den echten Index berechnen
+		}else if (tblv_fixed){
+			columnIndex = localColIdx;
+			//wir befinden uns in der linken tabelle
+			selectedHead = divLeftViewHead;
+			selectedBody = divLeftDataLayer;
+			
+			unselectedHead = divViewHead;
+			unselectedBody = divDataLayer;
+			
+			divLeftViewHeadWidth = divLeftViewHead.getWidth();
+			divLeftDataLayerWidth = divLeftDataLayer.getWidth()
+			
+			
+		}else {
+			
+			selectedHead = divViewHead;
+			selectedBody = divDataLayer;
+			
+			unselectedHead = divLeftViewHead;
+			unselectedBody = divLeftDataLayer;
+			
+			//linke spalten abziehen
+			columnIndex = localColIdx-2;
+			
+		}
+		
+		var selectedHeadTable = jQuery(selectedHead.children()[0]);
+		var selectedBodyTable = jQuery(selectedBody.children()[0]);
+		
+		var headRows = jQuery(selectedHeadTable.children()[0]).children();
+		var bodyRows = jQuery(selectedBodyTable.children()[0]).children();
+		
+		//alle Rows zusammenfassen
+		
+		var allRows = [];//headRows.concat(bodyRows)
+		headRows.each(function(i,e){
+			allRows.push(e);
+		});
+		bodyRows.each(function(i,e){
+			allRows.push(e);
+		})
+		
+		
+		//über alle Rows iterieren und Cols suchen
+		for(var i = 0; i < allRows.length; i++){
+			var myRow = allRows[i];
+			//hole spalten
+			var allCols = jQuery(myRow).children();
+			//selektiere spalte über errechneten index
+			var myCol = jQuery(allCols[columnIndex]);
+			//alte breite der spalte ermitteln
+			var oldWidth = myCol.width();
+			//neue spaltenbreite setzen
+			myCol.width(newWidth);
+			myCol.find('.tbvColHeadCell').attr('width',newWidth);
+			//myCol.attr('width',newWidth);
+			//head und body haben unterschiedliche strukturen
+			if(i == 0)//head
+			{	
+				//auch die breite des Inhaltes setzen
+				var myColChild = jQuery(jQuery(jQuery(jQuery(myCol).children()[0]).children()[0]).children()[0]);
+				//innere breite immer -5 damit man den spaltenschieber noch sieht
+				myColChild.width(newWidth-5);
+				//aktuelle tabelle mit der differenz der geänderten breiten ausgleichen
+				var diff = newWidth - oldWidth;
+				var nwidth =  parseInt(selectedHeadTable.width) + diff;
+				if(tblv_fixed){
+					selectedHeadTable.width(nwidth);
+					selectedBodyTable.width(nwidth);
+				
+					selectedHead.width(nwidth);
+					selectedBody.width(nwidth);
+					
+					//passt die änderungen an den anderen tabellen an
+					unselectedBody.width((divViewHeadWidth-diff));
+					//der div layer enthält eine tabelle welche auch angepasst werden muss 
+					//sonst sieht es zerstückelt aus
+					unselectedBody.children().width(divViewHeadWidth-diff);
+					
+					unselectedHead.width((divViewHeadWidth-diff));
+				}
+						
+			}
+			
+		}
+		
+	}
+	
 	
 	function tblViewer_getNewWidth(e) {
 		var x = e.x ? e.x : e.clientX;
