@@ -369,7 +369,7 @@ JWic.controls = {
 		 * Invoked on KeyUp to handle user input.
 		 */
 		textKeyPressedHandler : function(e) {
-
+			
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("key pressed: " + e.keyCode + " --");
@@ -404,6 +404,8 @@ JWic.controls = {
 						JWic.controls.Combo._delayControlId = ctrlId;
 						window.setTimeout("JWic.controls.Combo.afterKeySearchStart(" + myStart + ");", comboBox.keyDelayTime);
 						
+					}else if(e.keyCode === 27){
+						JWic.controls.Combo.closeActiveContentBox();
 					}
 				}
 			}
@@ -413,7 +415,7 @@ JWic.controls = {
 			if (triggeredIndex == JWic.controls.Combo._delayKeySearchIdx && JWic.controls.Combo._delayControlId != null) {
 				var ctrlId = JWic.controls.Combo._delayControlId;
 				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
-
+				
 				JWic.controls.Combo._delayControlId = null; // clear
 				
 				JWic.log("dataFilterValue set to " + comboBox.dataFilterValue);
@@ -424,7 +426,10 @@ JWic.controls = {
 						if (comboBox.loadCompleted) {
 							comboBox.dataLoader.prepareData(ctrlId);
 						}
+						
 						JWic.controls.Combo.openContentBox(ctrlId);
+						comboBox.jComboField.focus();
+					
 					} else {
 						if (comboBox.loadCompleted) {
 							comboBox.dataLoader.prepareData(ctrlId);
@@ -973,16 +978,16 @@ JWic.controls = {
 					});
 		
 					var height = jQuery(comboBoxWin).height();
-					var boxScrollTop = win.getContent().scrollTop;
+					var boxScrollTop = comboBoxWin.scrollTop();
 					jQuery(comboBoxWin).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
 						obj=jQuery(obj);
 						obj.addClass("selected");
 						var top = obj.position().top;
 						var elmHeight = obj.height();
 						if (top < boxScrollTop) {
-							comboBoxWin.scrollTop = top;
+							comboBoxWin.scrollTop(top);
 						} else if ((top + elmHeight) > (height + boxScrollTop)) {
-							comboBoxWin.scrollTop = top - height + elmHeight;
+							comboBoxWin.scrollTop(top - height + elmHeight);
 						}
 						JWic.log("viewPort: " + obj.position().top);
 					});
@@ -1044,7 +1049,7 @@ JWic.controls = {
 				if (comboBox.dataFilterValue) {
 					var value = comboBox.dataFilterValue.toLowerCase();
 					var objTitle = jQuery.trim(object.title).toLowerCase();
-					return objTitle.startsWith(value);
+					return objTitle.substring(0,value.length)===value;
 				}
 				return true;
 			}
