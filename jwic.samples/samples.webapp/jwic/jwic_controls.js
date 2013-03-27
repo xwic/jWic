@@ -983,17 +983,7 @@ JWic.controls = {
 					jQuery(comboBoxWin).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
 						obj=jQuery(obj);
 						obj.addClass("selected");
-						
-						//if(boxScrollTop > obj.position().top+obj.height()){
-							jQuery(comboBoxWin).scrollTop(boxScrollTop+obj.position().top);
-						//	return;
-						//}
-//						if(boxScrollTop + jQuery(comboBoxWin).height()< obj.position().top+obj.height()){
-//							jQuery(comboBoxWin).scrollTop(boxScrollTop+obj.position().top+obj.height());
-//							return;
-//						}
-						
-						
+						jQuery(comboBoxWin).scrollTop(boxScrollTop+obj.position().top);
 					});
 				}				
 			},

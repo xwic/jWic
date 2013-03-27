@@ -986,14 +986,7 @@ JWic.controls = {
 					jQuery(comboBoxWin).find("div[comboElement=" + newSelection + "]").each(function(i,obj) {
 						obj=jQuery(obj);
 						obj.addClass("selected");
-						var top = obj.position().top;
-						var elmHeight = obj.height();
-						if (top < boxScrollTop) {
-							comboBoxWin.scrollTop(top);
-						} else if ((top + elmHeight) > (height + boxScrollTop)) {
-							comboBoxWin.scrollTop(top - height + elmHeight);
-						}
-						JWic.log("viewPort: " + obj.position().top);
+						jQuery(comboBoxWin).scrollTop(boxScrollTop+obj.position().top);
 					});
 				}				
 			},
