@@ -304,8 +304,8 @@ JWic.controls = {
 			jInpElm.focus(JWic.controls.Combo.focusHandler);
 			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
 			jInpElm.click(JWic.controls.Combo.textClickHandler);
-			jInpElm.keyup(JWic.controls.Combo.textKeyPressedHandler);
-						
+			jInpElm.bind('keydown',JWic.controls.Combo.textKeyPressedHandler);
+
 			// adjust sizes
 			var totalWidth = jQuery(comboBox).width();
 			
@@ -354,7 +354,8 @@ JWic.controls = {
 			jInpElem.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
 			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			jInpElem.unbind("click", JWic.controls.Combo.textClickHandler);
-			jInpElem.unbind("keyup", JWic.controls.Combo.textKeyPressedHandler);
+			jInpElem.unbind("keydown", JWic.controls.Combo.textKeyPressedHandler);
+			
 			this._activeComboContentBox = null;			
 			this._openTime = 0;
 			this._closeTime = 0;
@@ -404,7 +405,7 @@ JWic.controls = {
 						JWic.controls.Combo._delayControlId = ctrlId;
 						window.setTimeout("JWic.controls.Combo.afterKeySearchStart(" + myStart + ");", comboBox.keyDelayTime);
 						
-					}else if(e.keyCode === 27){
+					}else if(e.keyCode === 27){ // ESC to close the box
 						JWic.controls.Combo.closeActiveContentBox();
 					}
 				}
