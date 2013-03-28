@@ -1097,7 +1097,7 @@ JWic.controls = {
 				}
 			}
 			JWic.fireAction(ctrlId, 'click', '');
-		},
+		}
 
 	},
 	
