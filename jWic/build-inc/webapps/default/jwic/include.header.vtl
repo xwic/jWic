@@ -3,6 +3,16 @@
 <html>
 <head>
 	<title>#if($page.title)$page.title#else $page.name#end</title>
+	<!-- fix for ie parsing problem -->
+	<script type="text/javascript">
+		var isIE = false;
+	</script>
+	<!--[if IE]>
+		<script type="text/javascript">
+		    isIE = true;
+		    //any other IE specific stuff here
+		</script>
+	<![endif]-->
 	<META http-equiv="Cache-Control" content="no-cache">
 	<META http-equiv="Pragma" content="no-cache">
 	<META http-equiv="Expires" content="-1">
@@ -18,6 +28,17 @@
 		var JQryEscape = function (str){
 			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
 		};		
+		
+		//fix for IE7 parse problem
+		//native parsing on IE7 is realy slow
+		//jQuery does a check to see if there is a native parser available
+		//and uses it if its found, but the one on IE7 its very slow
+		jQuery(document).ready(function(){
+			if(isIE){
+				window.JSON = false;
+			}
+		});
+		
 		
 	</script>
 
