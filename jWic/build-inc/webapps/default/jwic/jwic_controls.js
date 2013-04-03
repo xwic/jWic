@@ -103,7 +103,7 @@ JWic.controls = {
 			var elm =  jQuery(e.target);
 			
 			if (e.keyCode == elm.attr("xListenKeyCode")) {
-				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
+				JWic.fireAction(elm.attr('id'), 'keyPressed', '' + e.keyCode);
 			}
 		}
 		
@@ -203,7 +203,7 @@ JWic.controls = {
 			var elm =  jQuery(e.target);
 			
 			if (e.keyCode == elm.attr("xListenKeyCode")) {
-				JWic.fireAction(elm.id, 'keyPressed', '' + e.keyCode);
+				JWic.fireAction(elm.attr('id'), 'keyPressed', '' + e.keyCode);
 			}
 		}
 		
@@ -305,7 +305,7 @@ JWic.controls = {
 			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
 			jInpElm.click(JWic.controls.Combo.textClickHandler);
 			jInpElm.bind('keydown',JWic.controls.Combo.textKeyPressedHandler);
-						
+
 			// adjust sizes
 			var totalWidth = jQuery(comboBox).width();
 			
@@ -355,6 +355,7 @@ JWic.controls = {
 			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
 			jInpElem.unbind("click", JWic.controls.Combo.textClickHandler);
 			jInpElem.unbind("keydown", JWic.controls.Combo.textKeyPressedHandler);
+			
 			this._activeComboContentBox = null;			
 			this._openTime = 0;
 			this._closeTime = 0;
@@ -404,7 +405,7 @@ JWic.controls = {
 						JWic.controls.Combo._delayControlId = ctrlId;
 						window.setTimeout("JWic.controls.Combo.afterKeySearchStart(" + myStart + ");", comboBox.keyDelayTime);
 						
-					}else if(e.keyCode === 27){
+					}else if(e.keyCode === 27){ // ESC to close the box
 						JWic.controls.Combo.closeActiveContentBox();
 					}
 				}
@@ -513,14 +514,11 @@ JWic.controls = {
 				jQuery(comboElm).removeClass("x-error");
 				comboElm.jComboField.value = obj.title;				
 				comboElm.jComboField.focus();
-				comboElm.jComboField.select();
+				//comboElm.jComboField.select();
 				 if(typeof comboElm.jComboField.selectionStart != 'undefined') {
 					 comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
-				 } else if (typeof document.selection != 'undefined') {
-					var range = document.selection.createRange();
-					range.moveStart('character', comboElm.dataFilterValue.length);
-					range.select();	 
 				 }
+
 			}
 			 comboElm.pickFirstFinding = false;
 
@@ -553,9 +551,7 @@ JWic.controls = {
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 						JWic.controls.Combo.openContentBox(ctrlId);
 					}
-					if (box.selectTextOnFocus && this.value.length != 0) {
-						this.select();
-					}
+
 						
 				}
 			}
@@ -621,7 +617,6 @@ JWic.controls = {
 			var winId = "j-combo_contentBox";
 			
 			var boxWidth = jQuery(comboBox).width();
-			var boxLoc = jQuery(comboBox).offset();
 			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));			
 			if (!comboBoxWin.is(':data(dialog)')) {
 
@@ -636,11 +631,10 @@ JWic.controls = {
 						at:'bottom',
 						of:jQuery(comboBox)
 					}
-				
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
 				jQuery(".ui-dialog-titlebar").hide();
-			}				
+			}			
 				/*
 				 * Haven't included resize and move event, when switching to
 				 * jQuery.
@@ -667,7 +661,6 @@ JWic.controls = {
 			}
 			
 			comboBoxWin.dialog('open');
-			
 		},
 		/**
 		 * Invoked when the box is resized.
