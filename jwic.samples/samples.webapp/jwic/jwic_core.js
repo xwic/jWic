@@ -437,13 +437,10 @@ var JWicInternal = {
 			if (!removeBlock) {
 				var sysinfoXY = this.getWindowSize();
 				var msg = jQuery("#click_blocker_message").get(0);
-				var bodyHeight = (msg ? document.body.scrollHeight
-						: sysinfoXY[1]) - 5;
-				var bodyWidth = (msg ? document.body.scrollWidth : sysinfoXY[0]) - 5;
 				elem.style.top = 0;
-				elem.style.height = bodyHeight + 'px';
+				elem.style.height = 100 + '%';
 				elem.style.left = 0;
-				elem.style.width = bodyWidth + 'px';
+				elem.style.width = 100 + '%';
 				elem.style.backgroundImage = 'url(none)';
 				elem.style.backgroundColor = '#a0a0a0';
 				elem.style.filter = 'alpha(opacity=30)'; // IE compatibility
