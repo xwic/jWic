@@ -1,2 +1,0 @@
-To add more internationalization files make sure you link them in ecolib/ecolib.page.header
-otherwise they wont be added to the application

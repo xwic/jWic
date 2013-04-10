@@ -1,0 +1,42 @@
+<input type="hidden" name="$control.getField("stateValue").id" value="$control.getField("stateValue").value">
+<script language="javascript">
+/**** StateMonitor ($control.controlID) ****/
+	window.stateMonReq_${control.uniqueID} = false;
+	window.checkMonitor_${control.uniqueID} = function () {
+		window.stateMonReq_${control.uniqueID} = jWic().sendResourceRequest('$control.controlID', handleCallback_${control.uniqueID});
+		log("ClientNotifierControl: Sent request");
+		if (!window.stateMonReq_${control.uniqueID}) {
+			// the browser does not support AJAX. 
+			if (debugMode) {
+				alert("Your browser does not support XmlHttpRequests (ajax). The StateMonitor does not work");
+			}
+		}
+	};
+	function handleCallback_${control.uniqueID}() {
+		var request = window.stateMonReq_${control.uniqueID};
+		if (typeof(request) != 'undefined' && typeof(request.readyState) != 'undefined') {
+ 			if (request.readyState == 4) {
+				if (request.status == 200) {
+					// all ok
+					var text = request.responseText;
+					var field = document.forms[0].elements['$control.getField("stateValue").id'];
+					if (text != field.value) {
+						field.value = text;
+						stateMonReq_${control.uniqueID} = false;
+						JWic.fireAction('$control.controlID', 'refresh', '');
+					} else {
+						stateMonReq_${control.uniqueID} = true;
+						window.setTimeout("checkMonitor_${control.uniqueID}()", $control.interval);
+					}
+				}
+			}
+    	}
+	}
+	
+	if (!window.stateMonReq_${control.uniqueID}) {
+ 		window.setTimeout("window.checkMonitor_${control.uniqueID}()", $control.interval);
+ 	} else {
+ 		log("ClientNotifierControl: request was not null");
+ 	}
+	
+</script>

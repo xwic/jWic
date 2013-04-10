@@ -140,9 +140,9 @@
     
     <New id="defaultApp" class="org.mortbay.jetty.webapp.WebAppContext">
       <Arg><Ref id="contexts"/></Arg>
-      <Arg>build-inc/webapps/default</Arg>
+      <Arg>web</Arg>
       <Arg>/</Arg>
-      <Set name="contextPath">/default</Set>
+      <Set name="contextPath">/jwic</Set>
       <Set name="defaultsDescriptor">/jetty/webdefault.xml</Set>
 <!--        <Set name="classLoader">
         <New class="org.mortbay.jetty.webapp.TransformingWebAppClassLoader">

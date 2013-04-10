@@ -1,11 +1,13 @@
 /*
  * de.jwic.controls.ButtonControl
- * $Id: ButtonControl.java,v 1.2 2010/02/08 21:09:50 lordsam Exp $
+ * $Id: Button.java,v 1.3 2011/09/09 15:09:01 adrianionescu12 Exp $
  */
-package de.jwic.controls;
+package de.jwic.controls.basics;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
+import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.SelectableControl;
 
 
 /**
@@ -13,23 +15,23 @@ import de.jwic.base.ImageRef;
  * an image. 
  *  
  * @author Florian Lippisch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
-public class ButtonControl extends SelectableControl {
+@JavaScriptSupport
+public class Button extends SelectableControl {
 
 	private static final long serialVersionUID = 1L;
 
 	private String title = null;
 	private ImageRef iconEnabled = null;
 	private ImageRef iconDisabled = null;
-	private boolean submitButton = false;
-	private String iconInfo = null;
+	private String tooltip = null;
 	private String confirmMsg = "";
 	
 	/**
 	 * @param container
 	 */
-	public ButtonControl(IControlContainer container) {
+	public Button(IControlContainer container) {
 		super(container);
 		init();
 	}
@@ -37,7 +39,7 @@ public class ButtonControl extends SelectableControl {
 	 * @param container
 	 * @param name
 	 */
-	public ButtonControl(IControlContainer container, String name) {
+	public Button(IControlContainer container, String name) {
 		super(container, name);
 		init();
 	}
@@ -45,7 +47,7 @@ public class ButtonControl extends SelectableControl {
 	 * @see de.jwic.base.Control#init()
 	 */
 	private void init() {
-		setCssClass("default_button");
+		setCssClass("j-button");
 		if (title == null) {
 			title = getName();
 		}
@@ -95,30 +97,17 @@ public class ButtonControl extends SelectableControl {
 	}
 
 	/**
-	 * Returns true if the button should behave like a submit button.
-	 * @return boolean
+	 * @return Returns the tooltip.
 	 */
-	public boolean isSubmitButton() {
-		return submitButton;
+	public String getTooltip() {
+		return tooltip;
 	}
 	/**
-	 * Set to true if the button should be of the type submit.
-	 * @param submitButton The submitButton to set.
+	 * @param tooltip The tooltip to set.
 	 */
-	public void setSubmitButton(boolean submitButton) {
-		this.submitButton = submitButton;
-	}
-	/**
-	 * @return Returns the iconInfo.
-	 */
-	public String getIconInfo() {
-		return iconInfo;
-	}
-	/**
-	 * @param iconInfo The iconInfo to set.
-	 */
-	public void setIconInfo(String iconInfo) {
-		this.iconInfo = iconInfo;
+	public void setTooltip(String tooltip) {
+		this.tooltip = tooltip;
+		requireRedraw();
 	}
 	/**
 	 * @return Returns the confirmMsg.
@@ -131,6 +120,7 @@ public class ButtonControl extends SelectableControl {
 	 */
 	public void setConfirmMsg(String confirmMsg) {
 		this.confirmMsg = confirmMsg;
+		requireRedraw();
 	}
 	/**
 	 * @return the iconDisabled
@@ -143,6 +133,7 @@ public class ButtonControl extends SelectableControl {
 	 */
 	public void setIconDisabled(ImageRef iconDisabled) {
 		this.iconDisabled = iconDisabled;
+		requireRedraw();
 	}
 	/**
 	 * @return the iconEnabled
@@ -155,5 +146,6 @@ public class ButtonControl extends SelectableControl {
 	 */
 	public void setIconEnabled(ImageRef iconEnabled) {
 		this.iconEnabled = iconEnabled;
+		requireRedraw();
 	}
 }

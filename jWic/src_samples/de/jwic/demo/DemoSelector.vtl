@@ -1,0 +1,19 @@
+<div class="demo_module_selector" id="$control.controlID">
+#set($group = "")
+#foreach($module in $control.modules)
+	#if($module.group != $group)
+		#if($group != "")
+			</ul>
+			</div>
+		#end
+		#set($group = $module.group)
+		<h3>$module.group</h3>
+		<div>
+			<ul>
+	#end
+	<li><a href="$control.createActionURL("selection", "$velocityCount")">$module.title</a></li>
+#end
+	</ul>
+	</div>
+</div>
+</div>

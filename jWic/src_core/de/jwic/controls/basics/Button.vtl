@@ -1,0 +1,6 @@
+<button id="btn_$control.controlID" #if($control.tooltip != "")title="$control.tooltip"#end   #if (!$control.isEnabled()) disabled #end>
+#if ($control.hasIcon())
+<img border="0" src="$control.icon.path" #if($control.tooltip != "")alt="$control.tooltip"#end align="absmiddle">
+#end
+$!control.title
+</button>

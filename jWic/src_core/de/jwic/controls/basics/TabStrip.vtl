@@ -1,0 +1,18 @@
+<div id="$control.controlID">
+<ul>
+#foreach($tab in $control.tabs)
+	<li><a href="#tab_${tab.controlID}">$tab.title</a></li>	
+#end
+</ul>
+
+#foreach($tab in $control.tabs)
+	<div id="tab_${tab.controlID}" jwicTabStripId="${control.controlID}" jwicTabName="${tab.name}">
+		#if($tab.name == $control.activeTabName)
+			$insert.control($tab.name)
+		#else
+			<span id="ctrl_${tab.controlID}"></span>
+		#end
+	</div>	
+#end
+
+</div>

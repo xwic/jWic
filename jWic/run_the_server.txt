@@ -11,4 +11,4 @@ and the Arguments:
 The server should then start up with the default configuration running at port 8080. Once it boot up, try
 the following URL in your browser:
 
-	http://localhost:8080/default/sample/
+	http://localhost:8080/jwic/sample/

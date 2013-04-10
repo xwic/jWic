@@ -1,0 +1,36 @@
+#if(!$control.hidden)
+$control.renderImage()
+#if ($control.shapes) 
+#set($shapeName = "fld_${control.controlID}.shape")
+<map name="$shapeName">
+#foreach($shape in $control.shapes)
+  <area shape="$shape.type" coords="$shape.coords"#if($shape.URL) onclick="${shape.URL}return false;" href="#"#end#if($shape.title) title="$shape.title" onmouseover="setTimeout('window.status = \'$escape.escapeJavaScript($escape.escapeJavaScript($shape.title))\';', 0);return true;" onmouseout="window.status='';return true;"#end>
+#end
+</map>
+#end
+<img id="$control.controlID" border="0" src="$control.createImageURL()" 
+#if($control.width != -1) width="$control.width"#end
+#if($control.height != -1) height="$control.height"#end
+#if($control.infoMessage) alt="$control.infoMessage"#end
+#if($control.shapes) usemap="#$shapeName"#end/>
+#end
+<!--JavaScript${control.controlID}
+#if(!$control.hidden)
+	var i = new Image;
+	i.onload = function() {event.updateHTML();};
+	i.onabort = i.onload;
+	i.onerror = i.onload;
+	i.src = "$control.createImageURL()";
+#else
+event.updateHTML();
+#end
+${control.controlID}JavaScript-->
+#* jwic 3 code, disabled TODO check if still required
+<script language="JavaScript">
+	JWic.ajaxAddUpdateListener("$control.controlID", function(event) {
+	 	// JavaScript is extracted so IE6 can execute new rendered JavaScript
+	 	var js = event.getHTML().match(/<!--JavaScript${control.controlID}((?:.*\n)*)${control.controlID}JavaScript-->/);
+	 	if (js) eval(js[1]); else event.updateHTML();
+	});
+</script>
+*#

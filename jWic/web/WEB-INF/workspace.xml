@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workspace>
+
+	<filter>
+		<name>CVS</name>
+		<name>META-INF</name>		
+	</filter>
+
+	<group name="Samples">
+	
+		<project name="MailClient Demo" parent="Samples" commentFile="../../jwic.maildemo/project.html">
+			<source path="../src_maildemo"/>
+			<folder name="web" path="../web/maildemo"/>
+		</project>
+		
+	</group>
+
+	<group name="jWic Core">
+		<project name="jWic Main Source">
+			<source path="../src_core"/>
+			<source name="tests" path="../src_tests"/>
+			<source name="compatibility" path="../src_compatibility"/>
+			<folder name="web" path="../web"/>
+		</project>
+	</group>
+	
+	<group name="Tools">
+		<project name="SourceViewer">
+			<source path="../src"/>
+			<folder name="web" path="sv"/>
+		</project>
+	</group>
+	
+</workspace>

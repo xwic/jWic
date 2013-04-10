@@ -1,0 +1,37 @@
+/**
+ * This file customizes the demo application itself.
+ */
+
+
+#demo_header {
+	height: 80px;
+	background-color: #800000;
+	background: url(gfx/header_fade.png);
+}
+
+#demo_header h1 {
+	padding: 20px; margin: 0px;
+	color: #ffffff;
+	font-family: Verdana, Sans-Serif;
+	font-size: 20px;
+	text-shadow: 1px 1px 1px #222;
+}
+
+#theme_selector {
+	margin-top: 20px;
+	margin-right: 10px;
+	text-align: right;
+	float: right;
+	width: 150px;
+}
+
+
+.leftmenu {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.leftmenu .colright {
+	border-left: 0px;
+}
+#footer {
+	border-top: 0px;
+}
