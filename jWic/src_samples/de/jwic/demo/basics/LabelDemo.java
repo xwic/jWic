@@ -21,9 +21,9 @@ package de.jwic.demo.basics;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.basics.Button;
+import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
-import de.jwic.controls.basics.Label;
+import de.jwic.controls.Label;
 import de.jwic.events.SelectionListener;
 
 /**

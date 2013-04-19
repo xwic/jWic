@@ -15,13 +15,12 @@
  *
  * de.jwic.controls.LabelControl
  * $Id: LabelControl.java,v 1.5 2010/01/10 19:54:49 lordsam Exp $
- */package de.jwic.controls.basics;
+ */package de.jwic.controls;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.HTMLElement;
 
 /**
  * Represents a label that displays just text. A style can be specified

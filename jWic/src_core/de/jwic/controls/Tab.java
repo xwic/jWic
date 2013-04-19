@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.jwic.controls.basics;
+package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 

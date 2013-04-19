@@ -23,6 +23,15 @@
 			<prop key="file.resource.loader.modificationCheckInterval">2</prop>
 			<prop key="class.resource.loader.description">Velocity Classpath Resource Loader</prop>
 			<prop key="class.resource.loader.class">org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader</prop>
+			<!-- 
+			  - You may disable the below settings to enable Velocity logging. Otherwise keep it
+			  - turned off as it has a dramatic impact on performance in a production environment.  
+			 -->
+            <prop key="runtime.log.invalid.references">false</prop>
+            <prop key="runtime.log.error.stacktrace">false</prop>
+            <prop key="runtime.log.warn.stacktrace">false</prop>
+            <prop key="runtime.log.info.stacktrace">false</prop>
+            <prop key="runtime.log.logsystem.class">de.jwic.renderer.velocity.NoLogSystem</prop>			
 		</properties>
     </velocity-engine>
     

@@ -20,7 +20,7 @@
 	<input id="chkfld_$field.id" type="checkbox" name="$checkField" value="1" onClick="$formField = this.checked ? '$jwic.formatInp($escape.escapeJavaScript($entry.key))' : '';#if ( $control.isChangeNotification() ) $control.createActionURL('valuechanged', '') #end" #if ( $field.value == $entry.key ) checked #end #if ( !$control.isEnabled()) disabled #end>
 	</td>
 	#if ( $entry.title != "" )
-		<td><span class="e_frm_cap"><label for="chkfld_$field.id">$entry.title</label></span></td>
+		<td><span class="e_frm_cap"><label for="chkfld_$field.id" class="ui-widget">$entry.title</label></span></td>
 	#end
 	</tr></table>
 	#set($doBreak = $control.isDoBreak($velocityCount))

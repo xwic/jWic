@@ -76,16 +76,6 @@ public class ButtonControlTest extends ControlTestCase {
 	}
 
 	/**
-	 * Test method for {@link de.jwic.controls.Button#setSubmitButton(boolean)}.
-	 */
-	public void testSetSubmitButton() {
-		ctrl.setSubmitButton(true);
-		assertEquals(true, ctrl.isSubmitButton());
-		ctrl.setSubmitButton(false);
-		assertEquals(false, ctrl.isSubmitButton());
-	}
-
-	/**
 	 * Test method for {@link de.jwic.controls.Button#setTooltip(java.lang.String)}.
 	 */
 	public void testSetTooltip() {

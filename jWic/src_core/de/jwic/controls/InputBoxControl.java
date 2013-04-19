@@ -105,7 +105,7 @@ public class InputBoxControl extends HTMLElement {
 	 * @see de.jwic.base.Control#init()
 	 */
 	private void init() {
-		setCssClass("j-inputbox");
+		setCssClass("ui-widget ui-widget-content j-inputbox");
 		field = new Field(this);
 	}
 	

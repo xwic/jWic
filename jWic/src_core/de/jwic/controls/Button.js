@@ -2,29 +2,25 @@
 	// Attach to events...
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var tblElm = jQuery('#tbl_'+JQryEscape('${control.controlID}'));
 		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
-		if (tblElm && btn) {
-			tblElm.attr("_ctrlEnabled", "$control.isEnabled()");
-			tblElm.attr("_confirmMsg", "$escape.escapeJavaScript($!control.confirmMsg)");
-			JWic.controls.Button.initialize(tblElm, btn);
-			#* Add IE6 fix *#
-			#if(!$control.modal && $control.sessionContext.userAgent.isIE() && $control.sessionContext.userAgent.getMajorVersion() < 7)
-				btn.width(1);
-			#end
+		if (btn) {
+			JWic.controls.basics.Button.initialize(btn, "${control.controlID}");
+			btn.attr("_ctrlEnabled", "$control.isEnabled()");
+			btn.attr("_confirmMsg", "$escape.escapeJavaScript($!control.confirmMsg)");
 			#if($control.width > 0)
 				btn.width("${control.width}");
 			#end
+			#if($control.height > 0)
+				btn.height("${control.height}");
+			#end
+			#if($control.tooltip != "")
+				btn.tooltip({
+					position: {
+						my: "left top",
+						at: "center bottom",
+						}});
+			#end
 		}
 	#end
-	}, 
-	
-	destroy: function(element) {
-		jQuery('#tbl_'+JQryEscape('${control.controlID}'));
-		var tblElm = jQuery('#tbl_'+JQryEscape('${control.controlID}'));
-		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
-		if (tblElm && btn) {
-			JWic.controls.Button.destroy(tblElm, btn);
-		}
 	}
 }

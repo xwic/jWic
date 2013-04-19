@@ -7,7 +7,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.NumericInputControl;
-import de.jwic.controls.basics.Button;
+import de.jwic.controls.Button;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 

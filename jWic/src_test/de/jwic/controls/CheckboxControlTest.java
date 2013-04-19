@@ -30,19 +30,19 @@ import de.jwic.events.ElementSelectedListener;
  */
 public class CheckboxControlTest extends ListControlTest {
 
-	private CheckboxControl chkBox = null;
+	private CheckBoxGroup chkBox = null;
 	
 	/* (non-Javadoc)
 	 * @see de.jwic.controls.ListControlTest#createControl(de.jwic.base.IControlContainer)
 	 */
 	public Control createControl(IControlContainer container) {
-		chkBox = new CheckboxControl(container);
+		chkBox = new CheckBoxGroup(container);
 		list = chkBox; // the basic tests use the list field...
 		return list;
 	}
 	
 	/**
-	 * Test method for {@link de.jwic.controls.CheckboxControl#getFieldByKey(java.lang.String)}.
+	 * Test method for {@link de.jwic.controls.CheckBoxGroup#getFieldByKey(java.lang.String)}.
 	 */
 	public void testGetFieldByKey() {
 		
@@ -154,7 +154,7 @@ public class CheckboxControlTest extends ListControlTest {
 	
 	
 	/**
-	 * Test method for {@link de.jwic.controls.CheckboxControl#isDoBreak(int)}.
+	 * Test method for {@link de.jwic.controls.CheckBoxGroup#isDoBreak(int)}.
 	 */
 	public void testIsDoBreak() {
 		chkBox.setColumns(2);

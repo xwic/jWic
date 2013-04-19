@@ -145,7 +145,7 @@ form {
 	border: 1px solid #FF0000;
 }
 input.j-inputbox.x-error {
-	background-image: url(gfx/inputbg-error.png);
+	background-image: url(gfx/inputbg-error-tp.png);
 	background-repeat: repeat-x;;
 }
 

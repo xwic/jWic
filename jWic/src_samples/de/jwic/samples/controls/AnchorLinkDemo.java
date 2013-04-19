@@ -24,7 +24,7 @@ import java.util.Date;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.AnchorLinkControl;
+import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.ListBoxControl;
@@ -42,7 +42,7 @@ import de.jwic.events.SelectionListener;
  */
 public class AnchorLinkDemo extends ControlContainer {
 
-	private AnchorLinkControl anchor;
+	private AnchorLink anchor;
 	private InputBoxControl text;
 	private InputBoxControl infoText;
 	private Button btVisible;
@@ -67,7 +67,7 @@ public class AnchorLinkDemo extends ControlContainer {
 		super(container);
 		
 		// create the button instance
-		anchor = new AnchorLinkControl(this, "anchor");
+		anchor = new AnchorLink(this, "anchor");
 		anchor.setTitle("Hit me.");
 		
 		// add the eventLog listener

@@ -38,7 +38,7 @@ public class CheckBox extends Control {
 	protected String label = null;
 	protected String infoText = null;
 	protected boolean enabled = true;
-	protected String cssClass = "j-checkbox";
+	protected String cssClass = "j-checkbox ui-widget";
 	
 	protected boolean changeNotification = false;
 	

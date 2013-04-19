@@ -17,7 +17,7 @@ public class BlockOnWaitDemo extends DemoModule {
 	 */
 	public BlockOnWaitDemo() {
 		setTitle("Block On Wait");
-		setDescription("If an operation takes longer than 200 ms, the client is " +
+		setDescription("If an operation takes longer than 500 ms, the client is " +
 				"blocked and no more input is accepted until the operation completed.");
 		
 		setGroup("Framework");

@@ -12,6 +12,10 @@ import de.jwic.base.JavaScriptSupport;
 /**
  * Represents the &lt;button&gt; html element. A button displays text and/or
  * an image. 
+ * 
+ * The button is using the jQuery UI button element for representation by default. It is
+ * however possible, to switch back to the old jWic 4.x design by setting the templateName
+ * to "de.jwic.controls.ButtonLegacy".
  *  
  * @author Florian Lippisch
  * @version $Revision: 1.3 $
@@ -24,7 +28,6 @@ public class Button extends SelectableControl {
 	private String title = null;
 	private ImageRef iconEnabled = null;
 	private ImageRef iconDisabled = null;
-	private boolean submitButton = false;
 	private String tooltip = null;
 	private String confirmMsg = "";
 	
@@ -96,21 +99,6 @@ public class Button extends SelectableControl {
 		return iconEnabled != null; 
 	}
 
-	/**
-	 * Returns true if the button should behave like a submit button.
-	 * @return boolean
-	 */
-	public boolean isSubmitButton() {
-		return submitButton;
-	}
-	/**
-	 * Set to true if the button should be of the type submit.
-	 * @param submitButton The submitButton to set.
-	 */
-	public void setSubmitButton(boolean submitButton) {
-		this.submitButton = submitButton;
-		requireRedraw();
-	}
 	/**
 	 * @return Returns the tooltip.
 	 */

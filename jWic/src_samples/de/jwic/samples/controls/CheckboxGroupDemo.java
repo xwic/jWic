@@ -25,7 +25,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.CheckboxControl;
+import de.jwic.controls.CheckBoxGroup;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
@@ -42,7 +42,7 @@ import de.jwic.events.SelectionListener;
  */
 public class CheckboxGroupDemo extends ControlContainer {
 
-	private CheckboxControl checkbox;
+	private CheckBoxGroup checkbox;
 	
 	private InputBoxControl txtTitle;
 	private InputBoxControl txtKey;
@@ -72,7 +72,7 @@ public class CheckboxGroupDemo extends ControlContainer {
 		super(container);
 		
 		// create the button instance
-		checkbox = new CheckboxControl(this, "checkbox");
+		checkbox = new CheckBoxGroup(this, "checkbox");
 		
 		// add the eventLog listener
 		checkbox.addElementSelectedListener(new EventLogListener());

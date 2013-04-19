@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.jwic.controls.basics;
+package de.jwic.controls;
 
 import java.io.IOException;
 import java.util.ArrayList;

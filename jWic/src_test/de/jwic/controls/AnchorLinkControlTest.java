@@ -30,19 +30,19 @@ import de.jwic.test.ControlTestCase;
  */
 public class AnchorLinkControlTest extends ControlTestCase {
 
-	private AnchorLinkControl link = null;
+	private AnchorLink link = null;
 	private boolean clicked = false;
 	
 	/* (non-Javadoc)
 	 * @see de.jwic.test.ControlTestCase#createControl(de.jwic.base.IControlContainer)
 	 */
 	public Control createControl(IControlContainer container) {
-		link = new AnchorLinkControl(container);
+		link = new AnchorLink(container);
 		return link;
 	}
 
 /**
-	 * Test method for {@link de.jwic.controls.AnchorLinkControl#setTitle(java.lang.String)}.
+	 * Test method for {@link de.jwic.controls.AnchorLink#setTitle(java.lang.String)}.
 	 */
 	public void testSetTitle() {
 		link.setTitle("MyTitle");
@@ -50,7 +50,7 @@ public class AnchorLinkControlTest extends ControlTestCase {
 	}
 
 	/**
-	 * Test method for {@link de.jwic.controls.AnchorLinkControl#setInfoMessage(java.lang.String)}.
+	 * Test method for {@link de.jwic.controls.AnchorLink#setInfoMessage(java.lang.String)}.
 	 */
 	public void testSetInfoMessage() {
 		link.setInfoMessage("Info Message");

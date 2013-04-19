@@ -22,7 +22,7 @@ import de.jwic.events.ValueChangedListener;
  * @version $Revision: 1.9 $
  * @author JBornemann
  */
-public class CheckboxControl extends ListControl {
+public class CheckBoxGroup extends ListControl {
 	
 	private static final long serialVersionUID = 2L;
 	
@@ -40,7 +40,7 @@ public class CheckboxControl extends ListControl {
 	/**
 	 * @param container
 	 */
-	public CheckboxControl(IControlContainer container) {
+	public CheckBoxGroup(IControlContainer container) {
 		super(container, null);
 		init();
 	}
@@ -48,7 +48,7 @@ public class CheckboxControl extends ListControl {
 	 * @param container
 	 * @param name
 	 */
-	public CheckboxControl(IControlContainer container, String name) {
+	public CheckBoxGroup(IControlContainer container, String name) {
 		super(container, name);
 		init();
 	}
@@ -86,7 +86,7 @@ public class CheckboxControl extends ListControl {
 	public ListEntry addElement(String title, String key) {
 		
 		if (fieldKeyMap.containsKey(key)) {
-			throw new IllegalArgumentException("Dupplicate key: " + key);
+			throw new IllegalArgumentException("Duplicate key: " + key);
 		}
 		
 		Field fld = new Field(this);

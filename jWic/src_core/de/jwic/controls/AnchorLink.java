@@ -12,7 +12,7 @@ import de.jwic.base.IControlContainer;
  * @author Florian Lippisch
  * @version $Revision: 1.2 $
  */
-public class AnchorLinkControl extends SelectableControl {
+public class AnchorLink extends SelectableControl {
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public class AnchorLinkControl extends SelectableControl {
 	/**
 	 * @param container
 	 */
-	public AnchorLinkControl(IControlContainer container) {
+	public AnchorLink(IControlContainer container) {
 		super(container);
 		title = getName();
 	}
@@ -31,7 +31,7 @@ public class AnchorLinkControl extends SelectableControl {
 	 * @param container
 	 * @param name
 	 */
-	public AnchorLinkControl(IControlContainer container, String name) {
+	public AnchorLink(IControlContainer container, String name) {
 		super(container, name);
 		title = name;
 	}

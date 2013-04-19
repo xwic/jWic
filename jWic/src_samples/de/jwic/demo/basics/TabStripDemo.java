@@ -24,10 +24,10 @@ import java.util.Date;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.basics.Button;
-import de.jwic.controls.basics.Label;
-import de.jwic.controls.basics.Tab;
-import de.jwic.controls.basics.TabStrip;
+import de.jwic.controls.Button;
+import de.jwic.controls.Label;
+import de.jwic.controls.Tab;
+import de.jwic.controls.TabStrip;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 

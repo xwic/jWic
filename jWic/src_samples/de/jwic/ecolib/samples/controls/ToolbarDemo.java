@@ -22,7 +22,7 @@ package de.jwic.ecolib.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
-import de.jwic.controls.AnchorLinkControl;
+import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.combo.DropDown;
@@ -107,7 +107,7 @@ public class ToolbarDemo extends ControlContainer {
 			a.setEnabled(true);
 			
 		
-		AnchorLinkControl control = grp.addActionAnchorLink(a);
+		AnchorLink control = grp.addActionAnchorLink(a);
 		
 		
 
@@ -146,13 +146,13 @@ public class ToolbarDemo extends ControlContainer {
 		item2.setContent(b1);
 
 		item = menu.getMenu().addMenuItem();
-		final AnchorLinkControl link = new AnchorLinkControl(menu);
+		final AnchorLink link = new AnchorLink(menu);
 		link.setTitle("Option 3");
 
 		item.setContent(link);
 
 		item2 = item.addMenuItem();
-		final AnchorLinkControl link1 = new AnchorLinkControl(menu);
+		final AnchorLink link1 = new AnchorLink(menu);
 		link1.setTitle("Option 3-1");
 
 		item2.setContent(link1);

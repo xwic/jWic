@@ -13,6 +13,8 @@ import de.jwic.base.IControlContainer;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
+import de.jwic.demo.basics.CheckBoxDemoModule;
+import de.jwic.demo.basics.CheckBoxGroupDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.TabStripDemoModule;
@@ -48,6 +50,8 @@ public class DemoApplication extends Application {
 		modules.add(new ComboLifeSearchDemoModule());
 		modules.add(new AsyncRenderDemoModule());
 		modules.add(new TabStripDemoModule());
+		modules.add(new CheckBoxDemoModule());
+		modules.add(new CheckBoxGroupDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

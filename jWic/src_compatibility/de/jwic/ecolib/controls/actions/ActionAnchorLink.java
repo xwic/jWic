@@ -4,7 +4,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.AnchorLinkControl;
+import de.jwic.controls.AnchorLink;
 import de.jwic.ecolib.actions.IAction;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -13,7 +13,7 @@ import de.jwic.events.SelectionListener;
  * @author bogdan
  *
  */
-public class ActionAnchorLink extends AnchorLinkControl{
+public class ActionAnchorLink extends AnchorLink{
 	private static final long serialVersionUID = 1L;
 
 	private final IAction action;
@@ -21,7 +21,7 @@ public class ActionAnchorLink extends AnchorLinkControl{
 	public ActionAnchorLink(IControlContainer container,IAction action) {
 		super(container);
 		this.action = action;
-		setTemplateName(AnchorLinkControl.class.getName());
+		setTemplateName(AnchorLink.class.getName());
 		
 		init();
 	}
@@ -31,7 +31,7 @@ public class ActionAnchorLink extends AnchorLinkControl{
 	public ActionAnchorLink(IControlContainer container, String name,IAction action) {
 		super(container, name);
 		this.action = action;
-		setTemplateName(AnchorLinkControl.class.getName());
+		setTemplateName(AnchorLink.class.getName());
 		
 		init();
 	}

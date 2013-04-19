@@ -35,13 +35,10 @@ import java.util.Map;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.Button;
 import de.jwic.controls.InputBoxControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
-import de.jwic.events.SelectionEvent;
-import de.jwic.events.SelectionListener;
 import de.jwic.events.SessionAdapter;
 import de.jwic.events.SessionEvent;
 import de.jwic.events.ValueChangedEvent;
@@ -97,16 +94,6 @@ public class PropertyEditorView extends ControlContainer {
 			}
 		});
 		
-		Button btRefresh = new Button(this, "btRefresh"); 
-		btRefresh.setTitle("Refresh Property Values");
-		btRefresh.addSelectionListener(new SelectionListener() {
-			/* (non-Javadoc)
-			 * @see de.jwic.events.SelectionListener#objectSelected(de.jwic.events.SelectionEvent)
-			 */
-			public void objectSelected(SelectionEvent event) {
-				loadValues();
-			}
-		});
 	}
 
 	/**
@@ -288,6 +275,13 @@ public class PropertyEditorView extends ControlContainer {
 			}
 		}
 		
+	}
+	
+	/**
+	 * Action that is invoked from the refresh link on the page.
+	 */
+	public void actionRefresh() {
+		loadValues();
 	}
 
 	/**

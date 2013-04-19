@@ -23,7 +23,7 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JWicException;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.AnchorLinkControl;
+import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.HTMLElementContainer;
 
@@ -47,7 +47,7 @@ public class ButtonMenu extends HTMLElementContainer {
 	@Override
 	public void registerControl(Control control, String name) throws JWicException {
 		super.registerControl(control, name);
-		if (control instanceof AnchorLinkControl) {
+		if (control instanceof AnchorLink) {
 			// override the AnchorLinkControl's template, to avoid problems with
 			// jQuery's menu widget.
 			control.setTemplateName(this.getClass().getPackage().getName() + ".AnchorLinkControlMenu");
@@ -67,7 +67,6 @@ public class ButtonMenu extends HTMLElementContainer {
 	public Button createButton(String name) {
 		if (button == null) {
 			button = new Button(this, name);
-			button.setSubmitButton(false);
 		}
 		return button;
 	}

@@ -22,7 +22,7 @@ package de.jwic.ecolib.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
-import de.jwic.controls.AnchorLinkControl;
+import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.CheckBox;
 import de.jwic.controls.LabelControl;
@@ -86,7 +86,7 @@ public class MenuButtonDemo extends ControlContainer {
 		item2.setContent(b1);
 		
 		item2 = item.addMenuItem();
-		final AnchorLinkControl link = new AnchorLinkControl(menu);
+		final AnchorLink link = new AnchorLink(menu);
 		link.setTitle("Option 2-2");
 		link.addSelectionListener(new SelectionListener() {
 			public void objectSelected(SelectionEvent event) {
@@ -101,7 +101,7 @@ public class MenuButtonDemo extends ControlContainer {
 		item3.setContent(l);
 
 		item = menu.getMenu().addMenuItem();
-		final AnchorLinkControl link2 = new AnchorLinkControl(menu);
+		final AnchorLink link2 = new AnchorLink(menu);
 		link2.setTitle("Option 3");
 		link2.addSelectionListener(new SelectionListener() {
 			public void objectSelected(SelectionEvent event) {
@@ -111,7 +111,7 @@ public class MenuButtonDemo extends ControlContainer {
 		item.setContent(link2);
 
 		item2 = item.addMenuItem();
-		final AnchorLinkControl link1 = new AnchorLinkControl(menu);
+		final AnchorLink link1 = new AnchorLink(menu);
 		link1.setTitle("Option 3-1");
 		link1.addSelectionListener(new SelectionListener() {
 			public void objectSelected(SelectionEvent event) {
