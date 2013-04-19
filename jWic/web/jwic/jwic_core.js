@@ -25,6 +25,7 @@ var JWic = {
 	version :'5.0.0',
 	debugMode : false,
 	_logCount : 0,
+	contextPath : "",
 	
 	/**
 	 * Indicates if the client is currently sending or waiting for an action
@@ -33,6 +34,11 @@ var JWic = {
 	isProcessing :false,
 	
 	commandQueue : [],
+	
+	/**
+	 * List of static control libraries already loaded.
+	 */
+	loadedStaticLibs : [],
 
 	/**
 	 * The time in milliseconds before the please wait message appears.
@@ -54,6 +60,24 @@ var JWic = {
 		if (!JWic.isProcessing) {
 			JWic._processNextAction()
 		}
+	},
+	
+	/**
+	 * Check if the specified library was loaded or not. If it is not loaded
+	 * yet, it will be added to the page. 
+	 */
+	requiresStaticLibrary : function(libraryName) {
+		
+		if (!JWic.loadedStaticLibs[libraryName]) {
+			JWic.log("Loading static library " + libraryName);
+			
+			var elm = "<SCRIPT src=\"" + JWic.contextPath + "/cp/" + libraryName + "\"></SCRIPT>";
+			
+			jQuery("head").append(elm);
+			
+			JWic.loadedStaticLibs[libraryName] = true;
+		} 
+		
 	},
 	
 	_processNextAction : function() {
@@ -316,6 +340,12 @@ var JWicInternal = {
 				return;
 			}
 
+			if (response.requiredJS) {
+				jQuery.each(response.requiredJS, function(idx, elm) {
+					JWic.requiresStaticLibrary(elm);
+				});
+			}
+			
 			if (response.updateables) {
 				
 				jQuery.each(response.updateables, function(idx, elm) {

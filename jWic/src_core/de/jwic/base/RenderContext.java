@@ -21,8 +21,10 @@ package de.jwic.base;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +44,7 @@ public class RenderContext {
 	private PrintWriter writer;
 	
 	private Map<String, String> scripts = new LinkedHashMap<String, String>();
+	private Set<String> requiredStaticJs = new HashSet<String>();
 	
 	/**
 	 * Constructs a new RenderContext.
@@ -94,11 +97,20 @@ public class RenderContext {
 	 * Add a script to the update.
 	 * @param controlId
 	 * @param script
+	 * @param staticName 
 	 */
 	public void addScript(String controlId, String script) {
 		if (script != null && script.trim().length() > 0) {
 			scripts.put(controlId, script);
 		}
+	}
+	
+	/**
+	 * Add a library that needs to be loaded at least once.
+	 * @param name
+	 */
+	public void addRequiredJSContent(String name) {
+		requiredStaticJs.add(name);
 	}
 	
 	/**
@@ -108,4 +120,11 @@ public class RenderContext {
 	public Map<String, String> getScripts() {
 		return scripts;
 	}
+	/**
+	 * @return the requiredStaticJs
+	 */
+	public Set<String> getRequiredStaticJs() {
+		return requiredStaticJs;
+	}
+
 }

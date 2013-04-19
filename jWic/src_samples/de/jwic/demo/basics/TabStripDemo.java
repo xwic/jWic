@@ -41,6 +41,7 @@ import de.jwic.events.SelectionListener;
 public class TabStripDemo extends ControlContainer {
 
 	private TabStrip tabStrip;
+	private Calculator calculator;
 
 	public TabStripDemo(IControlContainer container) {
 		super(container);
@@ -56,7 +57,7 @@ public class TabStripDemo extends ControlContainer {
 				" then refreshed."); 
 		
 		Tab tDetails = tabStrip.addTab("Details", "details");
-		new Calculator(tDetails, "calculator");
+		calculator = new Calculator(tDetails, "calculator");
 		
 		
 		Tab tSource = tabStrip.addTab("Source");
@@ -97,7 +98,14 @@ public class TabStripDemo extends ControlContainer {
 			}
 		});
 
-		
+		Button btRandomNum = new Button(this, "btRandomNum");
+		btRandomNum.setTitle("Randomize Calculator");
+		btRandomNum.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				calculator.doSomeRandomization();
+			}
+		});
 	}
 	
 }

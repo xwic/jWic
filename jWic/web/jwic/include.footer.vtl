@@ -2,6 +2,9 @@
 
 ## Execute script fragments that have been in the update.
 <script language="JavaScript">
+#foreach($statisJs in $renderContext.getRequiredStaticJs())
+	JWic.requiresStaticLibrary("$statisJs");
+#end
 #if($renderContext.scripts.size() > 0)
 #set($comma = 0)
  var scripts = [

@@ -13,11 +13,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
 
@@ -109,6 +111,8 @@ public class WebEngine  {
 	private class Updateable {
 		String htmlCode = null;
 		Map<String, String> javaScript = null;
+		Set<String> requiredStaticJS = null;
+		
 		/**
 		 * @param htmlCode
 		 */
@@ -674,6 +678,25 @@ public class WebEngine  {
 				}
 				
 				if (toUpdate != null) {
+					
+					// merge required static JS files
+					Set<String> allRequiredLibs = new HashSet<String>();
+					for (String key : toUpdate.keySet()) {
+						Updateable updateable = toUpdate.get(key);
+						if (updateable.requiredStaticJS != null) {
+							allRequiredLibs.addAll(updateable.requiredStaticJS);
+						}
+					}
+					if (!allRequiredLibs.isEmpty()) {
+						jsonOut.key("requiredJS")
+							.array();
+						for (String lib : allRequiredLibs) {
+							jsonOut.value(lib);
+						}
+						jsonOut.endArray();
+					}
+								
+					
 					jsonOut.key("updateables")
 						.array();
 					for (String key : toUpdate.keySet()) {
@@ -807,6 +830,7 @@ public class WebEngine  {
 			pw.flush();
 			Updateable updateable = new Updateable(out.toString());
 			updateable.javaScript = context.getScripts();
+			updateable.requiredStaticJS = context.getRequiredStaticJs();
 			toUpdate.put(ctrl.getControlID(), updateable);
 		} else {
 			if (!ctrl.isVisible()) {

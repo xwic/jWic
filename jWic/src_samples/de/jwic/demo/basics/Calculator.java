@@ -3,6 +3,8 @@
  */
 package de.jwic.demo.basics;
 
+import java.util.Random;
+
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.ListBoxControl;
@@ -89,6 +91,15 @@ public class Calculator extends ControlContainer {
 		
 	}
 
-	
+	/**
+	 * Set some random numbers.
+	 */
+	public void doSomeRandomization() {
+		lbOp.setSelectedKey("+");
+		Random random = new Random(System.currentTimeMillis());
+		inpValue1.setNumber((double)random.nextInt(1000));
+		inpValue2.setNumber((double)random.nextInt(1000));
+		calculate();
+	}
 	
 }
