@@ -8,7 +8,7 @@ import java.util.Locale;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.ecolib.controls.ErrorWarningControl;
 import de.jwic.ecolib.controls.time.TimePickerControl;
@@ -32,10 +32,10 @@ import de.jwic.events.ValueChangedListener;
 public class TimePickerDemo extends ControlContainer{
 
 	private static final long serialVersionUID = -1454341107449793071L;
-	private InputBoxControl ibcDisplay;
+	private InputBox ibcDisplay;
 	private TimePickerControl timePicker;
 	private ErrorWarningControl errCtrl;
-	private InputBoxControl ibcHint;
+	private InputBox ibcHint;
 	private ListBoxControl lbcEvents;
 	
 	/**
@@ -78,7 +78,7 @@ public class TimePickerDemo extends ControlContainer{
 		errCtrl.setVisible(false);
 		errCtrl.setAutoClose(true);
 		
-		ibcDisplay = new InputBoxControl(this, "ibcDisplay");		
+		ibcDisplay = new InputBox(this, "ibcDisplay");		
 		ibcDisplay.setText(timePicker.getFormattedTime());
 		
 		Button btSetTime = new Button(this, "btSetTime");
@@ -120,7 +120,7 @@ public class TimePickerDemo extends ControlContainer{
 			
 		});
 		
-		ibcHint = new InputBoxControl(this, "ibcHint");
+		ibcHint = new InputBox(this, "ibcHint");
 		ibcHint.setText("hh:mm:ss");
 		
 		Button btSetHint = new Button(this, "btSetHint");

@@ -357,15 +357,23 @@ var JWicInternal = {
 			// call beforeUpdate in scripts
 			for ( var i = 0; i < scripts.length; i++) {
 				if (scripts[i].script.beforeUpdate) {
-					scripts[i].script.beforeUpdate(control);
+					try {
+						scripts[i].script.beforeUpdate(control);
+					} catch (e) {
+						JWic.log("Error in beforeUpdate: " + e + " (Control: " + elm.key + ")");
+					}
 				}
 			}
 			var doReplace = true;
 			for ( var i = 0; i < scripts.length; i++) {
 				if (scripts[i].script.doUpdate) {
-					if (scripts[i].script.doUpdate(control)) {
-						doReplace = false;
-						break;
+					try {
+						if (scripts[i].script.doUpdate(control)) {
+							doReplace = false;
+							break;
+						}
+					} catch (e) {
+						JWic.log("Error in doUpdate: " + e + " (Control: " + elm.key + ")");
 					}
 				}
 			}
@@ -377,7 +385,11 @@ var JWicInternal = {
 				for ( var i = deLst.length - 1; i >= 0; i--) {
 					if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.indexOf(elm.key + ".") === 0)) {
 						JWic.log("Destroy: " + deLst[i].key + " because of " + elm.key);
-						deLst[i].destroy(control);
+						try {
+							deLst[i].destroy(control);
+						} catch (e) {
+							JWic.log("Error in destroy: " + e + " (Control: " + deLst[i].key + ")");
+						}
 						deLst.splice(i, 1);
 					}
 				}
@@ -409,7 +421,11 @@ var JWicInternal = {
 				// call afterUpdate in scripts
 				for ( var i = 0; i < scripts.length; i++) {
 					if (scripts[i].script.afterUpdate) {
-						scripts[i].script.afterUpdate(control);
+						try {
+							scripts[i].script.afterUpdate(control);
+						} catch (e) {
+							JWic.log("Error in afterUpdate: " + e + " (Control/Container: " + elm.key + ")");
+						}
 					}
 				}
 			}

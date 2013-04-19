@@ -19,7 +19,7 @@
  */
 package de.jwic.base;
 
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.test.ControlTestCase;
 
 /**
@@ -31,7 +31,7 @@ public class ControlMovementTest extends ControlTestCase {
 	private ControlContainer cont1;
 	private ControlContainer cont2;
 	private ControlContainer childContainer;
-	private InputBoxControl child;
+	private InputBox child;
 	
 	/* (non-Javadoc)
 	 * @see de.jwic.test.ControlTestCase#createControl(de.jwic.base.IControlContainer)
@@ -41,7 +41,7 @@ public class ControlMovementTest extends ControlTestCase {
 		cont1 = new ControlContainer(container, "cont1");
 		cont2 = new ControlContainer(container, "cont2");
 		childContainer = new ControlContainer(cont1, "childCont");
-		child = new InputBoxControl(childContainer, "inp");
+		child = new InputBox(childContainer, "inp");
 		return cont1;
 	}
 

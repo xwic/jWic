@@ -23,7 +23,7 @@ import de.jwic.base.Application;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.TabControl;
 import de.jwic.controls.TabStripControl;
@@ -43,7 +43,7 @@ public class HelloWorld extends Application {
 	
 	private int clickCount = 0;
 	private AttachmentListModel model;
-	private InputBoxControl ibName;
+	private InputBox ibName;
 
 	/* (non-Javadoc)
 	 * @see de.jwic.base.Application#createRootControl(de.jwic.base.IControlContainer)
@@ -62,7 +62,7 @@ public class HelloWorld extends Application {
 		label = new LabelControl(tab, "label");
 		
 		TabControl tab2 = tabStrip.addTab("Another Tab");
-		InputBoxControl ib = new InputBoxControl(tab2, "ib");
+		InputBox ib = new InputBox(tab2, "ib");
 		ib.setText("Test");
 
 		TabControl tab3 = tabStrip.addTab("Attachments");
@@ -72,7 +72,7 @@ public class HelloWorld extends Application {
 
 		new AttachmentListControl(page, "attm", model);
 		
-		ibName = new InputBoxControl(tlCont);
+		ibName = new InputBox(tlCont);
 		
 		Button btAdd = new Button(tlCont);
 		btAdd.setTitle("Add Attachment");

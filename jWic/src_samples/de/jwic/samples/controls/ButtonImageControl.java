@@ -37,7 +37,7 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
 import com.sun.imageio.plugins.png.PNGImageWriter;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.ImageControl;
+import de.jwic.controls.AbstractImageMap;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
@@ -45,7 +45,7 @@ import de.jwic.events.SelectionListener;
  * @author jbornema
  *
  */
-public class ButtonImageControl extends ImageControl {
+public class ButtonImageControl extends AbstractImageMap {
 
 	protected String title;
 	protected boolean enabled;

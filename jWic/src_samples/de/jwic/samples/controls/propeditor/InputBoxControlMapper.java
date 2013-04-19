@@ -20,7 +20,7 @@
 package de.jwic.samples.controls.propeditor;
 
 import de.jwic.base.Control;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 
 /**
  *
@@ -32,7 +32,7 @@ public class InputBoxControlMapper extends AbstractPropertyMapper implements IPr
 	 * @see de.jwic.samples.controls.propeditor.IPropertyMapper#getControlValue(de.jwic.base.Control)
 	 */
 	public Object getControlValue(Control control) {
-		InputBoxControl label = (InputBoxControl)control;
+		InputBox label = (InputBox)control;
 		return label.getText();
 	}
 
@@ -40,7 +40,7 @@ public class InputBoxControlMapper extends AbstractPropertyMapper implements IPr
 	 * @see de.jwic.samples.controls.propeditor.IPropertyMapper#updateControlValue(de.jwic.base.Control, java.lang.Object)
 	 */
 	public void updateControlValue(Control control, Object value) {
-		InputBoxControl label = (InputBoxControl)control;
+		InputBox label = (InputBox)control;
 		label.setText(toString(value));
 	}
 

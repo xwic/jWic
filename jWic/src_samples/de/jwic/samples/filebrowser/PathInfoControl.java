@@ -27,7 +27,7 @@ import java.io.IOException;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
@@ -39,7 +39,7 @@ import de.jwic.events.SelectionListener;
  */
 public class PathInfoControl extends ControlContainer implements PropertyChangeListener {
 
-	private InputBoxControl txtPath = null;
+	private InputBox txtPath = null;
 	private DirectoryModel model = null;
 	private File root = null;
 	
@@ -54,7 +54,7 @@ public class PathInfoControl extends ControlContainer implements PropertyChangeL
 		this.model = model;
 		this.root = root;
 		
-		txtPath = new InputBoxControl(this, "txtPath");
+		txtPath = new InputBox(this, "txtPath");
 		txtPath.setWidth(500);
 		txtPath.setListenKeyCode(13); // Listen to the ENTER key
 		txtPath.addKeyListener(new KeyListener() {

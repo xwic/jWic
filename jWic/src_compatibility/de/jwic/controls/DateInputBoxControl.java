@@ -33,7 +33,7 @@ import de.jwic.base.IControlContainer;
  * @version $Revision: 1.7 $
  * @author JBornemann
  */
-public class DateInputBoxControl extends InputBoxControl {
+public class DateInputBoxControl extends InputBox {
 
 	private static final long serialVersionUID = 1L;
 

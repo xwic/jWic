@@ -25,7 +25,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
@@ -44,7 +44,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
  */
 public class InputBoxDemo extends ControlContainer {
 
-	private InputBoxControl inputbox;
+	private InputBox inputbox;
 	private ListBoxControl eventLog;
 	
 	private class EventLogListener implements ValueChangedListener {
@@ -65,7 +65,7 @@ public class InputBoxDemo extends ControlContainer {
 		
 		
 		
-		inputbox = new InputBoxControl(this, "inputbox");
+		inputbox = new InputBox(this, "inputbox");
 		inputbox.setText("");
 		inputbox.setEmptyInfoText("Enter some text here.");
 		

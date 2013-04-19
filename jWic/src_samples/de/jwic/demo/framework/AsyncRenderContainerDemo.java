@@ -7,7 +7,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.AsyncRenderContainer;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.LazyInitializationHandler;
 import de.jwic.controls.combo.DropDown;
@@ -47,7 +47,7 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 		tlc.setWidth("400");
 		new LabelControl(tlc).setText("Your Name");
 		
-		InputBoxControl inp = new InputBoxControl(tlc);
+		InputBox inp = new InputBox(tlc);
 		inp.setWidth(200);
 		inp.setEmptyInfoText("Enter Name Here");
 		

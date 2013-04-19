@@ -25,7 +25,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.RadioGroupControl;
@@ -44,8 +44,8 @@ public class RadioGroupDemo extends ControlContainer {
 
 	private RadioGroupControl radiogroup;
 	
-	private InputBoxControl txtTitle;
-	private InputBoxControl txtKey;
+	private InputBox txtTitle;
+	private InputBox txtKey;
 	
 	private Button btVisible;
 	private Button btEnabled;
@@ -152,10 +152,10 @@ public class RadioGroupDemo extends ControlContainer {
 		});
 
 		// Add text
-		txtTitle = new InputBoxControl(this, "title");
+		txtTitle = new InputBox(this, "title");
 		txtTitle.setWidth(300);	// width in px
 
-		txtKey = new InputBoxControl(this, "key");
+		txtKey = new InputBox(this, "key");
 		txtKey.setWidth(100);	// width in px
 
 		Button btAdd = new Button(this, "btAdd");

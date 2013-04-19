@@ -22,7 +22,7 @@ package de.jwic.maildemo.logon;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.ecolib.controls.ErrorWarningControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
@@ -37,8 +37,8 @@ import de.jwic.maildemo.main.MailModel;
  */
 public class LogonControl extends ControlContainer {
 
-	private InputBoxControl inpUsername;
-	private InputBoxControl inpPassword;
+	private InputBox inpUsername;
+	private InputBox inpPassword;
 	private ErrorWarningControl errorInfo;
 	
 	private MailModel model;
@@ -52,11 +52,11 @@ public class LogonControl extends ControlContainer {
 		
 		this.model = model;
 		
-		inpUsername = new InputBoxControl(this, "inpUsername");
+		inpUsername = new InputBox(this, "inpUsername");
 		inpUsername.setText("Demouser");
 		inpUsername.setFillWidth(true);
 		
-		inpPassword = new InputBoxControl(this, "inpPassword");
+		inpPassword = new InputBox(this, "inpPassword");
 		inpPassword.setPassword(true); 
 		inpPassword.setFillWidth(true);
 		inpPassword.forceFocus();

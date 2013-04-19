@@ -25,7 +25,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -41,7 +41,7 @@ import de.jwic.events.SelectionListener;
 public class PleaseWaitDemo extends ControlContainer {
 
 	private Button button;
-	private InputBoxControl text;
+	private InputBox text;
 	private Button btVisible;
 	private Button btEnabled;
 	private ListBoxControl eventLog;
@@ -80,7 +80,7 @@ public class PleaseWaitDemo extends ControlContainer {
 		});
 		
 		
-		text = new InputBoxControl(this, "text");
+		text = new InputBox(this, "text");
 		text.setText(button.getTitle());
 		text.setWidth(400);	// width in px
 		

@@ -23,7 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.GroupControl;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.RadioGroupControl;
@@ -43,7 +43,7 @@ public class GroupControlDemo extends ControlContainer {
 	private GroupControl[] groupControls;
 	
 	private LabelControl lblTitle = null;
-	private InputBoxControl inpTitle = null;
+	private InputBox inpTitle = null;
 	private Button butTitle = null;
 	
 	public GroupControlDemo(IControlContainer container) {
@@ -61,7 +61,7 @@ public class GroupControlDemo extends ControlContainer {
 		lblTitle = new LabelControl(this, "lblTitle");
 		lblTitle.setText("Title");
 		
-		inpTitle = new InputBoxControl(this, "inpTitle");
+		inpTitle = new InputBox(this, "inpTitle");
 		inpTitle.setWidth(200);
 		inpTitle.setText(groupControls[0].getTitle());
 		
@@ -131,7 +131,7 @@ public class GroupControlDemo extends ControlContainer {
 		LabelControl label1 = new LabelControl(tlc);
 		label1.setText("Option 1");
 		
-		InputBoxControl inp = new InputBoxControl(tlc);
+		InputBox inp = new InputBox(tlc);
 		inp.setText("Abc");
 
 		LabelControl label2 = new LabelControl(tlc);

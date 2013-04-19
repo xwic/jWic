@@ -28,7 +28,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.ecolib.tableviewer.DefaultTableRenderer;
@@ -277,7 +277,7 @@ public class TableViewerDemo extends ControlContainer {
 		final DefaultTableRenderer defaultRenderer = new DefaultTableRenderer();
 		final FixColumnTableRenderer fixColumnRenderer = new FixColumnTableRenderer();
 		final LabelControl lblRenderer = new LabelControl(this, "lblRenderer");
-		final InputBoxControl inpRenderer = new InputBoxControl(this, "inpRenderer");
+		final InputBox inpRenderer = new InputBox(this, "inpRenderer");
 		lblRenderer.setVisible(false);
 		inpRenderer.setVisible(false);
 		inpRenderer.setText("0");

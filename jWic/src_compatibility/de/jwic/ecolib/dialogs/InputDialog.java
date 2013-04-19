@@ -22,7 +22,7 @@ package de.jwic.ecolib.dialogs;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.Page;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.InlineWindow;
 import de.jwic.events.SelectionEvent;
@@ -38,7 +38,7 @@ public class InputDialog extends BasicDialog {
 	private String title = "";
 	private String message = "";
 	private String inputValue = "";
-	private InputBoxControl inpBox = null;
+	private InputBox inpBox = null;
 	
 	/**
 	 * @param parent
@@ -79,7 +79,7 @@ public class InputDialog extends BasicDialog {
 			};
 		});
 		
-		inpBox = new InputBoxControl(win, "input");
+		inpBox = new InputBox(win, "input");
 		inpBox.setWidth(375);
 		inpBox.setText(getInputValue());
 		

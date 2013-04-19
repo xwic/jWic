@@ -22,7 +22,7 @@ package de.jwic.samples.sample3;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -36,7 +36,7 @@ import de.jwic.util.SerObserver;
 public class TemperatureGUI extends ControlContainer implements SerObserver {
 
 	private TemperatureModel model = null;
-	private InputBoxControl display = null;
+	private InputBox display = null;
 	
 	private ValueStrategy strategy = null;
 	
@@ -53,7 +53,7 @@ public class TemperatureGUI extends ControlContainer implements SerObserver {
 		LabelControl label = new LabelControl(this, "label");
 		label.setText("Temperature (" + strategy.getName() + ")");
 		
-		display = new InputBoxControl(this, "display");
+		display = new InputBox(this, "display");
 		display.setEnabled(false);
 		
 		Button btInc = new Button(this, "btInc");

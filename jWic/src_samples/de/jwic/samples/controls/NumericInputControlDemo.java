@@ -6,10 +6,10 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
-import de.jwic.controls.NumericInputControl;
-import de.jwic.controls.NumericInputControl.ThousandSeparator;
+import de.jwic.controls.NumericInputBox;
+import de.jwic.controls.NumericInputBox.ThousandSeparator;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
@@ -18,7 +18,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
 
 public class NumericInputControlDemo extends ControlContainer {
 
-	private NumericInputControl inputbox;
+	private NumericInputBox inputbox;
 	private ListBoxControl eventLog;
 	
 	private class EventLogListener implements ValueChangedListener {
@@ -37,7 +37,7 @@ public class NumericInputControlDemo extends ControlContainer {
 	public NumericInputControlDemo(IControlContainer container) {
 		super(container);
 		
-		inputbox = new NumericInputControl(this, "inputbox");
+		inputbox = new NumericInputBox(this, "inputbox");
 		inputbox.setText("");
 		inputbox.setThousandSeparator(ThousandSeparator.SPACE);
 		inputbox.setEmptyInfoText("Enter some number here.");
@@ -47,7 +47,7 @@ public class NumericInputControlDemo extends ControlContainer {
 		
 		inputbox.addValueChangedListener(new EventLogListener());
 		
-		final InputBoxControl inpRawNumber = new InputBoxControl(this, "inpRaw");
+		final InputBox inpRawNumber = new InputBox(this, "inpRaw");
 		inpRawNumber.setText("0");
 		
 		Button b = new Button(this, "Button");

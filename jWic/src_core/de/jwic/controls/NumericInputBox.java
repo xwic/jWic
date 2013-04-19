@@ -13,9 +13,8 @@ import de.jwic.base.IControlContainer;
  * @author dotto
  *
  */
-public class NumericInputControl extends InputBoxControl {
+public class NumericInputBox extends InputBox {
 	private static final long serialVersionUID = 1L;
-	private Double number = null;
 	private ThousandSeparator thousandSeparator;
 	private DecimalSeparator decimalSeparator;
 	private DigitalGroup digitalGroup;
@@ -24,7 +23,7 @@ public class NumericInputControl extends InputBoxControl {
 	private Double valueMin;
 	private Double valueMax;
 	private Integer decimalPlaces;
-	private Character deciamlSeperatorChar;
+	private Character decimalSeperatorChar;
 	private RoundSetting roundSetting;
 	private EmptyDisplay emptyDisplay;
 	private LeadingZeroDisplay leadingZeroDisplay;
@@ -36,7 +35,7 @@ public class NumericInputControl extends InputBoxControl {
 	 * @param container
 	 * @param name
 	 */
-	public NumericInputControl(IControlContainer container, String name) {
+	public NumericInputBox(IControlContainer container, String name) {
 		super(container, name);
 		
 		init();
@@ -46,7 +45,7 @@ public class NumericInputControl extends InputBoxControl {
 	 * 
 	 * @param container
 	 */
-	public NumericInputControl(IControlContainer container) {
+	public NumericInputBox(IControlContainer container) {
 		this(container, null);
 	}
 	
@@ -105,7 +104,6 @@ public class NumericInputControl extends InputBoxControl {
 		}else {
 			field.setValue("");
 		}
-		this.number = number;
 		this.requireRedraw();
 	}
 
@@ -257,16 +255,16 @@ public class NumericInputControl extends InputBoxControl {
 	 *  even when the comma is assigned as the decimal separator (aDec: ',').
 	 * @return
 	 */
-	public Character getDeciamlSeperatorChar() {
-		return deciamlSeperatorChar;
+	public Character getDecimalSeperatorChar() {
+		return decimalSeperatorChar;
 	}
 
 	/**
 	 * 
 	 * @param deciamlSeperatorChar
 	 */
-	public void setDeciamlSeperatorChar(Character deciamlSeperatorChar) {
-		this.deciamlSeperatorChar = deciamlSeperatorChar;
+	public void setDecimalSeperatorChar(Character deciamlSeperatorChar) {
+		this.decimalSeperatorChar = deciamlSeperatorChar;
 	}
 
 	/**
@@ -365,8 +363,8 @@ public class NumericInputControl extends InputBoxControl {
 				writer.key("aSep").value(getThousandSeparator().getCode());
 			if(getDecimalSeparator() != null)
 				writer.key("aDec").value(getDecimalSeparator().getCode());
-			if(getDeciamlSeperatorChar() != null)
-				writer.key("altDec").value(getDeciamlSeperatorChar());
+			if(getDecimalSeperatorChar() != null)
+				writer.key("altDec").value(getDecimalSeperatorChar());
 			if(getDigitalGroup() != null)
 				writer.key("dGroup").value(getDigitalGroup().getCode());
 			if(getSymbol() != null)

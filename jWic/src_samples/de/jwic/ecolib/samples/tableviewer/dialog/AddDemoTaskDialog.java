@@ -21,7 +21,7 @@ package de.jwic.ecolib.samples.tableviewer.dialog;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.WindowControl;
 import de.jwic.controls.layout.TableLayoutContainer;
@@ -36,9 +36,9 @@ import de.jwic.events.SelectionListener;
  */
 public class AddDemoTaskDialog extends BasicDialog {
 
-	private InputBoxControl ibTask = null;
-	private InputBoxControl ibOwner = null;
-	private InputBoxControl ibCompleted = null;
+	private InputBox ibTask = null;
+	private InputBox ibOwner = null;
+	private InputBox ibCompleted = null;
 	
 	/**
 	 * @param parent
@@ -62,17 +62,17 @@ public class AddDemoTaskDialog extends BasicDialog {
 		LabelControl taskLabel = new LabelControl(layout);
 		taskLabel.setText("Task name: ");
 		
-		ibTask = new InputBoxControl(layout);
+		ibTask = new InputBox(layout);
 
 		LabelControl ownerLabel = new LabelControl(layout);
 		ownerLabel.setText("Owner name: ");
 		
-		ibOwner = new InputBoxControl(layout);
+		ibOwner = new InputBox(layout);
 		
 		LabelControl completedLabel = new LabelControl(layout);
 		completedLabel.setText("Completed (%): ");
 		
-		ibCompleted = new InputBoxControl(layout);
+		ibCompleted = new InputBox(layout);
 		
 		Button abort = new Button(layout, "abort");
 		abort.setTitle("Abort");

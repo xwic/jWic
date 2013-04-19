@@ -23,7 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.CheckBoxGroup;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionListener;
@@ -40,8 +40,8 @@ public class CheckBoxGroupDemo extends ControlContainer {
 
 	private CheckBoxGroup checkbox;
 	
-	private InputBoxControl txtTitle;
-	private InputBoxControl txtKey;
+	private InputBox txtTitle;
+	private InputBox txtKey;
 	
 	private Button btRemove;
 	
@@ -95,11 +95,11 @@ public class CheckBoxGroupDemo extends ControlContainer {
 		});
 		
 		// Add text
-		txtTitle = new InputBoxControl(this, "title");
+		txtTitle = new InputBox(this, "title");
 		txtTitle.setWidth(150);	// width in px
 		txtTitle.setEmptyInfoText("Title");
 
-		txtKey = new InputBoxControl(this, "key");
+		txtKey = new InputBox(this, "key");
 		txtKey.setWidth(120);	// width in px
 		txtKey.setEmptyInfoText("Key is optional");
 

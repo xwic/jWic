@@ -23,9 +23,9 @@
 		});
 	#end
 	#if($control.position.toString() == "CENTER") 
-		var win = $('elm_$control.controlID');
-		win.style.marginLeft = "auto";
-		win.style.marginRight = "auto";
+		var win = jQuery('#' + JQryEscape('elm_$control.controlID'));
+		win.css("marginLeft", "auto");
+		win.css("marginRight", "auto");
 	#end
 	}
 }

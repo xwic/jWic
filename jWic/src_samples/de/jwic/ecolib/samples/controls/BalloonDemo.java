@@ -21,7 +21,7 @@ package de.jwic.ecolib.samples.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.ecolib.controls.balloon.BalloonControl;
 import de.jwic.events.SelectionEvent;
@@ -53,7 +53,7 @@ public class BalloonDemo extends ControlContainer {
 		
 		final BalloonControl balloon = new BalloonControl(this);
 		final LabelControl label = new LabelControl(balloon);
-		new InputBoxControl(balloon);
+		new InputBox(balloon);
 		SelectionListener listener = new SelectionListener() {
 			/* (non-Javadoc)
 			 * @see de.jwic.events.SelectionListener#objectSelected(de.jwic.events.SelectionEvent)

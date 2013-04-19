@@ -24,7 +24,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.ecolib.async.AbstractAsyncProcess;
 import de.jwic.ecolib.async.AsyncInfoContainer;
 import de.jwic.ecolib.async.IProcessListener;
@@ -42,7 +42,7 @@ public class AsyncDemo extends ControlContainer {
 	private AsyncInfoContainer infoContainer;
 	private Button btRun;
 	
-	private InputBoxControl inpValue;
+	private InputBox inpValue;
 	private ProcessInfo processInfo;
 	
 	private class DemoProcess extends AbstractAsyncProcess {
@@ -117,7 +117,7 @@ public class AsyncDemo extends ControlContainer {
 		infoContainer.setResultViewer(result);
 		
 		
-		inpValue = new InputBoxControl(this, "inpValue");
+		inpValue = new InputBox(this, "inpValue");
 		inpValue.setText("100");
 		
 		processInfo = new ProcessInfo(this, "processInfo");

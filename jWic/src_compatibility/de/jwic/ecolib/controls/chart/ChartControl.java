@@ -38,7 +38,7 @@ import org.jfree.chart.JFreeChart;
 import com.sun.imageio.plugins.png.PNGImageWriter;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.ImageControl;
+import de.jwic.controls.AbstractImageMap;
 
 /* 
  * ChartControl uses JFreeChart library to create nice chart images.
@@ -49,7 +49,7 @@ import de.jwic.controls.ImageControl;
  * @author jbornema
  */
 
-public class ChartControl extends ImageControl implements Serializable {
+public class ChartControl extends AbstractImageMap implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected JFreeChart chart = null;
 	//protected long rendered = 0;

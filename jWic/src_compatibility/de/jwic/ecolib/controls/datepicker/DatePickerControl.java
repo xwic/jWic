@@ -28,13 +28,13 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 
 /**
  * 
  * @author bogdan
  */
-public class DatePickerControl extends InputBoxControl {
+public class DatePickerControl extends InputBox {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NO_FORMAT = "noformat";

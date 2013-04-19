@@ -27,7 +27,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.FileUploadControl;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.layout.TableLayoutContainer;
@@ -105,7 +105,7 @@ public class DialogDemo extends ControlContainer {
 		});
 
 		
-		final InputBoxControl inpTest = new InputBoxControl(tlc, "inp");
+		final InputBox inpTest = new InputBox(tlc, "inp");
 		inpTest.setText("Press update");
 		inpTest.setWidth(300);
 		

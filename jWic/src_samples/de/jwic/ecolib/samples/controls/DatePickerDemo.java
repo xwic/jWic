@@ -26,7 +26,7 @@ import java.util.Locale;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.ecolib.controls.datepicker.DateChangedListener;
 import de.jwic.ecolib.controls.datepicker.DatePickerControl;
@@ -150,7 +150,7 @@ public class DatePickerDemo extends ControlContainer {
 			}
 		});
 
-		final InputBoxControl dateFormat = new InputBoxControl(this,
+		final InputBox dateFormat = new InputBox(this,
 				"dateFormat");
 		Button btnDateFormat = new Button(this, "btnDateFormat");
 		btnDateFormat.setTitle("Set Date Format");

@@ -22,7 +22,7 @@ package de.jwic.ecolib.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.ecolib.ckeditor.CKEditor;
@@ -40,7 +40,7 @@ public class CKEditorDemo extends ControlContainer {
 
 	private CKEditor editor;
 	private LabelControl lblPreview;
-	private InputBoxControl code;
+	private InputBox code;
 	private Button btEnabled;
 	
 	/**
@@ -65,7 +65,7 @@ public class CKEditorDemo extends ControlContainer {
 		
 		
 		lblPreview = new LabelControl(this, "preview");
-		code = new InputBoxControl(this, "code");
+		code = new InputBox(this, "code");
 		code.setMultiLine(true);
 		code.setWidth(400);
 		code.setRows(10);

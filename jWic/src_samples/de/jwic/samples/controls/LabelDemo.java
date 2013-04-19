@@ -22,7 +22,7 @@ package de.jwic.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionListener;
 
@@ -36,7 +36,7 @@ import de.jwic.events.SelectionListener;
 public class LabelDemo extends ControlContainer {
 
 	private LabelControl label;
-	private InputBoxControl text;
+	private InputBox text;
 	private Button btVisible;
 	
 	public LabelDemo(IControlContainer container) {
@@ -45,7 +45,7 @@ public class LabelDemo extends ControlContainer {
 		label = new LabelControl(this, "label");
 		label.setText("jWic - a pleasure to work with.");
 		
-		text = new InputBoxControl(this, "text");
+		text = new InputBox(this, "text");
 		text.setText(label.getText());
 		text.setWidth(400);	// width in px
 		

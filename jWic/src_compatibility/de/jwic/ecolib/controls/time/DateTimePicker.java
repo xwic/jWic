@@ -6,7 +6,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.DateInputBoxControl;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 
 public class DateTimePicker extends ControlContainer {
 
@@ -27,7 +27,7 @@ public class DateTimePicker extends ControlContainer {
 		dtModel = new DateTimeModel();
 		dtModel.setLocale(locale);
 		
-		InputBoxControl ibcDisplay = new  InputBoxControl(this, "ibcDisplay");
+		InputBox ibcDisplay = new  InputBox(this, "ibcDisplay");
 		ibcDisplay.setText(dtModel.getFormattedDateTime());
 		
 		Button btToogle = new Button(this, "btToogle");

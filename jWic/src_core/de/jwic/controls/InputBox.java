@@ -24,7 +24,7 @@ import de.jwic.events.ValueChangedListener;
  * @version $Revision: 1.10 $
  */
 @JavaScriptSupport
-public class InputBoxControl extends HTMLElement {
+public class InputBox extends HTMLElement {
 
 	private static final long serialVersionUID = 1L;
 	private final static String ACTION_KEYPRESSED = "keyPressed";
@@ -49,7 +49,7 @@ public class InputBoxControl extends HTMLElement {
 	/**
 	 * @param container
 	 */
-	public InputBoxControl(IControlContainer container) {
+	public InputBox(IControlContainer container) {
 		super(container, null);
 		init();
 	}
@@ -57,7 +57,7 @@ public class InputBoxControl extends HTMLElement {
 	 * @param container
 	 * @param name
 	 */
-	public InputBoxControl(IControlContainer container, String name) {
+	public InputBox(IControlContainer container, String name) {
 		super(container, name);
 		init();
 	}

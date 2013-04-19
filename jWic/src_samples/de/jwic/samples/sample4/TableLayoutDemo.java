@@ -24,7 +24,7 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.Page;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.RadioGroupControl;
 import de.jwic.controls.layout.TableData;
@@ -70,7 +70,7 @@ public class TableLayoutDemo extends Application {
 		td.setCSSClass("caption");
 		table.setLayoutData(label, td);
 		
-		InputBoxControl inpName = new InputBoxControl(table);
+		InputBox inpName = new InputBox(table);
 		inpName.setText("Name");
 		inpName.setWidth(300);
 		
@@ -83,7 +83,7 @@ public class TableLayoutDemo extends Application {
 		table.setLayoutData(lbType, new TableData(TableData.ALIGN_LEFT, TableData.ALIGN_TOP, 1, 2));
 		
 		new LabelControl(table).setText("City");
-		InputBoxControl inpCity = new InputBoxControl(table);
+		InputBox inpCity = new InputBox(table);
 		inpCity.setText("City");
 		inpCity.setWidth(300);
 		

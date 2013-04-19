@@ -21,7 +21,7 @@ package de.jwic.samples.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.RadioGroupControl;
@@ -60,7 +60,7 @@ public class TabStripDemo extends ControlContainer {
 		LabelControl label1 = new LabelControl(tlc);
 		label1.setText("Option 1");
 		
-		InputBoxControl inp = new InputBoxControl(tlc);
+		InputBox inp = new InputBox(tlc);
 		inp.setText("Abc");
 
 		LabelControl label2 = new LabelControl(tlc);
@@ -79,7 +79,7 @@ public class TabStripDemo extends ControlContainer {
 		label1 = new LabelControl(tlc);
 		label1.setText("Option 1");
 		
-		inp = new InputBoxControl(tlc);
+		inp = new InputBox(tlc);
 		inp.setText("Abc");
 
 		label2 = new LabelControl(tlc);

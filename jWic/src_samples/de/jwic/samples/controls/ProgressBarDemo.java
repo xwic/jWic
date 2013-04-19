@@ -22,7 +22,7 @@ package de.jwic.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ProgressBarControl;
 import de.jwic.controls.ProgressMonitor;
 import de.jwic.events.SelectionListener;
@@ -38,9 +38,9 @@ public class ProgressBarDemo extends ControlContainer {
 
 	private ProgressBarControl progBar;
 	private ProgressMonitor monitor;
-	private InputBoxControl textMin;
-	private InputBoxControl textMax;
-	private InputBoxControl textValue;
+	private InputBox textMin;
+	private InputBox textMax;
+	private InputBox textValue;
 
 	private Button btVisible;
 	private Button btSmooth;
@@ -52,15 +52,15 @@ public class ProgressBarDemo extends ControlContainer {
 		progBar = new ProgressBarControl(this, "progBar");
 		progBar.setMonitor(monitor);
 		
-		textMin = new InputBoxControl(this, "textMin");
+		textMin = new InputBox(this, "textMin");
 		textMin.setText(Integer.toString(monitor.getMinimum()));
 		textMin.setWidth(100);	// width in px
 
-		textMax = new InputBoxControl(this, "textMax");
+		textMax = new InputBox(this, "textMax");
 		textMax.setText(Integer.toString(monitor.getMaximum()));
 		textMax.setWidth(100);	// width in px
 
-		textValue = new InputBoxControl(this, "textValue");
+		textValue = new InputBox(this, "textValue");
 		textValue.setText(Integer.toString(monitor.getValue()));
 		textValue.setWidth(100);	// width in px
 		

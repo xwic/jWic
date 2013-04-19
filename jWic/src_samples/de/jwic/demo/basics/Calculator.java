@@ -6,7 +6,7 @@ package de.jwic.demo.basics;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.ListBoxControl;
-import de.jwic.controls.NumericInputControl;
+import de.jwic.controls.NumericInputBox;
 import de.jwic.controls.Button;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -18,9 +18,9 @@ import de.jwic.events.SelectionListener;
  */
 public class Calculator extends ControlContainer {
 
-	private NumericInputControl inpValue1;
-	private NumericInputControl inpValue2;
-	private NumericInputControl inpResult;
+	private NumericInputBox inpValue1;
+	private NumericInputBox inpValue2;
+	private NumericInputBox inpResult;
 	private ListBoxControl lbOp;
 
 	/**
@@ -30,11 +30,11 @@ public class Calculator extends ControlContainer {
 	public Calculator(IControlContainer container, String name) {
 		super(container, name);
 
-		inpValue1 = new NumericInputControl(this, "inpValue1");
+		inpValue1 = new NumericInputBox(this, "inpValue1");
 		inpValue1.setWidth(100);
 		inpValue1.setNumber(21.0);
 		
-		inpValue2 = new NumericInputControl(this, "inpValue2");
+		inpValue2 = new NumericInputBox(this, "inpValue2");
 		inpValue2.setWidth(100);
 		inpValue2.setNumber(2.0);
 		
@@ -46,7 +46,7 @@ public class Calculator extends ControlContainer {
 		lbOp.addElement("/");
 		lbOp.setSelectedKey("*");
 		
-		inpResult = new NumericInputControl(this, "inpResult");
+		inpResult = new NumericInputBox(this, "inpResult");
 		inpResult.setWidth(100);
 		inpResult.setReadonly(true);
 	

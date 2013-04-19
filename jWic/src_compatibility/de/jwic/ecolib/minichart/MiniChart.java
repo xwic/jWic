@@ -25,7 +25,7 @@ import com.sun.imageio.plugins.png.PNGImageWriter;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
-import de.jwic.controls.ImageControl;
+import de.jwic.controls.AbstractImageMap;
 
 /**
  * @author Florian Lippisch
@@ -59,7 +59,7 @@ public class MiniChart extends Control implements IResourceControl {
 		res.setHeader ("Expires", "0");
 		res.setHeader ("Cache-Control", "no-cache");
 		res.setHeader ("Pragma", "no-cache");
-		res.setContentType(ImageControl.MIME_TYPE_PNG);
+		res.setContentType(AbstractImageMap.MIME_TYPE_PNG);
 
 		// render image
 		ByteArrayOutputStream imageOutputStream  = new ByteArrayOutputStream();

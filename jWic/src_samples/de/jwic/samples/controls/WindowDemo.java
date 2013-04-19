@@ -23,7 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.GroupControl;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.Window;
@@ -66,7 +66,7 @@ public class WindowDemo extends ControlContainer {
 		LabelControl lbl = new LabelControl(cont);
 		lbl.setText("Property 1");
 		
-		final InputBoxControl inp = new InputBoxControl(cont);
+		final InputBox inp = new InputBox(cont);
 		inp.setFillWidth(true);
 		inp.setEmptyInfoText("Make Selection..");
 		

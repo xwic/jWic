@@ -48,7 +48,7 @@ import de.jwic.base.IResourceControl;
  * @author jbornema
  *
  */
-public abstract class ImageControl extends ControlContainer implements IResourceControl {
+public abstract class AbstractImageMap extends ControlContainer implements IResourceControl {
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Shap represents a html area for maps. Supported types are
@@ -102,7 +102,7 @@ public abstract class ImageControl extends ControlContainer implements IResource
 	 * @param container
 	 * @param name
 	 */
-	public ImageControl(IControlContainer container, String name) {
+	public AbstractImageMap(IControlContainer container, String name) {
 		super(container, name);
 		
 		// init variables
@@ -115,7 +115,7 @@ public abstract class ImageControl extends ControlContainer implements IResource
 		hidden = false;
 		
 		// set default template
-		setTemplateName(ImageControl.class.getName());
+		setTemplateName(AbstractImageMap.class.getName());
 	}
 
 	/**
@@ -289,7 +289,7 @@ public abstract class ImageControl extends ControlContainer implements IResource
 	 * @return
 	 */
 	public String createImageURL() {
-		return getSessionContext().getCallBackURL() + "&_resreq=1&controlId=" + ImageControl.this.getControlID() + (createUniqueURL ? "&time=" + System.currentTimeMillis() + "&" : "&") + getFilename();
+		return getSessionContext().getCallBackURL() + "&_resreq=1&controlId=" + AbstractImageMap.this.getControlID() + (createUniqueURL ? "&time=" + System.currentTimeMillis() + "&" : "&") + getFilename();
 	}
 	
 	/**

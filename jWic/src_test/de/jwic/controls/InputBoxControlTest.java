@@ -31,19 +31,19 @@ import de.jwic.test.ControlTestCase;
  */
 public class InputBoxControlTest extends ControlTestCase {
 
-	private InputBoxControl inp = null;
+	private InputBox inp = null;
 	private boolean triggered = false;
 	
 	/* (non-Javadoc)
 	 * @see de.jwic.test.ControlTestCase#createControl(de.jwic.base.IControlContainer)
 	 */
 	public Control createControl(IControlContainer container) {
-		inp = new InputBoxControl(container);
+		inp = new InputBox(container);
 		return inp;
 	}
 	
 	/**
-	 * Test method for {@link de.jwic.controls.InputBoxControl#forceFocus()}.
+	 * Test method for {@link de.jwic.controls.InputBox#forceFocus()}.
 	 */
 	public void testForceFocus() {
 
@@ -53,7 +53,7 @@ public class InputBoxControlTest extends ControlTestCase {
 	}
 
 	/**
-	 * Test method for {@link de.jwic.controls.InputBoxControl#addValueChangedListener(de.jwic.events.ValueChangedListener)}.
+	 * Test method for {@link de.jwic.controls.InputBox#addValueChangedListener(de.jwic.events.ValueChangedListener)}.
 	 */
 	public void testAddValueChangedListener() {
 

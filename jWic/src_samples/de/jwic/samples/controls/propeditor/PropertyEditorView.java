@@ -35,7 +35,7 @@ import java.util.Map;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -252,7 +252,7 @@ public class PropertyEditorView extends ControlContainer {
 					}
 					if (control == null) {
 						// property is readonly or no suiteable editor is available.
-						InputBoxControl inp = new InputBoxControl(this);
+						InputBox inp = new InputBox(this);
 						inp.setWidth(270);
 						inp.setReadonly(true);
 						inp.setCssClass("j-inputbox-intable");

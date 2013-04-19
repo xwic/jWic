@@ -22,7 +22,7 @@ package de.jwic.ecolib.samples.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.ecolib.controls.ErrorWarningControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -33,8 +33,8 @@ import de.jwic.events.SelectionListener;
  */
 public class FormDemo extends ControlContainer {
 
-	private InputBoxControl inpName;
-	private InputBoxControl inpAge;
+	private InputBox inpName;
+	private InputBox inpAge;
 	private Button btOk;
 	private ErrorWarningControl errorWarning;
 	
@@ -57,11 +57,11 @@ public class FormDemo extends ControlContainer {
 		errorWarning = new ErrorWarningControl(this, "notifyer");
 		errorWarning.setAutoCloseDelay(3000); // 3sec
 		
-		inpName = new InputBoxControl(this, "inpName");
+		inpName = new InputBox(this, "inpName");
 		inpName.setWidth(250);
 		inpName.setEmptyInfoText("Lastname, Firstname");
 		
-		inpAge = new InputBoxControl(this, "inpAge");
+		inpAge = new InputBox(this, "inpAge");
 		inpAge.setWidth(80);
 		inpAge.setMaxLength(3);
 		

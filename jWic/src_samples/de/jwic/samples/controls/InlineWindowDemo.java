@@ -23,7 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.GroupControl;
-import de.jwic.controls.InputBoxControl;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.InlineWindow;
 import de.jwic.controls.layout.TableLayoutContainer;
@@ -54,7 +54,7 @@ public class InlineWindowDemo extends ControlContainer {
 		TableLayoutContainer cont = new TableLayoutContainer(group);
 		cont.setColumnCount(2);
 		new LabelControl(cont).setText("Property 1");
-		new InputBoxControl(cont).setText("Value");
+		new InputBox(cont).setText("Value");
 		new Button(cont).setTitle("Apply");
 		
 		
