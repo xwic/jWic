@@ -4,7 +4,7 @@
 	#if($control.visible)
 		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
 		if (btn) {
-			JWic.controls.basics.Button.initialize(btn, "${control.controlID}");
+			JWic.controls.Button.initialize(btn, "${control.controlID}");
 			btn.attr("_ctrlEnabled", "$control.isEnabled()");
 			btn.attr("_confirmMsg", "$escape.escapeJavaScript($!control.confirmMsg)");
 			#if($control.width > 0)

@@ -960,43 +960,24 @@ JWic.controls = {
 
 	},
 	
-	/**
-	 * Button control.
+	/*
+	 * de.jwic.controls.Button control
 	 */
 	Button : {
-		
-		initialize : function(tblElm, btnElm) {
-			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.bind('mouseover', function(){
-					tblElm.addClass('j-hover');
-				});
-				tblElm.bind('mouseout', function(){
-					tblElm.removeClass('j-hover');
-					
-				});
-				tblElm.bind('click', JWic.controls.Button.clickHandler);
-				btnElm.bind('click', JWic.controls.Button.clickHandler);
-			}
+		initialize : function(btnElement, ctrlId) {
+			JWic.log(btnElement);
+			JWic.log("Initializing new button " + btnElement);
+			btnElement
+				.button()
+				.click(JWic.controls.Button.clickHandler);
+			btnElement.data("controlId", ctrlId);
 		},
-		
-		destroy : function(tblElm, btnElm) {
-			if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
-				tblElm.unbind("mouseover");
-				tblElm.unbind("mouseout");
-				tblElm.unbind("click", JWic.controls.Button.clickHandler);
-				btnElm.unbind("click", JWic.controls.Button.clickHandler);
-			}
-		},
-		/**
-		 * Invoked when the button is clicked.
-		 */
+
 		clickHandler : function(e) {
 			e.stopPropagation();
-			var elm = jQuery(e.target);
-			while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
-				elm = jQuery(elm).parent();
-			}
-			var ctrlId = elm.attr('id').substring(4);
+			var elm = jQuery(e.currentTarget);
+			
+			var ctrlId = elm.data("controlId");
 			var msg = elm.attr("_confirmMsg");
 			if (msg && msg != "") {
 				if (!confirm(msg)) {
@@ -1004,97 +985,130 @@ JWic.controls = {
 				}
 			}
 			JWic.fireAction(ctrlId, 'click', '');
-		}
-
+		},
 	},
 	
 	/**
-	 * Tree Control Scripts.
+	 * InputBoxControl script extensions.
 	 */
-	Tree : {
-		_requestIndexCall : 0,
-		
+	InputBoxControl : {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(elm) {
-			var tree = jQuery("#" + JQryEscape(elm)).get(0);
-			JWic.controls.Tree.loadData(tree, "");
+		initialize : function(inpElm) {
+			inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
+			}
+			
+			if (inpElm.attr("xEmptyInfoText")) {
+				if(inpElm.attr("xIsEmpty") == "true" && 
+					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
+					inpElm.addClass("x-empty");
+					inpElm.val(inpElm.attr("xEmptyInfoText"));
+				} else {
+					inpElm.attr("xIsEmpty", "false");
+					inpElm.removeClass("x-empty");
+				}
+			}
+			
+			// override the getValue() method to "fix" the serialization
+			inpElm.getValue = function() {
+					return inpElm.value;
+			}
+			
 		},
 		
 		/**
 		 * Clean up..
 		 */
-		destroy : function(elm) {
+		destroy : function(inpElm) {
+			inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
+			inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			
+			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
+			}
+		},
+		
+		/**
+		 * Invoked when the focus is received.
+		 */
+		focusHandler : function(e) {
+			var elm =  jQuery(e.target);
+			elm.addClass("x-focus");
+			
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.attr("xIsEmpty") == "true") {
+					elm.val('');
+					elm.removeClass("x-empty");
+					elm.attr("xIsEmpty", "false");
+				} 
+			}
 			
 		},
-		
-		loadData : function(tr, parent) {
-			var tree = tr;
-
-			var param = {};
-			param["action"] = "load";
-			JWic.controls.Tree._requestIndexCall++;
-			var myIndex = JWic.controls.Tree._requestIndexCall 
-			JWic.resourceRequest(tree.id, function(ajaxResponse) {
-				try {
-					JWic.log("request answer: " + myIndex);
-					if (myIndex == JWic.controls.Tree._requestIndexCall) {
-						JWic.controls.Tree._handleResponse(ajaxResponse, parent);
-					} else {
-						JWic.log("Ignored AjaxResponse due to invalid request index."); // DEBUG
-					}
-				} catch (x) {
-					alert(x);
-				}
-			}, param);
-		},
-		
-		_handleResponse : function(ajaxResponse, parent) {
-		
-			var response = jQuery.parseJSON(ajaxResponse.responseText);
-			if (response.controlId) {
-				var tree = jQuery("#"  + JQryEscape(response.controlId)).get(0);
-				tree.dataStore = []; // $A(response.data);
-				jQuery.each(response.data, function(key, value) {
-					tree.dataStore.push(value);
-				});
-			}
-		
-			JWic.controls.Tree._renderTreeNodes(tree, parent);
-		},
-		
-		_renderTreeNodes : function(tree, parent) {
-		
-			var code = "";
-			if (tree.dataStore) {
-				for (var idx = 0, len = tree.dataStore.length; idx < len; ++idx) {
-					var elm = tree.dataStore[idx];
-					code += "<div class=\"" + tree.className + "-elm\">"
-					var nodeType;
-					if (elm.children) {
-						if (JWic.controls.Tree.isExpanded(tree, elm.key)) {
-							nodeType = "expanded";
-						} else {
-							nodeType = "collapsed";
-						}
-					} else {
-						nodeType = "empty";
-					}
-					code += "<div class=\"" + tree.className + "-nodeBtn j-tree-" + nodeType + "\"></div>"
-					code += elm.title;
-					code += "</div>"
-				}
-			}
-			jQuery(tree).html(code);
+		/**
+		 * Invoked when the focus is lost.
+		 */
+		lostFocusHandler : function(e) {
+			var elm =  jQuery(e.target);
 			
+			elm.removeClass("x-focus");
+			if (elm.attr("xEmptyInfoText")) {
+				if (elm.val() == "") { // still empty
+					elm.addClass("x-empty");
+					elm.val(elm.attr("xEmptyInfoText"));
+					elm.attr("xIsEmpty", "true");
+				} else {
+					elm.attr("xIsEmpty", "false");
+				}
+			}
 		},
 		
-		isExpanded : function(tree, key) {
-			return false;
+		keyHandler : function(e) {
+			var elm =  jQuery(e.target);
+			
+			if (e.keyCode == elm.attr("xListenKeyCode")) {
+				JWic.fireAction(elm.attr('id'), 'keyPressed', '' + e.keyCode);
+			}
 		}
 		
+	},
+
+	/**
+	 * de.jwic.controls.basics.TabStrip control functions. 
+	 */
+	TabStrip : {
+			initialize : function(tabStrip, ctrlId, activeIndex) {
+				JWic.log(activeIndex);
+				tabStrip.tabs({
+					activate : JWic.controls.TabStrip.activateHandler,
+					active : activeIndex
+				});
+			},
+			
+			activateHandler : function (event, ui) {
+				if (ui.oldPanel) {
+					var tabStripId = ui.oldPanel.attr("jwicTabStripId");
+					var tabName = ui.oldPanel.attr("jwicTabName");
+					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + tabName + "\"></span>");
+				}
+				if (ui.newPanel) {
+					var tabStripId = ui.newPanel.attr("jwicTabStripId");
+					var tabName = ui.newPanel.attr("jwicTabName");
+					JWic.fireAction(tabStripId, "activateTab", tabName);
+				}
+			},
+			activate : function(controlId, panelIdx) {
+				var tabStrip = $("#" + JQryEscape(controlId));
+				tabStrip.tabs("option", "active", panelIdx );
+				tabStrip.tabs("refresh");
+				
+			}
 	}
+
 
 }
 

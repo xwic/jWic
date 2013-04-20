@@ -17,82 +17,65 @@
  * jWic versions.
  */
 
-	var debugMode = false;
-	var jwicObj = "";
-    var _logCount = 0;
-    var _ajaxProcessing = false;
+/**
+ * This file contains functions used by controls in the compatibility pack.
+ */
 
-	function log(message) {
-		if (debugMode) {
-			var elem = document.forms['jwicform'].elements['_debugLog'];
-			elem.value = _logCount + ":" + message + "\n" + elem.value;
-			_logCount++;
-		}
-	}
+(function($) {
 
-	
-	function WindowSize() {
-		return JWicInternal.getWindowSize();
-	}	
-
-	/**
-	 * Notifies a control that the user triggered a specific action.
-	 *
-	 * @param srcCtrl - the source control id
-	 * @param sAction - the action that happened
-	 * @param sParam - the parameters of the action
-	 * @param trueSubmit - if the value is 'true', the page is POSTed to the server, 
-	 *                     no matter if ajax updates are enabled
-	 */
-	function jWic_FireAction(srcCtrl, sAction, sParam, trueSubmit) {
+	$.extend(JWic.controls,
+		{
 		
-		if (trueSubmit) {
-			jQuery('#jwicform').get(0).submit();
-		} else { 
-			JWic.fireAction(srcCtrl, sAction, sParam);
-		}
-	}
-
+			/**
+			 * Button control.
+			 */
+			ButtonLegacy : {
+				
+				initialize : function(tblElm, btnElm) {
+					if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
+						tblElm.bind('mouseover', function(){
+							tblElm.addClass('j-hover');
+						});
+						tblElm.bind('mouseout', function(){
+							tblElm.removeClass('j-hover');
+							
+						});
+						tblElm.bind('click', JWic.controls.ButtonLegacy.clickHandler);
+						btnElm.bind('click', JWic.controls.ButtonLegacy.clickHandler);
+					}
+				},
+				
+				destroy : function(tblElm, btnElm) {
+					if(tblElm.attr && "true" == tblElm.attr("_ctrlEnabled")) {
+						tblElm.unbind("mouseover");
+						tblElm.unbind("mouseout");
+						tblElm.unbind("click", JWic.controls.ButtonLegacy.clickHandler);
+						btnElm.unbind("click", JWic.controls.ButtonLegacy.clickHandler);
+					}
+				},
+				/**
+				 * Invoked when the button is clicked.
+				 */
+				clickHandler : function(e) {
+					e.stopPropagation();
+					var elm = jQuery(e.target);
+					while (!elm.attr('id') || elm.attr('id').indexOf('tbl_') != 0) {
+						elm = jQuery(elm).parent();
+					}
+					var ctrlId = elm.attr('id').substring(4);
+					var msg = elm.attr("_confirmMsg");
+					if (msg && msg != "") {
+						if (!confirm(msg)) {
+							return false;
+						}
+					}
+					JWic.fireAction(ctrlId, 'click', '');
+				}
 	
-	/**
-	 * Fix the scrolling of the ScrollableContainer.
-	 */
-	function jWic_fixScrolling(ctrlId, paneId) {
-		JWic.restoreScrolling(ctrlId, paneId);
-	}
-	
-	/**
-	 * jWic constrictor
-	 */
-	function jWicBase() {
-		this.fireAction = jWic_FireAction;
-		this.fixScrolling = jWic_fixScrolling;
-		// array of submit listeners
-		// this.addSubmitListener = jWic_addSubmitListener;
-	}
-
-	/**
-	 * Access to the jWic JavaScript objects.
-	 */
-	function jWic() {
-		return jwicObj;
-	}
-
-	/**
-	 * This function must be called from within the page file inside the BODY tag!
-	 */
-	function jWicInit() {
-		try {
-			jwicObj = new jWicBase();
-			//jwicObj.init(document);
-		} catch (e) {
-			// reload parent, for solving strange IE6 SP2 reload problem
-			// infinity loop if jWicBase() contains errors ...
-			parent.location.replace(parent.location.href);
+			} /** /Button */
+		
+		
+		
 		}
-	}
-
-	jwicObj = new jWicBase();
-	if (jWicCalendar) {
-		jwicObj.calendar = new jWicCalendar();
-	}
+	);
+})(jQuery);

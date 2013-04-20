@@ -287,6 +287,37 @@ JWic.util = {
 }
 
 /**
+ * Common UI Functions.
+ */
+JWic.ui = {
+
+		/**
+		 * Displays a notification dialog on the top of the page.
+		 */
+		Notify : {
+		
+			/**
+			 * Displays the message box.
+			 */
+			display : function (message, type, duration, delay) {
+				
+				duration = duration || 3000;
+				type = type || "alert";
+
+				var x = noty({
+					text: message,
+					timeout : duration,
+					type : type
+				});
+				
+				return;
+				
+			}
+		}
+			
+	}
+
+/**
  * Defines the internal (private) API.
  */
 var JWicInternal = {
@@ -557,26 +588,6 @@ var JWicInternal = {
 		scrollTop = document.body.scrollTop;
 	}
 	return [ myWidth, myHeight, scrollLeft, scrollTop ];
-	},
-	
-	/**
-	 * Trigger a refresh action if the window size was changed.
-	 */
-	winResizeHandler : function(evt) {
-		if (!evt)
-			evt = window.event;
-		JWicInternal.lastResizeTime = new Date().getTime();
-		window.setTimeout("JWicInternal.winResizeDoPost()", 200); // make sure to wait 200 ms before sending the update (IE specific)
-	},
-	/**
-	 * Fires the refresh event.
-	 */
-	winResizeDoPost : function() {
-		if ((new Date().getTime() - JWicInternal.lastResizeTime) >= 200) {
-			JWicInternal.lastResizeTime = new Date().getTime();
-			JWic.fireAction('', 'refresh', '');
-		}
 	}
 };
 
-window.onresize = JWicInternal.winResizeHandler;
