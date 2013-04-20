@@ -149,8 +149,8 @@ JWic.controls = {
 			
 			self.css({
 			            "position": "relative",
-			            "height": wrapper.height() + "px",
-			            "width": settings.width + "px",
+			            "height": "25px",
+			            "width": "120px",
 			            "display": "inline",
 			            "cursor": "pointer",
 			            "opacity": "0.0"
@@ -163,7 +163,7 @@ JWic.controls = {
 			    	self.css("margin-left", "-168px");                    
 			    };
 			} else {
-				self.css("margin-left", wrapper.width() - settings.width + "px");                
+				self.css("margin-left", "0px");                
 			};
 			
 			self.bind("change", function() {
