@@ -120,6 +120,58 @@ JWic.controls = {
 		}
 		
 	},
+	
+	/**
+	 * FileUpload control
+	 */
+	FileUpload : {
+		initialize : function (self, controlId, options) {
+
+			self = jQuery(self);
+			var settings = {
+				width : 250,
+	        };
+	                    
+			if(options) {
+				jQuery.extend(settings, options);
+			};
+	                            
+			var wrapper = jQuery("<div class=\"ui-widget ui-corner-all j-fileupload-button j-fileupload-selectfile\">");
+			                
+			var filename = jQuery('<input readonly class="ui-widget ui-widget-content j-fileupload-filename">')
+			                 .addClass(self.attr("class"))
+			                 .css({
+			                     "width": settings.width + "px"
+			                 });
+			
+			self.before(filename);
+			self.wrap(wrapper);
+			
+			self.css({
+			            "position": "relative",
+			            "height": wrapper.height() + "px",
+			            "width": settings.width + "px",
+			            "display": "inline",
+			            "cursor": "pointer",
+			            "opacity": "0.0"
+			        });
+			
+			if (jQuery.browser.mozilla) {
+			    if (/Win/.test(navigator.platform)) {
+			    	self.css("margin-left", "-142px");                    
+			    } else {
+			    	self.css("margin-left", "-168px");                    
+			    };
+			} else {
+				self.css("margin-left", wrapper.width() - settings.width + "px");                
+			};
+			
+			self.bind("change", function() {
+			    filename.val(self.val());
+			});
+			
+		}
+	},
 		
 	/**
 	 * Window control script extensions.

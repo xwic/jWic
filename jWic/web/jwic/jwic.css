@@ -594,3 +594,33 @@ table.j-button-h.j-btn-small button.j-button-btn {
 table.j-button-h button.j-button-btn img {
 	padding-right: 3px;
 }
+
+
+/**
+ * FileUpload control
+ */
+.j-fileupload-filename {
+	height: 23px;
+	width: 200px;
+	display: inline;
+	border: 1px solid #808080;
+}
+.j-fileupload-button {
+	width: 120px;
+	height: 25px; 
+	display: inline;
+	position: absolute;
+	overflow: hidden;
+	margin-left: 2px;
+}
+.j-fileupload-selectfile {
+    background: url(gfx/selectfile_black.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+}
+.j-fileupload-clearfile {
+    background: url(gfx/clear_file.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+	cursor: pointer;
+}

@@ -1,0 +1,16 @@
+/** ui-darkness */
+
+/**
+ * FileUpload control
+ */
+.j-fileupload-selectfile {
+    background: url(gfx/select_file.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+}
+
+.j-fileupload-clearfile {
+    background: url(gfx/clear_file.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+}

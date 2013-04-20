@@ -13,6 +13,7 @@ import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IFileReciever;
+import de.jwic.base.JavaScriptSupport;
 import de.jwic.events.FileReceivedEvent;
 import de.jwic.events.FileReceivedListener;
 import de.jwic.upload.UploadFile;
@@ -26,28 +27,28 @@ import de.jwic.upload.UploadFile;
  * 
  * @author Florian Lippisch
  */
-public class FileUploadControl extends Control implements IFileReciever {
+@JavaScriptSupport
+public class FileUpload extends Control implements IFileReciever {
 
 	private static final long serialVersionUID = 1L;
 
 	protected UploadFile fileHandle = null;
 	/** List of listender to inform */
 	protected List<FileReceivedListener> selectionListeners = null;
-	
-	private String width = "";
-	private String size = "";
+
+	private int width = 250;
 	
 	/**
 	 * @param container
 	 */
-	public FileUploadControl(IControlContainer container) {
+	public FileUpload(IControlContainer container) {
 		this(container, null);
 	}
 	/**
 	 * @param container
 	 * @param name
 	 */
-	public FileUploadControl(IControlContainer container, String name) {
+	public FileUpload(IControlContainer container, String name) {
 		super(container, name);
 		new Field(this, "file"); // create a field that stores the filename.
 	}
@@ -134,30 +135,22 @@ public class FileUploadControl extends Control implements IFileReciever {
 	/**
 	 * @return Returns the width.
 	 */
-	public String getWidth() {
+	public int getWidth() {
 		return width;
 	}
 	/**
-	 * The width is set as a css style argument. If you specify the width
-	 * in pixel, you must add 'px' at the end. Otherwise its no valid css
-	 * parameter.
+	 * The width of the text field next to the upload button. The width of the upload button
+	 * is defined in the styles, but has usually a width of 124px.
+	 *  
 	 * @param width The width to set.
 	 */
-	public void setWidth(String width) {
-		this.width = width;
+	public void setWidth(int width) {
+		if (width != this.width) {
+			this.width = width;
+			requireRedraw();
+		}
 	}
-	/**
-	 * @return the size
-	 */
-	public String getSize() {
-		return size;
-	}
-	/**
-	 * @param size the size to set
-	 */
-	public void setSize(String size) {
-		this.size = size;
-	}
+	
 	/**
 	 * Returns the size of the uploaded file or -1 if no file has been uploaded yet.
 	 * @return

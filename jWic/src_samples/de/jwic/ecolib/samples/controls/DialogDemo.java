@@ -26,7 +26,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.FileUploadControl;
+import de.jwic.controls.FileUpload;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
@@ -130,7 +130,7 @@ public class DialogDemo extends ControlContainer {
 		lbcEvents.setWidth(500);
 		
 		// also add a FileUploadControl
-		FileUploadControl fileUpload = new FileUploadControl(tlc, "file");
+		FileUpload fileUpload = new FileUpload(tlc, "file");
 		fileUpload.addFileReceivedListener(new FileReceivedListener() {
 			/* (non-Javadoc)
 			 * @see de.jwic.events.FileReceivedListener#fileReceived(de.jwic.events.FileReceivedEvent)
