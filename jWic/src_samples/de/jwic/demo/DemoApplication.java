@@ -18,7 +18,8 @@ import de.jwic.demo.basics.CheckBoxGroupDemoModule;
 import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
-import de.jwic.demo.basics.TabStripDemoModule;
+import de.jwic.demo.container.GroupControlDemoModule;
+import de.jwic.demo.container.TabStripDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
 
@@ -54,6 +55,7 @@ public class DemoApplication extends Application {
 		modules.add(new CheckBoxDemoModule());
 		modules.add(new CheckBoxGroupDemoModule());
 		modules.add(new FileUploadDemoModule());
+		modules.add(new GroupControlDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

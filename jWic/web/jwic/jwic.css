@@ -624,3 +624,14 @@ table.j-button-h button.j-button-btn img {
 	border: 1px solid #808080;
 	cursor: pointer;
 }
+
+/**
+ * Group Layouts
+ */
+ 
+.j-group-header {
+	padding: 4px;
+}
+.j-group-content {
+	padding: 4px;
+}

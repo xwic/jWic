@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.jwic.demo.basics;
+package de.jwic.demo.container;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.demo.DemoModule;
@@ -10,14 +10,15 @@ import de.jwic.demo.DemoModule;
  * @author lippisch
  *
  */
-public class TabStripDemoModule extends DemoModule {
+public class GroupControlDemoModule extends DemoModule {
 
 	/**
 	 * 
 	 */
-	public TabStripDemoModule() {
-		setTitle("TabStrip");
-		setDescription("A single content area with multiple panels, each associated with a header in a list");
+	public GroupControlDemoModule() {
+		setTitle("GroupControl");
+		setDescription("A container with a custom border layout and customizable inner layout");
+		setGroup("Container");
 		
 	}
 	
@@ -28,7 +29,7 @@ public class TabStripDemoModule extends DemoModule {
 	public void createModule(IControlContainer container) {
 
 		
-		new TabStripDemo(container);
+		new GroupControlDemo(container);
 		
 
 	}

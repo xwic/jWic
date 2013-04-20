@@ -32,6 +32,16 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 
 	private static final long serialVersionUID = 2265482725775557103L;
 	
+	public enum GroupControlLayout {
+		DEFAULT ( GroupControl.class.getName()),
+		GROUP ( GroupControl.class.getName() + "_group");
+		
+		private String outerTemplateName;
+		GroupControlLayout(String tpl) {
+			outerTemplateName = tpl;
+		}
+	}
+	
 	private String outerTemplateName = GroupControl.class.getName();
 	private String title = null;
 	private String cssClass = null;
@@ -39,6 +49,7 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 	private boolean fillWidth = false;
 	private int width = 0; // 0 = not set
 	private int height = 0; // 0 = not set
+	private boolean closeable = false;
 
 	/**
 	 * @param container
@@ -55,6 +66,15 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 	public GroupControl(IControlContainer container, String name) {
 		super(container, name);
 		init();
+	}
+	
+	/**
+	 * Set the layout of the group.
+	 * @param layout
+	 */
+	public void setLayout(GroupControlLayout layout) {
+		setOuterTemplateName(layout.outerTemplateName);
+		requireRedraw();
 	}
 	
 	/**
@@ -78,6 +98,16 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 			return null;
 		}
 		return super.getTemplateName();
+	}
+	
+	/**
+	 * @param event
+	 */
+	public void actionPerformed(String actionId, String param) {
+		
+		if (actionId.equals("closeframe")) {
+			setVisible(false);
+		}
 	}
 
 	/*
@@ -215,5 +245,18 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 	 */
 	public void setOuterTemplateName(String outerTemplateName) {
 		this.outerTemplateName = outerTemplateName;
+	}
+	
+	/**
+	 * @return Returns true if closeable.
+	 */
+	public boolean isCloseable() {
+		return closeable;
+	}
+	/**
+	 * @param closeable Set to true if closeable.
+	 */
+	public void setCloseable(boolean closeable) {
+		this.closeable = closeable;
 	}
 }

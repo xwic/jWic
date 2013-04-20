@@ -17,7 +17,7 @@
  * Created on 28.10.2005
  * $Id: LabelDemo.java,v 1.2 2010/01/26 11:25:17 lordsam Exp $
  */
-package de.jwic.demo.basics;
+package de.jwic.demo.container;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +28,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.Label;
 import de.jwic.controls.Tab;
 import de.jwic.controls.TabStrip;
+import de.jwic.demo.basics.Calculator;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
