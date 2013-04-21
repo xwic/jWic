@@ -617,6 +617,7 @@ table.j-button-h button.j-button-btn img {
     background: url(gfx/selectfile_black.png) 0 0 no-repeat; 
 	background-position: right;
 	border: 1px solid #808080;
+	cursor: pointer;
 }
 .j-fileupload-clearfile {
     background: url(gfx/clear_file.png) 0 0 no-repeat; 
@@ -634,4 +635,13 @@ table.j-button-h button.j-button-btn img {
 }
 .j-group-content {
 	padding: 4px;
+}
+
+/**
+ * ListBox combo background fix
+ */
+
+select.j-listbox {
+	/** Chrome does not support background images on select tags. It needs to be disabled in order to not break other layouts */
+	background-image: none;
 }

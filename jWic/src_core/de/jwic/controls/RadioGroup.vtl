@@ -1,0 +1,13 @@
+#set($field = $control.getField("values"))
+<table cellspacing="0" cellpadding="1" border="0" #if($control.cssClass != "")class="$control.cssClass"#end #if ( $control.width != 0 || $control.height != 0 ) style="#if( $control.width != 0) width: ${control.width}px;#end #if( $control.height != 0 )height: ${control.height}px;#end" #end>
+<tr>
+#foreach ( $entry in $control.buildEntryList() )
+#set($radId = "rad_${velocityCount}_${control.controlID}")
+<td><input class="$control.cssClass" id="$radId" #if ( $control.changeNotification ) onClick="$control.createActionURL('valuechanged', '')" #end name="$field.id" type="radio" #if ( $entry.key == $field.value ) checked #end value="$jwic.formatInp($entry.key)" #if ( ! $control.isEnabled()) disabled  #end><label class="$control.cssClass" for="$radId">$entry.title</label></td>
+	#if ($control.isDoBreak($velocityCount))
+		</tr>
+		<tr>
+	#end
+#end
+</tr>
+</table>
