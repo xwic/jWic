@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.data.SelectElementBaseLabelProvider;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
