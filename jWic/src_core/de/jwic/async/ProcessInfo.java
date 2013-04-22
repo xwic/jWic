@@ -17,7 +17,7 @@
  * Created on 27.04.2012
  * $Id: ProcessInfo.java,v 1.1 2012/08/16 21:58:43 lordsam Exp $
  */
-package de.jwic.ecolib.async;
+package de.jwic.async;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,13 +26,15 @@ import org.json.JSONWriter;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.IProgressMonitor;
 import de.jwic.json.JsonResourceControl;
 
 /**
  * This control displays the progress information of an IAsyncProcess. The
- * information is updated using async JSON calls, which are more efficient than
- * an IFRAME.
+ * information is updated using async JSON calls that do not interrupt the primary
+ * UI thread.
+ * 
+ * The control can initiate a global refresh by calling a regular JWic.fireAction event
+ * that causes the UI to refresh. This is useful after the process finished.
  * 
  * @author lippisch
  */
@@ -44,7 +46,7 @@ public class ProcessInfo extends JsonResourceControl {
 	private IProgressMonitor progressMonitor = null;
 	private boolean active = false;
 	private boolean globalRefresh = false;
-	
+	private boolean showPercentage = false;
 
 	/**
 	 * @param container
@@ -59,6 +61,7 @@ public class ProcessInfo extends JsonResourceControl {
 	 */
 	@Override
 	public void handleJSONResponse(HttpServletRequest req, JSONWriter jsonOut) throws JSONException {
+		IProgressMonitor pi = progressMonitor;
 		jsonOut.object();
 		jsonOut.key("active");
 		jsonOut.value(active);
@@ -69,19 +72,19 @@ public class ProcessInfo extends JsonResourceControl {
 			globalRefresh = false;
 		}
 		
-		if (progressMonitor != null) {
+		if (pi != null) {
 			jsonOut.key("monitor");
 			jsonOut.object();
 			jsonOut.key("infoText");
-			jsonOut.value(progressMonitor.getInfoText());
-			jsonOut.key("min").value(progressMonitor.getMinimum());
-			jsonOut.key("max").value(progressMonitor.getMaximum());
-			jsonOut.key("value").value(progressMonitor.getValue());
+			jsonOut.value(pi.getInfoText());
+			jsonOut.key("min").value(pi.getMinimum());
+			jsonOut.key("max").value(pi.getMaximum());
+			jsonOut.key("value").value(pi.getValue());
 			jsonOut.endObject();
+
+			jsonOut.key("status");
+			jsonOut.value(pi.getInfoText());
 		}
-		
-		jsonOut.key("status");
-		jsonOut.value(progressMonitor.getInfoText());
 		jsonOut.endObject();
 	}
 	
@@ -122,4 +125,33 @@ public class ProcessInfo extends JsonResourceControl {
 		this.globalRefresh = true;
 	}
 
+	/**
+	 * Returns the current % value.
+	 * @return
+	 */
+	public int getPercent() {
+		if (progressMonitor != null) {
+			int total = progressMonitor.getMaximum() - progressMonitor.getMinimum();
+			int val = progressMonitor.getValue() - progressMonitor.getMinimum();
+			if (total > 0) {
+				return val * 100 / total;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * @return the showPercentage
+	 */
+	public boolean isShowPercentage() {
+		return showPercentage;
+	}
+
+	/**
+	 * @param showPercentage the showPercentage to set
+	 */
+	public void setShowPercentage(boolean showPercentage) {
+		this.showPercentage = showPercentage;
+	}
+	
 }

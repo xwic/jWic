@@ -139,9 +139,6 @@ public class ControlDemoApplication extends Application {
 			new LabelControl(tab).setText("JFreeChart not available - install relevant jar files.");
 		}
 		
-		tab = tabStrip.addTab("ASyncInfo");
-		new AsyncDemo(tab);
-		
 		tab = tabStrip.addTab("Balloon");
 		new BalloonDemo(tab);
 	

@@ -17,7 +17,7 @@
  * Created on 29.04.2008
  * $Id: ProcessEvent.java,v 1.1 2008/04/29 14:37:14 lordsam Exp $
  */
-package de.jwic.ecolib.async;
+package de.jwic.async;
 
 /**
  *

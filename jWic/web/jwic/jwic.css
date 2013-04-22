@@ -649,7 +649,33 @@ select.j-listbox {
 /**
  * ProgressBar Label
  */
-.j-progress-bar-label {
+/** ProgressInfo Control */
+div.j-process-info {
+	width: 400px;
+	height: 110px;
+}
+div.j-process-info-label {
+	margin-left: 8px;
+	margin-top: 5px;
+	font-size: 10pt;
+	height: 30px;
+}
+div.j-process-info-values {
+	margin-top: 15px;
+	font-size: 8pt;
+	text-align: right;
+	height: 15px;
+	margin-right: 5px;
+}
+div.j-process-info-bar {
+	margin-top: 0px;
+	margin-left: 5px;
+	margin-right: 5px;
+	height: 25px;
+	padding: 1px;
+}
+
+div.j-process-info-bar-label {
 	float: left;
 	margin-left: 4%; 
 	width: 95%;
@@ -657,4 +683,5 @@ select.j-listbox {
 	margin-top: 5px;
 	font-weight: bold;
 	text-shadow: 1px 1px 0 #fff;
+	font-size: 10pt;
 }

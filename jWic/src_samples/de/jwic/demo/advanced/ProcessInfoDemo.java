@@ -17,12 +17,14 @@
  * Created on 28.10.2005
  * $Id: ButtonDemo.java,v 1.4 2010/01/26 11:25:17 lordsam Exp $
  */
-package de.jwic.demo.basics;
+package de.jwic.demo.advanced;
 
+import de.jwic.async.IProcessListener;
+import de.jwic.async.ProcessEvent;
+import de.jwic.async.ProcessInfo;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.ProgressBar;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
@@ -33,51 +35,59 @@ import de.jwic.events.SelectionListener;
  * @author Florian Lippisch
  * @version $Revision: 1.4 $
  */
-public class BackgroundProgressBarDemo extends ControlContainer {
+public class ProcessInfoDemo extends ControlContainer {
 
-	
-	private ProgressBar pbar;
-	private Button btStart;
+	private Thread myBackgroundThread = null;
+	private ProcessInfo processInfo;
 	
 	/**
 	 * Constructor.
 	 * @param container
 	 */
-	public BackgroundProgressBarDemo(IControlContainer container) {
+	public ProcessInfoDemo(IControlContainer container) {
 		super(container);
+
+		processInfo = new ProcessInfo(this, "processInfo");
+		processInfo.setShowPercentage(true);
 		
-		pbar = new ProgressBar(this, "pbar");
-		pbar.setWidth(435);
-		pbar.setShowPercentage(false);
-		pbar.setIntermediate(true);
-		
-		btStart = new Button(this, "btStart");
-		btStart.setTitle("Start some background thread");
+		Button btStart = new Button(this, "btStart");
+		btStart.setTitle("Start Process");
 		btStart.addSelectionListener(new SelectionListener() {
-			
 			@Override
 			public void objectSelected(SelectionEvent event) {
-				doStart();
+				onProcessStart();
 			}
 		});
+
 		
 	}
 
 	/**
 	 * 
 	 */
-	protected void doStart() {
+	protected void onProcessStart() {
 		
-		btStart.setEnabled(false);
-		
-		DemoBackgroundProcess process = new DemoBackgroundProcess();
-		pbar.setMonitor(process.getMonitor());
-		pbar.setIntermediate(false);
-		
-		Thread t = new Thread(process);
-		t.start();
+		if (myBackgroundThread == null || !myBackgroundThread.isAlive()) {
+			
+			DemoBackgroundProcess dbp = new DemoBackgroundProcess();
+			
+			processInfo.setProgressMonitor(dbp.getMonitor());
+			
+			dbp.addProcessListener(new IProcessListener() {
+				@Override
+				public void processFinished(ProcessEvent e) {
+					processInfo.globalRefresh();
+					processInfo.stopRefresh();
+					getSessionContext().notifyMessage("And the result was: " + e.getProcess().getResult());
+				}
+			});
+			
+			myBackgroundThread = new Thread(dbp);
+			myBackgroundThread.start();
+						
+		} else {
+			getSessionContext().notifyMessage("A background process is already running..", "warning");
+		}
 		
 	}
-
-	
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.jwic.demo.basics;
+package de.jwic.demo.advanced;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.demo.DemoModule;
@@ -10,15 +10,15 @@ import de.jwic.demo.DemoModule;
  * @author lippisch
  *
  */
-public class ProgressBarDemoModule extends DemoModule {
+public class ProcessInfoDemoModule extends DemoModule {
 
 	/**
 	 * 
 	 */
-	public ProgressBarDemoModule() {
-		setTitle("ProgressBar");
-		setDescription("Display status of a determinate or indeterminate process.");
-		
+	public ProcessInfoDemoModule() {
+		setTitle("ProcessInfo");
+		setDescription("Display status of background process");
+		setGroup("Advanced");
 	}
 	
 	/* (non-Javadoc)
@@ -28,7 +28,7 @@ public class ProgressBarDemoModule extends DemoModule {
 	public void createModule(IControlContainer container) {
 
 		
-		new ProgressBarDemo(container);
+		new ProcessInfoDemo(container);
 		
 
 	}

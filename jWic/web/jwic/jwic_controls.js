@@ -21,6 +21,95 @@
 
 JWic.controls = {
 
+	ProcessInfo : {
+		
+		initialize : function(controlId, options) {
+			var ctrl = JWic.$("pi_" + controlId);
+			var piProgBar = JWic.$("pi_progressbar_" + controlId);
+			
+			var pbOptions = {};
+			if (!options.empty) {
+				pbOptions.value = options.value;
+			}
+			ctrl.data("showPercentage", options.showPercentage);
+			piProgBar.progressbar(pbOptions);
+			
+			if (options.active) {
+				JWic.controls.ProcessInfo.updateContent(controlId);
+			}
+		},
+		
+		/**
+		 * Request a status update
+		 */
+		updateContent : function(controlId) {
+	
+			var ctrl = JWic.$("pi_" + controlId);
+			if (ctrl && !ctrl.requestPending) {
+				ctrl.requestPending = true;
+				JWic.resourceRequest(controlId, function(ajaxResponse) {
+					try {
+						//JWic.log("HandleResponde: " + controlId);
+						JWic.controls.ProcessInfo.handleResponse(controlId, ajaxResponse);
+					} catch (x) {
+						// the control was probably removed. Force a regular refresh
+						JWic.fireAction('', 'refresh', '');
+					}
+				});
+			}
+		},
+		
+		/**
+		 * Handle the response from the server and render the status.
+		 */
+		handleResponse : function(controlId, resp) {
+			var data = jQuery.parseJSON(resp.responseText);
+			var container = JWic.$("pi_" + controlId);
+			if (container) { // view container might have been removed in the meantime
+				if (data.monitor) {
+					var m = data.monitor;
+					var piLabel = JWic.$("pi_label_" + controlId);
+					var piProg = JWic.$("pi_progress_" + controlId);
+					var piProgBar = JWic.$("pi_progressbar_" + controlId);
+					var piVal = JWic.$("pi_values_" + controlId);
+					if (piLabel) {
+						piLabel.html(m.infoText);
+					}
+					if (piVal) {
+						if (m.max != 0) {
+							piVal.html(m.value + " / " + m.max);
+						} else {
+							piVal.html(m.value);
+						}
+					}
+					if (piProg && m.max != 0) {
+						var total = m.max - m.min;
+						var pos = m.value - m.min;
+						var pr = pos * 100 / total;
+						piProgBar.progressbar("value", Math.ceil(pr));
+						if (container.data("showPercentage")) {
+							var piVal = JWic.$("pi_inmsg_" + controlId);
+							piVal.html(Math.ceil(pr) + "%");
+						}
+					}
+					
+				}
+
+				container.requestPending = false;
+				if (data.active) {
+					
+					window.setTimeout(function(){
+						JWic.controls.ProcessInfo.updateContent(controlId)
+					}, 500);
+				}
+				if (data.globalRefresh) {
+					JWic.fireAction('', 'refresh', '');
+				}
+			}
+			
+		}
+	},
+		
 	/**
 	 * de.jwic.controls.ProgressBar code
 	 */

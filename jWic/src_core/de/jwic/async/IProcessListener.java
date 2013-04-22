@@ -17,7 +17,7 @@
  * Created on 29.04.2008
  * $Id: IProcessListener.java,v 1.1 2008/04/29 14:37:15 lordsam Exp $
  */
-package de.jwic.ecolib.async;
+package de.jwic.async;
 
 /**
  *

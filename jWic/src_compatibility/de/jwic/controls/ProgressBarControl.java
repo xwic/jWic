@@ -19,6 +19,7 @@
  */
 package de.jwic.controls;
 
+import de.jwic.async.IProgressMonitor;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.events.ValueChangedEvent;

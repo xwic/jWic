@@ -14,3 +14,10 @@
 	background-position: right;
 	border: 1px solid #808080;
 }
+
+/**
+ * ProgressBar Label
+ */
+div.j-process-info-bar-label {
+	text-shadow: 1px 1px 0 #000;
+}

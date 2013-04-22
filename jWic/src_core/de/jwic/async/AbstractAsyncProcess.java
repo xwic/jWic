@@ -17,13 +17,11 @@
  * Created on 29.04.2008
  * $Id: AbstractAsyncProcess.java,v 1.4 2012/08/16 21:58:43 lordsam Exp $
  */
-package de.jwic.ecolib.async;
+package de.jwic.async;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.jwic.controls.IProgressMonitor;
-import de.jwic.controls.ProgressMonitor;
 
 /**
  *
@@ -35,6 +33,7 @@ public abstract class AbstractAsyncProcess implements IAsyncProcess, Runnable {
 	protected ProgressMonitor monitor = new ProgressMonitor();
 
 	protected boolean cancelled = false;
+	protected boolean canCancel = false;
 	
 	private boolean finished = false;
 	private Object result = null;
@@ -102,6 +101,13 @@ public abstract class AbstractAsyncProcess implements IAsyncProcess, Runnable {
 	}
 	
 	/**
+	 * Set the current value to the maximum monitor value.
+	 */
+	protected void completed() {
+		monitor.setValue(monitor.getMaximum());
+	}
+	
+	/**
 	 * Run the process.
 	 *
 	 */
@@ -120,7 +126,7 @@ public abstract class AbstractAsyncProcess implements IAsyncProcess, Runnable {
 	 * @see de.jwic.ecolib.async.IAsyncProcess#canCancel()
 	 */
 	public boolean canCancel() {
-		return false;
+		return canCancel;
 	}
 	
 	/* (non-Javadoc)

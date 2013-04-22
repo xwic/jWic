@@ -17,9 +17,8 @@
  * Created on 29.04.2008
  * $Id: IAsyncProcess.java,v 1.2 2012/08/16 21:58:43 lordsam Exp $
  */
-package de.jwic.ecolib.async;
+package de.jwic.async;
 
-import de.jwic.controls.IProgressMonitor;
 
 /**
  *
