@@ -15,36 +15,35 @@
  *
  * de.jwic.demo.basics.DemoBackgroundProcess
  */
-package de.jwic.demo.basics;
+package de.jwic.demo.advanced;
 
-import de.jwic.controls.ProgressMonitor;
+import de.jwic.async.AbstractAsyncProcess;
 
 /**
  * @author lippisch
  *
  */
-public class DemoBackgroundProcess implements Runnable {
+public class DemoBackgroundProcess extends AbstractAsyncProcess {
 
-	private ProgressMonitor monitor;
-	
 	/**
 	 * @param monitor
 	 */
 	public DemoBackgroundProcess() {
 		super();
-		this.monitor = new ProgressMonitor();
-		monitor.setMaximum(500);
-		monitor.setMinimum(0);
+
+		monitor.setMaximum(0);
+		canCancel = true;
+		
 	}
 
-
 	/* (non-Javadoc)
-	 * @see java.lang.Runnable#run()
+	 * @see de.jwic.async.AbstractAsyncProcess#runProcess()
 	 */
 	@Override
-	public void run() {
+	protected Object runProcess() {
+
+		setStatusMessage("Initializing Connection");
 		
-		monitor.setInfoText("Initializing Connection");
 		// open connection to database
 		try {
 			Thread.sleep(1000);
@@ -52,42 +51,32 @@ public class DemoBackgroundProcess implements Runnable {
 			// nothing todo
 		}
 
-		monitor.worked(100);
-		
-		monitor.setInfoText("Executing Query...");
+		setStatusMessage("Executing Query...");
 		try {
-			Thread.sleep(500);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// nothing todo
 		}
-		monitor.worked(100);
-		
-		monitor.setInfoText("Processing Records...");
-		for (int i = 0; i < 250; i++) {
+		monitor.setMaximum(250);
+		setStatusMessage("Processing Records...");
+		for (int i = 0; (i < 250 && !cancelled); i++) {
 			try {
 				Thread.sleep(20);
 			} catch (InterruptedException e) {
 				// nothing todo
 			}
-			monitor.worked(1);
+			worked();
 		}
 		
-		monitor.setInfoText("Clean-Up");
+		setStatusMessage("Clean-Up");
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// nothing todo
 		}
-		monitor.worked(50);
+		completed();
 
-	}
-
-
-	/**
-	 * @return the monitor
-	 */
-	public ProgressMonitor getMonitor() {
-		return monitor;
+		return "42"; // optional: return the result of the long process 
 	}
 
 }

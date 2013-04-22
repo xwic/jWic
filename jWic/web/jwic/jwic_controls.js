@@ -21,6 +21,94 @@
 
 JWic.controls = {
 
+	ProcessInfo : {
+		
+		initialize : function(controlId, options) {
+			var piProgBar = JWic.$("pi_progressbar_" + controlId);
+			
+			piProgBar.data("options", options);
+			
+			var pbOptions = {};
+			if (!options.empty) {
+				pbOptions.value = options.value;
+			}
+			piProgBar.progressbar(pbOptions);
+			
+			if (!options.empty || options.active) {
+				JWic.controls.ProcessInfo.updateContent(controlId);
+			}
+		},
+		
+		/**
+		 * Request a status update
+		 */
+		updateContent : function(controlId) {
+	
+			var piProgBar = JWic.$("pi_progressbar_" + controlId)
+			if (piProgBar && !piProgBar.data("requestPending")) {
+				piProgBar.data("requestPending", true);
+				JWic.resourceRequest(controlId, function(ajaxResponse) {
+					try {
+						//JWic.log("HandleResponde: " + controlId);
+						JWic.controls.ProcessInfo.handleResponse(controlId, ajaxResponse);
+					} catch (x) {
+						// the control was probably removed. Force a regular refresh
+						JWic.fireAction('', 'refresh', '');
+					}
+				});
+			}
+		},
+		
+		/**
+		 * Handle the response from the server and render the status.
+		 */
+		handleResponse : function(controlId, resp) {
+			var data = jQuery.parseJSON(resp.responseText);
+			var piProgBar = JWic.$("pi_progressbar_" + controlId)
+			if (piProgBar) { // view container might have been removed in the meantime
+				var options = piProgBar.data("options");
+				if (data.monitor) {
+					var m = data.monitor;
+					var piLabel = JWic.$("pi_label_" + controlId);
+					var piProg = JWic.$("pi_progress_" + controlId);
+					var piVal = JWic.$("pi_values_" + controlId);
+					if (piLabel) {
+						piLabel.html(m.infoText);
+					}
+					if (piVal && options.showValues) {
+						if (m.max != 0) {
+							piVal.html(m.value + " / " + m.max);
+						} else if (m.value != 0) {
+							piVal.html(m.value);
+						}
+					}
+					var total = m.max - m.min;
+					if (total != 0) {
+						var pos = m.value - m.min;
+						var pr = pos * 100 / total;
+						piProgBar.progressbar("value", Math.ceil(pr));
+						if (options.showPercentage) {
+							var piVal = JWic.$("pi_inmsg_" + controlId);
+							piVal.html(Math.ceil(pr) + "%");
+						}
+					}
+					
+				}
+
+				piProgBar.data("requestPending", false);
+				if (data.active) {
+					window.setTimeout(function(){
+						JWic.controls.ProcessInfo.updateContent(controlId)
+					}, 500);
+				}
+				if (data.globalRefresh) {
+					JWic.fireAction('', 'refresh', '');
+				}
+			}
+			
+		}
+	},
+		
 	/**
 	 * de.jwic.controls.ProgressBar code
 	 */

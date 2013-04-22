@@ -12,6 +12,7 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
+import de.jwic.demo.advanced.ProcessInfoDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
 import de.jwic.demo.basics.CheckBoxDemoModule;
 import de.jwic.demo.basics.CheckBoxGroupDemoModule;
@@ -19,7 +20,6 @@ import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.ListBoxDemoModule;
-import de.jwic.demo.basics.ProgressBarDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.TabStripDemoModule;
@@ -61,7 +61,7 @@ public class DemoApplication extends Application {
 		modules.add(new GroupControlDemoModule());
 		modules.add(new ListBoxDemoModule());
 		modules.add(new RadioGroupDemoModule());
-		modules.add(new ProgressBarDemoModule());
+		modules.add(new ProcessInfoDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

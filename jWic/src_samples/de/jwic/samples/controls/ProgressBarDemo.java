@@ -19,12 +19,12 @@
  */
 package de.jwic.samples.controls;
 
+import de.jwic.async.ProgressMonitor;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.ProgressBarControl;
-import de.jwic.controls.ProgressMonitor;
 import de.jwic.events.SelectionListener;
 
 /**

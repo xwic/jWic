@@ -1,4 +1,4 @@
-package de.jwic.controls;
+package de.jwic.async;
 
 import de.jwic.events.ValueChangedListener;
 

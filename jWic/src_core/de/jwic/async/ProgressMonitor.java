@@ -17,7 +17,7 @@
  * Created on 16.11.2005
  * $Id: ProgressMonitor.java,v 1.3 2008/05/14 07:34:22 lordsam Exp $
  */
-package de.jwic.controls;
+package de.jwic.async;
 
 import java.io.Serializable;
 
