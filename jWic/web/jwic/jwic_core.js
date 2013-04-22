@@ -67,8 +67,7 @@ var JWic = {
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse) {
-		//var jwicform = jQuery('#jwicform').get(0);
-
+		
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
 			alert("The server did not respond to the request. Please check your network connectivity and try again.");
 			jwicform.elements['__ctrlid'].value = '';

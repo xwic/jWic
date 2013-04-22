@@ -27,7 +27,7 @@ import de.jwic.base.IApplication;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JWicException;
 import de.jwic.base.Page;
-import de.jwic.controls.LabelControl;
+import de.jwic.controls.Label;
 
 /**
  * Launches a jwic application from the URL. The TestLauncher is just a plain
@@ -97,7 +97,7 @@ public class TestLauncher extends Page {
 			}
 		} catch (Exception e) {
 			removeControl("app");
-			LabelControl lbl = new LabelControl(this, "app");
+			Label lbl = new Label(this, "app");
 			lbl.setText("Error loading control '" + classname + "':" + e);
 		}
 		
