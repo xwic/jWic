@@ -55,7 +55,7 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 * @return
 	 */
 	public List<ListEntry> buildEntryList() {
-		List<ListEntry> allEntries = new ArrayList<>();
+		List<ListEntry> allEntries = new ArrayList<ListEntry>();
 		for (Iterator<ISelectElement> it = contentProvider.getContentIterator(new Range()); it.hasNext() ; ) {
 			ISelectElement elm = it.next();
 			DataLabel label = baseLabelProvider.getBaseLabel(elm);
