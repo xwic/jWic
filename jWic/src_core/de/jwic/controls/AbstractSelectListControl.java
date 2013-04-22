@@ -93,6 +93,11 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 			elements = new ArrayList<ISelectElement>();
 			setContentProvider(new SelectElementContentProvider(elements));
 		}
+		if (element.getKey() != null) {
+			if (contentProvider.getObjectFromKey(element.getKey()) != null) {
+				throw new IllegalArgumentException("An element with the key '" + element.getKey() + "' does already exist in the selection.");
+			}
+		}
 		elements.add(element);
 		requireRedraw();
 	}
@@ -124,9 +129,34 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 */
 	public void removeElement(ISelectElement element) {
 		if (elements != null) {
+			String key = contentProvider.getUniqueKey(element);
+			if (isKeySelected(key)) {
+				clearSelection(key);
+			}
 			elements.remove(element);
 			requireRedraw();
 		}
+	}
+
+	/**
+	 * @param key
+	 */
+	public void clearSelection(String key) {
+		if (key != null) {
+			String[] values = valueField.getValues();
+			String[] tmp = new String[values.length];
+			int cnt = 0;
+			for (int i = 0; i < values.length; i++) {
+				if (!key.equals(values[i])) {
+					tmp[cnt++] = values[i];
+				}
+			}
+			if (cnt != values.length) { // an element was removed
+				String[] newValues = new String[cnt];
+				System.arraycopy(tmp, 0, newValues, 0, cnt);
+				valueField.setValues(newValues);
+			}
+		}	
 	}
 
 	/**

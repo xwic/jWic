@@ -32,6 +32,7 @@ import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
+import de.jwic.util.StringTool;
 
 /**
  * Superclass for controls who display data elements in a list form.
@@ -130,7 +131,7 @@ public class AbstractListControl<A> extends Control {
 	 * @return
 	 */
 	public String getSelectedKey() {
-		return valueField.getValue();
+		return StringTool.getSingleString(getSelectedKeys());
 	}
 	
 
@@ -139,7 +140,24 @@ public class AbstractListControl<A> extends Control {
 	 * @return
 	 */
 	public String[] getSelectedKeys() {
-		return valueField.getValues();
+		// the valueField may contain empty strings if a value is not selected
+		// for easier processing afterwards, we filter those out
+		String[] values = valueField.getValues();
+		if (values != null) {
+			String[] keys = new String[values.length];
+			int cnt = 0;
+			for (int i = 0; i < values.length; i++) {
+				if (values[i] != null && !values[i].isEmpty()) {
+					keys[cnt++] = values[i];
+				}
+			}
+			if (cnt != values.length) {
+				String[] tmp = new String[cnt];
+				System.arraycopy(keys, 0, tmp, 0, cnt);
+				return tmp;
+			}
+		}
+		return values;
 	}
 	
 	/**

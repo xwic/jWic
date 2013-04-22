@@ -20,7 +20,20 @@
  */
 
 JWic.controls = {
+		
+	/**
+	 * de.jwic.controls.CheckBoxGroup
+	 */
+	CheckBoxGroup : {
+		handleChange : function (controlId, field, element) {
+			var field = JWic.$(field);
+			field.val(element.checked ? element.value : "");
+		} 
+	},
 
+	/**
+	 * de.jwic.async.ProcessInfo
+	 */
 	ProcessInfo : {
 		
 		initialize : function(controlId, options) {
