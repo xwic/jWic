@@ -26,6 +26,10 @@
 	<classpathentry kind="lib" path="lib/commons-beanutils-bean-collections.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-core.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="build/ant.jar"/>
+	<classpathentry kind="lib" path="build/jargs-1.0.jar"/>
+	<classpathentry kind="lib" path="build/rhino-1.6R7.jar"/>
+	<classpathentry kind="lib" path="build/yuicompressor-2.4.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
