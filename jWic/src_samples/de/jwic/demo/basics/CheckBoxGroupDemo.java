@@ -129,7 +129,7 @@ public class CheckBoxGroupDemo extends ControlContainer {
 		
 		String[] keys = checkbox.getSelectedKeys();
 		for (int i = 0; i < keys.length; i++) {
-			checkbox.removeElement(keys[i]);
+			checkbox.removeElementByKey(keys[i]);
 		}
 		
 	}
