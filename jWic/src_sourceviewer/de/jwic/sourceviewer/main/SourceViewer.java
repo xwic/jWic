@@ -30,9 +30,6 @@ import de.jwic.controls.ActionBarControl;
 import de.jwic.controls.Button;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.ecolib.controls.StackedContainer;
-import de.jwic.ecolib.history.HistoryController;
-import de.jwic.ecolib.history.HistoryEvent;
-import de.jwic.ecolib.history.HistoryListener;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
@@ -58,10 +55,8 @@ public class SourceViewer extends ControlContainer {
 	private GroupNavigator navigator;
 	private ActionBarControl actionBar;
 	private ViewerControl viewer;
-	private HistoryController history;
 	private AboutControl about;
 	
-	private HistoryListener historyListener;
 	private StackedContainer content;
 	
 	private SVModel model;
@@ -78,7 +73,6 @@ public class SourceViewer extends ControlContainer {
 			if (!content.getCurrentControlName().equals(viewer.getName())) {
 				content.setCurrentControlName(viewer.getName());
 			}
-			history.setSavePoint(historyListener, new HistoryElement(event.getElement(), model.getCurrentGroup()));
 		}
 
 		public void groupSelected(SVModelEvent event) {
@@ -133,16 +127,6 @@ public class SourceViewer extends ControlContainer {
 		lbGroup = new ListBoxControl(this, "lbGroup");
 		lbGroup.setFillWidth(true);
 		
-		history = new HistoryController(this, "history");
-		historyListener = new HistoryListener() {
-			public void savepointSelected(HistoryEvent event) {
-				HistoryElement his = (HistoryElement)event.getContext();
-				if (!model.getCurrentGroup().equals(his.getGroup())) {
-					model.setCurrentGroup(his.getGroup());
-				}
-				model.setCurrentElement(his.getElement());				
-			}
-		};
 		//lbGroup.setCssClass("small");
 		
 		// load groups
@@ -238,11 +222,6 @@ public class SourceViewer extends ControlContainer {
 		
 		if (!content.getCurrentControlName().equals(about.getName())) {
 			content.setCurrentControlName(about.getName());
-			history.setSavePoint(new HistoryListener() {
-				public void savepointSelected(HistoryEvent event) {
-					doAbout();				
-				}
-			}, null);
 		}
 	}
 
