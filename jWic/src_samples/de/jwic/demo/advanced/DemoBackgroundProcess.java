@@ -31,7 +31,7 @@ public class DemoBackgroundProcess extends AbstractAsyncProcess {
 	public DemoBackgroundProcess() {
 		super();
 
-		monitor.setMaximum(1);
+		monitor.setMaximum(0);
 		canCancel = true;
 		
 	}

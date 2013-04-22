@@ -47,6 +47,10 @@ public class ProcessInfo extends JsonResourceControl {
 	private boolean active = false;
 	private boolean globalRefresh = false;
 	private boolean showPercentage = false;
+	private boolean showValues = true;
+	private boolean compactView = false;
+	
+	private int width = 400;
 
 	/**
 	 * @param container
@@ -151,7 +155,58 @@ public class ProcessInfo extends JsonResourceControl {
 	 * @param showPercentage the showPercentage to set
 	 */
 	public void setShowPercentage(boolean showPercentage) {
-		this.showPercentage = showPercentage;
+		if (this.showPercentage != showPercentage) {
+			this.showPercentage = showPercentage;
+			requireRedraw();
+		}
+	}
+
+	/**
+	 * @return the showValues
+	 */
+	public boolean isShowValues() {
+		return showValues;
+	}
+
+	/**
+	 * @param showValues the showValues to set
+	 */
+	public void setShowValues(boolean showValues) {
+		if (this.showValues != showValues) {
+			this.showValues = showValues;
+			requireRedraw();
+		}
+	}
+
+	/**
+	 * @return the compactView
+	 */
+	public boolean isCompactView() {
+		return compactView;
+	}
+
+	/**
+	 * @param compactView the compactView to set
+	 */
+	public void setCompactView(boolean compactView) {
+		if (this.compactView != compactView) {
+			this.compactView = compactView;
+			requireRedraw();
+		}
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
 	}
 	
 }

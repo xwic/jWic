@@ -1,5 +1,12 @@
-<div id="pi_$control.controlID" class="ui-widget ui-widget-content j-process-info">
-  <div id="pi_label_$control.controlID" class="j-process-info-label">&nbsp;</div>
+#if($control.compactView)
+  	<div id="pi_progressbar_$control.controlID" #if($control.width != 0) style="width: ${control.width}px;" #end>
+  		<div id="pi_inmsg_$control.controlID" class="j-process-info-bar-label">
+			
+		</div>
+	</div>
+#else
+<div id="pi_$control.controlID" class="ui-widget ui-widget-content j-process-info" #if($control.width != 0) style="width: ${control.width}px;" #end>
+  <div id="pi_label_$control.controlID" class="ui-widget j-process-info-label">&nbsp;</div>
   <div id="pi_values_$control.controlID" class="j-process-info-values"></div>
   <div id="pi_progress_$control.controlID" class="j-process-info-bar">
   	<div id="pi_progressbar_$control.controlID" class="">
@@ -9,3 +16,4 @@
 	</div>
   </div>
 </div>
+#end

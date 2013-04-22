@@ -25,8 +25,11 @@ import de.jwic.async.ProcessInfo;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
+import de.jwic.controls.CheckBox;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
+import de.jwic.events.ValueChangedEvent;
+import de.jwic.events.ValueChangedListener;
 
 /**
  * 
@@ -49,6 +52,9 @@ public class ProcessInfoDemo extends ControlContainer {
 
 		processInfo = new ProcessInfo(this, "processInfo");
 		processInfo.setShowPercentage(true);
+		processInfo.setShowValues(true);
+		//processInfo.setCompactView(true);
+		processInfo.setWidth(600);
 		
 		Button btStart = new Button(this, "btStart");
 		btStart.setTitle("Start Process");
@@ -59,7 +65,35 @@ public class ProcessInfoDemo extends ControlContainer {
 			}
 		});
 
-		
+		final CheckBox chkCompactView = new CheckBox(this, "chkCompView");
+		chkCompactView.setLabel("Compact View");
+		chkCompactView.addValueChangedListener(new ValueChangedListener() {
+			@Override
+			public void valueChanged(ValueChangedEvent event) {
+				processInfo.setCompactView(chkCompactView.isChecked());
+			}
+		});
+
+		final CheckBox chkShowPerc = new CheckBox(this, "chkShowPerc");
+		chkShowPerc.setLabel("Show Percentage");
+		chkShowPerc.setChecked(true);
+		chkShowPerc.addValueChangedListener(new ValueChangedListener() {
+			@Override
+			public void valueChanged(ValueChangedEvent event) {
+				processInfo.setShowPercentage(chkShowPerc.isChecked());
+			}
+		});
+
+		final CheckBox chkShowValues = new CheckBox(this, "chkShowValues");
+		chkShowValues.setLabel("Show Values");
+		chkShowValues.setChecked(true);
+		chkShowValues.addValueChangedListener(new ValueChangedListener() {
+			@Override
+			public void valueChanged(ValueChangedEvent event) {
+				processInfo.setShowValues(chkShowValues.isChecked());
+			}
+		});
+
 	}
 
 	/**

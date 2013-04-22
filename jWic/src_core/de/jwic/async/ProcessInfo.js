@@ -11,7 +11,9 @@
 				empty : true,
 			#end
 				active : $control.active,
-				showPercentage : $control.showPercentage
+				showPercentage : $control.showPercentage,
+				showValues : $control.showValues,
+				compactView : $control.compactView
 		});
 	}
 }
