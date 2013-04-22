@@ -64,6 +64,19 @@ var JWic = {
 	jwicform : null,
 
 	/**
+	 * Returns a jQuery encapsulated document element. The element is retrieved
+	 * using document.getElementById and then extended with jQuery. This eliminates the
+	 * need to escape the control ID when using jQuery's native $/jQuery function. 
+	 */
+	$ : function(id) {
+		var elm = document.getElementById(id);
+		if (elm) {
+			return jQuery(elm);
+		}
+		return null;
+	},
+	
+	/**
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse) {
