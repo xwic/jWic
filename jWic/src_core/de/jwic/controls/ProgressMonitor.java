@@ -45,6 +45,9 @@ public class ProgressMonitor implements IProgressMonitor, Serializable {
 	 * @param listener
 	 */
 	public synchronized void addValueChangedListener(ValueChangedListener listener) {
+		if (listener == null) {
+			throw new NullPointerException("Listener must not be null"); 
+		}
 		if (listeners == null) {
 			listeners = new ValueChangedListener[] { listener };
 		} else {

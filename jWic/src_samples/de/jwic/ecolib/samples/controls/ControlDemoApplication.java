@@ -115,9 +115,6 @@ public class ControlDemoApplication extends Application {
 		
 		TabControl tab = tabStrip.addTab("MenuButton");
 		new MenuButtonDemo(tab); 
-		
-		tab = tabStrip.addTab("Dialogs");
-		new DialogDemo(tab); 
 
 		tab = tabStrip.addTab("Toolbar");
 		new ToolbarDemo(tab, "demo");

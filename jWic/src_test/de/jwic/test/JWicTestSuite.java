@@ -6,13 +6,14 @@
  */
 package de.jwic.test;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import de.jwic.base.ControlMovementTest;
 import de.jwic.base.ControlTest;
 import de.jwic.base.TestLifecycle;
 import de.jwic.controls.ActionBarControlTest;
 import de.jwic.controls.AnchorLinkControlTest;
 import de.jwic.controls.ButtonControlTest;
-import de.jwic.controls.CheckboxControlTest;
 import de.jwic.controls.DateInputBoxControlTest;
 import de.jwic.controls.InputBoxControlTest;
 import de.jwic.controls.ListBoxControlTest;
@@ -20,8 +21,6 @@ import de.jwic.controls.ListControlTest;
 import de.jwic.controls.RadioGroupControlTest;
 import de.jwic.controls.TabStripControlTest;
 import de.jwic.renderer.util.JWicToolsTest;
-import junit.framework.Test;
-import junit.framework.TestSuite;
 
 /**
  * @version $Revision: 1.5 $
@@ -40,7 +39,6 @@ public class JWicTestSuite {
 		ts.addTestSuite(ActionBarControlTest.class);
 		ts.addTestSuite(AnchorLinkControlTest.class);
 		ts.addTestSuite(ButtonControlTest.class);
-		ts.addTestSuite(CheckboxControlTest.class);
 		ts.addTestSuite(DateInputBoxControlTest.class);
 		ts.addTestSuite(ListControlTest.class);
 		ts.addTestSuite(InputBoxControlTest.class);

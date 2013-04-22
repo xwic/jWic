@@ -22,6 +22,35 @@
 JWic.controls = {
 
 	/**
+	 * de.jwic.controls.ProgressBar code
+	 */
+	ProgressBar : {
+		autoRefresh : function(controlId, delay) {
+			window.setTimeout(function(){
+				JWic.controls.ProgressBar.refreshContent(controlId)
+			}, delay);
+		},
+		refreshContent : function(controlId) {
+			var ctrl = jQuery("#pb_" + JQryEscape(controlId));
+			if (ctrl && ctrl.length > 0 && !ctrl[0].requestPending) {
+				ctrl[0].requestPending = true;
+				JWic.resourceRequest(controlId, function(ajaxResponse) {
+					try {
+						JWic.controls.ProgressBar.handleResponse(controlId, ajaxResponse);
+					} catch (x) {
+						// the control was probably removed. Force a regular refresh
+						JWic.fireAction('', 'refresh', '');
+					}
+				});
+			}
+
+		},
+		handleResponse : function(controlId, ajaxReponse) {
+			
+		}
+	},
+		
+	/**
 	 * InputBoxControl script extensions.
 	 */
 	NumericInputControl : {

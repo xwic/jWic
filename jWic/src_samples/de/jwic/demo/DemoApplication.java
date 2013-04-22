@@ -19,6 +19,7 @@ import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.ListBoxDemoModule;
+import de.jwic.demo.basics.ProgressBarDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.TabStripDemoModule;
@@ -60,6 +61,7 @@ public class DemoApplication extends Application {
 		modules.add(new GroupControlDemoModule());
 		modules.add(new ListBoxDemoModule());
 		modules.add(new RadioGroupDemoModule());
+		modules.add(new ProgressBarDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);
