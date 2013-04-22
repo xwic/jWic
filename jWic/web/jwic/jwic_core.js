@@ -18,6 +18,8 @@
  * communication. It is a replacement for the previous jwic.js file.
  */
 
+jQuery.noConflict();
+
 /**
  * JWic defines the public API for JWic server/client communication.
  */

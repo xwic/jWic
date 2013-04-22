@@ -29,10 +29,14 @@
           target: default              
          ================================= -->
     <target name="default" depends="build,build_compatibility,build_sample,javadoc" description="Create the distribution including jwic.jar and other files.">
+    	
     	<mkdir dir="${dist}/web"/>
+
     	<copy todir="${dist}/web">
       		<fileset dir="web"/>
     	</copy>
+    	
+    	<antcall target="minify-resource-files" />
 
     	<mkdir dir="${dist}/lib"/>
     	<copy todir="${dist}/lib" preservelastmodified="true">
@@ -159,6 +163,14 @@
 				<javadoc localRef="${dist}/doc/api" httpRef="http://www.jwic.de/home/api/${release}"/>
 			</java2html>
 
+	</target>
+	
+	
+	<!-- Minify Resources -->
+	
+	<taskdef name="minifyResources" classname="de.jwic.build.MinifyResources" classpath="bin;build/yuicompressor-2.4.7.jar;build/rhino-1.6R7.jar;build/jargs-1.0.jar" />		
+	<target name="minify-resource-files">
+		<minifyResources versionTag="${release}" pageFile="${dist}/web/jwic/include.header.vtl" src="web/jwic" />
 	</target>
 
 </project>

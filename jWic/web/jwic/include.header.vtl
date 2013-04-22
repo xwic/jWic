@@ -17,16 +17,36 @@
 	<META http-equiv="Pragma" content="no-cache">
 	<META http-equiv="Expires" content="-1">
 	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script src="$contextPath/jwic/lib/jQuery/js/jquery-1.8.2.js"></script>
-    <script src="$contextPath/jwic/lib/jQuery/js/jquery-ui-1.9.1.custom.js"></script> 
-    <script src="$contextPath/jwic/lib/jQuery/js/autoNumeric.js"></script>
-    <script src="$contextPath/jwic/lib/jQuery/js/jquery.json-2.4.js"></script>
-    <script src="$contextPath/jwic/lib/noty/jquery.noty.js"></script>
-    <script src="$contextPath/jwic/lib/noty/layouts/top.js"></script>
-    <script src="$contextPath/jwic/lib/noty/themes/default.js"></script>
+	
+	#* PRODUCTION-MINIFY-START *#
+		#* This part is replaced during the build process with a single CSS and a single JS *#
+    <script src="../jwic/lib/jQuery/js/jquery-1.8.2.js"></script>
+    <script src="../jwic/lib/jQuery/js/jquery-ui-1.9.1.custom.js"></script> 
+    <script src="../jwic/lib/jQuery/js/autoNumeric.js"></script>
+    <script src="../jwic/lib/jQuery/js/jquery.json-2.4.js"></script>
+    <script src="../jwic/lib/noty/jquery.noty.js"></script>
+    <script src="../jwic/lib/noty/layouts/top.js"></script>
+    <script src="../jwic/lib/noty/themes/default.js"></script>
+	
+	<SCRIPT LANGUAGE="JavaScript" SRC="../jwic/jwic_core.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="../jwic/calendar/calendar.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="../jwic/jwic_controls.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="../jwic/jwic_compatibility.js"></SCRIPT>
+
+	<script language="JavaScript">
+		JWic.contextPath = "$contextPath";
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="../jwic/jwic_compatibility.css">	
+	<link rel="stylesheet" type="text/css" href="../jwic/jwic.css">
+	<link rel="stylesheet" type="text/css" href="../jwic/lib/themes/default.css">
+	<link rel="stylesheet" type="text/css" href="../jwic/lib/themes/jwicdefault.css">		
+	<link rel="stylesheet" type="text/css" href="../jwic/lib/themes/j-combo.css">		
+
+	
+	#* PRODUCTION-MINIFY-END *#	
 	<script language="JavaScript">
 		var _contextPath = "$contextPath";
-		jQuery.noConflict();
 		
 		//fix for IE7 parse problem
 		//native parsing on IE7 is realy slow
@@ -39,23 +59,6 @@
 		});
 		
 	</script>
-
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/calendar/calendar.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_core.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_controls.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_compatibility.js"></SCRIPT>
-
-	<script language="JavaScript">
-		JWic.contextPath = "$contextPath";
-	</script>
-
-		
-	<!-- <link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic.css"> -->
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic_compatibility.css">	
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic.css">
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/themes/${context.themeName}/jwic_theme.css">	
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/default.css">
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/jwicdefault.css">		
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/j-combo.css">		
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/jQuery/css/${context.themeName}/jquery-ui.css">	
 	
+	<link rel="stylesheet" type="text/css" href="../jwic/lib/jQuery/css/${context.themeName}/jquery-ui.css">	
+	<link rel="stylesheet" type="text/css" href="../jwic/themes/${context.themeName}/jwic_theme.css">	
