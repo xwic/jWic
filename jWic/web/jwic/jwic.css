@@ -645,3 +645,16 @@ select.j-listbox {
 	/** Chrome does not support background images on select tags. It needs to be disabled in order to not break other layouts */
 	background-image: none;
 }
+
+/**
+ * ProgressBar Label
+ */
+.j-progress-bar-label {
+	float: left;
+	margin-left: 4%; 
+	width: 95%;
+	text-align: center;
+	margin-top: 5px;
+	font-weight: bold;
+	text-shadow: 1px 1px 0 #fff;
+}
