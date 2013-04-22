@@ -10,7 +10,7 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div')).dialog({
+		var win = jQuery('#'+JWic.util.JQryEscape('win_${control.controlID}_div')).dialog({
 			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
 			#if($control.width != 0) width : $control.width, #end
@@ -197,7 +197,7 @@
 	 * Destroy the window if it still exists.
 	 */
 	destroy : function(element) {
-		var win = jQuery('#'+JQryEscape('win_${control.controlID}_div'));	
+		var win = jQuery('#'+JWic.util.JQryEscape('win_${control.controlID}_div'));	
 		win.dialog('destroy').remove();
 		
 	}

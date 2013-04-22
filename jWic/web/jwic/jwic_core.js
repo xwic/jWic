@@ -45,283 +45,6 @@ var JWic = {
 	 */
 	pleaseWaitDelayTime :500,
 	
-	/**
-	 * Send an action request to the server, including the form values. The
-	 * result contains the modified controls, which will then be updated on the
-	 * page.
-	 */
-	fireAction : function(senderControl, actionName, actionParameter) {
-		
-		JWic.commandQueue.push({
-			senderControl : senderControl,
-			actionName : actionName,
-			actionParameter : actionParameter
-		});
-		if (!JWic.isProcessing) {
-			JWic._processNextAction()
-		}
-	},
-	
-	/**
-	 * Check if the specified library was loaded or not. If it is not loaded
-	 * yet, it will be added to the page. 
-	 */
-	requiresStaticLibrary : function(libraryName) {
-		
-		if (!JWic.loadedStaticLibs[libraryName]) {
-			JWic.log("Loading static library " + libraryName);
-			
-			var elm = "<SCRIPT src=\"" + JWic.contextPath + "/cp/" + libraryName + "\"></SCRIPT>";
-			
-			jQuery("head").append(elm);
-			
-			JWic.loadedStaticLibs[libraryName] = true;
-		} 
-		
-	},
-	
-	_processNextAction : function() {
-		
-		if (JWic.commandQueue.length == 0 || JWic.isProcessing) {
-			return;
-		}
-		
-		var cmd = JWic.commandQueue[0]; // take first in
-		JWic.commandQueue.splice(0, 1);
-		
-		JWic.isProcessing = true;
-		window.setTimeout("JWicInternal.showClickBlocker(true)",
-				JWic.pleaseWaitDelayTime);
-
-		var jwicform = jQuery('#jwicform').get(0);
-		if (!jwicform) {
-			// This might occure if the page is refreshed due to a timeout
-			JWic.log("jwicform not found - command skipped");
-			return;
-		}
-		jwicform.elements['__ctrlid'].value = cmd.senderControl;
-		jwicform.elements['__action'].value = cmd.actionName;
-		jwicform.elements['__acpara'].value = cmd.actionParameter;
-
-		// collect system informations.
-		var sysinfoXY = JWicInternal.getWindowSize();
-		var sysinfo = sysinfoXY[0] + ";" + sysinfoXY[1] + ";" + sysinfoXY[2]
-				+ ";" + sysinfoXY[3];
-		if (jwicform.elements['__sysinfo']) {
-			jwicform.elements['__sysinfo'].value = sysinfo;
-		}
-
-		jQuery.each(JWicInternal.beforeRequestCallbacks, function (key, item) {
-			item();
-		});
-		
-		// check for file attachments
-	    for (var i = 0; i < jwicform.elements.length; i++) {
-	        var element = jwicform.elements[i];
-	        if (element.type == "file" && element.value != "") {
-	        	// if a file-upload control is on the page that has a file assigned,
-	        	// a real submit is required to transfer the file to the server.
-	        	// make sure that the encoding type is multipart, before the data is submitted.
-	        	jQuery(jwicform).trigger("beforeSubmit");
-	        	jwicform.encoding = 'multipart/form-data';
-	        	jwicform.submit();
-	        	return;
-	        }
-	    }
-	    jQuery(jwicform).trigger("beforeSerialization");	    
-		var paramData = jQuery(jwicform).serialize();
-		jQuery(jwicform).trigger("afterSerialization");
-
-		paramData+="&_ajaxreq=1";
-		paramData+="&_format=JSON";
-
-		var url = document.location.href;
-		var idx = url.indexOf('#');
-		if (idx != -1) {
-			url = url.substring(0, idx);
-		}
-		jQuery.ajax({
-			url: url,
-			type :'post',
-			dataType: 'json',
-			data : paramData,
-			success : function(data, textStatus, jqXHR) {
-		
-				JWicInternal.handleResponse(jqXHR);
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				alert(
-						"An exception has occured processing the server response: "
-								+ errorThrown, "Error Notification.");
-				JWicInternal.endRequest();
-			}
-		});
-	},
-	
-	/**
-	 * Opens a request to a specific control. The control must implement the
-	 * IResourceControl interface to reply to the request.
-	 */
-	resourceRequest: function(controlId, callBack, parameter) {
-		
-		var paramData = {};
-		
-		if (jQuery.isPlainObject(parameter)) {
-			jQuery.each(parameter, function(key, val){
-				paramData[key] = val;
-			});
-			
-		} else {
-			paramData['parameter'] = parameter;
-		}
-		paramData['controlId'] = controlId;
-		paramData['_resreq'] = '1';
-		paramData['_msid'] = document.forms['jwicform'].elements['_msid'].value;
-
-		var url = document.location.href;
-		var idx = url.indexOf('#');
-		if (idx != -1) {
-			url = url.substring(0, idx);
-		}
-		
-		jQuery.ajax({
-			url: url,
-			type :'post',
-			data : paramData,
-			success : function(data, textStatus, jqXHR) { callBack(jqXHR); } ,
-			error : function(jqXHR, textStatus, errorThrown) {
-				if (jqXHR.status == 404) { 
-					callBack(jqXHR);
-				} else {
-					alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
-				}
-			}
-		});
-		
-	},
-
-	/**
-	 * Restores the scrolling position of a scrollable container. This is
-	 * required if the container was updated and the old position must be
-	 * restored.
-	 */
-	restoreScrolling : function(ctrlId, paneId) {
-		if (typeof paneId == "undefined") {
-			paneId = "div_" + ctrlId;
-		}
-		var pane = jQuery('#' + JQryEscape(paneId)).get(0);
-		if (pane) {
-			var form = jQuery('#jwicform').get(0);
-			var top = form.elements['fld_' + ctrlId + '.top'].value;
-			var left = form.elements['fld_' + ctrlId + '.left'].value;
-			pane.scrollTop = top;
-			pane.scrollLeft = left;
-			// log("Set scrolling for '" + paneId + "' to " + top + ", " +
-			// left);
-		} else {
-			// log("WARNING: Can't fix scrolling for " + paneId);
-		}
-
-	},
-	/**
-	 * Show a dialog with a message. Encapsulates the PWC library functions.
-	 */
-	alert : function(message, title) {
-		//TODO: replace with jQuery
-		Dialog.alert(message, {
-			className :"alphacube",
-			options :"",
-			title :title ? title : ""
-		});
-	},
-	
-	/**
-	 * Add a new callback.
-	 */
-	addBeforeRequestCallback : function(controlId, callback) {
-		JWicInternal.beforeRequestCallbacks[controlId] = callback;
-	},
-	
-	log : function(message) {
-
-		if (typeof console != "undefined") {
-			console.log(message);
-		} 
-		
-		if (JWic.debugMode) {
-			var elem = document.forms['jwicform'].elements['_debugLog'];
-			elem.value = JWic._logCount + ":" + message + "\n" + elem.value;
-			JWic._logCount++;
-		}
-	}
-
-
-};
-
-JWic.util = {
-		clearSelection : function() {
-			if(document.selection && document.selection.empty) {
-				document.selection.empty();
-			} else if (window.getSelection) {
-				var sel = window.getSelection();
-				if(sel && sel.removeAllRanges) {
-					sel.removeAllRanges() ;
-				}
-			}
-		},
-		
-		removeElement: function(val, removeMe, seperator) {
-			if (!seperator) seperator = ";";
-			var x = val.split(seperator);
-			var n = "";
-			jQuery.each(x, function(key, elm) {
-				if (elm != removeMe) {
-					if (n.length != 0) {
-						n += seperator;
-					}
-					n += elm;
-				}
-			});
-			return n;
-		}
-}
-
-/**
- * Common UI Functions.
- */
-JWic.ui = {
-
-		/**
-		 * Displays a notification dialog on the top of the page.
-		 */
-		Notify : {
-		
-			/**
-			 * Displays the message box.
-			 */
-			display : function (message, type, duration, delay) {
-				
-				duration = duration || 3000;
-				type = type || "alert";
-
-				var x = noty({
-					text: message,
-					timeout : duration,
-					type : type
-				});
-				
-				return;
-				
-			}
-		}
-			
-	}
-
-/**
- * Defines the internal (private) API.
- */
-var JWicInternal = {
-
 	lastResizeTime :0,
 
 	/**
@@ -334,12 +57,17 @@ var JWicInternal = {
 	 * invoked before a request is send to the server.
 	 */
 	beforeRequestCallbacks : {},
+	
+	/**
+	 * JWic form element
+	 */
+	jwicform : null,
 
 	/**
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse) {
-		var jwicform = jQuery('#jwicform').get(0);
+		//var jwicform = jQuery('#jwicform').get(0);
 
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
 			alert("The server did not respond to the request. Please check your network connectivity and try again.");
@@ -380,7 +108,7 @@ var JWicInternal = {
 			if (response.updateables) {
 				
 				jQuery.each(response.updateables, function(idx, elm) {
-					JWicInternal.updateControl(elm);
+					JWic.updateControl(elm);
 				});
 			}
 			
@@ -401,7 +129,7 @@ var JWicInternal = {
 	 * Update a control on the document.
 	 */
 	updateControl : function(elm, control) {
-		control = control ? control : jQuery("#ctrl_" + JQryEscape(elm.key)).get(0);
+		control = control ? control : document.getElementById("ctrl_" + elm.key);
 		
 		var scripts = [];
 		if (elm.scripts) {
@@ -442,7 +170,7 @@ var JWicInternal = {
 								// rendered snippit received
 
 				// call destroy handler and remove them
-				var deLst = JWicInternal.destroyList;
+				var deLst = JWic.destroyList;
 				for ( var i = deLst.length - 1; i >= 0; i--) {
 					if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.indexOf(elm.key + ".") === 0)) {
 						JWic.log("Destroy: " + deLst[i].key + " because of " + elm.key);
@@ -456,14 +184,14 @@ var JWicInternal = {
 				}
 				// remove any beforeUpdateCallbacks
 				var allKeys = [];
-				jQuery.each(JWicInternal.beforeRequestCallbacks, function(key, value) {
+				jQuery.each(JWic.beforeRequestCallbacks, function(key, value) {
 				      allKeys.push(key);
 				});
 				
 				jQuery.each(allKeys, function(key, val) {
 					
 					if (val.indexOf(elm.key) === 0) {
-						delete JWicInternal.beforeRequestCallbacks[key];
+						delete JWic.beforeRequestCallbacks[key];
 					}
 				});
 				
@@ -506,8 +234,9 @@ var JWicInternal = {
 			JWic._processNextAction()
 		}
 
-		JWicInternal.showClickBlocker(false);
+		JWic.showClickBlocker(false);
 	},
+	
 	/**
 	 * Shows or hides the block clicker, so the user cannot click other link
 	 * during the processing of the current click.
@@ -567,27 +296,299 @@ var JWicInternal = {
 		var myWidth = 0, myHeight = 0, scrollTop, scrollLeft;
 		var type;
 		if (typeof (window.innerWidth) == 'number') {
-			// Non-IE
-		myWidth = window.innerWidth;
-		myHeight = window.innerHeight;
-		scrollLeft = window.pageXOffset;
-		scrollTop = window.pageYOffset;
-	} else if (document.documentElement
-			&& (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
-		// IE 6+ in 'standards compliant mode'
-		myWidth = document.documentElement.clientWidth;
-		myHeight = document.documentElement.clientHeight;
-		scrollLeft = document.documentElement.scrollLeft;
-		scrollTop = document.documentElement.scrollTop;
-	} else if (document.body
-			&& (document.body.clientWidth || document.body.clientHeight)) {
-		// IE 4 compatible
-		myWidth = document.body.clientWidth;
-		myHeight = document.body.clientHeight;
-		scrollLeft = document.body.scrollLeft;
-		scrollTop = document.body.scrollTop;
+				// Non-IE
+			myWidth = window.innerWidth;
+			myHeight = window.innerHeight;
+			scrollLeft = window.pageXOffset;
+			scrollTop = window.pageYOffset;
+		} else if (document.documentElement
+				&& (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
+			// IE 6+ in 'standards compliant mode'
+			myWidth = document.documentElement.clientWidth;
+			myHeight = document.documentElement.clientHeight;
+			scrollLeft = document.documentElement.scrollLeft;
+			scrollTop = document.documentElement.scrollTop;
+		} else if (document.body
+				&& (document.body.clientWidth || document.body.clientHeight)) {
+			// IE 4 compatible
+			myWidth = document.body.clientWidth;
+			myHeight = document.body.clientHeight;
+			scrollLeft = document.body.scrollLeft;
+			scrollTop = document.body.scrollTop;
+		}
+		return [ myWidth, myHeight, scrollLeft, scrollTop ];
+	},
+	
+	/**
+	 * Send an action request to the server, including the form values. The
+	 * result contains the modified controls, which will then be updated on the
+	 * page.
+	 */
+	fireAction : function(senderControl, actionName, actionParameter) {
+		
+		JWic.commandQueue.push({
+			senderControl : senderControl,
+			actionName : actionName,
+			actionParameter : actionParameter
+		});
+		if (!JWic.isProcessing) {
+			JWic._processNextAction()
+		}
+	},
+	
+	/**
+	 * Check if the specified library was loaded or not. If it is not loaded
+	 * yet, it will be added to the page. 
+	 */
+	requiresStaticLibrary : function(libraryName) {
+		
+		if (!JWic.loadedStaticLibs[libraryName]) {
+			JWic.log("Loading static library " + libraryName);
+			
+			var elm = "<SCRIPT src=\"" + JWic.contextPath + "/cp/" + libraryName + "\"></SCRIPT>";
+			
+			jQuery("head").append(elm);
+			
+			JWic.loadedStaticLibs[libraryName] = true;
+		} 
+		
+	},
+	
+	_processNextAction : function() {
+		
+		if (JWic.commandQueue.length == 0 || JWic.isProcessing) {
+			return;
+		}
+		
+		var cmd = JWic.commandQueue[0]; // take first in
+		JWic.commandQueue.splice(0, 1);
+		
+		JWic.isProcessing = true;
+		window.setTimeout("JWic.showClickBlocker(true)",
+				JWic.pleaseWaitDelayTime);
+
+		if (!jwicform) {
+			// This might occure if the page is refreshed due to a timeout
+			JWic.log("jwicform not found - command skipped");
+			return;
+		}
+		jwicform.elements['__ctrlid'].value = cmd.senderControl;
+		jwicform.elements['__action'].value = cmd.actionName;
+		jwicform.elements['__acpara'].value = cmd.actionParameter;
+
+		// collect system informations.
+		var sysinfoXY = JWic.getWindowSize();
+		var sysinfo = sysinfoXY[0] + ";" + sysinfoXY[1] + ";" + sysinfoXY[2]
+				+ ";" + sysinfoXY[3];
+		if (jwicform.elements['__sysinfo']) {
+			jwicform.elements['__sysinfo'].value = sysinfo;
+		}
+
+		jQuery.each(JWic.beforeRequestCallbacks, function (key, item) {
+			item();
+		});
+		
+		// check for file attachments
+	    for (var i = 0; i < jwicform.elements.length; i++) {
+	        var element = jwicform.elements[i];
+	        if (element.type == "file" && element.value != "") {
+	        	// if a file-upload control is on the page that has a file assigned,
+	        	// a real submit is required to transfer the file to the server.
+	        	// make sure that the encoding type is multipart, before the data is submitted.
+	        	jQuery(jwicform).trigger("beforeSubmit");
+	        	jwicform.encoding = 'multipart/form-data';
+	        	jwicform.submit();
+	        	return;
+	        }
+	    }
+	    jQuery(jwicform).trigger("beforeSerialization");	    
+		var paramData = jQuery(jwicform).serialize();
+		jQuery(jwicform).trigger("afterSerialization");
+
+		paramData+="&_ajaxreq=1";
+		paramData+="&_format=JSON";
+
+		var url = document.location.href;
+		var idx = url.indexOf('#');
+		if (idx != -1) {
+			url = url.substring(0, idx);
+		}
+		jQuery.ajax({
+			url: url,
+			type :'post',
+			dataType: 'json',
+			data : paramData,
+			success : function(data, textStatus, jqXHR) {
+		
+				JWic.handleResponse(jqXHR);
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				alert(
+						"An exception has occured processing the server response: "
+								+ errorThrown, "Error Notification.");
+				JWic.endRequest();
+			}
+		});
+	},
+	
+	/**
+	 * Opens a request to a specific control. The control must implement the
+	 * IResourceControl interface to reply to the request.
+	 */
+	resourceRequest: function(controlId, callBack, parameter) {
+		
+		var paramData = {};
+		
+		if (jQuery.isPlainObject(parameter)) {
+			jQuery.each(parameter, function(key, val){
+				paramData[key] = val;
+			});
+			
+		} else {
+			paramData['parameter'] = parameter;
+		}
+		paramData['controlId'] = controlId;
+		paramData['_resreq'] = '1';
+		paramData['_msid'] = document.forms['jwicform'].elements['_msid'].value;
+
+		var url = document.location.href;
+		var idx = url.indexOf('#');
+		if (idx != -1) {
+			url = url.substring(0, idx);
+		}
+		
+		jQuery.ajax({
+			url: url,
+			type :'post',
+			data : paramData,
+			success : function(data, textStatus, jqXHR) { callBack(jqXHR); } ,
+			error : function(jqXHR, textStatus, errorThrown) {
+				if (jqXHR.status == 404) { 
+					callBack(jqXHR);
+				} else {
+					alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
+				}
+			}
+		});
+		
+	},
+
+	/**
+	 * Restores the scrolling position of a scrollable container. This is
+	 * required if the container was updated and the old position must be
+	 * restored.
+	 */
+	restoreScrolling : function(ctrlId, paneId) {
+		if (typeof paneId == "undefined") {
+			paneId = "div_" + ctrlId;
+		}
+		var pane = document.getElementById(paneId);
+		if (pane) {
+			
+			var top = jwicform.elements['fld_' + ctrlId + '.top'].value;
+			var left = jwicform.elements['fld_' + ctrlId + '.left'].value;
+			pane.scrollTop = top;
+			pane.scrollLeft = left;
+			// log("Set scrolling for '" + paneId + "' to " + top + ", " +
+			// left);
+		} else {
+			// log("WARNING: Can't fix scrolling for " + paneId);
+		}
+
+	},
+	/**
+	 * Show a dialog with a message. Encapsulates the PWC library functions.
+	 */
+	alert : function(message, title) {
+		//TODO: replace with jQuery
+		Dialog.alert(message, {
+			className :"alphacube",
+			options :"",
+			title :title ? title : ""
+		});
+	},
+	
+	/**
+	 * Add a new callback.
+	 */
+	addBeforeRequestCallback : function(controlId, callback) {
+		JWic.beforeRequestCallbacks[controlId] = callback;
+	},
+	
+	log : function(message) {
+
+		if (typeof console != "undefined") {
+			console.log(message);
+		} 
+		
+		if (JWic.debugMode) {
+			var elem = document.forms['jwicform'].elements['_debugLog'];
+			elem.value = JWic._logCount + ":" + message + "\n" + elem.value;
+			JWic._logCount++;
+		}
 	}
-	return [ myWidth, myHeight, scrollLeft, scrollTop ];
-	}
+
+
 };
 
+JWic.util = {
+		clearSelection : function() {
+			if(document.selection && document.selection.empty) {
+				document.selection.empty();
+			} else if (window.getSelection) {
+				var sel = window.getSelection();
+				if(sel && sel.removeAllRanges) {
+					sel.removeAllRanges() ;
+				}
+			}
+		},
+		
+		removeElement: function(val, removeMe, seperator) {
+			if (!seperator) seperator = ";";
+			var x = val.split(seperator);
+			var n = "";
+			jQuery.each(x, function(key, elm) {
+				if (elm != removeMe) {
+					if (n.length != 0) {
+						n += seperator;
+					}
+					n += elm;
+				}
+			});
+			return n;
+		},
+		
+		JQryEscape : function (str){
+			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+		}		
+}
+
+/**
+ * Common UI Functions.
+ */
+JWic.ui = {
+
+		/**
+		 * Displays a notification dialog on the top of the page.
+		 */
+		Notify : {
+		
+			/**
+			 * Displays the message box.
+			 */
+			display : function (message, type, duration, delay) {
+				
+				duration = duration || 3000;
+				type = type || "alert";
+
+				var x = noty({
+					text: message,
+					timeout : duration,
+					type : type
+				});
+				
+				return;
+				
+			}
+		}			
+}

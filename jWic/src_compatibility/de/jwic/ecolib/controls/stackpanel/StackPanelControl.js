@@ -1,7 +1,7 @@
 {
 	
 	afterUpdate:function(elm){
-		var accordion = jQuery('#'+JQryEscape('${control.controlID}')+'_accordion').accordion();
+		var accordion = jQuery('#'+JWic.util.JQryEscape('${control.controlID}')+'_accordion').accordion();
 	}
 
 }

@@ -10,8 +10,8 @@
 	
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var inpElm = jQuery('#' + JQryEscape('${fld.id}')).get(0);
-		var comboElm = jQuery('#' + JQryEscape('${control.controlID}')).get(0);
+		var inpElm = document.getElementById('${fld.id}');
+		var comboElm = document.getElementById('${control.controlID}');
 		if (inpElm) {
 				comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
 				comboElm.contentRenderer = $control.comboBehavior.contentRendererJSClass;
@@ -63,7 +63,7 @@
 	 * ..
 	 */
 	destroy : function(element) {
-		var inpElm = jQuery("#" + JQryEscape("${fld.id}")).get(0);
+		var inpElm =document.getElementById("${fld.id}");
 		if (inpElm) {
 			JWic.controls.Combo.destroy("$control.controlID", inpElm);
 		}

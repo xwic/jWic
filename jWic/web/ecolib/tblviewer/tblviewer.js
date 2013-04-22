@@ -221,13 +221,13 @@
 
 	function tblViewer_resizeOnClientSide(localColIdx, newWidth){
 		
-		var contentTableName = "#tblContent_"+JQryEscape(tblv_CtrlId);
+		var contentTableName = "#tblContent_"+JWic.util.JQryEscape(tblv_CtrlId);
 		
-		var divLeftViewHeadName = "#tblViewLeftHead_"+JQryEscape(tblv_CtrlId);
-		var divLeftDataLayerName = "#tblViewLeftDataLayer_"+JQryEscape(tblv_CtrlId);
+		var divLeftViewHeadName = "#tblViewLeftHead_"+JWic.util.JQryEscape(tblv_CtrlId);
+		var divLeftDataLayerName = "#tblViewLeftDataLayer_"+JWic.util.JQryEscape(tblv_CtrlId);
 
-		var divViewHeadName = "#tblViewHead_"+JQryEscape(tblv_CtrlId);
-		var divDataLayerName = "#tblViewDataLayer_"+JQryEscape(tblv_CtrlId);
+		var divViewHeadName = "#tblViewHead_"+JWic.util.JQryEscape(tblv_CtrlId);
+		var divDataLayerName = "#tblViewDataLayer_"+JWic.util.JQryEscape(tblv_CtrlId);
 		
 		
 		

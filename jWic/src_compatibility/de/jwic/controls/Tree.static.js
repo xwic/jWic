@@ -13,7 +13,7 @@
 				 * Initialize a new control.
 				 */
 				initialize : function(elm) {
-					var tree = jQuery("#" + JQryEscape(elm)).get(0);
+					var tree = jQuery("#" + JWic.util.JQryEscape(elm)).get(0);
 					JWic.controls.Tree.loadData(tree, "");
 				},
 				
@@ -49,7 +49,7 @@
 				
 					var response = jQuery.parseJSON(ajaxResponse.responseText);
 					if (response.controlId) {
-						var tree = jQuery("#"  + JQryEscape(response.controlId)).get(0);
+						var tree = jQuery("#"  + JWic.util.JQryEscape(response.controlId)).get(0);
 						tree.dataStore = []; // $A(response.data);
 						jQuery.each(response.data, function(key, value) {
 							tree.dataStore.push(value);

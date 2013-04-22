@@ -9,7 +9,7 @@ JWic.ecolib.controls = {
 			 */
 			updateContent : function(controlId) {
 		
-					var ctrl = jQuery("#pi_" + JQryEscape(controlId));
+					var ctrl = jQuery("#pi_" + JWic.util.JQryEscape(controlId));
 					if (ctrl && !ctrl.requestPending) {
 						ctrl.requestPending = true;
 						JWic.resourceRequest(controlId, function(ajaxResponse) {
@@ -29,14 +29,14 @@ JWic.ecolib.controls = {
 			 */
 			handleResponse : function(controlId, resp) {
 				var data = jQuery.parseJSON(resp.responseText);
-				var container = jQuery("#pi_" + JQryEscape(controlId)).get(0);
+				var container = document.getElementById("pi_" + controlId);
 				if (container) { // view container might have been removed in the meantime
 					if (data.monitor) {
 						var m = data.monitor;
-						var piLabel = jQuery("#pi_label_" + JQryEscape(controlId));
-						var piProg = jQuery("#pi_progress_" + JQryEscape(controlId));
-						var piProgBar = jQuery("#pi_progressbar_" + JQryEscape(controlId));
-						var piVal = jQuery("#pi_values_" + JQryEscape(controlId));
+						var piLabel = jQuery("#pi_label_" + JWic.util.JQryEscape(controlId));
+						var piProg = jQuery("#pi_progress_" + JWic.util.JQryEscape(controlId));
+						var piProgBar = jQuery("#pi_progressbar_" + JWic.util.JQryEscape(controlId));
+						var piVal = jQuery("#pi_values_" + JWic.util.JQryEscape(controlId));
 						if (piLabel) {
 							piLabel.html(m.infoText);
 						}

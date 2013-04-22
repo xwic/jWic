@@ -2,7 +2,7 @@
 	// Attach to events...
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
+		var btn = jQuery('#btn_'+JWic.util.JQryEscape('${control.controlID}'));
 		if (btn) {
 			JWic.controls.Button.initialize(btn, "${control.controlID}");
 			btn.attr("_ctrlEnabled", "$control.isEnabled()");

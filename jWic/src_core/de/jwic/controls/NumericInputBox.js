@@ -2,8 +2,8 @@
 	
 	afterUpdate: function(element) {
 		
-		var inpElm = jQuery('#'+JQryEscape("${control.controlID}"));
-		var hidden = jQuery('#'+JQryEscape("${control.controlID}_field"));
+		var inpElm = jQuery('#'+JWic.util.JQryEscape("${control.controlID}"));
+		var hidden = jQuery('#'+JWic.util.JQryEscape("${control.controlID}_field"));
 		try {
 			if (inpElm) {
 				
@@ -27,7 +27,7 @@
 	}, 
 	
 	destroy: function(element) {
-		var inpElm =jQuery('#'+JQryEscape("${control.controlID}"));
+		var inpElm =jQuery('#'+JWic.util.JQryEscape("${control.controlID}"));
 		if (inpElm) {
 			JWic.controls.NumericInputControl.destroy(inpElm);
 		}

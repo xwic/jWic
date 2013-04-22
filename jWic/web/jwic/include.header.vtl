@@ -28,9 +28,6 @@
 		var _contextPath = "$contextPath";
 		jQuery.noConflict();
 		
-		var JQryEscape = function (str){
-			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
-		};		
 		//fix for IE7 parse problem
 		//native parsing on IE7 is realy slow
 		//jQuery does a check to see if there is a native parser available

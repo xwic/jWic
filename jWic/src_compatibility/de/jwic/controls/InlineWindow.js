@@ -2,9 +2,9 @@
 	afterUpdate: function(element) {
 	
 	#if($control.position.toString() == "CENTER_SCREEN")
-		var win = jQuery('#' + JQryEscape('elm_$control.controlID'));
+		var win = jQuery('#' + JWic.util.JQryEscape('elm_$control.controlID'));
 		
-		var windowSize = JWicInternal.getWindowSize();
+		var windowSize = JWic.getWindowSize();
 		
 		
 		var newTop = ((windowSize[1] - win.height()) / 2);
@@ -23,7 +23,7 @@
 		});
 	#end
 	#if($control.position.toString() == "CENTER") 
-		var win = jQuery('#' + JQryEscape('elm_$control.controlID'));
+		var win = jQuery('#' + JWic.util.JQryEscape('elm_$control.controlID'));
 		win.css("marginLeft", "auto");
 		win.css("marginRight", "auto");
 	#end

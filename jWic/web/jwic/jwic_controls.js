@@ -72,7 +72,7 @@ JWic.controls = {
 		
 		changeHandler : function(e) {
 			var elm =  jQuery(e.target);
-			var elmHidden = jQuery('#'+JQryEscape(e.target.id + "_field"));
+			var elmHidden = jQuery('#'+JWic.util.JQryEscape(e.target.id + "_field"));
 			var value = elm.autoNumeric('get');
 			elmHidden.val(value);
 		},
@@ -178,10 +178,10 @@ JWic.controls = {
 	 */
 	Window : {
 		updateHandler : function(controlId) {
-			var win = jQuery('#'+JQryEscape(controlId));
+			var win = jQuery('#'+JWic.util.JQryEscape(controlId));
 			if (win) {
 				// var size = win.getSize();
-				var field = jQuery("#fld_" + JQryEscape(controlId));
+				var field = jQuery("#fld_" + JWic.util.JQryEscape(controlId));
 				if (field) { // assume that if one field exists, the others
 								// exist as well.
 					field.width(win.width()); 
@@ -198,9 +198,9 @@ JWic.controls = {
 		 * it moves the below IFRAME to hide the select elements.
 		 */
 		adjustIEBlocker : function(controlId) {
-			jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
-			var blocker = jQuery("#win_" + JQryEscape(controlId)+ "_blocker");
-			var source =jQuery("#win_" + JQryEscape(controlId)); // get the
+			jQuery("#win_" + JWic.util.JQryEscape(controlId)+ "_blocker");
+			var blocker = jQuery("#win_" + JWic.util.JQryEscape(controlId)+ "_blocker");
+			var source =jQuery("#win_" + JWic.util.JQryEscape(controlId)); // get the
 																	// window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
@@ -246,9 +246,9 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(controlId, inpElm) {
-			var escapedControlId = JQryEscape(controlId);
-			var comboBox = jQuery("#" + escapedControlId).get(0);
-			var iconElm = jQuery("#" + escapedControlId + "_open").get(0);
+			var escapedControlId = JWic.util.JQryEscape(controlId);
+			var comboBox = document.getElementById(controlId);
+			var iconElm = document.getElementById(controlId + "_open");
 
 			this._activeComboContentBox = null;
 			
@@ -260,7 +260,7 @@ JWic.controls = {
 			this._lostFocusClose = false;
 			
 			comboBox.jComboField = inpElm;
-			comboBox.jComboKey = jQuery("#fld_" + escapedControlId + "\\.key").get(0);
+			comboBox.jComboKey = document.getElementById("fld_" + controlId + ".key");
 			comboBox.dataFilter = JWic.controls.Combo.StringDataFilter;
 			comboBox.keyDelayTime = 100;
 			
@@ -312,8 +312,8 @@ JWic.controls = {
 		 */
 		destroy : function(controlId, inpElm) {
 			var jInpElem = jQuery(inpElm);
-			if (jQuery('#win_'+JQryEscape(controlId)).is(':data(dialog)')) {
-				jQuery('#win_'+JQryEscape(controlId)).dialog('destroy');
+			if (jQuery('#win_'+JWic.util.JQryEscape(controlId)).is(':data(dialog)')) {
+				jQuery('#win_'+JWic.util.JQryEscape(controlId)).dialog('destroy');
 			}
 			jInpElem.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
 			jInpElem.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
@@ -338,7 +338,7 @@ JWic.controls = {
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("key pressed: " + e.keyCode + " --");
-				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
+				var comboBox = document.getElementById(ctrlId);
 				if (comboBox.multiSelect) { // behave differently if multiSelect
 											// is on
 					// no actions yet -- might go for scrolling etc. via
@@ -379,7 +379,7 @@ JWic.controls = {
 		afterKeySearchStart : function(triggeredIndex) {
 			if (triggeredIndex == JWic.controls.Combo._delayKeySearchIdx && JWic.controls.Combo._delayControlId != null) {
 				var ctrlId = JWic.controls.Combo._delayControlId;
-				var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
+				var comboBox = document.getElementById(ctrlId);
 				
 				JWic.controls.Combo._delayControlId = null; // clear
 				
@@ -416,7 +416,7 @@ JWic.controls = {
 		 */
 		selectRow : function(ctrlId, newSelection) {
 			JWic.log("selectRow: " + newSelection);
-			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
+			var comboBox = document.getElementById(ctrlId);
 			if (newSelection >= 0 && newSelection < comboBox.dataItems.length) {
 				var newItem = comboBox.dataItems[newSelection];
 				comboBox.contentRenderer.updateSelection(ctrlId, newSelection);
@@ -440,7 +440,7 @@ JWic.controls = {
 		 */
 		finishSelection : function (ctrlId, noSelection) {
 			JWic.log("finished Selection");
-			var comboBox = jQuery("#" + JQryEscape(ctrlId)).get(0);
+			var comboBox =document.getElementById(ctrlId);
 			var fld = comboBox.jComboField;
 
 			var changed = false;
@@ -495,7 +495,7 @@ JWic.controls = {
 			JWic.log("textClickHandler: Use clicked on textbox.");
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
-				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
+				var box = document.getElementById(ctrlId);
 				if (box && box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 					JWic.controls.Combo.openContentBox(ctrlId);
 				}
@@ -509,7 +509,7 @@ JWic.controls = {
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
 				JWic.log("focusHandler: received Focus");
-				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
+				var box = document.getElementById(ctrlId);
 				if (box) {
 					jQuery(box).addClass("x-focus");
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
@@ -533,7 +533,7 @@ JWic.controls = {
 			JWic.log("Combo.lostFocusHandler");
 			var ctrlId = jQuery(this).attr("j-controlId");
 			if (ctrlId) {
-				var box = jQuery("#" + JQryEscape(ctrlId)).get(0);
+				var box = document.getElementById(ctrlId);
 				if (box) {
 					jQuery(box).removeClass("x-focus");
 					box.applyFilter = false;
@@ -577,11 +577,11 @@ JWic.controls = {
 				}
 			}
 			
-			var comboBox = jQuery("#" + JQryEscape(controlId)).get(0);
+			var comboBox = document.getElementById(controlId);
 			var winId = "j-combo_contentBox";
 			
 			var boxWidth = jQuery(comboBox).width();
-			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));			
+			var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(controlId));			
 			if (!comboBoxWin.is(':data(dialog)')) {
 
 				comboBoxWin.dialog({					
@@ -608,7 +608,7 @@ JWic.controls = {
 				 */
 			
 			if (comboBox.adjustIEBlockerId) {
-				JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#"+JQryEscape(winId)).get(0));		
+				JWic.controls.Window.adjustIEBlockerToWin(document.getElementById(comboBox.adjustIEBlockerId), document.getElementById(winId));		
 			}
 			
 			JWic.controls.Combo._openTime = new Date().getTime();
@@ -631,9 +631,9 @@ JWic.controls = {
 		 */
 		resizeHandler : function(e) {			
 			if (JWic.controls.Combo._activeComboContentBox) {
-				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox)).get(0);
+				var comboBox = document.getElementById(JWic.controls.Combo._activeComboContentBox);
 				if (comboBox.adjustIEBlockerId) {
-					JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#j-combo_contentBox").get(0));	
+					JWic.controls.Window.adjustIEBlockerToWin(document.getElementById(comboBox.adjustIEBlockerId), jQuery("#j-combo_contentBox").get(0));	
 				}
 			}
 		},
@@ -642,9 +642,9 @@ JWic.controls = {
 		 */
 		moveHandler : function(e) {
 			if (JWic.controls.Combo._activeComboContentBox) {
-				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox)).get(0);
+				var comboBox = document.getElementById(JWic.controls.Combo._activeComboContentBox);
 				if (comboBox.adjustIEBlockerId) {
-					JWic.controls.Window.adjustIEBlockerToWin(jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).get(0), jQuery("#j-combo_contentBox").get(0));	
+					JWic.controls.Window.adjustIEBlockerToWin(document.getElementById(comboBox.adjustIEBlockerId), jQuery("#j-combo_contentBox").get(0));	
 				}
 			}
 		},
@@ -655,11 +655,11 @@ JWic.controls = {
 		closeActiveContentBox : function() {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				JWic.log("closing ActiveContentBox");
-				var comboBox = jQuery("#"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
-				var comboBoxWin = jQuery("#win_"+JQryEscape(JWic.controls.Combo._activeComboContentBox));
+				var comboBox = jQuery("#"+JWic.util.JQryEscape(JWic.controls.Combo._activeComboContentBox));
+				var comboBoxWin = jQuery("#win_"+JWic.util.JQryEscape(JWic.controls.Combo._activeComboContentBox));
 				comboBoxWin.dialog("close");
 				if (comboBox && comboBox.adjustIEBlockerId) {
-					jQuery("#"+JQryEscape(comboBox.adjustIEBlockerId)).css("display","none");		
+					jQuery("#"+JWic.util.JQryEscape(comboBox.adjustIEBlockerId)).css("display","none");		
 				}
 				// comboBox.applyFilter = false; // clear filter
 				// comboBox.dataLoader.prepareData(ctrlId);
@@ -697,7 +697,7 @@ JWic.controls = {
 		 * mode.
 		 */
 		selectElement: function(controlId, title, key, noSelection, keepBoxOpen) {
-			var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
+			var comboBox = document.getElementById(controlId);
 			
 			if (comboBox) {
 				comboBox.suggestedObject = null;
@@ -777,10 +777,10 @@ JWic.controls = {
 			_requestIndexCall : 0,
 			initializeData : function(controlId) {
 			JWic.log("BeanLoader.initializeData(..)");
-			var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
+			var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(controlId));
 				if (comboBoxWin) {
 					comboBoxWin.text("Loading...");
-					var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
+					var comboBox = document.getElementById(controlId);
 					var param = {};
 					param["action"] = "load";
 					if (comboBox.applyFilter && comboBox.dataFilterValue) {
@@ -808,7 +808,7 @@ JWic.controls = {
 			 */
 			prepareData : function(controlId) {
 				JWic.log("BeanLoader.prepareData(..)");
-				var comboBox = jQuery('#' + JQryEscape(controlId)).get(0);
+				var comboBox = document.getElementById(controlId);
 				if (comboBox.dataStore) {
 					comboBox.dataItems = new Array();
 					if (comboBox.clientSideFilter) {
@@ -828,9 +828,9 @@ JWic.controls = {
 				JWic.log("BeanLoader._handleResponse(..)");
 				var response = jQuery.parseJSON(ajaxResponse.responseText);
 				if (response.controlId && response.controlId == JWic.controls.Combo._activeComboContentBox) {
-					var comboBoxWin = jQuery("#win_" + JQryEscape(response.controlId));
+					var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(response.controlId));
 					if (comboBoxWin) {
-						var comboBox = jQuery('#' + JQryEscape(response.controlId)).get(0);
+						var comboBox = document.getElementById(response.controlId);
 						comboBox.dataStore = [];
 						jQuery.each(response.data, function(key, value) {
 							comboBox.dataStore.push(value);
@@ -862,8 +862,8 @@ JWic.controls = {
 		ComboElementListRenderer : {
 			renderData : function(controlId) {
 				JWic.log("ComboElementListRenderer.renderData(..)");
-				var comboBox = jQuery('#'+JQryEscape(controlId)).get(0);
-				var comboBoxWin = jQuery("#win_" + JQryEscape(controlId));
+				var comboBox = document.getElementById(controlId);
+				var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(controlId));
 				if (comboBoxWin && controlId == JWic.controls.Combo._activeComboContentBox) {
 					// in case the content is re-drawn, we remove any
 					// pre-existing listeners...
@@ -930,8 +930,8 @@ JWic.controls = {
 			 * Update selection entry by index..
 			 */
 			updateSelection : function(ctrlId, newSelection) {
-				var comboBox = jQuery("#"+ JQryEscape(ctrlId)).get(0);
-				var comboBoxWin = jQuery("#win_" + JQryEscape(ctrlId));
+				var comboBox = document.getElementById(ctrlId);
+				var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(ctrlId));
 				if (comboBoxWin && ctrlId == JWic.controls.Combo._activeComboContentBox) {
 					// clear selection
 					jQuery(comboBoxWin).find("div[comboElement].selected").each(function(i,obj) {
@@ -972,14 +972,14 @@ JWic.controls = {
 			 */
 			handleSelection : function(controlId, key) {
 				// find the element by key
-				var comboBox = jQuery("#"+JQryEscape(controlId)).get(0);
+				var comboBox = document.getElementById(controlId);
 				var title = key;
 				var isSelected = JWic.controls.Combo.isSelected(comboBox, key);
 				for (var index = 0, len = comboBox.dataStore.length; index < len; ++index) {
 					var item = comboBox.dataStore[index];
 					if (item.key == key) {
 						title = item.title;
-						var cbc = jQuery("#cbc_" + JQryEscape(controlId) + "\\." + index).get(0);
+						var cbc = document.getElementById("cbc_" + controlId + "." + index);
 						
 						if (comboBox.multiSelect && cbc) {
 							jQuery(cbc).attr('checked',!isSelected);
@@ -1154,7 +1154,7 @@ JWic.controls = {
 				}
 			},
 			activate : function(controlId, panelIdx) {
-				var tabStrip = $("#" + JQryEscape(controlId));
+				var tabStrip = $("#" + JWic.util.JQryEscape(controlId));
 				tabStrip.tabs("option", "active", panelIdx );
 				tabStrip.tabs("refresh");
 				

@@ -22,13 +22,13 @@
 	 */
 	afterUpdate: function(element) {
 		//Position.includeScrollOffsets = true;
-		var sorts = jQuery('#lst_'+JQryEscape('${control.controlID}'));
+		var sorts = jQuery('#lst_'+JWic.util.JQryEscape('${control.controlID}'));
 		sorts.sortable({
 			update : function() {
-				var fld = jQuery('#'+JQryEscape('rowOrder_${control.getControlID()}')).get(0);
+				var fld =document.getElementById('rowOrder_${control.getControlID()}');
 				if (fld) {
 					var s = "";
-					jQuery('#lst_' + JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
+					jQuery('#lst_' + JWic.util.JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
 						s += jQuery(item).attr("jColId") + ";";
 					});
 					fld.value = s;

@@ -18,7 +18,7 @@
 				}
 								
 				//var control = jQuery('arc_${control.controlID}');
-				var control = jQuery("#arc_" + JQryEscape('${control.controlID}')).get(0);
+				var control = document.getElementById('arc_${control.controlID}');
 				var scripts = [];
 				if (elm.scripts) {
 					for ( var i = 0; i < elm.scripts.length; i++) {
@@ -49,7 +49,7 @@
 										// rendered snippit received
 
 						// call destroy handler and remove them
-						var deLst = JWicInternal.destroyList;
+						var deLst = JWic.destroyList;
 						for ( var i = deLst.length - 1; i >= 0; i--) {
 							if (deLst[i] && (deLst[i].key == elm.key || deLst[i].key.indexOf(elm.key + ".") === 0)) {
 								JWic.log("Destroy: " + deLst[i].key + " because of " + elm.key);
@@ -59,14 +59,14 @@
 						}
 						// remove any beforeUpdateCallbacks
 						var allKeys = [];
-						jQuery.each(JWicInternal.beforeRequestCallbacks, function(key, value) {
+						jQuery.each(JWic.beforeRequestCallbacks, function(key, value) {
 						      allKeys.push(key);
 						});
 						
 						jQuery.each(allKeys, function(key, val) {
 							
 							if (val.indexOf(elm.key) === 0) {
-								delete JWicInternal.beforeRequestCallbacks[key];
+								delete JWic.beforeRequestCallbacks[key];
 							}
 						});
 						

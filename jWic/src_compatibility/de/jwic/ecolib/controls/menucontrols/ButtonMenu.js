@@ -1,12 +1,12 @@
 {
 	afterUpdate: function(element) {	
-		var menu =  jQuery('#' + JQryEscape("${control.controlID}_menu"));
+		var menu =  jQuery('#' + JWic.util.JQryEscape("${control.controlID}_menu"));
 		menu.menu();
 		
 		function showMenu() {
 			menu.show();
 		}
-		jQuery('#' + JQryEscape("btn_${control.button.controlID}")).click(showMenu);
+		jQuery('#' + JWic.util.JQryEscape("btn_${control.button.controlID}")).click(showMenu);
 		
 		function hideMenu() {
 			menu.menu("collapseAll", null, true );
@@ -14,6 +14,6 @@
 		}
 		menu.mouseleave(hideMenu);
 		menu.click(hideMenu);
-		jQuery('#'+ JQryEscape("${control.controlID}_menu")+' li a *').click(hideMenu);		
+		jQuery('#'+ JWic.util.JQryEscape("${control.controlID}_menu")+' li a *').click(hideMenu);		
 	}
 }

@@ -46,7 +46,7 @@
 	#if($control.fullRedraw)
 		#set($control.fullRedraw = false)
 	#else 
-		var field = jQuery("#" + JQryEscape('${control.controlID}') + "_content").get(0);
+		var field = document.getElementById('${control.controlID}_content');
 	
 		if (field) { // if the field does not exist, the element needs to be created regulary.
 			field.value = this.content;
@@ -63,13 +63,13 @@
 					JWic.log("disable");
 					editor.destroy();
 					field.value = this.content;
-					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+					var elm = document.getElementById('${control.controlID}');
 					elm.html(this.content);
 					return true;
 					
 				} else if (!editor && $control.enabled) {	// enable
 					JWic.log("enable it (" + this.content + ")");
-					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+					var elm = document.getElementById('${control.controlID}');
 					elm.html("");
 					var editor =  CKEDITOR.replace(elm, this.editorCfg);
 					editor.setData(this.content);
@@ -84,7 +84,7 @@
 				} else if (!editor && !$control.enabled) {
 					JWic.log("update content of disabled element");
 					
-					var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
+					var elm = document.getElementById('${control.controlID}');
 					if (elm) {
 						elm.text(this.content);
 						return true;
@@ -101,8 +101,8 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var elm = jQuery("#"  + JQryEscape('${control.controlID}')).get(0);
-		var field = jQuery("#"+JQryEscape('${control.controlID}_content')).get(0);
+		var elm = document.getElementById('${control.controlID}');
+		var field = document.getElementById('${control.controlID}_content');
 		if (elm && field) {
 			field.value = this.content;
 			if (typeof CKEDITOR == "undefined") {

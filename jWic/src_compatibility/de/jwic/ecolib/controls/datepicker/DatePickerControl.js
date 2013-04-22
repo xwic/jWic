@@ -28,7 +28,7 @@
 		/*
 		 * init the datepicker
 		 */
-		var id = JQryEscape('${control.controlID}');
+		var id = JWic.util.JQryEscape('${control.controlID}');
 		var datepicker = jQuery( "#" + id ).datepicker({
 			changeMonth : ${control.isShowMonth()},			
 			changeYear : ${control.isShowYear()},

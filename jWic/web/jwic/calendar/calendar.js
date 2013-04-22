@@ -556,7 +556,7 @@ function jWicCalendar() {
 					toppos += aTag.offsetTop;
 				} while(aTag.tagName!="BODY");
 
-				var wnSize = JWicInternal.getWindowSize(); // jWic.js function.
+				var wnSize = JWic.getWindowSize(); // jWic.js function.
 				var x = fixedX==-1 ? ctl.offsetLeft	+ leftpos :	fixedX==-2 ? ctl.offsetLeft + leftpos - fixedWidth : fixedX
 				var maxX = wnSize[0] + wnSize[2] - 300;
 				if (x > maxX) x = maxX;

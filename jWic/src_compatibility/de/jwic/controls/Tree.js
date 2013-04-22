@@ -8,7 +8,7 @@
 	 */
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var treeElm = jQuery('#'+JQryEscape('${control.controlID}')).get(0);
+		var treeElm = jQuery('#'+JWic.util.JQryEscape('${control.controlID}')).get(0);
 		if (treeElm) {
 				JWic.controls.Tree.initialize("${control.controlID}");
 				//comboElm.dataLoader = $control.comboBehavior.dataLoaderJSClass;
@@ -34,7 +34,7 @@
 	 * ..
 	 */
 	destroy : function(element) {
-		var inpElm = jQuery('#'+JQryEscape('${control.controlID}')).get(0);
+		var inpElm = jQuery('#'+JWic.util.JQryEscape('${control.controlID}')).get(0);
 		if (inpElm) {
 			JWic.controls.Tree.destroy("$control.controlID", inpElm);
 		}

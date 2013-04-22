@@ -2,8 +2,8 @@
 	// Attach to events...
 	afterUpdate: function(element) {
 	#if($control.visible)
-		var tblElm = jQuery('#tbl_'+JQryEscape('${control.controlID}'));
-		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
+		var tblElm = jQuery('#tbl_'+JWic.util.JQryEscape('${control.controlID}'));
+		var btn = jQuery('#btn_'+JWic.util.JQryEscape('${control.controlID}'));
 		if (tblElm && btn) {
 			tblElm.attr("_ctrlEnabled", "$control.isEnabled()");
 			tblElm.attr("_confirmMsg", "$escape.escapeJavaScript($!control.confirmMsg)");
@@ -20,9 +20,9 @@
 	}, 
 	
 	destroy: function(element) {
-		jQuery('#tbl_'+JQryEscape('${control.controlID}'));
-		var tblElm = jQuery('#tbl_'+JQryEscape('${control.controlID}'));
-		var btn = jQuery('#btn_'+JQryEscape('${control.controlID}'));
+		jQuery('#tbl_'+JWic.util.JQryEscape('${control.controlID}'));
+		var tblElm = jQuery('#tbl_'+JWic.util.JQryEscape('${control.controlID}'));
+		var btn = jQuery('#btn_'+JWic.util.JQryEscape('${control.controlID}'));
 		if (tblElm && btn) {
 			JWic.controls.ButtonLegacy.destroy(tblElm, btn);
 		}
