@@ -17,7 +17,7 @@
  * Created on 27.04.2006
  * $Id: CKEditorDemo.java,v 1.3 2011/06/02 14:05:35 lordsam Exp $
  */
-package de.jwic.ecolib.samples.controls;
+package de.jwic.demo.advanced;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;

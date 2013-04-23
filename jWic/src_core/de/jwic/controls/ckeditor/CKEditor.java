@@ -17,7 +17,7 @@
  * Created on 10.05.2011
  * $Id: CKEditor.java,v 1.1 2011/05/10 12:21:46 lordsam Exp $
  */
-package de.jwic.ecolib.ckeditor;
+package de.jwic.controls.ckeditor;
 
 import java.util.ArrayList;
 import java.util.List;

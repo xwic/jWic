@@ -11,9 +11,6 @@
 		tinyMCE.init({ theme: "advanced" });	// initialize
 	</script>
 	*#
-	#* CKEditor WYSIWYG HTML Editor library, required by CKEditor control. *#
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/ckeditor/ckeditor.js"></SCRIPT>
-	
 
 	#* DHTML History library calls required by HistoryController *#
 	#* Make sure that the jwic.page.body contains the initialization calls *#

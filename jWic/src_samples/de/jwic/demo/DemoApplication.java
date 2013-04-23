@@ -10,6 +10,7 @@ import java.util.List;
 import de.jwic.base.Application;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.demo.advanced.CKEditorDemoModule;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
 import de.jwic.demo.advanced.ProcessInfoDemoModule;
@@ -66,6 +67,7 @@ public class DemoApplication extends Application {
 		modules.add(new ProcessInfoDemoModule());
 		modules.add(new ScrollableContainerDemoModule());
 		modules.add(new StackedContainerDemoModule());
+		modules.add(new CKEditorDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

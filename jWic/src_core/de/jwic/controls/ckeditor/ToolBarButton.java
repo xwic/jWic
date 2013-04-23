@@ -1,4 +1,4 @@
-package de.jwic.ecolib.ckeditor;
+package de.jwic.controls.ckeditor;
 
 /**
  * Possible ToolBar buttons.

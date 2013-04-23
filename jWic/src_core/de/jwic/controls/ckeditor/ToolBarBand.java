@@ -17,7 +17,7 @@
  * Created on 10.05.2011
  * $Id: ToolBarBand.java,v 1.2 2011/06/02 12:31:06 lordsam Exp $
  */
-package de.jwic.ecolib.ckeditor;
+package de.jwic.controls.ckeditor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
