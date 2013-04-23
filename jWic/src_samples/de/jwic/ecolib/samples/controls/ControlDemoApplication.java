@@ -28,6 +28,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.TabControl;
 import de.jwic.controls.TabStripControl;
+import de.jwic.demo.basics.ToolBarDemo;
 import de.jwic.ecolib.samples.controls.tbv.TableViewerDemo;
 import de.jwic.ecolib.samples.controls.tbv2.TableViewerDemo2;
 import de.jwic.ecolib.samples.controls.tbv3.TableViewerDemo3;
@@ -117,7 +118,7 @@ public class ControlDemoApplication extends Application {
 		new MenuButtonDemo(tab); 
 
 		tab = tabStrip.addTab("Toolbar");
-		new ToolbarDemo(tab, "demo");
+		new ToolBarDemo(tab, "demo");
 
 		tab = tabStrip.addTab("TableViewer");
 		new TableViewerDemo(tab); 

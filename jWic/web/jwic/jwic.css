@@ -685,3 +685,70 @@ div.j-process-info-bar-label {
 	text-shadow: 1px 1px 0 #fff;
 	font-size: 10pt;
 }
+
+/* CKEditor Layout */
+div.ckEditor {
+	border: 1px solid #808080;
+	background-color: #ffffff;
+}
+	
+/** Toolbar Style */
+div.j-toolbar {
+	overflow: hidden;
+	padding: 2px;
+	font-weight: normal;
+}
+
+div.j-toolbar div.j-toolbar-elm {
+	float: left;
+	line-height: 25px;
+	height: 28;
+	padding-left: 3px;
+	/*
+	float: left;
+	height: 2.2em;
+	padding-top: auto;
+	padding-bottom: auto;
+	margin-left: 3px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right: 0px;
+	*/
+}
+
+div.j-toolbar div.j-spacer {
+	width: 1px;
+	border-left: 1px solid #AAA;
+	background-color: #fff;
+	margin: 0px 3px;
+	height: 28px;
+}
+
+span.j-toolbar-label {
+	font-size: 8pt;
+	float: left;
+	color: #707070;
+
+}
+div.j-toolbar-grp-left {
+	float: left;
+}
+div.j-toolbar-grp-right {
+	float: right;
+}
+div.j-toolbar button.ui-button {
+	height: 25px;
+	font-size: 8pt;
+	padding: 1px;
+	margin: 0px;
+}
+
+div.j-toolbar button.ui-button .ui-button-text {
+	padding: 0px 6px;
+}
+
+div.j-toolbar div.j-combo {
+	margin-top: 3px;
+	margin-right: 3px;
+}
+

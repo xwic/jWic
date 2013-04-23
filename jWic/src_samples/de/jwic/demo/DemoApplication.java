@@ -22,6 +22,7 @@ import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.ListBoxDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
+import de.jwic.demo.basics.ToolBarDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
 import de.jwic.demo.container.StackedContainerDemoModule;
@@ -68,6 +69,7 @@ public class DemoApplication extends Application {
 		modules.add(new ScrollableContainerDemoModule());
 		modules.add(new StackedContainerDemoModule());
 		modules.add(new CKEditorDemoModule());
+		modules.add(new ToolBarDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

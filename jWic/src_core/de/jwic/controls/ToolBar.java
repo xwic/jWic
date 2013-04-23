@@ -17,7 +17,7 @@
  * Created on 07.06.2011
  * $Id: Toolbar.java,v 1.2 2011/06/13 20:29:12 lordsam Exp $
  */
-package de.jwic.ecolib.toolbar;
+package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
@@ -26,14 +26,14 @@ import de.jwic.base.IControlContainer;
  *
  * @author lippisch
  */
-public class Toolbar extends ControlContainer {
+public class ToolBar extends ControlContainer {
 	private static final long serialVersionUID = 1L;
-	private String cssClass = "j-toolbar";
+	private String cssClass = "j-toolbar"; // 
 	
 	/**
 	 * @param container
 	 */
-	public Toolbar(IControlContainer container) {
+	public ToolBar(IControlContainer container) {
 		super(container);
 	}
 
@@ -41,7 +41,7 @@ public class Toolbar extends ControlContainer {
 	 * @param container
 	 * @param name
 	 */
-	public Toolbar(IControlContainer container, String name) {
+	public ToolBar(IControlContainer container, String name) {
 		super(container, name);
 	}
 
@@ -49,8 +49,8 @@ public class Toolbar extends ControlContainer {
 	 * Add a group floating at the left side.
 	 * @return
 	 */
-	public ToolbarGroup addGroup() {
-		ToolbarGroup grp = new ToolbarGroup(this);
+	public ToolBarGroup addGroup() {
+		ToolBarGroup grp = new ToolBarGroup(this);
 		grp.setCssClass(cssClass + "-grp-left");
 		return grp;
 	}
@@ -60,8 +60,8 @@ public class Toolbar extends ControlContainer {
 	 * Add a group floating at the left side.
 	 * @return
 	 */
-	public ToolbarGroup addRightGroup() {
-		ToolbarGroup grp = new ToolbarGroup(this);
+	public ToolBarGroup addRightGroup() {
+		ToolBarGroup grp = new ToolBarGroup(this);
 		grp.setCssClass(cssClass + "-grp-right");
 		return grp;
 	}

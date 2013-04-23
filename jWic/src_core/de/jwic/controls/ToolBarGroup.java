@@ -17,7 +17,7 @@
  * Created on 13.06.2011
  * $Id: ToolbarGroup.java,v 1.3 2011/06/14 13:08:05 lordsam Exp $
  */
-package de.jwic.ecolib.toolbar;
+package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
@@ -32,14 +32,14 @@ import de.jwic.ecolib.controls.actions.ActionButton;
  * Groups controls displayed in a toolbar.
  * @author lippisch
  */
-public class ToolbarGroup extends ControlContainer {
+public class ToolBarGroup extends ControlContainer {
 	private static final long serialVersionUID = 1L;
 	private String cssClass = "j-toolbar-grp";
 	
 	/**
 	 * @param container
 	 */
-	public ToolbarGroup(IControlContainer container) {
+	public ToolBarGroup(IControlContainer container) {
 		super(container);
 	}
 
@@ -47,7 +47,7 @@ public class ToolbarGroup extends ControlContainer {
 	 * @param container
 	 * @param name
 	 */
-	public ToolbarGroup(IControlContainer container, String name) {
+	public ToolBarGroup(IControlContainer container, String name) {
 		super(container, name);
 	}
 	
@@ -55,8 +55,8 @@ public class ToolbarGroup extends ControlContainer {
 	 * Add a spacer into this group.
 	 * @return
 	 */
-	public ToolbarSpacer addSpacer() {
-		ToolbarSpacer spacer = new ToolbarSpacer(this);
+	public ToolBarSpacer addSpacer() {
+		ToolBarSpacer spacer = new ToolBarSpacer(this);
 		return spacer;
 	}
 	
@@ -90,7 +90,6 @@ public class ToolbarGroup extends ControlContainer {
 		
 		Button button = new Button(this);
 		button.setCssClass("j-button-h j-btn-small");
-		button.setHeight(26);
 		return button;
 		
 	}

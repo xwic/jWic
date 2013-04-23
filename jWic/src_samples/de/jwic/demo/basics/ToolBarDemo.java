@@ -17,7 +17,7 @@
  * Created on 13.06.2011
  * $Id: ToolbarDemo.java,v 1.1 2011/06/13 20:29:12 lordsam Exp $
  */
-package de.jwic.ecolib.samples.controls;
+package de.jwic.demo.basics;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
@@ -25,39 +25,61 @@ import de.jwic.base.ImageRef;
 import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
+import de.jwic.controls.ToolBar;
+import de.jwic.controls.ToolBarGroup;
+import de.jwic.controls.ToolBarSpacer;
 import de.jwic.controls.combo.DropDown;
+import de.jwic.demo.ImageLibrary;
 import de.jwic.ecolib.actions.Action;
 import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
 import de.jwic.ecolib.controls.menucontrols.MenuItem;
-import de.jwic.ecolib.toolbar.Toolbar;
-import de.jwic.ecolib.toolbar.ToolbarGroup;
-import de.jwic.ecolib.toolbar.ToolbarSpacer;
 
 /**
  * Demo for the Toolbar Control.
  * 
  * @author lippisch
  */
-public class ToolbarDemo extends ControlContainer {
+public class ToolBarDemo extends ControlContainer {
 
 	/**
 	 * @param container
 	 * @param name
 	 */
-	public ToolbarDemo(IControlContainer container, String name) {
+	public ToolBarDemo(IControlContainer container, String name) {
 		super(container, name);
 
-		Toolbar tb = new Toolbar(this, "toolbar");
+		ToolBar tb = new ToolBar(this, "toolbar1");
+		ToolBarGroup tbGroup1 = tb.addGroup();
+		Button btSave = tbGroup1.addButton();
+		btSave.setIconEnabled(ImageLibrary.IMG_DISK);
+		btSave.setTitle("Save");
 
-		createControls(tb.addGroup());
-		createControls2(tb.addRightGroup());
-		createControls3(tb.addGroup());
+		Button btClose = tbGroup1.addButton();
+		btClose.setIconEnabled(ImageLibrary.IMG_CROSS);
+		btClose.setTitle("Close");
+		
+		tbGroup1.addSpacer();
+		Button btCreate = tbGroup1.addButton();
+		btCreate.setIconEnabled(ImageLibrary.IMG_ADD);
+		btCreate.setTitle("Create Task");
+		btCreate.setTooltip("Adding a <b>task</b> to a project defines its work-breakdown-structure and allows you to assign resources.");
+
+		Button btHours = tbGroup1.addButton();
+		btHours.setIconEnabled(ImageLibrary.IMG_LIST_VIEW);
+		btHours.setTitle("View Hours");
+
+		
+		ToolBar tb2 = new ToolBar(this, "toolbar2");
+
+		createControls(tb2.addGroup());
+		createControls2(tb2.addRightGroup());
+		createControls3(tb2.addGroup());
 
 	}
 
-	private void createControls2(ToolbarGroup grp) {
+	private void createControls2(ToolBarGroup grp) {
 
-		new ToolbarSpacer(grp);
+		new ToolBarSpacer(grp);
 
 		Button button = grp.addButton();
 		button.setTitle("Button 1");
@@ -65,6 +87,7 @@ public class ToolbarDemo extends ControlContainer {
 		button.setIconEnabled(new ImageRef("icons/flag_blue.png"));
 
 		DropDown dd = new DropDown(grp, "list");
+		
 		dd.addElement("A brown bag", "brown");
 		dd.addElement("A green tea", "green");
 		dd.addElement("Something else", "o");
@@ -76,7 +99,7 @@ public class ToolbarDemo extends ControlContainer {
 	/**
 	 * @param grp1
 	 */
-	private void createControls(ToolbarGroup grp) {
+	private void createControls(ToolBarGroup grp) {
 
 		grp.addLabel("I am a label:");
 
@@ -107,13 +130,13 @@ public class ToolbarDemo extends ControlContainer {
 			a.setEnabled(true);
 			
 		
-		AnchorLink control = grp.addActionAnchorLink(a);
+		grp.addActionAnchorLink(a);
 		
 		
 
 	}
 
-	private void createControls3(ToolbarGroup grp) {
+	private void createControls3(ToolBarGroup grp) {
 
 		grp.addSpacer();
 
@@ -123,7 +146,7 @@ public class ToolbarDemo extends ControlContainer {
 		Button btn = menu.createButton("Open");
 		btn.setTitle("Open Sesame!");
 		btn.setCssClass("j-button-h j-btn-small");
-		btn.setHeight(26);
+		
 		
 		MenuItem item = menu.getMenu().addMenuItem();
 		LabelControl l = new LabelControl(menu);

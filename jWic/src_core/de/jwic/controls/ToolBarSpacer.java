@@ -17,7 +17,7 @@
  * Created on 13.06.2011
  * $Id: ToolbarSpacer.java,v 1.1 2011/06/13 20:29:12 lordsam Exp $
  */
-package de.jwic.ecolib.toolbar;
+package de.jwic.controls;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
@@ -26,13 +26,13 @@ import de.jwic.base.IControlContainer;
  * A simple spacer within a toolbar.
  * @author lippisch
  */
-public class ToolbarSpacer extends Control {
+public class ToolBarSpacer extends Control {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @param container
 	 */
-	public ToolbarSpacer(IControlContainer container) {
+	public ToolBarSpacer(IControlContainer container) {
 		super(container, null);
 	}
 
@@ -41,7 +41,7 @@ public class ToolbarSpacer extends Control {
 	 * @param container
 	 * @param name
 	 */
-	public ToolbarSpacer(IControlContainer container, String name) {
+	public ToolBarSpacer(IControlContainer container, String name) {
 		super(container, name);
 	}
 

@@ -1,0 +1,74 @@
+/** ui-darkness */
+
+/**
+ * FileUpload control
+ */
+.j-fileupload-selectfile {
+    background: url(gfx/select_file.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+}
+
+.j-fileupload-clearfile {
+    background: url(gfx/clear_file.png) 0 0 no-repeat; 
+	background-position: right;
+	border: 1px solid #808080;
+}
+
+/**
+ * ProgressBar Label
+ */
+div.j-process-info-bar-label {
+	text-shadow: 1px 1px 0 #000;
+}
+
+/** 
+ * Toolbar Button on hover effect
+ */
+div.j-toolbar {
+	font-weight: bold;
+}
+
+div.j-toolbar div.j-toolbar-elm {
+	line-height: 30px;
+	height: 34px;
+	padding-left: 3px;
+}
+
+span.j-toolbar-label {
+	font-size: 8pt;
+	float: left;
+	color: #707070;
+
+}
+div.j-toolbar button.ui-button {
+	height: 32px;
+	font-size: 1.1em;
+	padding: 2px;
+	margin: 0px;
+	border: 1px solid transparent;
+	background-color: transparent;
+	background: none;
+}
+
+
+div.j-toolbar button.ui-button .ui-button-text {
+	padding: 0px 6px;
+}
+
+div.j-toolbar button.ui-state-hover {
+	border: 1px solid #59b4d4; 
+	background: #0078a3 url(../jQuery/images/ui-bg_glass_40_0078a3_1x400.png) 50% 50% repeat-x; 
+	font-weight: bold; 
+	color: #ffffff;
+}
+div.j-toolbar div.j-spacer {
+	width: 1px;
+	border-left: 1px solid #888;
+	background-color: #000;
+	margin: 0px 3px;
+	height: 34px;
+}
+div.j-toolbar div.j-combo {
+	margin-top: 5px;
+}
