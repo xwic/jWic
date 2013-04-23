@@ -28,9 +28,9 @@ import de.jwic.controls.LabelControl;
 import de.jwic.controls.ToolBar;
 import de.jwic.controls.ToolBarGroup;
 import de.jwic.controls.ToolBarSpacer;
+import de.jwic.controls.actions.Action;
 import de.jwic.controls.combo.DropDown;
 import de.jwic.demo.ImageLibrary;
-import de.jwic.ecolib.actions.Action;
 import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
 import de.jwic.ecolib.controls.menucontrols.MenuItem;
 

@@ -24,9 +24,9 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
-import de.jwic.ecolib.actions.IAction;
-import de.jwic.ecolib.controls.actions.ActionAnchorLink;
-import de.jwic.ecolib.controls.actions.ActionButton;
+import de.jwic.controls.actions.ActionAnchorLink;
+import de.jwic.controls.actions.ActionButton;
+import de.jwic.controls.actions.IAction;
 
 /**
  * Groups controls displayed in a toolbar.

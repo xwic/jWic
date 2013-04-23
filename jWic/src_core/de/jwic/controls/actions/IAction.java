@@ -17,7 +17,7 @@
  * Created on 02.01.2006
  * $Id: IAction.java,v 1.6 2012/01/24 19:42:11 adrianionescu12 Exp $
  */
-package de.jwic.ecolib.actions;
+package de.jwic.controls.actions;
 
 import java.beans.PropertyChangeListener;
 import java.io.Serializable;

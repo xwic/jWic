@@ -17,7 +17,7 @@
  * Created on Jun 8, 2011
  * $Id: ActionButton.java,v 1.2 2012/01/25 10:42:29 adrianionescu12 Exp $
  */
-package de.jwic.ecolib.controls.actions;
+package de.jwic.controls.actions;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -26,7 +26,6 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.Button;
-import de.jwic.ecolib.actions.IAction;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.io.Serializable;
 
 import de.jwic.base.ImageRef;
-import de.jwic.ecolib.actions.IAction;
+import de.jwic.controls.actions.IAction;
 
 public class TestAction implements IAction, Serializable {
 

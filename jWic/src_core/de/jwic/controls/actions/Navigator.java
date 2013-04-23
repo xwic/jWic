@@ -17,7 +17,7 @@
  * Created on 02.01.2006
  * $Id: Navigator.java,v 1.3 2008/09/18 18:20:44 lordsam Exp $
  */
-package de.jwic.ecolib.controls.navigator;
+package de.jwic.controls.actions;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -29,7 +29,6 @@ import java.util.Map;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
-import de.jwic.ecolib.actions.IAction;
 
 /**
  * Displays a simple list of actions.

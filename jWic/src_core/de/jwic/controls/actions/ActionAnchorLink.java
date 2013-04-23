@@ -1,11 +1,10 @@
-package de.jwic.ecolib.controls.actions;
+package de.jwic.controls.actions;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.AnchorLink;
-import de.jwic.ecolib.actions.IAction;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 /**
@@ -75,7 +74,7 @@ public class ActionAnchorLink extends AnchorLink{
 
 	/**
 	 * @return
-	 * @see de.jwic.ecolib.actions.IAction#getTitle()
+	 * @see de.jwic.controls.actions.IAction#getTitle()
 	 */
 	public String getTitle() {
 		return action.getTitle();
@@ -85,7 +84,7 @@ public class ActionAnchorLink extends AnchorLink{
 
 	/**
 	 * @return
-	 * @see de.jwic.ecolib.actions.IAction#isEnabled()
+	 * @see de.jwic.controls.actions.IAction#isEnabled()
 	 */
 	public boolean isEnabled() {
 		return action.isEnabled();
@@ -95,7 +94,7 @@ public class ActionAnchorLink extends AnchorLink{
 
 	/**
 	 * @return
-	 * @see de.jwic.ecolib.actions.IAction#isVisible()
+	 * @see de.jwic.controls.actions.IAction#isVisible()
 	 */
 	public boolean isVisible() {
 		return action.isVisible();
