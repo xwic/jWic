@@ -22,6 +22,7 @@ import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.ListBoxDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
+import de.jwic.demo.container.ScrollableContainerDemoModule;
 import de.jwic.demo.container.TabStripDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
@@ -62,6 +63,7 @@ public class DemoApplication extends Application {
 		modules.add(new ListBoxDemoModule());
 		modules.add(new RadioGroupDemoModule());
 		modules.add(new ProcessInfoDemoModule());
+		modules.add(new ScrollableContainerDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

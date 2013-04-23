@@ -23,6 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IOuterLayout;
+import de.jwic.base.JavaScriptSupport;
 
 /**
  * This container allows horizontal and vertical scrolling of the content. The 
@@ -31,6 +32,7 @@ import de.jwic.base.IOuterLayout;
  * @author Florian Lippisch
  * @version $Revision: 1.2 $
  */
+@JavaScriptSupport
 public class ScrollableContainer extends ControlContainer implements IOuterLayout {
 
 	private static final long serialVersionUID = 1L;
@@ -99,6 +101,7 @@ public class ScrollableContainer extends ControlContainer implements IOuterLayou
 	 */
 	public void setHeight(String height) {
 		this.height = height;
+		requireRedraw();
 	}
 	/**
 	 * @return Returns the width.
@@ -111,6 +114,7 @@ public class ScrollableContainer extends ControlContainer implements IOuterLayou
 	 */
 	public void setWidth(String width) {
 		this.width = width;
+		requireRedraw();
 	}
 	
 	/**

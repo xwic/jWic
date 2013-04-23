@@ -1147,7 +1147,6 @@ JWic.controls = {
 	 */
 	Button : {
 		initialize : function(btnElement, ctrlId) {
-			JWic.log(btnElement);
 			JWic.log("Initializing new button " + btnElement);
 			btnElement
 				.button()

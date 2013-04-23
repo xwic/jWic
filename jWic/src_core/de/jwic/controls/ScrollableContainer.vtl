@@ -4,9 +4,4 @@ $control.updateSize()
 #set($id = "div_$control.controlID")
 <input type="hidden" name="$fldTop.id" value="$fldTop.value">
 <input type="hidden" name="$fldLeft.id" value="$fldLeft.value">
-<div id="$id" style="overflow: auto; width: $control.width; height: $control.height" onscroll="if(!_ajaxProcessing){document.forms['jwicform'].elements['$fldTop.id'].value=this.scrollTop;document.forms['jwicform'].elements['$fldLeft.id'].value=this.scrollLeft;}">$content.render()</div>
-<script language="javascript">
-{
-	window.setTimeout("JWic.fixScrolling('$control.controlID');", 0);
-}
-</script>
+<div id="$id" style="overflow: auto; width: $control.width; height: $control.height" onscroll="document.forms['jwicform'].elements['$fldTop.id'].value=this.scrollTop;document.forms['jwicform'].elements['$fldLeft.id'].value=this.scrollLeft;">$content.render()</div>

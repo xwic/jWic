@@ -28,7 +28,7 @@ var JWic = {
 	debugMode : false,
 	_logCount : 0,
 	contextPath : "",
-	
+		
 	/**
 	 * Indicates if the client is currently sending or waiting for an action
 	 * request.

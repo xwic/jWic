@@ -1,0 +1,11 @@
+<p>
+	This container can have it's own layout that defines the content.
+	An alternative would have been, to place a container into the
+	ScrollableContainer and have this container define the layout.
+</p>
+<div style="width: 500px; height: 100px; background-color: #0080FF; padding: 10px; color: #fff;">
+	The benefit of the ScrollableContainer is, that it remembers the view location (top, left) and restores
+	it when the control is rendered again (i.e. when the user returns to the same location) 
+</div>
+
+$insert.control("table")
