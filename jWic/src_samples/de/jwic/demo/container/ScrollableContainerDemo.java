@@ -73,7 +73,7 @@ public class ScrollableContainerDemo extends ControlContainer {
 		// Change Height
 		ListBoxControl lbHeight = new ListBoxControl(this, "lbHeight");
 		lbHeight.addElement("0 - Unspecified", "0");
-		lbWidth.addElement("100%", "100%");
+		lbHeight.addElement("100%", "100%");
 		for (int i = 50; i < 401; i += 50) {
 			String size = Integer.toString(i) + "px";
 			lbHeight.addElement(size, size);

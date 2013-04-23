@@ -1,0 +1,7 @@
+#if($control.height != 0 || $control.width != 0)
+<div style="#if($control.height != 0)height: ${control.height}px;#end #if($control.width != 0)width: ${control.width}px; #end">
+$insert.control($control.currentControlName)
+</div>
+#else
+$insert.control($control.currentControlName)
+#end

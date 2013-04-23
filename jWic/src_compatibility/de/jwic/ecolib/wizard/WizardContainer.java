@@ -93,8 +93,9 @@ public class WizardContainer extends BasicDialog {
 		errorWarning.setShowStackTrace(false);
 		
 		pages = new StackedContainer(win, "pages");
-		pages.setWidthHint(wizard.getWidthHint());
-		pages.setHeightHint(wizard.getHeightHint());
+		// TODO - FIX
+//		pages.setWidthHint(wizard.getWidthHint());
+//		pages.setHeightHint(wizard.getHeightHint());
 		
 		
 		NavigationController navContr = new NavigationController();

@@ -19,12 +19,7 @@
  */
 package de.jwic.ecolib.controls;
 
-import java.util.Stack;
-
-import de.jwic.base.Control;
-import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.JWicException;
 
 /**
  * A ControlContainer that displays only one control at a time.
@@ -32,13 +27,7 @@ import de.jwic.base.JWicException;
  * @author Florian Lippisch
  * @version $Revision: 1.7 $
  */
-public class StackedContainer extends ControlContainer {
-
-	private static final long serialVersionUID = 2177569108464586902L;
-	private String currentControlName = null;
-	private Stack<String> stack = new Stack<String>();
-	private String widthHint = "";
-	private String heightHint = "";
+public class StackedContainer extends de.jwic.controls.StackedContainer {
 
 	/**
 	 * @param container
@@ -46,6 +35,7 @@ public class StackedContainer extends ControlContainer {
 	 */
 	public StackedContainer(IControlContainer container, String name) {
 		super(container, name);
+		setTemplateName(de.jwic.controls.StackedContainer.class.getName());
 	}
 
 	/**
@@ -53,83 +43,7 @@ public class StackedContainer extends ControlContainer {
 	 */
 	public StackedContainer(IControlContainer container) {
 		super(container);
+		setTemplateName(de.jwic.controls.StackedContainer.class.getName());
 	}
 	
-	/* (non-Javadoc)
-	 * @see de.jwic.base.ControlContainer#registerControl(de.jwic.base.Control, java.lang.String)
-	 */
-	public void registerControl(Control control, String name) throws JWicException {
-		super.registerControl(control, name);
-		stack.push(control.getName());
-		if (currentControlName == null) {
-			currentControlName = control.getName();
-			requireRedraw();
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see de.jwic.base.ControlContainer#unregisterControl(de.jwic.base.Control)
-	 */
-	public void unregisterControl(Control control) {
-		stack.remove(control.getName());
-		if (currentControlName.equals(control.getName())) {
-			if (!stack.isEmpty()) {
-				currentControlName = stack.peek();
-			} else {
-				currentControlName = null;
-			}
-		}
-		super.unregisterControl(control);
-	}
-	
-	/**
-	 * @return Returns the currentControlName.
-	 */
-	public String getCurrentControlName() {
-		return currentControlName;
-	}
-
-	/**
-	 * @param currentControlName The currentControlName to set.
-	 */
-	public void setCurrentControlName(String currentControlName) {
-		this.currentControlName = currentControlName;
-		requireRedraw();
-	}
-	
-	/**
-	 * @return Returns the heightHint.
-	 */
-	public String getHeightHint() {
-		return heightHint;
-	}
-
-	/**
-	 * @param heightHint The heightHint to set.
-	 */
-	public void setHeightHint(String heightHint) {
-		this.heightHint = heightHint;
-	}
-
-	/**
-	 * @return Returns the widthHint.
-	 */
-	public String getWidthHint() {
-		return widthHint;
-	}
-
-	/**
-	 * @param widthHint The widthHint to set.
-	 */
-	public void setWidthHint(String widthHint) {
-		this.widthHint = widthHint;
-	}
-	
-	/* (non-Javadoc)
-	 * @see de.jwic.base.ControlContainer#isRenderingRelevant(de.jwic.base.Control)
-	 */
-	public boolean isRenderingRelevant(Control childControl) {
-		return childControl.getName().equals(currentControlName);
-	}
-
 }
