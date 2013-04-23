@@ -45,5 +45,43 @@ public class StackedContainer extends de.jwic.controls.StackedContainer {
 		super(container);
 		setTemplateName(de.jwic.controls.StackedContainer.class.getName());
 	}
+
+	/**
+	 * @param widthHint
+	 * @deprecated use setWidth(int)
+	 */
+	public void setWidthHint(String widthHint) {
+		if (widthHint == null || widthHint.isEmpty() || widthHint.equals("100%")) {
+			setWidth(0);
+		} else {
+			if (widthHint.endsWith("%")) {
+				throw new IllegalArgumentException("% values other than 100% is no longer supported");
+			}
+			if (widthHint.endsWith("px")) {
+				widthHint = widthHint.substring(0, widthHint.length() - 2);
+			}
+			setWidth(Integer.parseInt(widthHint));
+		}
+	}
+
+	/**
+	 * @param heightHint
+	 * @deprecated use setHeight(int)
+	 */
+	public void setHeightHint(String heightHint) {
+		if (heightHint == null || heightHint.isEmpty() || heightHint.equals("100%")) {
+			setWidth(0);
+		} else {
+			if (heightHint.endsWith("%")) {
+				throw new IllegalArgumentException("% values other than 100% is no longer supported");
+			}
+			if (heightHint.endsWith("px")) {
+				heightHint = heightHint.substring(0, heightHint.length() - 2);
+			}
+			setHeight(Integer.parseInt(heightHint));
+		}
+	}
+	
+	
 	
 }
