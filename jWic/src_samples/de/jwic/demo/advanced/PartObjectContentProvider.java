@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import de.jwic.base.Range;
 import de.jwic.controls.combo.FilteredRange;
 import de.jwic.data.ListContentProvider;
+import de.jwic.data.Range;
 
 /**
  *

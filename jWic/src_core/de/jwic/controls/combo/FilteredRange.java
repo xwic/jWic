@@ -19,7 +19,7 @@
  */
 package de.jwic.controls.combo;
 
-import de.jwic.base.Range;
+import de.jwic.data.Range;
 
 /**
  *

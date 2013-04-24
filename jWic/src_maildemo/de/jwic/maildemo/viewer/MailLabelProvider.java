@@ -22,10 +22,10 @@ package de.jwic.maildemo.viewer;
 import java.text.DateFormat;
 import java.util.Locale;
 
-import de.jwic.ecolib.tableviewer.CellLabel;
-import de.jwic.ecolib.tableviewer.ITableLabelProvider;
-import de.jwic.ecolib.tableviewer.RowContext;
-import de.jwic.ecolib.tableviewer.TableColumn;
+import de.jwic.controls.tableviewer.CellLabel;
+import de.jwic.controls.tableviewer.ITableLabelProvider;
+import de.jwic.controls.tableviewer.RowContext;
+import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.maildemo.api.IMail;
 import de.jwic.maildemo.resources.SharedImages;
 

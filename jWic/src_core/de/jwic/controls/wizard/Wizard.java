@@ -17,7 +17,7 @@
  * Created on 23.03.2006
  * $Id: Wizard.java,v 1.2 2008/09/18 18:20:00 lordsam Exp $
  */
-package de.jwic.ecolib.wizard;
+package de.jwic.controls.wizard;
 
 import java.util.ArrayList;
 import java.util.List;

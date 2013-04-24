@@ -1,0 +1,25 @@
+#set ($infoText = $control.infoText)
+#if ($infoText.length() < 25)
+	#set ($width = "180px")
+#else
+	#set ($width = "220px")
+#end 
+#if ($control.enabled)
+<table cellspacing="0" cellpadding="0" class="tblPageTable">
+	<tr>
+		<td><img class="tblPageButton" onMouseDown="this.className='tblPageButtonDown';" onMouseUp="this.className='tblPageButton'" onMouseOut="this.className='tblPageButton'" src="$jwic.contextPath/jwic/gfx/first.gif" width="16" height="16" onClick="$control.createActionURL('first', '')"></td>
+		<td><img class="tblPageButton" onMouseDown="this.className='tblPageButtonDown';" onMouseUp="this.className='tblPageButton'" onMouseOut="this.className='tblPageButton'" src="$jwic.contextPath/jwic/gfx/prev.gif" width="16" height="16" onClick="$control.createActionURL('prev', '')"></td>
+		<td width="$width" align="center">$infoText</td>
+		<td><img class="tblPageButton" onMouseDown="this.className='tblPageButtonDown';" onMouseUp="this.className='tblPageButton'" onMouseOut="this.className='tblPageButton'" src="$jwic.contextPath/jwic/gfx/next.gif" width="16" height="16" onClick="$control.createActionURL('next', '')"></td>
+		<td><img class="tblPageButton" onMouseDown="this.className='tblPageButtonDown';" onMouseUp="this.className='tblPageButton'" onMouseOut="this.className='tblPageButton'" src="$jwic.contextPath/jwic/gfx/last.gif" width="16" height="16" onClick="$control.createActionURL('last', '')"></td>
+#else
+<table cellspacing="0" cellpadding="0" class="tblPageTableDis">
+	<tr>
+		<td><img class="tblPageButtonDis" src="$jwic.contextPath/jwic/gfx/first.gif" width="16" height="16"></td>
+		<td><img class="tblPageButtonDis" src="$jwic.contextPath/jwic/gfx/prev.gif" width="16" height="16"></td>
+		<td width="$width" align="center">$infoText</td>
+		<td><img class="tblPageButtonDis" src="$jwic.contextPath/jwic/gfx/next.gif" width="16" height="16"></td>
+		<td><img class="tblPageButtonDis" src="$jwic.contextPath/jwic/gfx/last.gif" width="16" height="16"></td>
+#end
+	</tr>								
+</table>

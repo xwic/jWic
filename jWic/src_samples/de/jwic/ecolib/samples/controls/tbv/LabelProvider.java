@@ -1,10 +1,10 @@
 package de.jwic.ecolib.samples.controls.tbv;
 
 import de.jwic.base.ImageRef;
-import de.jwic.ecolib.tableviewer.CellLabel;
-import de.jwic.ecolib.tableviewer.ITableLabelProvider;
-import de.jwic.ecolib.tableviewer.RowContext;
-import de.jwic.ecolib.tableviewer.TableColumn;
+import de.jwic.controls.tableviewer.CellLabel;
+import de.jwic.controls.tableviewer.ITableLabelProvider;
+import de.jwic.controls.tableviewer.RowContext;
+import de.jwic.controls.tableviewer.TableColumn;
 
 /**
  * Used to transform the object into renderable data.

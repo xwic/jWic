@@ -22,7 +22,6 @@ package de.jwic.data;
 import java.io.Serializable;
 import java.util.Iterator;
 
-import de.jwic.base.Range;
 
 /**
  * Provides an on-demand access to elements. It is used in various

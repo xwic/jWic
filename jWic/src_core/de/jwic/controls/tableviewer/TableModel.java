@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: TableModel.java,v 1.15 2011/06/23 10:27:43 adrianionescu12 Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import de.jwic.data.IContentProvider;
+import de.jwic.data.Range;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 

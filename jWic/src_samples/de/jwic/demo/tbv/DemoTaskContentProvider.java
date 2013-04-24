@@ -15,11 +15,10 @@
  *
  * de.jwic.ecolib.samples.controls.tbv.DemoTaskContentProvider
  * Created on 15.03.2007
- * $Id: DemoTaskContentProvider.java,v 1.2 2008/09/18 18:20:16 lordsam Exp $
+ * $Id: DemoTaskContentProvider.java,v 1.4 2008/09/18 18:19:37 lordsam Exp $
  */
-package de.jwic.ecolib.samples.controls.tbv2;
+package de.jwic.demo.tbv;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -32,7 +31,7 @@ import de.jwic.data.ListContentProvider;
  * when the order changes, as it happens due to sorting.
  * @author Florian Lippisch
  */
-public class DemoTaskContentProvider extends ListContentProvider {
+public class DemoTaskContentProvider extends ListContentProvider<DemoTask> {
 
 	/**
 	 * @param list
@@ -44,8 +43,7 @@ public class DemoTaskContentProvider extends ListContentProvider {
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.tableviewer.defaults.ListContentProvider#getUniqueKey(java.lang.Object)
 	 */
-	public String getUniqueKey(Object object) {
-		DemoTask task = (DemoTask)object;
+	public String getUniqueKey(DemoTask task) {
 		return Integer.toString(task.id);
 	}
 
@@ -55,13 +53,11 @@ public class DemoTaskContentProvider extends ListContentProvider {
 	 */
 	public void sortData(final String field, final boolean up) {
 		
-		Collections.sort(data, new Comparator() {
+		Collections.sort(data, new Comparator<DemoTask>() {
 			/* (non-Javadoc)
 			 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
 			 */
-			public int compare(Object o1, Object o2) {
-				DemoTask t1 = (DemoTask)o1;
-				DemoTask t2 = (DemoTask)o2;
+			public int compare(DemoTask t1, DemoTask t2) {
 				int result = 0;
 				if (field.equals("done")) {
 					if (t1.done != t2.done) {
@@ -80,20 +76,37 @@ public class DemoTaskContentProvider extends ListContentProvider {
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see de.jwic.ecolib.treeviewer.ITreeContentProvider#getChildren(java.lang.Object)
+	/**
+	 * adds the DemoTask to the input list
+	 * @param task
 	 */
-	public Iterator<Serializable> getChildren(Object object) {
-		DemoTask task = (DemoTask)object;
-		return task.subTasks.iterator();
-	}
-
-	/* (non-Javadoc)
-	 * @see de.jwic.ecolib.treeviewer.ITreeContentProvider#hasChildren(java.lang.Object)
-	 */
-	public boolean hasChildren(Object object) {
-		DemoTask task = (DemoTask)object;
-		return task.hasSubTasks();
+	public void addElement(DemoTask task) {
+		data.add(task);
 	}
 	
+	/**
+	 * removes the DemoTask from the input list
+	 * @param task
+	 */
+	public void removeElement(DemoTask task) {
+		data.remove(task);
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.data.ListContentProvider#getObjectFromKey(java.lang.String)
+	 */
+	@Override
+	public DemoTask getObjectFromKey(String key) {
+		int id = Integer.parseInt(key);
+		
+		for (Iterator<DemoTask> it = data.iterator(); it.hasNext();) {
+			DemoTask task = it.next();
+			if (task.id == id) {
+				return task;
+			}
+		}
+		
+		return null;
+	}
 }

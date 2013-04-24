@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: TableColumn.java,v 1.8 2008/01/16 15:14:13 scholarius Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.io.Serializable;
 

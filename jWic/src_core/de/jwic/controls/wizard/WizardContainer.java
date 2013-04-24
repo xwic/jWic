@@ -17,7 +17,7 @@
  * Created on 23.03.2006
  * $Id: WizardContainer.java,v 1.6 2010/02/07 14:26:34 lordsam Exp $
  */
-package de.jwic.ecolib.wizard;
+package de.jwic.controls.wizard;
 
 import java.util.HashMap;
 import java.util.Map;

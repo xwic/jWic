@@ -22,9 +22,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.base.Range;
 import de.jwic.data.DataLabel;
 import de.jwic.data.ISelectElement;
+import de.jwic.data.Range;
 import de.jwic.data.SelectElement;
 import de.jwic.data.SelectElementBaseLabelProvider;
 import de.jwic.data.SelectElementContentProvider;

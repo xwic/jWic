@@ -19,7 +19,7 @@
  * @author jbornema
  */
 
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 /**
  * Created on Apr 12, 2007

@@ -23,11 +23,11 @@ import java.util.Iterator;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.ecolib.tableviewer.TableColumn;
-import de.jwic.ecolib.tableviewer.TableModel;
-import de.jwic.ecolib.tableviewer.TableModelAdapter;
-import de.jwic.ecolib.tableviewer.TableModelEvent;
-import de.jwic.ecolib.tableviewer.TableViewer;
+import de.jwic.controls.tableviewer.TableColumn;
+import de.jwic.controls.tableviewer.TableModel;
+import de.jwic.controls.tableviewer.TableModelAdapter;
+import de.jwic.controls.tableviewer.TableModelEvent;
+import de.jwic.controls.tableviewer.TableViewer;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.maildemo.api.IFolder;

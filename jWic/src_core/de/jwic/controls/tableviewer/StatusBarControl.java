@@ -19,7 +19,7 @@
  * @author jbornema
  */
 
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.text.MessageFormat;
 

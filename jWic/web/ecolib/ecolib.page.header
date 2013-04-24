@@ -1,7 +1,6 @@
 	<!-- ecolib js libraries -->	
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/balloon/balloon.js"></SCRIPT>	
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/rsmenu/menu.js"></SCRIPT>	
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/tblviewer/tblviewer.js"></SCRIPT>	
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/ecolib/treeviewer/treeviewer.js"></SCRIPT>	
 
 	#* TinyMCE WYSIWYG HTML Editor library, required by HtmlEditorControl *#
@@ -28,7 +27,6 @@
 	<!-- ecolib css -->
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/balloon/balloon.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/rsmenu/menu.css">
-	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/tblviewer/tbviewer.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/treeviewer/treeviewer.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/ecolib/ecolib.css">
 	

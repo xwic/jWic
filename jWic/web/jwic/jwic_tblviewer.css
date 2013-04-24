@@ -38,6 +38,7 @@
 		background-color: #000000;
 		opacity: .5;
 		filter: alpha(opacity=50);
+		z-index: 9999;
 	}
  
 /**

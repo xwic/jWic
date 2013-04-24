@@ -33,7 +33,7 @@ import java.util.List;
 public class FileTreeNode implements Serializable {
 
 	private File file = null;
-	private List<Serializable> childs = null;
+	private List<FileTreeNode> childs = null;
 	private String key = "0";
 	
 	/**
@@ -75,7 +75,7 @@ public class FileTreeNode implements Serializable {
 	/* (non-Javadoc)
 	 * @see javax.swing.tree.TreeNode#children()
 	 */
-	public Iterator<Serializable> children() {
+	public Iterator<FileTreeNode> children() {
 		if (childs == null) {
 			loadChilds();
 		}
@@ -87,7 +87,7 @@ public class FileTreeNode implements Serializable {
 	 *
 	 */
 	private void loadChilds() {
-		childs = new ArrayList<Serializable>();
+		childs = new ArrayList<FileTreeNode>();
 		if (file.isDirectory()) {
 			File[] subdirs = file.listFiles(new FileFilter () {
 				public boolean accept(File pathname) {

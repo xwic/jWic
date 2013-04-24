@@ -31,6 +31,8 @@ import de.jwic.demo.container.StackedContainerDemoModule;
 import de.jwic.demo.container.TabStripDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
+import de.jwic.demo.tbv.BasicTBVDemoModule;
+import de.jwic.demo.tbv.TableViewerDemoModule;
 
 /**
  * Demonstrates jWic controls. Creates the root control of the application.
@@ -73,6 +75,8 @@ public class DemoApplication extends Application {
 		modules.add(new StackedContainerDemoModule());
 		modules.add(new CKEditorDemoModule());
 		modules.add(new ToolBarDemoModule());
+		modules.add(new BasicTBVDemoModule());
+		modules.add(new TableViewerDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);
