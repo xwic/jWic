@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: Range.java,v 1.1 2010/01/26 11:25:13 lordsam Exp $
  */
-package de.jwic.base;
+package de.jwic.data;
 
 import java.io.Serializable;
 

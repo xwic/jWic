@@ -24,8 +24,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import de.jwic.base.Range;
 import de.jwic.data.IContentProvider;
+import de.jwic.data.Range;
 
 /**
  * Simple content provider for TreeDemo.

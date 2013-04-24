@@ -17,12 +17,13 @@
  * Created on 13.03.2007
  * $Id: PagingControl.java,v 1.3 2007/04/20 12:46:19 lordsam Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.text.MessageFormat;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.data.Range;
 
 /**
  *

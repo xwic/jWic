@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: ITableRenderer.java,v 1.3 2007/04/20 12:46:20 lordsam Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import de.jwic.base.RenderContext;
 

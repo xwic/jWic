@@ -3,7 +3,6 @@ package de.jwic.data;
 import java.util.Iterator;
 import java.util.List;
 
-import de.jwic.base.Range;
 
 /**
  * A simple content provider that provides the data from a List object.

@@ -17,7 +17,7 @@
  * Created on 23.03.2006
  * $Id: WizardPage.java,v 1.2 2006/09/18 20:00:13 lordsam Exp $
  */
-package de.jwic.ecolib.wizard;
+package de.jwic.controls.wizard;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.ecolib.util.ValidationException;

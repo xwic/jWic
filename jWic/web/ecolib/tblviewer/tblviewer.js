@@ -111,7 +111,7 @@
 		if (document.body.leftMargin) {
 			minX += parseInt(document.body.leftMargin);
 		}
-		log("offset: " + minX + "; " + offset.left + "; " + document.body.leftMargin);	
+		JWic.log("offset: " + minX + "; " + offset.left + "; " + document.body.leftMargin);	
 		// build list of the width of all columns
 		var colNodes = tblViewer_getColumnNodes(tableObject);
 		for (var i = 0; i <colNodes.length; i++) {
@@ -171,7 +171,7 @@
 	function tblViewer_getColumnNodes(tableObject) {
 		var objTR = tblViewer_findElement(tableObject, "TR");
 		if (objTR == null) {
-			log("ERROR tblViewer_getColumnNodes: cant find TH tags");
+			JWic.log("ERROR tblViewer_getColumnNodes: cant find TH tags");
 		}
 		return objTR.childNodes;
 	}
@@ -195,7 +195,7 @@
 
 		//tblv_currResizer.style.left = (tblv_minX + newWidth - tblv_scrolledX) + "px";
 		tblv_currResizer.style.display = "none";
-		log("resizeColumnDone");
+		JWic.log("resizeColumnDone");
 		
 		if (tblv_currResizer.setCapture) { // IE mode
 			tblv_currResizer.releaseCapture();
@@ -394,7 +394,7 @@
 			tableNode2 = document.getElementById("tblViewDataTbl_" + tbvCtrlId);
 		}
 	
-		log("tblViewer_ClickRow: " + tbvSelMode + "; " + tbvSelKey);
+		JWic.log("tblViewer_ClickRow: " + tbvSelMode + "; " + tbvSelKey);
 		if (tbvSelMode == "multi") {
 			tblViewer_flipRowSelection(tblRow);
 			if (tableNode2) tblViewer_flipRowSelection(tableNode2.rows[tblRow.rowIndex]);

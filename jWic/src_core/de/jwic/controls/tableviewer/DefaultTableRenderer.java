@@ -15,18 +15,17 @@
  *
  * de.jwic.ecolib.tableviewer.DefaultTableRenderer
  * Created on 12.03.2007
- * $Id: FixColumnTableRenderer.java,v 1.17 2010/05/11 13:21:17 lordsam Exp $
+ * $Id: DefaultTableRenderer.java,v 1.23 2012/08/17 09:25:14 adrianionescu12 Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Iterator;
-import java.util.List;
 
+import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import de.jwic.base.Control;
@@ -35,6 +34,8 @@ import de.jwic.base.IControlRenderer;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JWicRuntime;
 import de.jwic.base.RenderContext;
+import de.jwic.data.IContentProvider;
+import de.jwic.data.Range;
 
 /**
  * Default implementation of the ITableRenderer interface. The default renderer
@@ -42,28 +43,37 @@ import de.jwic.base.RenderContext;
  * because its faster, costs less resources and the generated HTML is quite
  * complex so that templates would be quite ugly anyway.
  * 
- * @author Jens Bornemann
+ * @author Florian Lippisch
  */
-public class FixColumnTableRenderer extends DefaultTableRenderer {
+public class DefaultTableRenderer implements ITableRenderer, Serializable {
+
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected int fixColumn = 0;
-	protected boolean reuseContent = true;
+	/** default icon used for sort-up image */
+	public final static ImageRef ICON_SORTUP = new ImageRef("/ecolib/tblviewer/sortup.gif");
+	/** default icon used for sort-down image */
+	public final static ImageRef ICON_SORTDOWN = new ImageRef("/ecolib/tblviewer/sortdn.gif"); 
+	/** default icon used for expand image */
+	public final static ImageRef ICON_EXPAND = new ImageRef("/ecolib/treeviewer/expand.png");
+	/** default icon used for collapse image */
+	public final static ImageRef ICON_COLLAPSE = new ImageRef("/ecolib/treeviewer/collapse.png"); 
+	/** default icon used for indention */
+	public final static ImageRef ICON_CLEAR = new ImageRef("/ecolib/tblviewer/clear.gif"); 
 
+	protected transient Log log = LogFactory.getLog(getClass()); 
+	
+	private boolean expandLinkSpacing = true;
+	private int expandIconWidth = 19;
+	private int expandIconHeight = 16;
+	
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.tableviewer.ITableRenderer#renderTable(de.jwic.base.RenderContext, de.jwic.ecolib.tableviewer.TableViewer, de.jwic.ecolib.tableviewer.TableModel)
 	 */
-	@SuppressWarnings("unused")
 	public void renderTable(RenderContext renderContext, TableViewer viewer, TableModel model, ITableLabelProvider labelProvider) {
 		
-		if (!viewer.isScrollable() || fixColumn < 0) {
-			super.renderTable(renderContext, viewer, model, labelProvider);
-			return;
-		}
-
 		String tblvWebPath = JWicRuntime.getJWicRuntime().getContextPath() + "/ecolib/tblviewer/";
 		
 		PrintWriter writer = renderContext.getWriter();
@@ -79,22 +89,6 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			tblWidth += tc.getWidth();
 		}
 		
-		int defaultColumnWidth = 150;
-		// TODO use defined css border width instead of this fixed one...
-		int leftWidth = (fixColumn + 1) * 2;
-		{
-			int c = 0;
-			for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext(); ) {
-				TableColumn column = itC.next();
-				if (c++ > fixColumn || !column.isVisible()) {
-					break;
-				}
-				int width = column.getWidth() != 0 ? column.getWidth() : defaultColumnWidth;
-				leftWidth += width;
-			}
-		}
-		int rightWidth = viewer.getWidth() != 0 ? viewer.getWidth() - leftWidth : 0;
-
 		// Add resizer div 
 		if (viewer.isResizeableColumns()) {
 			writer.print("<DIV id=\"tblViewResizer_" + viewer.getControlID() + "\" class=\"tblViewResizer\" ");
@@ -112,8 +106,14 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			if (viewer.getWidth() != 0) {
 				writer.print(" width=\"" + viewer.getWidth() + "\"");
 			}
+			// FLI: the table does not need a height...
+			/*if (viewer.getHeight() != 0) {
+				writer.print(" height=\"" + viewer.getHeight() + "\"");
+			}*/
 		}
 		writer.println(">");
+
+		
 		writer.print("<tr><td>");
 		
 		// render data table.
@@ -127,74 +127,56 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 		writer.print(" id=\"tblContent_" + viewer.getControlID() + "\"");
 		writer.print(" style=\"height: " + divHeight + "; width: " + divWidth + "; overflow: hidden\">");
 		
-		StringWriter leftHtml = new StringWriter();
-		PrintWriter leftWriter = new PrintWriter(leftHtml);
-		StringWriter rightHtml = new StringWriter();
-		PrintWriter rightWriter = new PrintWriter(rightHtml);
+		if (viewer.isScrollable() && viewer.isShowHeader()) {
+			int tmpWidth = viewer.getWidth() != 0 ? viewer.getWidth() : 300;
+			writer.print("<DIV id=\"tblViewHead_" + viewer.getControlID() + "\"");
+			writer.print("style=\"width: " + tmpWidth + "px; ");
+			writer.print("height: 20px; overflow: hidden;");
+			writer.print("\">");
+		}
 		
-		writer = leftWriter;
-		String tblView = "tblViewLeft";
-		for (int i = 0; i < 2; i++) {
-			
-			boolean right = i == 1;
-			int dataWidth = leftWidth; 
-			if (right && writer != rightWriter) {
-				writer = rightWriter;
-				tblView = "tblView";
-				dataWidth = rightWidth;				
+		// create required table attributes.
+		StringBuffer sbTblSelAttrs = new StringBuffer();
+		switch (model.getSelectionMode()) {
+		case TableModel.SELECTION_SINGLE: {
+			String clearKey = model.getFirstSelectedKey();
+			if (clearKey == null) {
+				clearKey = "";
 			}
-			if (dataWidth == 0) {
-				dataWidth = 300;
-			}
+			sbTblSelAttrs.append(" tbvSelKey=\"" + clearKey + "\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"single\"");
+			break;
+		}
+		case TableModel.SELECTION_MULTI: {
+			sbTblSelAttrs.append(" tbvSelKey=\"\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"multi\"");
+			break;
+		}
+		default: {
+			sbTblSelAttrs.append(" tbvSelKey=\"\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"none\"");
+		}
+		}
 		
-			if (viewer.isShowHeader()) {
-				writer.print("<DIV id=\"" + tblView + "Head_" + viewer.getControlID() + "\"");
-				writer.print("style=\"width: " + dataWidth + "px; ");
-				writer.print("height: 20px; overflow: hidden;");
-				writer.print("\">");
+		if (viewer.isShowHeader() || !viewer.isScrollable()) {
+		
+			writer.print("<table");
+			writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
+			writer.print(" id=\"tblViewData_" + viewer.getControlID() + "\"");
+			writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" ");
+			if (viewer.isScrollable()) {
+				// must add a width attribute, otherwise table-layout: fixed isnt working on Mozilla
+				writer.print(" width=\"" + tblWidth + "\" ");
 			}
-			
-			// create required table attributes.
-			StringBuffer sbTblSelAttrs = new StringBuffer();
-			switch (model.getSelectionMode()) {
-			case TableModel.SELECTION_SINGLE: {
-				String clearKey = model.getFirstSelectedKey();
-				if (clearKey == null) {
-					clearKey = "";
-				}
-				sbTblSelAttrs.append(" tbvSelKey=\"" + clearKey + "\"");
-				sbTblSelAttrs.append(" tbvSelMode=\"single\"");
-				break;
-			}
-			case TableModel.SELECTION_MULTI: {
-				sbTblSelAttrs.append(" tbvSelKey=\"\"");
-				sbTblSelAttrs.append(" tbvSelMode=\"multi\"");
-				break;
-			}
-			default: {
-				sbTblSelAttrs.append(" tbvSelKey=\"\"");
-				sbTblSelAttrs.append(" tbvSelMode=\"none\"");
-			}
-			}
-			
-			if (viewer.isShowHeader()) {
-			
-				writer.print("<table");
-				writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
-				writer.print(" id=\"" + tblView + "Data_" + viewer.getControlID() + "\"");
-				writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" ");
-				if (viewer.isScrollable()) {
-					// must add a width attribute, otherwise table-layout: fixed isnt working on Mozilla
-					writer.print(" width=\"" + dataWidth + "\" ");
-				}
-				writer.print(sbTblSelAttrs);
-				writer.println(">");
-			}
-			
-			// render HEADER columns
-			if (viewer.isShowHeader()) {
-				renderHeader(writer, model, viewer, tblvWebPath, right, dataWidth);
-			}		
+			writer.print(sbTblSelAttrs);
+			writer.println(">");
+		}
+		
+		// render HEADER columns
+		if (viewer.isShowHeader()) {
+			renderHeader(writer, model, viewer, tblvWebPath);
+		}		
+		if (viewer.isScrollable()) {
 			// if scrollable, seperate the data table from the header
 			// and render it within its own, scrollable DIV. Will only
 			// look proper if the columns have a fixed width.
@@ -203,108 +185,60 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			if (viewer.isShowStatusBar()) {
 				dataHeight -= 18;
 			}
+			int dataWidth = viewer.getWidth() != 0 ? viewer.getWidth() : 300;
 			if (viewer.isShowHeader()) {
 				writer.println("</TABLE></DIV>");
 			}
-			if (!right) {
-				writer.print("<DIV style=\"");
-				writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: hidden;\"");
-				writer.print("\" id=\"tblViewLeftDataLayer_" + viewer.getControlID() + "\"");
-				writer.print(">");
-				writer.print("<table");
-				writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
-				writer.print(" id=\"tblViewLeftDataTbl_" + viewer.getControlID() + "\"");
-				writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" width=\"" + dataWidth + "\"");
-				writer.print(sbTblSelAttrs);
-				writer.print(">");
-			} else {
-				writer.print("<DIV onscroll=\"tblViewer_handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
-				writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
-				writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\"");
-				writer.print(">");
-				writer.print("<table");
-				writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
-				writer.print(" id=\"tblViewDataTbl_" + viewer.getControlID() + "\"");
-				writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" width=\"" + dataWidth + "\"");
-				writer.print(sbTblSelAttrs);
-				writer.print(">");
+			writer.print("<DIV onscroll=\"tblViewer_handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
+			writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
+			writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\"");
+			writer.println(">");
+			writer.print("<table");
+			writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
+			writer.print(" id=\"tblViewDataTbl_" + viewer.getControlID() + "\"");
+			writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" width=\"" + tblWidth + "\"");			
+			writer.print(sbTblSelAttrs);
+			writer.println(">");
+		}
+		
+		Range range = model.getRange();
+		if (range.getMax() == 0) { // = Auto
+			int max = -1;
+			int rowSpace = viewer.getHeight() - (35 + 20); // - header height + scroll bar height
+			if (rowSpace != 0) {
+				if (viewer.isShowStatusBar()) {
+					rowSpace -= 18;
+				}
+				max = rowSpace / viewer.getRowHeightHint(); //
+				if (max < 1) {
+					max = 1;
+				}
+				model.setLastRenderedPageSize(max);
 			}
+			range = new Range(range.getStart(), max);
 		}
 		
 		// render table BODY
-		leftWriter.print("<TBODY class=\"tblData\">");
-		rightWriter.print("<TBODY class=\"tblData\">");
-		
-		int count = 0;
+		writer.println("<TBODY>");
 		try {
-			writer = leftWriter;
-			tblView = "tblViewLeft";
+			int count = renderRows(0, false, writer, contentProvider.getContentIterator(range), viewer, labelProvider);
 			
-			Range range = model.getRange();
-			if (range.getMax() == 0) { // = Auto
-				int max = -1;
-				int rowSpace = viewer.getHeight() - (35 + 20); // - header height + scroll bar height
-				if (rowSpace != 0) {
-					if (viewer.isShowStatusBar()) {
-						rowSpace -= 18;
-					}
-					max = rowSpace / viewer.getRowHeightHint(); //
-					if (max < 1) {
-						max = 1;
-					}
-					model.setLastRenderedPageSize(max);
-				}
-				range = new Range(range.getStart(), max);
-			}
-
-			
-			List<Object> list = null;
-			if (reuseContent) {
-				list = new ArrayList<Object>();
-				for (Iterator<?> it = contentProvider.getContentIterator(range); it.hasNext();) {
-					list.add(it.next());
-				}
+			if (count == 0) {
+				// if no rows exist, then print an empty row just to preserve the scrolling of the header
+				renderEmptyRow(writer, viewer);
 			}
 			
-			
-			for (int i = 0; i < 2; i++) {
-				
-				boolean right = i == 1;
-				if (right && writer != rightWriter) {
-					writer = rightWriter;
-					tblView = "tblView";
-				}
-				Iterator<?> it = list != null ? list.iterator() : contentProvider.getContentIterator(model.getRange());
-				count = renderRows(0, false, writer, it, viewer, labelProvider, right, tblView);
-			}
+			model.setLastRowRenderCount(count);
 		} catch (Exception e) {
 			writer.println("Error reading data from ContentProvider: " + e);
 			log.error("Error reading data from ContentProvider", e);
 		}
-		model.setLastRowRenderCount(count);
-
-		writer = leftWriter;
-		for (int i = 0; i < 2; i++) {
-			
-			boolean right = i == 1;
-			if (right && writer != rightWriter) {
-				writer = rightWriter;
-			}
-			writer.print("</TBODY>");
-			writer.print("</table>");
-			writer.print("</DIV>");
+		
+		writer.println("</TBODY>");
+		writer.println("</table>");
+		if (viewer.isScrollable()) {
+			writer.println("</DIV>");
 		}
-		
-		// finish left and right...
-		leftWriter.close();
-		rightWriter.close();
-		writer = renderContext.getWriter();
-		writer.print("<table cellspacing=\"0\" cellpadding=\"0\"><tr><td valign=top>");
-		writer.print(leftHtml.toString());
-		writer.print("</td><td valign=top>");
-		writer.print(rightHtml.toString());
-		writer.print("</td></tr></table>");
-		
 		writer.println("</div></td></tr>");
 		
 		// render STATUS BAR
@@ -319,26 +253,23 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 		
 		writer.println("</table>");
 		
-		// div to fix IE6 scrolling
-		writer.print("<div id=\"ie6fixscroll_" + viewer.getControlID() + "\" style=display:none;;width:0px;height:0px\"></div>");
-		
-		// add scroll fields
-		Field fldLeft = viewer.getField("left");
-		Field fldTop = viewer.getField("top");
-		writer.println("<INPUT TYPE=\"HIDDEN\" NAME=\"" + fldLeft.getId() + "\" VALUE=\"" + fldLeft.getValue() + "\">");
-		writer.println("<INPUT TYPE=\"HIDDEN\" NAME=\"" + fldTop.getId() + "\" VALUE=\"" + fldTop.getValue() + "\">");
+		if (viewer.isScrollable()) {
+			// add scroll fields
+			Field fldLeft = viewer.getField("left");
+			Field fldTop = viewer.getField("top");
+			writer.println("<INPUT TYPE=\"HIDDEN\" NAME=\"" + fldLeft.getId() + "\" VALUE=\"" + fldLeft.getValue() + "\">");
+			writer.println("<INPUT TYPE=\"HIDDEN\" NAME=\"" + fldTop.getId() + "\" VALUE=\"" + fldTop.getValue() + "\">");
 
-		writer.print("<script language=\"javascript\">");
-		writer.print("window.setTimeout('var h = document.getElementById(\"tblViewDataLayer_" + viewer.getControlID() + "\").clientHeight;");
-		writer.print("if (h > 0) document.getElementById(\"tblViewLeftDataLayer_" + viewer.getControlID() + "\").style.height=h + \"px\";");
-		writer.print("jWic().fixScrolling(\"" + viewer.getControlID() + "\", \"tblViewDataLayer_" + viewer.getControlID() + "\");', 0);");
-		writer.print("</script>");
+			writer.println("<script language=\"javascript\">");
+			writer.println("window.setTimeout(\"JWic.restoreScrolling('" + viewer.getControlID() + "', 'tblViewDataLayer_" + viewer.getControlID() + "');\", 0);");
+			writer.println("</script>");
+		}
+		
 	}
-	
 	/**
 	 * 
 	 */
-	protected void renderHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblvWebPath, boolean right, int dataWidth) {
+	protected void renderHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblvWebPath) {
 		
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
 		boolean isColSelectable = viewer.isSelectableColumns() && viewer.isEnabled();
@@ -346,19 +277,9 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 		writer.println("<THEAD>");
 		
 		writer.println("<tr>");
-		int c = -1;
 		for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext(); ) {
 			TableColumn column = itC.next();
-			c++;
-			if (!right) {
-				if (c > fixColumn) {
-					break;
-				}
-			} else {
-				if (c <= fixColumn) {
-					continue;
-				}
-			}
+			
 			if (!column.isVisible()) {
 				continue;
 			}
@@ -378,20 +299,20 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 					innerWidth = 3;
 				}
 			}
-			writer.print(" colIdx=\"" + column.getIndex() + "\" ");
+			writer.print(" colIdx=\"" + column.getIndex() + "\"");
 			
             //header tooltip
             if (column.getToolTip() != null && column.getToolTip().length() > 0) {
                 writer.print(" title=\"" + column.getToolTip() + "\"");
             }
-			
+		
 			writer.println(">");
 			// create cell table
 			writer.print("<TABLE class=\"tbvColHeader\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\"><TR>");
-			writer.print("<TD class=\"" + getHeaderCssClass(column) +  "\" width=\"" + innerWidth + "\"");
+			writer.print("<TD class=\"tbvColHeadCell\" width=\"" + innerWidth + "\"");
 			if (isColSelectable) {
-				writer.print(" onClick=\"jWic().fireAction('" + viewer.getControlID() + "', 'columnSelection', '" + column.getIndex() + "')\"");
-				writer.print(" onMouseDown=\"tblViewer_pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\"");
+				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '" + column.getIndex() + "')\"");
+				writer.print(" onMouseDown=\"tblViewer_pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "')\"");
 				writer.print(" onMouseUp=\"tblViewer_releaseColumn()\"");
 				writer.print(" onMouseOut=\"tblViewer_releaseColumn()\"");
 			}
@@ -422,7 +343,7 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			if (isResizable) {
 				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblvWebPath + "resizer.gif\" width=\"3\" height=\"13\"");
 				writer.print(" colIdx=\"" + column.getIndex() + "\"");
-				writer.print(" onMouseDown=\"tblViewer_resizeColumn(event, '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\" class=\"tblResize\" border=0>");
+				writer.print(" onMouseDown=\"tblViewer_resizeColumn(event, '" + viewer.getControlID() + "')\" class=\"tblResize\" border=0>");
 				writer.print("</TD>");
 			}
 			writer.print("</TR></TABLE>");
@@ -431,23 +352,26 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 		
 		// if the width is fixed, we must render an empty column at the end so that the
 		// browser will not adjust the columns width
-		if (dataWidth != 0 && right) {
-			writer.print("<TH width=\"" + dataWidth + "\">&nbsp;</TH>");
+		if (viewer.getWidth() != 0) {
+			if (viewer.isScrollable()) {
+				writer.println("<TH width=\"" + viewer.getWidth() + "\">&nbsp;</TH>");
+			} else {
+				writer.println("<TH>&nbsp;</TH>");
+			}
 		}
 		
 		writer.println("</tr>");
 		writer.println("</THEAD>");
 		
 	}
+
 	/**
 	 * @param writer
 	 * @param rootIterator
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	protected int renderRows(int level, boolean hasNext, PrintWriter writer, Iterator<?> it, TableViewer viewer, ITableLabelProvider labelProvider, boolean right, String tblView) {
-		int expandIconWidth = getExpandIconWidth();
-		int expandIconHeight = getExpandIconHeight();
-
+	protected int renderRows(int level, boolean hasNext, PrintWriter writer, Iterator<?> it, TableViewer viewer, ITableLabelProvider labelProvider) {
+		
 		TableModel model = viewer.getModel();
 		IContentProvider contentProvider = model.getContentProvider();
 		
@@ -478,19 +402,8 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 				writer.print(" class=\"" + rowCssClass + "\"");
 			}
 			writer.println(">");
-			int c = -1;
 			for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext(); ) {
 				TableColumn column = itC.next();
-				c++;
-				if (!right) {
-					if (c > fixColumn) {
-						break;
-					}
-				} else {
-					if (c <= fixColumn) {
-						continue;
-					}
-				}
 				if (!column.isVisible()) {
 					continue;
 				}
@@ -515,14 +428,13 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 				
 				boolean innerTable = column.getIndex() == viewer.getExpandableColumn() || 
 										cell.image != null && cell.text != null;
-				//innerTable = true;
+				
 				if (innerTable) {
 					writer.print("<table class=\"inner\" cellspacing=0 cellpadding=0 border=0><tr><td>");
-					//writer.print("</p>");
 				}
 				// handle exp/collapse
 				if (column.getIndex() == viewer.getExpandableColumn()) {
-					// indent
+					// indention
 					for (int i = 0; i < level; i++) {
 						writer.print(ICON_CLEAR.toImgTag(expandIconWidth, expandIconHeight));
 					}
@@ -537,18 +449,18 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 							writer.print((expanded ? ICON_COLLAPSE : ICON_EXPAND).toImgTag(expandIconWidth, expandIconHeight));
 						}
 					} else {
-						if (isExpandLinkSpacing()) {
+						if (expandLinkSpacing) {
 							writer.print(ICON_CLEAR.toImgTag(expandIconWidth, expandIconHeight));
 						}
 					}
-					//writer.print("</td><td class=\"content\">");
+					writer.print("</td><td class=\"content\">");
 				}
 				
 				// print cell value
 				if (cell.image != null) {
 					writer.print(cell.image.toImgTag());
 					if (cell.text != null) {
-						//writer.print("</td><td class=\"content\">");
+						writer.print("</td><td class=\"content\">");
 					}
 				}
 				if (cell.text != null) {
@@ -562,34 +474,76 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 				}
 				if (innerTable) {
 					writer.print("</td></tr></table>");
-					//writer.print("</p>");
 				}				
 				writer.println("</td>");
 				
 			}
 			// if its a fixed width, must render an empty column that fills up the space.
-			if (viewer.getWidth() != 0 && right) {
+			if (viewer.getWidth() != 0) {
 				writer.println("<TD>&nbsp;</TD>");
 			}
 			writer.println(" </tr>");
 			
 			if (contentProvider.hasChildren(row) && expanded) {
-				renderRows(level + 1, hasNext || it.hasNext(), writer, contentProvider.getChildren(row), viewer, labelProvider, right, tblView);
+				renderRows(level + 1, hasNext || it.hasNext(), writer, contentProvider.getChildren(row), viewer, labelProvider);
 			}
 			
 		}
 		return count;
 	}
-
+	
 	/**
-	 * Returns CssClass used for table headers.
-	 * @param column
-	 * @return
+	 * @param writer
+	 * @param viewer
 	 */
-	protected String getHeaderCssClass(TableColumn column) {
-		return "tbvColHeadCell";
+	protected void renderEmptyRow(PrintWriter writer, TableViewer viewer) {		
+		writer.print("<tr class=\"lastRow\">");
+		writer.print("<td colspan=\"" + (viewer.getModel().getColumnsCount() - 1) + "\" style=\"font-style: italic\">");
+		writer.print("no rows available");
+		writer.println("</td></tr>");
 	}
-
+	
+	/**
+	 * @return the expandLinkSpacing
+	 */
+	public boolean isExpandLinkSpacing() {
+		return expandLinkSpacing;
+	}
+	
+	/**
+	 * @param expandLinkSpacing the expandLinkSpacing to set
+	 */
+	public void setExpandLinkSpacing(boolean expandLinkSpacing) {
+		this.expandLinkSpacing = expandLinkSpacing;
+	}
+	
+	/**
+	 * @param expandIconHeight the expandIconHeight to set
+	 */
+	public void setExpandIconHeight(int expandIconHeight) {
+		this.expandIconHeight = expandIconHeight;
+	}
+	
+	/**
+	 * @return the expandIconHeight
+	 */
+	public int getExpandIconHeight() {
+		return expandIconHeight;
+	}
+	
+	/**
+	 * @param expandIconWidth the expandIconWidth to set
+	 */
+	public void setExpandIconWidth(int expandIconWidth) {
+		this.expandIconWidth = expandIconWidth;
+	}
+	
+	/**
+	 * @return the expandIconWidth
+	 */
+	public int getExpandIconWidth() {
+		return expandIconWidth;
+	}
 	/**
 	 * Get new logger after deserialization.
 	 * @param s
@@ -604,32 +558,4 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 		log = LogFactory.getLog(getClass());
 	}
 
-	/**
-	 * @return the fixColumn
-	 */
-	public int getFixColumn() {
-		return fixColumn;
-	}
-	
-	/**
-	 * @param fixColumn the fixColumn to set
-	 */
-	public void setFixColumn(int fixColumn) {
-		this.fixColumn = fixColumn;
-	}
-
-	/**
-	 * @return the reuseContent
-	 */
-	public boolean isReuseContent() {
-		return reuseContent;
-	}
-
-	/**
-	 * @param reuseContent the reuseContent to set
-	 */
-	public void setReuseContent(boolean reuseContent) {
-		this.reuseContent = reuseContent;
-	}
-	
 }

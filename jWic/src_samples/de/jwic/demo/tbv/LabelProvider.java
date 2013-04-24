@@ -1,4 +1,4 @@
-package de.jwic.ecolib.samples.controls.tbv2;
+package de.jwic.demo.tbv;
 
 import de.jwic.base.ImageRef;
 import de.jwic.controls.tableviewer.CellLabel;
@@ -15,10 +15,10 @@ class LabelProvider implements ITableLabelProvider {
 	private static ImageRef IMG_CHECKED = new ImageRef(LabelProvider.class.getPackage(), "checked.gif");
 	private static ImageRef IMG_UNCHECKED = new ImageRef(LabelProvider.class.getPackage(), "unchecked.gif");
 	
-	/*(non-Javadoc)
-	 * @see de.jwic.ecolib.treeviewer.ITreeLabelProvider#getCellLabel(java.lang.Object, de.jwic.ecolib.tableviewer.TableColumn, de.jwic.ecolib.treeviewer.RowContext)
+	/* (non-Javadoc)
+	 * @see de.jwic.ecolib.tableviewer.ITableLabelProvider#writeCellLabel(de.jwic.ecolib.tableviewer.CellLabel, java.lang.Object, de.jwic.ecolib.tableviewer.TableColumn)
 	 */
-	public CellLabel getCellLabel(Object row, TableColumn column, RowContext rowContext) {
+	public CellLabel getCellLabel(Object row, TableColumn column, RowContext context) {
 		CellLabel cellLabel = new CellLabel();
 		
 		DemoTask task = (DemoTask)row;

@@ -18,13 +18,14 @@
  * $Id: TableViewer.java,v 1.16 2010/11/02 08:04:49 cosote Exp $
  */
 
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.RenderContext;
 import de.jwic.controls.IHTMLElement;
+import de.jwic.data.IContentProvider;
 import de.jwic.renderer.self.ISelfRenderingControl;
 import de.jwic.renderer.self.SelfRenderer;
 

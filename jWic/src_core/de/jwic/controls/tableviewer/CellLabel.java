@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: CellLabel.java,v 1.6 2010/04/06 14:36:17 cosote Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import de.jwic.base.ImageRef;
 

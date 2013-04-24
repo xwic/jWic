@@ -17,7 +17,7 @@
  * Created on 15.03.2007
  * $Id: TableModelAdapter.java,v 1.4 2008/07/24 10:44:19 cosote Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 
 /**

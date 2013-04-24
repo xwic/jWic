@@ -29,10 +29,10 @@ import org.json.JSONWriter;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.base.Range;
 import de.jwic.data.IBaseLabelProvider;
 import de.jwic.data.IContentProvider;
 import de.jwic.data.DataLabel;
+import de.jwic.data.Range;
 import de.jwic.json.JsonResourceControl;
 
 /**

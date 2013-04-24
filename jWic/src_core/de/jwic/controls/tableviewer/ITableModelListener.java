@@ -17,7 +17,7 @@
  * Created on 12.03.2007
  * $Id: ITableModelListener.java,v 1.5 2008/07/24 10:44:19 cosote Exp $
  */
-package de.jwic.ecolib.tableviewer;
+package de.jwic.controls.tableviewer;
 
 import java.io.Serializable;
 

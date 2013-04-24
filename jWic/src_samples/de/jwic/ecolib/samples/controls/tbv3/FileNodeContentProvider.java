@@ -19,19 +19,18 @@
  */
 package de.jwic.ecolib.samples.controls.tbv3;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import de.jwic.ecolib.tableviewer.IContentProvider;
-import de.jwic.ecolib.tableviewer.Range;
+import de.jwic.data.IContentProvider;
+import de.jwic.data.Range;
 
 /**
  * Provides the content in form of FileTreeNode objects.
  * @author Florian Lippisch
  */
-public class FileNodeContentProvider implements IContentProvider {
+public class FileNodeContentProvider implements IContentProvider<FileTreeNode> {
 
 	private FileTreeNode root;
 	private List<FileTreeNode> rootList = new ArrayList<FileTreeNode>();
@@ -48,15 +47,24 @@ public class FileNodeContentProvider implements IContentProvider {
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.tableviewer.defaults.ListContentProvider#getUniqueKey(java.lang.Object)
 	 */
-	public String getUniqueKey(Object object) {
+	public String getUniqueKey(FileTreeNode object) {
 		FileTreeNode node = (FileTreeNode)object;
 		return node.getKey();
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.data.IContentProvider#getObjectFromKey(java.lang.String)
+	 */
+	@Override
+	public FileTreeNode getObjectFromKey(String uniqueKey) {
+		// TODO - Implement method to get the object...
+		return null;
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.treeviewer.ITreeContentProvider#getChildren(java.lang.Object)
 	 */
-	public Iterator<Serializable> getChildren(Object object) {
+	public Iterator<FileTreeNode> getChildren(FileTreeNode object) {
 		FileTreeNode node = (FileTreeNode)object;
 		return node.children();
 	}
@@ -64,15 +72,14 @@ public class FileNodeContentProvider implements IContentProvider {
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.treeviewer.ITreeContentProvider#getRootIterator()
 	 */
-	public Iterator getContentIterator(Range range) {
+	public Iterator<FileTreeNode> getContentIterator(Range range) {
 		return showRootElement ? rootList.iterator() : root.children();
 	}
 
 	/* (non-Javadoc)
 	 * @see de.jwic.ecolib.treeviewer.ITreeContentProvider#hasChildren(java.lang.Object)
 	 */
-	public boolean hasChildren(Object object) {
-		FileTreeNode node = (FileTreeNode)object;
+	public boolean hasChildren(FileTreeNode node) {
 		return node.hasChildren();
 	}
 	/* (non-Javadoc)

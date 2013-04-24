@@ -38,13 +38,13 @@ import org.apache.poi.hssf.util.HSSFColor;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
 import de.jwic.controls.Button;
-import de.jwic.ecolib.tableviewer.CellLabel;
-import de.jwic.ecolib.tableviewer.IContentProvider;
-import de.jwic.ecolib.tableviewer.Range;
-import de.jwic.ecolib.tableviewer.RowContext;
-import de.jwic.ecolib.tableviewer.TableColumn;
-import de.jwic.ecolib.tableviewer.TableModel;
-import de.jwic.ecolib.tableviewer.TableViewer;
+import de.jwic.controls.tableviewer.CellLabel;
+import de.jwic.controls.tableviewer.RowContext;
+import de.jwic.controls.tableviewer.TableColumn;
+import de.jwic.controls.tableviewer.TableModel;
+import de.jwic.controls.tableviewer.TableViewer;
+import de.jwic.data.IContentProvider;
+import de.jwic.data.Range;
 
 /**
  * This control defines the ExcelExport button.
