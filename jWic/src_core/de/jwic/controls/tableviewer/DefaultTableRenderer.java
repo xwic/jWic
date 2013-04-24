@@ -93,13 +93,13 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		}
 		
 		// Add resizer div 
-		if (viewer.isResizeableColumns()) {
-			writer.print("<DIV id=\"tblViewResizer_" + viewer.getControlID() + "\" class=\"tblViewResizer\" ");
-			/*writer.print("onMouseUp=\"tblViewer_resizeColumnDone()\"" +
-					" onMouseMove=\"tblViewer_resizeColumMove()\"");*/
-			writer.print(" style=\"height: " + (viewer.getHeight() != 0 ? viewer.getHeight() : 20) + "px\"");
-			writer.println("></DIV>");
-		}
+//		if (viewer.isResizeableColumns()) {
+//			writer.print("<DIV id=\"tblViewResizer_" + viewer.getControlID() + "\" class=\"tblViewResizer\" ");
+//			/*writer.print("onMouseUp=\"tblViewer_resizeColumnDone()\"" +
+//					" onMouseMove=\"tblViewer_resizeColumMove()\"");*/
+//			writer.print(" style=\"height: " + (viewer.getHeight() != 0 ? viewer.getHeight() : 20) + "px\"");
+//			writer.println("></DIV>");
+//		}
 		
 		// render main table.
 		writer.print("<table cellspacing=\"0\" cellpadding=\"0\" class=\"" + viewer.getCssClass() + "\"");

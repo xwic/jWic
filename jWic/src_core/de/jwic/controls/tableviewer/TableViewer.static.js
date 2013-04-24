@@ -22,7 +22,7 @@
 			TableViewer : {
 				
 				globals : {
-					currResizer : null,
+					resizer 	: null,
 					colIdx 		: null,
 					resXStart 	: null,
 					minX 		: null,
@@ -88,6 +88,16 @@
 					}
 				},
 				
+				getResizer : function() {
+					var g = JWic.controls.TableViewer.globals;
+					if (g.resizer == null) {
+						// create the resizer element.
+						g.resizer = jQuery('<DIV id="tblViewerResizer" class="tblViewResizer"></DIV>');
+						jQuery("body").append(g.resizer);
+					}
+					return g.resizer;
+				},
+				
 				/**
 				 * starts column resizing.
 				 */
@@ -102,30 +112,34 @@
 					var imgSeperator = JWic.controls.TableViewer.getTarget(e);
 			
 					// show a DIV layer
-					var resizer = document.getElementById("tblViewResizer_" + viewerCtrlId);
+					var resizer = JWic.controls.TableViewer.getResizer();
 					
-					var tableObject = document.getElementById("tblViewData_" + viewerCtrlId);
-					var tableContent = document.getElementById("tblContent_" + viewerCtrlId);
+					var tableObject = JWic.$("tblViewData_" + viewerCtrlId);
+					var tableContent = JWic.$("tblContent_" + viewerCtrlId);
 					
-					var tblWidth = jQuery(tableObject).parent().width();//.parentNode.style.pixelWidth;
-					var tblHeight = jQuery(tableObject).parent().height();//.style.pixelHeight;
-					if (tableContent) tblHeight = tableContent.clientHeight;
+					var tblWidth = tableObject.parent().width();
+					var tblHeight = tableObject.parent().height();
+					
+					if (tableContent) tblHeight = tableContent.height();
 					var colIdx = imgSeperator.attributes.getNamedItem("colIdx").value;
 					if (fixed) {
-						tableObject = document.getElementById("tblViewLeftData_" + viewerCtrlId);
+						tableObject = JWic.$("tblViewLeftData_" + viewerCtrlId);
 					}
-					var offset = JWic.controls.TableViewer.getOffset(tableObject);
 					var colWidth = new Array();
+					var offset = tableContent.offset();
 			
+					resizer.css("top", offset.top + "px");
+					resizer.css("left", offset.left + "px");
+					resizer.height(tblHeight);
+					
 					var minX = offset.left;
 					if (document.body.leftMargin) {
 						minX += parseInt(document.body.leftMargin);
 					}
-					JWic.log("offset: " + minX + "; " + offset.left + "; " + document.body.leftMargin);	
 					// build list of the width of all columns
 					var colNodes = JWic.controls.TableViewer.getColumnNodes(tableObject);
-					for (var i = 0; i <colNodes.length; i++) {
-						var objTH = colNodes[i];
+					for (var i = 0; i < colNodes.length; i++) {
+						var objTH = colNodes.get(i);
 						if (objTH.nodeName == "TH" && objTH.attributes.getNamedItem("colIdx")) {
 							var idx = objTH.attributes.getNamedItem("colIdx").value;
 							colWidth[idx] = jQuery(objTH).width();
@@ -155,17 +169,16 @@
 					g.fixed = fixed;
 			
 					var newWidth = JWic.controls.TableViewer.getNewWidth(e);
-					resizer.style.display = "inline";
+					resizer.css("display", "inline");
 					if (tblHeight > 30) {
 						jQuery(resizer).height(tblHeight);// + "px";
 					}
 					var newLeft = (minX + newWidth - g.scrolledX) + "px";
-					resizer.style.left = newLeft;
-					//resizer.style.left = e.x+'px';
+					resizer.css("left", newLeft);
 					
 					if (resizer.setCapture) { // IE mode
-						resizer.onmousemove = JWic.controls.TableViewer.resizeColumMove;
-						resizer.onmouseup = JWic.controls.TableViewer.resizeColumnDone;
+						resizer.bind("mousemove", JWic.controls.TableViewer.resizeColumMove);
+						resizer.bind("mouseup", JWic.controls.TableViewer.resizeColumnDone);
 						resizer.setCapture();
 					} else { // Mozilla
 						window.onmousemove = JWic.controls.TableViewer.resizeColumMove;
@@ -179,11 +192,12 @@
 				 * returns the list of TH elements that specify the columns.
 				 */
 				getColumnNodes : function(tableObject) {
-					var objTR = JWic.controls.TableViewer.findElement(tableObject, "TR");
-					if (objTR == null) {
+					var objTR = tableObject.find("tr");
+					if (objTR == null || objTR.length == 0) {
 						JWic.log("ERROR JWic.controls.TableViewer.getColumnNodes: cant find TH tags");
-					}
-					return objTR.childNodes;
+						return null;
+					} 
+					return jQuery(objTR[0]).find("TH");
 				},
 				
 				/**
@@ -193,7 +207,7 @@
 					var g = JWic.controls.TableViewer.globals;
 					if (!e) e = window.event;
 					var newWidth = JWic.controls.TableViewer.getNewWidth(e);
-					g.currResizer.style.left = (g.minX + newWidth - g.scrolledX) + "px";
+					g.currResizer.css("left", (g.minX + newWidth - g.scrolledX) + "px");
 					//g.currResizer.style.left = e.pageX+'px';
 				},
 				
@@ -206,9 +220,7 @@
 					if (!e){
 						e = window.event;
 					}
-			
-					g.currResizer.style.display = "none";
-					JWic.log("resizeColumnDone");
+					g.currResizer.css("display", "none");
 					
 					if (g.currResizer.setCapture) { // IE mode
 						g.currResizer.releaseCapture();
@@ -223,11 +235,9 @@
 					
 					if (newWidth != g.oldSize) {
 						//clientseitige verschiebung
-						
 						JWic.controls.TableViewer.resizeOnClientSide(g.colIdx,newWidth);
-						
 						//serverseitige verschiebung
-						JWic.fireAction(g.CtrlId, 'resizeColumnWithoutRedraw', g.colIdx + ";" + newWidth);
+						JWic.fireAction(g.ctrlId, 'resizeColumnWithoutRedraw', g.colIdx + ";" + newWidth);
 			
 					}
 				},
@@ -325,7 +335,7 @@
 					})
 					
 					
-					//ï¿½ber alle Rows iterieren und Cols suchen
+					//über alle Rows iterieren und Cols suchen
 					for(var i = 0; i < allRows.length; i++){
 						var myRow = allRows[i];
 						//hole spalten
@@ -456,25 +466,6 @@
 					}
 					//tblRow.innerHtml = tblRow.innerHtml;
 				},
-				
-				getOffset : function(obj) {
-					var offset = function() { 
-						var left;
-						var top; 
-					}
-					var oLeft = 0;
-					var oTop = 0;
-					while ( obj.tagName != 'BODY' ) { 
-						oLeft += obj.offsetLeft;
-						oTop  += obj.offsetTop;
-						obj = obj.offsetParent;
-					}
-					
-					offset.left = oLeft;
-					offset.top = oTop;
-					
-					return offset;
-				}, 
 				
 				/**
 				 * Returns the event target.
