@@ -220,7 +220,7 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 				writer.print(sbTblSelAttrs);
 				writer.print(">");
 			} else {
-				writer.print("<DIV onscroll=\"tblViewer_handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
+				writer.print("<DIV onscroll=\"JWic.controls.TableViewer.handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
 				writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
 				writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\"");
 				writer.print(">");
@@ -393,9 +393,9 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			writer.print("<TD class=\"" + getHeaderCssClass(column) +  "\" width=\"" + innerWidth + "\"");
 			if (isColSelectable) {
 				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '" + column.getIndex() + "')\"");
-				writer.print(" onMouseDown=\"tblViewer_pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\"");
-				writer.print(" onMouseUp=\"tblViewer_releaseColumn()\"");
-				writer.print(" onMouseOut=\"tblViewer_releaseColumn()\"");
+				writer.print(" onMouseDown=\"JWic.controls.TableViewer.pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\"");
+				writer.print(" onMouseUp=\"JWic.controls.TableViewer.releaseColumn()\"");
+				writer.print(" onMouseOut=\"JWic.controls.TableViewer.releaseColumn()\"");
 			}
 			writer.print(">");
 			writer.print("<NOBR>");
@@ -424,7 +424,7 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			if (isResizable) {
 				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblvWebPath + "resizer.gif\" width=\"3\" height=\"13\"");
 				writer.print(" colIdx=\"" + column.getIndex() + "\"");
-				writer.print(" onMouseDown=\"tblViewer_resizeColumn(event, '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\" class=\"tblResize\" border=0>");
+				writer.print(" onMouseDown=\"JWic.controls.TableViewer.resizeColumn(event, '" + viewer.getControlID() + "', " + (right ? "false" : "true") + ")\" class=\"tblResize\" border=0>");
 				writer.print("</TD>");
 			}
 			writer.print("</TR></TABLE>");
@@ -469,8 +469,8 @@ public class FixColumnTableRenderer extends DefaultTableRenderer {
 			writer.print(" tbvRowKey=\"" + key + "\"");
 			if (model.getSelectionMode() != TableModel.SELECTION_NONE) {
 				if (viewer.isEnabled()) {
-					writer.print(" onClick=\"tblViewer_ClickRow(this, event)\"");
-					writer.print(" onDblClick=\"tblViewer_ClickRow(this, event, true)\"");
+					writer.print(" onClick=\"JWic.controls.TableViewer.clickRow(this, event)\"");
+					writer.print(" onDblClick=\"JWic.controls.TableViewer.clickRow(this, event, true)\"");
 				}
 				if (model.isSelected(key)) {
 					rowCssClass = rowCssClass + "selected";

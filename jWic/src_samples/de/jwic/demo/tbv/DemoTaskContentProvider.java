@@ -91,12 +91,13 @@ public class DemoTaskContentProvider extends ListContentProvider<DemoTask> {
 	public void removeElement(DemoTask task) {
 		data.remove(task);
 	}
+
 	
-	/**
-	 * @param key
-	 * @return the element with the given key
+	/* (non-Javadoc)
+	 * @see de.jwic.data.ListContentProvider#getObjectFromKey(java.lang.String)
 	 */
-	public DemoTask getElement(String key) {
+	@Override
+	public DemoTask getObjectFromKey(String key) {
 		int id = Integer.parseInt(key);
 		
 		for (Iterator<DemoTask> it = data.iterator(); it.hasNext();) {

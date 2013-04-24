@@ -10,13 +10,13 @@ import de.jwic.demo.DemoModule;
  * @author lippisch
  *
  */
-public class TableViewerDemoModule extends DemoModule {
+public class BasicTBVDemoModule extends DemoModule {
 
 	/**
 	 * 
 	 */
-	public TableViewerDemoModule() {
-		setTitle("TableViewer Playground");
+	public BasicTBVDemoModule() {
+		setTitle("Basic TableViewer");
 		setDescription("Renders data from a content provider in a table form");
 		setGroup("Table Viewer");
 	}
@@ -28,7 +28,7 @@ public class TableViewerDemoModule extends DemoModule {
 	public void createModule(IControlContainer container) {
 
 		
-		new TableViewerDemo(container);
+		new BasicTBVDemo(container);
 		
 
 	}

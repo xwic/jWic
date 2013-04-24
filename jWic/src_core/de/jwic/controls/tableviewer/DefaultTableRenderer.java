@@ -53,15 +53,15 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	/** default icon used for sort-up image */
-	public final static ImageRef ICON_SORTUP = new ImageRef("/ecolib/tblviewer/sortup.gif");
+	public final static ImageRef ICON_SORTUP = new ImageRef("/jwic/gfx/sortup.gif");
 	/** default icon used for sort-down image */
-	public final static ImageRef ICON_SORTDOWN = new ImageRef("/ecolib/tblviewer/sortdn.gif"); 
+	public final static ImageRef ICON_SORTDOWN = new ImageRef("/jwic/gfx/sortdn.gif"); 
 	/** default icon used for expand image */
-	public final static ImageRef ICON_EXPAND = new ImageRef("/ecolib/treeviewer/expand.png");
+	public final static ImageRef ICON_EXPAND = new ImageRef("/jwic/gfx/expand.png");
 	/** default icon used for collapse image */
-	public final static ImageRef ICON_COLLAPSE = new ImageRef("/ecolib/treeviewer/collapse.png"); 
+	public final static ImageRef ICON_COLLAPSE = new ImageRef("/jwic/gfx/collapse.png"); 
 	/** default icon used for indention */
-	public final static ImageRef ICON_CLEAR = new ImageRef("/ecolib/tblviewer/clear.gif"); 
+	public final static ImageRef ICON_CLEAR = new ImageRef("/jwic/gfx/clear.gif"); 
 
 	protected transient Log log = LogFactory.getLog(getClass()); 
 	
@@ -74,7 +74,10 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	 */
 	public void renderTable(RenderContext renderContext, TableViewer viewer, TableModel model, ITableLabelProvider labelProvider) {
 		
-		String tblvWebPath = JWicRuntime.getJWicRuntime().getContextPath() + "/ecolib/tblviewer/";
+		// make sure to load the TableViewer library
+		renderContext.addRequiredJSContent(TableViewer.class.getName().replace('.', '/') + ".static.js");
+		
+		String tblvGfxPath = JWicRuntime.getJWicRuntime().getContextPath() + "/jwic/gfx/";
 		
 		PrintWriter writer = renderContext.getWriter();
 		
@@ -174,7 +177,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		
 		// render HEADER columns
 		if (viewer.isShowHeader()) {
-			renderHeader(writer, model, viewer, tblvWebPath);
+			renderHeader(writer, model, viewer, tblvGfxPath);
 		}		
 		if (viewer.isScrollable()) {
 			// if scrollable, seperate the data table from the header
@@ -189,7 +192,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			if (viewer.isShowHeader()) {
 				writer.println("</TABLE></DIV>");
 			}
-			writer.print("<DIV onscroll=\"tblViewer_handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
+			writer.print("<DIV onscroll=\"JWic.controls.TableViewer.handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
 			writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
 			writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\"");
 			writer.println(">");
@@ -269,7 +272,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	/**
 	 * 
 	 */
-	protected void renderHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblvWebPath) {
+	protected void renderHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblGfxPath) {
 		
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
 		boolean isColSelectable = viewer.isSelectableColumns() && viewer.isEnabled();
@@ -312,9 +315,9 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			writer.print("<TD class=\"tbvColHeadCell\" width=\"" + innerWidth + "\"");
 			if (isColSelectable) {
 				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '" + column.getIndex() + "')\"");
-				writer.print(" onMouseDown=\"tblViewer_pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "')\"");
-				writer.print(" onMouseUp=\"tblViewer_releaseColumn()\"");
-				writer.print(" onMouseOut=\"tblViewer_releaseColumn()\"");
+				writer.print(" onMouseDown=\"JWic.controls.TableViewer.pushColumn(" + column.getIndex() + ", '" + viewer.getControlID() + "')\"");
+				writer.print(" onMouseUp=\"JWic.controls.TableViewer.releaseColumn()\"");
+				writer.print(" onMouseOut=\"JWic.controls.TableViewer.releaseColumn()\"");
 			}
 			writer.print(">");
 			writer.print("<NOBR>");
@@ -341,9 +344,9 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				}
 			}
 			if (isResizable) {
-				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblvWebPath + "resizer.gif\" width=\"3\" height=\"13\"");
+				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblGfxPath + "resizer.gif\" width=\"3\" height=\"13\"");
 				writer.print(" colIdx=\"" + column.getIndex() + "\"");
-				writer.print(" onMouseDown=\"tblViewer_resizeColumn(event, '" + viewer.getControlID() + "')\" class=\"tblResize\" border=0>");
+				writer.print(" onMouseDown=\"JWic.controls.TableViewer.resizeColumn(event, '" + viewer.getControlID() + "')\" class=\"tblResize\" border=0>");
 				writer.print("</TD>");
 			}
 			writer.print("</TR></TABLE>");
@@ -391,8 +394,8 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			writer.print(" tbvRowKey=\"" + key + "\"");
 			if (model.getSelectionMode() != TableModel.SELECTION_NONE) {
 				if (viewer.isEnabled()) {
-					writer.print(" onClick=\"tblViewer_ClickRow(this, event)\"");
-					writer.print(" onDblClick=\"tblViewer_ClickRow(this, event, true)\"");
+					writer.print(" onClick=\"JWic.controls.TableViewer.clickRow(this, event)\"");
+					writer.print(" onDblClick=\"JWic.controls.TableViewer.clickRow(this, event, true)\"");
 				}
 				if (model.isSelected(key)) {
 					rowCssClass = rowCssClass + "selected";
