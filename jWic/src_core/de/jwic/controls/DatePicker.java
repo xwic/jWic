@@ -17,7 +17,7 @@
  * Created on 12.11.2012
  * $Id:$
  */
-package de.jwic.ecolib.controls.datepicker;
+package de.jwic.controls;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,17 +28,15 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBox;
 
 /**
  * 
  * @author bogdan
  */
-public class DatePickerControl extends InputBox {
+public class DatePicker extends InputBox {
 	private static final long serialVersionUID = 1L;
 
 	public static final String NO_FORMAT = "noformat";
-	private static final String CSS_CLASS = "datePickerControl";
 	private Locale locale;
 	private Long currentTime;
 	private final List<DateChangedListener> listeners = new ArrayList<DateChangedListener>();
@@ -51,12 +49,12 @@ public class DatePickerControl extends InputBox {
 	private boolean iconTriggered = false;
 	private TimeZone timeZone;
 
-	private static final Logger log = Logger.getLogger(DatePickerControl.class);
+	private static final Logger log = Logger.getLogger(DatePicker.class);
 
 	/**
 	 * @param container
 	 */
-	public DatePickerControl(IControlContainer container) {
+	public DatePicker(IControlContainer container) {
 		super(container);
 		init();
 		
@@ -66,7 +64,7 @@ public class DatePickerControl extends InputBox {
 	 * @param container
 	 * @param name
 	 */
-	public DatePickerControl(IControlContainer container, String name) {
+	public DatePicker(IControlContainer container, String name) {
 		super(container, name);
 		init();
 	}
@@ -74,9 +72,8 @@ public class DatePickerControl extends InputBox {
 	/**
 	 * 
 	 */
-	private void init() {
+	protected void init() {
 		locale = this.getSessionContext().getLocale();
-		setCssClass(CSS_CLASS);
 		this.setDateFormat(this.getSessionContext().getDateFormat());
 		this.setTimeZone(getSessionContext().getTimeZone());
 	}
@@ -108,6 +105,7 @@ public class DatePickerControl extends InputBox {
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
 			currentTime = Long.valueOf(parameter);
+			notifyListeners(getDate(), currentTime != null ? new Date(currentTime) : null);
 		}
 		if ("localeNotFound".equals(actionId)) {
 			this.setLocale(Locale.ENGLISH);

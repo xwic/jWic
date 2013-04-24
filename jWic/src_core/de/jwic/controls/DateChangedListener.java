@@ -17,7 +17,7 @@
  * Created on 12.11.2012
  * $Id:$
  */
-package de.jwic.ecolib.controls.datepicker;
+package de.jwic.controls;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -4,6 +4,7 @@
 package de.jwic.demo.basics;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.DatePicker;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.Label;
 import de.jwic.controls.NumericInputBox;
@@ -58,8 +59,11 @@ public class InputBoxDemoModule extends DemoModule {
 		NumericInputBox numInp = new NumericInputBox(tlc);
 		numInp.setWidth(120);
 		numInp.setNumber(120750.50d);
-
 		
+		new Label(tlc).setText("DatePicker");
+		DatePicker datePicker = new DatePicker(tlc);
+		datePicker.setWidth(500);
+		datePicker.setEmptyInfoText("Select a date..");
 	}
 
 }

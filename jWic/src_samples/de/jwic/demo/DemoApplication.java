@@ -17,6 +17,8 @@ import de.jwic.demo.advanced.ProcessInfoDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
 import de.jwic.demo.basics.CheckBoxDemoModule;
 import de.jwic.demo.basics.CheckBoxGroupDemoModule;
+import de.jwic.demo.basics.DatePickerDemo;
+import de.jwic.demo.basics.DatePickerDemoModule;
 import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
@@ -55,6 +57,7 @@ public class DemoApplication extends Application {
 		List<DemoModule> modules = new ArrayList<DemoModule>();
 		modules.add(new LabelDemoModule());
 		modules.add(new InputBoxDemoModule());
+		modules.add(new DatePickerDemoModule());
 		modules.add(new BlockOnWaitDemo());
 		modules.add(new ButtonDemoModule());
 		modules.add(new ComboDropDownDemoModule());
