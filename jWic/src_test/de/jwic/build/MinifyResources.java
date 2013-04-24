@@ -32,6 +32,8 @@ public class MinifyResources extends Task {
 	private final static String PAGE_TAG_START = "#* PRODUCTION-MINIFY-START *#";
 	private final static String PAGE_TAG_END = "#* PRODUCTION-MINIFY-END *#";
 	
+	private final static String BUILD_FILE_START_NAME = "jwic-all";
+	
 	private String versionTag;
 	private String pageFile;
 	
@@ -49,8 +51,8 @@ public class MinifyResources extends Task {
 				
 		try {
 			updatePageFile();
-			generateMinified("pulse-all-css_" + versionTag + ".css", cssFiles, true);
-			generateMinified("pulse-all-js_" + versionTag + ".js", jsFiles, false);
+			generateMinified(BUILD_FILE_START_NAME + "-css_" + versionTag + ".css", cssFiles, true);
+			generateMinified(BUILD_FILE_START_NAME + "-js_" + versionTag + ".js", jsFiles, false);
 			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -158,8 +160,8 @@ public class MinifyResources extends Task {
 					inside = true;
 					
 					// add the static minified line references
-					out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"pulse-all-css_" + versionTag + ".css\">");
-					out.println("<SCRIPT LANGUAGE=\"JavaScript\" SRC=\"pulse-all-js_" + versionTag + ".js\"></SCRIPT>");
+					out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\""+ BUILD_FILE_START_NAME + "-css_" + versionTag + ".css\">");
+					out.println("<SCRIPT LANGUAGE=\"JavaScript\" SRC=\""+ BUILD_FILE_START_NAME + "-js_" + versionTag + ".js\"></SCRIPT>");
 					
 
 					
