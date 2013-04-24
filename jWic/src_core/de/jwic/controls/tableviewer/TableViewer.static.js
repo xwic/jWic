@@ -176,13 +176,14 @@
 					var newLeft = (minX + newWidth - g.scrolledX) + "px";
 					resizer.css("left", newLeft);
 					
-					if (resizer.setCapture) { // IE mode
-						resizer.bind("mousemove", JWic.controls.TableViewer.resizeColumMove);
-						resizer.bind("mouseup", JWic.controls.TableViewer.resizeColumnDone);
-						resizer.setCapture();
+					if (resizer[0].setCapture) { // IE mode
+						resizer[0].onmousemove = JWic.controls.TableViewer.resizeColumMove;
+						resizer[0].onmouseup = JWic.controls.TableViewer.resizeColumnDone;
+						resizer[0].setCapture();
 					} else { // Mozilla
-						window.onmousemove = JWic.controls.TableViewer.resizeColumMove;
-						window.onmouseup = JWic.controls.TableViewer.resizeColumnDone;
+						jQuery(window)
+							.on("mousemove", JWic.controls.TableViewer.resizeColumMove)
+							.on("mouseup", JWic.controls.TableViewer.resizeColumnDone);
 					}
 					
 					
@@ -220,15 +221,16 @@
 					if (!e){
 						e = window.event;
 					}
-					g.currResizer.css("display", "none");
+					g.resizer.css("display", "none");
 					
-					if (g.currResizer.setCapture) { // IE mode
-						g.currResizer.releaseCapture();
-						g.currResizer.onmouseup = null;
-						g.currResizer.onmousemove = null;
+					if (g.resizer[0].setCapture) { // IE mode
+						g.resizer[0].releaseCapture();
+						g.resizer[0].onmouseup = null;
+						g.resizer[0].onmousemove = null;
 					} else { // Mozilla mode
-						window.onmousemove = null;
-						window.onmouseup = null;
+						jQuery(window)
+							.off("mousemove", JWic.controls.TableViewer.resizeColumMove)
+							.off("mouseup", JWic.controls.TableViewer.resizeColumnDone);
 					}
 					
 					var newWidth = JWic.controls.TableViewer.getNewWidth(e);
