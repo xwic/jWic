@@ -214,7 +214,7 @@
 			tblViewer_resizeOnClientSide(tblv_colIdx,newWidth);
 			
 			//serverseitige verschiebung
-			JWic.fireAction(tblv_CtrlId, 'resizeColumnWithoutRedraw', tblv_colIdx + ";" + newWidth);
+			jWic().fireAction(tblv_CtrlId, 'resizeColumnWithoutRedraw', tblv_colIdx + ";" + newWidth);
 
 		}
 	}
@@ -251,11 +251,11 @@
 		var unselectedHead;
 		var unselectedBody;
 		
-		//eigenen index führen da es sich hier um 2 verschiedene Tabellen (left,right) handelt
+		//eigenen index fï¿½hren da es sich hier um 2 verschiedene Tabellen (left,right) handelt
 		var columnIndex;
 		
-		//es existiert nur eine Tabelle, die left Table Elemente sind somit unnütz
-		//diese bedingung berücksichtigt 3 Zustände
+		//es existiert nur eine Tabelle, die left Table Elemente sind somit unnï¿½tz
+		//diese bedingung berï¿½cksichtigt 3 Zustï¿½nde
 		
 		//TableView mit 1 Tabelle
 		//TableView mit 2 Tabellen und die Linke selektiert
@@ -263,7 +263,7 @@
 		if(typeof tblv_fixed=='undefined'){
 			columnIndex = localColIdx;
 			
-			//gibt kein left, also hauptlayer standardmäßig selektiert
+			//gibt kein left, also hauptlayer standardmï¿½ï¿½ig selektiert
 			selectedHead = divViewHead;
 			selectedBody = divDataLayer;
 
@@ -311,18 +311,18 @@
 		})
 		
 		
-		//über alle Rows iterieren und Cols suchen
+		//ï¿½ber alle Rows iterieren und Cols suchen
 		for(var i = 0; i < allRows.length; i++){
 			var myRow = allRows[i];
 			//hole spalten
 			var allCols = jQuery(myRow).children();
-			//selektiere spalte über errechneten index
+			//selektiere spalte ï¿½ber errechneten index
 			var myCol = jQuery(allCols[columnIndex]);
 			//alte breite der spalte ermitteln
 			var oldWidth = myCol.width();
 			//neue spaltenbreite setzen
 			myCol.width(newWidth);
-			myCol.find('.tbvColHeadCell').attr('width',newWidth);
+			var elements = jQuery(myCol.find('.tbvColHeadCell')[0]).width(newWidth-10);
 			//myCol.attr('width',newWidth);
 			//head und body haben unterschiedliche strukturen
 			if(i == 0)//head
@@ -331,7 +331,7 @@
 				var myColChild = jQuery(jQuery(jQuery(jQuery(myCol).children()[0]).children()[0]).children()[0]);
 				//innere breite immer -5 damit man den spaltenschieber noch sieht
 				myColChild.width(newWidth-5);
-				//aktuelle tabelle mit der differenz der geänderten breiten ausgleichen
+				//aktuelle tabelle mit der differenz der geï¿½nderten breiten ausgleichen
 				var diff = newWidth - oldWidth;
 				var nwidth =  parseInt(selectedHeadTable.width) + diff;
 				if(tblv_fixed){
@@ -341,10 +341,10 @@
 					selectedHead.width(nwidth);
 					selectedBody.width(nwidth);
 					
-					//passt die änderungen an den anderen tabellen an
+					//passt die ï¿½nderungen an den anderen tabellen an
 					unselectedBody.width((divViewHeadWidth-diff));
-					//der div layer enthält eine tabelle welche auch angepasst werden muss 
-					//sonst sieht es zerstückelt aus
+					//der div layer enthï¿½lt eine tabelle welche auch angepasst werden muss 
+					//sonst sieht es zerstï¿½ckelt aus
 					unselectedBody.children().width(divViewHeadWidth-diff);
 					
 					unselectedHead.width((divViewHeadWidth-diff));
@@ -425,7 +425,7 @@
 		// change selection
 	
 		// notify control
-		JWic.fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey);
+		jWic().fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey);
 	
 	}
 	

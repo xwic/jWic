@@ -132,7 +132,7 @@ JWic.controls = {
 			}, delay);
 		},
 		refreshContent : function(controlId) {
-			var ctrl = jQuery("#pb_" + JQryEscape(controlId));
+			var ctrl = jQuery("#pb_" + JWic.util.JQryEscape(controlId));
 			if (ctrl && ctrl.length > 0 && !ctrl[0].requestPending) {
 				ctrl[0].requestPending = true;
 				JWic.resourceRequest(controlId, function(ajaxResponse) {
