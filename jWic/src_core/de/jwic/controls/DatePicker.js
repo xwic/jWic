@@ -77,6 +77,13 @@
 		});
 		
 		datepicker.keyup(nullDateNotifier);
+		
+		#if($control.readonly)
+			datepicker.addClass("x-readonly");
+		#end
+		#if($control.flagAsError)
+			datepicker.addClass("x-error");
+		#end
 	},
 	
 	destroy: function(element) {
