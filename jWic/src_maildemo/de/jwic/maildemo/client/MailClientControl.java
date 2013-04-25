@@ -25,9 +25,9 @@ import de.jwic.controls.ActionBarControl;
 import de.jwic.controls.Button;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.TreeControl;
+import de.jwic.ecolib.accordion.Panel;
+import de.jwic.ecolib.accordion.Accordion;
 import de.jwic.ecolib.controls.StackedContainer;
-import de.jwic.ecolib.controls.stackpanel.Panel;
-import de.jwic.ecolib.controls.stackpanel.StackPanelControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.maildemo.api.IFolder;
@@ -47,7 +47,7 @@ public class MailClientControl extends ControlContainer {
 	private int height = 400;
 	private int width = 700;
 	
-	private StackPanelControl stackPanel = null;
+	private Accordion stackPanel = null;
 	private StackedContainer mainView = null;
 	
 	private MailViewer mailViewer = null;
@@ -114,7 +114,7 @@ public class MailClientControl extends ControlContainer {
 		btForward.setEnabled(false);
 		
 		
-		stackPanel = new StackPanelControl(this, "leftStack");
+		stackPanel = new Accordion(this, "leftStack");
 		Panel mailStack = stackPanel.createPanel("Mail");
 		InboxTreeControl inboxTreeControl = new InboxTreeControl(mailStack, "ibt", model);
 		
