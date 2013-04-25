@@ -1335,26 +1335,46 @@ JWic.controls = {
 	 * de.jwic.controls.Button control
 	 */
 	Button : {
-		initialize : function(btnElement, ctrlId) {
+		initialize : function(btnElement, ctrlId, options) {
 			JWic.log("Initializing new button " + btnElement);
+			var btOpt = {};
+			if (options.menu) {
+				btOpt = {
+					icons: {
+						secondary: "ui-icon-triangle-1-s"
+					}
+				}
+				btnElement.data("menuId", options.menu);
+			}
+			JWic.log(btOpt);
 			btnElement
-				.button()
+				.button(btOpt)
 				.click(JWic.controls.Button.clickHandler);
 			btnElement.data("controlId", ctrlId);
+			
 		},
 
 		clickHandler : function(e) {
 			e.stopPropagation();
 			var elm = jQuery(e.currentTarget);
 			
-			var ctrlId = elm.data("controlId");
-			var msg = elm.attr("_confirmMsg");
-			if (msg && msg != "") {
-				if (!confirm(msg)) {
-					return false;
+			var menuId = elm.data("menuId");
+			if (menuId) {
+				JWic.controls.Menu.show(menuId, {
+					 my: "left top",
+					 at: "left bottom",
+					 of: elm
+				});
+			} else {
+				var ctrlId = elm.data("controlId");
+				var msg = elm.attr("_confirmMsg");
+				if (msg && msg != "") {
+					if (!confirm(msg)) {
+						return false;
+					}
 				}
-			}
-			JWic.fireAction(ctrlId, 'click', '');
+				JWic.fireAction(ctrlId, 'click', '');
+			}	
 		},
 	},
 	
@@ -1478,8 +1498,46 @@ JWic.controls = {
 				tabStrip.tabs("refresh");
 				
 			}
-	}
+	},
+	
+	/**
+	 * de.jwic.controls.Menu
+	 */
+	Menu : {
+		initialize : function(controlId, options) {
+			var menu =  JWic.$(controlId);
+			if (options.hidden) {
+				// move the menu to the body to make sure it can "float" properly
+				menu.css("position", "absolute");
+				jQuery("body").append(menu.parent());
+			}
+			menu.menu();
+			
+			if (!options.hidden) {
+				menu.show();
+			}
+//			function hideMenu() {
+//				menu.menu("collapseAll", null, true );
+//				setTimeout(function(){menu.hide()}, 310); // colapseAll has a delay and if we hide immediately, it's not executed.
+//			}
+//			menu.mouseleave(hideMenu);
+//			menu.click(hideMenu);
 
+		},
+		show : function(controlId, position) {
+			var menu = JWic.$(controlId);
+			menu.show().position(position);
+			 jQuery( document ).one("click", function() {
+				 menu.hide();
+			 });
+		},
+		destroy : function(controlId) {
+			var menu = JWic.$(controlId);
+			menu.menu("destroy");
+			// now we need to remove the element entirely
+			menu.parent().remove();
+		}
+	}
 
 }
 

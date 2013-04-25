@@ -23,6 +23,7 @@ import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
 import de.jwic.demo.basics.LabelDemoModule;
 import de.jwic.demo.basics.ListBoxDemoModule;
+import de.jwic.demo.basics.MenuDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.basics.ToolBarDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
@@ -79,6 +80,7 @@ public class DemoApplication extends Application {
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
 		modules.add(new WindowDemoModule());
+		modules.add(new MenuDemoModule());
 		
 		// Sort demos by group and title
 		Collections.sort(modules);

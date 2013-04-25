@@ -7,6 +7,7 @@ package de.jwic.controls;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.menu.Menu;
 
 
 /**
@@ -30,6 +31,8 @@ public class Button extends SelectableControl {
 	private ImageRef iconDisabled = null;
 	private String tooltip = null;
 	private String confirmMsg = "";
+	
+	private Menu menu = null;
 	
 	/**
 	 * @param container
@@ -150,5 +153,17 @@ public class Button extends SelectableControl {
 	public void setIconEnabled(ImageRef iconEnabled) {
 		this.iconEnabled = iconEnabled;
 		requireRedraw();
+	}
+	/**
+	 * @return the menu
+	 */
+	public Menu getMenu() {
+		return menu;
+	}
+	/**
+	 * @param menu the menu to set
+	 */
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 }

@@ -30,6 +30,7 @@ import de.jwic.controls.ToolBarGroup;
 import de.jwic.controls.ToolBarSpacer;
 import de.jwic.controls.actions.Action;
 import de.jwic.controls.combo.DropDown;
+import de.jwic.controls.menu.Menu;
 import de.jwic.demo.ImageLibrary;
 import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
 import de.jwic.ecolib.controls.menucontrols.MenuItem;
@@ -41,6 +42,8 @@ import de.jwic.ecolib.controls.menucontrols.MenuItem;
  */
 public class ToolBarDemo extends ControlContainer {
 
+	private ToolBar toolBar;
+
 	/**
 	 * @param container
 	 * @param name
@@ -48,8 +51,8 @@ public class ToolBarDemo extends ControlContainer {
 	public ToolBarDemo(IControlContainer container, String name) {
 		super(container, name);
 
-		ToolBar tb = new ToolBar(this, "toolbar1");
-		ToolBarGroup tbGroup1 = tb.addGroup();
+		toolBar = new ToolBar(this, "toolbar1");
+		ToolBarGroup tbGroup1 = toolBar.addGroup();
 		Button btSave = tbGroup1.addButton();
 		btSave.setIconEnabled(ImageLibrary.IMG_DISK);
 		btSave.setTitle("Save");
@@ -137,45 +140,16 @@ public class ToolBarDemo extends ControlContainer {
 
 		grp.addSpacer();
 
-		ButtonMenu menu = new ButtonMenu(grp, "menuBtn");
-		menu.setWidth(150);
-
-		Button btn = menu.createButton("Open");
-		btn.setTitle("Open Sesame!");
-		btn.setCssClass("j-button-h j-btn-small");
+		Button btMenu = grp.addButton();
+		btMenu.setTitle("Open Report");
 		
+		Menu menu = new Menu(toolBar);
+		menu.setWidth(180);
+		menu.addMenuItem("Order Report");
+		menu.addMenuItem("Pending Approvals");
+		menu.addMenuItem("And Something Else");
 		
-		MenuItem item = menu.getMenu().addMenuItem();
-		LabelControl l = new LabelControl(menu);
-		l.setText("Option 1");
-		item.setContent(l);
-
-		MenuItem item2 = item.addMenuItem();
-		l = new LabelControl(menu);
-		l.setText("Option 1-1");
-		item2.setContent(l);
-
-		item = menu.getMenu().addMenuItem();
-		final Button b = new Button(menu);
-		b.setTitle("Option 2");
-		item.setContent(b);
-
-		item2 = item.addMenuItem();
-		final Button b1 = new Button(menu);
-		b1.setTitle("Option 2-1");
-		item2.setContent(b1);
-
-		item = menu.getMenu().addMenuItem();
-		final AnchorLink link = new AnchorLink(menu);
-		link.setTitle("Option 3");
-
-		item.setContent(link);
-
-		item2 = item.addMenuItem();
-		final AnchorLink link1 = new AnchorLink(menu);
-		link1.setTitle("Option 3-1");
-
-		item2.setContent(link1);
+		btMenu.setMenu(menu);
 		
 	}
 
