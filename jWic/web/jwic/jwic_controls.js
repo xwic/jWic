@@ -1288,8 +1288,27 @@ JWic.controls = {
 				tabStrip.tabs("refresh");
 				
 			}
+	},
+	
+	/**
+	 * de.jwic.controls.basics.Accordion control functions. 
+	 */
+	Accordion : {
+			initialize : function(accordion, ctrlId, activeIndex) {
+				
+				JWic.log(activeIndex);
+				accordion.accordion({
+					activate : JWic.controls.Accordion.activateHandler,
+					active : activeIndex
+				});
+			},
+			
+			activateHandler : function (event, ui) {
+				
+				var elm =  jQuery(event.target);
+				var accordionId = elm.accordion("option", "active");
+				JWic.fireAction(elm.attr('id'), "activeAccordion", accordionId);
+			}
 	}
-
-
 }
 
