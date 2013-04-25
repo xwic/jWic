@@ -21,9 +21,6 @@ package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.AnchorLink;
-import de.jwic.controls.Button;
-import de.jwic.controls.LabelControl;
 import de.jwic.controls.actions.ActionAnchorLink;
 import de.jwic.controls.actions.ActionButton;
 import de.jwic.controls.actions.IAction;
@@ -78,7 +75,7 @@ public class ToolBarGroup extends ControlContainer {
 	 */
 	public AnchorLink addActionAnchorLink(IAction action){
 		AnchorLink anchorLinkControl = new ActionAnchorLink(this, action);
-		
+		anchorLinkControl.setCssClass("j-toolbar-anchor");
 		return anchorLinkControl;
 	}
 	
@@ -99,8 +96,8 @@ public class ToolBarGroup extends ControlContainer {
 	 * @param label
 	 * @return
 	 */
-	public LabelControl addLabel(String label) {
-		LabelControl lbl= new LabelControl(this);
+	public Label addLabel(String label) {
+		Label lbl= new Label(this);
 		lbl.setText(label);
 		lbl.setCssClass("j-toolbar-label");
 		return lbl;
