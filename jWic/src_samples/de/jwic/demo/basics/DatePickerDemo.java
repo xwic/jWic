@@ -1,6 +1,7 @@
 package de.jwic.demo.basics;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -74,7 +75,7 @@ public class DatePickerDemo extends ControlContainer {
 		lblInfo = new LabelControl(this, "lblInfo");
 		
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
-		propEditor.setBean(datePicker);
+		propEditor.setBean(dateTimePicker);
 		
 		datePicker.addValueChangedListener(new ValueChangedListener() {
 			/* (non-Javadoc)

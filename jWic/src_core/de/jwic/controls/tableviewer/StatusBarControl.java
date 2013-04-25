@@ -68,7 +68,9 @@ public class StatusBarControl extends ControlContainer {
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
 			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
-				model.setMaxLines(Integer.parseInt((String)event.getElement()));
+				String maxLineSelection = (String)event.getElement();
+				if(maxLineSelection != null && maxLineSelection.length() > 0)
+					model.setMaxLines(Integer.parseInt(maxLineSelection));
 			}
 		});
 		lbcMaxLines.setChangeNotification(true);
@@ -80,7 +82,7 @@ public class StatusBarControl extends ControlContainer {
 			public void rangeUpdated(TableModelEvent event) {
 				container.setRequireRedraw(true);
 				String key = Integer.toString(model.getRange().getMax());
-				if (!key.equals(lbcMaxLines.getSelectedKey()) && Arrays.asList(lbcMaxLines.getSelectedKeys()).contains(key)) {
+				if (!key.equals(lbcMaxLines.getSelectedKey()) && lbcMaxLines.getSelectedKeys() != null && Arrays.asList(lbcMaxLines.getSelectedKeys()).contains(key)) {
 					lbcMaxLines.setSelectedKey(key);
 				}
 			}
