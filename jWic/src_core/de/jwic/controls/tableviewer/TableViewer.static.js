@@ -32,6 +32,18 @@
 					scrolledX	: 0,
 					fixed		: 0,
 				},
+				
+				/**
+				 * Initialize the TableViewer.
+				 */
+				initialize : function(element, viewerCtrlId, options) {
+					var tableObject = JWic.$("tblViewData_" + viewerCtrlId);
+					if (options.colResize) {
+						tableObject.find("img.tblResize").on("mousedown", function(e) {
+							JWic.controls.TableViewer.resizeColumn(e, viewerCtrlId);
+						});
+					}
+				},
 			
 				/**
 				 * Scroll the header and store scroll info for re-rendering.
@@ -133,9 +145,6 @@
 					resizer.height(tblHeight);
 					
 					var minX = offset.left;
-					if (document.body.leftMargin) {
-						minX += parseInt(document.body.leftMargin);
-					}
 					// build list of the width of all columns
 					var colNodes = JWic.controls.TableViewer.getColumnNodes(tableObject);
 					for (var i = 0; i < colNodes.length; i++) {
@@ -162,7 +171,7 @@
 					}
 					g.currResizer = resizer;
 					g.colIdx = colIdx;
-					g.resXStart = e.x ? e.x : e.clientX;
+					g.resXStart = e.pageX;
 					g.minX = minX;
 					g.oldSize = colWidth[colIdx];
 					g.ctrlId = viewerCtrlId;
@@ -177,8 +186,9 @@
 					resizer.css("left", newLeft);
 					
 					if (resizer[0].setCapture) { // IE mode
-						resizer[0].onmousemove = JWic.controls.TableViewer.resizeColumMove;
-						resizer[0].onmouseup = JWic.controls.TableViewer.resizeColumnDone;
+						resizer
+							.on("mousemove", JWic.controls.TableViewer.resizeColumMove)
+							.on("mouseup", JWic.controls.TableViewer.resizeColumnDone);
 						resizer[0].setCapture();
 					} else { // Mozilla
 						jQuery(window)
@@ -225,8 +235,9 @@
 					
 					if (g.resizer[0].setCapture) { // IE mode
 						g.resizer[0].releaseCapture();
-						g.resizer[0].onmouseup = null;
-						g.resizer[0].onmousemove = null;
+						g.resizer
+							.off("mousemove", JWic.controls.TableViewer.resizeColumMove)
+							.off("mouseup", JWic.controls.TableViewer.resizeColumnDone);
 					} else { // Mozilla mode
 						jQuery(window)
 							.off("mousemove", JWic.controls.TableViewer.resizeColumMove)
@@ -385,8 +396,9 @@
 				
 				getNewWidth : function(e) {
 					var g = JWic.controls.TableViewer.globals;
-					var x = e.x ? e.x : e.clientX;
+					var x = e.pageX;
 					var diff = x - g.resXStart;
+					//jQuery("#debugOut").val("Move x=" + x + ", g.resXStart=" + g.resXStart + ", diff=" + diff + ", g.oldSize=" + g.oldSize);
 					var newWidth = parseInt(diff) + parseInt(g.oldSize);
 					if (newWidth < 6) {
 						newWidth = 6;
@@ -516,7 +528,66 @@
 						}
 					}
 					return v;
-				}
+				},
+				
+				  /**
+				   * Expand a node in the selected element.
+				   */
+				expand : function(e) {
+				  	if (!e) e = window.event;
+				  	var element = JWic.controls.TableViewer.getTarget(e);
+				  	var key = JWic.controls.TableViewer.getRowKey(element);
+				  	var ctrlId = JWic.controls.TableViewer.getControlID(element);
+
+					JWic.fireAction(ctrlId, "expand", key);
+
+					// prevent the click function from runing as we do not want a selection.  	
+					// tblv_ignoreClick = window.event.X + "." + window.event.Y;
+					e.cancelBubble = true;
+					if (e.stopPropagation) e.stopPropagation();
+					
+				  	return false;
+				},
+				  
+				  /**
+				   * Collapse the node in the selected element.
+				   */
+				collapse : function(e) {
+				  	if (!e) e = window.event;
+				  	var element = JWic.controls.TableViewer.getTarget(e);
+				  	var key = JWic.controls.TableViewer.getRowKey(element);
+				  	var ctrlId = JWic.controls.TableViewer.getControlID(element);
+
+				  	JWic.fireAction(ctrlId, "collapse", key);
+
+					// prevent the click function from runing as we do not want a selection.  	
+					e.cancelBubble = true;
+					if (e.stopPropagation) e.stopPropagation();
+
+				  	return false;
+				},
+				  
+				getRowKey : function(element) {
+				  	var node = element;
+				  	while (node.attributes.getNamedItem("tbvRowKey") == null || node == null) {
+				  		node = node.parentNode;
+				  	}
+				  	if (node != null) {
+				  		return node.attributes.getNamedItem("tbvRowKey").value;
+				  	}
+				  	return "";
+				},
+				  
+				getControlID : function(element) {
+				  	var node = element;
+				  	while (node.attributes.getNamedItem("tbvctrlid") == null || node == null) {
+				  		node = node.parentNode;
+				  	}
+				  	if (node != null) {
+				  		return node.attributes.getNamedItem("tbvctrlid").value;
+				  	}
+				  	return "";
+				}				
 		
 			} //TableViewer
 		}

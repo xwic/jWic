@@ -47,7 +47,6 @@ import de.jwic.data.Range;
  */
 public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
-
 	/**
 	 * 
 	 */
@@ -76,6 +75,11 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		
 		// make sure to load the TableViewer library
 		renderContext.addRequiredJSContent(TableViewer.class.getName().replace('.', '/') + ".static.js");
+		renderContext.addScript(viewer.getControlID(), 
+			"{ afterUpdate: function(element) {JWic.controls.TableViewer.initialize(element, '" + viewer.getControlID() + "', {" +
+			" colResize : " + viewer.isResizeableColumns() +
+			"});}}"
+			);
 		
 		String tblvGfxPath = JWicRuntime.getJWicRuntime().getContextPath() + "/jwic/gfx/";
 		
@@ -346,7 +350,8 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			if (isResizable) {
 				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblGfxPath + "resizer.gif\" width=\"3\" height=\"13\"");
 				writer.print(" colIdx=\"" + column.getIndex() + "\"");
-				writer.print(" onMouseDown=\"JWic.controls.TableViewer.resizeColumn(event, '" + viewer.getControlID() + "')\" class=\"tblResize\" border=0>");
+				//writer.print(" onMouseDown=\"JWic.controls.TableViewer.resizeColumn(event, '" + viewer.getControlID() + "')\"");
+				writer.print(" class=\"tblResize\" border=0>");
 				writer.print("</TD>");
 			}
 			writer.print("</TR></TABLE>");
@@ -444,7 +449,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 					if (contentProvider.hasChildren(row)) {
 						if (viewer.isEnabled()) {
 							writer.print("<a href=\"#\" onClick=\"return ");
-							writer.print(expanded ? "trV_Collapse(event)" : "trV_Expand(event)");
+							writer.print(expanded ? "JWic.controls.TableViewer.collapse(event)" : "JWic.controls.TableViewer.expand(event)");
 							writer.print("\";return false;\">");
 							writer.print((expanded ? ICON_COLLAPSE : ICON_EXPAND).toImgTag(expandIconWidth, expandIconHeight));
 							writer.print("</A>");

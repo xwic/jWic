@@ -68,6 +68,10 @@ public class ToolBarDemo extends ControlContainer {
 		btHours.setIconEnabled(ImageLibrary.IMG_LIST_VIEW);
 		btHours.setTitle("View Hours");
 
+		// Add action without image
+		Button btHelp = tbGroup1.addButton();
+		btHelp.setTitle("Help");
+
 		
 		ToolBar tb2 = new ToolBar(this, "toolbar2");
 
@@ -81,10 +85,17 @@ public class ToolBarDemo extends ControlContainer {
 
 		new ToolBarSpacer(grp);
 
-		Button button = grp.addButton();
-		button.setTitle("Button 1");
-		button.setConfirmMsg("I am a button");
-		button.setIconEnabled(new ImageRef("icons/flag_blue.png"));
+		Action a = new Action(){
+		@Override
+		public void run() {
+			System.out.println("I am a cool action!");
+			
+		}};
+		a.setTitle("Link With Action");
+		a.setVisible(true);
+		a.setEnabled(true);
+		
+		grp.addActionAnchorLink(a);
 
 		DropDown dd = new DropDown(grp, "list");
 		
@@ -117,20 +128,6 @@ public class ToolBarDemo extends ControlContainer {
 		button.setIconEnabled(new ImageRef("icons/flag_green.png"));
 		button.setEnabled(false);
 		
-		Action a = new Action(){
-
-			@Override
-			public void run() {
-				System.out.println("I am a cool action!");
-				
-			}};
-			
-			a.setTitle("Link With Action");
-			a.setVisible(true);
-			a.setEnabled(true);
-			
-		
-		grp.addActionAnchorLink(a);
 		
 		
 

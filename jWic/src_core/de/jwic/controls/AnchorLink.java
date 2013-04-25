@@ -18,6 +18,7 @@ public class AnchorLink extends SelectableControl {
 
 	private String title = null;
 	private String infoMessage = null;
+	private String cssClass = "j-anchor";
 
 	
 	/**
@@ -72,5 +73,17 @@ public class AnchorLink extends SelectableControl {
 	public void setInfoMessage(String infoMessage) {
 		this.infoMessage = infoMessage;
 		setRequireRedraw(true);
+	}
+	/**
+	 * @return the cssClass
+	 */
+	public String getCssClass() {
+		return cssClass;
+	}
+	/**
+	 * @param cssClass the cssClass to set
+	 */
+	public void setCssClass(String cssClass) {
+		this.cssClass = cssClass;
 	}
 }

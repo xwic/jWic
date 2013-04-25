@@ -27,13 +27,19 @@ import java.util.List;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
+import de.jwic.controls.Button;
+import de.jwic.controls.ToolBar;
+import de.jwic.controls.ToolBarGroup;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
 import de.jwic.controls.tableviewer.TableModelAdapter;
 import de.jwic.controls.tableviewer.TableModelEvent;
 import de.jwic.controls.tableviewer.TableViewer;
+import de.jwic.demo.ImageLibrary;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 
 /**
  * TableViewer Demo. This class contains a few inner classes that would usualy
@@ -48,6 +54,8 @@ public class BasicTBVDemo extends ControlContainer {
 
 	private TableViewer viewer;
 	private DemoTaskContentProvider contentProvider;
+
+	private Button btDelete;
 	
 	private class DemoTableViewerListener implements ElementSelectedListener {
 		public void elementSelected(ElementSelectedEvent event) {
@@ -56,6 +64,10 @@ public class BasicTBVDemo extends ControlContainer {
 				if (task != null) {
 					getSessionContext().notifyMessage("Element Selected: " + task.title);
 				}
+			}
+			// might not yet have been created..
+			if (btDelete != null) {
+				btDelete.setEnabled(event.getElement() != null);
 			}
 		}
 	}
@@ -67,6 +79,7 @@ public class BasicTBVDemo extends ControlContainer {
 	public BasicTBVDemo(IControlContainer container) {
 		super(container);
 		
+		// create the viewer
 		viewer = new TableViewer(this, "table");
 		
 		contentProvider = new DemoTaskContentProvider(createDemoData());
@@ -93,6 +106,32 @@ public class BasicTBVDemo extends ControlContainer {
 		});
 		model.setSelectionMode(TableModel.SELECTION_SINGLE);
 		createColumns();
+		
+		
+		// create the toolbar
+		ToolBar tb = new ToolBar(this, "toolbar");
+		ToolBarGroup group = tb.addGroup();
+		Button btNew = group.addButton();
+		btNew.setTitle("Add Task");
+		btNew.setIconEnabled(ImageLibrary.IMG_ADD);
+		btNew.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				getSessionContext().notifyMessage("Sorry, not implemented...");
+			}
+		});
+		
+		btDelete = group.addButton();
+		btDelete.setTitle("Delete Task");
+		btDelete.setConfirmMsg("Are you sure?");
+		btDelete.setEnabled(false);
+		btDelete.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				getSessionContext().notifyMessage("Sorry, not implemented...");
+			}
+		});
+		
 		
 	}
 

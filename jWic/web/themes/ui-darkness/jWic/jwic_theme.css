@@ -30,16 +30,15 @@ div.j-toolbar {
 }
 
 div.j-toolbar div.j-toolbar-elm {
-	line-height: 30px;
 	height: 34px;
 	padding-left: 3px;
 }
 
-span.j-toolbar-label {
-	font-size: 8pt;
+div.j-toolbar span.j-toolbar-label {
+	font-size: 10pt;
 	float: left;
 	color: #707070;
-
+	margin-top: 9px;
 }
 div.j-toolbar button.ui-button {
 	height: 32px;
