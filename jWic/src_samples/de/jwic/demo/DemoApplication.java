@@ -30,6 +30,7 @@ import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
 import de.jwic.demo.container.StackedContainerDemoModule;
 import de.jwic.demo.container.TabStripDemoModule;
+import de.jwic.demo.container.WindowDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
 import de.jwic.demo.tbv.BasicTBVDemoModule;
@@ -79,6 +80,8 @@ public class DemoApplication extends Application {
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
 		modules.add(new AccordionDemoModule());
+		modules.add(new WindowDemoModule());
+
 		// Sort demos by group and title
 		Collections.sort(modules);
 		

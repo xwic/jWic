@@ -110,6 +110,7 @@ public class BasicTBVDemo extends ControlContainer {
 		
 		// create the toolbar
 		ToolBar tb = new ToolBar(this, "toolbar");
+		tb.setCssClass("j-toolbar ui-corner-top");
 		ToolBarGroup group = tb.addGroup();
 		Button btNew = group.addButton();
 		btNew.setTitle("Add Task");

@@ -1,15 +1,32 @@
 //Window
 {
-		
-	doUpdate: function(){		
-		return false;
-	},
-	
+
 	/**
 	 * Initialize the window if it does not already exist.
 	 */
 	afterUpdate: function(element) {
 		
+		JWic.controls.Window.initialize('${control.controlID}', {
+			title : '$escape.escapeJavaScript($control.title)',
+			#if($control.width != 0) width : $control.width, #end
+			#if($control.height != 0) height : $control.height, #end
+			#if($control.top != 0 || $control.left != 0) 
+				position : [#if($control.left != 0) $control.left #else 'center' #end, #if($control.top != 0) $control.top #else 'center' #end],
+			#end
+			draggable: $control.draggable,
+			resizable : $control.resizable,
+			modal: $control.modal,
+			maximizable: $control.maximizable,
+			minimizable: $control.minimizable,
+			closeable : $control.closeable,
+			modal: $control.modal,
+			popup : $control.popup,
+			cache: false
+		});
+		
+		return;
+		
+		/*
 		var win = jQuery('#'+JWic.util.JQryEscape('win_${control.controlID}_div')).dialog({
 			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
@@ -188,8 +205,9 @@
 		
 			dialog.trigger({type:'minimize',source:dialog});
 		};
-	
-		
+
+
+		 */
 	
 	},
 	
@@ -197,8 +215,6 @@
 	 * Destroy the window if it still exists.
 	 */
 	destroy : function(element) {
-		var win = jQuery('#'+JWic.util.JQryEscape('win_${control.controlID}_div'));	
-		win.dialog('destroy').remove();
-		
+		JWic.controls.Window.destroy('$control.controlID');
 	}
 }

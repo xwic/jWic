@@ -2,7 +2,7 @@
 /* Written by Marvin */
 (function($) {
 	$.timepicker.regional['de'] = {
-		timeOnlyTitle: 'Zeit Wählen',
+		timeOnlyTitle: 'Zeit W&auml;hlen',
 		timeText: 'Zeit',
 		hourText: 'Stunde',
 		minuteText: 'Minute',
