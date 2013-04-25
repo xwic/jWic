@@ -20,7 +20,7 @@
  */
 
 JWic.controls = {
-		
+
 	/**
 	 * de.jwic.controls.CheckBoxGroup
 	 */
@@ -307,6 +307,195 @@ JWic.controls = {
 	 * Window control script extensions.
 	 */
 	Window : {
+
+		initialize : function(controlId, options) {
+			var win = JWic.$("win_" + controlId);
+			if (win) {
+				var dlgOptions = {
+					close : function() {JWic.controls.Window.close(controlId);},
+					dragStop: function( event, ui ) {JWic.controls.Window.dragStop(controlId, ui)},
+					resizeStop: function( event, ui ) {JWic.controls.Window.resizeStop(controlId, ui)}
+				};
+				jQuery.extend(dlgOptions, options);
+				
+				win.dialog(dlgOptions);
+				
+				if (!options.closeable) {
+					win.parent().find(".ui-dialog-titlebar-close").hide(); 
+				}
+				if(options.maximizable) {
+					this.addMaximizeToDialog(win);
+					var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');
+					titlebar.dblclick(function(event){
+						JWic.controls.Window.maximize(win);
+					});			
+				}
+				if(options.minimizable) {
+					this.addMinimizeToDialog(win);	
+				}
+				if (options.popup) {
+					jQuery(".ui-dialog-titlebar").hide();
+				}
+
+				win.parent().appendTo(jQuery("#jwicform"));		
+				win.dialog('open');	
+
+			}
+		},
+		dragStop : function(controlId, ui) {
+			var fldTop = JWic.$("fld_" + controlId + ".top");
+			var fldLeft = JWic.$("fld_" + controlId + ".left");
+			if (fldTop) { fldTop.val(ui.position.top) ;}
+			if (fldLeft) { fldLeft.val(ui.position.left) ;}
+			
+		},
+		resizeStop : function(controlId, ui) {
+			var fldWidth = JWic.$("fld_" + controlId + ".width");
+			var fldHeight = JWic.$("fld_" + controlId + ".height");
+			if (fldWidth) { fldWidth.val(ui.size.width) ;}
+			if (fldHeight) { fldHeight.val(ui.size.height) ;}
+		},
+		maximize : function (dialog) {
+			var dialogParent = dialog.parent();
+			
+			dialogParent.css('overflow','hidden');
+			if(jQuery.data(dialog,'isMinimized')){
+				jQuery.data(dialog,'isMinimized',false);	
+				dialogParent.css('width',jQuery.data(dialog,'width'));	
+				dialog.show();
+				dialog.css('width','auto');
+				
+			}
+			
+			if(!jQuery.data(dialog,'isMaximized')){				
+				jQuery.data(dialog,'isMaximized',true);				
+				jQuery.data(dialog,'originalPosition',dialogParent.offset());
+				jQuery.data(dialog,'width',dialogParent.width());
+
+				
+				dialogParent.css('width',jQuery(window).width());
+				dialogParent.css('height',jQuery(window).height());
+				dialogParent.offset({top:0,left:0});
+				dialog.parent().css('position','fixed');
+				dialog.css('width','auto');
+				
+				
+			}else{
+				jQuery.data(dialog,'isMaximized',false);
+				dialog.parent().css('position','absolute');
+				dialogParent.offset(jQuery.data(dialog,'originalPosition'));					
+				dialogParent.css('width',jQuery.data(dialog,'width'));
+				dialogParent.css('height', 'auto');
+				
+			}
+			
+			dialog.trigger({type:'maximize',source:dialog})
+		},
+		minimize : function(dialog) {
+			var dialogParent = dialog.parent();					
+			dialogParent.css('overflow','hidden');
+			if(jQuery.data(dialog,'isMaximized')){
+				jQuery.data(dialog,'isMaximized',false);
+				dialog.parent().css('position','absolute');
+				dialogParent.offset(jQuery.data(dialog,'originalPosition'));
+				dialogParent.css('width',jQuery.data(dialog,'width'));	
+				dialogParent.css('height', 'auto');
+				
+			}
+			
+			if(!jQuery.data(dialog,'isMinimized')){
+				
+				jQuery.data(dialog,'isMinimized',true);
+				jQuery.data(dialog,'width',dialogParent.width());					
+				dialog.hide();
+				
+			}else{
+				jQuery.data(dialog,'isMinimized',false);
+				dialogParent.css('width',jQuery.data(dialog,'width'));	
+				dialog.show();				
+			}
+		
+			dialog.trigger({type:'minimize',source:dialog});
+		},
+
+
+		close : function(controlId) {
+			JWic.fireAction(controlId, 'close', '');
+		},
+		
+		destroy : function(controlId) {
+			var win = JWic.$("win_" + controlId);
+			win.dialog('destroy');
+		},
+		addMaximizeToDialog : function(dialog) {
+			if(dialog!==undefined){
+				
+				dialog.bind('dialogresize',function(){
+					jQuery.data(dialog,'width',dialog.parent().width());
+					dialog.parent().css('height', 'auto');
+					if(!dialog.is(':visible')){
+						jQuery.data(dialog,'isMinimized',false);
+						jQuery.data(dialog,'isMaximized',false);
+						jQuery.data(dialog,'originalPosition',dialog.parent().offset());
+						dialog.parent().css('width',jQuery.data(dialog,'width'));	
+						dialog.show();	
+						dialog.css('width','auto');
+					}
+				});
+				
+				
+				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');			
+				var maxBtn = jQuery('<a href="#" id="'+dialog.attr('id')+'_maximize" role="button" class="ui-corner-all ui-dialog-titlebar-close ui-dialog-titlebar-max"><span class="ui-icon ui-icon-newwin">maximize</span></a>')
+				.appendTo(titlebar)
+				.mouseover(function(){
+					jQuery(this).addClass('ui-state-hover');
+				})
+				.mouseout(function(){
+					jQuery(this).removeClass('ui-state-hover');
+				})
+				.click(function(){
+					JWic.controls.Window.maximize(dialog);
+					
+				});
+				return maxBtn;
+				
+			}
+		},
+		addMinimizeToDialog : function (dialog) {
+			if(dialog !== undefined){
+				dialog.bind('dialogresize',function(){
+					jQuery.data(dialog,'width',dialog.parent().width());
+					dialog.parent().css('height', 'auto');
+					if(!dialog.is(':visible')){
+						jQuery.data(dialog,'isMinimized',false);
+						jQuery.data(dialog,'isMaximized',false);
+						jQuery.data(dialog,'originalPosition',dialog.parent().offset());
+						dialog.parent().css('width',jQuery.data(dialog,'width'));	
+						dialog.show();	
+						dialog.css('width','auto');
+					}
+				});
+				
+				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');
+				//minimize
+				var minBtn = jQuery('<a href="#" id="'+dialog.attr('id')+'_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close ui-dialog-titlebar-min"><span class="ui-icon ui-icon-minusthick">minimize</span></a>')
+					.appendTo(titlebar)
+					.mouseover(function(){
+						jQuery(this).addClass('ui-state-hover');
+					})
+					.mouseout(function(){
+						jQuery(this).removeClass('ui-state-hover');
+					})
+					.click(function() {
+						JWic.controls.Window.minimize(dialog);
+					});
+				return minBtn;
+				
+			}
+		},
+
+
+		/* --- Old code? --- */
 		updateHandler : function(controlId) {
 			var win = jQuery('#'+JWic.util.JQryEscape(controlId));
 			if (win) {

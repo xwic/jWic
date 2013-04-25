@@ -45,28 +45,12 @@ public class Window extends ControlContainer {
 	protected String cssClass = "jwicdefault";
 
 	protected boolean resizable = true;
-	protected boolean closable = true;
+	protected boolean closeable = true;
 	protected boolean minimizable = true;
 	protected boolean maximizable = true;
 	protected boolean draggable = true;
 	protected boolean popup = false;
 	
-	public boolean isPopup() {
-		return popup;
-	}
-
-	public void setPopup(boolean popup) {
-		this.popup = popup;
-		if(popup == true) {
-			this.modal = false;
-			this.closable = false;
-			this.maximizable= false;
-			this.minimizable = false;
-			this.resizable = false;
-		}
-		requireRedraw();
-	}
-
 	protected Field height;
 	protected Field width;
 	protected Field top;
@@ -97,10 +81,34 @@ public class Window extends ControlContainer {
 	 * Invoked when the window is closed.
 	 */
 	public void actionClose() {
-		System.out.println("\n\nClosing\n\n");
 		setVisible(false);
 	}
-		
+	
+	/**
+	 * Returns true if the window is displayed without a header.
+	 * @return
+	 */
+	public boolean isPopup() {
+		return popup;
+	}
+
+	/**
+	 * Set to true if you want the window to be displayed without a header.
+	 * @param popup
+	 */
+	public void setPopup(boolean popup) {
+		this.popup = popup;
+		if(popup == true) {
+			this.modal = false;
+			this.closeable = false;
+			this.maximizable= false;
+			this.minimizable = false;
+			this.resizable = false;
+		}
+		requireRedraw();
+	}
+
+
 	/**
 	 * @return the title
 	 */
@@ -244,16 +252,16 @@ public class Window extends ControlContainer {
 	/**
 	 * @return the closable
 	 */
-	public boolean isClosable() {
-		return closable;
+	public boolean isCloseable() {
+		return closeable;
 	}
 
 	/**
 	 * @param closable the closable to set
 	 */
-	public void setClosable(boolean closable) {
-		if (this.closable != closable) {
-			this.closable = closable;
+	public void setCloseable(boolean closeable) {
+		if (this.closeable != closeable) {
+			this.closeable = closeable;
 			requireRedraw();
 		}
 	}

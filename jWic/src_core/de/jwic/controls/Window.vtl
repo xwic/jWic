@@ -3,11 +3,7 @@
 #set($fld = $control.getField("top")   ) <input type="hidden" id="$fld.id" name="$fld.id" value="$fld.value">
 #set($fld = $control.getField("left")  ) <input type="hidden" id="$fld.id" name="$fld.id" value="$fld.value">
 	
-#if(!$control.modal && $control.sessionContext.userAgent.isIE() && $control.sessionContext.userAgent.getMajorVersion() < 7) 
-<iframe src="javascript:'&lt;html&gt;&lt;/html&gt;';" scrolling="no" frameborder="0" id="${winId}_blocker"
-  style="position:absolute;width:50px;height:120px;top:0px;left:0px;border:none;display:block;z-index:0"></iframe>
-#end
-<div id="win_${control.controlID}_div" style="display:none; overflow: visible;" class="dialog">
+<div id="win_${control.controlID}" style="display:none; overflow: visible;" class="dialog">
 	#foreach($cn in $control.controls)
 		<span>
 			$insert.control($cn.name)

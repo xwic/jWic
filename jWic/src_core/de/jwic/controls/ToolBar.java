@@ -28,7 +28,7 @@ import de.jwic.base.IControlContainer;
  */
 public class ToolBar extends ControlContainer {
 	private static final long serialVersionUID = 1L;
-	private String cssClass = "j-toolbar"; // 
+	private String cssClass = "j-toolbar ui-corner-all"; // 
 	
 	/**
 	 * @param container
@@ -51,7 +51,7 @@ public class ToolBar extends ControlContainer {
 	 */
 	public ToolBarGroup addGroup() {
 		ToolBarGroup grp = new ToolBarGroup(this);
-		grp.setCssClass(cssClass + "-grp-left");
+		grp.setCssClass("j-toolbar-grp-left");
 		return grp;
 	}
 
@@ -62,7 +62,7 @@ public class ToolBar extends ControlContainer {
 	 */
 	public ToolBarGroup addRightGroup() {
 		ToolBarGroup grp = new ToolBarGroup(this);
-		grp.setCssClass(cssClass + "-grp-right");
+		grp.setCssClass("j-toolbar-grp-right");
 		return grp;
 	}
 	
