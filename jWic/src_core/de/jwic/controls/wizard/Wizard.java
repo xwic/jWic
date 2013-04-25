@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.SessionContext;
-import de.jwic.ecolib.util.ValidationException;
 
 /**
  * Provides and controlles a set of WizardPages. A Wizard is hosted within a
@@ -36,8 +35,8 @@ public abstract class Wizard {
 
 	private List<WizardPage> pages = new ArrayList<WizardPage>();
 	private String title = "Wizard";
-	private String widthHint = "";
-	private String heightHint = "";
+	private int width = 0;
+	private int height = 0;
 	
 	/**
 	 * Returns the title
@@ -147,31 +146,31 @@ public abstract class Wizard {
 	}
 
 	/**
-	 * @return Returns the heightHint.
+	 * @return Returns the height.
 	 */
-	public String getHeightHint() {
-		return heightHint;
+	public int getHeight() {
+		return height;
 	}
 
 	/**
-	 * @param heightHint The heightHint to set.
+	 * @param height The height to set.
 	 */
-	public void setHeightHint(String heightHint) {
-		this.heightHint = heightHint;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	/**
 	 * @return Returns the widthHint.
 	 */
-	public String getWidthHint() {
-		return widthHint;
+	public int getWidth() {
+		return width;
 	}
 
 	/**
-	 * @param widthHint The widthHint to set.
+	 * @param width The width to set.
 	 */
-	public void setWidthHint(String widthHint) {
-		this.widthHint = widthHint;
+	public void setWidthHint(int width) {
+		this.width = width;
 	}
 
 	/**

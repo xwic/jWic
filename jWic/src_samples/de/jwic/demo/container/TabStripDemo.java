@@ -25,7 +25,7 @@ import java.util.Date;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.Label;
+import de.jwic.controls.LabelControl;
 import de.jwic.controls.Tab;
 import de.jwic.controls.TabStrip;
 import de.jwic.demo.basics.Calculator;
@@ -51,7 +51,7 @@ public class TabStripDemo extends ControlContainer {
 		
 		Tab tOverview = tabStrip.addTab("Overview", "overview");
 		
-		Label lbl = new Label(tOverview);
+		LabelControl lbl = new LabelControl(tOverview);
 		lbl.setText("The TabStrip control is using the jQuery UI control 'Tabs' to visualize a container that displays" +
 				" only one child at a time with a selector on top or bottom. The 'strip' on top is handled using JavaScript" +
 				" without a client/server refresh, but the content area is re-rendered when activated on the server and " +
@@ -62,7 +62,7 @@ public class TabStripDemo extends ControlContainer {
 		
 		
 		Tab tSource = tabStrip.addTab("Source");
-		Label lbl2 = new Label(tSource);
+		LabelControl lbl2 = new LabelControl(tSource);
 		lbl2.setText("SourceViewer here would be handy...");
 		
 		// modifications
@@ -91,7 +91,7 @@ public class TabStripDemo extends ControlContainer {
 			@Override
 			public void objectSelected(SelectionEvent event) {
 				Tab newTab = tabStrip.addTab("New Tab #" + (tabStrip.getTabs().size() - 2));
-				Label label = new Label(newTab);
+				LabelControl label = new LabelControl(newTab);
 				label.setText("This new tab was created at " + 
 						new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss")
 						.format(new Date()));

@@ -82,7 +82,7 @@ public class MinifyResources extends Task {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(tmpFile)));
 		// iterate over files and write it in.
 		for (String file : files) {
-			File daFile = new File(src, file);
+			File daFile = new File(src, file.replace("$contextPath", ""));
 			if (!daFile.exists()) {
 				throw new RuntimeException("The file " + daFile.getAbsolutePath() + " can not be found.");
 			}

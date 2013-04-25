@@ -17,7 +17,7 @@
  * Created on 23.03.2006
  * $Id: ValidationException.java,v 1.4 2008/09/18 18:20:27 lordsam Exp $
  */
-package de.jwic.ecolib.util;
+package de.jwic.controls.wizard;
 
 import java.util.Collection;
 import java.util.HashMap;

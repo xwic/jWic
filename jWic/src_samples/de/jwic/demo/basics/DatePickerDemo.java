@@ -1,7 +1,6 @@
 package de.jwic.demo.basics;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Locale;
 
@@ -11,13 +10,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.DateChangedListener;
 import de.jwic.controls.DatePicker;
 import de.jwic.controls.DateTimePicker;
-import de.jwic.controls.InputBox;
-import de.jwic.controls.Label;
-import de.jwic.controls.ListBoxControl;
-import de.jwic.ecolib.controls.ErrorWarningControl;
-import de.jwic.ecolib.controls.time.TimePickerControl;
-import de.jwic.events.ElementSelectedEvent;
-import de.jwic.events.ElementSelectedListener;
+import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
@@ -28,7 +21,7 @@ public class DatePickerDemo extends ControlContainer {
 
 	private DatePicker datePicker;
 	private DateTimePicker dateTimePicker;
-	private Label lblInfo;
+	private LabelControl lblInfo;
 
 	/**
 	 * Constructor.
@@ -78,7 +71,7 @@ public class DatePickerDemo extends ControlContainer {
 		datePicker.addDateChangedListener(listener);
 		dateTimePicker.addDateChangedListener(listener);
 				
-		lblInfo = new Label(this, "lblInfo");
+		lblInfo = new LabelControl(this, "lblInfo");
 		
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
 		propEditor.setBean(datePicker);
@@ -91,8 +84,7 @@ public class DatePickerDemo extends ControlContainer {
 				propEditor.loadValues();	 // reload values.			
 			}
 		});
-		
-		
+				
 		propEditor.loadValues(); // refresh values.
 		
 	}

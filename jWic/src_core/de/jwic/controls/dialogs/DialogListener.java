@@ -13,26 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * de.jwic.wap.events.DialogEvent
+ * de.jwic.wap.core.DialogListener
  * Created on 16.01.2006
- * $Id: DialogEvent.java,v 1.1 2006/04/27 14:39:06 lordsam Exp $
+ * $Id: DialogListener.java,v 1.2 2007/04/04 13:03:17 aroncotrau Exp $
  */
-package de.jwic.ecolib.dialogs;
+package de.jwic.controls.dialogs;
 
-import de.jwic.base.Event;
+import java.io.Serializable;
 
 /**
  * @author Florian Lippisch
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
-public class DialogEvent extends Event {
-	private static final long serialVersionUID = 1L;
-	/**
-	 * @param eventSource
-	 */
-	public DialogEvent(Object eventSource) {
-		super(eventSource);
-	}
-	
+public interface DialogListener extends Serializable {
 
+	public void dialogFinished(DialogEvent event);
+	
+	public void dialogAborted(DialogEvent event);
+	
 }

@@ -17,7 +17,7 @@
  * Created on 27.04.2006
  * $Id: BasicDialog.java,v 1.2 2008/09/18 18:19:50 lordsam Exp $
  */
-package de.jwic.ecolib.dialogs;
+package de.jwic.controls.dialogs;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -170,7 +170,7 @@
 	
 	<taskdef name="minifyResources" classname="de.jwic.build.MinifyResources" classpath="bin;build/yuicompressor-2.4.7.jar;build/rhino-1.6R7.jar;build/jargs-1.0.jar" />		
 	<target name="minify-resource-files">
-		<minifyResources versionTag="${release}" pageFile="${dist}/web/jwic/include.header.vtl" src="web/jwic" />
+		<minifyResources versionTag="${release}" pageFile="${dist}/web/jwic/include.header.vtl" src="web" />
 	</target>
 
 </project>

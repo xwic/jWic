@@ -1,4 +1,4 @@
-package de.jwic.ecolib.controls;
+package de.jwic.controls;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,7 +31,7 @@ import de.jwic.base.JavaScriptSupport;
  * @author Buzas Adrian
  */
 @JavaScriptSupport
-public class ErrorWarningControl extends Control
+public class ErrorWarning extends Control
 {
 	private static final long serialVersionUID = 1L;
 
@@ -58,14 +58,14 @@ public class ErrorWarningControl extends Control
 	/**
 	 * @param container
 	 */
-	public ErrorWarningControl(IControlContainer container) {
+	public ErrorWarning(IControlContainer container) {
 		this(container, null);
 	}
 	/**
 	 * @param container
 	 * @param name
 	 */
-	public ErrorWarningControl(IControlContainer container, String name) {
+	public ErrorWarning(IControlContainer container, String name) {
 		super(container, name);
 		setVisible(false); // be invisible by default.
 	}

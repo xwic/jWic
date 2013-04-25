@@ -20,7 +20,6 @@
 package de.jwic.controls.wizard;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.ecolib.util.ValidationException;
 
 /**
  * Represents a page of a wizard.

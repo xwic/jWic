@@ -29,8 +29,7 @@
 		 */
 		var id = JWic.util.JQryEscape('${control.controlID}');
 		var datetimepicker = jQuery( "#" + id ).datetimepicker({
-			
-			
+			controlType: 'select',
 			#if($control.isIconTriggered())
 				showOn: "button",
 				buttonImage: _contextPath+'/jwic/calendar/calendar.gif',
@@ -63,6 +62,7 @@
 		 *  AJAX stuff :D
 		 */
 		datetimepicker.change(function(){
+			
 			var date = datetimepicker.datetimepicker('getDate');
 			if(date!=null){
 				JWic.fireAction(this.id, 'datechanged', '' + date.getTime());

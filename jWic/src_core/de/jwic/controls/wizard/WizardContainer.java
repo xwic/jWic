@@ -25,12 +25,11 @@ import java.util.Map;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.controls.LabelControl;
-import de.jwic.controls.WindowControl;
-import de.jwic.ecolib.controls.ErrorWarningControl;
-import de.jwic.ecolib.controls.StackedContainer;
-import de.jwic.ecolib.dialogs.BasicDialog;
-import de.jwic.ecolib.util.ValidationException;
+import de.jwic.controls.ErrorWarning;
+import de.jwic.controls.Label;
+import de.jwic.controls.StackedContainer;
+import de.jwic.controls.Window;
+import de.jwic.controls.dialogs.BasicDialog;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.util.Messages;
@@ -48,10 +47,10 @@ public class WizardContainer extends BasicDialog {
 	private Button btFinish = null;
 	private Button btAbort = null;
 	
-	private LabelControl lblPageTitle = null;
-	private LabelControl lblPageSubTitle = null;
+	private Label lblPageTitle = null;
+	private Label lblPageSubTitle = null;
 	
-	private ErrorWarningControl errorWarning = null;
+	private ErrorWarning errorWarning = null;
 	
 	private StackedContainer pages = null;
 	
@@ -76,25 +75,24 @@ public class WizardContainer extends BasicDialog {
 
 		Messages messages = new Messages(container.getSessionContext().getLocale(), "de.jwic.ecolib.wizard.messages");
 		
-		WindowControl win = new WindowControl(container);
-		win.setAlign("center");
+		Window win = new Window(container);
 		win.setTitle(wizard.getTitle());
 		win.setTemplateName(getClass().getName());
-		win.setWidth("");
 		
-		lblPageTitle = new LabelControl(win, "lblPageTitle");
+		
+		lblPageTitle = new Label(win, "lblPageTitle");
 		lblPageTitle.setCssClass("title");
-		lblPageSubTitle = new LabelControl(win, "lblPageSubTitle");
+		lblPageSubTitle = new Label(win, "lblPageSubTitle");
 		lblPageSubTitle.setCssClass("subtitle");
 		
-		errorWarning = new ErrorWarningControl(win, "errorWarning");
+		errorWarning = new ErrorWarning(win, "errorWarning");
 		errorWarning.setVisible(false);
 		errorWarning.setClosable(true);
 		errorWarning.setShowStackTrace(false);
 		
 		pages = new StackedContainer(win, "pages");
-		pages.setWidthHint(wizard.getWidthHint());
-		pages.setHeightHint(wizard.getHeightHint());
+		pages.setWidth(wizard.getWidth());
+		pages.setHeight(wizard.getHeight());
 		
 		
 		NavigationController navContr = new NavigationController();

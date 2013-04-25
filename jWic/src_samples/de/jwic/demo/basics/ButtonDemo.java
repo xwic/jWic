@@ -24,7 +24,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
 import de.jwic.controls.Button;
-import de.jwic.controls.Label;
+import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.samples.controls.propeditor.PropertyEditorView;
@@ -39,7 +39,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
 public class ButtonDemo extends ControlContainer {
 
 	private Button button;
-	private Label lblInfo;
+	private LabelControl lblInfo;
 	
 	/**
 	 * Constructor.
@@ -83,7 +83,7 @@ public class ButtonDemo extends ControlContainer {
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");
 		propEditor.setBean(button);
 
-		lblInfo = new Label(this, "lblInfo");
+		lblInfo = new LabelControl(this, "lblInfo");
 		lblInfo.setText("Click a button..");
 		
 	}

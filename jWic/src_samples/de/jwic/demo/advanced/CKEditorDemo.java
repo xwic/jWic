@@ -23,6 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBox;
+import de.jwic.controls.Label;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.ckeditor.CKEditor;
@@ -39,7 +40,7 @@ import de.jwic.events.SelectionListener;
 public class CKEditorDemo extends ControlContainer {
 
 	private CKEditor editor;
-	private LabelControl lblPreview;
+	private Label lblPreview;
 	private InputBox code;
 	private Button btEnabled;
 	
@@ -64,7 +65,7 @@ public class CKEditorDemo extends ControlContainer {
 		editor.setToolBarName("Full");
 		
 		
-		lblPreview = new LabelControl(this, "preview");
+		lblPreview = new Label(this, "preview");
 		code = new InputBox(this, "code");
 		code.setMultiLine(true);
 		code.setWidth(400);

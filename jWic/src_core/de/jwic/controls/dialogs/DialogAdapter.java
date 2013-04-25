@@ -13,22 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * de.jwic.wap.core.DialogListener
+ * de.jwic.wap.events.DialogAdapter
  * Created on 16.01.2006
- * $Id: DialogListener.java,v 1.2 2007/04/04 13:03:17 aroncotrau Exp $
+ * $Id: DialogAdapter.java,v 1.1 2006/04/27 14:39:06 lordsam Exp $
  */
-package de.jwic.ecolib.dialogs;
-
-import java.io.Serializable;
+package de.jwic.controls.dialogs;
 
 /**
  * @author Florian Lippisch
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.1 $
  */
-public interface DialogListener extends Serializable {
+public class DialogAdapter implements DialogListener {
+	private static final long serialVersionUID = 1L;
+	/* (non-Javadoc)
+	 * @see de.jwic.wap.events.DialogListener#dialogFinished(de.jwic.wap.events.DialogEvent)
+	 */
+	public void dialogFinished(DialogEvent event) {
 
-	public void dialogFinished(DialogEvent event);
-	
-	public void dialogAborted(DialogEvent event);
-	
+	}
+
+	/* (non-Javadoc)
+	 * @see de.jwic.wap.events.DialogListener#dialogAborted(de.jwic.wap.events.DialogEvent)
+	 */
+	public void dialogAborted(DialogEvent event) {
+
+	}
+
 }
