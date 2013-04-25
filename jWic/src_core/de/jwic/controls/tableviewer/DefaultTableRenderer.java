@@ -449,7 +449,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 					if (contentProvider.hasChildren(row)) {
 						if (viewer.isEnabled()) {
 							writer.print("<a href=\"#\" onClick=\"return ");
-							writer.print(expanded ? "trV_Collapse(event)" : "trV_Expand(event)");
+							writer.print(expanded ? "JWic.controls.TableViewer.collapse(event)" : "JWic.controls.TableViewer.expand(event)");
 							writer.print("\";return false;\">");
 							writer.print((expanded ? ICON_COLLAPSE : ICON_EXPAND).toImgTag(expandIconWidth, expandIconHeight));
 							writer.print("</A>");

@@ -528,7 +528,66 @@
 						}
 					}
 					return v;
-				}
+				},
+				
+				  /**
+				   * Expand a node in the selected element.
+				   */
+				expand : function(e) {
+				  	if (!e) e = window.event;
+				  	var element = JWic.controls.TableViewer.getTarget(e);
+				  	var key = JWic.controls.TableViewer.getRowKey(element);
+				  	var ctrlId = JWic.controls.TableViewer.getControlID(element);
+
+					JWic.fireAction(ctrlId, "expand", key);
+
+					// prevent the click function from runing as we do not want a selection.  	
+					// tblv_ignoreClick = window.event.X + "." + window.event.Y;
+					e.cancelBubble = true;
+					if (e.stopPropagation) e.stopPropagation();
+					
+				  	return false;
+				},
+				  
+				  /**
+				   * Collapse the node in the selected element.
+				   */
+				collapse : function(e) {
+				  	if (!e) e = window.event;
+				  	var element = JWic.controls.TableViewer.getTarget(e);
+				  	var key = JWic.controls.TableViewer.getRowKey(element);
+				  	var ctrlId = JWic.controls.TableViewer.getControlID(element);
+
+				  	JWic.fireAction(ctrlId, "collapse", key);
+
+					// prevent the click function from runing as we do not want a selection.  	
+					e.cancelBubble = true;
+					if (e.stopPropagation) e.stopPropagation();
+
+				  	return false;
+				},
+				  
+				getRowKey : function(element) {
+				  	var node = element;
+				  	while (node.attributes.getNamedItem("tbvRowKey") == null || node == null) {
+				  		node = node.parentNode;
+				  	}
+				  	if (node != null) {
+				  		return node.attributes.getNamedItem("tbvRowKey").value;
+				  	}
+				  	return "";
+				},
+				  
+				getControlID : function(element) {
+				  	var node = element;
+				  	while (node.attributes.getNamedItem("tbvctrlid") == null || node == null) {
+				  		node = node.parentNode;
+				  	}
+				  	if (node != null) {
+				  		return node.attributes.getNamedItem("tbvctrlid").value;
+				  	}
+				  	return "";
+				}				
 		
 			} //TableViewer
 		}
