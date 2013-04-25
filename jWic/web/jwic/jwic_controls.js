@@ -1463,7 +1463,8 @@ JWic.controls = {
 				if (ui.oldPanel) {
 					var tabStripId = ui.oldPanel.attr("jwicTabStripId");
 					var tabName = ui.oldPanel.attr("jwicTabName");
-					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + tabName + "\"></span>");
+					var oldH = ui.oldPanel.height();
+					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + tabName + "\"><div style=\"height: " + oldH + "px;\"></div></span>");
 				}
 				if (ui.newPanel) {
 					var tabStripId = ui.newPanel.attr("jwicTabStripId");
