@@ -1,4 +1,4 @@
-package de.jwic.ecolib.controls.stackpanel;
+package de.jwic.ecolib.accordion;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;

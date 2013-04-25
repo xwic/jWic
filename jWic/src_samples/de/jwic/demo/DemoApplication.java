@@ -14,10 +14,10 @@ import de.jwic.demo.advanced.CKEditorDemoModule;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
 import de.jwic.demo.advanced.ProcessInfoDemoModule;
+import de.jwic.demo.basics.AccordionDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
 import de.jwic.demo.basics.CheckBoxDemoModule;
 import de.jwic.demo.basics.CheckBoxGroupDemoModule;
-import de.jwic.demo.basics.DatePickerDemo;
 import de.jwic.demo.basics.DatePickerDemoModule;
 import de.jwic.demo.basics.FileUploadDemoModule;
 import de.jwic.demo.basics.InputBoxDemoModule;
@@ -79,9 +79,10 @@ public class DemoApplication extends Application {
 		modules.add(new ToolBarDemoModule());
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
+		modules.add(new AccordionDemoModule());
 		modules.add(new WindowDemoModule());
 		modules.add(new MenuDemoModule());
-		
+
 		// Sort demos by group and title
 		Collections.sort(modules);
 		

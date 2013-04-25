@@ -1516,13 +1516,6 @@ JWic.controls = {
 			if (!options.hidden) {
 				menu.show();
 			}
-//			function hideMenu() {
-//				menu.menu("collapseAll", null, true );
-//				setTimeout(function(){menu.hide()}, 310); // colapseAll has a delay and if we hide immediately, it's not executed.
-//			}
-//			menu.mouseleave(hideMenu);
-//			menu.click(hideMenu);
-
 		},
 		show : function(controlId, position) {
 			var menu = JWic.$(controlId);
@@ -1539,5 +1532,25 @@ JWic.controls = {
 		}
 	}
 
+	/**
+	 * de.jwic.controls.basics.Accordion control functions. 
+	 */
+	Accordion : {
+			initialize : function(accordion, ctrlId, activeIndex) {
+				
+				JWic.log(activeIndex);
+				accordion.accordion({
+					activate : JWic.controls.Accordion.activateHandler,
+					active : activeIndex
+				});
+			},
+			
+			activateHandler : function (event, ui) {
+				
+				var elm =  jQuery(event.target);
+				var accordionId = elm.accordion("option", "active");
+				JWic.fireAction(elm.attr('id'), "activeAccordion", accordionId);
+			}
+	}
 }
 
