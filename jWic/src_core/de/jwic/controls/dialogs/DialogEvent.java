@@ -13,30 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * de.jwic.wap.events.DialogAdapter
+ * de.jwic.wap.events.DialogEvent
  * Created on 16.01.2006
- * $Id: DialogAdapter.java,v 1.1 2006/04/27 14:39:06 lordsam Exp $
+ * $Id: DialogEvent.java,v 1.1 2006/04/27 14:39:06 lordsam Exp $
  */
-package de.jwic.ecolib.dialogs;
+package de.jwic.controls.dialogs;
+
+import de.jwic.base.Event;
 
 /**
  * @author Florian Lippisch
  * @version $Revision: 1.1 $
  */
-public class DialogAdapter implements DialogListener {
+public class DialogEvent extends Event {
 	private static final long serialVersionUID = 1L;
-	/* (non-Javadoc)
-	 * @see de.jwic.wap.events.DialogListener#dialogFinished(de.jwic.wap.events.DialogEvent)
+	/**
+	 * @param eventSource
 	 */
-	public void dialogFinished(DialogEvent event) {
-
+	public DialogEvent(Object eventSource) {
+		super(eventSource);
 	}
-
-	/* (non-Javadoc)
-	 * @see de.jwic.wap.events.DialogListener#dialogAborted(de.jwic.wap.events.DialogEvent)
-	 */
-	public void dialogAborted(DialogEvent event) {
-
-	}
+	
 
 }

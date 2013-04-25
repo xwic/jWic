@@ -21,9 +21,10 @@ package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.actions.IAction;
 import de.jwic.controls.actions.ActionAnchorLink;
 import de.jwic.controls.actions.ActionButton;
-import de.jwic.controls.actions.IAction;
+
 
 /**
  * Groups controls displayed in a toolbar.

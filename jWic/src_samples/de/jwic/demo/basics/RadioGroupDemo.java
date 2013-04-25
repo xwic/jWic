@@ -26,7 +26,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.InputBox;
-import de.jwic.controls.Label;
+import de.jwic.controls.LabelControl;
 import de.jwic.controls.ListBox;
 import de.jwic.controls.RadioGroup;
 import de.jwic.events.ElementSelectedEvent;
@@ -53,7 +53,7 @@ public class RadioGroupDemo extends ControlContainer {
 	private Button btRemove;
 	private ListBox eventLog;
 	
-	private Label lblSelected;
+	private LabelControl lblSelected;
 	
 	private class EventLogListener implements ElementSelectedListener {
 		public void elementSelected(ElementSelectedEvent event) {
@@ -83,7 +83,7 @@ public class RadioGroupDemo extends ControlContainer {
 		radiogroup.addElement("Blue");
 		
 		// add Label that displays the selected key.
-		lblSelected = new Label(this, "lblSelected");
+		lblSelected = new LabelControl(this, "lblSelected");
 		radiogroup.addElementSelectedListener(new ElementSelectedListener() {
 			public void elementSelected(ElementSelectedEvent event) {
 				lblSelected.setText(radiogroup.getSelectedKey());				

@@ -22,10 +22,11 @@
 package de.jwic.controls.tableviewer;
 
 import java.text.MessageFormat;
+import java.util.Arrays;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.ListBoxControl;
+import de.jwic.controls.ListBox;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 
@@ -35,7 +36,7 @@ import de.jwic.events.ElementSelectedListener;
  */
 public class StatusBarControl extends ControlContainer {
 	private static final long serialVersionUID = 1L;
-	private ListBoxControl lbcMaxLines;
+	private ListBox lbcMaxLines;
 	private PagingControl ctrlPaging;
 
 	private boolean enabled = true;
@@ -51,7 +52,7 @@ public class StatusBarControl extends ControlContainer {
 		ctrlPaging = new PagingControl(this, "paging", model);
 		
 		// add MaxLines control
-		lbcMaxLines = new ListBoxControl(this, "lbcMaxLines");
+		lbcMaxLines = new ListBox(this, "lbcMaxLines");
 		// add elements
 		int[] choices = {5, 10, 15, 25, 50, 100};
 		String msg = "{0} rows per page";
@@ -67,7 +68,9 @@ public class StatusBarControl extends ControlContainer {
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
 			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
-				model.setMaxLines(Integer.parseInt((String)event.getElement()));
+				String maxLineSelection = (String)event.getElement();
+				if(maxLineSelection != null && maxLineSelection.length() > 0)
+					model.setMaxLines(Integer.parseInt(maxLineSelection));
 			}
 		});
 		lbcMaxLines.setChangeNotification(true);
@@ -79,7 +82,7 @@ public class StatusBarControl extends ControlContainer {
 			public void rangeUpdated(TableModelEvent event) {
 				container.setRequireRedraw(true);
 				String key = Integer.toString(model.getRange().getMax());
-				if (!key.equals(lbcMaxLines.getSelectedKey()) && lbcMaxLines.getElementsKeys().contains(key)) {
+				if (!key.equals(lbcMaxLines.getSelectedKey()) && lbcMaxLines.getSelectedKeys() != null && Arrays.asList(lbcMaxLines.getSelectedKeys()).contains(key)) {
 					lbcMaxLines.setSelectedKey(key);
 				}
 			}
@@ -96,7 +99,7 @@ public class StatusBarControl extends ControlContainer {
 	/**
 	 * @return the MaxLinesControl
 	 */
-	public ListBoxControl getMaxLinesControl() {
+	public ListBox getMaxLinesControl() {
 		return lbcMaxLines;
 	}
 	

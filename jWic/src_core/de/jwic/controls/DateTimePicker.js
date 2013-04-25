@@ -28,16 +28,8 @@
 		 * init the datepicker
 		 */
 		var id = JWic.util.JQryEscape('${control.controlID}');
-		var datetimepicker = jQuery( "#" + id ).datetimepicker({
-			
-			
-			#if($control.isIconTriggered())
-				showOn: "button",
-				buttonImage: _contextPath+'/jwic/calendar/calendar.gif',
-				buttonImageOnly: true,
-			#end
-
-		});
+		var datetimepicker = jQuery( "#" + id ).datetimepicker($control.getOptions());
+		
 		datetimepicker.datetimepicker("option",region);		
 		
 		/*
@@ -63,6 +55,7 @@
 		 *  AJAX stuff :D
 		 */
 		datetimepicker.change(function(){
+			
 			var date = datetimepicker.datetimepicker('getDate');
 			if(date!=null){
 				JWic.fireAction(this.id, 'datechanged', '' + date.getTime());

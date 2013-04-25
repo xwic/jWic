@@ -8,9 +8,9 @@ import java.util.Locale;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
+import de.jwic.controls.ErrorWarning;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBoxControl;
-import de.jwic.ecolib.controls.ErrorWarningControl;
 import de.jwic.ecolib.controls.time.TimePickerControl;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -34,7 +34,7 @@ public class TimePickerDemo extends ControlContainer{
 	private static final long serialVersionUID = -1454341107449793071L;
 	private InputBox ibcDisplay;
 	private TimePickerControl timePicker;
-	private ErrorWarningControl errCtrl;
+	private ErrorWarning errCtrl;
 	private InputBox ibcHint;
 	private ListBoxControl lbcEvents;
 	
@@ -74,7 +74,7 @@ public class TimePickerDemo extends ControlContainer{
 			}			
 		});
 		
-		errCtrl = new ErrorWarningControl(this, "errCtrl");
+		errCtrl = new ErrorWarning(this, "errCtrl");
 		errCtrl.setVisible(false);
 		errCtrl.setAutoClose(true);
 		

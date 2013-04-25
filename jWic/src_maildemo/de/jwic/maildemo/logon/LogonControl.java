@@ -22,8 +22,8 @@ package de.jwic.maildemo.logon;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
+import de.jwic.controls.ErrorWarning;
 import de.jwic.controls.InputBox;
-import de.jwic.ecolib.controls.ErrorWarningControl;
 import de.jwic.events.KeyEvent;
 import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
@@ -39,7 +39,7 @@ public class LogonControl extends ControlContainer {
 
 	private InputBox inpUsername;
 	private InputBox inpPassword;
-	private ErrorWarningControl errorInfo;
+	private ErrorWarning errorInfo;
 	
 	private MailModel model;
 
@@ -67,7 +67,7 @@ public class LogonControl extends ControlContainer {
 			}
 		});
 		
-		errorInfo = new ErrorWarningControl(this, "errorInfo");
+		errorInfo = new ErrorWarning(this, "errorInfo");
 		errorInfo.setAutoClose(true);
 		
 		Button btSubmit = new Button(this, "btSubmit");
