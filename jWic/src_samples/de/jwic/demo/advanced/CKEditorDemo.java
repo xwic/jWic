@@ -115,7 +115,7 @@ public class CKEditorDemo extends ControlContainer {
 		// Change Listbox Width
 		ListBoxControl lbWidth = new ListBoxControl(this, "lbWidth");
 		lbWidth.addElement("0 - Unspecified", "0");
-		for (int i = 50; i < 701; i += 50) {
+		for (int i = 50; i < 1001; i += 50) {
 			lbWidth.addElement(Integer.toString(i) + "px", Integer.toString(i));
 		}
 		lbWidth.setSelectedKey(Integer.toString(editor.getWidth()));

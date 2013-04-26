@@ -1,6 +1,6 @@
 <button #if($control.cssClass !="")class="$control.cssClass"#end id="btn_$control.controlID" #if($control.tooltip != "")title="$control.tooltip"#end   #if (!$control.isEnabled()) disabled #end>
 #if ($control.hasIcon())
-<img border="0" src="$control.icon.path" #if($control.tooltip != "")alt="$control.tooltip"#end align="absmiddle">
+<img border="0" src="$control.icon.path" #if($control.tooltip != "")alt="$control.tooltip"#end>
 #end
-$!control.title
+<span class="#if ($control.hasIcon())j-button-text-wimg #else j-button-text #end">$!control.title</span>
 </button>

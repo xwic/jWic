@@ -17,11 +17,12 @@
 	<META http-equiv="Pragma" content="no-cache">
 	<META http-equiv="Expires" content="-1">
 	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
 	#* CKEditor WYSIWYG HTML Editor library, required by CKEditor control. *#
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/lib/ckeditor/ckeditor.js"></SCRIPT>
 	
 	#* PRODUCTION-MINIFY-START *#
-		#* This part is replaced during the build process with a single CSS and a single JS *#
+	#* This part is replaced during the build process with a single CSS and a single JS *#
 
     <script src="$contextPath/jwic/lib/jQuery/js/jquery-1.8.2.js"></script>
     <script src="$contextPath/jwic/lib/jQuery/js/jquery-ui-1.9.1.custom.js"></script> 
@@ -35,11 +36,11 @@
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_core.js"></SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/calendar/calendar.js"></SCRIPT>
 	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_controls.js"></SCRIPT>
-	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/jwic_compatibility.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" SRC="$contextPath/jwic/compatibility/jwic_compatibility.js"></SCRIPT>
 	
-	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic_compatibility.css">	
 	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/jwic_tblviewer.css">
+	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/compatibility/jwic_compatibility.css">	
 
 	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/default.css">
 	<link rel="stylesheet" type="text/css" href="$contextPath/jwic/lib/themes/jwicdefault.css">		
@@ -48,6 +49,7 @@
 
 	
 	#* PRODUCTION-MINIFY-END *#	
+	
 	<script language="JavaScript">
 		var _contextPath = "$contextPath";
 		JWic.contextPath = "$contextPath";

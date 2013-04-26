@@ -35,7 +35,7 @@ import de.jwic.base.JavaScriptSupport;
 public class CKEditor extends Control {
 	private static final long serialVersionUID = 1L;
 	private Field content;
-	private int width = 700;
+	private int width = 800;
 	private int height = 200;
 	private boolean enabled = true;
 	
