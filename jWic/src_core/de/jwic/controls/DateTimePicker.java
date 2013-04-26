@@ -8,12 +8,14 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.JavaScriptSupport;
 
 /**
  * Date Time Picker Control
  * @author dotto
  *
  */
+@JavaScriptSupport(jsTemplate = "de.jwic.controls.DateTimePicker")
 public class DateTimePicker extends DatePicker {
 
 	private static final Logger log = Logger.getLogger(DateTimePicker.class);
@@ -59,6 +61,12 @@ public class DateTimePicker extends DatePicker {
 	 */
 	public DateTimePicker(IControlContainer container, String name) {
 		super(container, name);
+	}
+	
+	@Override
+	protected void init() {
+		setTemplateName(DatePicker.class.getName());
+		super.init();
 	}
 
 

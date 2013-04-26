@@ -1554,6 +1554,10 @@ JWic.controls = {
 				var elm =  jQuery(event.target);
 				var accordionId = elm.accordion("option", "active");
 				JWic.fireAction(elm.attr('id'), "activeAccordion", accordionId);
+			},
+			activate : function(controlId, panelIdx) {
+				var accordion = jQuery("#" + JWic.util.JQryEscape(controlId));
+				accordion.accordion("option", "active", panelIdx );
 			}
 	}
 }
