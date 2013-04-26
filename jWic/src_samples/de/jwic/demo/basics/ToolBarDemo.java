@@ -22,9 +22,7 @@ package de.jwic.demo.basics;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
-import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
-import de.jwic.controls.LabelControl;
 import de.jwic.controls.ToolBar;
 import de.jwic.controls.ToolBarGroup;
 import de.jwic.controls.ToolBarSpacer;
@@ -32,8 +30,6 @@ import de.jwic.controls.actions.Action;
 import de.jwic.controls.combo.DropDown;
 import de.jwic.controls.menu.Menu;
 import de.jwic.demo.ImageLibrary;
-import de.jwic.ecolib.controls.menucontrols.ButtonMenu;
-import de.jwic.ecolib.controls.menucontrols.MenuItem;
 
 /**
  * Demo for the Toolbar Control.

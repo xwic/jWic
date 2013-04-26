@@ -23,8 +23,8 @@ import java.util.List;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
-import de.jwic.ecolib.controls.coledit.ColumnSelector;
-import de.jwic.ecolib.controls.coledit.ColumnStub;
+import de.jwic.controls.coledit.ColumnSelector;
+import de.jwic.controls.coledit.ColumnStub;
 
 /**
  * Simple control that is rendering the columns in the given order.
@@ -48,7 +48,7 @@ public class ColumnSelectorResult extends Control {
 
 	/**
 	 * @return
-	 * @see de.jwic.ecolib.controls.coledit.ColumnSelector#getColumns()
+	 * @see de.jwic.controls.coledit.ColumnSelector#getColumns()
 	 */
 	public List<ColumnStub> getColumns() {
 		return selector.getColumns();

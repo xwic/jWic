@@ -30,6 +30,9 @@ import de.jwic.base.ImageRef;
 import de.jwic.controls.Button;
 import de.jwic.controls.ToolBar;
 import de.jwic.controls.ToolBarGroup;
+import de.jwic.controls.actions.Action;
+import de.jwic.controls.actions.IAction;
+import de.jwic.controls.menu.Menu;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
 import de.jwic.controls.tableviewer.TableModelAdapter;
@@ -55,19 +58,23 @@ public class BasicTBVDemo extends ControlContainer {
 	private TableViewer viewer;
 	private DemoTaskContentProvider contentProvider;
 
-	private Button btDelete;
+	private IAction flagRed;
+	private IAction flagBlue;
+	private IAction deleteTask;
 	
 	private class DemoTableViewerListener implements ElementSelectedListener {
 		public void elementSelected(ElementSelectedEvent event) {
-			if (event.isDblClick()) {
+			
+			if (event.getElement() == null) {
+				refreshActions(null);
+			} else {
 				DemoTask task = contentProvider.getObjectFromKey((String)event.getElement());
 				if (task != null) {
-					getSessionContext().notifyMessage("Element Selected: " + task.title);
+					refreshActions(task);
+					if (event.isDblClick()) {
+						getSessionContext().notifyMessage("Element Selected: " + task.title);
+					}
 				}
-			}
-			// might not yet have been created..
-			if (btDelete != null) {
-				btDelete.setEnabled(event.getElement() != null);
 			}
 		}
 	}
@@ -89,14 +96,13 @@ public class BasicTBVDemo extends ControlContainer {
 		viewer.setShowStatusBar(true);
 		viewer.setResizeableColumns(true);
 		viewer.setSelectableColumns(true);
-		viewer.setWidth(500);
+		viewer.setWidth(700);
 		viewer.setHeight(250);
 		
 		TableModel model = viewer.getModel();
 		model.setMaxLines(50); // all
 		
 		DemoTableViewerListener listener = new DemoTableViewerListener();
-		model.addElementSelectedListener(listener);
 		
 		// add listener to demonstrate sorting/images
 		model.addTableModelListener(new TableModelAdapter() {
@@ -107,6 +113,8 @@ public class BasicTBVDemo extends ControlContainer {
 		model.setSelectionMode(TableModel.SELECTION_SINGLE);
 		createColumns();
 		
+		// create Actions
+		createActions();
 		
 		// create the toolbar
 		ToolBar tb = new ToolBar(this, "toolbar");
@@ -122,18 +130,91 @@ public class BasicTBVDemo extends ControlContainer {
 			}
 		});
 		
-		btDelete = group.addButton();
-		btDelete.setTitle("Delete Task");
-		btDelete.setConfirmMsg("Are you sure?");
-		btDelete.setEnabled(false);
-		btDelete.addSelectionListener(new SelectionListener() {
+		group.addAction(deleteTask);
+		group.addAction(flagBlue);
+		group.addAction(flagRed);
+		
+		// Add a context menu
+		Menu menu = new Menu(this, "contextMenu");
+		menu.addMenuItem(flagRed);
+		menu.addMenuItem(flagBlue);
+		menu.addMenuItem(deleteTask);
+		viewer.setMenu(menu);
+		
+		// Add the listener after all other controls have been created
+		model.addElementSelectedListener(listener);
+
+	}
+
+	/**
+	 * @param task
+	 */
+	public void refreshActions(DemoTask task) {
+		
+		deleteTask.setEnabled(task != null);
+		flagBlue.setEnabled(task != null);
+		flagRed.setEnabled(task != null && !task.done);
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void createActions() {
+		
+		flagRed = new Action() {
 			@Override
-			public void objectSelected(SelectionEvent event) {
-				getSessionContext().notifyMessage("Sorry, not implemented...");
+			public void run() {
+				handleFlagRed();
 			}
-		});
-		
-		
+		};
+		flagRed.setTitle("Mark Completed");
+		flagRed.setIconEnabled(new ImageRef("icons/flag_red.png"));
+
+		flagBlue = new Action() {
+			@Override
+			public void run() {
+				handleFlagBlue();
+			}
+		};
+		flagBlue.setTitle("Mark for Review");
+		flagBlue.setIconEnabled(new ImageRef("icons/flag_blue.png"));
+
+		deleteTask = new Action() {
+			public void run() {
+				getSessionContext().notifyMessage("Sorry, not implemented", "error");
+			}
+		};
+		deleteTask.setTitle("Delete");
+		deleteTask.setIconEnabled(ImageLibrary.IMG_CROSS);
+
+		refreshActions(null);
+	}
+
+	/**
+	 * 
+	 */
+	protected void handleFlagBlue() {
+		String key = viewer.getModel().getFirstSelectedKey();
+		if (key != null) {
+			DemoTask task = contentProvider.getObjectFromKey(key);
+			getSessionContext().notifyMessage("Task '" + task.title + "' marked for review.", "info");
+		}
+	}
+
+	/**
+	 * 
+	 */
+	protected void handleFlagRed() {
+		String key = viewer.getModel().getFirstSelectedKey();
+		if (key != null) {
+			DemoTask task = contentProvider.getObjectFromKey(key);
+			if (task != null) {
+				task.completed = 100;
+				task.done = true;
+				viewer.requireRedraw();
+			}
+		}
 	}
 
 	/**

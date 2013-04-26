@@ -1346,7 +1346,6 @@ JWic.controls = {
 				}
 				btnElement.data("menuId", options.menu);
 			}
-			JWic.log(btOpt);
 			btnElement
 				.button(btOpt)
 				.click(JWic.controls.Button.clickHandler);
@@ -1474,7 +1473,7 @@ JWic.controls = {
 			initialize : function(tabStrip, ctrlId, activeIndex) {
 				JWic.log(activeIndex);
 				tabStrip.tabs({
-					activate : JWic.controls.TabStrip.activateHandler,
+					beforeActivate : JWic.controls.TabStrip.activateHandler,
 					active : activeIndex
 				});
 			},
@@ -1493,7 +1492,7 @@ JWic.controls = {
 				}
 			},
 			activate : function(controlId, panelIdx) {
-				var tabStrip = $("#" + JWic.util.JQryEscape(controlId));
+				var tabStrip = JWic.$(controlId);
 				tabStrip.tabs("option", "active", panelIdx );
 				tabStrip.tabs("refresh");
 				
@@ -1509,6 +1508,7 @@ JWic.controls = {
 			if (options.hidden) {
 				// move the menu to the body to make sure it can "float" properly
 				menu.css("position", "absolute");
+				menu.data("oldParent", menu.parent().parent());
 				jQuery("body").append(menu.parent());
 			}
 			menu.menu();
@@ -1519,16 +1519,20 @@ JWic.controls = {
 		},
 		show : function(controlId, position) {
 			var menu = JWic.$(controlId);
-			menu.show().position(position);
-			 jQuery( document ).one("click", function() {
-				 menu.hide();
-			 });
+			if (!menu) {
+				alert("The menu with the id '" + controlId + "' does not exist in the DOM. Was it placed as a control anywhere on the page?");
+			} else {
+				menu.show().position(position);
+				 jQuery( document ).one("click", function() {
+					 menu.hide();
+				 });
+			}
 		},
 		destroy : function(controlId) {
 			var menu = JWic.$(controlId);
 			menu.menu("destroy");
-			// now we need to remove the element entirely
-			menu.parent().remove();
+			// move the item back to its old parent before destroying it.
+			menu.data("oldParent").append(menu.parent());
 		}
 	},
 

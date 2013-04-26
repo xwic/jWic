@@ -1,0 +1,28 @@
+#macro(renderMenuItem $menuItem $hasIcons)
+	<li #if(!$menuItem.enabled) class="ui-state-disabled" #end>
+		<a href="#" onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;">
+			#if ($hasIcons)
+				<span class="j-menu-icon"  
+					#if($menuItem.getIcon())
+						style="background-image: url(${menuItem.icon.path});"
+					#end
+				></span>
+			#end
+			$!menuItem.title		
+		</a>	
+		#if ($menuItem.menuItems && $menuItem.menuItems.size() > 0)
+			<ul style="#if($menuItem.width != 0) width: ${menuItem.width}px; #end">
+				#foreach ($i in $menuItem.menuItems)
+					#renderMenuItem($i $menuItem.hasIcons())
+				#end
+			</ul>
+		#end
+	</li>
+#end
+
+<ul id="${control.controlID}" style="display:none; #if($control.width != 0) width: ${control.width}px; #end">
+	#set($hasIcons = $control.hasIcons())
+	#foreach ($item in $control.menuItems)
+		#renderMenuItem($item $hasIcons)
+	#end	
+</ul>

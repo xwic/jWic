@@ -3,8 +3,8 @@ package de.jwic.demo.basics;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
-import de.jwic.ecolib.accordion.Accordion;
-import de.jwic.ecolib.accordion.Panel;
+import de.jwic.controls.accordion.Accordion;
+import de.jwic.controls.accordion.Panel;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 

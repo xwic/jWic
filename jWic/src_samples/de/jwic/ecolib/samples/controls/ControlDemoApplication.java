@@ -114,8 +114,7 @@ public class ControlDemoApplication extends Application {
 		
 		new ColumnSelectorDemo(tabStrip.addTab("ColumnSelector"), "les");
 		
-		TabControl tab = tabStrip.addTab("MenuButton");
-		new MenuButtonDemo(tab); 
+		TabControl tab;
 
 		tab = tabStrip.addTab("Toolbar");
 		new ToolBarDemo(tab, "demo");
