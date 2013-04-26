@@ -2,9 +2,9 @@
 	<li #if(!$menuItem.enabled) class="ui-state-disabled" #end>
 		<a href="#" onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;">
 			#if ($hasIcons)
-				<span class="smallIcon"  
+				<span class="j-menu-icon"  
 					#if($menuItem.getIcon())
-						style="background: transparent url(${menuItem.icon.path}) no-repeat ;"
+						style="background-image: url(${menuItem.icon.path});"
 					#end
 				></span>
 			#end

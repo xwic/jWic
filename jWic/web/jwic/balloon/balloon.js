@@ -86,7 +86,7 @@ function BalloonClass() {
 	function show(balloonID, x, y, cssClass) {
 		var balloon = document.getElementById("balloon_" + balloonID);
 		if (balloon) {
-			var ws = WindowSize();
+			var ws = JWic.getWindowSize();
 			position(balloon, balloonID, x, y, cssClass, ws);
 		}
 	}
@@ -154,12 +154,12 @@ function BalloonClass() {
 		var balloonID = src["balloonID"];
 		var e = src["event"];
 		var param = src["eventID"] + ";" + e.clientX + ";" + e.clientY;
-		jWic().fireAction(balloonID, "show", param);
+		JWic.fireAction(balloonID, "show", param);
 	}
 	
 	function closeBalloon(src) {
 		for (balloonID in visible) {
-			jWic().fireAction(balloonID, "hide", "");
+			JWic.fireAction(balloonID, "hide", "");
 		}
 		visible = new Object();
 	}

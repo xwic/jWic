@@ -1,5 +1,4 @@
 #parse("jwic/include.header.vtl")
-#parse("ecolib/ecolib.page.header")
 
 	## add your custom META, SCRIPT or LINK tags here
 	<link rel="stylesheet" type="text/css" href="demo.css">

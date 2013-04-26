@@ -23,7 +23,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
-import de.jwic.ecolib.controls.balloon.BalloonControl;
+import de.jwic.controls.balloon.Balloon;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.samples.controls.GroupControlDemo;
@@ -51,7 +51,7 @@ public class BalloonDemo extends ControlContainer {
 		new LabelControl(this).setText("For this Balloon Demo click with <b>left</b> or <b>right</b> mouse button on any element of <b><i>GroupControl Demo</i></b>");
 		GroupControlDemo demo = new GroupControlDemo(this);
 		
-		final BalloonControl balloon = new BalloonControl(this);
+		final Balloon balloon = new Balloon(this);
 		final LabelControl label = new LabelControl(balloon);
 		new InputBox(balloon);
 		SelectionListener listener = new SelectionListener() {

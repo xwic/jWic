@@ -1,4 +1,4 @@
-package de.jwic.ecolib.accordion;
+package de.jwic.controls.accordion;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
