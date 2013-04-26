@@ -54,6 +54,7 @@ public class Accordion extends ControlContainer{
 	 */
 	public void setActiveIndex(int activeIndex) {
 		this.activeIndex = activeIndex;
+		getSessionContext().queueScriptCall("JWic.controls.Accordion.activate('" + getControlID() + "', " + getActiveIndex() +");");
 	}
 	
 	

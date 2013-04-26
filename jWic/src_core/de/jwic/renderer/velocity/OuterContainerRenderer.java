@@ -75,7 +75,8 @@ public class OuterContainerRenderer extends BaseVelocityRenderer {
 				String tplName = ((IOuterLayout)control).getOuterTemplateName();
 
 				if (control.getClass().isAnnotationPresent(JavaScriptSupport.class)) {
-					Template tplJs = getTemplate(tplName, ".js");
+					String jsTemplateName = control.getClass().getAnnotation(JavaScriptSupport.class).jsTemplate();
+					Template tplJs = getTemplate(jsTemplateName.length() == 0 ? tplName : jsTemplateName, ".js");
 					if (tplJs != null) {
 						VelocityContext vCtx = createContext(control);
 						vCtx.put("control", control);

@@ -31,5 +31,5 @@ import java.lang.annotation.RetentionPolicy;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface JavaScriptSupport {
-
+	String jsTemplate()	default "";
 }

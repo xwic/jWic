@@ -59,13 +59,14 @@ public class BasicControlRenderer extends BaseVelocityRenderer {
 			}
 				
 			if (control.getClass().isAnnotationPresent(JavaScriptSupport.class)) {
+				String jsTemplateName = control.getClass().getAnnotation(JavaScriptSupport.class).jsTemplate();
 				
-				Template tplJsStatic = getTemplate(tplName, ".static.js");
+				Template tplJsStatic = getTemplate(jsTemplateName.length() == 0 ? tplName : jsTemplateName, ".static.js");
 				if (tplJsStatic != null) {
 					context.addRequiredJSContent(tplName.replace('.', '/') + ".static.js");
 				}
-				
-				Template tplJs = getTemplate(tplName, ".js");
+
+				Template tplJs = getTemplate(jsTemplateName.length() == 0 ? tplName : jsTemplateName, ".js");
 				if (tplJs != null) {
 					VelocityContext vCtx = createContext(control);
 					vCtx.put("control", control);
