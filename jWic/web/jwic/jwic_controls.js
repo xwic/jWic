@@ -1608,7 +1608,7 @@ JWic.controls = {
 		
 		applyFilter : function(controlId) {
 			var filterField = JWic.$('search_' + controlId);
-			var val = filterField.val().trim().toLowerCase();
+			var val = jQuery.trim(filterField.val()).toLowerCase();
 			var clearFilter = JWic.$("cse_" + controlId);
 			if (val.length != 0) {
 				clearFilter.find(".j-listColSel-clearSearch").show();
