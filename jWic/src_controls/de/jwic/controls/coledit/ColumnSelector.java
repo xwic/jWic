@@ -30,9 +30,15 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.Button;
 import de.jwic.controls.CheckBox;
+import de.jwic.controls.ToolBar;
+import de.jwic.controls.ToolBarGroup;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
+import de.jwic.util.JWicImageLibrary;
 
 /**
  * Provides two lists where user can move elements in/out and sort
@@ -56,7 +62,7 @@ public class ColumnSelector extends ControlContainer {
 	private String cssClass = "j-listColSel";
 	
 	private Field fldOrder = null;
-	private int width = 480;
+	private int width = 580;
 	private int height = 300;
 	
 	private boolean inAddMode = false;
@@ -64,8 +70,8 @@ public class ColumnSelector extends ControlContainer {
 	private boolean showActions = true;
 	
 	private boolean hideInvisibles = false;
-	private boolean hideDescription = false;
-
+	private boolean hideDescription = true;
+	
 	private List<IColumnSelectorListener> listeners = new ArrayList<IColumnSelectorListener>();
 	
 	/** Listener for all checkboxes. */
@@ -75,6 +81,8 @@ public class ColumnSelector extends ControlContainer {
 			onCheckboxStateChange();
 		};
 	};
+	private Button btHideDescr;
+	private Button btHideInvis;
 	
 	/**
 	 * @param container
@@ -132,6 +140,8 @@ public class ColumnSelector extends ControlContainer {
 	private void init() {
 		fldOrder = new Field(this, "fldOrder");
 		
+		new Field(this, "filter"); // add a filter field to not loose the value
+		
 		fldOrder.addValueChangedListener(new ValueChangedListener() {
 			private static final long serialVersionUID = 1L;
 			public void valueChanged(ValueChangedEvent event) {
@@ -139,6 +149,52 @@ public class ColumnSelector extends ControlContainer {
 			}
 		});
 		
+		// add Toolbar
+		ToolBar tb = new ToolBar(this, "toolBar");
+		tb.setCssClass("j-toolbar ui-corner-top");
+		ToolBarGroup group = tb.addGroup();
+		
+		Button btSelectAll = group.addButton();
+		btSelectAll.setTitle("All");
+		btSelectAll.setIconEnabled(JWicImageLibrary.IMAGE_CHECK_ALL);
+		btSelectAll.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				actionSelectAll();
+			}
+		});
+
+		Button btSelectNone = group.addButton();
+		btSelectNone.setTitle("None");
+		btSelectNone.setIconEnabled(JWicImageLibrary.IMAGE_CHECK_NONE);
+		btSelectNone.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				actionSelectNone();
+			}
+		});
+
+		btHideInvis = group.addButton();
+		btHideInvis.setTitle("Show Selected Only");
+		btHideInvis.setTooltip("You can hide those columns that are not displayed. This helps to re-order the selected columns more easily");
+		btHideInvis.setIconEnabled(JWicImageLibrary.IMAGE_CHECK_HIDE);
+		btHideInvis.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				actionHideInvisible();
+			}
+		});
+
+		btHideDescr = group.addButton();
+		btHideDescr.setTitle("Show Description");
+		btHideDescr.setIconEnabled(JWicImageLibrary.IMAGE_INFORMATION);
+		btHideDescr.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				actionHideDescription();
+			}
+		});
+
 	}
 
 	/**
@@ -200,6 +256,7 @@ public class ColumnSelector extends ControlContainer {
 	 */
 	public void actionHideDescription() {
 		this.hideDescription = !this.hideDescription;
+		btHideDescr.setTitle(hideDescription ? "Show Description" : "Hide Description");
 		requireRedraw();
 	}
 	
@@ -219,6 +276,7 @@ public class ColumnSelector extends ControlContainer {
 	 */
 	public void actionHideInvisible() {
 		hideInvisibles = !hideInvisibles;
+		btHideInvis.setTitle(hideInvisibles ? "Show All" : "Show Selected Only");
 		requireRedraw();
 	}
 	
@@ -345,6 +403,7 @@ public class ColumnSelector extends ControlContainer {
 	 */
 	public void setHideInvisibles(boolean hideInvisibles) {
 		this.hideInvisibles = hideInvisibles;
+		btHideInvis.setTitle(hideInvisibles ? "Show All" : "Show Selected Only");
 	}
 
 	/**
@@ -359,6 +418,7 @@ public class ColumnSelector extends ControlContainer {
 	 */
 	public void setHideDescription(boolean hideDescription) {
 		this.hideDescription = hideDescription;
+		btHideDescr.setTitle(hideDescription ? "Show Description" : "Hide Description");
 	}
 
 

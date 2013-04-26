@@ -1,0 +1,17 @@
+<div style="overflow: auto; height: 80px; width: 600px; border: 1px solid #B0B0B0;">
+#set($width = 0)
+#foreach($col in $control.columns)
+	#if ($col.visible)
+		#set($width = $width + 82)
+	#end
+#end
+	<table style="table-layout:fixed" width="$width" cellspacing="0" cellpadding="3">
+		<tr>
+			#foreach($col in $control.columns)
+				#if ($col.visible)
+					<td width="80" style="border: 1px solid #808080; background-color: #D0D0FF; font-size: 8pt;"><nobr>$col.title</nobr></td>
+				#end
+			#end
+		</tr>
+	</table>
+</div>

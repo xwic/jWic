@@ -1,40 +1,27 @@
 #set($fld = $control.getField("fldOrder"))
+#set($fldFilter = $control.getField("filter"))
 <input id="rowOrder_$control.getControlID()" type="hidden" name="$fld.id" value="$jwic.formatInp($fld.value)">
 #set($height = $control.height)
-#if ($control.showActions)
-	#set($height = $height - 27)
-<div class="${control.cssClass}_actions" style="width: ${control.width}px; height: 26px;">
-	<div class="j-colAction">
-		<a href="$control.createActionURL("selectAll", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkall.gif" width="14" height="14" border="0"> Select All</a>
-	</div>
-	<div class="j-colAction">
-		<a href="$control.createActionURL("selectNone", "")"><img src="${jwic.contextPath}/ecolib/colselector/chknone.gif" width="14" height="14" border="0"> Select None</a>
-	</div>
-	<div class="j-colAction">
-		#if($control.hideInvisibles)
-		<a href="$control.createActionURL("hideInvisible", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkhide.gif" width="14" height="14" border="0"> Show Invisible</a>
-		#else
-		<a href="$control.createActionURL("hideInvisible", "")"><img src="${jwic.contextPath}/ecolib/colselector/chkhide.gif" width="14" height="14" border="0"> Hide Invisible</a>
-		#end
-	</div>
-	<div class="j-colAction">
-		#if($control.hideDescription)
-		<a href="$control.createActionURL("hideDescription", "")"><img src="${jwic.contextPath}/ecolib/colselector/information.png" width="14" height="14" border="0"> Show Description</a>
-		#else
-		<a href="$control.createActionURL("hideDescription", "")"><img src="${jwic.contextPath}/ecolib/colselector/information.png" width="14" height="14" border="0"> Hide Description</a>
-		#end
-	</div>
-</div>
-#end
-<div id="lst_$control.controlID" class="$control.cssClass" style="width: ${control.width}px; height: ${height}px;">
-	#foreach($col in $control.columns)
-		#if(!$control.hideInvisibles || $col.visible)
-		<div id="col_${control.controlID}_$col.id" class="j-colRow" jColId="$col.id">
-			<div class="j-colRowTitle" unselectable="on">$insert.control("chk${col.id}") $!col.title</div>
-			#if($!col.description != "" && !$control.hideDescription)
-			<div class="j-colRowDesc" unselectable="on">$!col.description</div>
-			#end
-		</div>
-		#end
+#set($width = $control.width - 2)
+<div style="width: ${control.width}px">
+	#if ($control.showActions)
+		#set($height = $height - 27)
+		$insert.control("toolBar")
 	#end
+	<div class="ui-widget ui-widget-content j-listColSel-search" id="cse_$control.controlID">
+		<span class="j-listColSel-clearSearch ui-icon ui-icon-circle-close" title="Clear Filter"></span>
+		<input class="ui-widget ui-widget-content j-inputbox" type="text" id="search_$control.controlID" name="$fldFilter.id" value="$jwic.formatInp($fldFilter.value)" style="width: 95%; border: 0" placeholder="Filter">
+	</div>
+	<div id="lst_$control.controlID" class="ui-widget-content $control.cssClass" style="width: ${width}px; height: ${height}px;">
+		#foreach($col in $control.columns)
+			#if(!$control.hideInvisibles || $col.visible)
+			<div id="col_${control.controlID}_$col.id" class="j-colRow" jColId="$col.id" #if($!col.description != "" && $control.hideDescription) title="$jwic.formatInp($col.description)"#end jColName="$jwic.formatInp($!col.title)">
+				<div class="j-colRowTitle" unselectable="on">$insert.control("chk${col.id}") $!col.title</div>
+				#if($!col.description != "" && !$control.hideDescription)
+				<div class="j-colRowDesc" unselectable="on">$!col.description</div>
+				#end
+			</div>
+			#end
+		#end
+	</div>
 </div>
