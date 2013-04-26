@@ -1,4 +1,4 @@
-package de.jwic.demo.basics;
+package de.jwic.demo.container;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.demo.DemoModule;
@@ -11,7 +11,7 @@ public class AccordionDemoModule extends DemoModule {
 	public AccordionDemoModule() {
 		setTitle("Accordion");
 		setDescription("Accordion Layout, directly rendered");
-		
+		setGroup("Container");
 	}
 	
 	/* (non-Javadoc)

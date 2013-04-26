@@ -14,7 +14,6 @@ import de.jwic.demo.advanced.CKEditorDemoModule;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
 import de.jwic.demo.advanced.ProcessInfoDemoModule;
-import de.jwic.demo.basics.AccordionDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
 import de.jwic.demo.basics.CheckBoxDemoModule;
 import de.jwic.demo.basics.CheckBoxGroupDemoModule;
@@ -26,6 +25,7 @@ import de.jwic.demo.basics.ListBoxDemoModule;
 import de.jwic.demo.basics.MenuDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.basics.ToolBarDemoModule;
+import de.jwic.demo.container.AccordionDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
 import de.jwic.demo.container.StackedContainerDemoModule;
@@ -66,6 +66,7 @@ public class DemoApplication extends Application {
 		modules.add(new ComboLifeSearchDemoModule());
 		modules.add(new AsyncRenderDemoModule());
 		modules.add(new TabStripDemoModule());
+		modules.add(new AccordionDemoModule());
 		modules.add(new CheckBoxDemoModule());
 		modules.add(new CheckBoxGroupDemoModule());
 		modules.add(new FileUploadDemoModule());
@@ -79,7 +80,6 @@ public class DemoApplication extends Application {
 		modules.add(new ToolBarDemoModule());
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
-		modules.add(new AccordionDemoModule());
 		modules.add(new WindowDemoModule());
 		modules.add(new MenuDemoModule());
 

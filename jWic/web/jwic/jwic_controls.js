@@ -1540,13 +1540,9 @@ JWic.controls = {
 	 * de.jwic.controls.basics.Accordion control functions. 
 	 */
 	Accordion : {
-			initialize : function(accordion, ctrlId, activeIndex) {
-				
-				JWic.log(activeIndex);
-				accordion.accordion({
-					activate : JWic.controls.Accordion.activateHandler,
-					active : activeIndex
-				});
+			initialize : function(accordion, ctrlId, options) {
+				accordion.accordion(options);
+				accordion.accordion("option", "activate", JWic.controls.Accordion.activateHandler);
 			},
 			
 			activateHandler : function (event, ui) {
@@ -1558,6 +1554,10 @@ JWic.controls = {
 			activate : function(controlId, panelIdx) {
 				var accordion = jQuery("#" + JWic.util.JQryEscape(controlId));
 				accordion.accordion("option", "active", panelIdx );
+			},
+			disabled : function(controlId, disable) {
+				var accordion = jQuery("#" + JWic.util.JQryEscape(controlId));
+				accordion.accordion("option", "disabled", disable );
 			}
 	}
 }
