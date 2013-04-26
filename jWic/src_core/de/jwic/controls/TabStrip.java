@@ -176,7 +176,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 				break;
 			}
 		}
-		getSessionContext().queueScriptCall("JWic.controls.basics.TabStrip.activate('" + getControlID() + "', " + getActiveIndex() +");");
+		getSessionContext().queueScriptCall("JWic.controls.TabStrip.activate('" + getControlID() + "', " + getActiveIndex() +");");
 	}
 
 }

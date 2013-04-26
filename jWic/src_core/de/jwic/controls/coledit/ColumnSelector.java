@@ -17,7 +17,7 @@
  * Created on Feb 10, 2010
  * $Id: ColumnSelector.java,v 1.2 2011/06/08 06:50:41 lordsam Exp $
  */
-package de.jwic.ecolib.controls.coledit;
+package de.jwic.controls.coledit;
 
 import java.util.ArrayList;
 import java.util.Collections;

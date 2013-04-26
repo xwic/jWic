@@ -17,7 +17,7 @@
  * Created on 05.06.2011
  * $Id: ColumnStub.java,v 1.1 2011/06/06 12:13:19 lordsam Exp $
  */
-package de.jwic.ecolib.controls.coledit;
+package de.jwic.controls.coledit;
 
 import java.io.Serializable;
 

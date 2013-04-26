@@ -43,6 +43,26 @@
 							JWic.controls.TableViewer.resizeColumn(e, viewerCtrlId);
 						});
 					}
+					if (options.menu != null) {
+						var tableContent = JWic.$("tblContent_" + viewerCtrlId);
+						tableContent.find("tbody > tr").bind("contextmenu", function(e){JWic.controls.TableViewer.handleContextMenu(this, options.menu, e)});
+					}
+				},
+				
+				/**
+				 * Handle a right-click
+				 */
+				handleContextMenu : function(row, menuId, e) {
+					// select the row
+					this.clickRow(row, e, false, function() {
+						JWic.controls.Menu.show(menuId, {
+							my : "left top",
+							of : e,
+							collision: "fit"
+						});
+					});
+					e.preventDefault();
+					return false;
 				},
 			
 				/**
@@ -410,7 +430,7 @@
 				/**
 				 * Activated by onClick event on a row.
 				 */
-				clickRow : function(tblRow, e, dblClick) {
+				clickRow : function(tblRow, e, dblClick, callBack) {
 				
 					if (!e) e = window.event;
 					if (typeof dblClick == 'undefined') {
@@ -464,7 +484,7 @@
 					// change selection
 				
 					// notify control
-					JWic.fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey);
+					JWic.fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey, callBack);
 				
 				},
 				

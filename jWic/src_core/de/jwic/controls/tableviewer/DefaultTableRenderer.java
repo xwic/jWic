@@ -78,6 +78,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		renderContext.addScript(viewer.getControlID(), 
 			"{ afterUpdate: function(element) {JWic.controls.TableViewer.initialize(element, '" + viewer.getControlID() + "', {" +
 			" colResize : " + viewer.isResizeableColumns() +
+			" ,menu : " + (viewer.getMenu() != null ? "\'" + viewer.getMenu().getControlID() + "\'" : "null") +
 			"});}}"
 			);
 		
@@ -382,7 +383,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		
 		TableModel model = viewer.getModel();
 		IContentProvider contentProvider = model.getContentProvider();
-		
+
 		int count = 0;
 		while(it.hasNext()) {
 			Object row = it.next();

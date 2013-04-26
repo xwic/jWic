@@ -21,10 +21,10 @@ package de.jwic.ecolib.samples.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.ecolib.controls.coledit.ColumnSelector;
-import de.jwic.ecolib.controls.coledit.ColumnSelectorEvent;
-import de.jwic.ecolib.controls.coledit.ColumnStub;
-import de.jwic.ecolib.controls.coledit.IColumnSelectorListener;
+import de.jwic.controls.coledit.ColumnSelector;
+import de.jwic.controls.coledit.ColumnSelectorEvent;
+import de.jwic.controls.coledit.ColumnStub;
+import de.jwic.controls.coledit.IColumnSelectorListener;
 
 /**
  *

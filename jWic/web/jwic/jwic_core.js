@@ -81,7 +81,7 @@ var JWic = {
 	/**
 	 * Handle the response from an fireAction request.
 	 */
-	handleResponse : function(ajaxResponse) {
+	handleResponse : function(ajaxResponse, callBack) {
 		
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
 			alert("The server did not respond to the request. Please check your network connectivity and try again.");
@@ -136,6 +136,13 @@ var JWic = {
 				});
 			}
 			this.endRequest();
+		}
+		if (callBack) {
+			try {
+				callBack();
+			} catch (e) {
+				JWic.log("callBack function failed: " + e);
+			}
 		}
 	},
 
@@ -338,12 +345,13 @@ var JWic = {
 	 * result contains the modified controls, which will then be updated on the
 	 * page.
 	 */
-	fireAction : function(senderControl, actionName, actionParameter) {
+	fireAction : function(senderControl, actionName, actionParameter, callBack) {
 		
 		JWic.commandQueue.push({
 			senderControl : senderControl,
 			actionName : actionName,
-			actionParameter : actionParameter
+			actionParameter : actionParameter,
+			callBack : callBack
 		});
 		if (!JWic.isProcessing) {
 			JWic._processNextAction()
@@ -434,7 +442,7 @@ var JWic = {
 			data : paramData,
 			success : function(data, textStatus, jqXHR) {
 		
-				JWic.handleResponse(jqXHR);
+				JWic.handleResponse(jqXHR, cmd.callBack);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
 				alert(

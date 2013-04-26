@@ -25,6 +25,7 @@ import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.RenderContext;
 import de.jwic.controls.IHTMLElement;
+import de.jwic.controls.menu.Menu;
 import de.jwic.data.IContentProvider;
 import de.jwic.renderer.self.ISelfRenderingControl;
 import de.jwic.renderer.self.SelfRenderer;
@@ -76,6 +77,8 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private boolean scrollable = false;
 	
 	private StatusBarControl statusBar = null;
+	
+	private Menu menu = null;
 	
 	/**
 	 * @param container
@@ -426,6 +429,21 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	 */
 	public void setRowHeightHint(int rowHeightHint) {
 		this.rowHeightHint = rowHeightHint;
+	}
+
+	/**
+	 * @return the menu
+	 */
+	public Menu getMenu() {
+		return menu;
+	}
+
+	/**
+	 * Set a menu that is used as a context-menu on the rows.
+	 * @param menu the menu to set
+	 */
+	public void setMenu(Menu menu) {
+		this.menu = menu;
 	}
 
 }
