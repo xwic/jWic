@@ -7,7 +7,7 @@
 		try {
 			if (inpElm) {
 				
-				JWic.controls.NumericInputControl.initialize(inpElm, hidden, $control.options);
+				JWic.controls.NumericInputControl.initialize(inpElm, hidden, $control.buildJsonOptions());
 				#if($control.updateOnBlur)
 					inpElm.bind('blur',function() {
 							JWic.fireAction('$control.controlID', 'onBlur', '');

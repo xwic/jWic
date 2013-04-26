@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 
 /**
@@ -73,6 +74,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showHour
 	 */
+	@IncludeJsOption
 	public boolean isShowHour() {
 		return showHour;
 	}
@@ -90,6 +92,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showMinute
 	 */
+	@IncludeJsOption
 	public boolean isShowMinute() {
 		return showMinute;
 	}
@@ -107,6 +110,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showSecond
 	 */
+	@IncludeJsOption
 	public boolean isShowSecond() {
 		return showSecond;
 	}
@@ -124,6 +128,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showMillisec
 	 */
+	@IncludeJsOption
 	public boolean isShowMillisec() {
 		return showMillisec;
 	}
@@ -141,6 +146,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showTimezone
 	 */
+	@IncludeJsOption
 	public boolean isShowTimezone() {
 		return showTimezone;
 	}
@@ -158,6 +164,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the stepHour
 	 */
+	@IncludeJsOption
 	public Integer getStepHour() {
 		return stepHour;
 	}
@@ -175,6 +182,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the stepMinute
 	 */
+	@IncludeJsOption
 	public Integer getStepMinute() {
 		return stepMinute;
 	}
@@ -192,6 +200,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the stepSecond
 	 */
+	@IncludeJsOption
 	public Integer getStepSecond() {
 		return stepSecond;
 	}
@@ -208,6 +217,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the controlType
 	 */
+	@IncludeJsOption
 	public ControlTpye getControlType() {
 		return controlType;
 	}
@@ -224,6 +234,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the stepMilliSec
 	 */
+	@IncludeJsOption
 	public Integer getStepMilliSec() {
 		return stepMilliSec;
 	}
@@ -241,6 +252,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the hour
 	 */
+	@IncludeJsOption
 	public Integer getHour() {
 		return hour;
 	}
@@ -258,6 +270,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the minute
 	 */
+	@IncludeJsOption
 	public Integer getMinute() {
 		return minute;
 	}
@@ -275,6 +288,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the second
 	 */
+	@IncludeJsOption
 	public Integer getSecond() {
 		return second;
 	}
@@ -292,6 +306,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the millisec
 	 */
+	@IncludeJsOption
 	public Integer getMillisec() {
 		return millisec;
 	}
@@ -309,6 +324,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the hourMin
 	 */
+	@IncludeJsOption
 	public Integer getHourMin() {
 		return hourMin;
 	}
@@ -326,6 +342,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the minuteMin
 	 */
+	@IncludeJsOption
 	public Integer getMinuteMin() {
 		return minuteMin;
 	}
@@ -343,6 +360,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the secondMin
 	 */
+	@IncludeJsOption
 	public Integer getSecondMin() {
 		return secondMin;
 	}
@@ -360,6 +378,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the millisecMin
 	 */
+	@IncludeJsOption
 	public Integer getMillisecMin() {
 		return millisecMin;
 	}
@@ -377,6 +396,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the hourMax
 	 */
+	@IncludeJsOption
 	public Integer getHourMax() {
 		return hourMax;
 	}
@@ -394,6 +414,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the minuteMax
 	 */
+	@IncludeJsOption
 	public Integer getMinuteMax() {
 		return minuteMax;
 	}
@@ -411,6 +432,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the secondMax
 	 */
+	@IncludeJsOption
 	public Integer getSecondMax() {
 		return secondMax;
 	}
@@ -428,6 +450,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the millisecMax
 	 */
+	@IncludeJsOption
 	public Integer getMillisecMax() {
 		return millisecMax;
 	}
@@ -445,6 +468,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the showButtonPanel
 	 */
+	@IncludeJsOption
 	public Boolean getShowButtonPanel() {
 		return showButtonPanel;
 	}
@@ -462,6 +486,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the timeOnly
 	 */
+	@IncludeJsOption
 	public Boolean getTimeOnly() {
 		return timeOnly;
 	}
@@ -479,6 +504,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the alwaysSetTime
 	 */
+	@IncludeJsOption
 	public Boolean getAlwaysSetTime() {
 		return alwaysSetTime;
 	}
@@ -496,6 +522,7 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the separator
 	 */
+	@IncludeJsOption
 	public String getSeparator() {
 		return separator;
 	}
@@ -507,75 +534,6 @@ public class DateTimePicker extends DatePicker {
 	public void setSeparator(String separator) {
 		this.separator = separator;
 		requireRedraw();
-	}
-
-	/**
-	 *	
-	 * @return options which are set as JSON Object.
-	 */
-	public String getOptions(){
-
-		try{
-			StringWriter sw = new StringWriter();
-			JSONWriter writer = new JSONWriter(sw);
-			writer.object();
-			writer.key("controlType").value(getControlType().getCode());
-			if(isIconTriggered()){
-				writer.key("showOn").value("button");
-				writer.key("buttonImage").value("_contextPath+'/jwic/calendar/calendar.gif'");
-				writer.key("buttonImageOnly").value(true);
-			}
-			writer.key("showHour").value(isShowHour());
-			writer.key("showMinute").value(isShowMinute());
-			writer.key("showSecond").value(isShowSecond());
-			writer.key("showMillisec").value(isShowMillisec());
-			writer.key("showTimezone").value(isShowTimezone());
-			if(getStepHour() != null)
-				writer.key("stepHour").value(getStepHour());
-			if(getStepMinute() != null)
-				writer.key("stepMinute").value(getStepMinute());
-			if(getStepHour() != null)
-				writer.key("stepSecond").value(getStepSecond());
-			if(getStepMilliSec() != null)
-				writer.key("stepMilliSec").value(getStepMilliSec());
-			if(getHour() != null)
-				writer.key("hour").value(getHour());
-			if(getMinute() != null)
-				writer.key("minute").value(getMinute());
-			if(getSecond() != null)
-				writer.key("second").value(getSecond());
-			if(getMillisec() != null)
-				writer.key("millisec").value(getMillisec());
-			if(getHourMin() != null)
-				writer.key("hourMin").value(getHourMin());
-			if(getHourMin() != null)
-				writer.key("hourMax").value(getHourMax());
-			if(getMinuteMin() != null)
-				writer.key("minuteMin").value(getMinuteMin());
-			if(getMinuteMax() != null)
-				writer.key("minuteMax").value(getMinuteMax());
-			if(getSecondMin() != null)
-				writer.key("secondMin").value(getSecondMin());
-			if(getSecondMax() != null)
-				writer.key("secondMax").value(getSecondMax());
-			if(getMillisecMin() != null)
-				writer.key("millisecMin").value(getMillisecMin());
-			if(getMillisecMax() != null)
-				writer.key("millisecMax").value(getMillisecMax());
-			if(getShowButtonPanel() != null)
-				writer.key("showButtonPanel").value(getShowButtonPanel());
-			if(getTimeOnly() != null)
-				writer.key("timeOnly").value(getTimeOnly());
-			if(getAlwaysSetTime() != null)
-				writer.key("alwaysSetTime").value(getAlwaysSetTime());
-			if(getSeparator() != null)
-				writer.key("separator").value(getSeparator());
-			
-			writer.endObject();
-			return sw.toString();
-		}catch (JSONException e) {
-			throw new RuntimeException("Error while configuring NumberInputControl");
-		}
 	}
 	
 	/**

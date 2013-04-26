@@ -28,7 +28,7 @@
 		 * init the datepicker
 		 */
 		var id = JWic.util.JQryEscape('${control.controlID}');
-		var datetimepicker = jQuery( "#" + id ).datetimepicker($control.getOptions());
+		var datetimepicker = jQuery( "#" + id ).datetimepicker($control.buildJsonOptions());
 		
 		datetimepicker.datetimepicker("option",region);		
 		

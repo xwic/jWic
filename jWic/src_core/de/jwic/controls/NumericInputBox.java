@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONWriter;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 
 /**
  * Supports input and formating of individual number formats.
@@ -88,6 +89,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return 
 	 */
+	@IncludeJsOption
 	public Double getNumber() {
 		if(field.getValue() == null || field.getValue().length() == 0)
 			return null;
@@ -111,6 +113,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public ThousandSeparator getThousandSeparator() {
 		return thousandSeparator;
 	}
@@ -128,6 +131,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public DecimalSeparator getDecimalSeparator() {
 		return decimalSeparator;
 	}
@@ -145,6 +149,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public DigitalGroup getDigitalGroup() {
 		return digitalGroup;
 	}
@@ -162,6 +167,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public String getSymbol() {
 		return symbol;
 	}
@@ -181,6 +187,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public SymbolPlacement getSymbolPlacement() {
 		return symbolPlacement;
 	}
@@ -198,6 +205,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public Double getValueMin() {
 		return valueMin;
 	}
@@ -216,6 +224,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public Double getValueMax() {
 		return valueMax;
 	}
@@ -234,6 +243,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public Integer getDecimalPlaces() {
 		return decimalPlaces;
 	}
@@ -255,6 +265,7 @@ public class NumericInputBox extends InputBox {
 	 *  even when the comma is assigned as the decimal separator (aDec: ',').
 	 * @return
 	 */
+	@IncludeJsOption
 	public Character getDecimalSeperatorChar() {
 		return decimalSeperatorChar;
 	}
@@ -271,6 +282,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public RoundSetting getRoundSetting() {
 		return roundSetting;
 	}
@@ -287,6 +299,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public EmptyDisplay getEmptyDisplay() {
 		return emptyDisplay;
 	}
@@ -303,6 +316,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public LeadingZeroDisplay getLeadingZeroDisplay() {
 		return leadingZeroDisplay;
 	}
@@ -319,6 +333,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public NegativeBracketsDisplay getNegativeBracketsDisplay() {
 		return negativeBracketsDisplay;
 	}
@@ -336,6 +351,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public boolean isPadding() {
 		return padding;
 	}
@@ -348,49 +364,6 @@ public class NumericInputBox extends InputBox {
 	 */
 	public void setPadding(boolean padding) {
 		this.padding = padding;
-	}
-
-	/**
-	 * 
-	 * @return options which are set as JSON Object.
-	 */
-	public String getOptions(){
-		try{
-			StringWriter sw = new StringWriter();
-			JSONWriter writer = new JSONWriter(sw);
-			writer.object();
-			if(getThousandSeparator() != null)
-				writer.key("aSep").value(getThousandSeparator().getCode());
-			if(getDecimalSeparator() != null)
-				writer.key("aDec").value(getDecimalSeparator().getCode());
-			if(getDecimalSeperatorChar() != null)
-				writer.key("altDec").value(getDecimalSeperatorChar());
-			if(getDigitalGroup() != null)
-				writer.key("dGroup").value(getDigitalGroup().getCode());
-			if(getSymbol() != null)
-				writer.key("aSign").value(getSymbol());
-			if(getSymbolPlacement() != null)
-				writer.key("pSign").value(getSymbolPlacement().getCode());
-			if(getValueMin() != null)
-				writer.key("vMin").value(getValueMin());
-			if(getValueMax() != null)
-				writer.key("vMax").value(getValueMax());
-			if(getDecimalPlaces() != null)
-				writer.key("mDec").value(getDecimalPlaces());
-			if(getRoundSetting() != null)
-				writer.key("mRound").value(getRoundSetting().getCode());
-			writer.key("aPad").value(isPadding());
-			if(getNegativeBracketsDisplay() != null)
-				writer.key("nBracket").value(getNegativeBracketsDisplay().getCode());
-			if(getEmptyDisplay() != null)
-				writer.key("wEmpty").value(getEmptyDisplay().getCode());
-			if(getLeadingZeroDisplay() != null)
-				writer.key("lZero").value(getLeadingZeroDisplay().getCode());
-			writer.endObject();
-			return sw.toString();
-		}catch (JSONException e) {
-			throw new RuntimeException("Error while configuring NumberInputControl");
-		}
 	}
 
 	/**

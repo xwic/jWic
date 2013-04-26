@@ -18,9 +18,14 @@
  */
 package de.jwic.base;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -28,6 +33,8 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONException;
+import org.json.JSONWriter;
 
 /**
  * <p>Superclass for jWic controls placed into an jWic container. A Control represents
@@ -367,5 +374,45 @@ public abstract class Control implements Serializable, IControl {
 	 */
 	public void setTemplateName(String templateName) {
 		this.templateName = templateName;
+	}
+	
+	/**
+	 * Builds Json object string of all methods marked with 
+	 * IncludeJsOption Annotation.
+	 * If Enums are used getCode needs to be implemented, which returns the value
+	 * @return
+	 */
+	public String buildJsonOptions(){
+		try{
+			StringWriter sw = new StringWriter();
+			JSONWriter writer = new JSONWriter(sw);
+			writer.object();
+			BeanInfo beanInfo;
+			beanInfo = Introspector.getBeanInfo(getClass());
+		
+			PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
+			
+			for (PropertyDescriptor pd : pds) {
+				if(pd.getReadMethod().getAnnotation(IncludeJsOption.class) != null){
+					Object o = pd.getReadMethod().invoke(this);
+					if(o != null){
+						if(o instanceof Enum){
+							Method m = o.getClass().getMethod("getCode", null);
+							if(m != null){
+								writer.key(pd.getDisplayName()).value(m.invoke(o));
+								continue;
+							}
+						}
+						writer.key(pd.getDisplayName()).value(o);						
+					}
+				}
+			}
+			
+			
+			writer.endObject();
+			return sw.toString();
+		}catch (Exception e) {
+			throw new RuntimeException("Error while configuring NumberInputControl");
+		}
 	}
 }
