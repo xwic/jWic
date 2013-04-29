@@ -22,6 +22,7 @@ package de.jwic.controls;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IOuterLayout;
+import de.jwic.util.IHTMLElement;
 
 /**
  * This class defines the Group Control.

@@ -24,11 +24,11 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.RenderContext;
-import de.jwic.controls.IHTMLElement;
 import de.jwic.controls.menu.Menu;
 import de.jwic.data.IContentProvider;
 import de.jwic.renderer.self.ISelfRenderingControl;
 import de.jwic.renderer.self.SelfRenderer;
+import de.jwic.util.IHTMLElement;
 
 /**
  * Main control used to display data in a table. The control uses a ContentProvider and ITableLabelProvider

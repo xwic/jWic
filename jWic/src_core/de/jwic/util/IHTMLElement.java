@@ -17,7 +17,7 @@
  * Created on 09.08.2006
  * $Id: IHTMLElement.java,v 1.3 2006/08/17 10:19:20 lordsam Exp $
  */
-package de.jwic.controls;
+package de.jwic.util;
 
 import de.jwic.base.IControl;
 

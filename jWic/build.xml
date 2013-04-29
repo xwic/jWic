@@ -18,6 +18,7 @@
 	<property name="build" location="${java.io.tmpdir}/.temp.jarbuild"/>
 	<property name="default_exclude" value=".project,.classpath,.cvsignore,build.xml,build_compile.xml,**/*.jar"/>
 	<property name="srcdir" location="src_core"/>
+	<property name="srcdir_controls" location="src_controls"/>
 	<property name="srcdir_comp" location="src_compatibility"/>
 	<property name="samplesrcdir" location="src_samples"/>
 	<property name="classpath" value="lib/dom4j.jar;lib/commons-lang-2.1.jar;lib/spring-1.2.6.jar;build-req/junit.jar;build-req/servlet-api-2.5.jar;lib/log4j-1.2.8.jar;lib/velocity-1.4.jar;lib/commons-logging.jar;lib/jfreechart-1.0.2.jar;lib/jfreechart-1.0.2-demo.jar;lib/jcommon-1.0.5.jar;lib/poi-3.0.jar"/>
@@ -28,7 +29,7 @@
     <!-- ================================= 
           target: default              
          ================================= -->
-    <target name="default" depends="build,build_compatibility,build_sample,javadoc" description="Create the distribution including jwic.jar and other files.">
+    <target name="default" depends="build,build_controls,build_compatibility,build_sample,javadoc" description="Create the distribution including jwic.jar and other files.">
     	
     	<mkdir dir="${dist}/web"/>
 
@@ -68,6 +69,7 @@
     		compress="true"
     		>
 	    		<zipfileset dir="${srcdir}" prefix="src" />
+    			<zipfileset dir="${srcdir_controls}" prefix="src_controls" />
     			<zipfileset dir="build-inc" excludes="**/readme.txt"/>
 		</zip>
 		
@@ -102,6 +104,24 @@
     	<copy todir="${dist}" file="${build}/jwic-${release}.jar"/>
     	
     </target>
+	
+    <target name="build_controls">
+    	
+       	<delete dir="${build}/classes"/>
+        <mkdir dir="${build}/classes"/>
+    	
+      	<javac fork="java$$javac.exe" target="1.5" compiler="javac1.5" destdir="${build}/classes" 
+      		classpath="${classpath};${dist}/jwic-${release}.jar" debug="true" >
+    	  <src path="${srcdir_controls}"/>
+        </javac>
+        <jar jarfile="${build}/jwic-controls-${release}.jar" >
+     	  <fileset dir="${build}/classes"/>
+      	  <fileset dir="${srcdir_controls}" excludes="${exclude}"/>
+        </jar>
+    	
+    	<copy todir="${dist}" file="${build}/jwic-controls-${release}.jar"/>
+    	
+    </target>
 
     <target name="build_compatibility">
     	
@@ -109,7 +129,7 @@
         <mkdir dir="${build}/classes"/>
     	
       	<javac fork="java$$javac.exe" target="1.5" compiler="javac1.5" destdir="${build}/classes" 
-      		classpath="${classpath};${dist}/jwic-${release}.jar" debug="true" >
+      		classpath="${classpath};${dist}/jwic-${release}.jar;${dist}/jwic-controls-${release}.jar" debug="true" >
       		
     	  <src path="${srcdir_comp}"/>
         </javac>
@@ -146,6 +166,9 @@
         <javadoc destdir="${dist}/doc/api" access="protected" use="true" notree="false" nonavbar="false" noindex="false" splitindex="true" author="true" version="true" nodeprecatedlist="false" nodeprecated="false" 
         	packagenames="de.jwic.base,de.jwic.controls,de.jwic.controls.layout,de.jwic.controls.combo,de.jwic.json,de.jwic.spring,de.jwic.util,de.jwic.upload,de.jwic.renderer.self,de.jwic.renderer.velocity,de.jwic.renderer.util,de.jwic.renderer.jsp,de.jwic.web,de.jwic.session,de.jwic.test,de.jwic.events" 
         	sourcepath="src_core" classpath="." doctitle="jWic ${release}"/>
+        <javadoc destdir="${dist}/doc/api" access="protected" use="true" notree="false" nonavbar="false" noindex="false" splitindex="true" author="true" version="true" nodeprecatedlist="false" nodeprecated="false" 
+        	packagenames="de.jwic.controls,de.jwic.controls.accordion,de.jwic.controls.actions,de.jwic.controls.balloon,de.jwic.controls.ckeditor,de.jwic.controls.coledit,de.jwic.controls.combo,de.jwic.controls.dialogs,de.jwic.controls.layout,de.jwic.controls.combo,de.jwic.controls.menu,de.jwic.controls.tableviewer,de.jwic.controls.wizard,de.jwic.util" 
+        	sourcepath="src_controls" classpath="." doctitle="jWic ${release}"/>
 	</target>
 		
 	<target name="sample2html" depends="javadoc">

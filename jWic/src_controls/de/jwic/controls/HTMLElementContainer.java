@@ -21,6 +21,7 @@ package de.jwic.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.util.IHTMLElement;
 
 /**
  * Implements the common methods/properties defined by the IHTMLElement interface for containers..

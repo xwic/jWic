@@ -15,7 +15,7 @@ import java.util.TimeZone;
 import org.apache.commons.lang.StringEscapeUtils;
 
 import de.jwic.base.JWicRuntime;
-import de.jwic.controls.IHTMLElement;
+import de.jwic.util.IHTMLElement;
 import de.jwic.util.XMLTool;
 
 

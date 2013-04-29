@@ -23,6 +23,7 @@ import java.util.List;
 import de.jwic.base.IControlContainer;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
+import de.jwic.util.IHTMLElement;
 
 /**
  * Represents a standard SELECT element on the page.

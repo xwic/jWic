@@ -169,7 +169,7 @@ public abstract class Wizard {
 	/**
 	 * @param width The width to set.
 	 */
-	public void setWidthHint(int width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 
