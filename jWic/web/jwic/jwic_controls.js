@@ -259,7 +259,7 @@ JWic.controls = {
 
 			self = jQuery(self);
 			var settings = {
-				width : 250,
+				width : 250
 	        };
 	                    
 			if(options) {
@@ -1374,7 +1374,7 @@ JWic.controls = {
 				}
 				JWic.fireAction(ctrlId, 'click', '');
 			}	
-		},
+		}
 	},
 	
 	/**

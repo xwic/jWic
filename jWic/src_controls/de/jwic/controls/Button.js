@@ -19,7 +19,7 @@
 				btn.tooltip({
 					position: {
 						my: "left top",
-						at: "center bottom",
+						at: "center bottom"
 						}});
 			#end
 		}
