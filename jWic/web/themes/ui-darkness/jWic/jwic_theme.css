@@ -71,3 +71,23 @@ div.j-toolbar div.j-spacer {
 div.j-toolbar div.j-combo {
 	margin-top: 5px;
 }
+
+
+/*
+ * Column Selector
+ */
+ 
+ div.j-listColSel {
+		border: 1px solid #A0A0A0;
+		background-color: transparent;
+		position: relative;
+	}
+div.j-listColSel div.j-colRow {
+		border-bottom: 1px dashed #505050;
+		background-color: #202020;
+	}
+ div.j-listColSel div.j-colRow:hover {
+		background-color: #505050;
+		background-image: none;
+}
+ 

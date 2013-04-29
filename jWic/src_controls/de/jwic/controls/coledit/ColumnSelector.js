@@ -21,52 +21,16 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		//Position.includeScrollOffsets = true;
-		var sorts = jQuery('#lst_'+JWic.util.JQryEscape('${control.controlID}'));
-		sorts.sortable({
-			update : function() {
-				var fld =document.getElementById('rowOrder_${control.getControlID()}');
-				if (fld) {
-					var s = "";
-					jQuery('#lst_' + JWic.util.JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
-						s += jQuery(item).attr("jColId") + ";";
-					});
-					fld.value = s;
-					#if($control.immediateUpdate)
-						JWic.fireAction('$control.controlID', 'orderUpdated', '');
-					#end
-				}
-			},
-			scroll : true
-			
+		JWic.controls.ColumnSelector.initialize('${control.controlID}', {
+			hideDescription : $control.hideDescription,
+			immediateUpdate : $control.immediateUpdate
 		});
-		sorts.sortable("enable");
-//		Sortable.create('$control.controlID', {
-//			tag: 'div',
-//			only: 'j-colRow',
-//			scroll: '$control.controlID',
-//			onUpdate: function() {
-//				var fld = jQuery('#'+JQryEscape('rowOrder_${control.getControlID()}')).get(0);
-//				if (fld) {
-//					var s = "";
-//					jQuery('#' + JQryEscape('$control.controlID')).find('div.j-colRow').each(function(i,item) {
-//						s += jQuery(item).attr("jColId") + ";";
-//					});
-//					fld.value = s;
-//					#if($control.immediateUpdate)
-//						JWic.fireAction('$control.controlID', 'orderUpdated', '');
-//					#end
-//				}
-//			}
-//		});
 	},
 	
 	/**
 	 * Invoked when the existing element is removed from the DOM tree.
 	 */
 	destroy : function(element) {
-//		var sorts = jQuery('#lst_'+JQryEscape('${control.controlID}'));
-//		if(sorts)
-//			sorts.destroy();
+		JWic.controls.ColumnSelector.destroy('${control.controlID}');
 	}
 }

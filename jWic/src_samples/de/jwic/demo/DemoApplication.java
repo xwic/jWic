@@ -11,6 +11,7 @@ import de.jwic.base.Application;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.demo.advanced.CKEditorDemoModule;
+import de.jwic.demo.advanced.ColumnSelectorDemoModule;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
 import de.jwic.demo.advanced.ProcessInfoDemoModule;
@@ -82,6 +83,7 @@ public class DemoApplication extends Application {
 		modules.add(new TableViewerDemoModule());
 		modules.add(new WindowDemoModule());
 		modules.add(new MenuDemoModule());
+		modules.add(new ColumnSelectorDemoModule());
 
 		// Sort demos by group and title
 		Collections.sort(modules);

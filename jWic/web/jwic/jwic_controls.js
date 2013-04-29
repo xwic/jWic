@@ -1559,6 +1559,84 @@ JWic.controls = {
 				var accordion = jQuery("#" + JWic.util.JQryEscape(controlId));
 				accordion.accordion("option", "disabled", disable );
 			}
+	},
+	
+	/**
+	 * de.jwic.controls.coledit.ColumnSelector
+	 */
+	ColumnSelector : {
+		initialize : function(controlId, options) {
+			
+			var sorts = JWic.$('lst_' + controlId);
+			if (options.hideDescription) {
+				sorts.find(".j-colRow").tooltip({position: { my: "left+15 center", at: "right center" }});
+			}
+			
+			sorts.sortable({
+				axis : 'y',
+				update : function() {
+					var fld =document.getElementById('rowOrder_' + controlId);
+					if (fld) {
+						var s = "";
+						JWic.$('lst_' + controlId).find('div.j-colRow').each(function(i,item) {
+							s += jQuery(item).attr("jColId") + ";";
+						});
+						fld.value = s;
+						if(options.immediateUpdate) {
+							JWic.fireAction('$control.controlID', 'orderUpdated', '');
+						}
+					}
+				},
+				scroll : true
+				
+			});
+			sorts.sortable("enable");
+			
+			var filterField = JWic.$('search_' + controlId);
+			filterField.on("keyup", function(e) {JWic.controls.ColumnSelector.applyFilter(controlId)});
+			
+			var clearFilter = JWic.$("cse_" + controlId);
+			clearFilter.on("click", function(e) {JWic.controls.ColumnSelector.clearFilter(controlId)});
+			clearFilter.tooltip();
+			this.applyFilter(controlId); 
+		}, 
+		
+		clearFilter : function(controlId) {
+			JWic.$('search_' + controlId).val("");
+			this.applyFilter(controlId);
+		},
+		
+		applyFilter : function(controlId) {
+			var filterField = JWic.$('search_' + controlId);
+			var val = jQuery.trim(filterField.val()).toLowerCase();
+			var clearFilter = JWic.$("cse_" + controlId);
+			if (val.length != 0) {
+				clearFilter.find(".j-listColSel-clearSearch").show();
+			} else {
+				clearFilter.find(".j-listColSel-clearSearch").hide();
+			}
+			
+			JWic.$('lst_' + controlId).find('div.j-colRow').each(function(i,item) {
+				var row = jQuery(item);
+				if (val.length == 0) {
+					row.show();
+				} else {
+					var title = row.attr("jColName");
+					if (!title || title.toLowerCase().indexOf(val) == -1) {
+						row.hide();
+					} else {
+						row.show();
+					}
+				}
+			});
+		},
+		
+		destroy : function(controlId) {
+			var sorts = JWic.$('lst_' + controlId);
+			if (sorts) {
+				sorts.sortable("destroy");
+			}
+		}
 	}
 }
 
