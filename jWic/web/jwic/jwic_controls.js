@@ -1470,6 +1470,8 @@ JWic.controls = {
 	 * de.jwic.controls.basics.TabStrip control functions. 
 	 */
 	TabStrip : {
+			internalActivate : false,
+			
 			initialize : function(tabStrip, ctrlId, activeIndex) {
 				JWic.log(activeIndex);
 				tabStrip.tabs({
@@ -1479,23 +1481,41 @@ JWic.controls = {
 			},
 			
 			activateHandler : function (event, ui) {
-				if (ui.oldPanel) {
-					var tabStripId = ui.oldPanel.attr("jwicTabStripId");
-					var tabName = ui.oldPanel.attr("jwicTabName");
-					var oldH = ui.oldPanel.height();
-					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + tabName + "\"><div style=\"height: " + oldH + "px;\"></div></span>");
+				if (JWic.controls.TabStrip.internalActivate) {
+					return;
 				}
 				if (ui.newPanel) {
 					var tabStripId = ui.newPanel.attr("jwicTabStripId");
 					var tabName = ui.newPanel.attr("jwicTabName");
-					JWic.fireAction(tabStripId, "activateTab", tabName);
+					var oldTabName = ui.oldPanel.attr("jwicTabName");
+					var oldH = ui.oldPanel.height();
+					
+					// find index of new panel
+					var widget = JWic.$(tabStripId).tabs("widget");
+					var newPanelIdx = -1;
+					var tabs = widget.find("div.ui-tabs-panel");
+					JWic.log(tabs);
+					for (var i = 0; i < tabs.length; i++) {
+						if (jQuery(tabs[i]).attr("jwicTabName") == tabName) {
+							newPanelIdx = i;
+							break;
+						}
+					}
+					
+					JWic.fireAction(tabStripId, "activateTab", tabName, function() {
+						ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + oldTabName + "\"><div style=\"height: " + oldH + "px;\"></div></span>");
+						JWic.controls.TabStrip.activate(tabStripId, newPanelIdx);
+					});
+					
+					event.preventDefault();
 				}
 			},
 			activate : function(controlId, panelIdx) {
 				var tabStrip = JWic.$(controlId);
+				JWic.controls.TabStrip.internalActivate = true;
 				tabStrip.tabs("option", "active", panelIdx );
 				tabStrip.tabs("refresh");
-				
+				JWic.controls.TabStrip.internalActivate = false;
 			}
 	},
 	
