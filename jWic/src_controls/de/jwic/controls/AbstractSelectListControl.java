@@ -18,8 +18,10 @@
 package de.jwic.controls;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.data.DataLabel;
@@ -199,6 +201,19 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 		}
 		setSelectedElement(null);
 		requireRedraw();
+	}
+	
+	/**
+	 * Returns elements as keyValuePair Map.
+	 * @return
+	 */
+	public Map<String, ISelectElement> buildElementsMap(){
+		Map<String, ISelectElement> result = new HashMap<String, ISelectElement>();
+		for (ISelectElement element : elements) {
+			result.put(element.getKey(), element);
+		}
+		
+		return result;
 	}
 
 }

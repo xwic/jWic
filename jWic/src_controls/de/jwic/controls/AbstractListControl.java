@@ -198,7 +198,7 @@ public class AbstractListControl<A> extends Control {
 	/**
 	 * @return the contentProvider
 	 */
-	public IContentProvider<?> getContentProvider() {
+	public IContentProvider<A> getContentProvider() {
 		return contentProvider;
 	}
 

@@ -20,6 +20,14 @@ form {
 	border: 1px solid #000000;
 }
 
+div.ui-dialog .ui-dialog-content {
+    padding: 0;
+}
+
+div.ui-tabs .ui-tabs-panel {
+    padding: 0;
+}
+
 /*
   *  Input box field.
   */
