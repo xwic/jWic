@@ -38,8 +38,6 @@ div.ui-tabs .ui-tabs-panel {
 	background: #FFFFFF;
 }
 .j-inputbox {
-	background-image: url(gfx/inputbg.png);
-	background-repeat: repeat-x;;
 	font-size: 10pt;
 	font-family: tahoma, sans-serif, Arial;
 	border: 1px solid #B0B0B0;
