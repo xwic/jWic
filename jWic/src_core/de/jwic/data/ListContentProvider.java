@@ -30,7 +30,7 @@ public class ListContentProvider<A> implements IContentProvider<A> {
 		if (range.getMax() != -1) {
 			
 			int start = range.getStart();
-			if (start >= data.size()) {
+			if (start >= data.size() && data.size() > 0) {
 				start = data.size() - 1;
 			}
 			int end = start + range.getMax();

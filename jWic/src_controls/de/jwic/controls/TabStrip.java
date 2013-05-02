@@ -52,14 +52,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	public void actionActivateTab(String tabName) {
 		
 		if (activeTabName != null && !activeTabName.equals(tabName)) {
-		
-			for (Tab tab : tabs) {
-				if (tab.getName().equals(tabName)) {
-					activeTabName = tabName;
-					tab.requireRedraw(); // force drawing the control
-				}
-			}
-			
+			setActiveTabName(tabName, false);
 		}
 	}
 	
@@ -169,6 +162,14 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 * @param newActiveTabName java.lang.String
 	 */
 	public void setActiveTabName(String newActiveTabName) {
+		setActiveTabName(newActiveTabName, true);
+	}
+	
+	/**
+	 * Creation date: (03.02.2003 12:26:12)
+	 * @param newActiveTabName java.lang.String
+	 */
+	protected void setActiveTabName(String newActiveTabName, boolean executeActivateScript) {
 		for (Tab tab : tabs) {
 			if (tab.getName().equals(newActiveTabName)) {
 				activeTabName = newActiveTabName;
@@ -176,7 +177,8 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 				break;
 			}
 		}
-		getSessionContext().queueScriptCall("JWic.controls.TabStrip.activate('" + getControlID() + "', " + getActiveIndex() +");");
+		if(executeActivateScript)
+			getSessionContext().queueScriptCall("JWic.controls.TabStrip.activate('" + getControlID() + "', " + getActiveIndex() +");");
 	}
 
 }

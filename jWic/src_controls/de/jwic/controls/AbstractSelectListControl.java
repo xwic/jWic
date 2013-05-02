@@ -89,19 +89,27 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	/**
 	 * Add an element.
 	 * @param element
+	 * @return true if element has been added, false if duplicate
 	 */
-	public void addElement(ISelectElement element) {
+	public boolean addElement(ISelectElement element) {
+		boolean notContainsElement = true;
 		if (elements == null) {
 			elements = new ArrayList<ISelectElement>();
 			setContentProvider(new SelectElementContentProvider(elements));
 		}
 		if (element.getKey() != null) {
 			if (contentProvider.getObjectFromKey(element.getKey()) != null) {
-				throw new IllegalArgumentException("An element with the key '" + element.getKey() + "' does already exist in the selection.");
+				notContainsElement = false;
+				//throw new IllegalArgumentException("An element with the key '" + element.getKey() + "' does already exist in the selection.");
 			}
 		}
-		elements.add(element);
+		
+		if(notContainsElement){
+			elements.add(element);
+		}
 		requireRedraw();
+		
+		return notContainsElement;
 	}
 
 	/**
