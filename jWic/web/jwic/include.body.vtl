@@ -26,6 +26,7 @@
 	</script>
 	
 	<form name="jwicform" id="jwicform" method="POST" enctype=#if($page.multipart)"multipart/form-data"#else"text/html;charset=iso-8859-1"#end onsubmit="return false">
+		<input type="submit" name="preventSubmit" onclick="return false;" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 1px; height: 1px;"/>
 		<input type="hidden" name="_msid" value="$context.sessionId">
 		<input type="hidden" name="__ticket" value="$context.getRequestTicket($layerid)">
 		<input type="hidden" name="__ctrlid" value="">
