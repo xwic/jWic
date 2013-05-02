@@ -41,7 +41,21 @@ public class InputBoxDemoModule extends DemoModule {
 		new LabelControl(tlc).setText("With content");
 		InputBox txt = new InputBox(tlc);
 		txt.setWidth(500);
-		txt.setText("This is a textbox. It can be modified.");
+		txt.setText("This is text in a InputBox. It can be modified.");
+
+		new LabelControl(tlc).setText("I am disabled");
+		InputBox txtDis = new InputBox(tlc);
+		txtDis.setWidth(500);
+		txtDis.setEnabled(false);
+		txtDis.setText("This is text in a InputBox. It can be modified.");
+
+		new LabelControl(tlc).setText("TextArea");
+		InputBox txtArea = new InputBox(tlc);
+		txtArea.setWidth(500);
+		txtArea.setMultiLine(true);
+		txtArea.setHeight(100);
+		txtArea.setText("This is a multiline InputBox with specific dimensions.");
+
 		
 		new LabelControl(tlc).setText("Empty with EmptyInfoText");
 		InputBox txt2 = new InputBox(tlc);
