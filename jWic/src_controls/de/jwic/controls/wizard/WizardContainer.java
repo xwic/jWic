@@ -73,7 +73,7 @@ public class WizardContainer extends BasicDialog {
 	 */
 	protected void createControls(IControlContainer container) {
 
-		Messages messages = new Messages(container.getSessionContext().getLocale(), "de.jwic.ecolib.wizard.messages");
+		Messages messages = new Messages(container.getSessionContext().getLocale(), "de.jwic.controls.wizard.messages");
 		
 		Window win = new Window(container);
 		win.setTitle(wizard.getTitle());

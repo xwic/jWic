@@ -52,7 +52,7 @@ public class InputDialog extends BasicDialog {
 	 */
 	protected void createControls(IControlContainer container) {
 		
-		Messages messages = new Messages(container.getSessionContext().getLocale(), "de.jwic.ecolib.dialogs.messages");
+		Messages messages = new Messages(container.getSessionContext().getLocale(), "de.jwic.controls.dialogs.messages");
 
 		Window win = new Window(container);
 		win.setTitle(title);
