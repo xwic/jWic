@@ -211,6 +211,10 @@ div.j-combo_element img {
 	margin-right: 3px;
 }
 
+.j-combo_contentBox {
+	display: none;
+}
+
 
 /**
  * FileUpload control

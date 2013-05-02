@@ -191,8 +191,15 @@ public class AbstractListControl<A> extends Control {
 	 * @param key
 	 */
 	public void setSelectedKey(String key) {
-		valueField.setValue(key);
 		requireRedraw();
+		if(key != null && key.length() > 0){
+			String[] keys = key.split("\\;");
+			if(keys.length > 1){
+				valueField.setValues(keys);
+				return;
+			}
+		}
+		valueField.setValue(key);
 	}
 	
 	/**
