@@ -49,6 +49,8 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 		super(container, name);
 		baseLabelProvider = new SelectElementBaseLabelProvider();
 
+		elements = new ArrayList<ISelectElement>();
+		setContentProvider(new SelectElementContentProvider(elements));
 	}
 
 	/**
@@ -93,10 +95,6 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 */
 	public boolean addElement(ISelectElement element) {
 		boolean notContainsElement = true;
-		if (elements == null) {
-			elements = new ArrayList<ISelectElement>();
-			setContentProvider(new SelectElementContentProvider(elements));
-		}
 		if (element.getKey() != null) {
 			if (contentProvider.getObjectFromKey(element.getKey()) != null) {
 				notContainsElement = false;
@@ -138,14 +136,12 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 * @param element
 	 */
 	public void removeElement(ISelectElement element) {
-		if (elements != null) {
-			String key = contentProvider.getUniqueKey(element);
-			if (isKeySelected(key)) {
-				clearSelection(key);
-			}
-			elements.remove(element);
-			requireRedraw();
+		String key = contentProvider.getUniqueKey(element);
+		if (isKeySelected(key)) {
+			clearSelection(key);
 		}
+		elements.remove(element);
+		requireRedraw();
 	}
 
 	/**
@@ -174,11 +170,9 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 * @param key
 	 */
 	public void removeElementByKey(String key) {
-		if (contentProvider != null) {
-			ISelectElement obj = contentProvider.getObjectFromKey(key);
-			if (obj != null) {
-				removeElement(obj);
-			}
+		ISelectElement obj = contentProvider.getObjectFromKey(key);
+		if (obj != null) {
+			removeElement(obj);
 		}
 	}
 
