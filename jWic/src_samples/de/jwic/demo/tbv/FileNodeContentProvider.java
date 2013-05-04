@@ -17,7 +17,7 @@
  * Created on 15.03.2007
  * $Id: FileNodeContentProvider.java,v 1.2 2008/09/18 18:19:41 lordsam Exp $
  */
-package de.jwic.ecolib.samples.controls.tbv3;
+package de.jwic.demo.tbv;
 
 import java.util.ArrayList;
 import java.util.Iterator;

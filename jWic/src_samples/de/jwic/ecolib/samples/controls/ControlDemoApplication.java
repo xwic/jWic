@@ -29,9 +29,6 @@ import de.jwic.controls.LabelControl;
 import de.jwic.controls.TabControl;
 import de.jwic.controls.TabStripControl;
 import de.jwic.demo.basics.ToolBarDemo;
-import de.jwic.ecolib.samples.controls.tbv.TableViewerDemo;
-import de.jwic.ecolib.samples.controls.tbv2.TableViewerDemo2;
-import de.jwic.ecolib.samples.controls.tbv3.TableViewerDemo3;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
@@ -118,15 +115,6 @@ public class ControlDemoApplication extends Application {
 
 		tab = tabStrip.addTab("Toolbar");
 		new ToolBarDemo(tab, "demo");
-
-		tab = tabStrip.addTab("TableViewer");
-		new TableViewerDemo(tab); 
-
-		tab = tabStrip.addTab("TableViewer (2)");
-		new TableViewerDemo2(tab); 
-
-		tab = tabStrip.addTab("TableViewer (3)");
-		new TableViewerDemo3(tab); 
 
 		tab = tabStrip.addTab("CKEditor");
 		new CKEditorDemo(tab); 

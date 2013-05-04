@@ -17,7 +17,7 @@
  * Created on Apr 4, 2007
  * $Id: AddDemoTaskDialog.java,v 1.2 2010/02/07 14:26:34 lordsam Exp $
  */
-package de.jwic.ecolib.samples.tableviewer.dialog;
+package de.jwic.demo.tbv;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
@@ -26,7 +26,6 @@ import de.jwic.controls.LabelControl;
 import de.jwic.controls.WindowControl;
 import de.jwic.controls.dialogs.BasicDialog;
 import de.jwic.controls.layout.TableLayoutContainer;
-import de.jwic.ecolib.samples.tableviewer.DemoTask;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 

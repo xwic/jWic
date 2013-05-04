@@ -17,7 +17,7 @@
  * Created on 28.04.2005
  * $Id: FileTreeNode.java,v 1.2 2008/09/18 18:19:42 lordsam Exp $
  */
-package de.jwic.ecolib.samples.controls.tbv3;
+package de.jwic.demo.tbv;
 
 import java.io.File;
 import java.io.FileFilter;

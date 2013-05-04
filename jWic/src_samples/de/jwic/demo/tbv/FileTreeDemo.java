@@ -18,7 +18,7 @@
  * $Id: TableViewerDemo3.java,v 1.3 2010/02/07 14:26:34 lordsam Exp $
  * @author flippisch
  */
-package de.jwic.ecolib.samples.controls.tbv3;
+package de.jwic.demo.tbv;
 
 import java.io.File;
 
@@ -42,7 +42,7 @@ import de.jwic.events.SelectionListener;
  *
  * @author Florian Lippisch
  */
-public class TableViewerDemo3 extends ControlContainer {
+public class FileTreeDemo extends ControlContainer {
 
 	private static final long serialVersionUID = 2L;
 
@@ -86,7 +86,7 @@ public class TableViewerDemo3 extends ControlContainer {
 	 * Constructor.
 	 * @param container
 	 */
-	public TableViewerDemo3(IControlContainer container) {
+	public FileTreeDemo(IControlContainer container) {
 		super(container);
 		
 		lbcEvents = new ListBoxControl(this, "events");
@@ -103,7 +103,7 @@ public class TableViewerDemo3 extends ControlContainer {
 		viewer.setScrollable(true);
 		viewer.setResizeableColumns(false);
 		viewer.setSelectableColumns(false);
-		viewer.setWidth(200);
+		viewer.setWidth(250);
 		viewer.setHeight(300);
 		viewer.setShowHeader(false);
 		viewer.setCssClass("treeSimple");

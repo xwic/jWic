@@ -1,4 +1,4 @@
-package de.jwic.ecolib.samples.controls.tbv2;
+package de.jwic.demo.tbv;
 
 import de.jwic.base.ImageRef;
 import de.jwic.controls.tableviewer.CellLabel;
@@ -10,10 +10,10 @@ import de.jwic.controls.tableviewer.TableColumn;
  * Used to transform the object into renderable data.
  * @author Florian Lippisch
  */
-class LabelProvider implements ITableLabelProvider {
+class FileLabelProvider implements ITableLabelProvider {
 	
-	private static ImageRef IMG_CHECKED = new ImageRef(LabelProvider.class.getPackage(), "checked.gif");
-	private static ImageRef IMG_UNCHECKED = new ImageRef(LabelProvider.class.getPackage(), "unchecked.gif");
+	private static ImageRef IMG_FOLDER = new ImageRef(FileLabelProvider.class.getPackage(), "folder.png");
+	private static ImageRef IMG_OPENFOLDER = new ImageRef(FileLabelProvider.class.getPackage(), "openfolder.png");
 	
 	/*(non-Javadoc)
 	 * @see de.jwic.ecolib.treeviewer.ITreeLabelProvider#getCellLabel(java.lang.Object, de.jwic.ecolib.tableviewer.TableColumn, de.jwic.ecolib.treeviewer.RowContext)
@@ -21,24 +21,12 @@ class LabelProvider implements ITableLabelProvider {
 	public CellLabel getCellLabel(Object row, TableColumn column, RowContext rowContext) {
 		CellLabel cellLabel = new CellLabel();
 		
-		DemoTask task = (DemoTask)row;
+		FileTreeNode file = (FileTreeNode)row;
 		switch (column.getIndex()) {
 		case 0: // done 
-			cellLabel.image = task.done ? IMG_CHECKED : IMG_UNCHECKED;
+			cellLabel.text = file.toString();
+			cellLabel.image = rowContext.isExpanded() ? IMG_OPENFOLDER : IMG_FOLDER;
 			break;
-		case 1: // task 
-			cellLabel.text = task.title;
-			break;
-		case 2: // owner
-			cellLabel.text = task.owner;
-			break;
-		case 3: 
-			cellLabel.text = task.completed + "%";
-			if (task.completed < 15) {
-				cellLabel.cssClass = "taskDemoRed";
-			}
-			break;
-			
 		}
 		return cellLabel;
 	}
