@@ -1495,10 +1495,14 @@ JWic.controls = {
 					var newPanelIdx = -1;
 					var tabs = widget.find("div.ui-tabs-panel");
 					JWic.log(tabs);
+					var count = 0;
 					for (var i = 0; i < tabs.length; i++) {
-						if (jQuery(tabs[i]).attr("jwicTabName") == tabName) {
-							newPanelIdx = i;
-							break;
+						if (jQuery(tabs[i]).attr("jwicTabStripId") == tabStripId) {
+							if (jQuery(tabs[i]).attr("jwicTabName") == tabName) {
+								newPanelIdx = count;
+								break;
+							}
+							count++;
 						}
 					}
 					
