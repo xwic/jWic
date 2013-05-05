@@ -1,7 +1,10 @@
 package de.jwic.controls;
 
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -534,6 +537,22 @@ public class DateTimePicker extends DatePicker {
 	public void setSeparator(String separator) {
 		this.separator = separator;
 		requireRedraw();
+	}
+	
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public String getDefaultTimezone(){
+		if(getTimeZone() != null){
+			Date today = Calendar.getInstance().getTime();
+			SimpleDateFormat sdf = new SimpleDateFormat("Z");
+			sdf.setTimeZone(getTimeZone());
+			String gmt = sdf.format(today);
+			return gmt;
+		}
+		
+		return "+0000";
 	}
 	
 	/**
