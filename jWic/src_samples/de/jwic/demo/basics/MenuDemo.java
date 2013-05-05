@@ -21,6 +21,7 @@ package de.jwic.demo.basics;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.AnchorLink;
 import de.jwic.controls.Button;
 import de.jwic.controls.menu.Menu;
 import de.jwic.controls.menu.MenuEvent;
@@ -64,6 +65,16 @@ public class MenuDemo extends ControlContainer {
 		subMenu.addMenuSelectionListener(msListener);
 		addDemoMenu(subMenu);
 		btMenu.setMenu(subMenu);
+		
+		
+		// And as AnchorLink
+		Menu menu3 = new Menu(this, "menu3");
+		addDemoMenu(menu3);
+		menu3.addMenuSelectionListener(msListener);
+		
+		AnchorLink link = new AnchorLink(this, "link");
+		link.setTitle("Click me");
+		link.setMenu(menu3);
 		
 		
 	}

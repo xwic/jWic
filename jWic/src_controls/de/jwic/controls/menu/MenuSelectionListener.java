@@ -17,10 +17,12 @@
  */
 package de.jwic.controls.menu;
 
+import java.io.Serializable;
+
 /**
  * @author lippisch
  */
-public interface MenuSelectionListener {
+public interface MenuSelectionListener extends Serializable {
 
 	/**
 	 * Invoked when a menu item was selected.

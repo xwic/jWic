@@ -31,7 +31,7 @@ import de.jwic.util.Util;
  * @author lippisch
  *
  */
-public class MenuItem {
+public class MenuItem implements Serializable {
 
 	private List<MenuSelectionListener> menuSelectionListeners = new ArrayList<MenuSelectionListener>();
 
