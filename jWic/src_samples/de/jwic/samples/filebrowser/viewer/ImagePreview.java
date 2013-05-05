@@ -61,7 +61,7 @@ public class ImagePreview extends Control {
 			String rootPath = rootFile.getCanonicalPath();
 			
 			String relativePath = path.substring(rootPath.length());
-			relativePath.replace('\\', '/');	// make slash out of backslashes (required on windows systems)
+			relativePath = relativePath.replace('\\', '/');	// make slash out of backslashes (required on windows systems)
 			
 			if (relativePath.indexOf("WEB-INF") == -1) {
 				return relativePath;

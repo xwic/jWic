@@ -32,6 +32,8 @@ import de.jwic.controls.ToolBar;
 import de.jwic.controls.ToolBarGroup;
 import de.jwic.controls.actions.Action;
 import de.jwic.controls.actions.IAction;
+import de.jwic.controls.dialogs.DialogAdapter;
+import de.jwic.controls.dialogs.DialogEvent;
 import de.jwic.controls.menu.Menu;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
@@ -126,7 +128,7 @@ public class BasicTBVDemo extends ControlContainer {
 		btNew.addSelectionListener(new SelectionListener() {
 			@Override
 			public void objectSelected(SelectionEvent event) {
-				getSessionContext().notifyMessage("Sorry, not implemented...");
+				addDemoTask();
 			}
 		});
 		
@@ -144,6 +146,25 @@ public class BasicTBVDemo extends ControlContainer {
 		// Add the listener after all other controls have been created
 		model.addElementSelectedListener(listener);
 
+	}
+
+	/**
+	 * 
+	 */
+	protected void addDemoTask() {
+		
+		AddDemoTaskDialog dialog = new AddDemoTaskDialog(viewer.getContainer());
+		dialog.addDialogListener(new DialogAdapter() {
+			public void dialogFinished(DialogEvent event) {
+				AddDemoTaskDialog dialog = ((AddDemoTaskDialog) event.getEventSource());
+				DemoTask task = dialog.getDemoTask();
+				contentProvider.addElement(task);
+				
+				viewer.setRequireRedraw(true);
+			}
+		});
+		dialog.openAsPage();
+		
 	}
 
 	/**

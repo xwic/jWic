@@ -28,10 +28,9 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JWicRuntime;
-import de.jwic.controls.ActionBarControl;
 import de.jwic.controls.Button;
-import de.jwic.controls.ButtonControl;
-import de.jwic.controls.ActionBarControl.Align;
+import de.jwic.controls.ToolBar;
+import de.jwic.controls.ToolBarGroup;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
@@ -53,7 +52,7 @@ public class FileBrowserControl extends ControlContainer {
 	private FileTreeView tree = null;
 	private ControlContainer info = null;
 	private FileInfoControl fileInfo = null;
-	private ButtonControl btUp = null;
+	private Button btUp = null;
 	
 	/**
 	 * @param container
@@ -92,7 +91,7 @@ public class FileBrowserControl extends ControlContainer {
 		list = new FileListView(info, "list");
 		list.getFileListControl().addElementSelectedListener(new FileSelectionController());
 		list.getFileListControl().setDirectoryModel(model);
-		list.getFileListControl().setHeight("390px");
+		list.getFileListControl().setHeight("380px");
 		
 		fileInfo = new FileInfoControl(info, "fileInfo", rootFile);
 		fileInfo.setVisible(false);
@@ -103,8 +102,7 @@ public class FileBrowserControl extends ControlContainer {
 			}
 		});
 		
-		ActionBarControl abar = new ActionBarControl(this, "actionbar");
-		setupActionBar(abar);
+		setupActionBar();
 		
 		model.addPropertyChangeListener(new ModelObserver());
 		//model.setDirectory(rootFile);
@@ -115,10 +113,14 @@ public class FileBrowserControl extends ControlContainer {
 	/**
 	 * @param abar
 	 */
-	private void setupActionBar(ActionBarControl abar) {
+	private void setupActionBar() {
 		
+		ToolBar abar = new ToolBar(this, "actionbar");
 		
-		ButtonControl btExit = new ButtonControl(abar);
+		ToolBarGroup groupRight = abar.addRightGroup();
+		ToolBarGroup group = abar.addGroup();
+
+		Button btExit = new Button(groupRight);
 		btExit.setTitle("Exit");
 		btExit.setIconEnabled(IMG_EXIT);
 		btExit.addSelectionListener(new SelectionListener() {
@@ -127,9 +129,7 @@ public class FileBrowserControl extends ControlContainer {
 			}
 		});
 		
-		abar.setPosition(btExit, Align.RIGHT);
-		
-		btUp = new ButtonControl(abar);
+		btUp = new Button(group);
 		btUp.setTitle("Upper Dir");
 		btUp.setIconEnabled(IMG_UPPERDIR);
 		btUp.setIconDisabled(IMG_UPPERDIR_DIS);

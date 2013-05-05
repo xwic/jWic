@@ -35,6 +35,7 @@ import de.jwic.demo.container.WindowDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
 import de.jwic.demo.tbv.BasicTBVDemoModule;
+import de.jwic.demo.tbv.FileTreeDemoModule;
 import de.jwic.demo.tbv.TableViewerDemoModule;
 
 /**
@@ -84,6 +85,7 @@ public class DemoApplication extends Application {
 		modules.add(new WindowDemoModule());
 		modules.add(new MenuDemoModule());
 		modules.add(new ColumnSelectorDemoModule());
+		modules.add(new FileTreeDemoModule());
 
 		// Sort demos by group and title
 		Collections.sort(modules);
