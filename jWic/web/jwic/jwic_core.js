@@ -28,6 +28,7 @@ var JWic = {
 	debugMode : false,
 	_logCount : 0,
 	contextPath : "",
+	cbSeq : 0,
 		
 	/**
 	 * Indicates if the client is currently sending or waiting for an action
@@ -272,6 +273,7 @@ var JWic = {
 		var msg = jQuery("#click_blocker_message");
 		if (elem) {
 			if (showBlocker) {
+				JWic.cbSeq++;
 				var $doc = jQuery(document);
 				var docHeight = $doc.height();
 				var docWidth = $doc.width();
@@ -282,9 +284,7 @@ var JWic = {
 					left : '0px',
 					height : docHeight + 'px',
 					width : docWidth + 'px',
-					backgroundColor : '#a0a0a0',
-					opacity : '0.3',
-					filter : 'alpha(opacity=30)'
+					backgroundColor : 'transparent'
 				});
 				if (msg) {
 					$win = jQuery(window);
@@ -302,11 +302,24 @@ var JWic = {
 			if (showBlocker) {
 				elem.show();
 				if (msg) msg.show();
+				window.setTimeout("JWic.showLongDelay(" + JWic.cbSeq + ")", 1000);
 			} else {
 				elem.hide();
 				if (msg) msg.hide();
 			}
 
+		}
+	},
+	
+	showLongDelay : function(seqNum) {
+		if (JWic.isProcessing && JWic.cbSeq == seqNum) {
+			var elem = jQuery("#click_blocker");
+			JWic.log("show long delay blocker")
+			elem.css( {
+				backgroundColor : '#a0a0a0',
+				opacity : '0.3',
+				filter : 'alpha(opacity=30)'
+			});
 		}
 	},
 
