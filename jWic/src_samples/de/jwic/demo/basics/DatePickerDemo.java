@@ -21,6 +21,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
 public class DatePickerDemo extends ControlContainer {
 
 	private DatePicker datePicker;
+	private DateTimePicker datePickerMaster, datePickerSlave;
 	private DateTimePicker dateTimePicker;
 	private LabelControl lblInfo;
 
@@ -59,7 +60,7 @@ public class DatePickerDemo extends ControlContainer {
 
 			public void onDateChanged(Date oldDate, Date newDate) {
 				DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG,
-						DateFormat.LONG, datePicker.getLocale());
+						DateFormat.LONG);
 				if (newDate != null) {
 					lblInfo.setText("Selected Date is: "
 							+ dateFormatter.format(newDate));
@@ -87,6 +88,10 @@ public class DatePickerDemo extends ControlContainer {
 		});
 				
 		propEditor.loadValues(); // refresh values.
+		
+		datePickerMaster = new DateTimePicker(this, "dateTimeMaster");
+		datePickerSlave = new DateTimePicker(this, "dateTimeSlave");
+		datePickerMaster.setSlave(datePickerSlave);
 		
 	}
 	

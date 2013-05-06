@@ -48,6 +48,8 @@ public class DateTimePicker extends DatePicker {
 	private Boolean timeOnly = null;
 	private Boolean alwaysSetTime = null;
 	private String separator = null;
+	private DateTimePicker slave;
+
 	
 	private ControlTpye controlType = ControlTpye.SELECT;
 	
@@ -553,6 +555,32 @@ public class DateTimePicker extends DatePicker {
 		}
 		
 		return "+0000";
+	}
+	
+	/**
+	 * @return the slave
+	 */
+	public DatePicker getSlave() {
+		return slave;
+	}
+	
+	/**
+	 * Returns the id of the slave.
+	 * @return
+	 */
+	public String getSlaveId() {
+		return slave != null ? slave.getControlID() : null;
+	}
+
+	/**
+	 * This DateTimePicker can be linked to another DateTimePicker to always update the "slave"
+	 * when this one is updated. When this controls date is changed and the slaves control has
+	 * no date or had the same date as this control had before it was changed, it is updated. 
+	 * This is all done through JavaScript events on the client side.
+	 * @param slave the slave to set
+	 */
+	public void setSlave(DateTimePicker slave) {
+		this.slave = slave;
 	}
 	
 	/**

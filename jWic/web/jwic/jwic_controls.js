@@ -252,6 +252,126 @@ JWic.controls = {
 	},
 	
 	/**
+	 * DateTimePicker script extensions.
+	 */
+	DateTimePicker : {
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(inpElm, controlId, region, dateFormat, options, currentTime) {
+			/*
+			 * clone the region info
+			 * so you can maintain language date but change date format only on this instance of the datepicker
+			 */
+			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
+			/*
+			 * set date format in needed
+			 */
+			if(dateFormat != "noformat")
+				region.dateFormat = dateFormat;
+			
+			/*
+			 *	default back to English if selected region is undefined 
+			 */
+			if(region == undefined){
+				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
+				/*
+				 * notify java control to default back to Locale.ENGLISH as well
+				 */
+				JWic.fireAction(controlId,'localeNotFound','');
+			}
+			
+			/*
+			 * init the datepicker
+			 */
+			var id = JWic.util.JQryEscape(controlId);
+			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
+			
+			datetimepicker.datetimepicker("option",region);		
+			
+			/*
+			 * set datepicker date from java
+			 */
+			var timeStamp = currentTime;
+			timeStamp = parseInt(timeStamp);
+			if(!isNaN(timeStamp)){			
+				var date = new Date(timeStamp);			
+				datetimepicker.datetimepicker('setDate',date);
+			}else{
+				datetimepicker.datetimepicker('setDate',null);
+			}
+			
+			
+			function nullDateNotifier(e){			
+				if(this.value == ''){
+					JWic.fireAction(this.id, 'dateisempty', '');
+				}
+			}
+			
+			/*
+			 *  AJAX stuff :D
+			 */
+			datetimepicker.change(function(){
+				
+				var date = datetimepicker.datetimepicker('getDate');
+				if(date!=null){
+					JWic.fireAction(this.id, 'datechanged', '' + date.getTime());
+				}else{
+					nullDateNotifier();
+				}
+				
+			});
+			
+			datetimepicker.keyup(nullDateNotifier);
+			
+			return datetimepicker;
+		},
+		
+		masterSlave : function(datetimepicker, endDateTextBox){
+			
+			datetimepicker.datetimepicker('option', 'onClose', function(dateText, inst) {
+				if (endDateTextBox.val() != '') {
+					var testStartDate = datetimepicker.datetimepicker('getDate');
+					var testEndDate = endDateTextBox.datetimepicker('getDate');
+					if (testStartDate > testEndDate)
+						endDateTextBox.datetimepicker('setDate', testStartDate);
+				}
+				else {
+					endDateTextBox.val(dateText);
+				}
+			});
+			
+			datetimepicker.datetimepicker('option', 'onSelect',  function (selectedDateTime){
+				endDateTextBox.datetimepicker('option', 'minDate', datetimepicker.datetimepicker('getDate') );
+			});
+			
+			endDateTextBox.datetimepicker('option', 'onClose', function(dateText, inst) {
+				if (startDateTextBox.val() != '') {
+					var testStartDate = datetimepicker.datetimepicker('getDate');
+					var testEndDate = endDateTextBox.datetimepicker('getDate');
+					if (testStartDate > testEndDate)
+						datetimepicker.datetimepicker('setDate', testEndDate);
+				}
+				else {
+					datetimepicker.val(dateText);
+				}
+			});
+			
+			endDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
+				datetimepicker.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
+			});
+		},
+		
+		/**
+		 * Clean up..
+		 */
+		destroy : function(inpElm) {
+			
+		}
+	},
+	
+	
+	/**
 	 * FileUpload control
 	 */
 	FileUpload : {
