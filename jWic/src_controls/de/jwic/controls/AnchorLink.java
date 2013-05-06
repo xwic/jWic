@@ -5,6 +5,8 @@
 package de.jwic.controls;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.menu.Menu;
 
 
 /**
@@ -12,6 +14,7 @@ import de.jwic.base.IControlContainer;
  * @author Florian Lippisch
  * @version $Revision: 1.2 $
  */
+@JavaScriptSupport
 public class AnchorLink extends SelectableControl {
 
 	private static final long serialVersionUID = 1L;
@@ -19,7 +22,9 @@ public class AnchorLink extends SelectableControl {
 	private String title = null;
 	private String infoMessage = null;
 	private String cssClass = "j-anchor";
+	private String tooltip = null;
 
+	private Menu menu = null;
 	
 	/**
 	 * @param container
@@ -85,5 +90,30 @@ public class AnchorLink extends SelectableControl {
 	 */
 	public void setCssClass(String cssClass) {
 		this.cssClass = cssClass;
+	}
+
+	/**
+	 * @return the menu
+	 */
+	public Menu getMenu() {
+		return menu;
+	}
+	/**
+	 * @param menu the menu to set
+	 */
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+	/**
+	 * @return the tooltip
+	 */
+	public String getTooltip() {
+		return tooltip;
+	}
+	/**
+	 * @param tooltip the tooltip to set
+	 */
+	public void setTooltip(String tooltip) {
+		this.tooltip = tooltip;
 	}
 }

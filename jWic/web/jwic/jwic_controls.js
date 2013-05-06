@@ -1331,6 +1331,33 @@ JWic.controls = {
 
 	},
 	
+	AnchorLink : {
+		initialize : function(link, ctrlId, options) {
+			if (options.menu) {
+				link.data("menuId", options.menu);
+			}
+			link.data("controlId", ctrlId);
+			link.click(JWic.controls.AnchorLink.clickHandler);
+			
+		},
+		clickHandler : function(e) {
+			e.stopPropagation();
+			var elm = jQuery(e.currentTarget);
+			var menuId = elm.data("menuId");
+			if (menuId) {
+				JWic.controls.Menu.show(menuId, {
+					 my: "left top",
+					 at: "left bottom",
+					 of: elm
+				});
+			} else {
+				var ctrlId = elm.data("controlId");
+				JWic.fireAction(ctrlId, 'click', '');
+			}
+			return false;
+		}
+	},
+	
 	/*
 	 * de.jwic.controls.Button control
 	 */

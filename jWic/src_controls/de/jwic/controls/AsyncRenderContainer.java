@@ -119,8 +119,12 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		
 		// Initialize the content when the control is rendered the first time.
 		if (!initialized && lazyInitializationHandler != null) {
-			initialized = true;
-			lazyInitializationHandler.initialize(getContainer());
+			synchronized (this) {
+				if (!initialized) {
+					lazyInitializationHandler.initialize(getContainer());
+					initialized = true;
+				}
+			}
 		}
 		
 		res.setContentType("text/json; charset=UTF-8");
