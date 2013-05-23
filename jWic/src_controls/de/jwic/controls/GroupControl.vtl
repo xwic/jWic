@@ -1,4 +1,4 @@
-<div style="#if($control.width != 0) width: ${control.width}px; #end #if($control.height != 0) height: ${control.height}px; #end">
+<div class="j-group" style="#if($control.width != 0) width: ${control.width}px; #end #if($control.height != 0) height: ${control.height}px; #end">
 #if($!control.title != "")
 	<div class="j-group-header ui-widget ui-corner-top ui-state-default">
 	    #if($control.closeable)<div style="float:right; width: 15px;"><a href="$control.createActionURL('closeframe', '')"><span class="ui-icon ui-icon-circle-close"></span></a></div>#end
