@@ -288,14 +288,13 @@ JWic.controls = {
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
 			datetimepicker.datetimepicker("option",region);		
-			
 			/*
 			 * set datepicker date from java
 			 */
 			var timeStamp = currentTime;
 			timeStamp = parseInt(timeStamp);
 			if(!isNaN(timeStamp)){			
-				var date = new Date(timeStamp);			
+				var date = new Date(timeStamp);
 				datetimepicker.datetimepicker('setDate',date);
 			}else{
 				datetimepicker.datetimepicker('setDate',null);
@@ -315,7 +314,8 @@ JWic.controls = {
 				
 				var date = datetimepicker.datetimepicker('getDate');
 				if(date!=null){
-					JWic.fireAction(this.id, 'datechanged', '' + date.getTime());
+					var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}else{
 					nullDateNotifier();
 				}

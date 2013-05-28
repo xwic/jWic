@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
@@ -24,6 +25,7 @@ public class DatePickerDemo extends ControlContainer {
 	private DateTimePicker datePickerMaster, datePickerSlave;
 	private DateTimePicker dateTimePicker;
 	private LabelControl lblInfo;
+	private Button btCurrentDate;
 
 	/**
 	 * Constructor.
@@ -46,7 +48,6 @@ public class DatePickerDemo extends ControlContainer {
 				if (DE) {
 					datePicker.setLocale(Locale.ENGLISH);
 					dateTimePicker.setLocale(Locale.ENGLISH);
-					datePicker.getLocale();
 					DE = false;
 				} else {
 					datePicker.setLocale(Locale.GERMAN);
@@ -56,11 +57,24 @@ public class DatePickerDemo extends ControlContainer {
 			}
 		});
 		
+		btCurrentDate = new Button(this, "btCurrentDate");
+		btCurrentDate.setTitle("Set Current Date/Time (Default TZ)");
+		btCurrentDate.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				Date d = Calendar.getInstance().getTime();
+				datePicker.setDate(d);
+				dateTimePicker.setDate(d);
+			}
+		});
+		
 		DateChangedListener listener = new DateChangedListener() {
 
 			public void onDateChanged(Date oldDate, Date newDate) {
 				DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG,
 						DateFormat.LONG);
+				dateFormatter.setTimeZone(TimeZone.getDefault());
 				if (newDate != null) {
 					lblInfo.setText("Selected Date is: "
 							+ dateFormatter.format(newDate));

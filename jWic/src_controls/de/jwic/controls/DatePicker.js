@@ -50,7 +50,7 @@
 		var timeStamp = '${control.currentTime}';
 		timeStamp = parseInt(timeStamp);
 		if(!isNaN(timeStamp)){			
-			var date = new Date(timeStamp);			
+			var date = new Date(timeStamp);
 			datepicker.datepicker('setDate',date);
 		}else{
 			datepicker.datepicker('setDate',null);
@@ -64,12 +64,13 @@
 		}
 		
 		/*
-		 *  AJAX stuff :D
+		 *  Datepicker change date handling
 		 */
 		datepicker.change(function(){
 			var date = datepicker.datepicker('getDate');
 			if(date!=null){
-				JWic.fireAction(this.id, 'datechanged', '' + date.getTime());
+				var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+				JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 			}else{
 				nullDateNotifier();
 			}

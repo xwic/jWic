@@ -45,6 +45,7 @@ public class DatePicker extends InputBox {
 	private String dateFormat = NO_FORMAT;
 	private int numberOfMonths = 1;
 	private boolean showWeek = false;
+	private Date date;
 
 	private boolean iconTriggered = false;
 	private TimeZone timeZone;
@@ -92,7 +93,8 @@ public class DatePicker extends InputBox {
 	 */
 	private Date getTimezoneSpecificDate(Long time){
 		long offset = getTimeZone().getOffset(time);
-		return new Date(time-offset);
+		Date d = new Date(time+offset);
+		return d;
 	}
 	
 	/*
@@ -104,12 +106,15 @@ public class DatePicker extends InputBox {
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
+			Date oldDate = getDate();
 			currentTime = Long.valueOf(parameter);
-			notifyListeners(getDate(), currentTime != null ? new Date(currentTime) : null);
+			Date newDate = getTimezoneSpecificDate(currentTime);
+			date = newDate;
+			notifyListeners(oldDate, newDate);
 		}
 		if ("localeNotFound".equals(actionId)) {
 			this.setLocale(Locale.ENGLISH);
-			log.info("The selected local was not found. Defaulting back to Locale.ENGLISH");
+			log.info("The selected locale was not found. Defaulting back to Locale.ENGLISH");
 		}
 		if ("dateisempty".equals(actionId)) {
 			this.setDate(null);
@@ -144,13 +149,14 @@ public class DatePicker extends InputBox {
 	 */
 	public void setDate(Date date) {
 		Date oldDate = this.getDate();
+		this.date = date;
 		if(date != null){
-			currentTime = getTimezoneSpecificDate(date.getTime()).getTime();
+			currentTime = date.getTime();
 		}else {
 			currentTime = null;
 		}
 		this.requireRedraw();
-		this.notifyListeners(oldDate, currentTime != null ? new Date(currentTime) : null);
+		this.notifyListeners(oldDate, date);
 
 	}
 	
@@ -183,10 +189,7 @@ public class DatePicker extends InputBox {
 	 * @return the date
 	 */
 	public Date getDate() {
-		if(currentTime == null){
-			return null;
-		}
-		return getTimezoneSpecificDate(currentTime);
+		return date;
 	}
 
 	/**
