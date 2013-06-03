@@ -28,6 +28,8 @@ import java.util.TimeZone;
 import org.apache.log4j.Logger;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
+import de.jwic.base.JavaScriptSupport;
 
 /**
  * 
@@ -40,12 +42,13 @@ public class DatePicker extends InputBox {
 	private Locale locale;
 	private Long currentTime;
 	private final List<DateChangedListener> listeners = new ArrayList<DateChangedListener>();
-	private boolean showMonth = true;
-	private boolean showYear = true;
+	private boolean changeMonth = true;
+	private boolean changeYear = true;
 	private String dateFormat = NO_FORMAT;
 	private int numberOfMonths = 1;
 	private boolean showWeek = false;
 	private Date date;
+	private Date minDate, maxDate;
 
 	private boolean iconTriggered = false;
 	private TimeZone timeZone;
@@ -213,9 +216,9 @@ public class DatePicker extends InputBox {
 	 *            set true to show month drop down list <br/>
 	 *            Default is true
 	 */
-	public void setShowMonth(boolean showMonth) {
+	public void setChangeMonth(boolean showMonth) {
 
-		this.showMonth = showMonth;
+		this.changeMonth = showMonth;
 		this.requireRedraw();
 	}
 
@@ -224,8 +227,8 @@ public class DatePicker extends InputBox {
 	 *            set true to show year drop down list <br/>
 	 *            Default is true
 	 */
-	public void setShowYear(boolean showYear) {
-		this.showYear = showYear;
+	public void setChangeYear(boolean showYear) {
+		this.changeYear = showYear;
 		this.requireRedraw();
 	}
 
@@ -233,16 +236,18 @@ public class DatePicker extends InputBox {
 	 * @return true if this control is set to show the month selection dropdown
 	 *         list
 	 */
-	public boolean isShowMonth() {
-		return showMonth;
+	@IncludeJsOption
+	public boolean isChangeMonth() {
+		return changeMonth;
 	}
 
 	/**
 	 * @return true if this control is set to show the year selection dropdown
 	 *         list
 	 */
-	public boolean isShowYear() {
-		return showYear;
+	@IncludeJsOption
+	public boolean isChangeYear() {
+		return changeYear;
 	}
 
 	/**
@@ -292,6 +297,7 @@ public class DatePicker extends InputBox {
 	 * 
 	 * @return the number of months to be displayed
 	 */
+	@IncludeJsOption
 	public int getNumberOfMonths() {
 		return numberOfMonths;
 	}
@@ -310,6 +316,7 @@ public class DatePicker extends InputBox {
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public boolean isShowWeek() {
 		return showWeek;
 	}
@@ -338,6 +345,36 @@ public class DatePicker extends InputBox {
 	public void setIconTriggered(boolean iconTriggered) {
 		this.iconTriggered = iconTriggered;
 		this.requireRedraw();
+	}
+
+	/**
+	 * @return the minDate
+	 */
+	@IncludeJsOption
+	public Date getMinDate() {
+		return minDate;
+	}
+
+	/**
+	 * @param minDate the minDate to set
+	 */
+	public void setMinDate(Date minDate) {
+		this.minDate = minDate;
+	}
+
+	/**
+	 * @return the maxDate
+	 */
+	@IncludeJsOption
+	public Date getMaxDate() {
+		return maxDate;
+	}
+
+	/**
+	 * @param maxDate the maxDate to set
+	 */
+	public void setMaxDate(Date maxDate) {
+		this.maxDate = maxDate;
 	}
 
 }

@@ -288,17 +288,7 @@ JWic.controls = {
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
 			datetimepicker.datetimepicker("option",region);		
-			/*
-			 * set datepicker date from java
-			 */
-			var timeStamp = currentTime;
-			timeStamp = parseInt(timeStamp);
-			if(!isNaN(timeStamp)){			
-				var date = new Date(timeStamp);
-				datetimepicker.datetimepicker('setDate',date);
-			}else{
-				datetimepicker.datetimepicker('setDate',null);
-			}
+			this.setDate(datetimepicker, currentTime);
 			
 			
 			function nullDateNotifier(e){			
@@ -325,6 +315,23 @@ JWic.controls = {
 			datetimepicker.keyup(nullDateNotifier);
 			
 			return datetimepicker;
+		},
+		
+		/*
+		 * set datepicker date from java
+		 */
+		setDate : function(datetimepicker, currentTime){
+			datetimepicker.datetimepicker('setDate', this.convertDate(currentTime));
+		},
+		
+		convertDate : function(currentTime){
+			var timeStamp = currentTime;
+			timeStamp = parseInt(timeStamp);
+			if(!isNaN(timeStamp)){			
+				var date = new Date(timeStamp);
+				return date;
+			}
+			return null;
 		},
 		
 		masterSlave : function(datetimepicker, endDateTextBox){
@@ -360,6 +367,7 @@ JWic.controls = {
 			endDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
 				datetimepicker.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
 			});
+			
 		},
 		
 		/**

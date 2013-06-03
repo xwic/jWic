@@ -29,19 +29,15 @@
 		 * init the datepicker
 		 */
 		var id = JWic.util.JQryEscape('${control.controlID}');
-		var datepicker = jQuery( "#" + id ).datepicker({
-			changeMonth : ${control.isShowMonth()},			
-			changeYear : ${control.isShowYear()},
-			showWeek: ${control.isShowWeek()},
-			
-			#if($control.isIconTriggered())
-				showOn: "button",
-				buttonImage: _contextPath+'/jwic/calendar/calendar.gif',
-				buttonImageOnly: true,
-			#end
-
-			numberOfMonths: ${control.numberOfMonths}
-		});
+		
+		var datepicker = jQuery( "#" + id ).datepicker($control.buildJsonOptions());
+		#if($control.isIconTriggered())
+			datepicker.datepicker("option",	"showOn", "button");
+			datepicker.datepicker("option", "buttonImage", _contextPath+'/jwic/calendar/calendar.gif');
+			datepicker.datepicker("option",	"buttonImageOnly", true);
+			});
+		#end
+		
 		datepicker.datepicker("option",region);		
 		
 		/*

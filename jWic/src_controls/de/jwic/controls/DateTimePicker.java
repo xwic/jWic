@@ -569,7 +569,18 @@ public class DateTimePicker extends DatePicker {
 	 * @return
 	 */
 	public String getSlaveId() {
-		return slave != null ? slave.getControlID() : null;
+		if(slave == null)
+			return null;
+		
+		if(getDate() != null){
+			slave.setMinDate(getDate());
+		}
+		
+		if(slave.getDate() != null){
+			setMaxDate(slave.getDate());
+		}
+		
+		return slave.getControlID();
 	}
 
 	/**

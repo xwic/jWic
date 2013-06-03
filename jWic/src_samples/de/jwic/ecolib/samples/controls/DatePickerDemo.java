@@ -81,11 +81,11 @@ public class DatePickerDemo extends ControlContainer {
 		btn2.addSelectionListener(new SelectionListener() {
 
 			public void objectSelected(SelectionEvent event) {
-				if (datePickerControl.isShowMonth()) {
-					datePickerControl.setShowMonth(false);
+				if (datePickerControl.isChangeMonth()) {
+					datePickerControl.setChangeMonth(false);
 
 				} else {
-					datePickerControl.setShowMonth(true);
+					datePickerControl.setChangeMonth(true);
 
 				}
 				System.out.println(datePickerControl.getLocale().toString());
@@ -98,11 +98,11 @@ public class DatePickerDemo extends ControlContainer {
 		btn3.addSelectionListener(new SelectionListener() {
 
 			public void objectSelected(SelectionEvent event) {
-				if (datePickerControl.isShowYear()) {
-					datePickerControl.setShowYear(false);
+				if (datePickerControl.isChangeYear()) {
+					datePickerControl.setChangeYear(false);
 
 				} else {
-					datePickerControl.setShowYear(true);
+					datePickerControl.setChangeYear(true);
 
 				}
 				System.out.println(datePickerControl.getLocale().toString());

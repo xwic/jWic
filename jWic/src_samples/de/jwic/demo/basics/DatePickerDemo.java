@@ -66,6 +66,7 @@ public class DatePickerDemo extends ControlContainer {
 				Date d = Calendar.getInstance().getTime();
 				datePicker.setDate(d);
 				dateTimePicker.setDate(d);
+				datePickerMaster.setDate(d);
 			}
 		});
 		
@@ -102,8 +103,9 @@ public class DatePickerDemo extends ControlContainer {
 		});
 				
 		propEditor.loadValues(); // refresh values.
-		
+		Date d = Calendar.getInstance().getTime();
 		datePickerMaster = new DateTimePicker(this, "dateTimeMaster");
+		datePickerMaster.setDate(d);
 		datePickerSlave = new DateTimePicker(this, "dateTimeSlave");
 		datePickerMaster.setSlave(datePickerSlave);
 		

@@ -28,6 +28,7 @@ import java.io.Serializable;
 import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -402,6 +403,9 @@ public abstract class Control implements Serializable, IControl {
 								writer.key(pd.getDisplayName()).value(m.invoke(o));
 								continue;
 							}
+						}else if(o instanceof Date){
+							writer.key(pd.getDisplayName()).value(new JsDateString((Date)o));
+							continue;
 						}
 						writer.key(pd.getDisplayName()).value(o);						
 					}
