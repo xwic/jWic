@@ -41,4 +41,21 @@ public class Util {
 		return o1.equals(o2);
 	}
 	
+	/**
+	 * Tries to parse int value.
+	 * @param value
+	 * @return
+	 */
+	public static boolean tryParseInt(String value)  
+	{  
+	     try  
+	     {  
+	         Integer.parseInt(value);  
+	         return true;  
+	      } catch(NumberFormatException nfe)  
+	      {  
+	          return false;  
+	      }  
+	}
+	
 }

@@ -66,7 +66,10 @@ public class ListContentProvider<A> implements IContentProvider<A> {
 		if (uniqueKey == null || uniqueKey.length() == 0) {
 			return null;
 		}
-		return data.get(Integer.parseInt(uniqueKey));
+		int idx = Integer.parseInt(uniqueKey);
+		if(idx < 0 || idx >= data.size())
+			return null;
+		return data.get(idx);
 	}
 
 	/* (non-Javadoc)

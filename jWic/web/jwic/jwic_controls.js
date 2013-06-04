@@ -1493,13 +1493,14 @@ JWic.controls = {
 		initialize : function(btnElement, ctrlId, options) {
 			JWic.log("Initializing new button " + btnElement);
 			var btOpt = {};
-			if (options.menu) {
+			var opt = options || {};
+			if (opt.menu) {
 				btOpt = {
 					icons: {
 						secondary: "ui-icon-triangle-1-s"
 					}
 				}
-				btnElement.data("menuId", options.menu);
+				btnElement.data("menuId", opt.menu);
 			}
 			btnElement
 				.button(btOpt)

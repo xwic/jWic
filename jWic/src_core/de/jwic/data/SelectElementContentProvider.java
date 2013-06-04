@@ -21,6 +21,8 @@ package de.jwic.data;
 
 import java.util.List;
 
+import de.jwic.util.Util;
+
 
 /**
  * Content provider for IComboElement objects. This provider is based upon the ListContentProvider and
@@ -45,7 +47,7 @@ public class SelectElementContentProvider extends ListContentProvider<ISelectEle
 			return object.getKey();
 		} else {
 			int idx = data.indexOf(object);
-			return "##" + idx;
+			return Integer.toString(idx);
 		}
 	}
 	
@@ -60,8 +62,8 @@ public class SelectElementContentProvider extends ListContentProvider<ISelectEle
 			}
 		}
 		// still not found - is it an Index?
-		if (uniqueKey.startsWith("##")) {
-			return super.getObjectFromKey(uniqueKey.substring(2));
+		if (Util.tryParseInt(uniqueKey)) {
+			return super.getObjectFromKey(uniqueKey);
 		}
 		return null;
 	}
