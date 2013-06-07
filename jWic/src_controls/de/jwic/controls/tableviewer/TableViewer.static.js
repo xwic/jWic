@@ -223,7 +223,7 @@
 				 * returns the list of TH elements that specify the columns.
 				 */
 				getColumnNodes : function(tableObject) {
-					var objTR = tableObject.find("tr");
+					var objTR = jQuery(tableObject).find("tr");
 					if (objTR == null || objTR.length == 0) {
 						JWic.log("ERROR JWic.controls.TableViewer.getColumnNodes: cant find TH tags");
 						return null;
