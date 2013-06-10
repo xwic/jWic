@@ -33,7 +33,6 @@ public class DatePickerDemo extends ControlContainer {
 	 */
 	public DatePickerDemo(IControlContainer container) {
 		super(container);
-		
 		// create the button instance
 		datePicker = new DatePicker(this, "datePicker");
 		dateTimePicker = new DateTimePicker(this, "dateTimePicker");
@@ -63,10 +62,18 @@ public class DatePickerDemo extends ControlContainer {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {
+				DateFormat dateFormatter = DateFormat.getDateTimeInstance(DateFormat.LONG,
+						DateFormat.LONG);
+				dateFormatter.setTimeZone(TimeZone.getDefault());
+				DateFormat dateFormatter2 = DateFormat.getDateTimeInstance(DateFormat.LONG,
+						DateFormat.LONG);
+				dateFormatter2.setTimeZone(TimeZone.getTimeZone("UTC"));
 				Date d = Calendar.getInstance().getTime();
 				datePicker.setDate(d);
 				dateTimePicker.setDate(d);
 				datePickerMaster.setDate(d);
+				lblInfo.setText("Date is set to: "
+						+ dateFormatter.format(d) + "(" + dateFormatter2.format(d) +")");
 			}
 		});
 		

@@ -96,7 +96,7 @@ public class DatePicker extends InputBox {
 	 */
 	private Date getTimezoneSpecificDate(Long time){
 		long offset = getTimeZone().getOffset(time);
-		Date d = new Date(time+offset);
+		Date d = new Date(time-offset);
 		return d;
 	}
 	
@@ -154,7 +154,8 @@ public class DatePicker extends InputBox {
 		Date oldDate = this.getDate();
 		this.date = date;
 		if(date != null){
-			currentTime = date.getTime();
+			long offset = getTimeZone().getOffset(date.getTime());
+			currentTime = offset + date.getTime();
 		}else {
 			currentTime = null;
 		}
@@ -352,10 +353,14 @@ public class DatePicker extends InputBox {
 	 */
 	@IncludeJsOption
 	public Date getMinDate() {
-		return minDate;
+		if(minDate == null)
+			return null;
+		long offset = getTimeZone().getOffset(minDate.getTime());
+		return new Date(offset + minDate.getTime());
 	}
 
 	/**
+	 * Returns minDate + timeZoneOffset!
 	 * @param minDate the minDate to set
 	 */
 	public void setMinDate(Date minDate) {
@@ -363,11 +368,15 @@ public class DatePicker extends InputBox {
 	}
 
 	/**
+	 * Returns maxDate + timeZoneOffset!
 	 * @return the maxDate
 	 */
 	@IncludeJsOption
 	public Date getMaxDate() {
-		return maxDate;
+		if(maxDate == null)
+			return null;
+		long offset = getTimeZone().getOffset(maxDate.getTime());
+		return new Date(offset + maxDate.getTime());
 	}
 
 	/**
