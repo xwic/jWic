@@ -41,7 +41,7 @@ public class Menu extends Control {
 	private int nextId = 0;
 	private boolean hidden = true;
 	
-	private int width = 150;
+	private int width;
 	
 	private Map<Integer, MenuItem> allItems = new HashMap<Integer, MenuItem>();
 	private List<MenuItem> menuItems = new ArrayList<MenuItem>();
