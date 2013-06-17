@@ -268,7 +268,7 @@ JWic.controls = {
 			 * set date format in needed
 			 */
 			if(dateFormat != "noformat")
-				region.dateFormat = dateFormat;
+				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
 			 *	default back to English if selected region is undefined 
@@ -340,7 +340,7 @@ JWic.controls = {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(inpElm, controlId, region, dateFormat, options, currentTime) {
+		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime) {
 			/*
 			 * clone the region info
 			 * so you can maintain language date but change date format only on this instance of the datepicker
@@ -350,7 +350,7 @@ JWic.controls = {
 			 * set date format in needed
 			 */
 			if(dateFormat != "noformat")
-				region.dateFormat = dateFormat;
+				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
 			 *	default back to English if selected region is undefined 
@@ -361,6 +361,10 @@ JWic.controls = {
 				 * notify java control to default back to Locale.ENGLISH as well
 				 */
 				JWic.fireAction(controlId,'localeNotFound','');
+			}
+			
+			if(timeFormat){
+				options.timeFormat = JWic.util.convertToJqueryDateFormat(timeFormat);
 			}
 			
 			/*
@@ -1903,4 +1907,3 @@ JWic.controls = {
 		}
 	}
 }
-

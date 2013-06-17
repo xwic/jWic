@@ -74,6 +74,7 @@ public class SessionContext implements IControlContainer, Serializable {
 
 	private TimeZone timeZone; 
 	private String dateFormat = null;
+	private String timeFormat = null;
 	private DecimalFormat decimalFormat;
 	
 	private String clientId = null;
@@ -693,6 +694,20 @@ public class SessionContext implements IControlContainer, Serializable {
 	 */
 	public String getDateFormat() {
 		return dateFormat;
+	}
+	
+	/**
+	 * @return the timeFormat
+	 */
+	public String getTimeFormat() {
+		return timeFormat;
+	}
+
+	/**
+	 * @param timeFormat the timeFormat to set
+	 */
+	public void setTimeFormat(String timeFormat) {
+		this.timeFormat = timeFormat;
 	}
 	
 	/**

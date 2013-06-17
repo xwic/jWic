@@ -3,7 +3,7 @@
 	afterUpdate: function(element){
 		var inpElm = jQuery('#'+JWic.util.JQryEscape("${control.controlID}"));
 		if (inpElm) {
-			var datetimepicker = JWic.controls.DateTimePicker.initialize(inpElm, '${control.controlID}', '${control.locale.language}', '${control.dateFormat}',$control.buildJsonOptions(), '${control.currentTime}');
+			var datetimepicker = JWic.controls.DateTimePicker.initialize(inpElm, '${control.controlID}', '${control.locale.language}', '${control.dateFormat}','${control.timeFormat}', $control.buildJsonOptions(), '${control.currentTime}');
 			#if($control.readonly)
 				datetimepicker.addClass("x-readonly");
 			#end
