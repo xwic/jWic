@@ -595,7 +595,60 @@ JWic.util = {
 		
 		JQryEscape : function (str){
 			return str.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
-		}		
+		},
+		
+		/*
+		 * Converts simple date format compatible string into jQuery compatible date format
+		 */
+		convertToJqueryDateFormat : function (localFormatString){
+		 
+		    //Year
+		    if(localFormatString.search(/y{3,}/g) >=0){                 /* YYYY */
+		        localFormatString = localFormatString.replace(/y{3,}/g,     "yy");
+		    }else if(localFormatString.search(/y{2}/g) >=0){            /* YY   */
+		        localFormatString = localFormatString.replace(/y{2}/g,      "y");
+		    }
+		 
+		    //Month
+		    if(localFormatString.search(/M{4,}/g) >=0){                 /* MMMM */
+		        localFormatString = localFormatString.replace(/M{4,}/g,     "MM");
+		    }else if(localFormatString.search(/M{3}/g) >=0){            /* MMM  */
+		        localFormatString = localFormatString.replace(/M{3}/g,      "M");
+		    }else if(localFormatString.search(/M{2}/g) >=0){            /* MM   */
+		        localFormatString = localFormatString.replace(/M{2}/g,      "mm");
+		    }else if(localFormatString.search(/M{1}/g) >=0){            /* M    */
+		        localFormatString = localFormatString.replace(/M{1}/g,      "m");
+		    }
+		 
+		    //Day
+		    if(localFormatString.search(/D{2,}/g) >=0){                 /* DD   */
+		        localFormatString = localFormatString.replace(/D{2,}/g,     "oo");
+		    }else if(localFormatString.search(/D{1}/g) >=0){            /* D    */
+		        localFormatString = localFormatString.replace(/D{1}/g,      "o");
+		    }
+		 
+		    //Day of month
+		    if(localFormatString.search(/E{4,}/g) >=0){                 /* EEEE */
+		        localFormatString = localFormatString.replace(/E{4,}/g,     "DD");
+		    }else if(localFormatString.search(/E{2,3}/g) >=0){          /* EEE  */
+		        localFormatString = localFormatString.replace(/E{2,3}/g,    "D");
+		    }
+		    
+		    // Millisecond
+		    if(localFormatString.search(/S{1,}/g) >=0){                 /* S */
+		        localFormatString = localFormatString.replace(/S{1,}/g,     "l");
+		    }
+		    
+		    // AM-PM
+		    if(localFormatString.search(/a{1,}/g) >=0){                 /* a */
+		        localFormatString = localFormatString.replace(/a{1,}/g,     "TT");
+		    }else if(localFormatString.search(/a{2,}/g) >=0){                 /* a */
+		        localFormatString = localFormatString.replace(/a{2,}/g,     "TT");
+		    }
+		    
+		    JWic.log(localFormatString);
+		    return localFormatString;
+		}
 }
 
 /**

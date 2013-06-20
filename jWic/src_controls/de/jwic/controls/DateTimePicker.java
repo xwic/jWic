@@ -13,6 +13,7 @@ import org.json.JSONWriter;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.base.SessionContext;
 
 /**
  * Date Time Picker Control
@@ -49,6 +50,7 @@ public class DateTimePicker extends DatePicker {
 	private Boolean alwaysSetTime = null;
 	private String separator = null;
 	private DateTimePicker slave;
+	private String timeFormat;
 
 	
 	private ControlTpye controlType = ControlTpye.SELECT;
@@ -72,6 +74,9 @@ public class DateTimePicker extends DatePicker {
 	@Override
 	protected void init() {
 		setTemplateName(DatePicker.class.getName());
+		SessionContext sc = getSessionContext();
+		if(sc.getTimeFormat() != null && sc.getTimeFormat().length() > 0)
+			this.setTimeFormat(sc.getTimeFormat());
 		super.init();
 	}
 
@@ -558,6 +563,21 @@ public class DateTimePicker extends DatePicker {
 	}
 	
 	/**
+	 * @return the timeFormat
+	 */
+	public String getTimeFormat() {
+		return timeFormat;
+	}
+
+
+	/**
+	 * @param timeFormat the timeFormat to set
+	 */
+	public void setTimeFormat(String timeFormat) {
+		this.timeFormat = timeFormat;
+	}
+	
+	/**
 	 * @return the slave
 	 */
 	public DatePicker getSlave() {
@@ -609,4 +629,5 @@ public class DateTimePicker extends DatePicker {
 			return getCode();
 		}
 	}
+
 }

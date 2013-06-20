@@ -252,9 +252,9 @@ JWic.controls = {
 	},
 	
 	/**
-	 * DateTimePicker script extensions.
+	 * DatePicker script extensions.
 	 */
-	DateTimePicker : {
+	DatePicker : {
 		/**
 		 * Initialize a new control.
 		 */
@@ -268,7 +268,7 @@ JWic.controls = {
 			 * set date format in needed
 			 */
 			if(dateFormat != "noformat")
-				region.dateFormat = dateFormat;
+				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
 			 *	default back to English if selected region is undefined 
@@ -279,6 +279,92 @@ JWic.controls = {
 				 * notify java control to default back to Locale.ENGLISH as well
 				 */
 				JWic.fireAction(controlId,'localeNotFound','');
+			}
+			
+			/*
+			 * init the datepicker
+			 */
+			var id = JWic.util.JQryEscape(controlId);
+			var datepicker = jQuery( "#" + id ).datepicker(options);
+			
+			datepicker.datepicker("option",region);		
+			this.setDate(datepicker, currentTime);
+			
+			
+			function nullDateNotifier(e){			
+				if(this.value == ''){
+					JWic.fireAction(this.id, 'dateisempty', '');
+				}
+			}
+			
+			/*
+			 *  AJAX stuff :D
+			 */
+			datepicker.change(function(){
+				
+				var date = datepicker.datepicker('getDate');
+				if(date!=null){
+					var date_utc = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
+				}else{
+					nullDateNotifier();
+				}
+				
+			});
+			
+			datepicker.keyup(nullDateNotifier);
+			
+			return datepicker;
+		},
+		
+		/*
+		 * set datepicker date from java
+		 */
+		setDate : function(datepicker, currentTime){
+			datepicker.datepicker('setDate', DateTimePicker.convertDate(currentTime));
+		},
+		
+		/**
+		 * Clean up..
+		 */
+		destroy : function(inpElm) {
+			
+		}
+	},
+	
+	
+	/**
+	 * DateTimePicker script extensions.
+	 */
+	DateTimePicker : {
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime) {
+			/*
+			 * clone the region info
+			 * so you can maintain language date but change date format only on this instance of the datepicker
+			 */
+			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
+			/*
+			 * set date format in needed
+			 */
+			if(dateFormat != "noformat")
+				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
+			
+			/*
+			 *	default back to English if selected region is undefined 
+			 */
+			if(region == undefined){
+				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
+				/*
+				 * notify java control to default back to Locale.ENGLISH as well
+				 */
+				JWic.fireAction(controlId,'localeNotFound','');
+			}
+			
+			if(timeFormat){
+				options.timeFormat = JWic.util.convertToJqueryDateFormat(timeFormat);
 			}
 			
 			/*
@@ -304,7 +390,8 @@ JWic.controls = {
 				
 				var date = datetimepicker.datetimepicker('getDate');
 				if(date!=null){
-					var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+					var date_utc = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+					//var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}else{
 					nullDateNotifier();
@@ -328,7 +415,8 @@ JWic.controls = {
 			var timeStamp = currentTime;
 			timeStamp = parseInt(timeStamp);
 			if(!isNaN(timeStamp)){			
-				var date = new Date(timeStamp);
+				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
+				//var date = new Date(timeStamp);
 				return date;
 			}
 			return null;
@@ -1819,4 +1907,3 @@ JWic.controls = {
 		}
 	}
 }
-
