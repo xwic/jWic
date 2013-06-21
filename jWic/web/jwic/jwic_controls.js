@@ -1790,10 +1790,13 @@ JWic.controls = {
 			if (!menu) {
 				alert("The menu with the id '" + controlId + "' does not exist in the DOM. Was it placed as a control anywhere on the page?");
 			} else {
-				menu.show().position(position);
-				 jQuery( document ).one("click", function() {
-					 menu.hide();
-				 });
+				jQuery('.j-menu').not(menu).each(function(){
+					jQuery(this).hide();
+				});//hide the rest
+				menu.show().position(position);//show me
+				jQuery( document ).one("click", function() {
+					menu.hide();
+				});
 			}
 		},
 		destroy : function(controlId) {
