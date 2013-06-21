@@ -20,7 +20,7 @@
 	</li>
 #end
 
-<ul id="${control.controlID}" style="display:none; #if($control.width != 0) width: ${control.width}px; #end">
+<ul id="${control.controlID}" class="j-menu" style="display:none; #if($control.width != 0) width: ${control.width}px; #end">
 	#set($hasIcons = $control.hasIcons())
 	#foreach ($item in $control.menuItems)
 		#renderMenuItem($item $hasIcons)
