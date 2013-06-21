@@ -1,1 +1,1 @@
-<button class="j-button $control.cssClass" id="btn_${control.controlID}">$control.title</button>
+<button class="j-button $control.cssClass" id="btn_${control.controlID}" #if($control.enabled == false)disabled#end>$control.title</button>
