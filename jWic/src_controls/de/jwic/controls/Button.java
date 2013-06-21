@@ -83,6 +83,14 @@ public class Button extends SelectableControl {
 	}
 	
 	/**
+	 * @return true if the button has non-empty title, false otherwise
+	 */
+	public boolean hasTitle(){
+		return title!=null && !title.isEmpty();
+	}
+	
+	
+	/**
 	 * Returns the icon for the button depending on the state.
 	 * @return
 	 */
