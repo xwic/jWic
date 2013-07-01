@@ -321,7 +321,7 @@ JWic.controls = {
 		 * set datepicker date from java
 		 */
 		setDate : function(datepicker, currentTime){
-			datepicker.datepicker('setDate', DateTimePicker.convertDate(currentTime));
+			datepicker.datepicker('setDate', JWic.controls.DateTimePicker.convertDate(currentTime));
 		},
 		
 		/**
