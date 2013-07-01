@@ -1592,7 +1592,14 @@ JWic.controls = {
 			}
 			btnElement
 				.button(btOpt)
-				.click(JWic.controls.Button.clickHandler);
+				.click(JWic.controls.Button.clickHandler)
+				.removeClass('ui-button').removeClass('ui-button-text-icon-secondary')
+				.find('.ui-button-text').removeClass('ui-button-text').addClass('j-button-text');
+				
+			if(btnElement.hasClass('ui-button-text-only')){
+				btnElement.removeClass('ui-button-text-only').addClass('j-button-text-only');
+			}
+			btnElement.find('.ui-icon-triangle-1-s').addClass('j-icon');
 			btnElement.data("controlId", ctrlId);
 			
 		},
