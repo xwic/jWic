@@ -1,22 +1,22 @@
 /*
  * Copyright 2005-2010 jWic group (http://www.jwic.de)
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ * 
  * -------------------------------------------------------------------------
- * This file contains the scripts used by the standard controls such as
- * InputBox etc. It should be included in the basic header if those controls
- * are used (which is in most of the cases).
+ * This file contains the scripts used by the standard controls such as InputBox
+ * etc. It should be included in the basic header if those controls are used
+ * (which is in most of the cases).
  */
 
 JWic.controls = {
@@ -62,10 +62,11 @@ JWic.controls = {
 				piProgBar.data("requestPending", true);
 				JWic.resourceRequest(controlId, function(ajaxResponse) {
 					try {
-						//JWic.log("HandleResponde: " + controlId);
+						// JWic.log("HandleResponde: " + controlId);
 						JWic.controls.ProcessInfo.handleResponse(controlId, ajaxResponse);
 					} catch (x) {
-						// the control was probably removed. Force a regular refresh
+						// the control was probably removed. Force a regular
+						// refresh
 						JWic.fireAction('', 'refresh', '');
 					}
 				});
@@ -78,7 +79,8 @@ JWic.controls = {
 		handleResponse : function(controlId, resp) {
 			var data = jQuery.parseJSON(resp.responseText);
 			var piProgBar = JWic.$("pi_progressbar_" + controlId)
-			if (piProgBar) { // view container might have been removed in the meantime
+			if (piProgBar) { // view container might have been removed in the
+								// meantime
 				var options = piProgBar.data("options");
 				if (data.monitor) {
 					var m = data.monitor;
@@ -139,7 +141,8 @@ JWic.controls = {
 					try {
 						JWic.controls.ProgressBar.handleResponse(controlId, ajaxResponse);
 					} catch (x) {
-						// the control was probably removed. Force a regular refresh
+						// the control was probably removed. Force a regular
+						// refresh
 						JWic.fireAction('', 'refresh', '');
 					}
 				});
@@ -260,8 +263,8 @@ JWic.controls = {
 		 */
 		initialize : function(inpElm, controlId, region, dateFormat, options, currentTime) {
 			/*
-			 * clone the region info
-			 * so you can maintain language date but change date format only on this instance of the datepicker
+			 * clone the region info so you can maintain language date but
+			 * change date format only on this instance of the datepicker
 			 */
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
 			/*
@@ -271,7 +274,7 @@ JWic.controls = {
 				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
-			 *	default back to English if selected region is undefined 
+			 * default back to English if selected region is undefined
 			 */
 			if(region == undefined){
 				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
@@ -298,7 +301,7 @@ JWic.controls = {
 			}
 			
 			/*
-			 *  AJAX stuff :D
+			 * AJAX stuff :D
 			 */
 			datepicker.change(function(){
 				
@@ -321,7 +324,7 @@ JWic.controls = {
 		 * set datepicker date from java
 		 */
 		setDate : function(datepicker, currentTime){
-			datepicker.datepicker('setDate', DateTimePicker.convertDate(currentTime));
+			datepicker.datepicker('setDate', JWic.controls.DateTimePicker.convertDate(currentTime));
 		},
 		
 		/**
@@ -342,8 +345,8 @@ JWic.controls = {
 		 */
 		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime) {
 			/*
-			 * clone the region info
-			 * so you can maintain language date but change date format only on this instance of the datepicker
+			 * clone the region info so you can maintain language date but
+			 * change date format only on this instance of the datepicker
 			 */
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
 			/*
@@ -353,7 +356,7 @@ JWic.controls = {
 				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
-			 *	default back to English if selected region is undefined 
+			 * default back to English if selected region is undefined
 			 */
 			if(region == undefined){
 				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
@@ -384,14 +387,17 @@ JWic.controls = {
 			}
 			
 			/*
-			 *  AJAX stuff :D
+			 * AJAX stuff :D
 			 */
 			datetimepicker.change(function(){
 				
 				var date = datetimepicker.datetimepicker('getDate');
 				if(date!=null){
 					var date_utc = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-					//var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+					// var date_utc = new Date(date.getUTCFullYear(),
+					// date.getUTCMonth(), date.getUTCDate(),
+					// date.getUTCHours(), date.getUTCMinutes(),
+					// date.getUTCSeconds());
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}else{
 					nullDateNotifier();
@@ -416,7 +422,7 @@ JWic.controls = {
 			timeStamp = parseInt(timeStamp);
 			if(!isNaN(timeStamp)){			
 				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
-				//var date = new Date(timeStamp);
+				// var date = new Date(timeStamp);
 				return date;
 			}
 			return null;
@@ -693,7 +699,7 @@ JWic.controls = {
 				});
 				
 				var titlebar = dialog.parents('.ui-dialog').find('.ui-dialog-titlebar');
-				//minimize
+				// minimize
 				var minBtn = jQuery('<a href="#" id="'+dialog.attr('id')+'_minimize" role="button" class="ui-corner-all ui-dialog-titlebar-close ui-dialog-titlebar-min"><span class="ui-icon ui-icon-minusthick">minimize</span></a>')
 					.appendTo(titlebar)
 					.mouseover(function(){
@@ -735,7 +741,8 @@ JWic.controls = {
 		adjustIEBlocker : function(controlId) {
 			jQuery("#win_" + JWic.util.JQryEscape(controlId)+ "_blocker");
 			var blocker = jQuery("#win_" + JWic.util.JQryEscape(controlId)+ "_blocker");
-			var source =jQuery("#win_" + JWic.util.JQryEscape(controlId)); // get the
+			var source =jQuery("#win_" + JWic.util.JQryEscape(controlId)); // get
+																			// the
 																	// window
 			JWic.controls.Window.adjustIEBlockerToWin(blocker, source);
 		},
@@ -764,18 +771,18 @@ JWic.controls = {
 		documentClickHander : function(){
 			
 		},
-//		/**
-//		 * Currently open combo content box.
-//		 */
-//		_activeComboContentBox : null,
+// /**
+// * Currently open combo content box.
+// */
+// _activeComboContentBox : null,
 //		
-//		/** Time the box was opened/closed */
-//		_openTime : 0,
-//		_closeTime : 0,
-//		_closeControlId : null,
-//		_delayKeySearchIdx : 0,
-//		_delayControlId : null,
-//		_lostFocusClose : false,
+// /** Time the box was opened/closed */
+// _openTime : 0,
+// _closeTime : 0,
+// _closeControlId : null,
+// _delayKeySearchIdx : 0,
+// _delayControlId : null,
+// _lostFocusClose : false,
 		
 		/**
 		 * Initialize a new control.
@@ -1013,7 +1020,7 @@ JWic.controls = {
 				jQuery(comboElm).removeClass("x-error");
 				comboElm.jComboField.value = obj.title;				
 				comboElm.jComboField.focus();
-				//comboElm.jComboField.select();
+				// comboElm.jComboField.select();
 				 if(typeof comboElm.jComboField.selectionStart != 'undefined') {
 					 comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
 				 }
@@ -1096,7 +1103,7 @@ JWic.controls = {
 			JWic.log("openContentBox "+JWic.controls.Combo._activeComboContentBox);
 			if (JWic.controls.Combo._activeComboContentBox) {
 				if (JWic.controls.Combo._activeComboContentBox == controlId) {
-					//JWic.controls.Combo.closeActiveContentBox();
+					// JWic.controls.Combo.closeActiveContentBox();
 					return; // do not re-open it.
 				} else {
 					JWic.controls.Combo.closeActiveContentBox();
@@ -1213,7 +1220,8 @@ JWic.controls = {
 			if (JWic.controls.Combo._activeComboContentBox) {
 				var tpl = jQuery(e.target).closest(".j-combo_contentBox");
 				// var tpl = e.findElement("#j-combo_contentBox");
-				if (tpl.length == 0) { // user clicked outside the content box -> close it.
+				if (tpl.length == 0) { // user clicked outside the content box
+										// -> close it.
 					// JWic.log("Clicked outside of combo box");
 					var age = new Date().getTime() - JWic.controls.Combo._openTime;
 					if (age > 300) { // to avoid miss-clicks, ignore 300ms
@@ -1593,7 +1601,7 @@ JWic.controls = {
 			btnElement
 				.button(btOpt)
 				.click(JWic.controls.Button.clickHandler)
-				.removeClass('ui-button-text-icon-secondary')
+				.removeClass('ui-button').removeClass('ui-button-text-icon-secondary')
 				.find('.ui-button-text').removeClass('ui-button-text').addClass('j-button-text');
 				
 			if(btnElement.hasClass('ui-button-text-only')){
@@ -1718,7 +1726,7 @@ JWic.controls = {
 	},
 
 	/**
-	 * de.jwic.controls.basics.TabStrip control functions. 
+	 * de.jwic.controls.basics.TabStrip control functions.
 	 */
 	TabStrip : {
 			internalActivate : false,
@@ -1781,7 +1789,8 @@ JWic.controls = {
 		initialize : function(controlId, options) {
 			var menu =  JWic.$(controlId);
 			if (options.hidden) {
-				// move the menu to the body to make sure it can "float" properly
+				// move the menu to the body to make sure it can "float"
+				// properly
 				menu.css("position", "absolute");
 				menu.data("oldParent", menu.parent().parent());
 				jQuery("body").append(menu.parent());
@@ -1799,8 +1808,8 @@ JWic.controls = {
 			} else {
 				jQuery('.j-menu').not(menu).each(function(){
 					jQuery(this).hide();
-				});//hide the rest
-				menu.show().position(position);//show me
+				});// hide the rest
+				menu.show().position(position);// show me
 				jQuery( document ).one("click", function() {
 					menu.hide();
 				});
@@ -1815,7 +1824,7 @@ JWic.controls = {
 	},
 
 	/**
-	 * de.jwic.controls.basics.Accordion control functions. 
+	 * de.jwic.controls.basics.Accordion control functions.
 	 */
 	Accordion : {
 			initialize : function(accordion, ctrlId, options) {
