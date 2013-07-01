@@ -50,7 +50,7 @@ public class DateTimePicker extends DatePicker {
 	private Boolean alwaysSetTime = null;
 	private String separator = null;
 	private DateTimePicker slave;
-	private String timeFormat;
+	private String timeFormat = "";
 
 	
 	private ControlTpye controlType = ControlTpye.SELECT;

@@ -30,7 +30,7 @@
 					ctrlId		: null,
 					pushedCol 	: "", 
 					scrolledX	: 0,
-					fixed		: 0,
+					fixed		: 0
 				},
 				
 				/**

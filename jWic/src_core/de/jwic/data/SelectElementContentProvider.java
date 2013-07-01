@@ -61,10 +61,7 @@ public class SelectElementContentProvider extends ListContentProvider<ISelectEle
 				return elm; 
 			}
 		}
-		// still not found - is it an Index?
-		if (Util.tryParseInt(uniqueKey)) {
-			return super.getObjectFromKey(uniqueKey);
-		}
+		
 		return null;
 	}
 
