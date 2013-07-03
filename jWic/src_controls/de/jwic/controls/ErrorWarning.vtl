@@ -1,11 +1,10 @@
 <div id="$control.controlID" style="display: none;" class="ui-widget ui-widget-header errorContainer">
-<table width="100%" cellspacing="0" cellpadding="2" class="ui-state-error ui-corner-all $control.getCssClass()">
-  <tr> 
-		<td width="20"><img src="$jwic.contextPath/ecolib/info_large.gif" width="30" height="30"></td>
-		<td><span>#if($control.Text)$control.text#else$control.exception#end 
-		#if ($control.showStackTrace && $control.stack != "" && !$control.isWarning())[ <a href="#" onClick="alert('$escape.escapeJavaScript($control.stack)')">more...</a> ]#end</span></td>
-  </tr>
-</table>
+  <div class="errorBox"> 
+    <div class="ui-state-error ui-corner-all $control.getCssClass()">
+	  <span>#if($control.Text)$control.text#else$control.exception#end 
+		#if ($control.showStackTrace && $control.stack != "" && !$control.isWarning())[ <a href="#" onClick="alert('$escape.escapeJavaScript($control.stack)')">more...</a> ]#end</span>
+    </div>
+  </div>
 </div>
 #if($control.autoClose)
 	$control.doAutoClose()
