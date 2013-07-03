@@ -79,7 +79,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			"{ afterUpdate: function(element) {JWic.controls.TableViewer.initialize(element, '" + viewer.getControlID() + "', {" +
 			" colResize : " + viewer.isResizeableColumns() +
 			" ,menu : " + (viewer.getMenu() != null ? "\'" + viewer.getMenu().getControlID() + "\'" : "null") +
-			"});}}"
+			" ,fitToParent:"+model.isFitToParent()+"});}}"
 			);
 		
 		String tblvGfxPath = JWicRuntime.getJWicRuntime().getContextPath() + "/jwic/gfx/";
@@ -137,7 +137,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		
 		if (viewer.isScrollable() && viewer.isShowHeader()) {
 			int tmpWidth = viewer.getWidth() != 0 ? viewer.getWidth() : 300;
-			writer.print("<DIV id=\"tblViewHead_" + viewer.getControlID() + "\"");
+			writer.print("<DIV id=\"tblViewHead_" + viewer.getControlID() + "\" class=\"tblViewHead\" ");
 			writer.print("style=\"width: " + tmpWidth + "px; ");
 			writer.print("height: 20px; overflow: hidden;");
 			writer.print("\">");
@@ -199,7 +199,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			}
 			writer.print("<DIV onscroll=\"JWic.controls.TableViewer.handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
 			writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
-			writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\"");
+			writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\" class=\"tblViewDataLayer\" ");
 			writer.println(">");
 			writer.print("<table");
 			writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");

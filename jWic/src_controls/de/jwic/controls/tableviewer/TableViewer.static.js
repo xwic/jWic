@@ -37,16 +37,49 @@
 				 * Initialize the TableViewer.
 				 */
 				initialize : function(element, viewerCtrlId, options) {
-					var tableObject = JWic.$("tblViewData_" + viewerCtrlId);
+					function closestNon0WidthParent(elm){
+						if(elm.width() !== 0){
+							return elm.width();//some have spans as parents and some spans have 0px width. so we find the closes one with non-zero width and use that one
+						}
+						return closestNon0WidthParent(elm.parent());
+					}
+					
+					function sizeSetter(){
+						var parent = closestNon0WidthParent(JWic.$('ctrl_'+viewerCtrlId).parent()) -2;
+						jQuery('.tblViewDataLayer').width(parent);
+						jQuery('.tblViewHead').width(parent);
+						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('.tblViewStatusBar').width(parent);
+						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('table')[0].setAttribute('width', parent);
+						jQuery("#tblContent_" + JWic.util.JQryEscape(viewerCtrlId)).width(parent);
+					}
+					
+					
+					
+					var tableObject = JWic.$("tblViewData_" + viewerCtrlId),
+						tableContent = JWic.$("tblContent_" + viewerCtrlId),
+						tableControl = JWic.$('ctrl_'+viewerCtrlId);
+					
 					if (options.colResize) {
 						tableObject.find("img.tblResize").on("mousedown", function(e) {
 							JWic.controls.TableViewer.resizeColumn(e, viewerCtrlId);
 						});
 					}
 					if (options.menu != null) {
-						var tableContent = JWic.$("tblContent_" + viewerCtrlId);
 						tableContent.find("tbody > tr").bind("contextmenu", function(e){JWic.controls.TableViewer.handleContextMenu(this, options.menu, e)});
 					}
+					
+					if(JWic.$('ctrl_'+viewerCtrlId) && options.fitToParent){//only trigger this if the control is fitToParent
+						sizeSetter();
+						(function (){
+							var resizeTimer;
+							jQuery(window).resize(function() {
+							    clearTimeout(resizeTimer);
+							    resizeTimer = setTimeout(sizeSetter, 100);//fancy resize callback to make the ui more responsive
+							});
+						}());
+					}
+					
+					
 				},
 				
 				/**
@@ -151,7 +184,6 @@
 					
 					var tblWidth = tableObject.parent().width();
 					var tblHeight = tableObject.parent().height();
-					
 					if (tableContent) tblHeight = tableContent.height();
 					var colIdx = imgSeperator.attributes.getNamedItem("colIdx").value;
 					if (fixed) {
@@ -368,7 +400,7 @@
 					})
 					
 					
-					//über alle Rows iterieren und Cols suchen
+					//ï¿½ber alle Rows iterieren und Cols suchen
 					for(var i = 0; i < allRows.length; i++){
 						var myRow = allRows[i];
 						//hole spalten

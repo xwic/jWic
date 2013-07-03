@@ -84,6 +84,7 @@ public class TableModel implements Serializable {
 	protected TableViewer tableViewer = null;
 	
 	protected int lastRenderedPageSize = -1;
+	private boolean fitToParent = true;
 	
 	/**
 	 * Default constructor.
@@ -603,5 +604,22 @@ public class TableModel implements Serializable {
 	public void setLastRenderedPageSize(int lastRenderedPageSize) {
 		this.lastRenderedPageSize = lastRenderedPageSize;
 	}
+
+	/**
+	 * @param fitToParent default is true
+	 * if 'true' this control disregards any other width settings and fills the parent container.
+	 * if 'true' this control also takes into consideration the padding-left and padding-right of the parent and respects it
+	 */
+	public void setFitToParent(boolean fitToParent){
+		this.fitToParent = fitToParent;
+	}
+
+	/**
+	 * @return wheather or not this tableViewer is set to fit to parent
+	 */
+	public boolean isFitToParent() {
+		return fitToParent;
+	}
+	
 }
 
