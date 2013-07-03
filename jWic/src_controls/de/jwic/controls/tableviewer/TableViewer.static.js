@@ -38,6 +38,7 @@
 				 */
 				initialize : function(element, viewerCtrlId, options) {
 					function closestNon0WidthParent(elm){
+						
 						if(elm.width() !== 0){
 							return elm.width();//some have spans as parents and some spans have 0px width. so we find the closes one with non-zero width and use that one
 						}
@@ -69,7 +70,7 @@
 					}
 					
 					if(JWic.$('ctrl_'+viewerCtrlId) && options.fitToParent){//only trigger this if the control is fitToParent
-						sizeSetter();
+						setTimeout(sizeSetter, 0);
 						(function (){
 							var resizeTimer;
 							jQuery(window).resize(function() {
