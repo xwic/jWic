@@ -45,7 +45,7 @@
 					}
 					
 					function sizeSetter(){
-						var parent = closestNon0WidthParent(JWic.$('ctrl_'+viewerCtrlId).parent()) -2;
+						var parent = closestNon0WidthParent(jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).parent()) -2;
 						jQuery('.tblViewDataLayer').width(parent);
 						jQuery('.tblViewHead').width(parent);
 						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('.tblViewStatusBar').width(parent);
