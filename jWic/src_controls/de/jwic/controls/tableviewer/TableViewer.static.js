@@ -49,7 +49,7 @@
 						jQuery('.tblViewDataLayer').width(parent);
 						jQuery('.tblViewHead').width(parent);
 						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('.tblViewStatusBar').width(parent);
-						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('table')[0].setAttribute('width', parent);
+						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('table:first').attr('width', parent);
 						jQuery("#tblContent_" + JWic.util.JQryEscape(viewerCtrlId)).width(parent);
 					}
 					
