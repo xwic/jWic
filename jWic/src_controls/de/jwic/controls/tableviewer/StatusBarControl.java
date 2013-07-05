@@ -24,9 +24,13 @@ package de.jwic.controls.tableviewer;
 import java.text.MessageFormat;
 import java.util.Arrays;
 
+import org.jfree.layout.LCBLayout;
+
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.ListBox;
+import de.jwic.data.ISelectElement;
+import de.jwic.data.SelectElement;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 
@@ -65,10 +69,12 @@ public class StatusBarControl extends ControlContainer {
 		}
 		lbcMaxLines.addElement("- All -", "-1");
 		lbcMaxLines.addElement("- Auto -", "0");
+
+		
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
 			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
-				String maxLineSelection = (String)event.getElement();
+				String maxLineSelection = lbcMaxLines.getSelectedKey();
 				if(maxLineSelection != null && maxLineSelection.length() > 0)
 					model.setMaxLines(Integer.parseInt(maxLineSelection));
 			}
@@ -82,7 +88,7 @@ public class StatusBarControl extends ControlContainer {
 			public void rangeUpdated(TableModelEvent event) {
 				container.setRequireRedraw(true);
 				String key = Integer.toString(model.getRange().getMax());
-				if (!key.equals(lbcMaxLines.getSelectedKey()) && lbcMaxLines.getSelectedKeys() != null && Arrays.asList(lbcMaxLines.getSelectedKeys()).contains(key)) {
+				if (!key.equals(lbcMaxLines.getSelectedKey())) {
 					lbcMaxLines.setSelectedKey(key);
 				}
 			}
