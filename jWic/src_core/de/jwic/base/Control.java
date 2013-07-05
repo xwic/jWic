@@ -404,7 +404,7 @@ public abstract class Control implements Serializable, IControl {
 								continue;
 							}
 						}else if(o instanceof Date){
-							writer.key(pd.getDisplayName()).value(new JsDateString((Date)o));
+							writer.key(pd.getDisplayName()).value(new JsDateString((Date)o, getSessionContext().getTimeZone()));
 							continue;
 						}
 						writer.key(pd.getDisplayName()).value(o);						

@@ -11,9 +11,9 @@
 				datetimepicker.addClass("x-error");
 			#end
 			
-			#if($control.slaveId)
-				var endDateTextBox = jQuery('#' + JWic.util.JQryEscape('${control.slaveId}'));
-			 	JWic.controls.DateTimePicker.masterSlave(datetimepicker, endDateTextBox);
+			#if($control.masterId)
+				var masterDateTextBox = jQuery('#' + JWic.util.JQryEscape('${control.masterId}'));
+			 	JWic.controls.DateTimePicker.masterSlave(masterDateTextBox, datetimepicker);
 			#end
 		}
 			

@@ -49,7 +49,7 @@ public class DateTimePicker extends DatePicker {
 	private Boolean timeOnly = null;
 	private Boolean alwaysSetTime = null;
 	private String separator = null;
-	private DateTimePicker slave;
+	private DateTimePicker master;
 	private String timeFormat = "";
 
 	
@@ -580,19 +580,19 @@ public class DateTimePicker extends DatePicker {
 	/**
 	 * @return the slave
 	 */
-	public DatePicker getSlave() {
-		return slave;
+	public DatePicker getMaster() {
+		return master;
 	}
 	
 	/**
 	 * Returns the id of the slave.
 	 * @return
 	 */
-	public String getSlaveId() {
-		if(slave == null)
+	public String getMasterId() {
+		if(master == null)
 			return null;
 		
-		return slave.getControlID();
+		return master.getControlID();
 	}
 
 	/**
@@ -600,10 +600,10 @@ public class DateTimePicker extends DatePicker {
 	 * when this one is updated. When this controls date is changed and the slaves control has
 	 * no date or had the same date as this control had before it was changed, it is updated. 
 	 * This is all done through JavaScript events on the client side.
-	 * @param slave the slave to set
+	 * @param master the slave to set
 	 */
-	public void setSlave(DateTimePicker slave) {
-		this.slave = slave;
+	public void setMaster(DateTimePicker master) {
+		this.master = master;
 	}
 	
 	/**

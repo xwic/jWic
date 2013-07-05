@@ -1,6 +1,7 @@
 package de.jwic.base;
 
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.json.JSONString;
 
@@ -12,12 +13,13 @@ import org.json.JSONString;
 public class JsDateString implements JSONString { 
 	
 	 private Date date;
-	
+	 private TimeZone timeZone;
 	 /**
 	 * @param date
 	 */
-	public JsDateString(Date date){
+	public JsDateString(Date date, TimeZone timeZone){
 		 this.date = date;
+		 this.timeZone = timeZone;
 	 }
 	
 	/* (non-Javadoc)
@@ -27,6 +29,10 @@ public class JsDateString implements JSONString {
 	public String toJSONString() {
 		if(date == null)
 			return null;
-		return "JWic.controls.DateTimePicker.convertDate('" + date.getTime() + "')";
+		
+		long offset = timeZone != null ? timeZone.getOffset(date.getTime()) : 0;
+		long currentTime = offset + date.getTime();
+		
+		return "JWic.controls.DateTimePicker.convertDate('" + currentTime + "')";
 	}
 }

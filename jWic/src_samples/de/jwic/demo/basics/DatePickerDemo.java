@@ -114,7 +114,7 @@ public class DatePickerDemo extends ControlContainer {
 		datePickerMaster = new DateTimePicker(this, "dateTimeMaster");
 		datePickerMaster.setDate(d);
 		datePickerSlave = new DateTimePicker(this, "dateTimeSlave");
-		datePickerMaster.setSlave(datePickerSlave);
+		datePickerSlave.setMaster(datePickerMaster);
 		
 	}
 	
