@@ -1,11 +1,12 @@
 <input type="hidden" id="seqnum_${control.controlID}" value="$control.nextSeqNum()">
 <span id="arc_${control.controlID}">
+<div class="loading">
 #if($control.waitBlockDimension)
 <div style="width: ${control.waitBlockDimension.width}px; height: ${control.waitBlockDimension.height}px">
 #end
 
 #if($control.waitImage)
-$control.waitImage.toImgTag()
+$control.waitImage.toImgTag()<br/>
 #end
 #if($control.waitText)
 $!control.waitText
@@ -14,4 +15,5 @@ $!control.waitText
 #if($control.waitBlockDimension)
 </div>
 #end
+</div>
 </span>
