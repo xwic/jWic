@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.spi.ThrowableInformation;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
@@ -23,7 +22,6 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JWicException;
-import de.jwic.base.JWicRuntime;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.base.RenderContext;
 import de.jwic.web.ContentRenderer;
