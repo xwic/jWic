@@ -22,15 +22,10 @@
 package de.jwic.controls.tableviewer;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
-
-import org.jfree.layout.LCBLayout;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.ListBox;
-import de.jwic.data.ISelectElement;
-import de.jwic.data.SelectElement;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 
