@@ -6,11 +6,13 @@ package de.jwic.controls;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.spi.ThrowableInformation;
 import org.json.JSONException;
 import org.json.JSONWriter;
 
@@ -21,6 +23,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JWicException;
+import de.jwic.base.JWicRuntime;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.base.RenderContext;
 import de.jwic.web.ContentRenderer;
@@ -51,6 +54,8 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private ImageRef waitImage = new ImageRef("/jwic/gfx/loading3.gif");
 	private Dimension waitBlockDimension = null;
 	private String waitText = null;
+	
+	private Throwable error;
 	
 	/**
 	 * Constructor.
@@ -91,6 +96,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		this.lazyInitializationHandler = lazyInitializationHandler;
 	}
 
+		
 	/**
 	 * Returns the container to be used for childs.  
 	 */
@@ -111,22 +117,18 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		}
 	}
 	
+	@Override
+	public Iterator<Control> getControls() {
+		if(this.container!=null){
+			return this.container.getControls();
+		}
+		return super.getControls();
+	}
 	/* (non-Javadoc)
 	 * @see de.jwic.base.IResourceControl#attachResource(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public void attachResource(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
-		// Initialize the content when the control is rendered the first time.
-		if (!initialized && lazyInitializationHandler != null) {
-			synchronized (this) {
-				if (!initialized) {
-					lazyInitializationHandler.initialize(getContainer());
-					initialized = true;
-				}
-			}
-		}
-		
 		res.setContentType("text/json; charset=UTF-8");
 		PrintWriter pw;
 		try {
@@ -136,6 +138,39 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 			return;
 		}
 		JSONWriter jsonOut = new JSONWriter(pw);
+		// Initialize the content when the control is rendered the first time.
+		if (!initialized && lazyInitializationHandler != null) {
+			synchronized (this) {
+				if (!initialized) {
+					try{
+						lazyInitializationHandler.initialize(getContainer());
+					}catch(Throwable t){
+						Iterator<Control> it = this.getControls();
+						while(it.hasNext()){
+							Control c = it.next();
+							this.removeControl(c.getName());
+							try{
+								c.destroy();
+							}catch(Throwable t2){}//remove and try to destroy all the control to allow for recreation with same name
+						}
+						
+						try {
+							jsonOut.object().key("success").value(false).key("fail").value(true).endObject();//let the ui know about the grave problem with nifty little booleans
+						} catch (JSONException e) {
+						}						
+						pw.flush();
+						pw.close();
+						this.error = t;
+						return;
+					}
+					initialized = true;
+				}
+			}
+			
+			
+			
+		}
+		
 		try {
 			
 			// render child control
@@ -179,7 +214,8 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 					}
 				}
 			
-			
+			jsonOut.key("success").value(true);
+			jsonOut.key("fail").value(false);
 			jsonOut.endObject();
 			
 		} catch (JSONException e) {
@@ -187,6 +223,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 			log.error("Error generating JSON response", e);
 		}
 		pw.close();
+		this.requireRedraw();
 	}
 	
 	/**
@@ -239,6 +276,17 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		this.waitText = waitText;
 	}
 
-
+	public final void actionOnFail(){
+		if(this.lazyInitializationHandler!=null){
+			this.lazyInitializationHandler.fail(error);							
+		}
+		
+	}
+	
+	public final void actionOnSuccess(){
+		if(this.lazyInitializationHandler != null){
+			this.lazyInitializationHandler.success();
+		}
+	}
 	
 }

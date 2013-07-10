@@ -10,6 +10,12 @@
 			try {
 				JWic.log("AsyncRenderingStart ");
 				var elm = jQuery.parseJSON(ajaxResponse.responseText);
+				if(elm.fail){
+					JWic.fireAction('$control.controlID','onFail','');//trigger fail callback on the backend
+					JWic.log("AsyncRenderingFail");
+					return;
+				}
+				
 				
 				var seqNumFld = jQuery('seqnum_${control.controlID}');
 				if (seqNumFld.value != elm.seqNum) {
@@ -90,7 +96,7 @@
 						}
 					}
 				}
-
+				JWic.fireAction('$control.controlID','onSuccess','');//trigger success callback on the backend
 			} catch (x) {
 				JWic.log("Error in AsyncRenderStart: " + x);
 			}
