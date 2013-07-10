@@ -280,6 +280,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		if(this.lazyInitializationHandler!=null){
 			this.lazyInitializationHandler.fail(error);							
 		}
+		this.setRequireRedraw(false);
 		
 	}
 	
@@ -287,6 +288,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		if(this.lazyInitializationHandler != null){
 			this.lazyInitializationHandler.success();
 		}
+		this.setRequireRedraw(false);
 	}
 	
 }
