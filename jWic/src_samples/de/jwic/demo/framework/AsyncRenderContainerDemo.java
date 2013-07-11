@@ -64,7 +64,7 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 		// delayed creation.
 		AsyncRenderContainer arContainer3 = new AsyncRenderContainer(this, "arContainer3");
 		arContainer3.setLazyInitializationHandler(new LazyInitializationHandler() {
-			
+			LabelControl control;
 			@Override
 			public void initialize(IControlContainer container) {
 				
@@ -74,7 +74,17 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				new LabelControl(container).setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+				control = new LabelControl(container);
+				control.setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+			}
+
+			@Override
+			public void success() {
+				control.setText(control.getText()+" Also we have both success and fail method for handling when the create is ok or not. in this case it is");
+			}
+
+			@Override
+			public void fail(Throwable t) {
 				
 			}
 		});
