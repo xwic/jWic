@@ -1437,13 +1437,13 @@ JWic.controls = {
 						}
 						var action = "JWic.controls.Combo.ComboElementListRenderer.handleSelection('" + controlId + "', '" + obj.key + "');";
 						
-						code += '<div comboElement="' + idx + '" onClick="' + action + 'return false;" class="j-combo_element ' + extraClasses + '">';
+						code += '<div comboElement="' + idx + '" onClick="' + action + '" class="j-combo_element ' + extraClasses + '">';
 						if (comboBox.multiSelect) {
 							code += "<input ";
 							if (JWic.controls.Combo.isSelected(comboBox, obj.key)) {
 								code += "checked";
 							}
-							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\" onClick=\"" + action + "\"/>";
+							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\"/>";
 						}
 						code += content;
 						code += '</div>';
@@ -1455,9 +1455,10 @@ JWic.controls = {
 																// found at all
 						JWic.controls.Combo.searchSuggestion(comboBox, null);
 					}
-					jQuery(comboBoxWin).html(code);
-					jQuery(comboBoxWin).bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
-					jQuery(comboBoxWin).bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+					jQuery(comboBoxWin).html(code)
+						.bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
+						.bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+									
 				}
 			},
 			
@@ -1517,7 +1518,7 @@ JWic.controls = {
 						var cbc = document.getElementById("cbc_" + controlId + "." + index);
 						
 						if (comboBox.multiSelect && cbc) {
-							jQuery(cbc).attr('checked',!isSelected);
+							jQuery(cbc).prop('checked', !isSelected);
 						}
 						break;
 					}
@@ -1724,7 +1725,6 @@ JWic.controls = {
 			internalActivate : false,
 			
 			initialize : function(tabStrip, ctrlId, activeIndex) {
-				JWic.log(activeIndex);
 				tabStrip.tabs({
 					beforeActivate : JWic.controls.TabStrip.activateHandler,
 					active : activeIndex
@@ -1745,7 +1745,6 @@ JWic.controls = {
 					var widget = JWic.$(tabStripId).tabs("widget");
 					var newPanelIdx = -1;
 					var tabs = widget.find("div.ui-tabs-panel");
-					JWic.log(tabs);
 					var count = 0;
 					for (var i = 0; i < tabs.length; i++) {
 						if (jQuery(tabs[i]).attr("jwicTabStripId") == tabStripId) {
