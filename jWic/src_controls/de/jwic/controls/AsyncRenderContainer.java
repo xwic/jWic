@@ -6,6 +6,7 @@ package de.jwic.controls;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,11 +47,14 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private ControlContainer container;
 	private LazyInitializationHandler lazyInitializationHandler = null;
 	private boolean initialized = false;
+	private boolean notifySuccess = false;
 	private long seqNum = 0;
 	
 	private ImageRef waitImage = new ImageRef("/jwic/gfx/loading3.gif");
 	private Dimension waitBlockDimension = null;
 	private String waitText = null;
+	
+	private Throwable error;
 	
 	/**
 	 * Constructor.
@@ -91,6 +95,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		this.lazyInitializationHandler = lazyInitializationHandler;
 	}
 
+		
 	/**
 	 * Returns the container to be used for childs.  
 	 */
@@ -112,21 +117,21 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	}
 	
 	/* (non-Javadoc)
+	 * @see de.jwic.base.ControlContainer#getControls()
+	 */
+	@Override
+	public Iterator<Control> getControls() {
+		if(this.container!=null){
+			return this.container.getControls();
+		}
+		return super.getControls();
+	}
+	
+	/* (non-Javadoc)
 	 * @see de.jwic.base.IResourceControl#attachResource(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public void attachResource(HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
-		// Initialize the content when the control is rendered the first time.
-		if (!initialized && lazyInitializationHandler != null) {
-			synchronized (this) {
-				if (!initialized) {
-					lazyInitializationHandler.initialize(getContainer());
-					initialized = true;
-				}
-			}
-		}
-		
 		res.setContentType("text/json; charset=UTF-8");
 		PrintWriter pw;
 		try {
@@ -136,6 +141,40 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 			return;
 		}
 		JSONWriter jsonOut = new JSONWriter(pw);
+		// Initialize the content when the control is rendered the first time.
+		if (!initialized && lazyInitializationHandler != null) {
+			synchronized (this) {
+				if (!initialized) {
+					try{
+						lazyInitializationHandler.initialize(getContainer());
+					}catch(Throwable t){
+						Iterator<Control> it = this.getControls();
+						while(it.hasNext()){
+							Control c = it.next();
+							this.removeControl(c.getName());
+							try{
+								c.destroy();
+							}catch(Throwable t2){
+								log.error("Cannot destroy control.", t2);
+							}//remove and try to destroy all the control to allow for recreation with same name
+						}
+						
+						try {
+							jsonOut.object().key("success").value(false).key("fail").value(true).endObject();//let the ui know about the grave problem with nifty little booleans
+						} catch (JSONException e) {
+							res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+							log.error("Error generating JSON response", e);
+						}						
+						pw.flush();
+						pw.close();
+						this.error = t;
+						return;
+					}
+					initialized = true;
+				}
+			}
+		}
+		
 		try {
 			
 			// render child control
@@ -179,7 +218,8 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 					}
 				}
 			
-			
+			jsonOut.key("success").value(true);
+			jsonOut.key("fail").value(false);
 			jsonOut.endObject();
 			
 		} catch (JSONException e) {
@@ -187,6 +227,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 			log.error("Error generating JSON response", e);
 		}
 		pw.close();
+		this.requireRedraw();
 	}
 	
 	/**
@@ -238,7 +279,32 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	public void setWaitText(String waitText) {
 		this.waitText = waitText;
 	}
-
-
 	
+	/**
+	 * @return the notifySuccess
+	 */
+	public boolean isNotifySuccess() {
+		return notifySuccess;
+	}
+
+	/**
+	 * @param notifySuccess the notifySuccess to set
+	 */
+	public void setNotifySuccess(boolean notifySuccess) {
+		this.notifySuccess = notifySuccess;
+	}
+
+	public final void actionOnFail(){
+		if(this.lazyInitializationHandler!=null){
+			this.setRequireRedraw(false);
+			this.lazyInitializationHandler.failure(error);							
+		}
+	}
+	
+	public final void actionOnSuccess(){
+		if(this.lazyInitializationHandler != null){
+			this.setRequireRedraw(false);
+			this.lazyInitializationHandler.success();
+		}
+	}
 }

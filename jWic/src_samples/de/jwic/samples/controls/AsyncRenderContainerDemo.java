@@ -7,6 +7,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.AsyncRenderContainer;
+import de.jwic.controls.ErrorWarning;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.LazyInitializationHandler;
@@ -28,7 +29,7 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 	 */
 	public AsyncRenderContainerDemo(IControlContainer container) {
 		super(container);
-
+		final ErrorWarning error = new ErrorWarning(this,"errors");
 		// Adding a control that takes a long time to render
 		arContainer1 = new AsyncRenderContainer(this, "arContainer1");
 		new SlowRenderingControl(arContainer1, null);
@@ -64,21 +65,56 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 		// delayed creation.
 		AsyncRenderContainer arContainer3 = new AsyncRenderContainer(this, "arContainer3");
 		arContainer3.setLazyInitializationHandler(new LazyInitializationHandler() {
-			
+			LabelControl control;
 			@Override
 			public void initialize(IControlContainer container) {
 				
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				new LabelControl(container).setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+				control = new LabelControl(container);
+				control.setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+			}
+
+			@Override
+			public void success() {
+				control.setText(control.getText()+" Also we have both success and fail method for handling when the create is ok or not. in this case it is");
+			}
+
+			@Override
+			public void failure(Throwable t) {
 				
 			}
 		});
-
+		
+		
+		final AsyncRenderContainer arContainer4 = new AsyncRenderContainer(this, "arContainer4");
+		arContainer4.setWaitText("This one will fail miserably");
+		
+		arContainer4.setLazyInitializationHandler(new LazyInitializationHandler() {
+			@Override
+			public void initialize(IControlContainer container) {
+				try {
+					Thread.sleep(1000);
+					throw new RuntimeException("Some random thing when wrong this control's init");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void success() {
+				
+			}
+			
+			@Override
+			public void failure(Throwable t) {
+				error.showError(t.getMessage() +". See! told you so :)");
+			}
+		});
+		
 	}
 
 }

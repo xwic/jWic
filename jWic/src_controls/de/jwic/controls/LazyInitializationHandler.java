@@ -20,4 +20,14 @@ public interface LazyInitializationHandler extends Serializable {
 	 */
 	public void initialize(IControlContainer container);
 	
+	/**
+	 * 
+	 */
+	public void success();
+	
+	/**
+	 * @param t
+	 */
+	public void failure(Throwable t);
+	
 }
