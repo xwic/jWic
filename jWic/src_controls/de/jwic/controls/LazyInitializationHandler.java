@@ -28,6 +28,6 @@ public interface LazyInitializationHandler extends Serializable {
 	/**
 	 * @param t
 	 */
-	public void fail(Throwable t);
+	public void failure(Throwable t);
 	
 }

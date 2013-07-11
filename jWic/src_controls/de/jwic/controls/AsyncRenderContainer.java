@@ -47,6 +47,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private ControlContainer container;
 	private LazyInitializationHandler lazyInitializationHandler = null;
 	private boolean initialized = false;
+	private boolean notifySuccess = false;
 	private long seqNum = 0;
 	
 	private ImageRef waitImage = new ImageRef("/jwic/gfx/loading3.gif");
@@ -115,6 +116,9 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.jwic.base.ControlContainer#getControls()
+	 */
 	@Override
 	public Iterator<Control> getControls() {
 		if(this.container!=null){
@@ -122,6 +126,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 		}
 		return super.getControls();
 	}
+	
 	/* (non-Javadoc)
 	 * @see de.jwic.base.IResourceControl#attachResource(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
@@ -149,12 +154,16 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 							this.removeControl(c.getName());
 							try{
 								c.destroy();
-							}catch(Throwable t2){}//remove and try to destroy all the control to allow for recreation with same name
+							}catch(Throwable t2){
+								log.error("Cannot destroy control.", t2);
+							}//remove and try to destroy all the control to allow for recreation with same name
 						}
 						
 						try {
 							jsonOut.object().key("success").value(false).key("fail").value(true).endObject();//let the ui know about the grave problem with nifty little booleans
 						} catch (JSONException e) {
+							res.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.toString());
+							log.error("Error generating JSON response", e);
 						}						
 						pw.flush();
 						pw.close();
@@ -164,9 +173,6 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 					initialized = true;
 				}
 			}
-			
-			
-			
 		}
 		
 		try {
@@ -273,20 +279,32 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	public void setWaitText(String waitText) {
 		this.waitText = waitText;
 	}
+	
+	/**
+	 * @return the notifySuccess
+	 */
+	public boolean isNotifySuccess() {
+		return notifySuccess;
+	}
+
+	/**
+	 * @param notifySuccess the notifySuccess to set
+	 */
+	public void setNotifySuccess(boolean notifySuccess) {
+		this.notifySuccess = notifySuccess;
+	}
 
 	public final void actionOnFail(){
 		if(this.lazyInitializationHandler!=null){
-			this.lazyInitializationHandler.fail(error);							
+			this.setRequireRedraw(false);
+			this.lazyInitializationHandler.failure(error);							
 		}
-		this.setRequireRedraw(false);
-		
 	}
 	
 	public final void actionOnSuccess(){
 		if(this.lazyInitializationHandler != null){
+			this.setRequireRedraw(false);
 			this.lazyInitializationHandler.success();
 		}
-		this.setRequireRedraw(false);
 	}
-	
 }

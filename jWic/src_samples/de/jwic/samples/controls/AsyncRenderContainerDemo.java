@@ -72,7 +72,6 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				control = new LabelControl(container);
@@ -85,13 +84,13 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 			}
 
 			@Override
-			public void fail(Throwable t) {
+			public void failure(Throwable t) {
 				
 			}
 		});
 		
 		
-		AsyncRenderContainer arContainer4 = new AsyncRenderContainer(this, "arContainer4");
+		final AsyncRenderContainer arContainer4 = new AsyncRenderContainer(this, "arContainer4");
 		arContainer4.setWaitText("This one will fail miserably");
 		
 		arContainer4.setLazyInitializationHandler(new LazyInitializationHandler() {
@@ -110,10 +109,8 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 				
 			}
 			
-			
-			
 			@Override
-			public void fail(Throwable t) {
+			public void failure(Throwable t) {
 				error.showError(t.getMessage() +". See! told you so :)");
 			}
 		});
