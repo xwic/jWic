@@ -1132,7 +1132,7 @@ JWic.controls = {
 					}
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
-				jQuery(".ui-dialog-titlebar").hide();
+				comboBoxWin.parent().find(".ui-dialog-titlebar").hide();
 			}			
 				/*
 				 * Haven't included resize and move event, when switching to
