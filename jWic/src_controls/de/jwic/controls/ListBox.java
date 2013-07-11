@@ -41,7 +41,7 @@ public class ListBox extends AbstractSelectListControl implements IHTMLElement {
 	protected int width = 0;	// 0 = not set
 	protected int height = 0;	// 0 = not set
 	
-	protected int size = 1; 
+	protected int size = 0; 
 	
 	/**
 	 * @param container
