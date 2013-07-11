@@ -5,7 +5,6 @@
 	 * Initialize the window if it does not already exist.
 	 */
 	afterUpdate: function(element) {
-		
 		JWic.controls.Window.initialize('${control.controlID}', {
 			title : '$escape.escapeJavaScript($control.title)',
 			#if($control.width != 0) width : $control.width, #end
@@ -26,7 +25,7 @@
 		
 		return;
 		
-		/*
+		#*/*connect with vtl comment as well, to prevent large data transfer to client
 		var win = jQuery('#'+JWic.util.JQryEscape('win_${control.controlID}_div')).dialog({
 			autoOpen: false,
 			#if($control.title) title: "$escape.escapeJavaScript($control.title)", #else title: '', #end
@@ -207,7 +206,7 @@
 		};
 
 
-		 */
+		 */*#
 	
 	},
 	
