@@ -52,6 +52,7 @@ public class StatusBarControl extends ControlContainer {
 		
 		// add MaxLines control
 		lbcMaxLines = new ListBox(this, "lbcMaxLines");
+		lbcMaxLines.addElement("- Auto -", "0");
 		// add elements
 		int[] choices = {5, 10, 15, 25, 50, 100};
 		String msg = "{0} rows per page";
@@ -63,9 +64,6 @@ public class StatusBarControl extends ControlContainer {
 					Integer.toString(choices[i]));
 		}
 		lbcMaxLines.addElement("- All -", "-1");
-		lbcMaxLines.addElement("- Auto -", "0");
-
-		
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
 			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
