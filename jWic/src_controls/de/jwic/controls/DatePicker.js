@@ -4,7 +4,7 @@
 		
 		var inpElm = jQuery('#'+JWic.util.JQryEscape("${control.controlID}"));
 		if (inpElm) {
-			var datetimepicker = JWic.controls.DatePicker.initialize(inpElm, '${control.controlID}', '${control.locale.language}', '${control.dateFormat}',$control.buildJsonOptions(), '${control.currentTime}');
+			var datetimepicker = JWic.controls.DatePicker.initialize(inpElm,'${control.controlID}', '${control.locale.language}', '${control.dateFormat}',$control.buildJsonOptions(), '${control.currentTime}', '$control.field.id');
 			#if($control.readonly)
 				datetimepicker.addClass("x-readonly");
 			#end

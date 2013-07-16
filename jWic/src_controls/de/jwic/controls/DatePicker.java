@@ -30,6 +30,8 @@ import org.apache.log4j.Logger;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.events.ValueChangedEvent;
+import de.jwic.events.ValueChangedListener;
 
 /**
  * 
@@ -80,6 +82,35 @@ public class DatePicker extends InputBox {
 		locale = this.getSessionContext().getLocale();
 		this.setDateFormat(this.getSessionContext().getDateFormat());
 		this.setTimeZone(getSessionContext().getTimeZone());
+		field.addValueChangedListener(new ValueChangedListener() {
+			
+			@Override
+			public void valueChanged(ValueChangedEvent event) {
+				String newVal = event.getNewValue();
+				String oldVal = event.getOldValue();
+				
+				Long newLong = null;
+				Long oldLong = null;
+				try{
+					newLong= Long.parseLong(newVal);
+				}catch(NumberFormatException ex){}
+				try{
+					oldLong= Long.parseLong(oldVal);
+				}catch(NumberFormatException ex){};
+				
+				Date newDate= null;
+				Date oldDate  = null;
+				if(oldLong!=null){
+					oldDate = new Date(oldLong);
+				}
+				if(newLong !=null){
+					newDate = new Date(newLong);
+				}
+				setDate(newDate);
+				notifyListeners(oldDate,newDate);
+			}
+		});
+
 	}
 
 	/**
@@ -151,16 +182,19 @@ public class DatePicker extends InputBox {
 	 * 
 	 */
 	public void setDate(Date date) {
-		Date oldDate = this.getDate();
+		//Date oldDate = this.getDate();
 		this.date = date;
 		if(date != null){
 			long offset = getTimeZone().getOffset(date.getTime());
 			currentTime = offset + date.getTime();
+			this.field.setValue(String.valueOf(date.getTime()));
 		}else {
 			currentTime = null;
+			this.field.setValue("");
+
 		}
 		this.requireRedraw();
-		this.notifyListeners(oldDate, date);
+		
 
 	}
 	
@@ -204,7 +238,7 @@ public class DatePicker extends InputBox {
 	 * 
 	 * 
 	 */
-	public void addDateChangedListener(DateChangedListener dcl) {
+	public void addDateChangedListener(final DateChangedListener dcl) {
 		this.listeners.add(dcl);
 	}
 

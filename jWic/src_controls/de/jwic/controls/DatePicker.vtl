@@ -1,3 +1,4 @@
+<input type="hidden" name="${control.field.id}" value="$jwic.formatInp($control.field.value)">
 <input
     #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
     #if($control.field.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
@@ -8,7 +9,7 @@
 	#if ( $control.maxLength != 0 )maxlength="$control.maxLength" #end
 	$jwic.generateCssProperty($control, "")
 	#if ( $control.cols != 0 ) size="${control.cols}" #end
-	name="${control.field.id}"
+	name="datepicker_${control.field.id}"
 	id="${control.controlID}"
 	value="$jwic.formatInp(${control.field.value})"
 />
