@@ -29,7 +29,6 @@ import org.apache.log4j.Logger;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
-import de.jwic.base.JavaScriptSupport;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 
@@ -52,6 +51,8 @@ public class DatePicker extends InputBox {
 	private Date date;
 	private Date minDate, maxDate;
 
+	private boolean updateOnChange;
+	
 	private boolean iconTriggered = false;
 	private TimeZone timeZone;
 
@@ -403,6 +404,22 @@ public class DatePicker extends InputBox {
 	 */
 	public void setMaxDate(Date maxDate) {
 		this.maxDate = maxDate;
+	}
+	
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public boolean isUpdateOnChange() {
+		return updateOnChange;
+	}
+	
+	
+	/**
+	 * @param updateOnChange
+	 */
+	public void setUpdateOnChange(boolean updateOnChange) {
+		this.updateOnChange = updateOnChange;
 	}
 
 }

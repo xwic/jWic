@@ -297,17 +297,12 @@ JWic.controls = {
 			if(field.value){
 				this.setDate(datepicker, field.value, field);
 			}
-			if (datepicker.attr("xListenKeyCode") != 0) {
-				datepicker.bind('keydown', function () {
-					var date_utc = DatePicker.getUTCDate(datepicker);
-					field.value = date_utc.getTime();
-					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-					datepicker.blur();
-				});
-			}
-
 			datepicker.change(function(){
 				field.value = DatePicker.getUTCDate(datepicker).getTime();
+				if(options.updateOnChange){
+					var date_utc = DatePicker.getUTCDate(datepicker);
+					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
+				}
 			});
 			
 			return datepicker;
@@ -386,17 +381,12 @@ JWic.controls = {
 			if(field.value){
 				this.setDate(datetimepicker, field.value, field);
 			}
-			if (datetimepicker.attr("xListenKeyCode") != 0) {
-				datetimepicker.bind('keydown', function () {
-					var date_utc = DatePicker.getUTCDate(datetimepicker);
-					field.value = date_utc.getTime();
-					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-					datetimepicker.blur();
-				});
-			}
-
 			datetimepicker.change(function(){
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
+				if(options.updateOnChange){
+					var date_utc = DatePicker.getUTCDate(datepicker);
+					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
+				}
 			});
 			
 			return datetimepicker;

@@ -52,7 +52,7 @@ public class DatePickerDemo extends ControlContainer {
 		
 		final DatePicker datePickerControl = new DatePicker(this,
 				"datePicker");
-		datePickerControl.setListenKeyCode(13);
+		datePickerControl.setUpdateOnChange(true);
 		
 		// datePickerControl.setLocale(Locale.KOREAN);
 
