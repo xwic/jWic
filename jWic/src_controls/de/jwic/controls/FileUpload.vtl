@@ -11,5 +11,11 @@
 </table>
 </div>
 #else
-<input type="file" id="${control.controlID}" name="${control.getField("file").id}" #if($control.width != "") style="width: $control.width;"#end #if($control.size != "") size="$control.size"#end>
+
+
+<div class="ui-widget ui-corner-all #*j-fileupload-button j-fileupload-selectfile*#">
+<input readonly id="${control.controlID}_filename">
+<input type="file" id="${control.controlID}" name="${control.getField("file").id}" #if($control.size != "") size="$control.size"#end>
+
+</div>
 #end
