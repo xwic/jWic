@@ -46,11 +46,13 @@
 					}
 					
 					function sizeSetter(){
-						var parent = closestNon0WidthParent(jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).parent()) -2;
-						jQuery('.tblViewDataLayer').width(parent);
-						jQuery('.tblViewHead').width(parent);
-						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('.tblViewStatusBar').width(parent);
-						jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).find('table:first').attr('width', parent);
+						
+						var parent = closestNon0WidthParent(jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).parent()) -2,
+							table = jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId));
+						table.find('.tblViewDataLayer').width(parent);
+						table.find('.tblViewHead').width(parent);
+						table.find('.tblViewStatusBar').width(parent);
+						table.find('table:first').attr('width', parent);
 						jQuery("#tblContent_" + JWic.util.JQryEscape(viewerCtrlId)).width(parent);
 					}
 					
