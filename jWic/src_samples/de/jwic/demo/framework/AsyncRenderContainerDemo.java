@@ -7,6 +7,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.AsyncRenderContainer;
+import de.jwic.controls.ErrorWarning;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.LazyInitializationHandler;
@@ -63,8 +64,9 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 		
 		// delayed creation.
 		AsyncRenderContainer arContainer3 = new AsyncRenderContainer(this, "arContainer3");
+		arContainer3.setNotifySuccess(true);
 		arContainer3.setLazyInitializationHandler(new LazyInitializationHandler() {
-			
+			LabelControl control;
 			@Override
 			public void initialize(IControlContainer container) {
 				
@@ -74,11 +76,50 @@ public class AsyncRenderContainerDemo extends ControlContainer {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				new LabelControl(container).setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+				control = new LabelControl(container);
+				control.setText("The creation of this control has taken 2 seconds. But once created, it is just there...");
+			}
+
+			@Override
+			public void success() {
+				control.setText(control.getText()+" Also we have both success and fail method for handling when the create is ok or not. in this case it is");
+			}
+
+			@Override
+			public void failure(Throwable t) {
 				
 			}
 		});
 
+		final ErrorWarning error = new ErrorWarning(this,"errors");
+		final AsyncRenderContainer arContainer4 = new AsyncRenderContainer(this, "arContainer4");
+		arContainer4.setWaitText("This one will fail miserably");
+		
+		arContainer4.setLazyInitializationHandler(new LazyInitializationHandler() {
+			@Override
+			public void initialize(IControlContainer container) {
+				try {
+					Thread.sleep(1000);
+					throw new RuntimeException("Some random thing when wrong this control's init");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			@Override
+			public void success() {
+				
+			}
+			
+			
+			
+			@Override
+			public void failure(Throwable t) {
+				error.showError(t.getMessage() +". See! told you so :)");
+				arContainer4.setVisible(false);
+			}
+		});
+		
 	}
 
 }

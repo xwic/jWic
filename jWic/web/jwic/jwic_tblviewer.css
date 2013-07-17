@@ -119,7 +119,7 @@
  	margin: 0px;
  }  
  table.tblViewer table.tblData tr.lastRow td {
-	border-bottom: 0px solid threedlightshadow;
+	border-bottom: 1px solid threedlightshadow;
  } 
 
  table.tblViewer table.tblData tr.selected td {

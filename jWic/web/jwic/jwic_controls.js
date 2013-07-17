@@ -526,11 +526,12 @@ JWic.controls = {
 
 		initialize : function(controlId, options) {
 			var win = JWic.$("win_" + controlId);
+			var Window = JWic.controls.Window;//helps with minification and access speed
 			if (win) {
 				var dlgOptions = {
-					close : function() {JWic.controls.Window.close(controlId);},
-					dragStop: function( event, ui ) {JWic.controls.Window.dragStop(controlId, ui)},
-					resizeStop: function( event, ui ) {JWic.controls.Window.resizeStop(controlId, ui)}
+					close : function() {Window.close(controlId);},
+					dragStop: function( event, ui ) {Window.dragStop(controlId, ui)},
+					resizeStop: function( event, ui ) {Window.resizeStop(controlId, ui)}
 				};
 				jQuery.extend(dlgOptions, options);
 				
@@ -543,7 +544,7 @@ JWic.controls = {
 					this.addMaximizeToDialog(win);
 					var titlebar = win.parents('.ui-dialog').find('.ui-dialog-titlebar');
 					titlebar.dblclick(function(event){
-						JWic.controls.Window.maximize(win);
+						Window.maximize(win);
 					});			
 				}
 				if(options.minimizable) {
@@ -1132,7 +1133,7 @@ JWic.controls = {
 					}
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
-				jQuery(".ui-dialog-titlebar").hide();
+				comboBoxWin.parent().find(".ui-dialog-titlebar").hide();
 			}			
 				/*
 				 * Haven't included resize and move event, when switching to
@@ -1437,13 +1438,13 @@ JWic.controls = {
 						}
 						var action = "JWic.controls.Combo.ComboElementListRenderer.handleSelection('" + controlId + "', '" + obj.key + "');";
 						
-						code += '<div comboElement="' + idx + '" onClick="' + action + 'return false;" class="j-combo_element ' + extraClasses + '">';
+						code += '<div comboElement="' + idx + '" onClick="' + action + '" class="j-combo_element ' + extraClasses + '">';
 						if (comboBox.multiSelect) {
 							code += "<input ";
 							if (JWic.controls.Combo.isSelected(comboBox, obj.key)) {
 								code += "checked";
 							}
-							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\" onClick=\"" + action + "\"/>";
+							code += " id='cbc_" + controlId + "." + idx + "' type=\"checkbox\" class=\"j-combo-chkbox\"/>";
 						}
 						code += content;
 						code += '</div>';
@@ -1455,9 +1456,10 @@ JWic.controls = {
 																// found at all
 						JWic.controls.Combo.searchSuggestion(comboBox, null);
 					}
-					jQuery(comboBoxWin).html(code);
-					jQuery(comboBoxWin).bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler);
-					jQuery(comboBoxWin).bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+					jQuery(comboBoxWin).html(code)
+						.bind("mouseover", JWic.controls.Combo.ComboElementListRenderer.mouseOverHandler)
+						.bind("mouseout", JWic.controls.Combo.ComboElementListRenderer.mouseOutHandler);
+									
 				}
 			},
 			
@@ -1517,7 +1519,7 @@ JWic.controls = {
 						var cbc = document.getElementById("cbc_" + controlId + "." + index);
 						
 						if (comboBox.multiSelect && cbc) {
-							jQuery(cbc).attr('checked',!isSelected);
+							jQuery(cbc).prop('checked', !isSelected);
 						}
 						break;
 					}
@@ -1601,7 +1603,6 @@ JWic.controls = {
 			}
 			btnElement.find('.ui-icon-triangle-1-s').addClass('j-icon');
 			btnElement.data("controlId", ctrlId);
-			
 		},
 
 		clickHandler : function(e) {
@@ -1636,11 +1637,12 @@ JWic.controls = {
 		 * Initialize a new control.
 		 */
 		initialize : function(inpElm) {
-			inpElm.bind("focus", JWic.controls.InputBoxControl.focusHandler);
-			inpElm.bind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			var InputBoxControl = JWic.controls.InputBoxControl;
+			inpElm.bind("focus", InputBoxControl.focusHandler);
+			inpElm.bind("blur", InputBoxControl.lostFocusHandler);
 			
 			if (inpElm.attr("xListenKeyCode") != 0) {
-				inpElm.bind("keyup", JWic.controls.InputBoxControl.keyHandler);
+				inpElm.bind("keyup", InputBoxControl.keyHandler);
 			}
 			
 			if (inpElm.attr("xEmptyInfoText")) {
@@ -1665,11 +1667,12 @@ JWic.controls = {
 		 * Clean up..
 		 */
 		destroy : function(inpElm) {
-			inpElm.unbind("focus", JWic.controls.InputBoxControl.focusHandler);
-			inpElm.unbind("blur", JWic.controls.InputBoxControl.lostFocusHandler);
+			var InputBoxControl = JWic.controls.InputBoxControl;
+			inpElm.unbind("focus", InputBoxControl.focusHandler);
+			inpElm.unbind("blur", InputBoxControl.lostFocusHandler);
 			
 			if (inpElm.attr("xListenKeyCode") != 0) {
-				inpElm.unbind("keyup", JWic.controls.InputBoxControl.keyHandler);
+				inpElm.unbind("keyup", InputBoxControl.keyHandler);
 			}
 		},
 		
@@ -1724,7 +1727,6 @@ JWic.controls = {
 			internalActivate : false,
 			
 			initialize : function(tabStrip, ctrlId, activeIndex) {
-				JWic.log(activeIndex);
 				tabStrip.tabs({
 					beforeActivate : JWic.controls.TabStrip.activateHandler,
 					active : activeIndex
@@ -1736,16 +1738,15 @@ JWic.controls = {
 					return;
 				}
 				if (ui.newPanel) {
-					var tabStripId = ui.newPanel.attr("jwicTabStripId");
-					var tabName = ui.newPanel.attr("jwicTabName");
-					var oldTabName = ui.oldPanel.attr("jwicTabName");
-					var oldH = ui.oldPanel.height();
+					var tabStripId = ui.newPanel.attr("jwicTabStripId"),
+						tabName = ui.newPanel.attr("jwicTabName"),
+						oldTabName = ui.oldPanel.attr("jwicTabName"),
+						oldH = ui.oldPanel.height();
 					
 					// find index of new panel
 					var widget = JWic.$(tabStripId).tabs("widget");
 					var newPanelIdx = -1;
 					var tabs = widget.find("div.ui-tabs-panel");
-					JWic.log(tabs);
 					var count = 0;
 					for (var i = 0; i < tabs.length; i++) {
 						if (jQuery(tabs[i]).attr("jwicTabStripId") == tabStripId) {
@@ -1845,7 +1846,8 @@ JWic.controls = {
 	ColumnSelector : {
 		initialize : function(controlId, options) {
 			
-			var sorts = JWic.$('lst_' + controlId);
+			var sorts = JWic.$('lst_' + controlId),
+				ColumnSelector = JWic.controls.ColumnSelector;
 			if (options.hideDescription) {
 				sorts.find(".j-colRow").tooltip({position: { my: "left+15 center", at: "right center" }});
 			}
@@ -1871,10 +1873,10 @@ JWic.controls = {
 			sorts.sortable("enable");
 			
 			var filterField = JWic.$('search_' + controlId);
-			filterField.on("keyup", function(e) {JWic.controls.ColumnSelector.applyFilter(controlId)});
+			filterField.on("keyup", function(e) {ColumnSelector.applyFilter(controlId)});
 			
 			var clearFilter = JWic.$("cse_" + controlId);
-			clearFilter.on("click", function(e) {JWic.controls.ColumnSelector.clearFilter(controlId)});
+			clearFilter.on("click", function(e) {ColumnSelector.clearFilter(controlId)});
 			clearFilter.tooltip();
 			this.applyFilter(controlId); 
 		}, 
