@@ -11,12 +11,5 @@
 </table>
 </div>
 #else
-<div class="ui-widget ui-corner-all">
-	<button id="${control.controlID}_button">Submit</button>
-	<label id="${control.controlID}_label">No File Selected</label>
-	<!-- the file input control need to have 0 width and 0 height to be invisible, there is a security 'fix' in browsers which prevents hidden file input fields from being triggered from code
-		!!! Please set the input 
-	 -->
-	<input type="file" style="width: 0; height: 0;" id="${control.controlID}" name="${control.getField("file").id}"  #if($control.size != "") size="$control.size"#end>
-</div>
+<input type="file" id="${control.controlID}" name="${control.getField("file").id}" #if($control.width != "") style="width: $control.width;"#end #if($control.size != "") size="$control.size"#end>
 #end
