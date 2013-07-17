@@ -466,55 +466,24 @@ JWic.controls = {
 		}
 	},
 	
-	
 	/**
 	 * FileUpload control
 	 */
 	FileUpload : {
 		initialize : function (self, controlId, options) {
-
+			var button = jQuery(options.button),
+				label  = jQuery(options.label);
 			self = jQuery(self);
-			var settings = {
-				width : 250
-	        };
-	                    
-			if(options) {
-				jQuery.extend(settings, options);
-			};
-	                            
-			var wrapper = jQuery("<div class=\"ui-widget ui-corner-all j-fileupload-button j-fileupload-selectfile\">");
-			                
-			var filename = jQuery('<input readonly class="ui-widget ui-widget-content j-fileupload-filename">')
-			                 .addClass(self.attr("class"))
-			                 .css({
-			                     "width": settings.width + "px"
-			                 });
-			
-			self.before(filename);
-			self.wrap(wrapper);
-			
-			self.css({
-			            "position": "relative",
-			            "height": "25px",
-			            "width": "120px",
-			            "display": "inline",
-			            "cursor": "pointer",
-			            "opacity": "0.0"
-			        });
-			
-			if (jQuery.browser.mozilla) {
-			    if (/Win/.test(navigator.platform)) {
-			    	self.css("margin-left", "-142px");                    
-			    } else {
-			    	self.css("margin-left", "-168px");                    
-			    };
-			} else {
-				self.css("margin-left", "0px");                
-			};
-			
 			self.bind("change", function() {
-			    filename.val(self.val());
+				label.text(self.val());//the label is just a dummy for style
 			});
+			button.click(function (e) {
+				self.trigger('click',e);//the button is just a dummy button that exists just for style/layout
+				return false;
+			});
+			
+			//the main reason behind this is to break down the input control into separately style-able controls.
+			//the important event such as click and change are delegated to the main file input control
 			
 		}
 	},
