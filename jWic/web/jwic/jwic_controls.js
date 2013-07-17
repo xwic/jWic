@@ -466,24 +466,22 @@ JWic.controls = {
 		}
 	},
 	
+	
 	/**
 	 * FileUpload control
 	 */
 	FileUpload : {
 		initialize : function (self, controlId, options) {
-			var button = jQuery(options.button),
-				label  = jQuery(options.label);
+
 			self = jQuery(self);
-			self.bind("change", function() {
-				label.text(self.val());//the label is just a dummy for style
-			});
-			button.click(function (e) {
-				self.trigger('click',e);//the button is just a dummy button that exists just for style/layout
-				return false;
-			});
+			var settings = {
+				width : 250
+	        };
+	        
 			
-			//the main reason behind this is to break down the input control into separately style-able controls.
-			//the important event such as click and change are delegated to the main file input control
+			self.bind("change", function() {
+			    options.filename.val(self.val());
+			});
 			
 		}
 	},

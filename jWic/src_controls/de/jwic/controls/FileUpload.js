@@ -8,14 +8,11 @@
 				element.click(function() { JWic.fireAction('$control.controlID', 'discard', '')});
 			}
 		#else
-			var esc = JWic.util.JQryEscape,
-				element = jQuery('#'+esc('${control.controlID}'));
-			console.warn(element);
+			var element = jQuery('#'+JWic.util.JQryEscape('${control.controlID}'));
 			if (element) {
 				JWic.controls.FileUpload.initialize(element, "${control.controlID}", {
 					width : $control.width,
-					label: jQuery('#'+esc("${control.controlID}_label")),
-					button: jQuery('#'+esc("${control.controlID}_button"))
+					filename: jQuery('#'+JWic.util.JQryEscape('${control.controlID}_filename'))
 				});
 			}
 		#end
