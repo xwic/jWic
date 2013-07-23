@@ -258,27 +258,31 @@ JWic.controls = {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(inpElm, controlId, region, dateFormat, options, currentTime) {
+		initialize : function(inpElm, controlId, region, dateFormat, options, currentTime, fieldId) {
 			/*
 			 * clone the region info
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
-			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
+			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
+			 	field = document.forms.jwicform[fieldId],
+			 	DatePicker = JWic.controls.DatePicker;
+			
+			
 			/*
 			 * set date format in needed
 			 */
-			if(dateFormat != "noformat")
+			if(dateFormat !== "noformat")
 				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
 			
 			/*
 			 *	default back to English if selected region is undefined 
 			 */
-			if(region == undefined){
+			if(region === undefined){
 				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
 				/*
 				 * notify java control to default back to Locale.ENGLISH as well
 				 */
-				JWic.fireAction(controlId,'localeNotFound','');
+				JWic.fireAction(controlId,'localeNotFound','');//this is needed to revert to default locale on the server as well. it should not fire normally but just in case
 			}
 			
 			/*
@@ -288,31 +292,18 @@ JWic.controls = {
 			var datepicker = jQuery( "#" + id ).datepicker(options);
 			
 			datepicker.datepicker("option",region);		
-			this.setDate(datepicker, currentTime);
-			
-			
-			function nullDateNotifier(e){			
-				if(this.value == ''){
-					JWic.fireAction(this.id, 'dateisempty', '');
-				}
+//			this.setDate(datepicker, currentTime);
+
+			if(field.value){
+				this.setDate(datepicker, field.value, field);
 			}
-			
-			/*
-			 *  AJAX stuff :D
-			 */
 			datepicker.change(function(){
-				
-				var date = datepicker.datepicker('getDate');
-				if(date!=null){
-					var date_utc = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+				field.value = DatePicker.getUTCDate(datepicker).getTime();
+				if(options.updateOnChange){
+					var date_utc = DatePicker.getUTCDate(datepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-				}else{
-					nullDateNotifier();
 				}
-				
 			});
-			
-			datepicker.keyup(nullDateNotifier);
 			
 			return datepicker;
 		},
@@ -320,8 +311,9 @@ JWic.controls = {
 		/*
 		 * set datepicker date from java
 		 */
-		setDate : function(datepicker, currentTime){
+		setDate : function(datepicker, currentTime, field){
 			datepicker.datepicker('setDate', JWic.controls.DateTimePicker.convertDate(currentTime));
+			field.value = this.getUTCDate(datepicker).getTime();
 		},
 		
 		/**
@@ -329,6 +321,15 @@ JWic.controls = {
 		 */
 		destroy : function(inpElm) {
 			
+		},
+		
+		getUTCDate: function (datepicker) {
+			var date = datepicker.datepicker('getDate');
+			return date !== null ? new Date(date.getTime() - date.getTimezoneOffset() * 60000) : {
+				getTime : function () {
+					return ''; //a mock object with the get time function since getTime is passes to the server
+				}
+			};
 		}
 	},
 	
@@ -340,12 +341,15 @@ JWic.controls = {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime) {
+		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime, fieldId) {
 			/*
 			 * clone the region info
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
-			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]);
+			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
+				DatePicker= JWic.controls.DatePicker,
+				field = document.forms.jwicform[fieldId];
+			 	
 			/*
 			 * set date format in needed
 			 */
@@ -374,32 +378,16 @@ JWic.controls = {
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
 			datetimepicker.datetimepicker("option",region);		
-			this.setDate(datetimepicker, currentTime);
-			
-			
-			function nullDateNotifier(e){			
-				if(this.value == ''){
-					JWic.fireAction(this.id, 'dateisempty', '');
-				}
+			if(field.value){
+				this.setDate(datetimepicker, field.value, field);
 			}
-			
-			/*
-			 *  AJAX stuff :D
-			 */
 			datetimepicker.change(function(){
-				
-				var date = datetimepicker.datetimepicker('getDate');
-				if(date!=null){
-					var date_utc = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-					//var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
+				if(options.updateOnChange){
+					var date_utc = DatePicker.getUTCDate(datepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-				}else{
-					nullDateNotifier();
 				}
-				
 			});
-			
-			datetimepicker.keyup(nullDateNotifier);
 			
 			return datetimepicker;
 		},

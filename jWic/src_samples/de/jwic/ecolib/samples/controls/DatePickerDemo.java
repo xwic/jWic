@@ -28,6 +28,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.DateChangedListener;
 import de.jwic.controls.DatePicker;
+import de.jwic.controls.DateTimePicker;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
@@ -51,7 +52,7 @@ public class DatePickerDemo extends ControlContainer {
 		
 		final DatePicker datePickerControl = new DatePicker(this,
 				"datePicker");
-		
+		datePickerControl.setUpdateOnChange(true);
 		
 		// datePickerControl.setLocale(Locale.KOREAN);
 
@@ -162,6 +163,23 @@ public class DatePickerDemo extends ControlContainer {
 
 				datePickerControl.setDateFormat(dateFormat.getText());
 
+			}
+		});
+		
+		
+		final DateTimePicker dateTimePicker = new DateTimePicker(this,"dateTimePicker");
+		final DateTimePicker slaveDateTimePicker = new DateTimePicker(this,"slaveDateTimePicker");
+		slaveDateTimePicker.setMaster(dateTimePicker);
+		
+		
+		Button b = new Button(this, "slaveDateTrigger");
+		b.setTitle("Display Master/Slave Dates");
+		b.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				lbl.setText("Salve date: " + slaveDateTimePicker.getDate() + " Master Date: " + dateTimePicker.getDate() +" DatePicker Date: "+datePickerControl.getDate() );
+				
 			}
 		});
 		
