@@ -11,7 +11,7 @@
 			var element = jQuery('#'+JWic.util.JQryEscape('${control.controlID}'));
 			if (element) {
 				JWic.controls.FileUpload.initialize(element, "${control.controlID}", {
-					width : $control.width,
+					width : $control.width === 0 ? 'auto' : $control.width,
 					filename: jQuery('#'+JWic.util.JQryEscape('${control.controlID}_filename'))
 				});
 			}
