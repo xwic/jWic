@@ -307,4 +307,19 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 			this.lazyInitializationHandler.success();
 		}
 	}
+	
+	@Override
+	public void requireRedraw() {
+		if(this.container == null){
+			super.requireRedraw();
+		}else{
+			this.container.requireRedraw();
+		}
+	}
+	
+	@Override
+	public void setRequireRedraw(boolean requireRedraw) {
+		if (this.container != null)
+			this.container.setRequireRedraw(requireRedraw);
+	}	
 }
