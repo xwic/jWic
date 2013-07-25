@@ -115,7 +115,7 @@ public class AbstractSelectListControl extends AbstractListControl<ISelectElemen
 	 * @param title
 	 */
 	public ISelectElement addElement(String title) {
-		SelectElement elm = new SelectElement(title);
+		SelectElement elm = new SelectElement(title, title);
 		addElement(elm);
 		return elm;
 	}
