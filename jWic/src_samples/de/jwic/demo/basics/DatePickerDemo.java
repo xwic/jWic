@@ -94,6 +94,7 @@ public class DatePickerDemo extends ControlContainer {
 		
 		datePicker.addDateChangedListener(listener);
 		dateTimePicker.addDateChangedListener(listener);
+		datePicker.setUpdateOnChange(true);
 				
 		lblInfo = new LabelControl(this, "lblInfo");
 		
