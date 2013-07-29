@@ -463,7 +463,7 @@ JWic.controls = {
 
 			self = jQuery(self);
 			var settings = {
-				width : 250
+				width : 'auto'
 	        };
 	                    
 			if(options) {

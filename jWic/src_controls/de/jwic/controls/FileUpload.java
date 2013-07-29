@@ -36,7 +36,7 @@ public class FileUpload extends Control implements IFileReciever {
 	/** List of listender to inform */
 	protected List<FileReceivedListener> selectionListeners = null;
 
-	private int width = 250;
+	private int width = 0;
 	
 	/**
 	 * @param container

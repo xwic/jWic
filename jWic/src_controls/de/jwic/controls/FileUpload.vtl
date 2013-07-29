@@ -1,15 +1,17 @@
-#if ( $control.fileUploaded )
-	#set($totalWidth = $control.width + 124)
-<div style="width: ${totalWidth}px;>
-<table cellspacing="0" cellpadding="0" width="100%">
- <tr>
-  <td><input type="text" class="j-fileupload-filename ui-widget ui-widget-content" disabled value="$control.fileName" style="width: ${control.width}px"></td>
-  <td width="124" align="right" style="padding-left: 5px">
-  	<div id="clearfile_${control.controlID}" class="ui-widget ui-corner-all j-fileupload-button j-fileupload-clearfile"></div>
-  </td>
- </tr>
-</table>
+<div class="fileUpload">
+  #if ( $control.fileUploaded )
+		#set($totalWidth = $control.width + 224)
+	<div style="width: ${totalWidth}px;>
+	<table cellspacing="0" cellpadding="0" width="100%">
+	 <tr>
+	  <td><input type="text" class="j-fileupload-filename ui-widget ui-widget-content" disabled value="$control.fileName" style="width: ${control.width}px"></td>
+	  <td width="124" align="right" style="padding-left: 5px">
+	  	<div id="clearfile_${control.controlID}" class="ui-widget ui-corner-all j-fileupload-button j-fileupload-clearfile"></div>
+	  </td>
+	 </tr>
+	</table>
+	</div>
+  #else
+	<input type="file" id="${control.controlID}" name="${control.getField("file").id}" #if($control.size != "") size="$control.size"#end>
+  #end
 </div>
-#else
-<input type="file" id="${control.controlID}" name="${control.getField("file").id}" #if($control.width != "") style="width: $control.width;"#end #if($control.size != "") size="$control.size"#end>
-#end
