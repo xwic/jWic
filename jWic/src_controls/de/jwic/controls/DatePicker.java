@@ -94,19 +94,15 @@ public class DatePicker extends InputBox {
 				Long oldLong = null;
 				try{
 					newLong= Long.parseLong(newVal);
-				}catch(NumberFormatException ex){}
-				try{
-					oldLong= Long.parseLong(oldVal);
-				}catch(NumberFormatException ex){};
+				}catch(NumberFormatException ex){
+					throw new RuntimeException("Error while parsing date long value");
+				}
 				
-				Date newDate= null;
-				Date oldDate  = null;
-				if(oldLong!=null){
-					oldDate = new Date(oldLong);
-				}
-				if(newLong !=null){
-					newDate = new Date(newLong);
-				}
+				Date oldDate = getDate();
+				currentTime = newLong;
+				Date newDate = getTimezoneSpecificDate(currentTime);
+				date = newDate;
+
 				setDate(newDate);
 				notifyListeners(oldDate,newDate);
 			}
@@ -188,7 +184,7 @@ public class DatePicker extends InputBox {
 		if(date != null){
 			long offset = getTimeZone().getOffset(date.getTime());
 			currentTime = offset + date.getTime();
-			this.field.setValue(String.valueOf(date.getTime()));
+			this.field.setValue(String.valueOf(currentTime));
 		}else {
 			currentTime = null;
 			this.field.setValue("");
