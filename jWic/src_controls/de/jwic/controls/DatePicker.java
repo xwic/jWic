@@ -87,21 +87,24 @@ public class DatePicker extends InputBox {
 			
 			@Override
 			public void valueChanged(ValueChangedEvent event) {
-				String newVal = event.getNewValue();
-				String oldVal = event.getOldValue();
-				
-				Long newLong = null;
-				Long oldLong = null;
-				try{
-					newLong= Long.parseLong(newVal);
-				}catch(NumberFormatException ex){
-					throw new RuntimeException("Error while parsing date long value");
-				}
 				
 				Date oldDate = getDate();
-				currentTime = newLong;
-				Date newDate = getTimezoneSpecificDate(currentTime);
-				date = newDate;
+				Date newDate = null;
+				currentTime = null;
+				
+				String newVal = event.getNewValue();
+				
+				if (newVal != null && !newVal.trim().isEmpty()) {
+					Long newLong = null;
+					try {
+						newLong = Long.parseLong(newVal);
+					} catch (NumberFormatException ex) {
+						throw new RuntimeException("Error while parsing date long value");
+					}
+					
+					currentTime = newLong;
+					newDate = getTimezoneSpecificDate(currentTime);
+				}
 
 				setDate(newDate);
 				notifyListeners(oldDate,newDate);
