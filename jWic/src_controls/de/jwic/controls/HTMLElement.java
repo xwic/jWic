@@ -21,6 +21,7 @@ package de.jwic.controls;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.util.IHTMLElement;
 
 /**
@@ -64,6 +65,7 @@ public abstract class HTMLElement extends Control implements IHTMLElement {
 	/* (non-Javadoc)
 	 * @see de.jwic.controls.IHTMLElement#isEnabled()
 	 */
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -81,6 +83,7 @@ public abstract class HTMLElement extends Control implements IHTMLElement {
 	/* (non-Javadoc)
 	 * @see de.jwic.controls.IHTMLElement#getHeight()
 	 */
+	@IncludeJsOption
 	public int getHeight() {
 		return height;
 	}
@@ -98,6 +101,7 @@ public abstract class HTMLElement extends Control implements IHTMLElement {
 	/* (non-Javadoc)
 	 * @see de.jwic.controls.IHTMLElement#getWidth()
 	 */
+	@IncludeJsOption
 	public int getWidth() {
 		return width;
 	}
@@ -116,6 +120,7 @@ public abstract class HTMLElement extends Control implements IHTMLElement {
 	 * (non-Javadoc)
 	 * @see de.jwic.controls.IHTMLElement#isFillWidth()
 	 */
+	@IncludeJsOption
 	public boolean isFillWidth() {
 		return fillWidth;
 	}

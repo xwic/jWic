@@ -484,7 +484,7 @@ JWic.controls = {
 			self.css({
 			            "position": "relative",
 			            "height": "25px",
-			            "width": "120px",
+			            "width": "100px",
 			            "display": "inline",
 			            "cursor": "pointer",
 			            "opacity": "0.0"
@@ -492,7 +492,8 @@ JWic.controls = {
 			
 			if (jQuery.browser.mozilla) {
 			    if (/Win/.test(navigator.platform)) {
-			    	self.css("margin-left", "-142px");                    
+			    	self.css("margin-left", "-142px");
+			    	self.css("padding-left", "142px");
 			    } else {
 			    	self.css("margin-left", "-168px");                    
 			    };
@@ -1112,13 +1113,8 @@ JWic.controls = {
 					dialogClass : "j-combo-content",
 					resizable: false,
 					height: 200,
-					width: boxWidth - 3,
-					autoOpen:false,
-					position:{
-						my:'top',
-						at:'bottom',
-						of:jQuery(comboBox)
-					}
+					width: boxWidth - 2,
+					autoOpen:false
 				});
 				comboBoxWin.parent().appendTo(jQuery("#jwicform"));	
 				comboBoxWin.parent().find(".ui-dialog-titlebar").hide();
@@ -1149,6 +1145,12 @@ JWic.controls = {
 			}
 			
 			comboBoxWin.dialog('open');
+			comboBoxWin.dialog('option','position',{
+				my:'left top',
+				at:'left bottom',
+				of:jQuery(comboBox)
+			});
+			
 		},
 		/**
 		 * Invoked when the box is resized.
@@ -1568,29 +1570,56 @@ JWic.controls = {
 	 * de.jwic.controls.Button control
 	 */
 	Button : {
-		initialize : function(btnElement, ctrlId, options) {
-			JWic.log("Initializing new button " + btnElement);
+		initialize : function(btn, ctrlId, options) {
+			JWic.log("Initializing new button " + btn);
+			
 			var btOpt = {};
 			var opt = options || {};
-			if (opt.menu) {
+			if (opt.menuId) {
 				btOpt = {
 					icons: {
 						secondary: "ui-icon-triangle-1-s"
 					}
 				}
-				btnElement.data("menuId", opt.menu);
+				btn.data("menuId", opt.menuId);
 			}
-			btnElement
-				.button(btOpt)
+			btn.button(btOpt)
 				.click(JWic.controls.Button.clickHandler)
 				.removeClass('ui-button-text-icon-secondary')
 				.find('.ui-button-text').removeClass('ui-button-text').addClass('j-button-text');
 				
-			if(btnElement.hasClass('ui-button-text-only')){
-				btnElement.removeClass('ui-button-text-only').addClass('j-button-text-only');
+			if(btn.hasClass('ui-button-text-only')){
+				btn.removeClass('ui-button-text-only').addClass('j-button-text-only');
 			}
-			btnElement.find('.ui-icon-triangle-1-s').addClass('j-icon');
-			btnElement.data("controlId", ctrlId);
+			btn.find('.ui-icon-triangle-1-s').addClass('j-icon');
+			btn.data("controlId", ctrlId);
+			
+			if(opt.width > 0)
+				btn.width(opt.width);
+
+			if(opt.height > 0)
+				btn.height(opt.height);
+		
+			if(opt.tooltip !== "")
+				btn.tooltip({
+					position: {
+						my: "left top",
+						at: "center bottom"
+						}});
+			
+			if(opt.iconPath !== ""){
+				btn.removeClass('j-button-text-only').removeClass('j-button-text-icon-secondary').removeClass('ui-button-text-only');
+				if(btn.text()===''){
+					btn.addClass('j-button-icon-only');
+				}else{
+					btn.addClass('j-button-text-icon');
+				}
+			
+				btn.append('<span class="j-button-icon"><img border="0" src='+opt.iconPath+'></span>');
+			}
+			if(btn.find('.ui-icon.ui-icon-triangle-1-s').length!==0){
+				btn.removeClass('j-button-text-only').removeClass('j-button-icon-only').removeClass('j-button-text-icon').addClass('j-button-text-icons');
+			};
 		},
 
 		clickHandler : function(e) {
