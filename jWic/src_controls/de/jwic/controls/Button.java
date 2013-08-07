@@ -6,6 +6,7 @@ package de.jwic.controls;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.ImageRef;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.menu.Menu;
 
@@ -40,6 +41,8 @@ public class Button extends SelectableControl {
 	public Button(IControlContainer container) {
 		super(container);
 		init();
+		
+		
 	}
 	/**
 	 * @param container
@@ -71,6 +74,7 @@ public class Button extends SelectableControl {
 	/**
 	 * @return Returns the title.
 	 */
+	@IncludeJsOption
 	public String getTitle() {
 		return title;
 	}
@@ -85,6 +89,7 @@ public class Button extends SelectableControl {
 	/**
 	 * @return true if the button has non-empty title, false otherwise
 	 */
+	@IncludeJsOption
 	public boolean hasTitle(){
 		return title!=null && !title.isEmpty();
 	}
@@ -101,11 +106,21 @@ public class Button extends SelectableControl {
 			return iconEnabled;
 		}
 	}
+	
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public String getIconPath(){
+		ImageRef icon = this.getIcon();
+		return icon != null ? icon.getPath() : "";
+	}
 
 	/**
 	 * Returns true if an icon is specified.
 	 * @return
 	 */
+	@IncludeJsOption
 	public boolean hasIcon(){
 		return iconEnabled != null; 
 	}
@@ -113,6 +128,7 @@ public class Button extends SelectableControl {
 	/**
 	 * @return Returns the tooltip.
 	 */
+	@IncludeJsOption
 	public String getTooltip() {
 		return tooltip;
 	}
@@ -126,6 +142,7 @@ public class Button extends SelectableControl {
 	/**
 	 * @return Returns the confirmMsg.
 	 */
+	@IncludeJsOption
 	public String getConfirmMsg() {
 		return confirmMsg;
 	}
@@ -142,6 +159,15 @@ public class Button extends SelectableControl {
 	public ImageRef getIconDisabled() {
 		return iconDisabled;
 	}
+	
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public String getIconDisabledPath(){
+		return this.iconDisabled != null ? this.iconDisabled.getPath() : "";
+	}
+	
 	/**
 	 * @param iconDisabled the iconDisabled to set
 	 */
@@ -154,6 +180,13 @@ public class Button extends SelectableControl {
 	 */
 	public ImageRef getIconEnabled() {
 		return iconEnabled;
+	}
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public String getIconEnabledPath() {
+		return iconEnabled != null ? iconEnabled.getPath() : "";
 	}
 	/**
 	 * @param iconEnabled the iconEnabled to set
@@ -173,5 +206,13 @@ public class Button extends SelectableControl {
 	 */
 	public void setMenu(Menu menu) {
 		this.menu = menu;
+	}
+	
+	/**
+	 * @return
+	 */
+	@IncludeJsOption
+	public String getMenuId(){
+		return menu != null ? menu.getControlID(): null;
 	}
 }
