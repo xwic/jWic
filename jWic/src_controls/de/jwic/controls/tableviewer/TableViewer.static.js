@@ -38,7 +38,6 @@
 				 */
 				initialize : function(element, viewerCtrlId, options) {
 					function closestNon0WidthParent(elm){
-						
 						if(elm.width() !== 0){
 							return elm.width();//some have spans as parents and some spans have 0px width. so we find the closes one with non-zero width and use that one
 						}
@@ -46,10 +45,10 @@
 					}
 					
 					function sizeSetter(){
-						
-						var parent = closestNon0WidthParent(jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).parent()) -2,
+						var parent = closestNon0WidthParent(jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId)).parent().parent()) -2,//goto go 2 parents above for firefox, it doesn't affect chorme or IE since it the first parent on chrome and IE has width 0 anyway
 							table = jQuery('#ctrl_'+JWic.util.JQryEscape(viewerCtrlId));
 						table.find('.tblViewDataLayer').width(parent);
+						
 						table.find('.tblViewHead').width(parent);
 						table.find('.tblViewStatusBar').width(parent);
 						table.find('table:first').attr('width', parent);
