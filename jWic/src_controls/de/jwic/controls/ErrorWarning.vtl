@@ -1,6 +1,7 @@
 <div id="$control.controlID" style="display: none;" class="ui-widget ui-widget-header errorContainer">
   <div class="errorBox"> 
     <div class="ui-state-error ui-corner-all $control.getCssClass()">
+	<div class="closeBtn"><img src="images/icon_exit.gif" border="0" alt="Exit" id="exit_img" align="absmiddle"></div>
 	  <span>#if($control.Text)$control.text#else$control.exception#end 
 		#if ($control.showStackTrace && $control.stack != "" && !$control.isWarning())[ <a href="#" onClick="alert('$escape.escapeJavaScript($control.stack)')">more...</a> ]#end</span>
     </div>
