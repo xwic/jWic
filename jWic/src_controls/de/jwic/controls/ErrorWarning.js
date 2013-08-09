@@ -8,16 +8,20 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		var me = jQuery('#'+JWic.util.JQryEscape('${control.controlID}'));
+		var me = jQuery('#'+JWic.util.JQryEscape('${control.controlID}')),
+			timeoutTimer;
 		#if($control.visible) 
 			me.slideDown(); 
 			#if($control.autoClose && $control.autoCloseDelay != 0)
-			window.setTimeout("jQuery('#'+JWic.util.JQryEscape('${control.controlID}')).slideUp()", $control.autoCloseDelay);
+			timeoutTimer = window.setTimeout("jQuery('#'+JWic.util.JQryEscape('${control.controlID}')).slideUp()", $control.autoCloseDelay);
 			#end
 		#end
 		
 		me.find('.closeBtn').click(function (){
 			me.slideUp();
+			if(timeoutTimer){
+				window.clearTimeout(timeoutTimer);
+			}
 		});
 		
 	}
