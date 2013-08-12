@@ -482,23 +482,27 @@ JWic.controls = {
 			self.wrap(wrapper);
 			
 			self.css({
-			            "position": "relative",
-			            "height": "25px",
-			            "width": "100px",
-			            "display": "inline",
-			            "cursor": "pointer",
-			            "opacity": "0.0"
-			        });
-			
+	            "position": "relative",
+	            "height": "25px",
+	            "width": "320px",
+	            "display": "inline",
+	            "cursor": "pointer",
+	            "opacity": "0.0",
+			    "font-size": "1.9em"
+	        });
+	
 			if (jQuery.browser.mozilla) {
 			    if (/Win/.test(navigator.platform)) {
-			    	self.css("margin-left", "-142px");
-			    	self.css("padding-left", "142px");
+			    	self.css("margin-left", "-260px");
+			    	self.css("width", "260px");
 			    } else {
-			    	self.css("margin-left", "-168px");                    
+			    	self.css("margin-left", "-260px"); 
+			    	self.css("width", "260px");
 			    };
+			} else if (jQuery.browser.msie){
+				self.css("margin-left", "-220px");
 			} else {
-				self.css("margin-left", "0px");                
+				self.css("margin-left", "0px");
 			};
 			
 			self.bind("change", function() {
