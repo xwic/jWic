@@ -101,14 +101,12 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 		return super.getTemplateName();
 	}
 	
+	
 	/**
-	 * @param event
+	 * @param param
 	 */
-	public void actionPerformed(String actionId, String param) {
-		
-		if (actionId.equals("closeframe")) {
-			setVisible(false);
-		}
+	public void actionCloseframe(String param){
+		setVisible(false);
 	}
 
 	/*
