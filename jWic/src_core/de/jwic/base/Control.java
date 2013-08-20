@@ -394,8 +394,9 @@ public abstract class Control implements Serializable, IControl {
 			PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
 			
 			for (PropertyDescriptor pd : pds) {
-				if(pd.getReadMethod().getAnnotation(IncludeJsOption.class) != null){
-					Object o = pd.getReadMethod().invoke(this);
+				Method getter = pd.getReadMethod();
+				if(getter != null && pd.getReadMethod().getAnnotation(IncludeJsOption.class) != null){
+					Object o = getter.invoke(this);
 					if(o != null){
 						if(o instanceof Enum){
 							Method m = o.getClass().getMethod("getCode", null);
@@ -411,12 +412,10 @@ public abstract class Control implements Serializable, IControl {
 					}
 				}
 			}
-			
-			
 			writer.endObject();
 			return sw.toString();
 		}catch (Exception e) {
-			throw new RuntimeException("Error while configuring NumberInputControl");
+			throw new RuntimeException("Error while configuring Json Option for " + this.getClass().getName());
 		}
 	}
 }
