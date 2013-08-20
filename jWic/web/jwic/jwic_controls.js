@@ -1658,10 +1658,12 @@ JWic.controls = {
 		 */
 		initialize : function(inpElm) {
 			var InputBoxControl = JWic.controls.InputBoxControl;
-			inpElm.bind("focus", InputBoxControl.focusHandler);
-			inpElm.bind("blur", InputBoxControl.lostFocusHandler);
+			inpElm.bind("focus",InputBoxControl.focusHandler)
+				  .bind("blur", InputBoxControl.lostFocusHandler)
+				  .blur();
 			
 			if (inpElm.attr("xListenKeyCode") != 0) {
+				inpElm.bind("keydown", InputBoxControl.defaultSuppress);
 				inpElm.bind("keyup", InputBoxControl.keyHandler);
 			}
 			
@@ -1693,6 +1695,8 @@ JWic.controls = {
 			
 			if (inpElm.attr("xListenKeyCode") != 0) {
 				inpElm.unbind("keyup", InputBoxControl.keyHandler);
+				inpElm.unbind("keydown", InputBoxControl.defaultSuppress);
+				
 			}
 		},
 		
@@ -1720,7 +1724,7 @@ JWic.controls = {
 			
 			elm.removeClass("x-focus");
 			if (elm.attr("xEmptyInfoText")) {
-				if (elm.val() == "") { // still empty
+				if (elm.val() === "") { // still empty
 					elm.addClass("x-empty");
 					elm.val(elm.attr("xEmptyInfoText"));
 					elm.attr("xIsEmpty", "true");
@@ -1733,8 +1737,17 @@ JWic.controls = {
 		keyHandler : function(e) {
 			var elm =  jQuery(e.target);
 			
-			if (e.keyCode == elm.attr("xListenKeyCode")) {
+			if (e.keyCode === parseInt(elm.attr("xListenKeyCode"),10)) {
 				JWic.fireAction(elm.attr('id'), 'keyPressed', '' + e.keyCode);
+				return false;
+			}
+			
+		},
+		defaultSuppress : function(e){
+			var elm = jQuery(e.target);
+			if(e.keyCode === parseInt(elm.attr("xListenKeyCode"),10)){
+				e.preventDefault();
+				return false;
 			}
 		}
 		
