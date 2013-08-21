@@ -1610,7 +1610,7 @@ JWic.controls = {
 						at: "center bottom"
 						}});
 			
-			if(opt.iconPath !== ""){
+			if(opt.iconPath !== undefined && opt.iconPath !== ""){
 				btn.removeClass('j-button-text-only').removeClass('j-button-text-icon-secondary').removeClass('ui-button-text-only');
 				if(btn.text()===''){
 					btn.addClass('j-button-icon-only');
