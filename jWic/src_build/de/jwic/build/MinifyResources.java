@@ -51,7 +51,9 @@ public class MinifyResources extends Task {
 				
 		try {
 			updatePageFile();
+			System.out.println("Generating minified CSS file..");
 			generateMinified(BUILD_FILE_START_NAME + "-css_" + versionTag + ".css", cssFiles, true);
+			System.out.println("Generating minified JS file..");
 			generateMinified(BUILD_FILE_START_NAME + "-js_" + versionTag + ".js", jsFiles, false);
 			
 		} catch (Exception e) {
@@ -82,6 +84,7 @@ public class MinifyResources extends Task {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(tmpFile)));
 		// iterate over files and write it in.
 		for (String file : files) {
+			System.out.println("Compressing " + file);
 			File daFile = new File(src, file.replace("$contextPath", ""));
 			if (!daFile.exists()) {
 				throw new RuntimeException("The file " + daFile.getAbsolutePath() + " can not be found.");
@@ -143,6 +146,7 @@ public class MinifyResources extends Task {
 
 		File src = new File(pageFile);
 		if (!src.exists()) {
+			System.out.println("Source file does not exist: " + pageFile);
 			throw new RuntimeException("The file does not exist, please check what you are doing!");
 		}
 		
@@ -153,8 +157,11 @@ public class MinifyResources extends Task {
 		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(dest)));
 		String line = null;
 		boolean inside = false;
+		
+		System.out.println("Extracting CSS and JS files..");
 		while ((line = in.readLine()) != null) {
 			
+			System.out.println(line);
 			if (!inside) {
 				if (line.indexOf(PAGE_TAG_START) != -1) {
 					inside = true;
@@ -162,8 +169,6 @@ public class MinifyResources extends Task {
 					// add the static minified line references
 					out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\""+ BUILD_FILE_START_NAME + "-css_" + versionTag + ".css\">");
 					out.println("<SCRIPT LANGUAGE=\"JavaScript\" SRC=\""+ BUILD_FILE_START_NAME + "-js_" + versionTag + ".js\"></SCRIPT>");
-					
-
 					
 				} else {
 					out.println(line);
@@ -196,6 +201,7 @@ public class MinifyResources extends Task {
 	private void detectResource(String line, String linePrefix, String refAttr, List<String> list) {
 
 		String ucLine = line.toUpperCase();
+		
 		int idx = ucLine.indexOf(linePrefix);
 		if (idx != -1) { // is a resource reference
 			int idxHref = ucLine.indexOf(refAttr, idx);

@@ -7,6 +7,7 @@
 	<classpathentry kind="src" path="src_test"/>
 	<classpathentry kind="src" path="src_maildemo"/>
 	<classpathentry kind="src" path="src_sourceviewer"/>
+	<classpathentry kind="src" path="src_build"/>
 	<classpathentry kind="lib" path="lib/velocity-1.4.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.8.jar"/>

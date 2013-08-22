@@ -29,7 +29,9 @@
     <!-- ================================= 
           target: default              
          ================================= -->
-    <target name="default" depends="build,build_controls,build_compatibility,build_sample,javadoc" description="Create the distribution including jwic.jar and other files.">
+    <target name="default" depends="build,build_controls,build_compatibility,build_sample" description="Create the distribution including jwic.jar and other files.">
+    	
+    	<delete dir="${dist}/web"/>
     	
     	<mkdir dir="${dist}/web"/>
 
@@ -191,9 +193,9 @@
 	
 	<!-- Minify Resources -->
 	
-	<taskdef name="minifyResources" classname="de.jwic.build.MinifyResources" classpath="bin;build/yuicompressor-2.4.7.jar;build/rhino-1.6R7.jar;build/jargs-1.0.jar" />		
+	<taskdef name="minifyResources" classname="de.jwic.build.MinifyResources" classpath="build/jwic-minify.jar;build/yuicompressor-2.4.7.jar;build/rhino-1.6R7.jar;build/jargs-1.0.jar" />		
 	<target name="minify-resource-files">
-		<minifyResources versionTag="${release}" pageFile="${dist}/web/jwic/include.header.vtl" src="web" />
+		<minifyResources versionTag="${release}" pageFile="${dist}/web/jwic/include.header.vtl" src="${basedir}/web" />
 	</target>
 
 </project>
