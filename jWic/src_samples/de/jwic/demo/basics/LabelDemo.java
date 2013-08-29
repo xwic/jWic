@@ -47,6 +47,7 @@ public class LabelDemo extends ControlContainer {
 		
 		text = new InputBox(this, "text");
 		text.setText(label.getText());
+		text.setEmptyInfoText("Fill in a text for the label here..");
 		text.setWidth(400);	// width in px
 		
 		Button btApply = new Button(this, "btApply");
