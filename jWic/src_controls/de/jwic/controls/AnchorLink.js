@@ -8,7 +8,7 @@
 				#if($control.menu) menu : '$control.menu.controlID' #end
 			});
 			#if($control.tooltip != "")
-				btn.tooltip({
+				link.tooltip({
 					position: {
 						my: "left top",
 						at: "center bottom"

@@ -1610,6 +1610,10 @@ JWic.controls = {
 						at: "center bottom"
 						}});
 			
+			if (opt.confirmMsg != "") {
+				btn.data("confirmMsg", opt.confirmMsg);
+			}
+			
 			if(opt.iconPath !== undefined && opt.iconPath !== ""){
 				btn.removeClass('j-button-text-only').removeClass('j-button-text-icon-secondary').removeClass('ui-button-text-only');
 				if(btn.text()===''){
@@ -1638,7 +1642,7 @@ JWic.controls = {
 				});
 			} else {
 				var ctrlId = elm.data("controlId");
-				var msg = elm.attr("_confirmMsg");
+				var msg = elm.data("confirmMsg");
 				if (msg && msg != "") {
 					if (!confirm(msg)) {
 						return false;
