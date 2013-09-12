@@ -46,12 +46,12 @@
 	#if($control.fullRedraw)
 		#set($control.fullRedraw = false)
 	#else 
-		var field = document.getElementById('${control.controlID}_content');
+		var field = jQuery(document.getElementById('${control.controlID}_content'));
 	
-		if (field) { // if the field does not exist, the element needs to be created regulary.
-			field.value = this.content;
+		if (field.length === 0) { // if the field does not exist, the element needs to be created regulary.
+			field.val(this.content);
 			JWic.log("doUpdate");
-			if (typeof CKEDITOR != "undefined") {
+			if (typeof CKEDITOR !== undefined) {
 				var editor = CKEDITOR.instances["$control.controlID"];
 				if (editor && $control.enabled) {	// update content
 					JWic.log("update content");
@@ -63,7 +63,7 @@
 					JWic.log("disable");
 					editor.destroy();
 					field.value = this.content;
-					var elm = document.getElementById('${control.controlID}');
+					var elm = jQuery(document.getElementById('${control.controlID}'));
 					elm.html(this.content);
 					return true;
 					
@@ -101,29 +101,29 @@
 	 */
 	afterUpdate: function(element) {
 		
-		var elm = document.getElementById('${control.controlID}');
-		var field = document.getElementById('${control.controlID}_content');
-		if (elm && field) {
+		var elm = jQuery(document.getElementById('${control.controlID}'));
+		var field = jQuery(document.getElementById('${control.controlID}_content'));
 			field.value = this.content;
-			if (typeof CKEDITOR == "undefined") {
-				elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
-			} else {
-				#if($control.enabled)
-					//elm.update(this.content);
-					var editor =  CKEDITOR.replace(elm, this.editorCfg);
-					editor.setData(this.content);
-					
-					JWic.addBeforeRequestCallback("$control.controlID", function() {
-						var editInstance = CKEDITOR.instances["$control.controlID"];
-						if (editInstance) {
-							field.value = editInstance.getData();
-						}
-					});
-				#else
-					elm.text(this.content);
-				#end
-			}
+		if (typeof CKEDITOR == "undefined") {
+			elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
+		} else {
+			#if($control.enabled)
+				elm.html(this.content);
+			
+				var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
+				editor.setData(this.content);
+				
+				JWic.addBeforeRequestCallback("$control.controlID", function() {
+					var editInstance = CKEDITOR.instances["$control.controlID"];
+					if (editInstance) {
+						field.val(editInstance.getData());
+					}
+				});
+			#else
+				elm.text(this.content);
+			#end
 		}
+		
 	},
 	
 	/**
