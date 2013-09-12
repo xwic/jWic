@@ -48,7 +48,7 @@
 	#else 
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
 	
-		if (field.length === 0) { // if the field does not exist, the element needs to be created regulary.
+		if (field.length === 0) { // if the field does not exist, the element needs to be created regulary. (jQuery objects are never null, but if the selection returned null the length prop is 0)
 			field.val(this.content);
 			JWic.log("doUpdate");
 			if (typeof CKEDITOR !== undefined) {
@@ -71,7 +71,7 @@
 					JWic.log("enable it (" + this.content + ")");
 					var elm = document.getElementById('${control.controlID}');
 					elm.html("");
-					var editor =  CKEDITOR.replace(elm, this.editorCfg);
+					var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
 					editor.setData(this.content);
 					JWic.addBeforeRequestCallback("$control.controlID", function() {
 						var editInstance = CKEDITOR.instances["$control.controlID"];
@@ -84,7 +84,7 @@
 				} else if (!editor && !$control.enabled) {
 					JWic.log("update content of disabled element");
 					
-					var elm = document.getElementById('${control.controlID}');
+					var elm = jQuery(document.getElementById('${control.controlID}'));
 					if (elm) {
 						elm.text(this.content);
 						return true;
@@ -103,7 +103,7 @@
 		
 		var elm = jQuery(document.getElementById('${control.controlID}'));
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
-			field.value = this.content;
+		field.value = this.content;
 		if (typeof CKEDITOR == "undefined") {
 			elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
 		} else {
