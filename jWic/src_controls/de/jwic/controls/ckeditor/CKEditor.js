@@ -42,67 +42,66 @@
 	 * true, to prevent the update.
 	 */
 	doUpdate: function(element) {
-		
 	#if($control.fullRedraw)
 		#set($control.fullRedraw = false)
 	#else 
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
-	
-		if (field.length === 0) { // if the field does not exist, the element needs to be created regulary. (jQuery objects are never null, but if the selection returned null the length prop is 0)
-			field.val(this.content);
-			JWic.log("doUpdate");
-			if (typeof CKEDITOR !== undefined) {
-				var editor = CKEDITOR.instances["$control.controlID"];
-				if (editor && $control.enabled) {	// update content
-					JWic.log("update content");
-					editor.setData(this.content);
-					JWic.log("AJAX Update - skipping replace.");
-					return true;
-					
-				} else if (editor && !$control.enabled) {	// disable
-					JWic.log("disable");
-					editor.destroy();
-					field.value = this.content;
-					var elm = jQuery(document.getElementById('${control.controlID}'));
-					elm.html(this.content);
-					return true;
-					
-				} else if (!editor && $control.enabled) {	// enable
-					JWic.log("enable it (" + this.content + ")");
-					var elm = jQuery(document.getElementById('${control.controlID}'));
-					elm.html("");
-					var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
-					editor.setData(this.content);
-					JWic.addBeforeRequestCallback("$control.controlID", function() {
-						var editInstance = CKEDITOR.instances["$control.controlID"];
-						if (editInstance) {
-							field.val(editInstance.getData());
-						}
-					});
-					
-					return true;
-				} else if (!editor && !$control.enabled) {
-					JWic.log("update content of disabled element");
-					var elm = jQuery(document.getElementById('${control.controlID}'));
-					elm.text(this.content);
-					return elm.length > 0;//elm.length > 0 means that the element is there					
-				}
+		if (field.length !== 0){ // if the field does not exist, the element needs to be created regulary. (jQuery objects are never null, but if the selection returned null the length prop is 0)
+			return false;
+		}
+		field.val(this.content);
+		JWic.log("doUpdate");
+		if (CKEDITOR !== undefined && CKEDITOR !== null) {
+			var editor = CKEDITOR.instances["$control.controlID"];
+			if (editor && $control.enabled) {	// update content
+				JWic.log("update content");
+				editor.setData(this.content);
+				JWic.log("AJAX Update - skipping replace.");
+				return true;
+				
+			} else if (editor && !$control.enabled) {	// disable
+				JWic.log("disable");
+				editor.destroy();
+				field.val(this.content);
+				var elm = jQuery(document.getElementById('${control.controlID}'));
+				elm.html(this.content);
+				return true;
+				
+			} else if (!editor && $control.enabled) {	// enable
+				JWic.log("enable it (" + this.content + ")");
+				var elm = jQuery(document.getElementById('${control.controlID}'));
+				elm.html("");
+				var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
+				editor.setData(this.content);
+				JWic.addBeforeRequestCallback("$control.controlID", function() {
+					var editInstance = CKEDITOR.instances["$control.controlID"];
+					if (editInstance) {
+						field.val(editInstance.getData());
+					}
+				});
+				
+				return true;
+			} else if (!editor && !$control.enabled) {
+				JWic.log("update content of disabled element");
+				var elm = jQuery(document.getElementById('${control.controlID}'));
+				elm.text(this.content);
+				return elm.length > 0;//elm.length > 0 means that the element is there					
 			}
 		}
+//		}
 	#end
-		return false;
 	},
 	/**
 	 * Invoked after the DOM element was updated. This function is NOT updated if
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		
+		console.warn('after update');
 		var elm = jQuery(document.getElementById('${control.controlID}'));
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
 		field.val(this.content);
 		if (typeof CKEDITOR == "undefined") {
-			elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
+			elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.val());
 		} else {
 			#if($control.enabled)
 				elm.html(this.content);
