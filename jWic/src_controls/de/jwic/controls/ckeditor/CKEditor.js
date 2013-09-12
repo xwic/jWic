@@ -83,12 +83,9 @@
 					return true;
 				} else if (!editor && !$control.enabled) {
 					JWic.log("update content of disabled element");
-					
 					var elm = jQuery(document.getElementById('${control.controlID}'));
-					if (elm.length > 0) {
-						elm.text(this.content);
-						return true;
-					}
+					elm.text(this.content);
+					return elm.length > 0;//elm.length > 0 means that the element is there					
 				}
 			}
 		}
@@ -103,7 +100,7 @@
 		
 		var elm = jQuery(document.getElementById('${control.controlID}'));
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
-		field.value = this.content;
+		field.val(this.content);
 		if (typeof CKEDITOR == "undefined") {
 			elm.text("<p>The CKEditor JavaScript library is not available. The content can not be edited.</p>" + field.value);
 		} else {
