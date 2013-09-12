@@ -69,14 +69,14 @@
 					
 				} else if (!editor && $control.enabled) {	// enable
 					JWic.log("enable it (" + this.content + ")");
-					var elm = document.getElementById('${control.controlID}');
+					var elm = jQuery(document.getElementById('${control.controlID}'));
 					elm.html("");
 					var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
 					editor.setData(this.content);
 					JWic.addBeforeRequestCallback("$control.controlID", function() {
 						var editInstance = CKEDITOR.instances["$control.controlID"];
 						if (editInstance) {
-							field.value = editInstance.getData();
+							field.val(editInstance.getData());
 						}
 					});
 					
@@ -85,7 +85,7 @@
 					JWic.log("update content of disabled element");
 					
 					var elm = jQuery(document.getElementById('${control.controlID}'));
-					if (elm) {
+					if (elm.length > 0) {
 						elm.text(this.content);
 						return true;
 					}
