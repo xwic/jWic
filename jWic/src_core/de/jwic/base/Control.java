@@ -408,7 +408,15 @@ public abstract class Control implements Serializable, IControl {
 							writer.key(pd.getDisplayName()).value(new JsDateString((Date)o, getSessionContext().getTimeZone()));
 							continue;
 						}
-						writer.key(pd.getDisplayName()).value(o);						
+						
+						// if name has been changed use that one.
+						IncludeJsOption annotation = pd.getReadMethod().getAnnotation(IncludeJsOption.class);
+						if(annotation.jsPropertyName() != null && annotation.jsPropertyName().length() > 0){
+							writer.key(annotation.jsPropertyName());
+						}else {
+							writer.key(pd.getDisplayName());
+						}
+						writer.value(o);						
 					}
 				}
 			}
