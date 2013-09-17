@@ -278,18 +278,11 @@ var JWic = {
 				var docHeight = $doc.height();
 				var docWidth = $doc.width();
 
-				elem.css( {
-					position : 'absolute',
-					top : '0px',
-					left : '0px',
-					height : docHeight + 'px',
-					width : docWidth + 'px',
-					backgroundColor : 'transparent'
-				});
 				if (msg) {
 					$win = jQuery(window);
 					var nTop = (($win.height() - msg.height()) / 2) + $win.scrollTop();
 					var nLeft = (($win.width() - msg.width()) / 2) + $win.scrollLeft();
+					console.warn(nTop,nLeft);
 					msg.css(
 						{
 							position : 'absolute',
@@ -301,6 +294,7 @@ var JWic = {
 			}
 			if (showBlocker) {
 				elem.show();
+				elem.height(docHeight);
 				if (msg) msg.show();
 				window.setTimeout("JWic.showLongDelay(" + JWic.cbSeq + ")", 1000);
 			} else {
@@ -315,11 +309,7 @@ var JWic = {
 		if (JWic.isProcessing && JWic.cbSeq == seqNum) {
 			var elem = jQuery("#click_blocker");
 			JWic.log("show long delay blocker")
-			elem.css( {
-				backgroundColor : '#a0a0a0',
-				opacity : '0.3',
-				filter : 'alpha(opacity=30)'
-			});
+			elem.css('background', "url('jwic/gfx/overlay.png') repeat");
 		}
 	},
 
