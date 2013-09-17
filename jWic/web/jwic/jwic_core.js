@@ -282,7 +282,6 @@ var JWic = {
 					$win = jQuery(window);
 					var nTop = (($win.height() - msg.height()) / 2) + $win.scrollTop();
 					var nLeft = (($win.width() - msg.width()) / 2) + $win.scrollLeft();
-					console.warn(nTop,nLeft);
 					msg.css(
 						{
 							position : 'absolute',
