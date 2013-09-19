@@ -293,7 +293,7 @@ var JWic = {
 			}
 			if (showBlocker) {
 				elem.show();
-				elem.height(docHeight);
+				elem.css('height',docHeight-4);
 				if (msg) msg.show();
 				window.setTimeout("JWic.showLongDelay(" + JWic.cbSeq + ")", 1000);
 			} else {
