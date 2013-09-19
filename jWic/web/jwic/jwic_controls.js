@@ -1603,12 +1603,13 @@ JWic.controls = {
 			if(opt.height > 0)
 				btn.height(opt.height);
 		
-			if(opt.tooltip !== "")
+			if(opt.tooltip && opt.tooltip !== "") {
 				btn.tooltip({
 					position: {
 						my: "left top",
 						at: "center bottom"
 						}});
+			}
 			
 			if (opt.confirmMsg != "") {
 				btn.data("confirmMsg", opt.confirmMsg);
@@ -1671,20 +1672,9 @@ JWic.controls = {
 				inpElm.bind("keyup", InputBoxControl.keyHandler);
 			}
 			
-			if (inpElm.attr("xEmptyInfoText")) {
-				if(inpElm.attr("xIsEmpty") == "true" && 
-					(inpElm.val() == inpElm.attr("xEmptyInfoText") || inpElm.val() == "")) {
-					inpElm.addClass("x-empty");
-					inpElm.val(inpElm.attr("xEmptyInfoText"));
-				} else {
-					inpElm.attr("xIsEmpty", "false");
-					inpElm.removeClass("x-empty");
-				}
-			}
-			
 			// override the getValue() method to "fix" the serialization
 			inpElm.getValue = function() {
-					return inpElm.value;
+				return inpElm.value;
 			}
 			
 		},
@@ -1710,32 +1700,13 @@ JWic.controls = {
 		focusHandler : function(e) {
 			var elm =  jQuery(e.target);
 			elm.addClass("x-focus");
-			
-			if (elm.attr("xEmptyInfoText")) {
-				if (elm.attr("xIsEmpty") == "true") {
-					elm.val('');
-					elm.removeClass("x-empty");
-					elm.attr("xIsEmpty", "false");
-				} 
-			}
-			
 		},
 		/**
 		 * Invoked when the focus is lost.
 		 */
 		lostFocusHandler : function(e) {
 			var elm =  jQuery(e.target);
-			
 			elm.removeClass("x-focus");
-			if (elm.attr("xEmptyInfoText")) {
-				if (elm.val() === "") { // still empty
-					elm.addClass("x-empty");
-					elm.val(elm.attr("xEmptyInfoText"));
-					elm.attr("xIsEmpty", "true");
-				} else {
-					elm.attr("xIsEmpty", "false");
-				}
-			}
 		},
 		
 		keyHandler : function(e) {

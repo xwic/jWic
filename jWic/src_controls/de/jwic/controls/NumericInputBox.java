@@ -113,7 +113,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="aSep")
 	public ThousandSeparator getThousandSeparator() {
 		return thousandSeparator;
 	}
@@ -131,7 +131,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="aDec")
 	public DecimalSeparator getDecimalSeparator() {
 		return decimalSeparator;
 	}
@@ -149,7 +149,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="dGroup")
 	public DigitalGroup getDigitalGroup() {
 		return digitalGroup;
 	}
@@ -167,7 +167,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="aSign")
 	public String getSymbol() {
 		return symbol;
 	}
@@ -187,7 +187,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="pSign")
 	public SymbolPlacement getSymbolPlacement() {
 		return symbolPlacement;
 	}
@@ -205,7 +205,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="vMin")
 	public Double getValueMin() {
 		return valueMin;
 	}
@@ -224,7 +224,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="vMax")
 	public Double getValueMax() {
 		return valueMax;
 	}
@@ -243,7 +243,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="mDec")
 	public Integer getDecimalPlaces() {
 		return decimalPlaces;
 	}
@@ -265,7 +265,7 @@ public class NumericInputBox extends InputBox {
 	 *  even when the comma is assigned as the decimal separator (aDec: ',').
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="altDec")
 	public Character getDecimalSeperatorChar() {
 		return decimalSeperatorChar;
 	}
@@ -282,7 +282,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="mRound")
 	public RoundSetting getRoundSetting() {
 		return roundSetting;
 	}
@@ -299,7 +299,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="wEmpty")
 	public EmptyDisplay getEmptyDisplay() {
 		return emptyDisplay;
 	}
@@ -316,7 +316,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="lZero")
 	public LeadingZeroDisplay getLeadingZeroDisplay() {
 		return leadingZeroDisplay;
 	}
@@ -333,7 +333,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="nBracket")
 	public NegativeBracketsDisplay getNegativeBracketsDisplay() {
 		return negativeBracketsDisplay;
 	}
@@ -351,7 +351,7 @@ public class NumericInputBox extends InputBox {
 	 * 
 	 * @return
 	 */
-	@IncludeJsOption
+	@IncludeJsOption(jsPropertyName="aPad")
 	public boolean isPadding() {
 		return padding;
 	}
