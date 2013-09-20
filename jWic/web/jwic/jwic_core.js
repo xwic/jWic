@@ -569,7 +569,9 @@ var JWic = {
 JWic.util = {
 		clearSelection : function() {
 			if(document.selection && document.selection.empty) {
-				document.selection.empty();
+				try { 
+					document.selection.empty(); 
+				} catch(ex) {} // can happen in IE8 if nothing is selected
 			} else if (window.getSelection) {
 				var sel = window.getSelection();
 				if(sel && sel.removeAllRanges) {
