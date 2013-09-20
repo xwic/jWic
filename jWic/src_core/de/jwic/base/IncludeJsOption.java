@@ -15,5 +15,5 @@ import static java.lang.annotation.ElementType.*;
 @Inherited
 @Target({METHOD})
 public @interface IncludeJsOption {
-
+	String jsPropertyName()	default "";
 }
