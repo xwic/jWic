@@ -96,7 +96,6 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		console.warn('after update');
 		var elm = jQuery(document.getElementById('${control.controlID}'));
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
 		field.val(this.content);
