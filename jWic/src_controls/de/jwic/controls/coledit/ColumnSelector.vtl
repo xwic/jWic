@@ -10,7 +10,7 @@
 	#end
 	<div class="ui-widget ui-widget-content j-listColSel-search" id="cse_$control.controlID">
 		<span class="j-listColSel-clearSearch ui-icon ui-icon-circle-close" title="Clear Filter"></span>
-		<input class="ui-widget ui-widget-content j-inputbox" type="text" id="search_$control.controlID" name="$fldFilter.id" value="$jwic.formatInp($fldFilter.value)" style="width: 95%; border: 0" placeholder="Filter">
+		<input autocomplete="off" class="ui-widget ui-widget-content j-inputbox" type="text" id="search_$control.controlID" name="$fldFilter.id" value="$jwic.formatInp($fldFilter.value)" style="width: 95%; border: 0" placeholder="Filter">
 	</div>
 	<div id="lst_$control.controlID" class="ui-widget-content $control.cssClass" style="width: ${width}px; height: ${height}px;">
 		#foreach($col in $control.columns)
