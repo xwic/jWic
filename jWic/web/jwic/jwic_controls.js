@@ -1631,11 +1631,11 @@ JWic.controls = {
 		},
 
 		clickHandler : function(e) {
-			e.stopPropagation();
 			var elm = jQuery(e.currentTarget);
 			
 			var menuId = elm.data("menuId");
 			if (menuId) {
+				e.stopPropagation();
 				JWic.controls.Menu.show(menuId, {
 					 my: "left top",
 					 at: "left bottom",
