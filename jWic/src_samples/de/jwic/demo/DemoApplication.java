@@ -14,6 +14,7 @@ import de.jwic.demo.advanced.CKEditorDemoModule;
 import de.jwic.demo.advanced.ColumnSelectorDemoModule;
 import de.jwic.demo.advanced.ComboDropDownDemoModule;
 import de.jwic.demo.advanced.ComboLifeSearchDemoModule;
+import de.jwic.demo.advanced.ErrorWariningDemoModule;
 import de.jwic.demo.advanced.ProcessInfoDemoModule;
 import de.jwic.demo.basics.ButtonDemoModule;
 import de.jwic.demo.basics.CheckBoxDemoModule;
@@ -86,6 +87,7 @@ public class DemoApplication extends Application {
 		modules.add(new MenuDemoModule());
 		modules.add(new ColumnSelectorDemoModule());
 		modules.add(new FileTreeDemoModule());
+		modules.add(new ErrorWariningDemoModule());
 
 		// Sort demos by group and title
 		Collections.sort(modules);

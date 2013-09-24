@@ -6,6 +6,7 @@ import java.io.StringWriter;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 
 /**
@@ -54,6 +55,8 @@ public class ErrorWarning extends Control
 	
 	private int autoCloseDelay = 10000; // 10 sec. by default.
 	
+	private boolean close;
+	
 	
 	/**
 	 * @param container
@@ -75,11 +78,11 @@ public class ErrorWarning extends Control
 	 * @param e
 	 */
 	public void showError(Exception e, String cssClass) {
+		setClosed(false);
 		setException(e);
 		setVisible(true);
 		setWarning(false);
-		
-        if (cssClass != null && cssClass.length() > 0)
+		if (cssClass != null && cssClass.length() > 0)
             setCssClass(cssClass);
         else
         	setCssClass("errorMessage");
@@ -108,6 +111,7 @@ public class ErrorWarning extends Control
 	 * @param e
 	 */
 	public void showError(String text, String cssClass) {
+		setClosed(false);
 		setText(text);
 		setVisible(true);
 		setWarning(false);
@@ -133,6 +137,7 @@ public class ErrorWarning extends Control
 	 * @param e
 	 */
 	public void showWarning(String text, String cssClass) {
+		setClosed(false);
 		setText(text);
 		setVisible(true);
 		setWarning(true);
@@ -150,6 +155,7 @@ public class ErrorWarning extends Control
 	 * Returns the text displayed as the error.
 	 * @return java.lang.String
 	 */
+	@IncludeJsOption
 	public String getText()
 	{
 		return strText;
@@ -167,8 +173,16 @@ public class ErrorWarning extends Control
 	public void actionPerformed(String actionId, String param) {
 		
 		if (actionId.equals("closeframe")) {
-			setVisible(false);		
+			setVisible(false);
+			return;
 		}
+		if(actionId.equals("doClose")){
+			this.close = true;//to not trigger the redraw, for animations
+		}
+		if(actionId.equals("doHide")){
+			setVisible(false);
+		}
+		
 	}
 
 	/**
@@ -259,6 +273,7 @@ public class ErrorWarning extends Control
 	 * If true the control is set to hidden in the end to the rendering process.
 	 * @return Returns the autoClose.
 	 */
+	@IncludeJsOption
 	public boolean isAutoClose() {
 		return autoClose;
 	}
@@ -278,6 +293,7 @@ public class ErrorWarning extends Control
 	/**
 	 * @return the warning
 	 */
+    @IncludeJsOption
 	public boolean isWarning() {
 		return warning;
 	}
@@ -290,6 +306,7 @@ public class ErrorWarning extends Control
 	/**
 	 * @return the cssClass
 	 */
+	@IncludeJsOption
 	public String getCssClass() {
 		return cssClass;
 	}
@@ -302,6 +319,7 @@ public class ErrorWarning extends Control
 	/**
 	 * @return the autoCloseDelay
 	 */
+	@IncludeJsOption
 	public int getAutoCloseDelay() {
 		return autoCloseDelay;
 	}
@@ -313,4 +331,26 @@ public class ErrorWarning extends Control
 	public void setAutoCloseDelay(int autoCloseDelay) {
 		this.autoCloseDelay = autoCloseDelay;
 	}
+	
+	@IncludeJsOption
+	public boolean isClosed() {
+		return close;
+	}
+	
+	/**
+	 * @param close
+	 */
+	public void setClosed(boolean close) {
+		this.close = close;
+		this.requireRedraw();
+	}
+	
+	/**
+	 * 
+	 */
+	public void hide(){
+		setClosed(true);
+	}
+	
+	
 }
