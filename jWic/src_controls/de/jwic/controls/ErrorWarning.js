@@ -13,44 +13,50 @@
 		var me = jQuery('#'+JWic.util.JQryEscape('${control.controlID}')),
 			timeoutTimer,
 			options = $control.buildJsonOptions();
-		
 		function doHide(){
+			if(timeoutTimer){
+				window.clearTimeout(timeoutTimer);
+			}
+			JWic.fireAction('$control.controlID','doClose','');
+		}
+		
+		function doClose(){
+			if(timeoutTimer){
+				window.clearTimeout(timeoutTimer);
+			}
 			JWic.fireAction('$control.controlID','doHide','');
 		}
-		#if($control.autoClose && $control.autoCloseDelay != 0)
-			timeoutTimer = window.setTimeout(function(){
+		
+		me.find('.closeBtn').one('click',function(){
+			JWic.fireAction('$control.controlID', 'doClose', '',function(){
 				if(timeoutTimer){
 					window.clearTimeout(timeoutTimer);
 				}
+				me.slideUp();
+			});
+		});
+		
+		#if($control.autoClose && $control.autoCloseDelay != 0)
+			timeoutTimer = window.setTimeout(function(){
 				me.slideUp(doHide);
 			},options.autoCloseDelay);
 			
 		#end
 		
+		
+		
 		#if($control.visible && !$control.closed)
 			me.slideDown();
-		#else
+		#end
+		
+		#if($control.visible && $control.closed)
 			me.show();
+			me.slideUp(doClose);
+			console.warn(options);
 		#end
 		
-		#if($control.closed && $control.visible)
-			me.slideUp(doHide);
-			if(timeoutTimer){
-				window.clearTimeout(timeoutTimer);
-			}
-		#end
 		
-		me.find('.closeBtn').one('click',function(){
-			JWic.fireAction('$control.controlID', 'doClose', '',function(){
-				me.slideUp(function(){
-					if(timeoutTimer){
-						window.clearTimeout(timeoutTimer);
-					}
-					JWic.fireAction('$control.controlID','doHide','');
-				});
-				
-			});
-		});
+		
 		
 	}
 }

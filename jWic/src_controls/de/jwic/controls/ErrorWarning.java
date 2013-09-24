@@ -178,9 +178,11 @@ public class ErrorWarning extends Control
 		}
 		if(actionId.equals("doClose")){
 			this.close = true;//to not trigger the redraw, for animations
+			return;
 		}
 		if(actionId.equals("doHide")){
 			setVisible(false);
+			return;
 		}
 		
 	}
