@@ -42,21 +42,13 @@
 			},options.autoCloseDelay);
 			
 		#end
-		
-		
-		
 		#if($control.visible && !$control.closed)
 			me.slideDown();
 		#end
-		
 		#if($control.visible && $control.closed)
 			me.show();
 			me.slideUp(doClose);
-			console.warn(options);
 		#end
-		
-		
-		
 		
 	}
 }
