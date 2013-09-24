@@ -14,24 +14,27 @@
 			timeoutTimer,
 			options = $control.buildJsonOptions();
 		
+		function doHide(){
+			JWic.fireAction('$control.controlID','doHide','');
+		}
 		#if($control.autoClose && $control.autoCloseDelay != 0)
 			timeoutTimer = window.setTimeout(function(){
 				if(timeoutTimer){
 					window.clearTimeout(timeoutTimer);
 				}
-				me.slideUp(function(){
-					JWic.fireAction('$control.controlID','doHide','');
-				});
+				me.slideUp(doHide);
 			},options.autoCloseDelay);
 			
 		#end
 		
-		#if($control.visible)
+		#if($control.visible && !$control.closed)
 			me.slideDown();
+		#else
+			me.show();
 		#end
 		
-		#if($control.closed)
-			me.slideUp();
+		#if($control.closed && $control.visible)
+			me.slideUp(doHide);
 			if(timeoutTimer){
 				window.clearTimeout(timeoutTimer);
 			}

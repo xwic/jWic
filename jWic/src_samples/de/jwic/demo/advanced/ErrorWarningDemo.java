@@ -11,6 +11,7 @@ public class ErrorWarningDemo extends ControlContainer {
 	private final ErrorWarning errorWarning;
 	private final Button button;
 	private final Button buttonClose;
+	private final Button buttonHide;
 	public ErrorWarningDemo(IControlContainer container) {
 		this(container,null);
 	}
@@ -22,6 +23,10 @@ public class ErrorWarningDemo extends ControlContainer {
 		button.setTitle("Click To Show Error");
 		this.buttonClose = new Button(this, "clickClose");
 		this.buttonClose.setTitle("Click to Close the Error");
+		
+		this.buttonHide = new Button(this, "clickHide");
+		this.buttonHide.setTitle("Click to Hide/Slide Up");
+		
 		init();
 		
 	}
@@ -36,6 +41,14 @@ public class ErrorWarningDemo extends ControlContainer {
 		});
 		
 		this.buttonClose.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				errorWarning.close();
+			}
+		});
+		
+		this.buttonHide.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {

@@ -349,7 +349,12 @@ public class ErrorWarning extends Control
 	 * 
 	 */
 	public void hide(){
-		setClosed(true);
+		this.setClosed(true);
+	}
+	
+	public void close(){
+		this.setVisible(false);
+		this.close = true;
 	}
 	
 	
