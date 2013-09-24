@@ -36,7 +36,7 @@ public class ErrorWarningDemo extends ControlContainer {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {
-				errorWarning.showError("Some random error has occured :(, but thankfully you can show in a pritty way :)");
+				errorWarning.showError("Some random error has occured, but thankfully you can show in a pretty way.");
 			}
 		});
 		
