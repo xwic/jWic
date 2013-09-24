@@ -1,6 +1,6 @@
 #macro(renderMenuItem $menuItem $hasIcons)
 	<li #if(!$menuItem.enabled) class="ui-state-disabled" #end>
-		<a href="#" onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;">
+		<a href="#" #if($menuItem.enabled) onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;" #end>
 			#if ($hasIcons)
 				<span class="j-menu-icon"  
 					#if($menuItem.getIcon())
