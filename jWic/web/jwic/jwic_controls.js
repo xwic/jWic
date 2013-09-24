@@ -384,7 +384,7 @@ JWic.controls = {
 			datetimepicker.change(function(){
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
 				if(options.updateOnChange){
-					var date_utc = DatePicker.getUTCDate(datepicker);
+					var date_utc = DatePicker.getUTCDate(datetimepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}
 			});
