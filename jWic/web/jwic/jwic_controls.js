@@ -384,7 +384,7 @@ JWic.controls = {
 			datetimepicker.change(function(){
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
 				if(options.updateOnChange){
-					var date_utc = DatePicker.getUTCDate(datepicker);
+					var date_utc = DatePicker.getUTCDate(datetimepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}
 			});
@@ -1631,11 +1631,11 @@ JWic.controls = {
 		},
 
 		clickHandler : function(e) {
-			e.stopPropagation();
 			var elm = jQuery(e.currentTarget);
 			
 			var menuId = elm.data("menuId");
 			if (menuId) {
+				e.stopPropagation();
 				JWic.controls.Menu.show(menuId, {
 					 my: "left top",
 					 at: "left bottom",

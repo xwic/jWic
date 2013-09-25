@@ -278,14 +278,6 @@ var JWic = {
 				var docHeight = $doc.height();
 				var docWidth = $doc.width();
 
-				elem.css( {
-					position : 'absolute',
-					top : '0px',
-					left : '0px',
-					height : docHeight + 'px',
-					width : docWidth + 'px',
-					backgroundColor : 'transparent'
-				});
 				if (msg) {
 					$win = jQuery(window);
 					var nTop = (($win.height() - msg.height()) / 2) + $win.scrollTop();
@@ -301,6 +293,7 @@ var JWic = {
 			}
 			if (showBlocker) {
 				elem.show();
+				elem.css('height',docHeight-4);
 				if (msg) msg.show();
 				window.setTimeout("JWic.showLongDelay(" + JWic.cbSeq + ")", 1000);
 			} else {
@@ -315,11 +308,7 @@ var JWic = {
 		if (JWic.isProcessing && JWic.cbSeq == seqNum) {
 			var elem = jQuery("#click_blocker");
 			JWic.log("show long delay blocker")
-			elem.css( {
-				backgroundColor : '#a0a0a0',
-				opacity : '0.3',
-				filter : 'alpha(opacity=30)'
-			});
+			elem.css('background', "url('jwic/gfx/overlay.png') repeat");
 		}
 	},
 
@@ -569,7 +558,9 @@ var JWic = {
 JWic.util = {
 		clearSelection : function() {
 			if(document.selection && document.selection.empty) {
-				document.selection.empty();
+				try { 
+					document.selection.empty(); 
+				} catch(ex) {} // can happen in IE8 if nothing is selected
 			} else if (window.getSelection) {
 				var sel = window.getSelection();
 				if(sel && sel.removeAllRanges) {
