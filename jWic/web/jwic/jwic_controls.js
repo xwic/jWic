@@ -777,7 +777,7 @@ JWic.controls = {
 			var escapedControlId = JWic.util.JQryEscape(controlId);
 			var comboBox = document.getElementById(controlId);
 			var iconElm = document.getElementById(controlId + "_open");
-
+			
 			this._activeComboContentBox = null;
 			
 			this._openTime = 0;
@@ -796,6 +796,7 @@ JWic.controls = {
 			jInpElm.focus(JWic.controls.Combo.focusHandler);
 			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
 			jInpElm.click(JWic.controls.Combo.textClickHandler);
+			
 			jInpElm.bind('keydown',JWic.controls.Combo.textKeyPressedHandler);
 
 			// adjust sizes
@@ -832,7 +833,7 @@ JWic.controls = {
 				} else {
 					return jQuery(inpElm).val();
 				}
-			}			
+			}		
 		},
 		
 		/**
@@ -1041,7 +1042,7 @@ JWic.controls = {
 				if (box) {
 					jQuery(box).addClass("x-focus");
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
-						JWic.controls.Combo.openContentBox(ctrlId);
+//						JWic.controls.Combo.openContentBox(ctrlId);
 					}
 
 						
@@ -1068,8 +1069,8 @@ JWic.controls = {
 					// delay lostFocusCheck in case it was due to a selection
 					// click.
 					JWic.controls.Combo._lostFocusClose = true;
-					// window.setTimeout("JWic.controls.Combo.finishSelection('"
-					// + ctrlId + "', true);", 300);
+					 window.setTimeout("JWic.controls.Combo.finishSelection('"
+					 + ctrlId + "', true);", 300);
 				}
 			}
 			if (jQuery(this).attr("xEmptyInfoText")) {
@@ -1088,10 +1089,7 @@ JWic.controls = {
 		openContentBox : function(controlId) {
 			JWic.log("openContentBox "+JWic.controls.Combo._activeComboContentBox);
 			if (JWic.controls.Combo._activeComboContentBox) {
-				if (JWic.controls.Combo._activeComboContentBox == controlId) {
-					//JWic.controls.Combo.closeActiveContentBox();
-					return; // do not re-open it.
-				} else {
+				if (JWic.controls.Combo._activeComboContentBox != controlId) {
 					JWic.controls.Combo.closeActiveContentBox();
 				}
 			}else{
@@ -1099,6 +1097,7 @@ JWic.controls = {
 			}
 
 			if (JWic.controls.Combo._closeControlId == controlId) {
+				
 				var age = new Date().getTime() - JWic.controls.Combo._closeTime;
 				if (age < 100) {
 					return; // prevent re-open on immidiate re-focus event.
@@ -1111,7 +1110,6 @@ JWic.controls = {
 			var boxWidth = jQuery(comboBox).width();
 			var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(controlId));			
 			if (!comboBoxWin.is(':data(dialog)')) {
-
 				comboBoxWin.dialog({					
 					dialogClass : "j-combo-content",
 					resizable: false,
