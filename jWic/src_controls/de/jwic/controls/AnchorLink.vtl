@@ -1,5 +1,5 @@
 #if ($control.isEnabled())
-<a id="$control.controlID" class="$!control.cssClass" #if($control.infoMessage)title="$control.infoMessage"#end onmouseover="window.status='#if($control.infoMessage)$control.infoMessage#else$control.title#end'; return true;" onmouseout="window.status=''" href="#" $jwic.generateCssProperty($control)>$control.title</a>
+<a id="$control.controlID" class="$!control.cssClass" #if($control.infoMessage)title="$control.infoMessage"#end href="#" $jwic.generateCssProperty($control)>$control.title</a>
 #else
 $control.title
 #end

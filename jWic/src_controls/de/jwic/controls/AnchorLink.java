@@ -19,8 +19,8 @@ public class AnchorLink extends SelectableControl {
 
 	private static final long serialVersionUID = 1L;
 
-	private String title = null;
-	private String infoMessage = null;
+	private String title = "";
+	private String infoMessage = "";
 	private String cssClass = "j-anchor";
 	private String tooltip = null;
 
