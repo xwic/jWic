@@ -875,6 +875,7 @@ JWic.controls = {
 				} else {
 					if (e.keyCode == 13) { // enter
 						JWic.controls.Combo.finishSelection(ctrlId, false);
+						return false;
 					} else if (e.keyCode == 38 || e.keyCode == 40) {
 						// scroll up/down
 						var isUp = (e.keyCode == 38);
@@ -1008,7 +1009,13 @@ JWic.controls = {
 				comboElm.jComboField.focus();
 				//comboElm.jComboField.select();
 				 if(typeof comboElm.jComboField.selectionStart != 'undefined') {
-					 comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+					comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+				 }else{
+					 var range = comboElm.jComboField.createTextRange();
+					 range.collapse(true);
+					 range.moveStart('character', comboElm.dataFilterValue.length);
+					 range.moveEnd('character', obj.title.length);
+					 range.select();
 				 }
 
 			}
@@ -1026,6 +1033,7 @@ JWic.controls = {
 				var box = document.getElementById(ctrlId);
 				if (box && box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 					JWic.controls.Combo.openContentBox(ctrlId);
+					box.jComboField.focus();
 				}
 			}
 		},
@@ -1041,7 +1049,7 @@ JWic.controls = {
 				if (box) {
 					jQuery(box).addClass("x-focus");
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
-						JWic.controls.Combo.openContentBox(ctrlId);
+//						JWic.controls.Combo.openContentBox(ctrlId);
 					}
 
 						
