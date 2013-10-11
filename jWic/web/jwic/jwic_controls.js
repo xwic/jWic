@@ -380,33 +380,20 @@ JWic.controls = {
 			var id = JWic.util.JQryEscape(controlId);
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
-			
-			function datetimepickerCallback(forWhat){
-				return function(){
-					var arg = arguments,
-						that = this;
-					console.warn(forWhat);
-					jQuery(this).data(forWhat).map(function(i){
-						return i.apply(that,arguments);
-					});
-				}
-			}			
-			
-			
 						
 			datetimepicker.datetimepicker("option",region);		
 			if(field.value){
 				this.setDate(datetimepicker, field.value, field);
 			}
 			
-			datetimepicker.data('onSelectListener',[]);
-			datetimepicker.datetimepicker('option','onSelect',datetimepickerCallback('onSelectListener'));
+			datetimepicker.data('onSelectListener',[]);//this is needed because the datepicker does not have actual events for some reason, it can only take in one callback at a time
+			datetimepicker.datetimepicker('option','onSelect',this.doCallbacks('onSelectListener'));// and i need at least 2 callbacks.
 			
-			datetimepicker.data('onCloseListener',[]);
-			datetimepicker.datetimepicker('option','onClose',datetimepickerCallback('onCloseListener'));
+			datetimepicker.data('onCloseListener',[]);//this is just like the onSelect callback.
+			datetimepicker.datetimepicker('option','onClose',this.doCallbacks('onCloseListener'));
 			
 			
-			datetimepicker.data('onCloseListener').push(function(){
+			datetimepicker.data('onCloseListener').push(function(){//this is how my callbacks are attached.
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
 				if(options.updateOnChange){
 					var date_utc = DatePicker.getUTCDate(datetimepicker);
@@ -436,46 +423,88 @@ JWic.controls = {
 			}
 			return null;
 		},
-		
-		masterSlave : function(startDateTextBox, endDateTextBox){
+		/**
+		 * sets up the master slave relationship between two datetimepickers.
+		 * 
+		 */
+		masterSlave : function(master, slave){
 			
-			startDateTextBox.datetimepicker('option', 'onClose', function(dateText, inst) {
-				if (endDateTextBox.val() != '') {
-					var startDate = startDateTextBox.datetimepicker('getDate');
-					var endDate = endDateTextBox.datetimepicker('getDate');
-					if (startDate > endDate)
-						endDateTextBox.datetimepicker('setDate', startDate);
-				}
-				else {
-					endDateTextBox.val(dateText);
-				}
-				
-				
-			});
+			var setDatesForMaster = this.setDates(slave, Math.max);// this refers to the global JWic.controls.DateTimePicker object
+			var setDatesForSlave = this.setDates(master, Math.min);
 			
-			startDateTextBox.data('onSelectListener').push(function (selectedDateTime){
-				console.warn('startDate');
-				endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate') );
-			});
+			var setMaxMaster = this.setMinMax('maxDate',master);
+			var setMinSlave = this.setMinMax('minDate',slave);
 			
-			endDateTextBox.datetimepicker('option', 'onClose', function(dateText, inst) {
-				if (startDateTextBox.val() != '') {
-					var startDate = startDateTextBox.datetimepicker('getDate');
-					var endDate = endDateTextBox.datetimepicker('getDate');
-					if (startDate > endDate)
-						startDateTextBox.datetimepicker('setDate', endDate);
-				}
-				else {
-					startDateTextBox.val(dateText);
-				}
-			});
+			master.data('onSelectListener').push(setDatesForMaster);
+			master.data('onCloseListener').push(setMinSlave);
 			
-			endDateTextBox.data('onSelectListener').push(function (selectedDateTime){
-				console.warn('endDate');
-				startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
-			});
+			slave.data('onSelectListener').push(setDatesForSlave);
+			slave.data('onCloseListener').push(setMaxMaster);
+			
+			setMaxMaster.call(slave);//do the initial setting of stuff for the refresh
+			setMinSlave.call(master);//here to 
 			
 		},
+		
+		/**
+		 * Sets the min or max prop of the 'other' datetimepicker based of 'this' datetimepicker
+		 * 
+		 * minMax - a string with the value minDate or maxDate
+		 * other - the other datetimepicker
+		 * 
+		 * returns a function that actually sets the min or max of the 'other' datetimepicker
+		 * 
+		 * ! the 'this' object of the returned function must be a datetimepicker (preferably diferent from the 'other' object)
+		 * 
+		 * 
+		 */
+		setMinMax : function (minMax,other){
+			return function(){
+				other.datetimepicker('option',minMax,jQuery(this).datetimepicker('getDate'));
+			}
+		},
+		/**
+		 * setDates sets the current date of the slave object if needed
+		 * 
+		 * slave - the slave object
+		 * check - a function that return compares the timestamps of two datetimepickers (Math.min or Math.max)
+		 * 
+		 * returns - a function that sets the current date of the 'slave' datetimepicker
+		 * 
+		 * ! the 'this' object of the returned function must be the 'master' datetimepicker' !
+		 */
+		setDates : function (slave,check){
+			return function(){
+				var startDate = jQuery(this).datetimepicker('getDate');
+				var endDate = slave.datetimepicker('getDate');
+				startDate = startDate || new Date(Number.MIN_VALUE);//its either good or its the begining of time
+				endDate = endDate || new Date(Number.MAX_VALUE); // its either good or the end of time (to avoid null check :) not a fan of null checking)
+				
+				var maxTimeStamp = check(startDate.getTime(),endDate.getTime());
+				
+				JWic.controls.DateTimePicker.setDate(slave, maxTimeStamp);							
+			};
+		},
+		
+		/**
+		 * Helper function
+		 * forWhat - the name of the callback group
+		 * 
+		 * returns - a function that calls the callback for that group.
+		 * 
+		 * ! the returned functions 'this' object must be a datetimepicker !
+		 * 
+		 */
+		doCallbacks : function(forWhat){
+			return function(){
+				var arg = arguments,
+					that = this;
+				return jQuery(this).data(forWhat).map(function(i){
+					return i.apply(that,arguments);
+				});
+			}
+		},
+	
 		
 		/**
 		 * Clean up..
