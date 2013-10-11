@@ -93,7 +93,11 @@ public class DatePickerDemo extends ControlContainer {
 		};
 		
 		datePicker.addDateChangedListener(listener);
+		
+		
 		dateTimePicker.addDateChangedListener(listener);
+		
+		
 		datePicker.setUpdateOnChange(true);
 				
 		lblInfo = new LabelControl(this, "lblInfo");
@@ -110,11 +114,23 @@ public class DatePickerDemo extends ControlContainer {
 			}
 		});
 				
+		DateChangedListener listener2 = new DateChangedListener() {
+			
+			@Override
+			public void onDateChanged(Date oldDate, Date newDate) {
+				System.out.println(oldDate+" to "+newDate);
+			}
+		};
+		
 		propEditor.loadValues(); // refresh values.
 		Date d = Calendar.getInstance().getTime();
 		datePickerMaster = new DateTimePicker(this, "dateTimeMaster");
+		datePickerMaster.setUpdateOnChange(true);
+		datePickerMaster.addDateChangedListener(listener2);
 		datePickerMaster.setDate(d);
 		datePickerSlave = new DateTimePicker(this, "dateTimeSlave");
+		datePickerSlave.setUpdateOnChange(true);
+		datePickerSlave.addDateChangedListener(listener2);
 		datePickerSlave.setMaster(datePickerMaster);
 		
 	}

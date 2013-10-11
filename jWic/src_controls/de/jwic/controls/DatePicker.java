@@ -140,6 +140,7 @@ public class DatePicker extends InputBox {
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
+			System.out.println("Date Changed");
 			Date oldDate = getDate();
 			currentTime = Long.valueOf(parameter);
 			Date newDate = getTimezoneSpecificDate(currentTime);
@@ -151,7 +152,7 @@ public class DatePicker extends InputBox {
 			log.info("The selected locale was not found. Defaulting back to Locale.ENGLISH");
 		}
 		if ("dateisempty".equals(actionId)) {
-			this.setDate(null);
+			//this.setDate(null);
 		}
 
 	}

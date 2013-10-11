@@ -346,6 +346,9 @@ JWic.controls = {
 			 * clone the region info
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
+			
+			
+			
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
 				DatePicker= JWic.controls.DatePicker,
 				field = document.forms.jwicform[fieldId];
@@ -377,17 +380,41 @@ JWic.controls = {
 			var id = JWic.util.JQryEscape(controlId);
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
+			
+			function datetimepickerCallback(forWhat){
+				return function(){
+					var arg = arguments,
+						that = this;
+					console.warn(forWhat);
+					jQuery(this).data(forWhat).map(function(i){
+						return i.apply(that,arguments);
+					});
+				}
+			}			
+			
+			
+						
 			datetimepicker.datetimepicker("option",region);		
 			if(field.value){
 				this.setDate(datetimepicker, field.value, field);
 			}
-			datetimepicker.change(function(){
+			
+			datetimepicker.data('onSelectListener',[]);
+			datetimepicker.datetimepicker('option','onSelect',datetimepickerCallback('onSelectListener'));
+			
+			datetimepicker.data('onCloseListener',[]);
+			datetimepicker.datetimepicker('option','onClose',datetimepickerCallback('onCloseListener'));
+			
+			
+			datetimepicker.data('onCloseListener').push(function(){
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
 				if(options.updateOnChange){
 					var date_utc = DatePicker.getUTCDate(datetimepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}
 			});
+			
+			
 			
 			return datetimepicker;
 		},
@@ -422,9 +449,12 @@ JWic.controls = {
 				else {
 					endDateTextBox.val(dateText);
 				}
+				
+				
 			});
 			
-			startDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
+			startDateTextBox.data('onSelectListener').push(function (selectedDateTime){
+				console.warn('startDate');
 				endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate') );
 			});
 			
@@ -440,7 +470,8 @@ JWic.controls = {
 				}
 			});
 			
-			endDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
+			endDateTextBox.data('onSelectListener').push(function (selectedDateTime){
+				console.warn('endDate');
 				startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
 			});
 			
