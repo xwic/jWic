@@ -250,6 +250,62 @@ JWic.controls = {
 		}
 		
 	},
+	/**
+	 * ValidatedInputBox
+	 * 
+	 * InputBox Control with regex validation on client side, otherwise its just like the regular inputBox
+	 */
+	ValidatedInputBox : {
+		initialize : function(control,options){
+			//call the 'super' constructor
+			JWic.controls.InputBoxControl.initialize(control);
+			
+			//compose 2 functions. yep i went there :)
+			function compose_2(func,func2){
+				return function(x){
+					return func.call(this,func2.call(this,x));
+				}
+			}
+			//checkAndUpdate takes a inputControl it validates it and adds/removes the x-error class input based on the regExp
+			//3 functions in one :)
+			var checkAndUpdate = JWic.util.reduce([this.setValid(control), this.test(options.regExp), this.getValue(control)], compose_2);
+			
+			//bind the keyup listener to check every key press
+			control.keyup(function(){
+				checkAndUpdate(this);
+			});
+			//do the initial check.
+			checkAndUpdate(control);
+		},
+		//test a string with a pattern, return true if ok false otherwise
+		test : function (pattern){
+			var regExp = new RegExp(pattern);
+			return function(str){
+				return regExp.test(str);
+			}
+		},
+		//adds or removed the x-error class on a control bases of the isValid argument (true == removeClass, false == addClass) 
+		setValid : function (control){
+			control = jQuery(control);//make jQuery (just in case)
+			
+			return function(isValid){//heres the isValid argument
+				if(isValid){
+					control.removeClass('x-error');
+				}else{
+					control.addClass('x-error');
+				}
+				return isValid;
+			}
+		},
+		//return the value of a control. lazy return so i can compose it other functions.
+		getValue : function getValue(control){
+			control = jQuery(control);//make jQuery
+			return function(){
+				return control.val();
+			}
+		},
+		
+	},
 	
 	/**
 	 * DatePicker script extensions.

@@ -639,6 +639,34 @@ JWic.util = {
 		    
 		    JWic.log(localFormatString);
 		    return localFormatString;
+		},
+		/**
+		 * Converts an array of elements of type 'A' into one single element of type 'A' based of of an operation
+		 * 
+		 * Ex: [1,2,3,4] with the + operation would result in the number 10
+		 * 
+		 * var theNumber10 = JWic.util.reduce([1,2,3,4],function(a,b){
+		 * 		return a+b;
+		 * });
+		 * 
+		 * 
+		 * @param arr - the array to be reduced to 1 element
+		 * @param cb - the reducer function
+		 * @param [first] - the optional first element in the reduction (commonly the operation's neutral element ex: 0 for +, 1 for *, '' for str concat, or even f(x) = x for function composition), 
+		 * 					if not passed the first elm in the array is used
+		 * @returns
+		 */
+		reduce : function reduce(arr,cb,first){
+			var i = 0, 
+				l = arr.length;
+			if(!first){
+				first = arr[0];
+				i = 1;
+			}
+			for(;i<l;i++){
+				first =  cb(first,arr[i],i,arr);
+			}
+			return first;
 		}
 }
 
