@@ -50,6 +50,7 @@ public class DatePicker extends InputBox {
 	private boolean showWeek = false;
 	private Date date;
 	private Date minDate, maxDate;
+	private boolean open;
 
 	private boolean updateOnChange;
 	
@@ -153,7 +154,6 @@ public class DatePicker extends InputBox {
 		if ("dateisempty".equals(actionId)) {
 			this.setDate(null);
 		}
-
 	}
 
 	private void notifyListeners(Date oldDate, Date newDate) {
@@ -419,6 +419,46 @@ public class DatePicker extends InputBox {
 	 */
 	public void setUpdateOnChange(boolean updateOnChange) {
 		this.updateOnChange = updateOnChange;
+	}
+	
+	/**
+	 * @param open - set to true if the control should be open
+	 */
+	public void setOpen(boolean open) {
+		this.open = open;
+		this.requireRedraw();
+		System.out.println("setOpen "+open);
+	}
+	
+	
+	/**
+	 * Opens the datepicker
+	 */
+	public void open(){
+		this.setOpen(true);
+	}
+	
+	/**
+	 * Closes the datepicker
+	 */
+	public void close(){
+		this.setOpen(false);
+	}
+	
+	/**
+	 * Toggles between open and close states
+	 */
+	public void toggle(){
+		this.setOpen(!this.isOpen());
+	}
+	
+	
+	/**
+	 * @return true if the control is displayed
+	 */
+	@IncludeJsOption
+	public boolean isOpen() {
+		return open;
 	}
 
 }

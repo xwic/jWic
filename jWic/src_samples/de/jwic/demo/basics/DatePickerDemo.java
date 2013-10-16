@@ -12,6 +12,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.DateChangedListener;
 import de.jwic.controls.DatePicker;
 import de.jwic.controls.DateTimePicker;
+import de.jwic.controls.Label;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -133,6 +134,24 @@ public class DatePickerDemo extends ControlContainer {
 		datePickerSlave.addDateChangedListener(listener2);
 		datePickerSlave.setMaster(datePickerMaster);
 		
+		new Button(this,"openDatePicker").addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				datePickerMaster.toggle();
+			}
+		});
+		
+		final Label l = new Label(this, "state");
+		l.setText(datePickerMaster.isOpen()+"");
+		new Button(this,"checkState").addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				l.setText(datePickerMaster.isOpen()+"");
+			}
+		});
+	
 	}
 	
 

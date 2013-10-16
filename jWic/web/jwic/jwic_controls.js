@@ -347,7 +347,7 @@ JWic.controls = {
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
 			
-			
+			console.warn(options);
 			
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
 				DatePicker= JWic.controls.DatePicker,
@@ -386,12 +386,13 @@ JWic.controls = {
 				this.setDate(datetimepicker, field.value, field);
 			}
 			
+			datetimepicker.data('onBeforeShow',[]);
+			datetimepicker.datetimepicker('option','beforeShow',this.doCallbacks('onBeforeShow'));
 			datetimepicker.data('onSelectListener',[]);//this is needed because the datepicker does not have actual events for some reason, it can only take in one callback at a time
 			datetimepicker.datetimepicker('option','onSelect',this.doCallbacks('onSelectListener'));// and i need at least 2 callbacks.
 			
 			datetimepicker.data('onCloseListener',[]);//this is just like the onSelect callback.
 			datetimepicker.datetimepicker('option','onClose',this.doCallbacks('onCloseListener'));
-			
 			
 			datetimepicker.data('onCloseListener').push(function(){//this is how my callbacks are attached.
 				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
@@ -401,8 +402,7 @@ JWic.controls = {
 				}
 			});
 			
-			
-			
+
 			return datetimepicker;
 		},
 		
@@ -418,7 +418,6 @@ JWic.controls = {
 			timeStamp = parseInt(timeStamp);
 			if(!isNaN(timeStamp)){			
 				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
-				//var date = new Date(timeStamp);
 				return date;
 			}
 			return null;
@@ -499,6 +498,7 @@ JWic.controls = {
 			return function(){
 				var arg = arguments,
 					that = this;
+				console.warn(forWhat);
 				return jQuery(this).data(forWhat).map(function(i){
 					return i.apply(that,arguments);
 				});
