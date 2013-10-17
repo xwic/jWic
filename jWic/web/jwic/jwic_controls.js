@@ -497,7 +497,6 @@ JWic.controls = {
 			return function(){
 				var arg = arguments,
 					that = this;
-				console.warn(forWhat);
 				return jQuery.map(jQuery(this).data(forWhat),function(i){
 					return i.apply(that,arguments);
 				});
