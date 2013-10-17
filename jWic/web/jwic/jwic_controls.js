@@ -347,7 +347,6 @@ JWic.controls = {
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
 			
-			console.warn(options);
 			
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
 				DatePicker= JWic.controls.DatePicker,
@@ -499,7 +498,7 @@ JWic.controls = {
 				var arg = arguments,
 					that = this;
 				console.warn(forWhat);
-				return jQuery(this).data(forWhat).map(function(i){
+				return jQuery.map(jQuery(this).data(forWhat),function(i){
 					return i.apply(that,arguments);
 				});
 			}
