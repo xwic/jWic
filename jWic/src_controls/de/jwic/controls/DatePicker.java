@@ -51,6 +51,8 @@ public class DatePicker extends InputBox {
 	private Date date;
 	private Date minDate, maxDate;
 	private boolean open;
+	
+	private DatePicker master;
 
 	private boolean updateOnChange;
 	
@@ -450,6 +452,33 @@ public class DatePicker extends InputBox {
 	 */
 	public void toggle(){
 		this.setOpen(!this.isOpen());
+	}
+	
+
+
+	/**
+	 * This DateTimePicker can be linked to another DateTimePicker to always update the "slave"
+	 * when this one is updated. When this controls date is changed and the slaves control has
+	 * no date or had the same date as this control had before it was changed, it is updated. 
+	 * This is all done through JavaScript events on the client side.
+	 * @param master the slave to set
+	 */
+	public void setMaster(DatePicker master) {
+		this.master = master;
+	}
+	
+	/**
+	 * @return return the master control
+	 */
+	public DatePicker getMaster() {
+		return master;
+	}
+	/**
+	 * @return the master controls ID
+	 */
+	@IncludeJsOption
+	public String getMasterId(){
+		return master == null ? null : master.getControlID();
 	}
 	
 	

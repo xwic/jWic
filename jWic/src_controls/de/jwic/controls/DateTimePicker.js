@@ -14,7 +14,7 @@
 			
 			#if($control.masterId)
 				var masterDateTextBox = jQuery('#' + JWic.util.JQryEscape('${control.masterId}'));
-				JWic.controls.DateTimePicker.masterSlave(masterDateTextBox,datetimepicker);
+				JWic.controls.DatePicker.masterSlave(masterDateTextBox,datetimepicker);
 			#end
 //			This features is not 100% done yet
 //			setTimeout(function(){

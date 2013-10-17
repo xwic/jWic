@@ -264,9 +264,9 @@ JWic.controls = {
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
-			 	field = document.forms.jwicform[fieldId],
-			 	DatePicker = JWic.controls.DatePicker;
-			
+			 	DatePicker = JWic.controls.DatePicker,
+			 	field = document.forms.jwicform[fieldId];
+			options.fieldId = fieldId;
 			
 			/*
 			 * set date format in needed
@@ -297,22 +297,39 @@ JWic.controls = {
 			if(field.value){
 				this.setDate(datepicker, field.value, field);
 			}
-			datepicker.change(function(){
+			
+			this.setupListeners(datepicker,options);
+			
+			return datepicker;
+		},
+		
+		setupListeners : function(datepicker,options){
+			var DatePicker = this,
+				field = document.forms.jwicform[options.fieldId];
+				
+			datepicker.data('onBeforeShow',[]);
+			datepicker.datepicker('option','beforeShow',DatePicker.doCallbacks('onBeforeShow'));
+			datepicker.data('onSelectListener',[]);//this is needed because the datepicker does not have actual events for some reason, it can only take in one callback at a time
+			datepicker.datepicker('option','onSelect',DatePicker.doCallbacks('onSelectListener'));// and i need at least 2 callbacks.
+			
+			datepicker.data('onCloseListener',[]);//this is just like the onSelect callback.
+			datepicker.datepicker('option','onClose',DatePicker.doCallbacks('onCloseListener'));
+			
+			datepicker.data('onCloseListener').push(function(){//this is how my callbacks are attached.
 				field.value = DatePicker.getUTCDate(datepicker).getTime();
 				if(options.updateOnChange){
 					var date_utc = DatePicker.getUTCDate(datepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}
 			});
-			
-			return datepicker;
 		},
+		
 		
 		/*
 		 * set datepicker date from java
 		 */
 		setDate : function(datepicker, currentTime, field){
-			datepicker.datepicker('setDate', JWic.controls.DateTimePicker.convertDate(currentTime));
+			datepicker.datepicker('setDate', JWic.controls.DatePicker.convertDate(currentTime));
 			field.value = this.getUTCDate(datepicker).getTime();
 		},
 		
@@ -330,96 +347,6 @@ JWic.controls = {
 					return ''; //a mock object with the get time function since getTime is passes to the server
 				}
 			};
-		}
-	},
-	
-	
-	/**
-	 * DateTimePicker script extensions.
-	 */
-	DateTimePicker : {
-		/**
-		 * Initialize a new control.
-		 */
-		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime, fieldId) {
-			/*
-			 * clone the region info
-			 * so you can maintain language date but change date format only on this instance of the datepicker
-			 */
-			
-			
-			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
-				DatePicker= JWic.controls.DatePicker,
-				field = document.forms.jwicform[fieldId];
-			 	
-			/*
-			 * set date format in needed
-			 */
-			if(dateFormat != "noformat")
-				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
-			
-			/*
-			 *	default back to English if selected region is undefined 
-			 */
-			if(region == undefined){
-				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
-				/*
-				 * notify java control to default back to Locale.ENGLISH as well
-				 */
-				JWic.fireAction(controlId,'localeNotFound','');
-			}
-			
-			if(timeFormat){
-				options.timeFormat = JWic.util.convertToJqueryDateFormat(timeFormat);
-			}
-			
-			/*
-			 * init the datepicker
-			 */
-			var id = JWic.util.JQryEscape(controlId);
-			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
-			
-						
-			datetimepicker.datetimepicker("option",region);		
-			if(field.value){
-				this.setDate(datetimepicker, field.value, field);
-			}
-			
-			datetimepicker.data('onBeforeShow',[]);
-			datetimepicker.datetimepicker('option','beforeShow',this.doCallbacks('onBeforeShow'));
-			datetimepicker.data('onSelectListener',[]);//this is needed because the datepicker does not have actual events for some reason, it can only take in one callback at a time
-			datetimepicker.datetimepicker('option','onSelect',this.doCallbacks('onSelectListener'));// and i need at least 2 callbacks.
-			
-			datetimepicker.data('onCloseListener',[]);//this is just like the onSelect callback.
-			datetimepicker.datetimepicker('option','onClose',this.doCallbacks('onCloseListener'));
-			
-			datetimepicker.data('onCloseListener').push(function(){//this is how my callbacks are attached.
-				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
-				if(options.updateOnChange){
-					var date_utc = DatePicker.getUTCDate(datetimepicker);
-					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-				}
-			});
-			
-
-			return datetimepicker;
-		},
-		
-		/*
-		 * set datepicker date from java
-		 */
-		setDate : function(datetimepicker, currentTime){
-			datetimepicker.datetimepicker('setDate', this.convertDate(currentTime));
-		},
-		
-		convertDate : function(currentTime){
-			var timeStamp = currentTime;
-			timeStamp = parseInt(timeStamp);
-			if(!isNaN(timeStamp)){			
-				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
-				return date;
-			}
-			return null;
 		},
 		/**
 		 * sets up the master slave relationship between two datetimepickers.
@@ -472,6 +399,7 @@ JWic.controls = {
 		 * ! the 'this' object of the returned function must be the 'master' datetimepicker' !
 		 */
 		setDates : function (slave,check){
+			var that = this;
 			return function(){
 				var startDate = jQuery(this).datetimepicker('getDate');
 				var endDate = slave.datetimepicker('getDate');
@@ -480,7 +408,7 @@ JWic.controls = {
 				
 				var maxTimeStamp = check(startDate.getTime(),endDate.getTime());
 				
-				JWic.controls.DateTimePicker.setDate(slave, maxTimeStamp);							
+				that.setDate(slave, maxTimeStamp);							
 			};
 		},
 		
@@ -502,7 +430,82 @@ JWic.controls = {
 				});
 			}
 		},
+		
+		/*
+		 * set datepicker date from java
+		 */
+		setDate : function(datetimepicker, currentTime){
+			datetimepicker.datetimepicker('setDate', this.convertDate(currentTime));
+		},
+		
+		convertDate : function(currentTime){
+			var timeStamp = currentTime;
+			timeStamp = parseInt(timeStamp);
+			if(!isNaN(timeStamp)){			
+				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
+				return date;
+			}
+			return null;
+		}
+	},
 	
+	
+	/**
+	 * DateTimePicker script extensions.
+	 */
+	DateTimePicker : {
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(inpElm, controlId, region, dateFormat, timeFormat, options, currentTime, fieldId) {
+			/*
+			 * clone the region info
+			 * so you can maintain language date but change date format only on this instance of the datepicker
+			 */
+			
+			
+			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
+				DatePicker= JWic.controls.DatePicker,
+			 	field = document.forms.jwicform[fieldId];
+				options.fieldId = fieldId;
+			 	
+			/*
+			 * set date format in needed
+			 */
+			if(dateFormat != "noformat")
+				region.dateFormat = JWic.util.convertToJqueryDateFormat(dateFormat);
+			
+			/*
+			 *	default back to English if selected region is undefined 
+			 */
+			if(region == undefined){
+				region = jQuery.extend(true, {}, jQuery.datepicker.regional['en']);
+				/*
+				 * notify java control to default back to Locale.ENGLISH as well
+				 */
+				JWic.fireAction(controlId,'localeNotFound','');
+			}
+			
+			if(timeFormat){
+				options.timeFormat = JWic.util.convertToJqueryDateFormat(timeFormat);
+			}
+			
+			/*
+			 * init the datepicker
+			 */
+			var id = JWic.util.JQryEscape(controlId);
+			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
+			
+						
+			datetimepicker.datetimepicker("option",region);		
+			if(field.value){
+				DatePicker.setDate(datetimepicker, field.value, field);
+			}
+			
+			DatePicker.setupListeners(datetimepicker,options);
+			
+			return datetimepicker;
+		},
 		
 		/**
 		 * Clean up..
