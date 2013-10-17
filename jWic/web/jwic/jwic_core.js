@@ -318,27 +318,12 @@ var JWic = {
 	getWindowSize : function() {
 		var myWidth = 0, myHeight = 0, scrollTop, scrollLeft;
 		var type;
-		if (typeof (window.innerWidth) == 'number') {
-				// Non-IE
-			myWidth = window.innerWidth;
-			myHeight = window.innerHeight;
-			scrollLeft = window.pageXOffset;
-			scrollTop = window.pageYOffset;
-		} else if (document.documentElement
-				&& (document.documentElement.clientWidth || document.documentElement.clientHeight)) {
-			// IE 6+ in 'standards compliant mode'
-			myWidth = document.documentElement.clientWidth;
-			myHeight = document.documentElement.clientHeight;
-			scrollLeft = document.documentElement.scrollLeft;
-			scrollTop = document.documentElement.scrollTop;
-		} else if (document.body
-				&& (document.body.clientWidth || document.body.clientHeight)) {
-			// IE 4 compatible
-			myWidth = document.body.clientWidth;
-			myHeight = document.body.clientHeight;
-			scrollLeft = document.body.scrollLeft;
-			scrollTop = document.body.scrollTop;
-		}
+		var win =jQuery(document.body).css('overflow','hidden');
+		myWidth = win.innerWidth();
+		myHeight = jQuery(window).innerHeight();
+		scrollLeft = win.scrollTop();
+		scrollTop = win.scrollLeft();
+		win.css('overflow','auto');
 		return [ myWidth, myHeight, scrollLeft, scrollTop ];
 	},
 	
