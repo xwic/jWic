@@ -49,7 +49,6 @@ public class DateTimePicker extends DatePicker {
 	private Boolean timeOnly = null;
 	private Boolean alwaysSetTime = null;
 	private String separator = null;
-	private DateTimePicker master;
 	private String timeFormat = "";
 
 	
@@ -575,35 +574,6 @@ public class DateTimePicker extends DatePicker {
 	 */
 	public void setTimeFormat(String timeFormat) {
 		this.timeFormat = timeFormat;
-	}
-	
-	/**
-	 * @return the slave
-	 */
-	public DatePicker getMaster() {
-		return master;
-	}
-	
-	/**
-	 * Returns the id of the slave.
-	 * @return
-	 */
-	public String getMasterId() {
-		if(master == null)
-			return null;
-		
-		return master.getControlID();
-	}
-
-	/**
-	 * This DateTimePicker can be linked to another DateTimePicker to always update the "slave"
-	 * when this one is updated. When this controls date is changed and the slaves control has
-	 * no date or had the same date as this control had before it was changed, it is updated. 
-	 * This is all done through JavaScript events on the client side.
-	 * @param master the slave to set
-	 */
-	public void setMaster(DateTimePicker master) {
-		this.master = master;
 	}
 	
 	/**
