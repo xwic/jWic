@@ -937,6 +937,7 @@ JWic.controls = {
 				} else {
 					if (e.keyCode == 13) { // enter
 						JWic.controls.Combo.finishSelection(ctrlId, false);
+						return false;
 					} else if (e.keyCode == 38 || e.keyCode == 40) {
 						// scroll up/down
 						var isUp = (e.keyCode == 38);
@@ -1070,7 +1071,13 @@ JWic.controls = {
 				comboElm.jComboField.focus();
 				//comboElm.jComboField.select();
 				 if(typeof comboElm.jComboField.selectionStart != 'undefined') {
-					 comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+					comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+				 }else{
+					 var range = comboElm.jComboField.createTextRange();
+					 range.collapse(true);
+					 range.moveStart('character', comboElm.dataFilterValue.length);
+					 range.moveEnd('character', obj.title.length);
+					 range.select();
 				 }
 
 			}
@@ -1088,6 +1095,7 @@ JWic.controls = {
 				var box = document.getElementById(ctrlId);
 				if (box && box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 					JWic.controls.Combo.openContentBox(ctrlId);
+					box.jComboField.focus();
 				}
 			}
 		},
@@ -1150,7 +1158,10 @@ JWic.controls = {
 		openContentBox : function(controlId) {
 			JWic.log("openContentBox "+JWic.controls.Combo._activeComboContentBox);
 			if (JWic.controls.Combo._activeComboContentBox) {
-				if (JWic.controls.Combo._activeComboContentBox != controlId) {
+				if (JWic.controls.Combo._activeComboContentBox == controlId) {
+					//JWic.controls.Combo.closeActiveContentBox();
+					return; // do not re-open it.
+				} else {
 					JWic.controls.Combo.closeActiveContentBox();
 				}
 			}else{
@@ -1158,7 +1169,6 @@ JWic.controls = {
 			}
 
 			if (JWic.controls.Combo._closeControlId == controlId) {
-				
 				var age = new Date().getTime() - JWic.controls.Combo._closeTime;
 				if (age < 100) {
 					return; // prevent re-open on immidiate re-focus event.
@@ -1171,6 +1181,7 @@ JWic.controls = {
 			var boxWidth = jQuery(comboBox).width();
 			var comboBoxWin = jQuery("#win_" + JWic.util.JQryEscape(controlId));			
 			if (!comboBoxWin.is(':data(dialog)')) {
+
 				comboBoxWin.dialog({					
 					dialogClass : "j-combo-content",
 					resizable: false,
