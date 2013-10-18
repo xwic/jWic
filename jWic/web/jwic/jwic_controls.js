@@ -838,7 +838,7 @@ JWic.controls = {
 			var escapedControlId = JWic.util.JQryEscape(controlId);
 			var comboBox = document.getElementById(controlId);
 			var iconElm = document.getElementById(controlId + "_open");
-
+			
 			this._activeComboContentBox = null;
 			
 			this._openTime = 0;
@@ -857,6 +857,7 @@ JWic.controls = {
 			jInpElm.focus(JWic.controls.Combo.focusHandler);
 			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
 			jInpElm.click(JWic.controls.Combo.textClickHandler);
+			
 			jInpElm.bind('keydown',JWic.controls.Combo.textKeyPressedHandler);
 
 			// adjust sizes
@@ -893,7 +894,7 @@ JWic.controls = {
 				} else {
 					return jQuery(inpElm).val();
 				}
-			}			
+			}		
 		},
 		
 		/**
@@ -1137,8 +1138,8 @@ JWic.controls = {
 					// delay lostFocusCheck in case it was due to a selection
 					// click.
 					JWic.controls.Combo._lostFocusClose = true;
-					// window.setTimeout("JWic.controls.Combo.finishSelection('"
-					// + ctrlId + "', true);", 300);
+					 window.setTimeout("JWic.controls.Combo.finishSelection('"
+					 + ctrlId + "', true);", 300);
 				}
 			}
 			if (jQuery(this).attr("xEmptyInfoText")) {
