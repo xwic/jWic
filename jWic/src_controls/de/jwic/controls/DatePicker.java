@@ -50,6 +50,9 @@ public class DatePicker extends InputBox {
 	private boolean showWeek = false;
 	private Date date;
 	private Date minDate, maxDate;
+	private boolean open;
+	
+	private DatePicker master;
 
 	private boolean updateOnChange;
 	
@@ -153,7 +156,6 @@ public class DatePicker extends InputBox {
 		if ("dateisempty".equals(actionId)) {
 			this.setDate(null);
 		}
-
 	}
 
 	private void notifyListeners(Date oldDate, Date newDate) {
@@ -419,6 +421,73 @@ public class DatePicker extends InputBox {
 	 */
 	public void setUpdateOnChange(boolean updateOnChange) {
 		this.updateOnChange = updateOnChange;
+	}
+	
+	/**
+	 * @param open - set to true if the control should be open
+	 */
+	public void setOpen(boolean open) {
+		this.open = open;
+		this.requireRedraw();
+		System.out.println("setOpen "+open);
+	}
+	
+	
+	/**
+	 * Opens the datepicker
+	 */
+	public void open(){
+		this.setOpen(true);
+	}
+	
+	/**
+	 * Closes the datepicker
+	 */
+	public void close(){
+		this.setOpen(false);
+	}
+	
+	/**
+	 * Toggles between open and close states
+	 */
+	public void toggle(){
+		this.setOpen(!this.isOpen());
+	}
+	
+
+
+	/**
+	 * This DateTimePicker can be linked to another DateTimePicker to always update the "slave"
+	 * when this one is updated. When this controls date is changed and the slaves control has
+	 * no date or had the same date as this control had before it was changed, it is updated. 
+	 * This is all done through JavaScript events on the client side.
+	 * @param master the slave to set
+	 */
+	public void setMaster(DatePicker master) {
+		this.master = master;
+	}
+	
+	/**
+	 * @return return the master control
+	 */
+	public DatePicker getMaster() {
+		return master;
+	}
+	/**
+	 * @return the master controls ID
+	 */
+	@IncludeJsOption
+	public String getMasterId(){
+		return master == null ? null : master.getControlID();
+	}
+	
+	
+	/**
+	 * @return true if the control is displayed
+	 */
+	@IncludeJsOption
+	public boolean isOpen() {
+		return open;
 	}
 
 }
