@@ -12,6 +12,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.DateChangedListener;
 import de.jwic.controls.DatePicker;
 import de.jwic.controls.DateTimePicker;
+import de.jwic.controls.Label;
 import de.jwic.controls.LabelControl;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
@@ -93,7 +94,11 @@ public class DatePickerDemo extends ControlContainer {
 		};
 		
 		datePicker.addDateChangedListener(listener);
+		
+		
 		dateTimePicker.addDateChangedListener(listener);
+		
+		
 		datePicker.setUpdateOnChange(true);
 				
 		lblInfo = new LabelControl(this, "lblInfo");
@@ -110,13 +115,43 @@ public class DatePickerDemo extends ControlContainer {
 			}
 		});
 				
+		DateChangedListener listener2 = new DateChangedListener() {
+			
+			@Override
+			public void onDateChanged(Date oldDate, Date newDate) {
+				System.out.println(oldDate+" to "+newDate);
+			}
+		};
+		
 		propEditor.loadValues(); // refresh values.
 		Date d = Calendar.getInstance().getTime();
 		datePickerMaster = new DateTimePicker(this, "dateTimeMaster");
+		datePickerMaster.setUpdateOnChange(true);
+		datePickerMaster.addDateChangedListener(listener2);
 		datePickerMaster.setDate(d);
 		datePickerSlave = new DateTimePicker(this, "dateTimeSlave");
+		datePickerSlave.setUpdateOnChange(true);
+		datePickerSlave.addDateChangedListener(listener2);
 		datePickerSlave.setMaster(datePickerMaster);
 		
+		new Button(this,"openDatePicker").addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				datePickerMaster.toggle();
+			}
+		});
+		
+		final Label l = new Label(this, "state");
+		l.setText(datePickerMaster.isOpen()+"");
+		new Button(this,"checkState").addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				l.setText(datePickerMaster.isOpen()+"");
+			}
+		});
+	
 	}
 	
 

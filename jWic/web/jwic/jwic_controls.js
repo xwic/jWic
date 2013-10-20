@@ -320,9 +320,9 @@ JWic.controls = {
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
-			 	field = document.forms.jwicform[fieldId],
-			 	DatePicker = JWic.controls.DatePicker;
-			
+			 	DatePicker = JWic.controls.DatePicker,
+			 	field = document.forms.jwicform[fieldId];
+			options.fieldId = fieldId;
 			
 			/*
 			 * set date format in needed
@@ -353,22 +353,39 @@ JWic.controls = {
 			if(field.value){
 				this.setDate(datepicker, field.value, field);
 			}
-			datepicker.change(function(){
+			
+			this.setupListeners(datepicker,options);
+			
+			return datepicker;
+		},
+		
+		setupListeners : function(datepicker,options){
+			var DatePicker = this,
+				field = document.forms.jwicform[options.fieldId];
+				
+			datepicker.data('onBeforeShow',[]);
+			datepicker.datepicker('option','beforeShow',DatePicker.doCallbacks('onBeforeShow'));
+			datepicker.data('onSelectListener',[]);//this is needed because the datepicker does not have actual events for some reason, it can only take in one callback at a time
+			datepicker.datepicker('option','onSelect',DatePicker.doCallbacks('onSelectListener'));// and i need at least 2 callbacks.
+			
+			datepicker.data('onCloseListener',[]);//this is just like the onSelect callback.
+			datepicker.datepicker('option','onClose',DatePicker.doCallbacks('onCloseListener'));
+			
+			datepicker.data('onCloseListener').push(function(){//this is how my callbacks are attached.
 				field.value = DatePicker.getUTCDate(datepicker).getTime();
 				if(options.updateOnChange){
 					var date_utc = DatePicker.getUTCDate(datepicker);
 					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
 				}
 			});
-			
-			return datepicker;
 		},
+		
 		
 		/*
 		 * set datepicker date from java
 		 */
 		setDate : function(datepicker, currentTime, field){
-			datepicker.datepicker('setDate', JWic.controls.DateTimePicker.convertDate(currentTime));
+			datepicker.datepicker('setDate', JWic.controls.DatePicker.convertDate(currentTime));
 			field.value = this.getUTCDate(datepicker).getTime();
 		},
 		
@@ -386,6 +403,105 @@ JWic.controls = {
 					return ''; //a mock object with the get time function since getTime is passes to the server
 				}
 			};
+		},
+		/**
+		 * sets up the master slave relationship between two datetimepickers.
+		 * 
+		 */
+		masterSlave : function(master, slave){
+			
+			var setDatesForMaster = this.setDates(slave, Math.max);// this refers to the global JWic.controls.DateTimePicker object
+			var setDatesForSlave = this.setDates(master, Math.min);
+			
+			var setMaxMaster = this.setMinMax('maxDate',master);
+			var setMinSlave = this.setMinMax('minDate',slave);
+			
+			master.data('onSelectListener').push(setDatesForMaster);
+			master.data('onCloseListener').push(setMinSlave);
+			
+			slave.data('onSelectListener').push(setDatesForSlave);
+			slave.data('onCloseListener').push(setMaxMaster);
+			
+			setMaxMaster.call(slave);//do the initial setting of stuff for the refresh
+			setMinSlave.call(master);//here to 
+			
+		},
+		
+		/**
+		 * Sets the min or max prop of the 'other' datetimepicker based of 'this' datetimepicker
+		 * 
+		 * minMax - a string with the value minDate or maxDate
+		 * other - the other datetimepicker
+		 * 
+		 * returns a function that actually sets the min or max of the 'other' datetimepicker
+		 * 
+		 * ! the 'this' object of the returned function must be a datetimepicker (preferably diferent from the 'other' object)
+		 * 
+		 * 
+		 */
+		setMinMax : function (minMax,other){
+			return function(){
+				other.datetimepicker('option',minMax,jQuery(this).datetimepicker('getDate'));
+			}
+		},
+		/**
+		 * setDates sets the current date of the slave object if needed
+		 * 
+		 * slave - the slave object
+		 * check - a function that return compares the timestamps of two datetimepickers (Math.min or Math.max)
+		 * 
+		 * returns - a function that sets the current date of the 'slave' datetimepicker
+		 * 
+		 * ! the 'this' object of the returned function must be the 'master' datetimepicker' !
+		 */
+		setDates : function (slave,check){
+			var that = this;
+			return function(){
+				var startDate = jQuery(this).datetimepicker('getDate');
+				var endDate = slave.datetimepicker('getDate');
+				startDate = startDate || new Date(Number.MIN_VALUE);//its either good or its the begining of time
+				endDate = endDate || new Date(Number.MAX_VALUE); // its either good or the end of time (to avoid null check :) not a fan of null checking)
+				
+				var maxTimeStamp = check(startDate.getTime(),endDate.getTime());
+				
+				that.setDate(slave, maxTimeStamp);							
+			};
+		},
+		
+		/**
+		 * Helper function
+		 * forWhat - the name of the callback group
+		 * 
+		 * returns - a function that calls the callback for that group.
+		 * 
+		 * ! the returned functions 'this' object must be a datetimepicker !
+		 * 
+		 */
+		doCallbacks : function(forWhat){
+			return function(){
+				var arg = arguments,
+					that = this;
+				return jQuery.map(jQuery(this).data(forWhat),function(i){
+					return i.apply(that,arguments);
+				});
+			}
+		},
+		
+		/*
+		 * set datepicker date from java
+		 */
+		setDate : function(datetimepicker, currentTime){
+			datetimepicker.datetimepicker('setDate', this.convertDate(currentTime));
+		},
+		
+		convertDate : function(currentTime){
+			var timeStamp = currentTime;
+			timeStamp = parseInt(timeStamp);
+			if(!isNaN(timeStamp)){			
+				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
+				return date;
+			}
+			return null;
 		}
 	},
 	
@@ -402,9 +518,12 @@ JWic.controls = {
 			 * clone the region info
 			 * so you can maintain language date but change date format only on this instance of the datepicker
 			 */
+			
+			
 			var region = jQuery.extend(true, {}, jQuery.datepicker.regional[region]),
 				DatePicker= JWic.controls.DatePicker,
-				field = document.forms.jwicform[fieldId];
+			 	field = document.forms.jwicform[fieldId];
+				options.fieldId = fieldId;
 			 	
 			/*
 			 * set date format in needed
@@ -433,73 +552,15 @@ JWic.controls = {
 			var id = JWic.util.JQryEscape(controlId);
 			var datetimepicker = jQuery( "#" + id ).datetimepicker(options);
 			
+						
 			datetimepicker.datetimepicker("option",region);		
 			if(field.value){
-				this.setDate(datetimepicker, field.value, field);
+				DatePicker.setDate(datetimepicker, field.value, field);
 			}
-			datetimepicker.change(function(){
-				field.value = DatePicker.getUTCDate(datetimepicker).getTime();
-				if(options.updateOnChange){
-					var date_utc = DatePicker.getUTCDate(datetimepicker);
-					JWic.fireAction(this.id, 'datechanged', '' + date_utc.getTime());
-				}
-			});
+			
+			DatePicker.setupListeners(datetimepicker,options);
 			
 			return datetimepicker;
-		},
-		
-		/*
-		 * set datepicker date from java
-		 */
-		setDate : function(datetimepicker, currentTime){
-			datetimepicker.datetimepicker('setDate', this.convertDate(currentTime));
-		},
-		
-		convertDate : function(currentTime){
-			var timeStamp = currentTime;
-			timeStamp = parseInt(timeStamp);
-			if(!isNaN(timeStamp)){			
-				var date = new Date(timeStamp + new Date(timeStamp).getTimezoneOffset() * 60000);
-				//var date = new Date(timeStamp);
-				return date;
-			}
-			return null;
-		},
-		
-		masterSlave : function(startDateTextBox, endDateTextBox){
-			
-			startDateTextBox.datetimepicker('option', 'onClose', function(dateText, inst) {
-				if (endDateTextBox.val() != '') {
-					var startDate = startDateTextBox.datetimepicker('getDate');
-					var endDate = endDateTextBox.datetimepicker('getDate');
-					if (startDate > endDate)
-						endDateTextBox.datetimepicker('setDate', startDate);
-				}
-				else {
-					endDateTextBox.val(dateText);
-				}
-			});
-			
-			startDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
-				endDateTextBox.datetimepicker('option', 'minDate', startDateTextBox.datetimepicker('getDate') );
-			});
-			
-			endDateTextBox.datetimepicker('option', 'onClose', function(dateText, inst) {
-				if (startDateTextBox.val() != '') {
-					var startDate = startDateTextBox.datetimepicker('getDate');
-					var endDate = endDateTextBox.datetimepicker('getDate');
-					if (startDate > endDate)
-						startDateTextBox.datetimepicker('setDate', endDate);
-				}
-				else {
-					startDateTextBox.val(dateText);
-				}
-			});
-			
-			endDateTextBox.datetimepicker('option', 'onSelect',  function (selectedDateTime){
-				startDateTextBox.datetimepicker('option', 'maxDate', endDateTextBox.datetimepicker('getDate') );
-			});
-			
 		},
 		
 		/**
@@ -833,7 +894,7 @@ JWic.controls = {
 			var escapedControlId = JWic.util.JQryEscape(controlId);
 			var comboBox = document.getElementById(controlId);
 			var iconElm = document.getElementById(controlId + "_open");
-
+			
 			this._activeComboContentBox = null;
 			
 			this._openTime = 0;
@@ -852,6 +913,7 @@ JWic.controls = {
 			jInpElm.focus(JWic.controls.Combo.focusHandler);
 			jInpElm.blur(JWic.controls.Combo.lostFocusHandler);
 			jInpElm.click(JWic.controls.Combo.textClickHandler);
+			
 			jInpElm.bind('keydown',JWic.controls.Combo.textKeyPressedHandler);
 
 			// adjust sizes
@@ -888,7 +950,7 @@ JWic.controls = {
 				} else {
 					return jQuery(inpElm).val();
 				}
-			}			
+			}		
 		},
 		
 		/**
@@ -931,6 +993,7 @@ JWic.controls = {
 				} else {
 					if (e.keyCode == 13) { // enter
 						JWic.controls.Combo.finishSelection(ctrlId, false);
+						return false;
 					} else if (e.keyCode == 38 || e.keyCode == 40) {
 						// scroll up/down
 						var isUp = (e.keyCode == 38);
@@ -1064,7 +1127,13 @@ JWic.controls = {
 				comboElm.jComboField.focus();
 				//comboElm.jComboField.select();
 				 if(typeof comboElm.jComboField.selectionStart != 'undefined') {
-					 comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+					comboElm.jComboField.selectionStart = comboElm.dataFilterValue.length;
+				 }else{
+					 var range = comboElm.jComboField.createTextRange();
+					 range.collapse(true);
+					 range.moveStart('character', comboElm.dataFilterValue.length);
+					 range.moveEnd('character', obj.title.length);
+					 range.select();
 				 }
 
 			}
@@ -1082,6 +1151,7 @@ JWic.controls = {
 				var box = document.getElementById(ctrlId);
 				if (box && box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
 					JWic.controls.Combo.openContentBox(ctrlId);
+					box.jComboField.focus();
 				}
 			}
 		},
@@ -1097,7 +1167,7 @@ JWic.controls = {
 				if (box) {
 					jQuery(box).addClass("x-focus");
 					if (box.openContentOnTextFocus && ctrlId != JWic.controls.Combo._activeComboContentBox) {
-						JWic.controls.Combo.openContentBox(ctrlId);
+//						JWic.controls.Combo.openContentBox(ctrlId);
 					}
 
 						
@@ -1124,8 +1194,8 @@ JWic.controls = {
 					// delay lostFocusCheck in case it was due to a selection
 					// click.
 					JWic.controls.Combo._lostFocusClose = true;
-					// window.setTimeout("JWic.controls.Combo.finishSelection('"
-					// + ctrlId + "', true);", 300);
+					 window.setTimeout("JWic.controls.Combo.finishSelection('"
+					 + ctrlId + "', true);", 300);
 				}
 			}
 			if (jQuery(this).attr("xEmptyInfoText")) {
