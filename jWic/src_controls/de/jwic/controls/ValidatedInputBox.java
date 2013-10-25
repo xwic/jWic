@@ -56,6 +56,7 @@ public class ValidatedInputBox extends InputBox {
 	public void setRegExp(Pattern regExpPattern) {
 		this.regExpPattern = regExpPattern;
 		this.regExp = regExpPattern.pattern();
+		this.requireRedraw();
 	}
 	/**
 	 * 
