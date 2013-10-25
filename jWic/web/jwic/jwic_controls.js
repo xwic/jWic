@@ -303,7 +303,7 @@ JWic.controls = {
 			return function(){
 				return control.val();
 			}
-		},
+		}
 		
 	},
 	
