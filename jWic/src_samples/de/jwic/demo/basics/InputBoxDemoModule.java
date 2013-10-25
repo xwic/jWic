@@ -89,7 +89,7 @@ public class InputBoxDemoModule extends DemoModule {
 		
 		new Label(tlc).setText("Validated Input (Here its an email address) :");
 		final ValidatedInputBox vib = new ValidatedInputBox(tlc);
-		vib.setRegExp(Pattern.compile("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")); // validates an email address
+		vib.setRegExp(ValidatedInputBox.EMAIL_PATTERN); // validates an email address
 		
 		
 	}
