@@ -120,11 +120,13 @@ public class ValidatedInputBox extends InputBox {
 	 * Matches the current pattern o the value of the input field.<br>
 	 * can be used to validate on the backend.<br>
 	 * This method is independent of the ui validation.<br>
-	 *
-	 * @return true if text is valid with pattern, false otherwise
+	 * 
+	 * it returns true if no pattern was specified
+	 * 
+	 * @return true if text is valid with pattern ( or if pattern is null or the string "" ), false otherwise
 	 */
 	public boolean isValid(){
-		return regExpPattern.matcher(this.getText()).matches();
+		return regExpPattern != null ? regExpPattern.matcher(this.getText()).matches() : true;
 	}
 	
 	
