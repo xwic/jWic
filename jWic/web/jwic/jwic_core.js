@@ -706,15 +706,5 @@ JWic.ui = {
 				return;
 				
 			}
-		},
-
-		/**
-		 * LazyTooltip Content Provider that is used as a default. in case the specified one is not found or there is no spefied one
-		 */
-		DefaultLazyTooltipContentProvider: function(data){
-			var wrapper = jQuery('<div>');
-			wrapper.text(data.message);
-			wrapper.addClass('default-tooltip');
-			return wrapper;
 		}
 }

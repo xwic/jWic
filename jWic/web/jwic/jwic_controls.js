@@ -2094,7 +2094,7 @@ JWic.controls = {
 		mouseover : function(context){
 			var mapAttr = this._mapAttributes,
 				makeCall = this._makeCall,
-				handleMouseover = this.handleMouseover,
+				handleMouseover = this.handleMouseover.bind(this),
 				controlId = context.controlId,
 				map = JWic.util.map,
 				compose = JWic.util.compose;
@@ -2151,8 +2151,12 @@ JWic.controls = {
 			console.warn(data);
 			var win = jQuery(window),
 				//find the corrent provider or get the default one (see default one for definition)
-				providerClass = data.providerClass || "",
-				provider = window[data.providerClass] || JWic.ui.DefaultLazyTooltipContentProvider;
+				providerClass = data.providerClass || "DefaultLazyTooltipContentProvider",
+				provider =  this[providerClass];
+			if(!provider){
+				provider =  this.DefaultLazyTooltipContentProvider;
+			}
+			
 			//empty out the tooltip container and repopulate it
 			context.tooltip.empty().css({
 				top : event.pageY - win.scrollTop() + 10,
@@ -2176,6 +2180,20 @@ JWic.controls = {
 		//dom manin for mouse out
 		handleMouseout : function(context){
 			context.tooltip.hide();
+		},
+		registerProvider : function(name,func){
+			this[name] = func;
+		},
+		
+
+		/**
+		 * LazyTooltip Content Provider that is used as a default. in case the specified one is not found or there is no spefied one
+		 */
+		DefaultLazyTooltipContentProvider: function(data){
+			var wrapper = jQuery('<div>');
+			wrapper.text(data.message);
+			wrapper.addClass('default-tooltip');
+			return wrapper;
 		}
 		
 	}
