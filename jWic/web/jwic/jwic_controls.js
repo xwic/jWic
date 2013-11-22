@@ -2051,5 +2051,133 @@ JWic.controls = {
 				sorts.sortable("destroy");
 			}
 		}
+	},
+	/**
+	 * LazyTooltipControl
+	 */
+	LazyTooltipControl : {
+		/**
+		 * 'Constructor'-like function
+		 */
+		initialize : function(options) {
+			var tooltipDiv = JWic.$('ctrl_'+options.controlId).find('#tooltip');
+			//unique context object for each LazyTooltipControl
+			//this object gets passed around via closures
+			//we don't want to expose stuff on window (or anywhere thats globaly visible for that matter)
+			console.warn(options);
+			var context = {
+					controlId : options.controlId,
+					tooltip : tooltipDiv,
+					providers : options.providers.split(',')
+			};
+			//only mouseover and mouseout are passed on the document object.
+			//this is because the document object is one that actually has the events
+			var events = {
+					mouseover : this.mouseover(context),
+					mouseout : this.mouseout(context)
+			};
+			
+			jQuery(document).data(options.controlId,events).on(events);
+			
+		},
+		/**
+		 * Callback for destory
+		 */
+		destroy : function(options){
+			var events = jQuery(document).data(options.controlId);
+			//remove the callbacks
+			jQuery.each(events,function(e,i){
+				jQuery(document).unbind(e,i);
+			});
+		},
+		//mouse over callback builder (or 'factory' if you like)
+		mouseover : function(context){
+			var mapAttr = this._mapAttributes,
+				makeCall = this._makeCall,
+				handleMouseover = this.handleMouseover,
+				controlId = context.controlId,
+				map = JWic.util.map,
+				compose = JWic.util.compose;
+			//returns a functions
+			return function(e){
+				var target = jQuery(e.target),
+					attr = target.attr('lazyTooltipProvider'),
+					relevantControls,
+					func;
+				
+				if(attr != undefined && jQuery.inArray(attr,context.providers) !== -1){
+					func = compose([makeCall(context, handleMouseover, target, e), mapAttr]);
+					map(target,func);
+				}
+			}
+				
+		},
+		//private function
+		//i could have made these functions as anonimus functions but the code is a bit cleaner this way
+		_mapAttributes : function(element){
+			var attributes = element.attributes;
+			
+			return {
+				tooltipProviderId : attributes.lazyTooltipProvider.value,
+				tooltipDelay : attributes.lazyTooltipDelay.value,
+				tooltipParams : attributes.lazyTooltipId.value
+			};
+		},
+		//private function
+		_makeCall : function(context,handler,target,event){
+			var controlId = context.controlId;
+			
+			//return a function
+			return function(params){
+				//clear anything else on this
+				//could be timers from other 'tooltiped' controls
+				clearTimeout(context.timeout);
+				context.timeout = setTimeout(function(){
+					JWic.resourceRequest(controlId, function(resp){						
+						var data = jQuery.parseJSON(resp.responseText);
+						//i don't want o have a fixed ref in here like JWic.controls.LazyTooltipControl.handleMouseover(..blah);
+						//i prefer that this function (_makeCall) is as self contained as possible
+						//so i pass the handle as a param
+						if(data !== null)
+							if(data.currentControlId === controlId)//make sure that the response come from the current control
+								handler(context,data,event);
+					},params);
+					
+				},params.tooltipDelay);
+			};
+		},
+		//dom manip for mouseover goes here
+		handleMouseover : function(context,data,event){
+			console.warn(data);
+			var win = jQuery(window),
+				//find the corrent provider or get the default one (see default one for definition)
+				providerClass = data.providerClass || "",
+				provider = window[data.providerClass] || JWic.ui.DefaultLazyTooltipContentProvider;
+			//empty out the tooltip container and repopulate it
+			context.tooltip.empty().css({
+				top : event.pageY - win.scrollTop() + 10,
+				left : event.pageX - win.scrollLeft() + 10,
+				position : 'fixed'
+			}).append(provider(data.data)).show();
+		},
+		//mouse out handler builder
+		mouseout : function(context){
+			var controlId = context.controlId;
+			var handleMouseout = this.handleMouseout;
+			//returns a functions
+			return function(e){
+				var target = jQuery(e.target);
+				var attr = target.attr('lazyTooltipProvider');
+				clearTimeout(context.timeout);
+				if(attr != undefined)
+					handleMouseout(context);
+			}
+		},
+		//dom manin for mouse out
+		handleMouseout : function(context){
+			context.tooltip.hide();
+		}
+		
 	}
+	
 }

@@ -652,6 +652,30 @@ JWic.util = {
 				first =  cb(first,arr[i],i,arr);
 			}
 			return first;
+		},
+		/**
+		 * Compose an array of function into 1 function
+		 * ex:
+		 * var f = function (x) {return x+1};
+		 * var g = function (x) {return x + 2}
+		 * 
+		 * var fg = JWic.util.compose([f,g]);
+		 * 
+		 * fg(3) === 6 === f(g(3));
+		 * 
+		 */
+		compose : function (array){
+			return JWic.util.reduce(array, function(f,g){
+				return function(x){
+					return f(g(x));
+				}
+			}, null);
+		},
+		map : function map (array, callback){
+			var result = [], i, l;
+			for(i=0,l = array.length;i<l;i++){
+				result.push(callback(array[i],i));
+			}
 		}
 }
 
@@ -682,5 +706,15 @@ JWic.ui = {
 				return;
 				
 			}
-		}			
+		},
+
+		/**
+		 * LazyTooltip Content Provider that is used as a default. in case the specified one is not found or there is no spefied one
+		 */
+		DefaultLazyTooltipContentProvider: function(data){
+			var wrapper = jQuery('<div>');
+			wrapper.text(data.message);
+			wrapper.addClass('default-tooltip');
+			return wrapper;
+		}
 }

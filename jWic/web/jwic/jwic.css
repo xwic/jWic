@@ -434,3 +434,11 @@ span.j-listColSel-clearSearch {
 	width:20px;
 	height:20px;	
 }
+
+.default-tooltip{
+	background : #ffffff;
+	color: #000000;
+	padding: 3px;
+	border: 1px solid gray;
+	border-radius : 3px;
+}
