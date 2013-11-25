@@ -2064,7 +2064,6 @@ JWic.controls = {
 			//unique context object for each LazyTooltipControl
 			//this object gets passed around via closures
 			//we don't want to expose stuff on window (or anywhere thats globaly visible for that matter)
-			console.warn(options);
 			var context = {
 					controlId : options.controlId,
 					tooltip : tooltipDiv,
@@ -2094,7 +2093,7 @@ JWic.controls = {
 		mouseover : function(context){
 			var mapAttr = this._mapAttributes,
 				makeCall = this._makeCall,
-				handleMouseover = this.handleMouseover.bind(this),
+				handleMouseover = this._handleMouseover,
 				controlId = context.controlId,
 				map = JWic.util.map,
 				compose = JWic.util.compose;
@@ -2106,7 +2105,7 @@ JWic.controls = {
 					func;
 				
 				if(attr != undefined && jQuery.inArray(attr,context.providers) !== -1){
-					func = compose([makeCall(context, handleMouseover, target, e), mapAttr]);
+					func = compose([makeCall(context, handleMouseover, target), mapAttr]);
 					map(target,func);
 				}
 			}
@@ -2124,7 +2123,7 @@ JWic.controls = {
 			};
 		},
 		//private function
-		_makeCall : function(context,handler,target,event){
+		_makeCall : function(context,handler,target){
 			var controlId = context.controlId;
 			
 			//return a function
@@ -2140,34 +2139,33 @@ JWic.controls = {
 						//so i pass the handle as a param
 						if(data !== null)
 							if(data.currentControlId === controlId)//make sure that the response come from the current control
-								handler(context,data,event);
+								handler(context,data,target);
 					},params);
 					
 				},params.tooltipDelay);
 			};
 		},
 		//dom manip for mouseover goes here
-		handleMouseover : function(context,data,event){
-			console.warn(data);
+		_handleMouseover : function(context,data,target){
 			var win = jQuery(window),
 				//find the corrent provider or get the default one (see default one for definition)
 				providerClass = data.providerClass || "DefaultLazyTooltipContentProvider",
-				provider =  this[providerClass];
+				provider =  JWic.controls.LazyTooltipControl[providerClass];
 			if(!provider){
-				provider =  this.DefaultLazyTooltipContentProvider;
+				provider =  JWic.controls.LazyTooltipControl.DefaultLazyTooltipContentProvider;
 			}
 			
 			//empty out the tooltip container and repopulate it
 			context.tooltip.empty().css({
-				top : event.pageY - win.scrollTop() + 10,
-				left : event.pageX - win.scrollLeft() + 10,
+				top : target.offset().top - win.scrollTop() + target.height() + 10,
+				left : target.offset().left - win.scrollLeft() + 10,
 				position : 'fixed'
 			}).append(provider(data.data)).show();
 		},
 		//mouse out handler builder
 		mouseout : function(context){
 			var controlId = context.controlId;
-			var handleMouseout = this.handleMouseout;
+			var handleMouseout = this._handleMouseout;
 			//returns a functions
 			return function(e){
 				var target = jQuery(e.target);
@@ -2178,7 +2176,7 @@ JWic.controls = {
 			}
 		},
 		//dom manin for mouse out
-		handleMouseout : function(context){
+		_handleMouseout : function(context){
 			context.tooltip.hide();
 		},
 		registerProvider : function(name,func){

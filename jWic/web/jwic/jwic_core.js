@@ -671,6 +671,24 @@ JWic.util = {
 				}
 			}, null);
 		},
+		/**
+		 * Convert an array of type A into an array of type B
+		 * as determined by the callback function
+		 * 
+		 * ex:
+		 * 
+		 * var elms = ['elm1','elm2','elm3'] - an array of element id's
+		 * 
+		 * function byId (id){
+		 * 		return document.getElementById(id);
+		 * }
+		 * 
+		 * map(elms, byId) => will be an array of those elements.
+		 * 
+		 * 
+		 * @param array
+		 * @param callback
+		 */
 		map : function map (array, callback){
 			var result = [], i, l;
 			for(i=0,l = array.length;i<l;i++){
