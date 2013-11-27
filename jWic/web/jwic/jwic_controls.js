@@ -2189,7 +2189,7 @@ JWic.controls = {
 		 */
 		DefaultLazyTooltipContentProvider: function(data){
 			var wrapper = jQuery('<div>');
-			wrapper.text(data.message);
+			wrapper.html(data.message);
 			wrapper.addClass('default-tooltip');
 			return wrapper;
 		}
