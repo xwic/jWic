@@ -2150,7 +2150,9 @@ JWic.controls = {
 			var win = jQuery(window),
 				//find the corrent provider or get the default one (see default one for definition)
 				providerClass = data.providerClass || "DefaultLazyTooltipContentProvider",
-				provider =  JWic.controls.LazyTooltipControl[providerClass];
+				provider =  JWic.controls.LazyTooltipControl[providerClass],
+				offset,
+				size;
 			if(!provider){
 				provider =  JWic.controls.LazyTooltipControl.DefaultLazyTooltipContentProvider;
 			}
@@ -2161,6 +2163,21 @@ JWic.controls = {
 				left : target.offset().left - win.scrollLeft() + 10,
 				position : 'fixed'
 			}).append(provider(data.data)).show();
+			
+			offset = context.tooltip.offset();
+			size = {
+					width : context.tooltip.width(),
+					height : context.tooltip.height()
+			};
+			
+			if((offset.top + size.height - win.scrollTop()) > win.height()){
+				offset.top -=  (size.height + 20);
+			}
+			if((offset.left + size.width - win.scrollLeft()) > win.width()){
+				offset.left -=  (size.width + 20);
+			}
+			context.tooltip.offset(offset);
+			
 		},
 		//mouse out handler builder
 		mouseout : function(context){
@@ -2175,7 +2192,7 @@ JWic.controls = {
 					handleMouseout(context);
 			}
 		},
-		//dom manin for mouse out
+		//dom manip for mouse out
 		_handleMouseout : function(context){
 			context.tooltip.hide();
 		},
@@ -2189,6 +2206,9 @@ JWic.controls = {
 		 */
 		DefaultLazyTooltipContentProvider: function(data){
 			var wrapper = jQuery('<div>');
+//			To add a chid element
+//			var newDiv = jQuery('<div>');
+//			wrapper.append(newDiv); 
 			wrapper.html(data.message);
 			wrapper.addClass('default-tooltip');
 			return wrapper;
