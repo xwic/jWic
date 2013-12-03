@@ -652,6 +652,48 @@ JWic.util = {
 				first =  cb(first,arr[i],i,arr);
 			}
 			return first;
+		},
+		/**
+		 * Compose an array of function into 1 function
+		 * ex:
+		 * var f = function (x) {return x+1};
+		 * var g = function (x) {return x + 2}
+		 * 
+		 * var fg = JWic.util.compose([f,g]);
+		 * 
+		 * fg(3) === 6 === f(g(3));
+		 * 
+		 */
+		compose : function (array){
+			return JWic.util.reduce(array, function(f,g){
+				return function(x){
+					return f(g(x));
+				}
+			}, null);
+		},
+		/**
+		 * Convert an array of type A into an array of type B
+		 * as determined by the callback function
+		 * 
+		 * ex:
+		 * 
+		 * var elms = ['elm1','elm2','elm3'] - an array of element id's
+		 * 
+		 * function byId (id){
+		 * 		return document.getElementById(id);
+		 * }
+		 * 
+		 * map(elms, byId) => will be an array of those elements.
+		 * 
+		 * 
+		 * @param array
+		 * @param callback
+		 */
+		map : function map (array, callback){
+			var result = [], i, l;
+			for(i=0,l = array.length;i<l;i++){
+				result.push(callback(array[i],i));
+			}
 		}
 }
 
@@ -682,5 +724,5 @@ JWic.ui = {
 				return;
 				
 			}
-		}			
+		}
 }
