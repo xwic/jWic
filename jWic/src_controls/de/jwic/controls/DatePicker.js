@@ -18,6 +18,12 @@
 				datepicker.datepicker("option",	"buttonImageOnly", true);
 				});
 			#end
+			
+
+			#if($control.masterId)
+//				var masterDateTextBox = jQuery('#' + JWic.util.JQryEscape('${control.masterId}'));
+//				JWic.controls.DatePicker.masterSlave(masterDateTextBox,datetimepicker);
+			#end
 		}
 		
 	},

@@ -157,7 +157,7 @@ public class AbstractListControl<A> extends Control {
 				return tmp;
 			}
 		}
-		return values;
+		return values == null ? new String[0] : values;
 	}
 	
 	/**

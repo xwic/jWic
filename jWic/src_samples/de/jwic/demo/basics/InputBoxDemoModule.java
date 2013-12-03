@@ -3,13 +3,20 @@
  */
 package de.jwic.demo.basics;
 
+import java.util.regex.Pattern;
+
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.Button;
 import de.jwic.controls.DatePicker;
 import de.jwic.controls.InputBox;
+import de.jwic.controls.Label;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.NumericInputBox;
+import de.jwic.controls.ValidatedInputBox;
 import de.jwic.controls.layout.TableLayoutContainer;
 import de.jwic.demo.DemoModule;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 
 /**
  * @author lippisch
@@ -78,6 +85,13 @@ public class InputBoxDemoModule extends DemoModule {
 		DatePicker datePicker = new DatePicker(tlc);
 		datePicker.setWidth(500);
 		datePicker.setEmptyInfoText("Select a date..");
+		
+		
+		new Label(tlc).setText("Validated Input (Here its an email address) :");
+		final ValidatedInputBox vib = new ValidatedInputBox(tlc);
+		vib.setRegExp(ValidatedInputBox.EMAIL_PATTERN); // validates an email address
+		
+		
 	}
 
 }
