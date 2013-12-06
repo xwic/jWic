@@ -12,11 +12,11 @@ public interface IHaveEnabled {
 	/**
 	 * @return Returns true if the element is enabled.
 	 */
-	public abstract boolean isEnabled();
+	boolean isEnabled();
 
 	/**
 	 * @param enabled set to true to enable the element.
 	 */
-	public abstract void setEnabled(boolean enabled);
+	void setEnabled(boolean enabled);
 
 }
