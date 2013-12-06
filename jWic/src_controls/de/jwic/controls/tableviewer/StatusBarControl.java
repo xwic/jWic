@@ -25,6 +25,7 @@ import java.text.MessageFormat;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.controls.ListBox;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -33,7 +34,7 @@ import de.jwic.events.ElementSelectedListener;
  * Created on Apr 5, 2007
  * @author jbornema
  */
-public class StatusBarControl extends ControlContainer {
+public class StatusBarControl extends ControlContainer implements IHaveEnabled {
 	private static final long serialVersionUID = 1L;
 	private ListBox lbcMaxLines;
 	private PagingControl ctrlPaging;
@@ -102,16 +103,18 @@ public class StatusBarControl extends ControlContainer {
 		return lbcMaxLines;
 	}
 	
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 	
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		lbcMaxLines.setEnabled(enabled);

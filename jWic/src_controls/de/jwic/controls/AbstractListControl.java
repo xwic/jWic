@@ -23,6 +23,7 @@ import java.util.List;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.base.Page;
 import de.jwic.base.SessionContext;
@@ -40,7 +41,7 @@ import de.jwic.util.StringTool;
  * @author lippisch
  */
 @JavaScriptSupport
-public class AbstractListControl<A> extends Control {
+public class AbstractListControl<A> extends Control implements IHaveEnabled {
 
 	private static final long serialVersionUID = 5L;
 
@@ -260,16 +261,18 @@ public class AbstractListControl<A> extends Control {
 		this.baseLabelProvider = baseLabelProvider;
 	}
 
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		requireRedraw();

@@ -22,13 +22,14 @@ package de.jwic.controls;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.events.ValueChangedListener;
 
 /**
  * Displays a single checkbox with an optional label.
  * @author Florian Lippisch
  */
-public class CheckBox extends Control {
+public class CheckBox extends Control implements IHaveEnabled {
 
 	private static final long serialVersionUID = -6365924495011308643L;
 
@@ -134,17 +135,18 @@ public class CheckBox extends Control {
 		requireRedraw();
 	}
 
-	/**
-	 * @return true if the control is enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * Set to false if the element should be disabled.
-	 * @param enabled 
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		requireRedraw();

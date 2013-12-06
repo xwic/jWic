@@ -23,13 +23,14 @@ import java.text.MessageFormat;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.data.Range;
 
 /**
  *
  * @author Florian Lippisch
  */
-public class PagingControl extends Control {
+public class PagingControl extends Control implements IHaveEnabled {
 	private static final long serialVersionUID = 1L;
 	private TableModel model;
 	private boolean enabled = true;
@@ -98,16 +99,18 @@ public class PagingControl extends Control {
 		return MessageFormat.format(msg, new Object[] { new Integer(start), new Integer(end), new Integer(total)});
 	}
 
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}

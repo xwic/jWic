@@ -25,6 +25,7 @@ import java.util.List;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.base.JavaScriptSupport;
 
 /**
@@ -32,7 +33,7 @@ import de.jwic.base.JavaScriptSupport;
  * @author lippisch
  */
 @JavaScriptSupport
-public class CKEditor extends Control {
+public class CKEditor extends Control implements IHaveEnabled {
 	private static final long serialVersionUID = 1L;
 	private Field content;
 	private int width = 800;
@@ -82,16 +83,18 @@ public class CKEditor extends Control {
 		this.height = height;
 	}
 
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		if (this.enabled != enabled) {
 			requireRedraw();

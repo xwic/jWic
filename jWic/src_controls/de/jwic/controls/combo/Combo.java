@@ -30,6 +30,7 @@ import org.json.JSONWriter;
 
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.base.ImageRef;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.data.IBaseLabelProvider;
@@ -49,7 +50,7 @@ import de.jwic.json.JsonResourceControl;
  * @author lippisch
  */
 @JavaScriptSupport
-public class Combo<A> extends JsonResourceControl {
+public class Combo<A> extends JsonResourceControl implements IHaveEnabled {
 
 	private static final long serialVersionUID = 4L;
 
@@ -298,16 +299,18 @@ public class Combo<A> extends JsonResourceControl {
 		}
 	}
 
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		requireRedraw();

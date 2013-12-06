@@ -145,11 +145,10 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 		return width;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.jwic.controls.IHTMLElement#isEnabled()
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -173,11 +172,10 @@ public class GroupControl extends ControlContainer implements IHTMLElement, IOut
 		requireRedraw();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.jwic.controls.IHTMLElement#setEnabled(boolean)
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 	}
 

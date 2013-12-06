@@ -28,6 +28,7 @@ import org.json.JSONWriter;
 
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IHaveEnabled;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.data.IBaseLabelProvider;
 import de.jwic.data.IContentProvider;
@@ -41,7 +42,7 @@ import de.jwic.json.JsonResourceControl;
  * @author Lippisch
  */
 @JavaScriptSupport
-public class Tree<A> extends JsonResourceControl {
+public class Tree<A> extends JsonResourceControl implements IHaveEnabled {
 	private static final long serialVersionUID = 1L;
 	private IContentProvider<A> contentProvider = null;
 	private IBaseLabelProvider<A> labelProvider = null;
@@ -160,16 +161,18 @@ public class Tree<A> extends JsonResourceControl {
 		this.cssClass = cssClass;
 	}
 
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}

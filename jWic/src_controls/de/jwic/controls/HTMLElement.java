@@ -63,16 +63,18 @@ public abstract class HTMLElement extends Control implements IHTMLElement {
 	}
 
 	/* (non-Javadoc)
-	 * @see de.jwic.controls.IHTMLElement#isEnabled()
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	@IncludeJsOption
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/* (non-Javadoc)
-	 * @see de.jwic.controls.IHTMLElement#setEnabled(boolean)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		if (enabled != this.enabled) {
 			requireRedraw();

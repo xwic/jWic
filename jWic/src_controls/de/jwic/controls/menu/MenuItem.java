@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.jwic.base.IHaveEnabled;
 import de.jwic.base.ImageRef;
 import de.jwic.controls.actions.IAction;
 import de.jwic.util.Util;
@@ -31,7 +32,7 @@ import de.jwic.util.Util;
  * @author lippisch
  *
  */
-public class MenuItem implements Serializable {
+public class MenuItem implements Serializable, IHaveEnabled {
 
 	private List<MenuSelectionListener> menuSelectionListeners = new ArrayList<MenuSelectionListener>();
 
@@ -255,16 +256,18 @@ public class MenuItem implements Serializable {
 		return iconEnabled;
 	}
 	
-	/**
-	 * @return the enabled
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
-	/**
-	 * @param enabled the enabled to set
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		if (!Util.equals(this.enabled, enabled)) {
 			this.enabled = enabled;

@@ -62,15 +62,17 @@ public abstract class HTMLElementContainer extends ControlContainer implements I
 	}
 
 	/* (non-Javadoc)
-	 * @see de.jwic.controls.IHTMLElement#isEnabled()
+	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
 	/* (non-Javadoc)
-	 * @see de.jwic.controls.IHTMLElement#setEnabled(boolean)
+	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
+	@Override
 	public void setEnabled(boolean enabled) {
 		if (enabled != this.enabled) {
 			requireRedraw();

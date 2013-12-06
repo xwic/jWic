@@ -20,6 +20,7 @@
 package de.jwic.util;
 
 import de.jwic.base.IControl;
+import de.jwic.base.IHaveEnabled;
 
 /**
  * Specifies common properties for controls that represent a basic HTML element.
@@ -27,7 +28,7 @@ import de.jwic.base.IControl;
  * @author Florian Lippisch
  * @version $Revision: 1.3 $
  */
-public interface IHTMLElement extends IControl {
+public interface IHTMLElement extends IControl, IHaveEnabled {
 
 	/**
 	 * Returns the CSS class.
@@ -41,16 +42,6 @@ public interface IHTMLElement extends IControl {
 	 * @param cssClass The cssClass to set.
 	 */
 	public abstract void setCssClass(String cssClass);
-
-	/**
-	 * @return Returns true if the element is enabled.
-	 */
-	public abstract boolean isEnabled();
-
-	/**
-	 * @param enabled set to true to enable the element.
-	 */
-	public abstract void setEnabled(boolean enabled);
 
 	/**
 	 * Returns the height of the element. Returns 0 if the height is
