@@ -14,7 +14,7 @@
 # Maven
 target/
 target-ide/
-test/
+target-test/
 
 #project specific
 logs/
