@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.xwic</groupId>
+    <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic</artifactId>
     <version>5.2-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -33,7 +33,7 @@
         <connection>scm:git:https://github.com/xwic/jWic.git</connection>
         <developerConnection>scm:git:https://github.com/xwic/jWic.git</developerConnection>
         <url>scm:git:https://github.com/xwic/jWic.git</url>
-        <tag>HEAD</tag>
+        <tag>eugen_Maven_Script</tag>
     </scm>
     <developers>
         <developer>
