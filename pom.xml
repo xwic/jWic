@@ -426,7 +426,6 @@
                         </webAppConfig>
                         <classesDirectory>${runEnvironment}/target-ide/classes</classesDirectory>
                         <scanTargets>
-                            <scanTarget>${project.basedir}/${runEnvironment}/web_root</scanTarget>
                             <scanTarget>${project.basedir}/${runEnvironment}/target-ide/classes</scanTarget>
                             <scanTarget>${project.basedir}/de.jwic.core/target-ide/classes</scanTarget>
                             <scanTarget>${project.basedir}/de.jwic.controls/target-ide/classes</scanTarget>
@@ -434,6 +433,7 @@
                         </scanTargets>
                         <scanTargetPatterns>
                             <scanTargetPattern>
+                                <directory>${project.basedir}/${runEnvironment}/web_root</directory>
                                 <directory>${project.basedir}/${runEnvironment}/src</directory>
                                 <directory>${project.basedir}/de.jwic.core/src</directory>
                                 <directory>${project.basedir}/de.jwic.controls/src</directory>
@@ -444,6 +444,8 @@
                                     <include>**/*.properties</include>
                                 </includes>
                                 <excludes>
+                                    <exclude>**/sessions</exclude>
+                                    <exclude>**/*.log</exclude>
                                     <exclude>**/*.java</exclude>
                                 </excludes>
                             </scanTargetPattern>
