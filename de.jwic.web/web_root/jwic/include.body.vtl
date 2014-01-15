@@ -1,0 +1,39 @@
+</head>
+<body onLoad="#if($page.forceFocusElement != "")jWic().forceFocus('$page.forceFocusElement');$page.setForceFocusElement("")#end #if($page.clientLeft)window.scrollTo($page.clientLeft, $page.clientTop);#end" leftmargin="7">
+	<script language="JavaScript">
+	#* Initialize the DHTML History library if it's script file is loaded, but must be initialized here.
+	 * The library is bundled with the ecolib library. See the dhtmlHistory.js file for details.
+	 *#
+		if (window.dhtmlHistory) {
+			window.historyStorage.init();
+			window.dhtmlHistory.create("$contextPath/ecolib/history/");
+		}
+	</script>
+	<div id="click_blocker" style="position:absolute; z-index: 9000; display: none;">
+	</div>
+	<div id="click_blocker_message" style="overflow: auto;display: none; top: 0px; left: 0px; z-index: 9001; width: 100%;height:100%; position: absolute;">
+		<img src="$contextPath/jwic/gfx/loading3.gif">
+	</div>
+	<script language="javascript">
+
+		if (!parent.doNotForward)
+			history.forward(); 
+		parent.doNotForward = false;
+
+		#if($reloaded == "1")
+			JWic.ui.Notify.display("The application has been restarted. A possible reason is that you have been inactive for to long so that your session expired.", 'information');
+		#end
+	</script>
+	
+	<form name="jwicform" id="jwicform" method="POST" enctype=#if($page.multipart)"multipart/form-data"#else"text/html;charset=iso-8859-1"#end onsubmit="return false">
+		<input type="hidden" name="_msid" value="$context.sessionId">
+		<input type="hidden" name="__ticket" value="$context.getRequestTicket($layerid)">
+		<input type="hidden" name="__ctrlid" value="">
+		<input type="hidden" name="__action" value="">
+		<input type="hidden" name="__acpara" value="">
+		<input type="hidden" name="__sysinfo" value="">
+		<input type="hidden" name="__mouseevent" value="">
+		<input type="hidden" name="layerid" value="$!layerid">		
+
+		<input type="submit" name="preventSubmit" onclick="return false;" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 1px; height: 1px;"/>
+		
