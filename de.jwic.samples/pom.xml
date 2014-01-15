@@ -10,7 +10,7 @@
     <name>jWic::WebSamples</name>
 
     <groupId>de.xwic.jwic</groupId>
-    <artifactId>jwic-web-samples</artifactId>
+    <artifactId>jwic-samples</artifactId>
     <version>5.2-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -20,13 +20,14 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <warName>jwic-samples</warName>
+                    <warName>samples</warName>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
     <dependencies>
+		<!-- Related projects -->
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
@@ -42,6 +43,8 @@
             <artifactId>jwic-compatibility</artifactId>
             <version>5.2-SNAPSHOT</version>
         </dependency>
+		
+		<!-- General dependencies -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -55,16 +58,16 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>jfree</groupId>
@@ -74,7 +77,8 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>
-
+		
+		<!-- Test dependencies -->
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>

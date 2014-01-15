@@ -26,6 +26,7 @@
     </build>
 
     <dependencies>
+		<!-- Related projects -->
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
@@ -36,7 +37,8 @@
             <artifactId>jwic-controls</artifactId>
             <version>5.2-SNAPSHOT</version>
         </dependency>
-
+		
+		<!-- General dependencies -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -50,16 +52,16 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
         </dependency>
         <dependency>
             <groupId>jfree</groupId>
