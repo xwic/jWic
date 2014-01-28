@@ -71,6 +71,7 @@
 					}
 					
 					if(JWic.$('ctrl_'+viewerCtrlId) && options.fitToParent){//only trigger this if the control is fitToParent
+						sizeSetter();
 						setTimeout(sizeSetter, 0);
 						(function (){
 							var resizeTimer;
