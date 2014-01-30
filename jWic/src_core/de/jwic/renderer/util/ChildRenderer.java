@@ -4,6 +4,9 @@
  */
 package de.jwic.renderer.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IControlRenderer;
@@ -19,7 +22,9 @@ public class ChildRenderer {
 	
 	private IControlContainer container;
 	private RenderContext context;
-	
+
+	private final Set<String> alreadyAdded = new HashSet<String>();
+
 	public ChildRenderer(IControlContainer controlContainer, RenderContext context) {
 		this.container = controlContainer;
 		this.context = context;
@@ -32,8 +37,13 @@ public class ChildRenderer {
 		
 		Control ctrl = container.getControl(controlName);
 		if (ctrl != null) {
+			if (alreadyAdded.contains(controlName)){
+				final String message = String.format("Control '%s' already added to this page!", controlName);
+				new IllegalArgumentException(message).printStackTrace();;
+			}
 			IControlRenderer renderer = JWicRuntime.getRenderer(ctrl.getRendererId());
 			renderer.renderControl(ctrl, context);
+			alreadyAdded.add(controlName);
 		} else {
 			context.getWriter().write("[no control named " + controlName + "]");
 		}
