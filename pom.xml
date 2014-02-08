@@ -21,7 +21,7 @@
         familiarity of 'rich client' style programming.
 	</description>
 
-	<url>https://github.com/xwic</url>
+	<url>https://github.com/xwic/jWic</url>
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
@@ -30,10 +30,10 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:https://github.com/xwic/jWic.git</connection>
-		<developerConnection>scm:git:https://github.com/xwic/jWic.git</developerConnection>
-		<url>scm:git:https://github.com/xwic/jWic.git</url>
-		<tag>eugen_Maven_Script</tag>
+		<connection>scm:git:ssh://git@github.com:xwic/jWic.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com:xwic/jWic.git</developerConnection>
+		<url>https://github.com/xwic/jWic</url>
+		<tag>HEAD</tag>
 	</scm>
 	<developers>
 		<developer>
