@@ -30,8 +30,8 @@
 		</license>
 	</licenses>
 	<scm>
-		<connection>scm:git:ssh://git@github.com:xwic/jWic.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:xwic/jWic.git</developerConnection>
+		<connection>scm:git:git://github.com/xwic/jWic.git</connection>
+		<developerConnection>scm:git:git@github.com:xwic/jWic.git</developerConnection>
 		<url>https://github.com/xwic/jWic</url>
 		<tag>HEAD</tag>
 	</scm>
