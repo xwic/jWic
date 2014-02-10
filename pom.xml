@@ -32,7 +32,7 @@
 		<connection>scm:git:https://github.com/xwic/jWic.git</connection>
 		<developerConnection>scm:git:https://github.com/xwic/jWic.git</developerConnection>
 		<url>https://github.com/xwic/jWic</url>
-		<tag>jwic-5.2.0</tag>
+		<tag>master</tag>
 	</scm>
 	<developers>
 		<developer>
