@@ -11,7 +11,7 @@
 
 	<groupId>de.xwic.jwic</groupId>
 	<artifactId>jwic</artifactId>
-	<version>5.2.0</version>
+	<version>5.2.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>jWic</name>
