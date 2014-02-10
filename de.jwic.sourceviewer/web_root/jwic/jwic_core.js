@@ -694,6 +694,7 @@ JWic.util = {
 			for(i=0,l = array.length;i<l;i++){
 				result.push(callback(array[i],i));
 			}
+			return result;
 		}
 }
 
