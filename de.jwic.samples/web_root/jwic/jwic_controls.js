@@ -1698,87 +1698,89 @@ JWic.controls = {
 	/*
 	 * de.jwic.controls.Button control
 	 */
-	Button : {
-		initialize : function(btn, ctrlId, options) {
-			JWic.log("Initializing new button " + btn);
-			
-			var btOpt = {};
-			var opt = options || {};
-			if (opt.menuId) {
-				btOpt = {
-					icons: {
-						secondary: "ui-icon-triangle-1-s"
-					}
-				}
-				btn.data("menuId", opt.menuId);
-			}
-			btn.button(btOpt)
-				.click(JWic.controls.Button.clickHandler)
-				.removeClass('ui-button-text-icon-secondary')
-				.find('.ui-button-text').removeClass('ui-button-text').addClass('j-button-text');
+		Button : {
+			initialize : function(btn, ctrlId, options) {
+				JWic.log("Initializing new button " + btn);
 				
-			if(btn.hasClass('ui-button-text-only')){
-				btn.removeClass('ui-button-text-only').addClass('j-button-text-only');
-			}
-			btn.find('.ui-icon-triangle-1-s').addClass('j-icon');
-			btn.data("controlId", ctrlId);
-			
-			if(opt.width > 0)
-				btn.width(opt.width);
-
-			if(opt.height > 0)
-				btn.height(opt.height);
-		
-			if(opt.tooltip && opt.tooltip !== "") {
-				btn.tooltip({
-					position: {
-						my: "left top",
-						at: "center bottom"
-						}});
-			}
-			
-			if (opt.confirmMsg != "") {
-				btn.data("confirmMsg", opt.confirmMsg);
-			}
-			
-			if(opt.iconPath !== undefined && opt.iconPath !== ""){
-				btn.removeClass('j-button-text-only').removeClass('j-button-text-icon-secondary').removeClass('ui-button-text-only');
-				if(btn.text()===''){
-					btn.addClass('j-button-icon-only');
-				}else{
-					btn.addClass('j-button-text-icon');
+				var btOpt = {};
+				var opt = options || {};
+				if (opt.menuId) {
+					btOpt = {
+						icons: {
+							secondary: "ui-icon-triangle-1-s"
+						}
+					}
+					btn.data("menuId", opt.menuId);
 				}
+				btn.button(btOpt)
+					.click(JWic.controls.Button.clickHandler)
+					.removeClass('ui-button-text-icon-secondary')
+					.find('.ui-button-text').removeClass('ui-button-text').addClass('j-button-text');
+					
+				if(btn.hasClass('ui-button-text-only')){
+					btn.removeClass('ui-button-text-only').addClass('j-button-text-only');
+				}
+				btn.find('.ui-icon-triangle-1-s').addClass('j-icon');
+				btn.data("controlId", ctrlId);
+				
+				if(opt.width > 0)
+					btn.width(opt.width);
+	
+				if(opt.height > 0)
+					btn.height(opt.height);
 			
-				btn.append('<span class="j-button-icon"><img border="0" src='+opt.iconPath+'></span>');
+				if(opt.tooltip && opt.tooltip !== "") {
+					btn.tooltip({
+						position: {
+							my: "left top",
+							at: "center bottom"
+							}});
+				}
+				
+				if (opt.confirmMsg != "") {
+					btn.data("confirmMsg", opt.confirmMsg);
+				}
+				
+				if(opt.iconPath !== undefined && opt.iconPath !== ""){
+					btn.removeClass('j-button-text-only').removeClass('j-button-text-icon-secondary').removeClass('ui-button-text-only');
+					if(btn.text()===''){
+						btn.addClass('j-button-icon-only');
+					}else{
+						btn.addClass('j-button-text-icon');
+					}
+				
+					btn.append('<span class="j-button-icon"><img border="0" src='+opt.iconPath+'></span>');
+				}
+				if(btn.find('.ui-icon.ui-icon-triangle-1-s').length!==0){
+					btn.removeClass('j-button-text-only').removeClass('j-button-icon-only').removeClass('j-button-text-icon').addClass('j-button-text-icons');
+				};
+			},
+	
+			clickHandler : function(e) {
+				var elm = jQuery(e.currentTarget);
+				
+				var menuId = elm.data("menuId");
+				if (menuId) {
+					e.stopPropagation();
+					JWic.controls.Menu.show(menuId, {
+						 my: "left top",
+						 at: "left bottom",
+						 of: elm
+					});
+				} else {
+					var ctrlId = elm.data("controlId");
+					var msg = elm.data("confirmMsg");
+					if (msg && msg != "") {
+						if (!confirm(msg)) {
+							return false;
+						}
+					}
+					JWic.fireAction(ctrlId, 'click', '');
+				}	
 			}
-			if(btn.find('.ui-icon.ui-icon-triangle-1-s').length!==0){
-				btn.removeClass('j-button-text-only').removeClass('j-button-icon-only').removeClass('j-button-text-icon').addClass('j-button-text-icons');
-			};
 		},
 
-		clickHandler : function(e) {
-			var elm = jQuery(e.currentTarget);
 			
-			var menuId = elm.data("menuId");
-			if (menuId) {
-				e.stopPropagation();
-				JWic.controls.Menu.show(menuId, {
-					 my: "left top",
-					 at: "left bottom",
-					 of: elm
-				});
-			} else {
-				var ctrlId = elm.data("controlId");
-				var msg = elm.data("confirmMsg");
-				if (msg && msg != "") {
-					if (!confirm(msg)) {
-						return false;
-					}
-				}
-				JWic.fireAction(ctrlId, 'click', '');
-			}	
-		}
-	},
 	
 	/**
 	 * InputBoxControl script extensions.
