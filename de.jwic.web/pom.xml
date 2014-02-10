@@ -10,7 +10,7 @@
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-web</artifactId>
-    <version>5.2.0</version>
+    <version>5.2.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <build>
         <plugins>
