@@ -3,14 +3,14 @@
     <parent>
         <groupId>de.xwic.jwic</groupId>
         <artifactId>jwic</artifactId>
-        <version>5.2.0.2-SNAPSHOT</version>
+        <version>5.2.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>jWic::Controls</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-controls</artifactId>
-    <version>5.2.0.2-SNAPSHOT</version>
+    <version>5.2.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.0.2-SNAPSHOT</version>
+            <version>5.2.0</version>
         </dependency>
 		
 		<!-- General dependencies -->
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.0.2-SNAPSHOT</version>
+            <version>5.2.0</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
