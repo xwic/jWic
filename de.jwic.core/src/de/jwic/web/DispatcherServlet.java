@@ -7,6 +7,7 @@ package de.jwic.web;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -137,7 +138,7 @@ public class DispatcherServlet extends HttpServlet implements IApplicationSetupP
 			upload = new Upload(req, ".", uploadLimit, 1 * 1024 * 1024);
 			// get parameters from the stream and set them as AgoraRequest parameters.
 			// fill webform
-			Map<String, String> fields = upload.getParams();
+			Map<String, List<String>> fields = upload.getParams();
 			req = new UploadHttpServletRequest(req, fields);
 		}
 		
