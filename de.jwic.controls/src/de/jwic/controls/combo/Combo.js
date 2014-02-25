@@ -52,7 +52,7 @@
 			#if($control.flagAsError)
 				jQuery(comboElm).addClass("x-error");
 			#end
-			JWic.controls.Combo.initialize("$control.controlID", inpElm);
+			JWic.controls.Combo.initialize("$control.controlID", inpElm, $control.comboBehavior.dataFilter);
 		}
 		
 
