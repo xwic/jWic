@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,7 @@ public class Upload {
     @SuppressWarnings("rawtypes")
 	private HashMap htFields = null;
     private HashMap<String, UploadFile> htFiles = null;
-    private HashMap<String, String> htParams = null;
+    private HashMap<String, List<String>> htParams = null;
     private static final String FIELD_ORGFILENAME_SUFFIX = "@@ORGFILENAME";
     private boolean lostConnection = false;
 	/**
@@ -120,7 +122,7 @@ public class Upload {
 		htFieldValue = new HashMap<String, String>();
 		htFields = new HashMap();
 		htFiles = new HashMap<String, UploadFile>();
-		htParams = new HashMap<String, String>();
+		htParams = new HashMap<String, List<String>>();
 	
 		while ((content = parser.readNextContent()) != null) {
 			if (content.isFile()) {
@@ -148,7 +150,10 @@ public class Upload {
 			}
 	
 			if (!content.isFile()) {
-				htParams.put(content.getFieldName(), FieldValue);
+				if(!htParams.containsKey(content.getFieldName())){
+					htParams.put(content.getFieldName(), new LinkedList<String>());
+				}
+				htParams.get(content.getFieldName()).add(FieldValue);
 			}
 		}
 	}
@@ -207,7 +212,7 @@ public class Upload {
 		//HashMap fur Felder und Inhalt definieren
 		htFieldValue = new HashMap<String, String>();
 		htFields = new HashMap();
-		htParams = new HashMap<String, String>();
+		htParams = new HashMap<String, List<String>>();
 	
 		while ((content = parser.readNextContent()) != null) {
 			if (content.isFile()) {
@@ -225,7 +230,10 @@ public class Upload {
 			}
 	
 			if (!content.isFile()) {
-				htParams.put(content.getFieldName(), FieldValue);
+				if(!htParams.containsKey(content.getFieldName())){
+					htParams.put(content.getFieldName(), new LinkedList<String>());
+				}
+				htParams.get(content.getFieldName()).add(FieldValue);
 			}
 		}
 	}
@@ -267,7 +275,7 @@ public class Upload {
 	/**
 	 * Gibt die parameter zuruck welche nicht als Felder eingelesen wurden.
 	 */
-	public Map<String, String> getParams() {
+	public Map<String, List<String>> getParams() {
 		return htParams;
 	}
 	/**
