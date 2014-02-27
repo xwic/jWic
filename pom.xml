@@ -409,6 +409,12 @@
 			</build>
 		</profile>
 		<profile>
+			<id>hacky</id>
+			<properties>
+				<maven.build.timestamp.format>yyyyMMdd-HHmm</maven.build.timestamp.format>
+			</properties>
+		</profile>
+		<profile>
 			<id>update-samples</id>
 			<properties>
 				<jwicUpdateApplication>de.jwic.samples</jwicUpdateApplication>
