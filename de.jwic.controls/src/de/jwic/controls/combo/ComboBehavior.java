@@ -23,6 +23,7 @@ public class ComboBehavior implements Serializable {
 	protected boolean clientSideFilter = true;
 	protected boolean autoPickFirstHit = true;
 	protected boolean transferFullObject = false;
+	protected String dataFilter = "JWic.controls.Combo.StringDataFilter";
 	
 	
 	/**
@@ -229,6 +230,18 @@ public class ComboBehavior implements Serializable {
 	 */
 	public void setTransferFullObject(boolean transferFullObject) {
 		this.transferFullObject = transferFullObject;
+	}
+	
+	/**
+	 */
+	public void setDataFilter(String dataFilter){
+		this.dataFilter = dataFilter;
+	}
+	/**
+	 * @return dataFilter
+	 */
+	public String getDataFilter(){
+		return this.dataFilter;
 	}
 	
 }

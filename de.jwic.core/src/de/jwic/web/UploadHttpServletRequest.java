@@ -8,8 +8,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,7 +34,7 @@ import javax.servlet.http.HttpSession;
 public class UploadHttpServletRequest implements HttpServletRequest {
 
 	private HttpServletRequest parentRequest = null;
-	private Map<String, String> paramMap = null;
+	private Map<String, List<String>> paramMap = null;
 	
 	/**
 	 * Wrapper to return an Enumeration instead of an Iterator.
@@ -59,7 +62,7 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	 * Constructor.
 	 * @param parent
 	 */
-	public UploadHttpServletRequest(HttpServletRequest parent, Map<String, String> parameterMap) {
+	public UploadHttpServletRequest(HttpServletRequest parent, Map<String, List<String>> parameterMap) {
 		parentRequest = parent;
 		paramMap = parameterMap;
 	}
@@ -298,7 +301,10 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	 * @see javax.servlet.ServletRequest#getParameter(java.lang.String)
 	 */
 	public String getParameter(String arg0) {
-		return paramMap.get(arg0);
+		List<String> result = paramMap.get(arg0);
+		if(result == null)
+			return null;
+		return result.get(0);
 	}
 
 	/* (non-Javadoc)
@@ -314,7 +320,8 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	 */
 	public String[] getParameterValues(String key) {
 		if (paramMap.containsKey(key)) {
-			return new String[] { paramMap.get(key) };
+			List<String> values = paramMap.get(key);
+			return values.toArray(new String[values.size()]);
 		}
 		return new String[0];
 	}
@@ -323,7 +330,11 @@ public class UploadHttpServletRequest implements HttpServletRequest {
 	 * @see javax.servlet.ServletRequest#getParameterMap()
 	 */
 	public Map<String, String> getParameterMap() {
-		return paramMap;
+		Map<String, String> result = new HashMap<String, String>();
+		for (String key : paramMap.keySet()) {
+			result.put(key, paramMap.get(key).get(0));
+		}
+		return result;
 	}
 
 	/* (non-Javadoc)
