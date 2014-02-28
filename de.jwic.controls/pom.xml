@@ -3,22 +3,29 @@
     <parent>
         <groupId>de.xwic.jwic</groupId>
         <artifactId>jwic</artifactId>
-        <version>5.2.1-SNAPSHOT</version>
+        <version>5.2.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>jWic::Controls</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-controls</artifactId>
-    <version>5.2.1-SNAPSHOT</version>
+    <version>5.2.2-SNAPSHOT</version>
     <packaging>jar</packaging>
-
+	<profiles>    
+		<profile>
+			<id>hacky</id>
+			<build>
+				<finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
+			</build>
+		</profile>
+    </profiles>
     <dependencies>
 		<!-- Related projects -->
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.1-SNAPSHOT</version>
+            <version>5.2.2-SNAPSHOT</version>
         </dependency>
 		
 		<!-- General dependencies -->
@@ -51,7 +58,7 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.1-SNAPSHOT</version>
+            <version>5.2.2-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
