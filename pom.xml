@@ -294,6 +294,8 @@
 				<configuration>
 					<serverId>sonatype-nexus-staging</serverId>
 					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+					<autoDropAfterRelease>true</autoDropAfterRelease>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -418,21 +420,21 @@
 			<id>update-samples</id>
 			<properties>
 				<jwicUpdateApplication>de.jwic.samples</jwicUpdateApplication>
-				<jwicUpdateVersion>5.2-SNAPSHOT</jwicUpdateVersion>
+				<jwicUpdateVersion>5.2.1-SNAPSHOT</jwicUpdateVersion>
 			</properties>
 		</profile>
 		<profile>
 			<id>update-maildemo</id>
 			<properties>
 				<jwicUpdateApplication>de.jwic.maildemo</jwicUpdateApplication>
-				<jwicUpdateVersion>5.2-SNAPSHOT</jwicUpdateVersion>
+				<jwicUpdateVersion>5.2.1-SNAPSHOT</jwicUpdateVersion>
 			</properties>
 		</profile>
 		<profile>
 			<id>update-sourceviewer</id>
 			<properties>
 				<jwicUpdateApplication>de.jwic.sourceviewer</jwicUpdateApplication>
-				<jwicUpdateVersion>5.2-SNAPSHOT</jwicUpdateVersion>
+				<jwicUpdateVersion>5.2.1-SNAPSHOT</jwicUpdateVersion>
 			</properties>
 		</profile>
 		<profile>
@@ -452,7 +454,7 @@
 									<type>war</type>
 									<overWrite>true</overWrite>
 									<outputDirectory>${project.basedir}/${jwicUpdateApplication}/web_root</outputDirectory>
-									<excludes>**/*.jar</excludes>
+									<excludes>**/*.jar,META-INF/</excludes>
 								</artifactItem>
 							</artifactItems>
 						</configuration>

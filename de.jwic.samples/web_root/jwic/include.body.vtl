@@ -1,5 +1,5 @@
 </head>
-<body onLoad="#if($page.forceFocusElement != "")JWic.forceFocus('$page.forceFocusElement');$page.setForceFocusElement("")#end #if($page.clientLeft)window.scrollTo($page.clientLeft, $page.clientTop);#end" leftmargin="7">
+<body onLoad="#if($page.forceFocusElement != "")jWic().forceFocus('$page.forceFocusElement');$page.setForceFocusElement("")#end #if($page.clientLeft)window.scrollTo($page.clientLeft, $page.clientTop);#end" leftmargin="7">
 	<script language="JavaScript">
 	#* Initialize the DHTML History library if it's script file is loaded, but must be initialized here.
 	 * The library is bundled with the ecolib library. See the dhtmlHistory.js file for details.
@@ -11,7 +11,7 @@
 	</script>
 	<div id="click_blocker" style="position:absolute; z-index: 9000; display: none;">
 	</div>
-	<div id="click_blocker_message" style="overflow: auto;display: none; top: 0px; left: 0px; z-index: 9001; position: absolute;">
+	<div id="click_blocker_message" style="overflow: auto;display: none; top: 0px; left: 0px; z-index: 9001; width: 100%;height:100%; position: absolute;">
 		<img src="$contextPath/jwic/gfx/loading3.gif">
 	</div>
 	<script language="javascript">

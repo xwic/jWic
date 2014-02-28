@@ -890,7 +890,7 @@ JWic.controls = {
 		/**
 		 * Initialize a new control.
 		 */
-		initialize : function(controlId, inpElm) {
+		initialize : function(controlId, inpElm, filter) {
 			var escapedControlId = JWic.util.JQryEscape(controlId);
 			var comboBox = document.getElementById(controlId);
 			var iconElm = document.getElementById(controlId + "_open");
@@ -906,7 +906,7 @@ JWic.controls = {
 			
 			comboBox.jComboField = inpElm;
 			comboBox.jComboKey = document.getElementById("fld_" + controlId + ".key");
-			comboBox.dataFilter = JWic.controls.Combo.StringDataFilter;
+			comboBox.dataFilter = filter;
 			comboBox.keyDelayTime = 100;
 			
 			var jInpElm = jQuery(inpElm);
