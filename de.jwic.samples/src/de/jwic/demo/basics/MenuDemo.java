@@ -54,7 +54,7 @@ public class MenuDemo extends ControlContainer {
 		Menu menu = new Menu(this, "plainMenu");
 		addDemoMenu(menu);
 		
-		menu.setHidden(false); // display by default
+		menu.setHidden(true); // do not display by default
 		menu.addMenuSelectionListener(msListener);
 		
 		
