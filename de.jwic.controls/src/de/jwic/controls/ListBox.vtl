@@ -2,7 +2,7 @@
 <select name="$field.id" size="$control.size" 
 	$jwic.generateCssProperty($control)
 #if ( $control.changeNotification )
-#if ( $control.confirmMsg != "" )
+#if ($control.confirmMsg != null && $control.confirmMsg != "" )
 	onChange="if(confirm('$control.confirmMsg')){this._oldIdx=this.selectedIndex;$control.createActionURL('valuechanged', '');}else{this.selectedIndex=this._oldIdx}"
 #else
 	onChange="$control.createActionURL('valuechanged', '')"
