@@ -68,6 +68,15 @@ public class Accordion extends ControlContainer{
 	public int getActiveIndex() {
 		return activeIndex;
 	}
+	
+	/**
+	 * Property for setting Active Page on Accordion
+	 * @return the activeIndex
+	 */
+	@IncludeJsOption
+	public int getActive() {
+		return activeIndex;
+	}
 
 	/**
 	 * @param activeIndex the activeIndex to set
