@@ -16,6 +16,8 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
 import de.jwic.base.JWicException;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
 
 /**
  * Represents a TabStrip control using the jQuery Tabs control. Controls added to the 
@@ -27,14 +29,17 @@ import de.jwic.base.JavaScriptSupport;
 @JavaScriptSupport
 public class TabStrip extends ControlContainer implements IResourceControl {
 
+	private final List<SelectionListener> listeners;
+	
 	private List<Tab> tabs = new ArrayList<Tab>();
+	
 	private String activeTabName = null;
 	
 	/**
 	 * @param container
 	 */
 	public TabStrip(IControlContainer container) {
-		super(container);
+		this(container, null);
 	}
 
 	/**
@@ -43,6 +48,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 */
 	public TabStrip(IControlContainer container, String name) {
 		super(container, name);
+		this.listeners = new ArrayList<SelectionListener>();
 	}
 
 	/**
@@ -174,11 +180,32 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 			if (tab.getName().equals(newActiveTabName)) {
 				activeTabName = newActiveTabName;
 				tab.requireRedraw(); // force drawing the control
+				SelectionEvent event = new SelectionEvent(tab);
+				for(SelectionListener sl : this.listeners){
+					sl.objectSelected(event);
+				}
+				
 				break;
 			}
 		}
 		if(executeActivateScript)
 			getSessionContext().queueScriptCall("JWic.controls.TabStrip.activate('" + getControlID() + "', " + getActiveIndex() +");");
+	}
+
+	/**
+	 * @param listener
+	 * @return
+	 */
+	public boolean addSelectionListener(SelectionListener listener) {
+		return listeners.add(listener);
+	}
+
+	/**
+	 * @param listener
+	 * @return
+	 */
+	public boolean removeSelectionListener(SelectionListener listener) {
+		return listeners.remove(listener);
 	}
 
 }
