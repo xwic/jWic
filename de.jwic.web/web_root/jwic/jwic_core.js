@@ -647,7 +647,7 @@ JWic.util = {
 		reduce : function reduce(arr,cb,first){
 			var i = 0, 
 				l = arr.length;
-			if(!first){
+			if(first == null){
 				first = arr[0];
 				i = 1;
 			}
