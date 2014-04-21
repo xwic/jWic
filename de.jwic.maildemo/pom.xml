@@ -3,14 +3,14 @@
     <parent>
         <groupId>de.xwic.jwic</groupId>
         <artifactId>jwic</artifactId>
-        <version>5.2.2-SNAPSHOT</version>
+        <version>5.2.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>jWic::WebMailDemo</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-maildemo</artifactId>
-    <version>5.2.2-SNAPSHOT</version>
+    <version>5.2.2</version>
     <packaging>war</packaging>
 
     <build>
@@ -30,17 +30,17 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.2-SNAPSHOT</version>
+            <version>5.2.2</version>
         </dependency>
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-controls</artifactId>
-            <version>5.2.2-SNAPSHOT</version>
+            <version>5.2.2</version>
         </dependency>
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-compatibility</artifactId>
-            <version>5.2.2-SNAPSHOT</version>
+            <version>5.2.2</version>
         </dependency>
 		
 		<!-- General dependencies -->
@@ -81,7 +81,7 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.2-SNAPSHOT</version>
+            <version>5.2.2</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
