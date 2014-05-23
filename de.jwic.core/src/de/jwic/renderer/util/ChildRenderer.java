@@ -43,7 +43,10 @@ public class ChildRenderer {
 		Control ctrl = container.getControl(controlName);
 		if (ctrl != null) {
 			if (alreadyAdded.contains(controlName)){
-				log.warn(String.format("Control '%s' already added in container '%s'!", controlName, container.getClass().getName()));
+				final String warning = "[control '" + controlName + "' already rendered!]";
+				log.error(warning, new IllegalStateException());
+				context.getWriter().write(warning);
+				return;
 			}
 			IControlRenderer renderer = JWicRuntime.getRenderer(ctrl.getRendererId());
 			renderer.renderControl(ctrl, context);
