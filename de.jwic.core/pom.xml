@@ -6,7 +6,7 @@
         <version>5.2.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>jWic::Core</name>
+    <name>JWIC::CORE</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-core</artifactId>

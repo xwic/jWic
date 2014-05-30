@@ -14,7 +14,7 @@
 	<version>5.2.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>jWic</name>
+	<name>xWic - jWic Framework</name>
 	<description>
         jWic is a java-based development framework for developing dynamic web applications with the convenience and
         familiarity of 'rich client' style programming.

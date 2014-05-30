@@ -6,7 +6,7 @@
         <version>5.2.3-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <name>jWic::WebMailDemo</name>
+    <name>JWIC::WEB::MAILDEMO</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-maildemo</artifactId>
