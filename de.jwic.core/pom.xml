@@ -3,14 +3,14 @@
     <parent>
         <groupId>de.xwic.jwic</groupId>
         <artifactId>jwic</artifactId>
-        <version>5.2.3-SNAPSHOT</version>
+        <version>5.2.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>JWIC::CORE</name>
 
     <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-core</artifactId>
-    <version>5.2.3-SNAPSHOT</version>
+    <version>5.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<profiles>    
 		<profile>
