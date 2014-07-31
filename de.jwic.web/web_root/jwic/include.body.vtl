@@ -25,7 +25,7 @@
 		#end
 	</script>
 	
-	<form name="jwicform" id="jwicform" method="POST" enctype=#if($page.multipart)"multipart/form-data"#else"text/html;charset=iso-8859-1"#end onsubmit="return false">
+	<form name="jwicform" id="jwicform" method="POST" enctype=#if($page.multipart)"multipart/form-data"#else"application/x-www-form-urlencoded;charset=UTF-8"#end onsubmit="return false">
 		<input type="hidden" name="_msid" value="$context.sessionId">
 		<input type="hidden" name="__ticket" value="$context.getRequestTicket($layerid)">
 		<input type="hidden" name="__ctrlid" value="">
