@@ -8,9 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>JWIC::WEB::SOURCEVIEWER</name>
 
-    <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-sourceviewer</artifactId>
-    <version>5.2.5-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <build>

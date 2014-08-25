@@ -8,9 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>JWIC::CONTROLS</name>
 
-    <groupId>de.xwic.jwic</groupId>
     <artifactId>jwic-controls</artifactId>
-    <version>5.2.5-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<profiles>    
 		<profile>
