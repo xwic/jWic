@@ -660,7 +660,7 @@ JWic.controls = {
 					this.addMinimizeToDialog(win);	
 				}
 				if (options.popup) {
-					jQuery(".ui-dialog-titlebar").hide();
+					win.parent().find(".ui-dialog-titlebar").hide();
 				}
 
 				win.parent().appendTo(jQuery("#jwicform"));		

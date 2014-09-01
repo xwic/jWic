@@ -1,10 +1,11 @@
 jWic
 ====
 
-jWic is a java-based development framework for developing dynamic web applications with the convenience and familiarity of 'rich client' style programming.
+jWic is a java-based development framework for developing dynamic web applications 
+with the convenience and familiarity of 'rich client' style programming. It is 
+extremely useful for interactive applications run in a browser. The appliation
+renders HTML and uses JavaScript/Ajax to update the page state quickly. While
+controls behavior is mostly handled via JavaScript on the client, the application
+logic is running on the server side.
 
-The project is currently undergoing a massive refactoring. We plan to have a first stable version by mid May'13 (v5.1)
-
-To get started please read
-* doc/jwic-eclipse-setup.pdf
-* doc/jwic-reference-3.1.doc
+You can read more about jWic in our [Wiki pages](https://github.com/xwic/jWic/wiki). 

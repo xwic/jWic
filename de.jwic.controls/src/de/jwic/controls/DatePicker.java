@@ -144,10 +144,14 @@ public class DatePicker extends InputBox {
 	public void actionPerformed(String actionId, String parameter) {
 		if ("datechanged".equals(actionId)) {
 			Date oldDate = getDate();
-			currentTime = Long.valueOf(parameter);
-			Date newDate = getTimezoneSpecificDate(currentTime);
-			date = newDate;
-			notifyListeners(oldDate, newDate);
+			try{
+				currentTime = Long.valueOf(parameter);
+				final Date newDate = getTimezoneSpecificDate(currentTime);
+				date = newDate;
+			}catch(NumberFormatException nfex){
+				date = null;
+			}
+			notifyListeners(oldDate, date);
 		}
 		if ("localeNotFound".equals(actionId)) {
 			this.setLocale(Locale.ENGLISH);

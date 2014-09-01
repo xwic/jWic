@@ -5,7 +5,9 @@ package de.jwic.controls;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +31,7 @@ import de.jwic.events.SelectionListener;
 @JavaScriptSupport
 public class TabStrip extends ControlContainer implements IResourceControl {
 
-	private final List<SelectionListener> listeners;
+	private final Set<SelectionListener> listeners;
 	
 	private List<Tab> tabs = new ArrayList<Tab>();
 	
@@ -48,7 +50,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 */
 	public TabStrip(IControlContainer container, String name) {
 		super(container, name);
-		this.listeners = new ArrayList<SelectionListener>();
+		this.listeners = new HashSet<SelectionListener>();
 	}
 
 	/**
@@ -59,6 +61,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 		
 		if (activeTabName != null && !activeTabName.equals(tabName)) {
 			setActiveTabName(tabName, false);
+			
 		}
 	}
 	
@@ -181,7 +184,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 				activeTabName = newActiveTabName;
 				tab.requireRedraw(); // force drawing the control
 				SelectionEvent event = new SelectionEvent(tab);
-				for(SelectionListener sl : this.listeners){
+				for(SelectionListener sl : new HashSet<SelectionListener>(this.listeners)){
 					sl.objectSelected(event);
 				}
 				
@@ -206,6 +209,10 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 */
 	public boolean removeSelectionListener(SelectionListener listener) {
 		return listeners.remove(listener);
+	}
+	
+	public void removeAllListener(){
+		this.listeners.clear();
 	}
 
 }

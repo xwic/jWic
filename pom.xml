@@ -11,10 +11,10 @@
 
 	<groupId>de.xwic.jwic</groupId>
 	<artifactId>jwic</artifactId>
-	<version>5.2.2-SNAPSHOT</version>
+	<version>5.2.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>jWic</name>
+	<name>xWic - jWic Framework</name>
 	<description>
         jWic is a java-based development framework for developing dynamic web applications with the convenience and
         familiarity of 'rich client' style programming.
