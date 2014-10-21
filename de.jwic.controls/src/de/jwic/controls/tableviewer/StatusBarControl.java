@@ -41,11 +41,11 @@ public class StatusBarControl extends ControlContainer implements IHaveEnabled {
 
 	private boolean enabled = true;
 	
-	public StatusBarControl(IControlContainer container, TableModel model) {
-		this(container, null, model);
+	public StatusBarControl(IControlContainer container, TableModel model, boolean showAllInRangeSelector) {
+		this(container, null, model, showAllInRangeSelector);
 	}
 
-	public StatusBarControl(final IControlContainer container, String name, final TableModel model) {
+	public StatusBarControl(final IControlContainer container, String name, final TableModel model, boolean showAllInRangeSelector) {
 		super(container, name);
 
 		// add pagingControl
@@ -53,18 +53,6 @@ public class StatusBarControl extends ControlContainer implements IHaveEnabled {
 		
 		// add MaxLines control
 		lbcMaxLines = new ListBox(this, "lbcMaxLines");
-		lbcMaxLines.addElement("- Auto -", "0");
-		// add elements
-		int[] choices = {5, 10, 15, 25, 50, 100};
-		String msg = "{0} rows per page";
-		for (int i = 0; i < choices.length; i++) {
-			lbcMaxLines.addElement(
-					MessageFormat.format(
-							msg, 
-							new Object[] { new Integer(choices[i]) }), 
-					Integer.toString(choices[i]));
-		}
-		lbcMaxLines.addElement("- All -", "-1");
 		lbcMaxLines.addElementSelectedListener(new ElementSelectedListener() {
 			private static final long serialVersionUID = 1L;
 			public void elementSelected(ElementSelectedEvent event) {
@@ -87,6 +75,8 @@ public class StatusBarControl extends ControlContainer implements IHaveEnabled {
 				}
 			}
 		});
+
+		this.populateSelectionCombo(showAllInRangeSelector);
 	}
 
 	/**
@@ -120,5 +110,22 @@ public class StatusBarControl extends ControlContainer implements IHaveEnabled {
 		lbcMaxLines.setEnabled(enabled);
 		ctrlPaging.setEnabled(enabled);
 	}
-	
+
+	void populateSelectionCombo(boolean showAllInRangeSelector) {
+		lbcMaxLines.clear();
+		lbcMaxLines.addElement("- Auto -", "0");
+		// add elements
+		int[] choices = {5, 10, 15, 25, 50, 100, 200, 500};
+		String msg = "{0} rows per page";
+		for (int choice : choices) {
+			lbcMaxLines.addElement(
+					MessageFormat.format(
+							msg,
+							choice),
+					Integer.toString(choice));
+		}
+		if(showAllInRangeSelector) {
+			lbcMaxLines.addElement("- All -", "-1");
+		}
+	}
 }
