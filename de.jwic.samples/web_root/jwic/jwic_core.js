@@ -295,7 +295,9 @@ var JWic = {
 				elem.show();
 				elem.css({
 					'height': docHeight-4,
-					'width' : '100%'
+					'width' : '100%',
+					'top' : 0,
+					'left' : 0
 				});
 				if (msg) msg.show();
 				window.setTimeout("JWic.showLongDelay(" + JWic.cbSeq + ")", 1000);
