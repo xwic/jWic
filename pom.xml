@@ -88,10 +88,15 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<jwicUpdateApplication />
 		<jwicUpdateVersion />
-	</properties>
+
+        <pathMavenRoot>${project.basedir}/..</pathMavenRoot>
+        <pathTargetFolder>${pathMavenRoot}/.target-mvn</pathTargetFolder>
+
+
+    </properties>
 
 	<build>
-
+        <directory>${pathTargetFolder}/${project.artifactId}</directory>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>src_test</testSourceDirectory>
 		<scriptSourceDirectory>scripts</scriptSourceDirectory>
@@ -387,10 +392,11 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>de.jwic.core</module>
+    <module>de.jwic.core</module>
 
 		<module>de.jwic.controls</module>
-		<module>de.jwic.compatibility</module>
+        <module>de.jwic.mobile</module>
+        <module>de.jwic.compatibility</module>
 		<module>de.jwic.web</module>
 
 		<module>de.jwic.samples</module>

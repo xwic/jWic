@@ -543,7 +543,14 @@ var JWic = {
 
 };
 
-JWic.util = {
+
+JWic.util = (function($, JWic){
+    var createJWicActionHandler = function CreateJWicActionHandler(actionId){
+        return function JWicActionHandler(){
+            JWic.fireAction($(this).parent('span').data('id'), actionId);
+        }
+    }
+    return {
 		clearSelection : function() {
 			if(document.selection && document.selection.empty) {
 				try { 
@@ -698,8 +705,12 @@ JWic.util = {
 				result.push(callback(array[i],i));
 			}
 			return result;
-		}
-}
+		},
+		clickHandler : createJWicActionHandler('click'),
+        blurHandler : createJWicActionHandler('blur')
+    };
+
+}(jQuery, JWic));
 
 /**
  * Common UI Functions.

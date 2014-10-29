@@ -1,0 +1,10 @@
+#if($control.visible)
+    <div data-role="page" id="$control.name" data-role="page" data-url="$control.name" class="ui-page ui-page-theme-a ui-page-active">
+        <div data-role="header">
+            <h1>$control.text</h1>
+        </div>
+        <div data-role="content">
+            $content.render()
+        </div>
+    </div>
+#end

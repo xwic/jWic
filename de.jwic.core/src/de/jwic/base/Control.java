@@ -257,6 +257,7 @@ public abstract class Control implements Serializable, IControl {
 	/* (non-Javadoc)
 	 * @see de.jwic.base.IControl#getControlID()
 	 */
+	@IncludeJsOption
 	public java.lang.String getControlID() {
 		return strControlID;
 	}
