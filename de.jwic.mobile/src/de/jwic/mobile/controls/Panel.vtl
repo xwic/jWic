@@ -1,4 +1,4 @@
-<button id="btn_$control.controlID" class="ui-btn ui-corner-all" onclick="return false;">$control.text</button>
-<div id="panel_$control.controlID">
+<a id="btn" data-role="button" data-icon="bars" data-inline="true" data-iconpos="notext" class="ui-btn-left" #if(!$control.enabled) disabled #end onclick="return false;">$control.text</a>
+<div id="panel">
     $content.render()
 </div>

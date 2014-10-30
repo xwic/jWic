@@ -6,7 +6,9 @@ var Button = (function($, util){
     return {
         initialize : function(control, options){
             control.data('id', options.controlID);
-            control.on('click', clickHandler);
+            if(options.enabled){
+                control.on('click', clickHandler);
+            }
         }
     }
 }(jQuery, JWic));

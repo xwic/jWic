@@ -11,6 +11,7 @@ public final class EnableableHandler implements Enableable{
 
 	public EnableableHandler(Control control) {
 		this.control = control;
+		this.enabled = true;
 	}
 
 	@Override
@@ -30,6 +31,9 @@ public final class EnableableHandler implements Enableable{
 
 	@Override
 	public void setEnabled(boolean enabled) {
+		if(this.enabled == enabled){
+			return;
+		}
 		this.enabled = enabled;
 		control.requireRedraw();
 	}

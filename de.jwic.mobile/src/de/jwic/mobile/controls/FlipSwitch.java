@@ -14,6 +14,8 @@ import de.jwic.mobile.common.properties.PropertyObservable;
 import de.jwic.mobile.common.properties.PropertiesHandler;
 import de.jwic.mobile.common.properties.PropertyChangedListener;
 import de.jwic.mobile.common.togglable.Togglable;
+import de.jwic.mobile.common.togglable.ToggleableHandler;
+import de.jwic.mobile.common.togglable.ToggleableListener;
 
 /**
  * Created by boogie on 10/28/14.
@@ -26,6 +28,7 @@ public class FlipSwitch extends Control implements Visible, Clickable, PropertyO
 	private final PropertiesHandler propertiesHandler;
 	private final ClickHandler clickHandler;
 	private final EnableableHandler enableableHandler;
+	private final ToggleableHandler toggleableHandler;
 
 	/**
 	 * Constructs a new control instance and adds it to the specified
@@ -39,6 +42,8 @@ public class FlipSwitch extends Control implements Visible, Clickable, PropertyO
 		super(container, name);
 		this.propertiesHandler = new PropertiesHandler(this);
 		this.propertiesHandler.setProperty("state", false);
+
+		this.toggleableHandler = new ToggleableHandler<FlipSwitch>(this);
 
 		this.clickHandler = new ClickHandler(this);
 		this.enableableHandler = new EnableableHandler(this);
@@ -89,18 +94,30 @@ public class FlipSwitch extends Control implements Visible, Clickable, PropertyO
 
 	@Override
 	public final void toggle() {
-		this.setState(!this.isState());
+		this.propertiesHandler.setProperty("state", !this.propertiesHandler.getProperty("state", Boolean.class));
+		this.toggleableHandler.toggle();
 	}
 
 	@Override
-	public final void setState(boolean on) {
+	public final void setToggled(boolean on) {
 		this.propertiesHandler.setProperty("state", on);
+		this.toggleableHandler.setToggled(on);
 	}
 
 	@Override
 	@IncludeJsOption
-	public final boolean isState() {
-		return this.propertiesHandler.getProperty("state", Boolean.class);
+	public final boolean isToggled() {
+		return this.toggleableHandler.isToggled();
+	}
+
+	@Override
+	public final void addToggleableListener(ToggleableListener listener) {
+		this.toggleableHandler.addToggleableListener(listener);
+	}
+
+	@Override
+	public final void removeToggleableListener(ToggleableListener listener) {
+		this.toggleableHandler.removeToggleableListener(listener);
 	}
 
 	public final void setOnText(String title) {
@@ -133,6 +150,7 @@ public class FlipSwitch extends Control implements Visible, Clickable, PropertyO
 	}
 
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enableableHandler.isEnabled();
 	}

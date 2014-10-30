@@ -15,7 +15,9 @@ import de.jwic.mobile.controls.Page;
 import de.jwic.mobile.controls.TextArea;
 import de.jwic.mobile.controls.TextInput;
 import de.jwic.mobile.demos.ButtonDemo;
+import de.jwic.mobile.demos.CheckBoxDemo;
 import de.jwic.mobile.demos.InputDemo;
+import de.jwic.mobile.demos.RadioButtonDemo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,8 @@ public class MobileDemoApplication extends Application {
 
 		mobileDemoModules.add(new ButtonDemo());
 		mobileDemoModules.add(new InputDemo());
+		mobileDemoModules.add(new CheckBoxDemo());
+		mobileDemoModules.add(new RadioButtonDemo());
 
 		return new MobileDemoPage(container, "demoPage", mobileDemoModules);
 	}

@@ -96,6 +96,7 @@ public class Button extends Control implements Clickable, Visible, WithTextPrope
 	}
 
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enableableHandler.isEnabled();
 	}

@@ -13,14 +13,17 @@ import org.apache.commons.lang.StringUtils;
  */
 @JavaScriptSupport
 public class Page extends ControlContainer implements IOuterLayout, WithTextProperty{
-
+	private final ControlContainer header;
 	private String text;
 
 	public Page(IControlContainer container, String name) {
 		super(container, name);
+		this.header = new ControlContainer(this, "header");
+
 		this.setRendererId(Control.DEFAULT_OUTER_RENDERER);
 		this.setTemplateName(ControlContainer.class.getName());
 		this.text = StringUtils.isEmpty(name) ? "" : name;
+
 	}
 
 	public Page(IControlContainer container) {
@@ -43,4 +46,7 @@ public class Page extends ControlContainer implements IOuterLayout, WithTextProp
 		return this.text;
 	}
 
+	public ControlContainer getHeaderContainer() {
+		return header;
+	}
 }

@@ -16,16 +16,19 @@ import de.jwic.mobile.common.properties.PropertyChangedListener;
 import de.jwic.mobile.common.properties.PropertyObservable;
 import de.jwic.mobile.common.properties.WithTextProperty;
 import de.jwic.mobile.common.togglable.Togglable;
+import de.jwic.mobile.common.togglable.ToggleableHandler;
+import de.jwic.mobile.common.togglable.ToggleableListener;
 
 /**
  * Created by boogie on 10/29/14.
  */
-@JavaScriptSupport
+@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.Panel")
 public class Panel extends ControlContainer implements IOuterLayout, Clickable, WithTextProperty, Visible, Togglable, PropertyObservable, Enableable{
 
 	private final ClickHandler clickHandler;
 	private final PropertiesHandler propertiesHandler;
 	private final EnableableHandler enableableHandler;
+	private final ToggleableHandler toggleableHandler;
 
 	private String text;
 
@@ -41,9 +44,11 @@ public class Panel extends ControlContainer implements IOuterLayout, Clickable, 
 		this.clickHandler = new ClickHandler(this);
 		this.propertiesHandler = new PropertiesHandler(this);
 		this.enableableHandler = new EnableableHandler(this);
+		this.toggleableHandler = new ToggleableHandler<Panel>(this);
 		this.text = name;
 
 		this.propertiesHandler.setProperty("state", true);
+
 	}
 
 	@Override
@@ -98,18 +103,30 @@ public class Panel extends ControlContainer implements IOuterLayout, Clickable, 
 
 	@Override
 	public void toggle() {
-		this.setState(!this.isState());
+		this.toggleableHandler.toggle();
+		this.propertiesHandler.setProperty("state", !this.propertiesHandler.getProperty("state", Boolean.class));
 	}
 
 	@Override
-	public void setState(boolean on) {
+	public void setToggled(boolean on) {
 		this.propertiesHandler.setProperty("state", on);
+		this.toggleableHandler.setToggled(on);
 	}
 
 	@Override
 	@IncludeJsOption
-	public boolean isState() {
-		return this.propertiesHandler.getProperty("state", Boolean.class);
+	public boolean isToggled() {
+		return toggleableHandler.isToggled();
+	}
+
+	@Override
+	public void addToggleableListener(ToggleableListener listener) {
+		this.toggleableHandler.addToggleableListener(listener);
+	}
+
+	@Override
+	public void removeToggleableListener(ToggleableListener listener) {
+		this.toggleableHandler.removeToggleableListener(listener);
 	}
 
 	@Override

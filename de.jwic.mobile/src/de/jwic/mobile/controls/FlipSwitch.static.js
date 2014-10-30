@@ -7,8 +7,10 @@ var FlipSwitch = (function($, JWic){
             control.flipswitch({
                 onText: options.onText,
                 offText: options.offText,
-                defaults: true
+                defaults: true,
+                disabled :!options.enabled
             });
+
             control.data('id', options.controlID);
             control.on('change', clickHandler);
         }

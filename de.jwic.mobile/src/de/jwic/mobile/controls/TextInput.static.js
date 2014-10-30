@@ -8,7 +8,8 @@ var TextInput = (function($, util){
         initialize : function(control, options){
             control.data('id', options.controlID);
             control.textinput({
-                autogrow : false
+                autogrow : false,
+                disabled : !options.enabled
             });
             if(options.updateOnBlur){
                 control.on('blur', blurHandler);

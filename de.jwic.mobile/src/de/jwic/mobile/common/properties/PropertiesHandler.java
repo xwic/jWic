@@ -57,10 +57,26 @@ public class PropertiesHandler implements PropertyObservable {
 	 * @param defaultValue
 	 * @param <T>
 	 * @return
-	 * @throws java.lang.ClassCastException - if the when trying to get the
+	 * @throws java.lang.ClassCastException - when trying to get something of a different class
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getProperty(String name, Class<T> type){
+		return getPropertyOrElse(name, type, null);
+	}
+
+	/**
+	 *
+	 * @param name
+	 * @param defaultValue
+	 * @param <T>
+	 * @return
+	 * @throws java.lang.ClassCastException - when trying to get something of a different class that the object passed as the default param
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getPropertyOrElse(String name,Class<T> type, T defaultValue){
+		if(!this.properties.containsKey(name)){
+			return defaultValue;
+		}
 		return type.cast(this.properties.get(name));
 	}
 
@@ -76,4 +92,6 @@ public class PropertiesHandler implements PropertyObservable {
 		}
 		return false;
 	}
+
+
 }

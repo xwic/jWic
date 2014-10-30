@@ -91,7 +91,7 @@ var JWic = {
 			jwicform.submit();
 			return;
 		}
-		//var response = ajaxResponse.responseText.evalJSON(false);
+		//var response = ajaxResponse.responseText.evalJSON(false);c
 		var response = jQuery.parseJSON(ajaxResponse.responseText);
 		if (response.exception) {
 			alert("A server side exception occured: " + response.exception + "\n"

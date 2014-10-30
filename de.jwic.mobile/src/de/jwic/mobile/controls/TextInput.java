@@ -57,6 +57,7 @@ public class TextInput extends Control implements WithTextProperty, PropertyObse
 	@Override
 	public void setText(String text) {
 		this.field.setValue(text);
+		this.propertiesHandler.setProperty("text", text);
 		this.requireRedraw();
 	}
 
@@ -144,6 +145,7 @@ public class TextInput extends Control implements WithTextProperty, PropertyObse
 	}
 
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enableableHandler.isEnabled();
 	}

@@ -20,7 +20,7 @@ public final class ButtonDemo extends MobileDemoModule{
 
 	@Override
 	public Control createPage(IControlContainer controlContainer) {
-		ControlContainer container = new ControlContainer(controlContainer);
+		final ControlContainer container = new ControlContainer(controlContainer, "buttonContainer");
 		final Label label = new Label(container, "label");
 		label.setText("Click the button");
 		final Button button = new Button(container, "button");
@@ -32,6 +32,10 @@ public final class ButtonDemo extends MobileDemoModule{
 				label.setText("Thx for clicking the button");
 			}
 		});
+
+		final Button disabled = new Button(container, "disabled");
+		disabled.disable();
+		disabled.setText("I'm Disabled :(");
 		return container;
 	}
 }

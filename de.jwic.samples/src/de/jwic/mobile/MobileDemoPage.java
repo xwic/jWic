@@ -20,9 +20,11 @@ public class MobileDemoPage extends Page{
 	public MobileDemoPage(IControlContainer container, String name, final List<MobileDemoModule> modules) {
 		super(container, name);
 		this.setTemplateName(MobileDemoPage.class.getName());
-		final ControlContainer contentContainer = new ControlContainer(this);
-		final Panel menu = new Panel(this, "menu");
+		final ControlContainer contentContainer = new ControlContainer(this, "content");
+
+		final Panel menu = new Panel(this.getHeaderContainer(), "menu");
 		menu.setText("Open Menu");
+
 		for(int i =0; i<modules.size(); i++){
 			final Button button = new Button(menu, "module" + i);
 			final MobileDemoModule module = modules.get(i);
@@ -33,8 +35,7 @@ public class MobileDemoPage extends Page{
 				@Override
 				public void onClick(Clickable source) {
 					createPage(contentContainer, module);
-					setText(module.getTitle());
-					menu.setState(false);
+					menu.setToggled(false);
 				}
 			});
 		}
@@ -47,11 +48,7 @@ public class MobileDemoPage extends Page{
 			contentContainer.removeControl(currentPage.getName());
 		}
 		currentPage = module.createPage(contentContainer);
-	}
-
-
-	public String getCurrentPageName(){
-		return this.currentPage.getName();
+		setText(module.getTitle());
 	}
 
 }
