@@ -60,11 +60,15 @@ public class Panel extends ControlContainer implements IOuterLayout, Clickable, 
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if("open".equals(actionId)){
+			System.out.println("open");
+			toggleableHandler.setToggledNoRedraw(true); ;
 			this.propertiesHandler.setPropertyNoRedraw("state", true);
 			return;
 		}
 
 		if("close".equals(actionId)){
+			System.out.println("clone");
+			toggleableHandler.setToggledNoRedraw(false);
 			this.propertiesHandler.setPropertyNoRedraw("state", false);
 		}
 	}

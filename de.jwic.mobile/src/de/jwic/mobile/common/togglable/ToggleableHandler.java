@@ -26,11 +26,18 @@ public final class ToggleableHandler<E extends Control & Togglable> implements T
 
 	@Override
 	public void setToggled(boolean on) {
-		if(state == on){
+		if(this.state == on){
 			return;
 		}
-		this.state = on;
+		this.setToggledNoRedraw(on);
 		control.requireRedraw();
+	}
+
+	public void setToggledNoRedraw(boolean toggled){
+		if(state == toggled){
+			return;
+		}
+		this.state = toggled;
 		for(ToggleableListener t : new ArrayList<ToggleableListener>(this.listeners)){
 			t.onToggle(control);
 		}
