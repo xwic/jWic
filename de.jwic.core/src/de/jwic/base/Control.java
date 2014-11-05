@@ -18,8 +18,11 @@
  */
 package de.jwic.base;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONWriter;
+
 import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
@@ -31,11 +34,6 @@ import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.json.JSONException;
-import org.json.JSONWriter;
 
 /**
  * <p>Superclass for jWic controls placed into an jWic container. A Control represents
@@ -280,6 +278,23 @@ public abstract class Control implements Serializable, IControl {
 	public boolean isVisible() {
 		return bolVisible;
 	}
+
+	/**
+	 *
+	 */
+	@Override
+	public void show() {
+		this.setVisible(true);
+	}
+
+	/**
+	 *
+	 */
+	@Override
+	public void hide() {
+		this.setVisible(false);
+	}
+
 	/**
 	 * This method is used to give the control a connection to the Container object
 	 * when it's added to a container.

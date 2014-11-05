@@ -51,7 +51,10 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
-		
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>org.json</artifactId>
+        </dependency>
 		<!-- Test dependencies -->
         <dependency>
             <groupId>de.xwic.jwic</groupId>

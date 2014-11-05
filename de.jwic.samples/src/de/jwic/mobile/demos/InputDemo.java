@@ -5,10 +5,10 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Label;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.mobile.common.blurable.BlurListener;
-import de.jwic.mobile.common.blurable.Blurable;
-import de.jwic.mobile.controls.TextArea;
-import de.jwic.mobile.controls.TextInput;
+import de.jwic.common.blurable.BlurListener;
+import de.jwic.common.blurable.Blurable;
+import de.jwic.mobile.controls.MInputArea;
+import de.jwic.mobile.controls.MInputBox;
 
 /**
  * Created by boogie on 10/29/14.
@@ -24,13 +24,13 @@ public class InputDemo extends MobileDemoModule{
 		ControlContainer container = new ControlContainer(controlContainer);
 		final Label labelForTextInput = new Label(container, "labelForTextInput");
 		labelForTextInput.setText("Basic Text Input");
-		final TextInput textInput = new TextInput(container, "textInput");
+		final MInputBox textInput = new MInputBox(container, "textInput");
 
 		final Label labelForTextInputWithUpdateOnBlur = new Label(container, "labelForTextInputWithUpdateOnBlur");
 		labelForTextInputWithUpdateOnBlur.setText("Text Input With Update on blur");
 		final Label labelForTextInputWithUpdateOnBlur2 = new Label(container, "labelForTextInputWithUpdateOnBlur2");
 
-		final TextInput textInputWithUpdateOnBlur = new TextInput(container, "textInputWithUpdateOnBlur");
+		final MInputBox textInputWithUpdateOnBlur = new MInputBox(container, "textInputWithUpdateOnBlur");
 		textInputWithUpdateOnBlur.setUpdateOnBlur(true);
 		textInputWithUpdateOnBlur.addBlurListener(new BlurListener() {
 
@@ -42,7 +42,7 @@ public class InputDemo extends MobileDemoModule{
 
 		final Label labelForTextArea = new Label(container, "labelForTextArea");
 		labelForTextArea.setText("Multline TextArea");
-		final TextArea multLineTextArea = new TextArea(container, "multLineTextArea");
+		final MInputArea multLineTextArea = new MInputArea(container, "multLineTextArea");
 
 
 		return container;

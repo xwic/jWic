@@ -3,21 +3,13 @@ package de.jwic.mobile;
 import de.jwic.base.Application;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.Label;
-import de.jwic.mobile.common.blurable.BlurListener;
-import de.jwic.mobile.common.blurable.Blurable;
-import de.jwic.mobile.common.clickable.ClickListener;
-import de.jwic.mobile.common.clickable.Clickable;
-import de.jwic.mobile.common.properties.PropertyChangedListener;
-import de.jwic.mobile.controls.Button;
-import de.jwic.mobile.controls.FlipSwitch;
-import de.jwic.mobile.controls.Page;
-import de.jwic.mobile.controls.TextArea;
-import de.jwic.mobile.controls.TextInput;
+import de.jwic.mobile.demos.AlexDemo;
 import de.jwic.mobile.demos.ButtonDemo;
 import de.jwic.mobile.demos.CheckBoxDemo;
+import de.jwic.mobile.demos.DatePickerDemo;
 import de.jwic.mobile.demos.InputDemo;
 import de.jwic.mobile.demos.RadioButtonDemo;
+import de.jwic.mobile.demos.ToggleableGroupsDemo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +27,11 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new InputDemo());
 		mobileDemoModules.add(new CheckBoxDemo());
 		mobileDemoModules.add(new RadioButtonDemo());
+		mobileDemoModules.add(new DatePickerDemo());
+		mobileDemoModules.add(new ToggleableGroupsDemo());
+		mobileDemoModules.add(new AlexDemo());
 
-		return new MobileDemoPage(container, "demoPage", mobileDemoModules);
+
+		return new MobileDemoMPage(container, "demoPage", mobileDemoModules);
 	}
 }

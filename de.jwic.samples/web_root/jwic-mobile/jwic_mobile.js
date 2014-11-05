@@ -1,0 +1,1 @@
+JWic.mobile = {};

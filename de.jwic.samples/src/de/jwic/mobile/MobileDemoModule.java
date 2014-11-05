@@ -2,7 +2,6 @@ package de.jwic.mobile;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
-import de.jwic.mobile.controls.Page;
 
 /**
  * Created by boogie on 10/29/14.
