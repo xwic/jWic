@@ -9,6 +9,7 @@ import de.jwic.mobile.demos.CheckBoxDemo;
 import de.jwic.mobile.demos.DatePickerDemo;
 import de.jwic.mobile.demos.InputDemo;
 import de.jwic.mobile.demos.RadioButtonDemo;
+import de.jwic.mobile.demos.SelectBoxDemo;
 import de.jwic.mobile.demos.ToggleableGroupsDemo;
 
 import java.util.ArrayList;
@@ -30,8 +31,9 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new DatePickerDemo());
 		mobileDemoModules.add(new ToggleableGroupsDemo());
 		mobileDemoModules.add(new AlexDemo());
+		mobileDemoModules.add(new SelectBoxDemo());
 
 
-		return new MobileDemoMPage(container, "demoPage", mobileDemoModules);
+		return new MobileDemoPage(container, "demoPage", mobileDemoModules);
 	}
 }

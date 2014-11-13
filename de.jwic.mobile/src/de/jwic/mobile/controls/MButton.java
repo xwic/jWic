@@ -49,7 +49,7 @@ public class MButton extends Control implements Selectable, Visible, WithTextPro
 
 	@Override
 	public final void actionPerformed(String actionId, String parameter) {
-		if("select".equals(actionId)) {
+		if("click".equals(actionId)) {
 			select();
 		}
 	}

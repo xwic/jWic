@@ -1,0 +1,5 @@
+<select name="${control.controlID}_selection" id="$control.controlID">
+    #foreach($selection in $control.selectionSet);
+        <option value="$selection" #if($selection == $control.currentSelectionString) selected #end>$selection</option>
+    #end
+</select>

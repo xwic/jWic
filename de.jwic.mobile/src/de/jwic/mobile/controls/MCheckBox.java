@@ -54,7 +54,7 @@ public class MCheckBox extends Control implements WithTextProperty, Selectable, 
 
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
-		if("select".equals(actionId)){
+		if("click".equals(actionId)){
 			toggleableHandler.toggle();
 			this.propertiesHandler.setPropertyNoRedraw("state", !this.propertiesHandler.getProperty("state", Boolean.class));
 			clickHandler.select();

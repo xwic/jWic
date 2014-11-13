@@ -37,12 +37,6 @@ var JWic = {
 	isProcessing :false,
 	
 	commandQueue : [],
-	
-	/**
-	 * List of static control libraries already loaded.
-	 */
-	loadedStaticLibs : [],
-
 	/**
 	 * The time in milliseconds before the please wait message appears.
 	 */
@@ -62,11 +56,6 @@ var JWic = {
 	beforeRequestCallbacks : {},
 	
 	/**
-	 * JWic form element
-	 */
-	jwicform : null,
-
-	/**
 	 * Returns a jQuery encapsulated document element. The element is retrieved
 	 * using document.getElementById and then extended with jQuery. This eliminates the
 	 * need to escape the control ID when using jQuery's native $/jQuery function. 
@@ -83,68 +72,69 @@ var JWic = {
 	 * Handle the response from an fireAction request.
 	 */
 	handleResponse : function(ajaxResponse, callBack) {
-		
+	    var util = JWic.util,
+	        response = jQuery.parseJSON(ajaxResponse.responseText),
+	        requiredJS = response.requiredJS || [],
+            updateables = response.updateables || [],
+            scriptQueue = response.scriptQueue || [],
+            that = this;
+
+	    callBack = callBack || util.identity;
+
+        var refresh = function refresh(message){
+            if(message){
+                alert(message);
+            }
+            jwicform.elements['__ctrlid'].value = '';
+            jwicform.elements['__action'].value = 'refresh';
+            jwicform.submit();
+        }
+
+
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
-			alert("The server did not respond to the request. Please check your network connectivity and try again.");
-			jwicform.elements['__ctrlid'].value = '';
-			jwicform.elements['__action'].value = 'refresh';
-			jwicform.submit();
+			refresh("The server did not respond to the request. Please check your network connectivity and try again.");
 			return;
 		}
-		//var response = ajaxResponse.responseText.evalJSON(false);c
-		var response = jQuery.parseJSON(ajaxResponse.responseText);
+
 		if (response.exception) {
-			alert("A server side exception occured: " + response.exception + "\n"
-					+ "Hit ok to refresh.");
-			jwicform.elements['__ctrlid'].value = '';
-			jwicform.elements['__action'].value = 'refresh';
-			jwicform.submit();
+			refresh("A server side exception occurred: " + response.exception + "\nHit ok to refresh.");
 			return;
 		}
 
-		if (typeof (response.ticket) != 'undefined') {
-			// update ticket number
-			jwicform.elements['__ticket'].value = response.ticket;
+        if (response.requireRedraw) {
+            refresh();
+            return;
+        }
 
-			if (response.requireRedraw) {
-				// normaly submit the whole page, but clear action before
-				jwicform.elements['__ctrlid'].value = '';
-				jwicform.elements['__action'].value = 'refresh';
-				jwicform.submit();
-				return;
-			}
+		if (response.ticket === undefined) {
+		    return;
+		}
+		jwicform.elements['__ticket'].value = response.ticket;
 
-			if (response.requiredJS) {
-				jQuery.each(response.requiredJS, function(idx, elm) {
-					JWic.requiresStaticLibrary(elm);
-				});
-			}
-			
-			if (response.updateables) {
-				
-				jQuery.each(response.updateables, function(idx, elm) {
-					JWic.updateControl(elm);
-				});
-			}
-			
-			if (response.scriptQueue) {
-				jQuery.each(response.scriptQueue, function(idx, line) {
-					try {
-						eval(line);
-					} catch (e) {
-						JWic.log("Error executing script queue: " + e + " for line " + line);
-					}
-				});
-			}
-			this.endRequest();
-		}
-		if (callBack) {
-			try {
-				callBack();
-			} catch (e) {
-				JWic.log("callBack function failed: " + e);
-			}
-		}
+        var asyncScripts = jQuery.map(requiredJS, util.loadLibAsync);
+
+        util.whenAll(asyncScripts).then(function(){
+            jQuery.each(updateables, function(idx, elm) {
+                JWic.updateControl(elm);
+            });
+        }).then(function(){
+            jQuery.each(scriptQueue, function(idx, line) {
+                try {
+                    eval(line);
+                } catch (e) {
+                    JWic.log("Error executing script queue: " + e + " for line " + line);
+                }
+            });
+        }).then(function(){
+            that.endRequest();
+            try {
+                callBack();
+            } catch (e) {
+                JWic.log("callBack function failed: ", e);
+            }
+        });
+
+
 	},
 
 	/**
@@ -152,7 +142,7 @@ var JWic = {
 	 */
 	updateControl : function(elm, control) {
 		control = control ? control : document.getElementById("ctrl_" + elm.key);
-		
+
 		var scripts = [];
 		if (elm.scripts) {
 			for ( var i = 0; i < elm.scripts.length; i++) {
@@ -240,9 +230,6 @@ var JWic = {
 					}
 				}
 			}
-		} else {
-			// alert("A control with the ID '" + elm.key + "' does
-			// not exist on the page and can not be updated.");
 		}
 	},
 	
@@ -349,25 +336,7 @@ var JWic = {
 			JWic._processNextAction()
 		}
 	},
-	
-	/**
-	 * Check if the specified library was loaded or not. If it is not loaded
-	 * yet, it will be added to the page. 
-	 */
-	requiresStaticLibrary : function(libraryName) {
-		
-		if (!JWic.loadedStaticLibs[libraryName]) {
-			JWic.log("Loading static library " + libraryName);
-			
-			var elm = "<SCRIPT src=\"" + JWic.contextPath + "/cp/" + libraryName + "\"></SCRIPT>";
-			
-			jQuery("head").append(elm);
-			
-			JWic.loadedStaticLibs[libraryName] = true;
-		} 
-		
-	},
-	
+
 	_processNextAction : function() {
 		
 		if (JWic.commandQueue.length == 0 || JWic.isProcessing) {
@@ -378,8 +347,11 @@ var JWic = {
 		JWic.commandQueue.splice(0, 1);
 		
 		JWic.isProcessing = true;
-		window.setTimeout("JWic.showClickBlocker(true)",
-				JWic.pleaseWaitDelayTime);
+		window.setTimeout(function(){
+
+		    JWic.showClickBlocker(true);
+
+		}, JWic.pleaseWaitDelayTime);
 
 		if (!jwicform) {
 			// This might occure if the page is refreshed due to a timeout
@@ -415,7 +387,7 @@ var JWic = {
 	        	return;
 	        }
 	    }
-	    jQuery(jwicform).trigger("beforeSerialization");	    
+	    jQuery(jwicform).trigger("beforeSerialization");
 		var paramData = jQuery(jwicform).serialize();
 		jQuery(jwicform).trigger("afterSerialization");
 
@@ -433,13 +405,10 @@ var JWic = {
 			dataType: 'json',
 			data : paramData,
 			success : function(data, textStatus, jqXHR) {
-		
 				JWic.handleResponse(jqXHR, cmd.callBack);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				alert(
-						"An exception has occured processing the server response: "
-								+ errorThrown, "Error Notification.");
+				alert("An exception has occured processing the server response: " + errorThrown, "Error Notification.");
 				JWic.endRequest();
 			}
 		});
@@ -498,9 +467,8 @@ var JWic = {
 		}
 		var pane = document.getElementById(paneId);
 		if (pane) {
-			
-			var top = jwicform.elements['fld_' + ctrlId + '.top'].value;
-			var left = jwicform.elements['fld_' + ctrlId + '.left'].value;
+			var top = jwicform.elements['fld_' + ctrlId + '.top'].value,
+			    left = jwicform.elements['fld_' + ctrlId + '.left'].value;
 			pane.scrollTop = top;
 			pane.scrollLeft = left;
 			// log("Set scrolling for '" + paneId + "' to " + top + ", " +
@@ -510,18 +478,7 @@ var JWic = {
 		}
 
 	},
-	/**
-	 * Show a dialog with a message. Encapsulates the PWC library functions.
-	 */
-	alert : function(message, title) {
-		//TODO: replace with jQuery
-		Dialog.alert(message, {
-			className :"alphacube",
-			options :"",
-			title :title ? title : ""
-		});
-	},
-	
+
 	/**
 	 * Add a new callback.
 	 */
@@ -529,10 +486,9 @@ var JWic = {
 		JWic.beforeRequestCallbacks[controlId] = callback;
 	},
 	
-	log : function(message) {
-
-		if (typeof console != "undefined") {
-			console.log(message);
+	log : function() {
+		if (console !== undefined && console.log !== undefined) {
+		    console.log(Array.prototype.slice.call(arguments).join(' '));
 		} 
 		
 		if (JWic.debugMode) {
@@ -552,7 +508,103 @@ JWic.util = (function($, JWic){
             JWic.fireAction($(this).parent('span').data('id'), actionId);
         }
     }
+
+    var loadLibAsync = (function(){
+        var cache = {},
+            first = document.getElementsByTagName('script')[0],
+            parent = first.parentNode;
+
+        return function _loadLibAsync(lib){
+            var promise = new jQuery.Deferred(),
+                callBack = function scriptCallback(){
+                    JWic.log('async loaded lib', lib);
+                    promise.resolve(lib);
+                    cache[lib] = true;
+                };
+
+            if(cache[lib] === true){
+                promise.resolve(lib);
+                JWic.log('lib:', lib, 'already loaded');
+                return promise;
+            }
+
+            var script = document.createElement('script');
+            script.type = "text/javascript";
+            script.src=  JWic.contextPath + "/cp/" + lib;
+            script.async = true;
+
+            if(document.attachEvent !== undefined){
+                script.onreadystatechange = function(){
+                    if ( this.readyState === 'loaded'){
+                        callBack();
+                    }
+                }
+            }else{
+                script.onload = callBack;
+            }
+            parent.insertBefore(script, first);
+
+            JWic.log('async loading lib', lib);
+            return promise;
+
+        }
+    }());
+
+    var whenAll = function whenAll(promises){
+        return jQuery.when.apply(jQuery, promises);
+    };
+
+    var identity = function identity(x){
+        return x;
+    }
+    /**
+     *
+     */
+    var loadScripts = function loadScripts(libs, scripts, scriptEvalFunction){
+        scriptEvalFunction = scriptEvalFunction || identity;
+        return whenAll(jQuery.map(libs,loadLibAsync)).then(function(){
+
+            for(var prop in scripts){
+                if(scripts.hasOwnProperty(prop)){
+                    var script = scriptEvalFunction(scripts[prop]);
+                    if(script.afterUpdate){
+                        script.afterUpdate(document.body);
+                    }
+                    if (script.destroy) {
+                        JWic.destroyList.push({
+                            key : prop,
+                            destroy :script.destroy
+                        });
+                    }
+                }
+
+            }
+            return true;
+        });
+
+    };
+
+    var body = jQuery('body');
+    body.hide();
+    //load the initial scripts in the page
+    jQuery(document).ready(function(){
+        var scripts = JWic.initialScripts.scripts,
+            libs = JWic.initialScripts.statics;
+
+        loadScripts(libs, scripts).then(function(){
+            //show the body and do some cleanup
+            body.show();
+            delete JWic.initialScripts;
+            jQuery('script[data-name=initialScripts]').remove();
+        })
+    });
+
     return {
+        loadScripts : loadScripts,
+        loadLibAsync : loadLibAsync,
+        identity : identity,
+        whenAll : whenAll,
+
 		clearSelection : function() {
 			if(document.selection && document.selection.empty) {
 				try { 

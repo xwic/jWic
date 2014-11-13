@@ -124,7 +124,7 @@ public class ClasspathResourceServlet extends HttpServlet {
 			byte[] buf = new byte[1024];
 			int length = 0;
 
-			while ((in != null) && ((length = in.read(buf)) != -1))
+			while ((length = in.read(buf)) != -1)
 			{
 				try {
 					out.write(buf,0,length);

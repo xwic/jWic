@@ -34,6 +34,7 @@ public class MInputBox extends Control implements WithTextProperty, PropertyObse
 	private final BlurHandler blurHandler;
 	private final PropertiesHandler propertiesHandler;
 	private final EnableableHandler enableableHandler;
+	private String placeholder;
 
 	/**
 	 * Constructs a new control instance and adds it to the specified
@@ -153,6 +154,15 @@ public class MInputBox extends Control implements WithTextProperty, PropertyObse
 	@Override
 	public void setEnabled(boolean enabled) {
 		enableableHandler.setEnabled(enabled);
+	}
+
+	public void setPlaceholder(String placeholder){
+		this.placeholder = placeholder;
+	}
+
+	@IncludeJsOption
+	public String getPlaceholder(){
+		return this.placeholder == null ? "" : this.placeholder;
 	}
 
 	/**

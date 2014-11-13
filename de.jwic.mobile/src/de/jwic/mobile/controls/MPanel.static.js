@@ -16,6 +16,8 @@ JWic.mobile.Panel = (function($, JWic){
 
                 disabled : !options.enabled
             });
+
+            console.warn(panel);
             var parent = panel.parent();
             //find the page that this panel belongs to
             //or just stop at the body

@@ -1,1 +1,4 @@
-JWic.mobile = {};
+//JWic.mobile namespace
+JWic.mobile = (function(){
+    return {};
+}());

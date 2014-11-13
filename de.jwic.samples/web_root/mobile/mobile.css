@@ -115,3 +115,5 @@ h1.demoTitle {
 	margin-top: 10px;
 	padding-top: 10px;
 }
+
+.ui-page { -webkit-backface-visibility: hidden; }

@@ -10,7 +10,7 @@
 
     <artifactId>jwic-mobile</artifactId>
     <packaging>jar</packaging>
-	<profiles>    
+	<profiles>
 		<profile>
 			<id>hacky</id>
 			<build>
@@ -23,46 +23,9 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.2.9-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
 		
-		<!-- General dependencies -->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>org.json</artifactId>
-        </dependency>
-		<!-- Test dependencies -->
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-core</artifactId>
-            <version>5.2.9-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <!-- Common Public License 1.0 -->
             <groupId>junit</groupId>

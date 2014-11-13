@@ -19,6 +19,7 @@ JWic.mobile.TextInput = (function($, util){
             }
         },
         destroy : function(control){
+            control.unbind()
             control.textinput('destroy');
         }
     };

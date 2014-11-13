@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * Created by boogie on 10/29/14.
  */
-public class MobileDemoMPage extends MPage {
+public class MobileDemoPage extends MPage {
 	private Control currentPage;
 
-	public MobileDemoMPage(IControlContainer container, String name, final List<MobileDemoModule> modules) {
+	public MobileDemoPage(IControlContainer container, String name, final List<MobileDemoModule> modules) {
 		super(container, name);
-		this.setTemplateName(MobileDemoMPage.class.getName());
+		this.setTemplateName(MobileDemoPage.class.getName());
 		final ControlContainer contentContainer = new ControlContainer(this, "content");
 
 		final MPanel menu = new MPanel(this.getHeaderContainer(), "menu");

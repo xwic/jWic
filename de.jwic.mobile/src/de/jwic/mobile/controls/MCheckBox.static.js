@@ -6,7 +6,6 @@ JWic.mobile.CheckBox = (function($, JWic){
        initialize : function CheckBoxInitialize(control, options){
             control.data('id', options.controlID);
             control.prop('checked', options.toggled);
-            console.warn(options);
             control.checkboxradio({
                 disabled : !options.enabled
             });

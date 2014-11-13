@@ -22,7 +22,7 @@ import de.jwic.events.SelectionListener;
 /**
  * Created by boogie on 10/29/14.
  */
-@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.Panel")
+@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MPanel")
 public class MPanel extends ControlContainer implements IOuterLayout, Selectable, WithTextProperty, Visible, Togglable, PropertyObservable, Enableable{
 
 	private final SelectionHandler clickHandler;

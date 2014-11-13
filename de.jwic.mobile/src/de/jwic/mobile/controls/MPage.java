@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Created by boogie on 10/27/14.
  */
-@JavaScriptSupport
+@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MPage")
 public class MPage extends ControlContainer implements IOuterLayout, WithTextProperty{
 	private final ControlContainer header;
 	private String text;
