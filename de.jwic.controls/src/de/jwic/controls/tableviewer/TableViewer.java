@@ -75,7 +75,9 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private boolean resizeableColumns = false;
 	private boolean selectableColumns = true;
 	private boolean scrollable = false;
-	
+
+	private boolean showAllInRangeSelector = false;
+
 	private StatusBarControl statusBar = null;
 	
 	private Menu menu = null;
@@ -100,7 +102,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		new Field(this, "left");
 		new Field(this, "top");
 
-		statusBar = new StatusBarControl(this, "statusBar", getModel());
+		statusBar = new StatusBarControl(this, "statusBar", getModel(), this.showAllInRangeSelector);
 	}
 
 	/**
@@ -448,4 +450,12 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		this.menu = menu;
 	}
 
+	public boolean isShowAllInRangeSelector() {
+		return showAllInRangeSelector;
+	}
+
+	public void setShowAllInRangeSelector(boolean showAllInRangeSelector) {
+		this.showAllInRangeSelector = showAllInRangeSelector;
+		statusBar.populateSelectionCombo(this.showAllInRangeSelector);
+	}
 }
