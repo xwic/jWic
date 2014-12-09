@@ -465,19 +465,27 @@ public class WebEngine  {
 			StringTokenizer stk = new StringTokenizer(sysinfo, ";");
 			int tokenNo = 0;
 			while (stk.hasMoreTokens()) {
-				String value = stk.nextToken();
+				String tokenValue = stk.nextToken();
+				int value = 0;
+				try {
+					Double valueDouble = new Double(tokenValue);
+					value = valueDouble.intValue();
+				}catch(NumberFormatException ex){
+					log.error("Error while parsing client size value: " + tokenValue + " for token: " + tokenNo);
+				}
+				
 				switch (tokenNo) {
 					case 0: // visible width
-						userAgent.setClientWidth(Integer.parseInt(value));
+						userAgent.setClientWidth(value);
 						break;
 					case 1: // visible height
-						userAgent.setClientHeight(Integer.parseInt(value));
+						userAgent.setClientHeight(value);
 						break;
 					case 2:
-						userAgent.setClientLeft(Integer.parseInt(value));
+						userAgent.setClientLeft(value);
 						break;
 					case 3:
-						userAgent.setClientTop(Integer.parseInt(value));
+						userAgent.setClientTop(value);
 						break;
 				}
 				tokenNo++;
