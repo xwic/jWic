@@ -1865,7 +1865,9 @@ JWic.controls = {
 			initialize : function(tabStrip, ctrlId, activeIndex) {
 				tabStrip.tabs({
 					beforeActivate : JWic.controls.TabStrip.activateHandler,
-					active : activeIndex
+					active : activeIndex,
+					scrollable: true,
+			        changeOnScroll: false
 				});
 			},
 			
@@ -1906,7 +1908,6 @@ JWic.controls = {
 				var tabStrip = JWic.$(controlId);
 				JWic.controls.TabStrip.internalActivate = true;
 				tabStrip.tabs("option", "active", panelIdx );
-				tabStrip.tabs("refresh");
 				JWic.controls.TabStrip.internalActivate = false;
 			}
 	},

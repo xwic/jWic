@@ -576,3 +576,61 @@ span.j-listColSel-clearSearch {
 	padding-bottom: 7px;
 	margin: 1px;
 }
+
+
+.ui-widget {
+    font-size: .8em !important;
+}
+
+.ui-tabs-nav {
+    position:relative;
+}
+
+.ui-tabs .ui-tabs-nav-arrows {
+    position:absolute;
+    top:1px;
+    right:1px;
+    left:1px;
+    margin:.1em;
+    padding:0;
+}
+
+.ui-tabs .ui-tabs-nav-arrows .ui-tabs-arrow-next {
+    float:right;
+}
+
+.ui-tabs .ui-tabs-nav-arrows li {
+    list-style:none;
+    position:relative;
+    cursor:pointer;
+    z-index:1000;
+    line-height:1;
+    margin:0;
+    padding:0;
+}
+
+.ui-tabs .ui-tabs-nav-arrows li a {
+    display: block;
+    padding: .7em .1em;
+}
+
+.ui-tabs .ui-tabs-nav-arrows .ui-tabs-arrow-previous {
+    float:left;
+}
+
+.ui-tabs .ui-tabs-scroll-container {
+    position:relative;
+    height: 2.7em;
+    overflow:hidden;
+}
+
+.ui-tabs .ui-tabs-nav-scrollable {
+    position:absolute;
+    left:0;
+    right:0;
+}
+
+.ui-tabs .ui-tabs-nav-scrollable ul {
+    position:relative;
+    width:10000px;
+}
