@@ -105,7 +105,7 @@ public class SessionContext implements IControlContainer, Serializable {
 	 * the package.
 	 * @param timeZone 
 	 */
-	SessionContext(IApplicationSetup appSetup, Locale locale, TimeZone timeZone) {
+	protected SessionContext(IApplicationSetup appSetup, Locale locale, TimeZone timeZone) {
 		this.appSetup = appSetup;
 		this.locale = locale;
 		this.timeZone = timeZone;
@@ -667,7 +667,7 @@ public class SessionContext implements IControlContainer, Serializable {
 	/**
 	 * @param application The application to set.
 	 */
-	void setApplication(IApplication application) {
+	public void setApplication(IApplication application) {
 		this.application = application;
 	}
 	/**
