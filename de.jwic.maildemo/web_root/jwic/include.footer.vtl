@@ -33,6 +33,16 @@
  	}
  }
 #end
+
+#if($scriptQueue)
+  jQuery.each($scriptQueue, function(idx, line) {
+        try {
+          eval(line);
+        } catch (e) {
+          JWic.log("Error executing script queue: " + e + " for line " + line);
+        }
+      });
+#end
  // re-set values to avoid the memory effect in firefox.
  document.forms['jwicform']._msid.value = '$context.sessionId';
  document.forms['jwicform'].__ticket.value = '$context.getRequestTicket($layerid)';

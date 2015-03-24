@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -464,19 +465,27 @@ public class WebEngine  {
 			StringTokenizer stk = new StringTokenizer(sysinfo, ";");
 			int tokenNo = 0;
 			while (stk.hasMoreTokens()) {
-				String value = stk.nextToken();
+				String tokenValue = stk.nextToken();
+				int value = 0;
+				try {
+					Double valueDouble = new Double(tokenValue);
+					value = valueDouble.intValue();
+				}catch(NumberFormatException ex){
+					log.error("Error while parsing client size value: " + tokenValue + " for token: " + tokenNo);
+				}
+				
 				switch (tokenNo) {
 					case 0: // visible width
-						userAgent.setClientWidth(Integer.parseInt(value));
+						userAgent.setClientWidth(value);
 						break;
 					case 1: // visible height
-						userAgent.setClientHeight(Integer.parseInt(value));
+						userAgent.setClientHeight(value);
 						break;
 					case 2:
-						userAgent.setClientLeft(Integer.parseInt(value));
+						userAgent.setClientLeft(value);
 						break;
 					case 3:
-						userAgent.setClientTop(Integer.parseInt(value));
+						userAgent.setClientTop(value);
 						break;
 				}
 				tokenNo++;
@@ -582,6 +591,23 @@ public class WebEngine  {
 		ctx.put("reloaded", markReloaded ? "1" : "0");
 		ctx.put("contextPath", req.getContextPath());
 		ctx.put("renderContext", context);
+		List<String> scriptQueue = sc.getScriptQueue();
+		if (!scriptQueue.isEmpty()) {
+			StringWriter sw = new StringWriter();
+			JSONWriter writer = new JSONWriter(sw);
+			try {
+				writer.array();
+				for (String script : scriptQueue) {
+					writer.value(script);
+				}
+				
+				writer.endArray();
+				ctx.put("scriptQueue", sw.toString());
+			}catch(Exception e){
+				throw new RuntimeException("Error while configuring Json Option for Script Queue.", e);
+			}
+			sc.clearScriptQueue();
+		}
 		
 		String templateName;
 		if (layerid == null || layerid.length() == 0) {
