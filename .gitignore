@@ -22,3 +22,4 @@ logs/
 sessions/
 */_dist/*
 */bin/*
+de.jwic.samples/web_root/WEB-INF/jwicweb.log.?

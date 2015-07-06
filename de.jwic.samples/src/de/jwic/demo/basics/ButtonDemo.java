@@ -96,6 +96,8 @@ public class ButtonDemo extends ControlContainer {
 		lblInfo.setText("Button Clicked: " + ((Control)eventSource).getName());
 		getSessionContext().notifyMessage(((Button)eventSource).getTitle() + " was clicked.");
 		
+		((Button)eventSource).setTitle("Yeah, click me again!!!!");
+		
 	}
 	
 }

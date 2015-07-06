@@ -91,6 +91,8 @@ public class DemoApplication extends Application {
 		modules.add(new ErrorWariningDemoModule());
 		modules.add(new LazyTooltipDemoModule());
 
+		//modules.add(new ColorDemo());
+
 		// Sort demos by group and title
 		Collections.sort(modules);
 		
