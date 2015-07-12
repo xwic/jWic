@@ -256,6 +256,33 @@ div.j-combo_element img {
 }
 
 /**
+ * Wizard Single-Page Layout.
+ */
+
+.j-wizard-header {
+	border-bottom: 1px solid #c0c0c0;
+	padding: 6px;
+}
+
+.j-wizard-page-title {
+	font-size: 16px;
+	padding-left: 10px;
+}
+.j-wizard-page-subtitle {
+	font-size: 10px;
+	padding-left: 10px;
+	padding-top: 3px;
+	padding-bottom: 8px;
+}
+
+.j-wizard-buttons {
+	text-align: right;
+	border-top: 1px solid;
+	padding: 8px;
+	color: #C0C0C0;
+}
+
+/**
  * ListBox combo background fix
  */
 

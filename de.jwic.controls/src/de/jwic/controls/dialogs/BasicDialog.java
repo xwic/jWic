@@ -31,10 +31,18 @@ import de.jwic.base.SessionContext;
  * @version $Revision: 1.2 $
  */
 public abstract class BasicDialog implements Serializable {
+	
+	protected enum Mode {
+		PAGE,
+		CONTAINER
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private IControlContainer parent;
 	private ControlContainer container;
 	private List<DialogListener> listeners = null;
+	
+	protected Mode mode = null;
 	
 	public BasicDialog(IControlContainer parent) {
 		this.parent = parent;
@@ -105,16 +113,24 @@ public abstract class BasicDialog implements Serializable {
 	 */
 	private void close() {
 
-		SessionContext sc = parent.getSessionContext();
-		if (sc.getTopControl() == container) {
-			sc.popTopControl();
+		if (mode == Mode.PAGE) {
+			SessionContext sc = parent.getSessionContext();
+			if (sc.getTopControl() == container) {
+				sc.popTopControl();
+			}
 		}
 		container.destroy();
 		destroy();
 		
 	}
 
+	/**
+	 * Open the dialog on a whole new page.
+	 * @return
+	 */
 	public Page openAsPage() {
+		
+		mode = Mode.PAGE;
 		
 		Page page = new Page(parent);
 		
@@ -123,6 +139,24 @@ public abstract class BasicDialog implements Serializable {
 		container = page;
 		
 		return page;
+	}
+
+	/**
+	 * Create the dialog window in the given container with the given control name. A new
+	 * ControlContainer is created with the specified name and used to host the dialog. 
+	 * 
+	 * @param container
+	 * @param controlName
+	 * @return
+	 */
+	public ControlContainer openInContainer(IControlContainer container, String controlName) {
+		
+		mode = Mode.CONTAINER;
+		
+		ControlContainer wiz = new ControlContainer(container, controlName);
+		createControls(wiz);
+		this.container = wiz;
+		return wiz;
 	}
 	
 	/**

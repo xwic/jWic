@@ -1,0 +1,56 @@
+/**
+ * 
+ */
+package ${model.packageName};
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import de.jwic.base.ControlContainer;
+import de.jwic.base.IControlContainer;
+import de.jwic.controls.Button;
+import de.jwic.controls.Label;
+import de.jwic.controls.wizard.ValidationException;
+import de.jwic.controls.wizard.WizardPage;
+import de.jwic.demo.ImageLibrary;
+import de.jwic.events.SelectionEvent;
+import de.jwic.events.SelectionListener;
+
+/**
+ * $page.title Page. 
+ */
+public class ${page.className} extends WizardPage {
+
+	private $model.modelClass model;
+
+	/**
+	 * @param model 
+	 * 
+	 */
+	public ${page.className}($model.modelClass model) {
+		this.model = model;
+		setTitle("Summary");
+		setSubTitle("View the content of the generated files.");
+		
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.controls.wizard.WizardPage\#createControls(de.jwic.base.IControlContainer)
+	 */
+	@Override
+	public void createControls(IControlContainer container) {
+
+		ControlContainer content = new ControlContainer(container);
+		content.setTemplateName(getClass().getName());
+		
+		// TODO - Create your content here.
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.controls.wizard.WizardPage\#validate()
+	 */
+	@Override
+	public boolean validate() throws ValidationException {
+		return super.validate();
+	}
+}

@@ -1,0 +1,69 @@
+/**
+ * 
+ */
+package ${model.packageName};
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.VelocityEngine;
+
+/**
+ * Model for the '$model.title' wizard.
+ */
+public class $model.modelClass implements Serializable {
+
+	private PropertyChangeSupport chgSupport;
+	
+	private String title; // just as a sample property. Replace with whatever you need...
+	
+	/**
+	 * Construct a new model.
+	 */
+	public ${model.modelClass}() {
+		
+		chgSupport = new PropertyChangeSupport(this);
+		
+	}
+	
+	/**
+	 * @param listener
+	 * @see java.beans.PropertyChangeSupport\#addPropertyChangeListener(java.beans.PropertyChangeListener)
+	 */
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		chgSupport.addPropertyChangeListener(listener);
+	}
+
+	/**
+	 * @param listener
+	 * @see java.beans.PropertyChangeSupport\#removePropertyChangeListener(java.beans.PropertyChangeListener)
+	 */
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		chgSupport.removePropertyChangeListener(listener);
+	}
+
+
+	/**
+	 * @return the title
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+
+	/**
+	 * @param title the title to set
+	 */
+	public void setTitle(String title) {
+		String old = this.title;
+		this.title = title;
+		chgSupport.firePropertyChange("title", old, title);
+	}
+
+}

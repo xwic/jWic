@@ -16,6 +16,8 @@
  *******************************************************************************/
 package de.jwic.controls.wizard;
 
+import java.io.Serializable;
+
 import de.jwic.base.IControlContainer;
 
 /**
@@ -24,7 +26,7 @@ import de.jwic.base.IControlContainer;
  * @author Florian Lippisch
  * @version $Revision: 1.2 $
  */
-public abstract class WizardPage {
+public abstract class WizardPage implements Serializable {
 
 	private String title = "";
 	private String subTitle = "";

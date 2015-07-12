@@ -23,8 +23,6 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.ErrorWarning;
-import de.jwic.controls.GroupControl;
-import de.jwic.controls.GroupControl.GroupControlLayout;
 import de.jwic.controls.Label;
 import de.jwic.controls.StackedContainer;
 import de.jwic.controls.Window;
@@ -41,22 +39,25 @@ import de.jwic.util.Messages;
  */
 public class WizardContainer extends BasicDialog {
 	private static final long serialVersionUID = 1L;
-	private Button btBack = null;
-	private Button btNext = null;
-	private Button btFinish = null;
-	private Button btAbort = null;
+	protected Button btBack = null;
+	protected Button btNext = null;
+	protected Button btFinish = null;
+	protected Button btAbort = null;
 	
-	private Label lblPageTitle = null;
-	private Label lblPageSubTitle = null;
+	protected Label lblPageTitle = null;
+	protected Label lblPageSubTitle = null;
 	
-	private ErrorWarning errorWarning = null;
+	protected ErrorWarning errorWarning = null;
 	
-	private StackedContainer pages = null;
+	protected StackedContainer pages = null;
 	
-	private Wizard wizard = null;
-	private WizardPage currentPage = null;
+	protected Wizard wizard = null;
+	protected WizardPage currentPage = null;
 	
-	private Map<WizardPage, ControlContainer> pageMap = new HashMap<WizardPage, ControlContainer>();
+	protected Map<WizardPage, ControlContainer> pageMap = new HashMap<WizardPage, ControlContainer>();
+	
+	protected int height = 0;
+	protected int width = 0;
 	
 	/**
 	 * @param site
@@ -65,6 +66,13 @@ public class WizardContainer extends BasicDialog {
 		super(container);
 		this.wizard = wizard;
 		currentPage = wizard.createWizardPages(container.getSessionContext());
+		if (currentPage == null) {
+			throw new IllegalStateException("The Wizard has not specified any pages.");
+		}
+		
+		this.height = wizard.getHeight();
+		this.width = wizard.getWidth();
+		
 	}
 
 	/* (non-Javadoc)
@@ -77,16 +85,18 @@ public class WizardContainer extends BasicDialog {
 		Window win = new Window(container);
 		win.setTitle(wizard.getTitle());
 		win.setCloseable(false);
-		win.setMaximizable(true);
+		win.setMaximizable(false);
 		win.setMinimizable(false);
-		win.setPopup(true);
+		win.setResizable(false);
+		win.setModal(true);
+		//win.setPopup(true);
 		if(wizard.getWidth() > 0){
 			win.setWidth(wizard.getWidth());
 		}else {
 			// default width
 			win.setWidth(900);
 		}
-		
+
 		ControlContainer winContainer = new ControlContainer(win);
 		winContainer.setTemplateName(getClass().getName());
 		
@@ -101,8 +111,8 @@ public class WizardContainer extends BasicDialog {
 		errorWarning.setShowStackTrace(false);
 		
 		pages = new StackedContainer(winContainer, "pages");
-//		pages.setWidth(wizard.getWidth());
-//		pages.setHeight(wizard.getHeight());
+		pages.setWidth(wizard.getWidth());
+		pages.setHeight(wizard.getHeight());
 		
 		
 		NavigationController navContr = new NavigationController();
@@ -241,6 +251,34 @@ public class WizardContainer extends BasicDialog {
 				performAbort();
 			} 
 		}
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
 }
