@@ -74,6 +74,10 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
         </dependency>
+		<dependency>
+			<groupId>de.java2html</groupId>
+			<artifactId>java2html</artifactId>
+		</dependency>
 		
 		<!-- Test dependencies -->
         <dependency>

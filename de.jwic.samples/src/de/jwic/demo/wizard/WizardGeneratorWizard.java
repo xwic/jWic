@@ -53,7 +53,7 @@ public class WizardGeneratorWizard extends Wizard implements Serializable {
 	@Override
 	public boolean performFinish() throws ValidationException {
 		
-		return false;
+		return true;
 	}
 
 }

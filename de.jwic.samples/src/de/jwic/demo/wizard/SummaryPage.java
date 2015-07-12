@@ -3,9 +3,15 @@
  */
 package de.jwic.demo.wizard;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+
+import de.java2html.converter.JavaSource2HTMLConverter;
+import de.java2html.javasource.JavaSource;
+import de.java2html.javasource.JavaSourceParser;
+import de.java2html.options.JavaSourceConversionOptions;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.InputBox;
 import de.jwic.controls.Label;
 import de.jwic.controls.RadioGroup;
 import de.jwic.controls.ScrollableContainer;
@@ -30,6 +36,7 @@ public class SummaryPage extends WizardPage {
 	private WizardGeneratorModel model;
 	private RadioGroup fileSelector;
 	private Label lbContent;
+	private ScrollableContainer viewer;
 
 	/**
 	 * @param model 
@@ -70,7 +77,7 @@ public class SummaryPage extends WizardPage {
 		content.setTemplateName(getClass().getName());
 		
 		fileSelector = new RadioGroup(content, "fileSelector");
-		fileSelector.setColumns(3);
+		fileSelector.setColumns(4);
 		fileSelector.addElementSelectedListener(new ElementSelectedListener() {
 			@Override
 			public void elementSelected(ElementSelectedEvent event) {
@@ -78,13 +85,13 @@ public class SummaryPage extends WizardPage {
 			}
 		});
 		
-		ScrollableContainer fileViewer = new ScrollableContainer(content, "fileViewer");
-		fileViewer.setWidth("100%");
-		fileViewer.setHeight("300px");
+		viewer = new ScrollableContainer(content, "fileViewer");
+		viewer.setWidth("100%");
+		viewer.setHeight("300px");
 		
-		lbContent = new Label(fileViewer, "content");
-		lbContent.setStyle("font-family", "Courier");
-		lbContent.setStyle("font-size", "10px");
+		lbContent = new Label(viewer, "content");
+		//lbContent.setStyle("font-family", "Courier");
+		//lbContent.setStyle("font-size", "10px");
 		
 		
 	}
@@ -98,10 +105,44 @@ public class SummaryPage extends WizardPage {
 		
 		for (GeneratedFile file : model.getGeneratedFiles()) {
 			if (fileSelector.getSelectedKey().equals(file.getFilename())) {
-				lbContent.setText(file.getContent());
+				updateViewer(file);
 				break;
 			}
 		}
+		
+	}
+
+
+	/**
+	 * @param file
+	 */
+	private void updateViewer(GeneratedFile file) {
+		
+		String htmlCode = "";
+
+		if (file.getFilename().endsWith(".java")) {
+			try {
+				StringReader reader = new StringReader(file.getContent());
+				JavaSource source = new JavaSourceParser().parse(reader);
+				JavaSource2HTMLConverter converter = new JavaSource2HTMLConverter();
+				StringWriter writer = new StringWriter();
+				
+				JavaSourceConversionOptions options = JavaSourceConversionOptions.getDefault();
+				//options.setShowLineNumbers(true);
+				
+				converter.convert(source, options, writer);
+				htmlCode = writer.toString();
+				reader.close();
+				
+			} catch (Exception e) {
+				htmlCode = "Error creating html code: " + e;
+			}
+		} else {
+			htmlCode = "<code><pre>" + file.getContent() + "</pre></code>";
+		}
+		
+		lbContent.setText(htmlCode);
+		viewer.setTop(0);
 		
 	}
 
