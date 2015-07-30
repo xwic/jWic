@@ -187,7 +187,16 @@ public class DispatcherServlet extends HttpServlet implements IApplicationSetupP
 		/* Setup the runtime */
 		jRuntime = JWicRuntime.getJWicRuntime();
 		jRuntime.setRootPath(webAppRoot);
-		jRuntime.setSavePath(srvCtx.getRealPath("WEB-INF/jwic/sessions"));
+		
+		String savePath = srvCtx.getRealPath("WEB-INF/jwic/sessions");
+		if (savePath == null) {
+			savePath = srvCtx.getRealPath("/WEB-INF/jwic/sessions");
+		}
+		if (savePath != null) {
+			jRuntime.setSavePath(savePath);
+		} else {
+			log.warn("No savePath for serializing sessions could be evaluated. This may happen if this app is run out of a WAR file.");
+		}
 		
 		ConfigurationTool.setRootPath(webAppRoot);
 		
