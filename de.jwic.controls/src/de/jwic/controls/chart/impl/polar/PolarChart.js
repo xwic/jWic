@@ -1,0 +1,115 @@
+#set($fld = $control.getField("content"))
+{
+
+	/**
+	 * Invoked after the DOM element was updated. This function is NOT updated
+	 * if the custom doUpdate function returned true.
+	 */
+	afterUpdate: function(element) {
+		var field = jQuery(document.getElementById('${control.controlID}'));
+		var ctx = document.getElementById('chart').getContext("2d");
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		Chart.defaults.global ={
+				responsive : $control.global.responsive,
+				animation: $control.global.animation,
+				animationSteps: $control.global.animationSteps,
+				animationEasing: '$control.global.animationEasing',
+				showScale: $control.global.showScale,
+				scaleOverride: $control.global.scaleOverride,
+				scaleSteps: null,
+				scaleStepWidth: null,
+				scaleStartValue: null,
+				 scaleLineColor: '$control.global.scaleLineColor',
+				 scaleLineWidth: 1,
+				 scaleShowLabels: true,
+				 scaleLabel: "<%=value%>",
+				 scaleIntegersOnly: true,
+				 scaleBeginAtZero: false,
+				 scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+				 scaleFontSize: 12,
+				 scaleFontStyle: "normal",
+				 scaleFontColor: "#666",
+				 maintainAspectRatio: true,
+				 showTooltips: true,
+				 customTooltips: false,
+				 tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+				 tooltipFillColor: "rgba(0,0,0,0.8)",
+				 tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+				 tooltipFontSize: 14,
+				 tooltipFontStyle: "normal",
+				 tooltipFontColor: "#fff",
+				 tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+				 tooltipTitleFontSize: 14,
+				 tooltipTitleFontStyle: "bold",
+				  tooltipTitleFontColor: "#fff",
+				  tooltipYPadding: 6,
+				  tooltipXPadding: 6,
+				  tooltipCaretSize: 8,
+				  tooltipCornerRadius: 6,
+				  tooltipXOffset: 10,
+				  tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+				  multiTooltipTemplate: "<%= value %>",
+				  onAnimationProgress: function(){},
+				  onAnimationComplete: function(){}
+
+		};
+	 
+		
+			var options= {
+				    scaleShowLabelBackdrop : $control.options.scaleShowLabelBackdrop,
+				    scaleBackdropColor : '$control.options.scaleBackdropColor',
+				    scaleBeginAtZero : $control.options.scaleBeginAtZero,
+				    scaleBackdropPaddingY : $control.options.scaleBackdropPaddingY,
+				    scaleBackdropPaddingX :$control.options.scaleBackdropPaddingX,
+				    scaleShowLine : $control.options.scaleShowLine,
+				    segmentShowStroke : $control.options.segmentShowStroke,
+				    segmentStrokeColor : '$control.options.segmentStrokeColor',
+				    segmentStrokeWidth : $control.options.segmentStrokeWidth,
+				    animationSteps : $control.options.animationSteps,
+				    animationEasing : '$control.options.animationEasing',
+				    animateRotate : $control.options.animateRotate,
+				    animateScale : $control.options.animateScale,
+				    legendTemplate : '$control.options.legendTemplate'
+			};
+				
+			var data = [
+			            {
+			                value: 300,
+			                color:"#F7464A",
+			                highlight: "#FF5A5E",
+			                label: "Red"
+			            },
+			            {
+			                value: 50,
+			                color: "#46BFBD",
+			                highlight: "#5AD3D1",
+			                label: "Green"
+			            },
+			            {
+			                value: 100,
+			                color: "#FDB45C",
+			                highlight: "#FFC870",
+			                label: "Yellow"
+			            },
+			            {
+			                value: 40,
+			                color: "#949FB1",
+			                highlight: "#A8B3C5",
+			                label: "Grey"
+			            },
+			            {
+			                value: 120,
+			                color: "#4D5360",
+			                highlight: "#616774",
+			                label: "Dark Grey"
+			            }
+
+			        ];
+		
+			new Chart(ctx).PolarArea(data, options);
+
+	}
+
+	
+	
+}

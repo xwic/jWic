@@ -42,6 +42,7 @@
 	 * true, to prevent the update.
 	 */
 	doUpdate: function(element) {
+		
 	#if($control.fullRedraw)
 		#set($control.fullRedraw = false)
 	#else 
@@ -96,6 +97,7 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
+		
 		var elm = jQuery(document.getElementById('${control.controlID}'));
 		var field = jQuery(document.getElementById('${control.controlID}_content'));
 		field.val(this.content);

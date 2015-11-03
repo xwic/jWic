@@ -1,72 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>de.xwic.jwic</groupId>
-        <artifactId>jwic</artifactId>
-        <version>5.2.12-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <name>JWIC::CONTROLS</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>de.xwic.jwic</groupId>
+		<artifactId>jwic</artifactId>
+		<version>5.2.12-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<name>JWIC::CONTROLS</name>
 
-    <artifactId>jwic-controls</artifactId>
-    <packaging>jar</packaging>
-	<profiles>    
+	<artifactId>jwic-controls</artifactId>
+	<packaging>jar</packaging>
+	<profiles>
 		<profile>
 			<id>hacky</id>
 			<build>
 				<finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
 			</build>
 		</profile>
-    </profiles>
-    <dependencies>
+	</profiles>
+	<dependencies>
 		<!-- Related projects -->
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-core</artifactId>
-            <version>5.2.12-SNAPSHOT</version>
-        </dependency>
-		
-		<!-- General dependencies -->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-		
-		<!-- Test dependencies -->
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-core</artifactId>
-            <version>5.2.12-SNAPSHOT</version>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- Common Public License 1.0 -->
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>de.xwic.jwic</groupId>
+			<artifactId>jwic-core</artifactId>
+			<version>5.2.12-SNAPSHOT</version>
+		</dependency>
 
-    </dependencies>
+		<!-- General dependencies -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>de.xwic.jwic</groupId>
+			<artifactId>jwic-core</artifactId>
+			<version>5.2.12-SNAPSHOT</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Common Public License 1.0 -->
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 </project>
