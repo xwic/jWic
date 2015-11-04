@@ -12,6 +12,11 @@ import de.jwic.controls.chart.api.ChartModel;
  */
 public class RadarChartModel extends ChartModel<RadarChartDataset> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5147442172614245742L;
+
 	public RadarChartModel(List<String> labels, List<RadarChartDataset> datasets) {
 		super(labels, datasets);
 	}

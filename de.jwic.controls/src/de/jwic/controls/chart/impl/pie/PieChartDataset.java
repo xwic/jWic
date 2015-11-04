@@ -14,44 +14,46 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  */
 public class PieChartDataset extends ChartDataset {
 
-	public PieChartDataset(String label, List<String> values) {
-		super(label, values);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8648692098015663778L;
+	private String value;
+	private Color color;
+	private Color highlight;
+
+	public PieChartDataset(String label, String value, Color color,
+			Color highlight) {
+		super(label);
+		this.value = value;
+		this.color = color;
+		this.highlight = highlight;
 	}
 
-	private Color fillColor = new Color(220, 220, 220);
-	private Color strokeColor = new Color(220, 220, 220);
-	private Color highlightFill = new Color(220, 220, 220);
-	private Color highlightStroke = new Color(220, 220, 220);
-
-	public String getFillColor() {
-		return DatenConverter.convertToJSColor(fillColor, "0.5");
+	public String getValue() {
+		return value;
 	}
 
-	public void setFillColor(Color fillColor) {
-		this.fillColor = fillColor;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
-	public String getStrokeColor() {
-		return DatenConverter.convertToJSColor(strokeColor, "0.8");
+	public String getColor() {
+		return DatenConverter.convertToJSColor(color);
 	}
 
-	public void setStrokeColor(Color strokeColor) {
-		this.strokeColor = strokeColor;
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
-	public String getHighlightFill() {
-		return DatenConverter.convertToJSColor(highlightFill, "0.75");
+	public String getHighlight() {
+		return DatenConverter.convertToJSColor(highlight);
 	}
 
-	public void setHighlightFill(Color highlightFill) {
-		this.highlightFill = highlightFill;
+	public void setHighlight(Color highlight) {
+		this.highlight = highlight;
 	}
 
-	public String getHighlightStroke() {
-		return DatenConverter.convertToJSColor(highlightStroke, "1");
-	}
 
-	public void setHighlightStroke(Color highlightStroke) {
-		this.highlightStroke = highlightStroke;
-	}
+
 }

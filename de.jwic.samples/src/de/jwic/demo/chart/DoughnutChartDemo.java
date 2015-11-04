@@ -16,6 +16,7 @@ import de.jwic.controls.chart.impl.bar.BarChartModel;
 import de.jwic.controls.chart.impl.doughnut.DoughnutChart;
 import de.jwic.controls.chart.impl.doughnut.DoughnutChartDataset;
 import de.jwic.controls.chart.impl.doughnut.DoughnutChartModel;
+import de.jwic.controls.chart.impl.pie.PieChartDataset;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 
@@ -36,17 +37,8 @@ public class DoughnutChartDemo extends ControlContainer {
 	public DoughnutChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
-		List<String> labels = new ArrayList<String>();
-		labels.add("1");
-		labels.add("2");
-		labels.add("3");
-		labels.add("4");
-		labels.add("5");
-		labels.add("6");
-		labels.add("7");
-		labels.add("8");
-		DoughnutChartModel model = new DoughnutChartModel(labels,
-				createDatasets());
+
+		DoughnutChartModel model = new DoughnutChartModel(createDatasets());
 
 		this.chart = new DoughnutChart(this, "chart", model);
 
@@ -83,33 +75,28 @@ public class DoughnutChartDemo extends ControlContainer {
 
 	private List<DoughnutChartDataset> createDatasets() {
 		List<DoughnutChartDataset> datasets = new ArrayList<DoughnutChartDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("1");
-		values.add("2");
-		values.add("3");
-		values.add("4");
-		values.add("5");
-		values.add("6");
-		values.add("7");
-		values.add("8");
-		DoughnutChartDataset chartd1 = new DoughnutChartDataset("First", values);
-		chartd1.setFillColor(Color.RED);
+
+		DoughnutChartDataset chartd1 = new DoughnutChartDataset("First", "1",
+				Color.red, Color.BLUE);
+		DoughnutChartDataset chartd2 = new DoughnutChartDataset("Second", "2",
+				Color.black, Color.BLUE);
+		DoughnutChartDataset chartd3 = new DoughnutChartDataset("Third", "3",
+				Color.CYAN, Color.BLUE);
+		DoughnutChartDataset chartd4 = new DoughnutChartDataset("Fourth", "4",
+				Color.yellow, Color.BLUE);
+		DoughnutChartDataset chartd5 = new DoughnutChartDataset("Fifth", "5",
+				Color.DARK_GRAY, Color.BLUE);
+		DoughnutChartDataset chartd6 = new DoughnutChartDataset("Sexsth", "6",
+				Color.CYAN, Color.BLUE);
+
 		datasets.add(chartd1);
-
-		List<String> values2 = new ArrayList<String>();
-		values2.add("2");
-		values2.add("2");
-		values2.add("3");
-		values2.add("4");
-		values2.add("5");
-		values2.add("6");
-		values2.add("7");
-		values2.add("8");
-
-		DoughnutChartDataset chartd2 = new DoughnutChartDataset("Second",
-				values2);
 		datasets.add(chartd2);
+		datasets.add(chartd3);
+		datasets.add(chartd4);
+		datasets.add(chartd5);
+		datasets.add(chartd6);
 		return datasets;
+
 	}
 
 }

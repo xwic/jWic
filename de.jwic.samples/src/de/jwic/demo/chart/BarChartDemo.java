@@ -28,23 +28,24 @@ public class BarChartDemo extends ControlContainer {
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
-	private Chart chart;
+	private BarChart chart;
 
 	public BarChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
 		List<String> labels = new ArrayList<String>();
-		labels.add("1");
-		labels.add("2");
-		labels.add("3");
-		labels.add("4");
-		labels.add("5");
+		labels.add("Danny");
+		labels.add("Karo");
+		labels.add("Nix");
+		labels.add("java");
+		labels.add("plum");
 		labels.add("6");
 		labels.add("7");
 		labels.add("8");
 		BarChartModel model = new BarChartModel(labels, createDatasets());
 
 		this.chart = new BarChart(this, "chart", model);
+	
 
 		// Change chart visibility
 		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");

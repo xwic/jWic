@@ -36,16 +36,8 @@ public class PolarChartDemo extends ControlContainer {
 	public PolarChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
-		List<String> labels = new ArrayList<String>();
-		labels.add("1");
-		labels.add("2");
-		labels.add("3");
-		labels.add("4");
-		labels.add("5");
-		labels.add("6");
-		labels.add("7");
-		labels.add("8");
-		PolarChartModel model = new PolarChartModel(labels, createDatasets());
+
+		PolarChartModel model = new PolarChartModel(createDatasets());
 
 		this.chart = new PolarChart(this, "chart", model);
 
@@ -82,31 +74,26 @@ public class PolarChartDemo extends ControlContainer {
 
 	private List<PolarChartDataset> createDatasets() {
 		List<PolarChartDataset> datasets = new ArrayList<PolarChartDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("1");
-		values.add("2");
-		values.add("3");
-		values.add("4");
-		values.add("5");
-		values.add("6");
-		values.add("7");
-		values.add("8");
-		PolarChartDataset chartd1 = new PolarChartDataset("First", values);
-		chartd1.setFillColor(Color.RED);
+
+		PolarChartDataset chartd1 = new PolarChartDataset("First", "1",
+				Color.red, Color.BLUE);
+		PolarChartDataset chartd2 = new PolarChartDataset("Second", "2",
+				Color.black, Color.BLUE);
+		PolarChartDataset chartd3 = new PolarChartDataset("Third", "3",
+				Color.CYAN, Color.BLUE);
+		PolarChartDataset chartd4 = new PolarChartDataset("Fourth", "4",
+				Color.yellow, Color.BLUE);
+		PolarChartDataset chartd5 = new PolarChartDataset("Fifth", "5",
+				Color.DARK_GRAY, Color.BLUE);
+		PolarChartDataset chartd6 = new PolarChartDataset("Sexsth", "6",
+				Color.CYAN, Color.BLUE);
+
 		datasets.add(chartd1);
-
-		List<String> values2 = new ArrayList<String>();
-		values2.add("2");
-		values2.add("2");
-		values2.add("3");
-		values2.add("4");
-		values2.add("5");
-		values2.add("6");
-		values2.add("7");
-		values2.add("8");
-
-		PolarChartDataset chartd2 = new PolarChartDataset("Second", values2);
 		datasets.add(chartd2);
+		datasets.add(chartd3);
+		datasets.add(chartd4);
+		datasets.add(chartd5);
+		datasets.add(chartd6);
 		return datasets;
 	}
 

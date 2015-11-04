@@ -2,7 +2,6 @@ package de.jwic.controls.chart.api;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -50,6 +49,10 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 			e.printStackTrace();
 		}
 		return "{}";
+	}
+
+	public List<Dataset> getDatasetAsList() {
+		return datasets;
 	}
 
 	public void setDatasets(List<Dataset> datasets) {

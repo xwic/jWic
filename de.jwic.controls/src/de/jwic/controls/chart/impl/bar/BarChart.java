@@ -12,13 +12,17 @@ import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
  *
  * @date 29.11.2015
  */
-@JavaScriptSupport
+@JavaScriptSupport()
 public class BarChart extends Chart<BarChartModel, BarChartOptions> {
 
 	public BarChart(IControlContainer container, String name,
 			BarChartModel model) throws ChartInconsistencyException {
 		super(container, name, ChartType.BAR, model, new BarChartOptions());
-	
+		setTemplateName(Chart.class.getName());
 	}
-
+  // instead of data double should be data of  iSelectElement
+	// add action listener for click and tooltip listener
+	public void actionClick(String param) {
+		System.out.println(param);
+	}
 }

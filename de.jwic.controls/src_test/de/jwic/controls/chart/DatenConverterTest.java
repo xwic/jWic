@@ -9,6 +9,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.junit.Test;
 
 import de.jwic.controls.chart.api.ChartDataset;
+import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
 public class DatenConverterTest {
@@ -41,7 +42,7 @@ public class DatenConverterTest {
 		values.add("6");
 		values.add("7");
 		values.add("8");
-		ChartDataset chartd1 = new ChartDataset("First", values);
+		ChartDataset chartd1 = new BarChartDataset("First", values);
 		datasets.add(chartd1);
 
 		List<String> values2 = new ArrayList<String>();
@@ -54,7 +55,7 @@ public class DatenConverterTest {
 		values2.add("7");
 		values2.add("8");
 
-		ChartDataset chartd2 = new ChartDataset("Second", values2);
+		ChartDataset chartd2 = new BarChartDataset("Second", values2);
 		datasets.add(chartd2);
 
 		System.out.println(DatenConverter.convertToJson(datasets));

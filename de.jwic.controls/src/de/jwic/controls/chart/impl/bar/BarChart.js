@@ -1,12 +1,14 @@
 #set($fld = $control.getField("content"))
 {
 
+	
 	/**
 	 * Invoked after the DOM element was updated. This function is NOT updated
 	 * if the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
 		var field = jQuery(document.getElementById('${control.controlID}'));
+		var canvas = document.getElementById('chart');
 		var ctx = document.getElementById('chart').getContext("2d");
 		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
 		Chart.defaults.global ={
@@ -73,12 +75,32 @@
 				    labels: $control.model.labels,
 				    datasets: $control.model.datasets
 				};
-			 
-			var chart = new Chart(ctx).Bar(chartData, options);
+			var chart = new Chart(ctx); 
+			var bar = chart.Bar(chartData, options);
 			
+			canvas.onclick = function(evt){
+				debugger;
+				 var activeBars = bar.getBarsAtEvent(evt);
+				if(activeBars) {
+					var chartElem = activeBars[0];
+					JWic.fireAction('$control.controlID', 'click', chartElem.label + ';' + chartElem.value);
+				}
+			}
+// getBarChartEvent : function(event){
+// chart.getBarsAtEvent( event );
+// },
+//
+// update : function(datasetNumber, barNumber, value){
+// chart.datasets[datasetNumber].bars[barNumber].value = value;
+// chart.update();
+// },
+//			
+// addNewData : function(valuesArray, label){
+// chart.addData( valuesArray, label )
+// }
 
 	}
-
+	
 	
 	
 }

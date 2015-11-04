@@ -16,6 +16,7 @@ import de.jwic.controls.chart.impl.bar.BarChartModel;
 import de.jwic.controls.chart.impl.pie.PieChart;
 import de.jwic.controls.chart.impl.pie.PieChartDataset;
 import de.jwic.controls.chart.impl.pie.PieChartModel;
+import de.jwic.controls.chart.impl.polar.PolarChartDataset;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 
@@ -36,16 +37,8 @@ public class PieChartDemo extends ControlContainer {
 	public PieChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
-		List<String> labels = new ArrayList<String>();
-		labels.add("1");
-		labels.add("2");
-		labels.add("3");
-		labels.add("4");
-		labels.add("5");
-		labels.add("6");
-		labels.add("7");
-		labels.add("8");
-		PieChartModel model = new PieChartModel(labels, createDatasets());
+
+		PieChartModel model = new PieChartModel(createDatasets());
 
 		this.chart = new PieChart(this, "chart", model);
 
@@ -82,32 +75,27 @@ public class PieChartDemo extends ControlContainer {
 
 	private List<PieChartDataset> createDatasets() {
 		List<PieChartDataset> datasets = new ArrayList<PieChartDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("1");
-		values.add("2");
-		values.add("3");
-		values.add("4");
-		values.add("5");
-		values.add("6");
-		values.add("7");
-		values.add("8");
-		PieChartDataset chartd1 = new PieChartDataset("First", values);
-		chartd1.setFillColor(Color.RED);
+		PieChartDataset chartd1 = new PieChartDataset("First", "1", Color.red,
+				Color.BLUE);
+		PieChartDataset chartd2 = new PieChartDataset("Second", "2",
+				Color.black, Color.BLUE);
+		PieChartDataset chartd3 = new PieChartDataset("Third", "3", Color.DARK_GRAY,
+				Color.BLUE);
+		PieChartDataset chartd4 = new PieChartDataset("Fourth", "4",
+				Color.yellow, Color.BLUE);
+		PieChartDataset chartd5 = new PieChartDataset("Fifth", "5",
+				Color.DARK_GRAY, Color.BLUE);
+		PieChartDataset chartd6 = new PieChartDataset("Sexsth", "6",
+				Color.CYAN, Color.BLUE);
+
 		datasets.add(chartd1);
-
-		List<String> values2 = new ArrayList<String>();
-		values2.add("2");
-		values2.add("2");
-		values2.add("3");
-		values2.add("4");
-		values2.add("5");
-		values2.add("6");
-		values2.add("7");
-		values2.add("8");
-
-		PieChartDataset chartd2 = new PieChartDataset("Second", values2);
 		datasets.add(chartd2);
+		datasets.add(chartd3);
+		datasets.add(chartd4);
+		datasets.add(chartd5);
+		datasets.add(chartd6);
 		return datasets;
+	
 	}
 
 }

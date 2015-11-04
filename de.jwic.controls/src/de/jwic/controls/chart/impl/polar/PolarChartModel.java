@@ -12,8 +12,13 @@ import de.jwic.controls.chart.api.ChartModel;
  */
 public class PolarChartModel extends ChartModel<PolarChartDataset> {
 
-	public PolarChartModel(List<String> labels, List<PolarChartDataset> datasets) {
-		super(labels, datasets);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4238619025328662192L;
+
+	public PolarChartModel(List<PolarChartDataset> datasets) {
+		super(null, datasets);
 	}
 
 }

@@ -13,40 +13,85 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  */
 public class RadarChartOptions extends ChartOptions {
 
-	// Boolean - Whether the scale should start at zero, or
-	// an order of magnitude down from the lowest value
+	// Boolean - Whether to show lines for each scale point
+	private boolean scaleShowLine = true;
+
+	// Boolean - Whether we show the angle lines out of the
+	// radar
+	private boolean angleShowLineOut = true;
+
+	// Boolean - Whether to show labels on the scale
+	private boolean scaleShowLabels = false;
+
+	// Boolean - Whether the scale should begin at zero
 	private boolean scaleBeginAtZero = true;
 
-	// Boolean - Whether grid lines are shown across the chart
-	private boolean scaleShowGridLines = true;
+	// String - Colour of the angle line
+	private Color angleLineColor = new Color(1, 1, 1);
 
-	// String - Colour of the grid lines
-	private Color scaleGridLineColor = new Color(0, 0, 0);
+	// Number - Pixel width of the angle line
+	private int angleLineWidth = 1;
 
-	// Number - Width of the grid lines
-	private int scaleGridLineWidth = 1;
+	// String - Point label font declaration
+	private String pointLabelFontFamily = "Arial";
 
-	// Boolean - Whether to show horizontal lines (except X
-	// axis)
-	private boolean scaleShowHorizontalLines = true;
+	// String - Point label font weight
+	private String pointLabelFontStyle = "normal";
 
-	// Boolean - Whether to show vertical lines (except Y axis)
-	private boolean scaleShowVerticalLines = true;
+	// Number - Point label font size in pixels
+	private int pointLabelFontSize = 10;
 
-	// Boolean - If there is a stroke on each bar
-	private boolean barShowStroke = true;
+	// String - Point label font colour
+	private String pointLabelFontColor = "#666";
 
-	// Number - Pixel width of the bar stroke
-	private int barStrokeWidth = 2;
+	// Boolean - Whether to show a dot for each point
+	private boolean pointDot = true;
 
-	// Number - Spacing between each of the X value sets
-	private int barValueSpacing = 5;
+	// Number - Radius of each point dot in pixels
+	private int pointDotRadius = 3;
 
-	// Number - Spacing between data sets within X values
-	private int barDatasetSpacing = 1;
+	// Number - Pixel width of point dot stroke
+	private int pointDotStrokeWidth = 1;
+
+	// Number - amount extra to add to the radius to cater for
+	// hit detection outside the drawn point
+	private int pointHitDetectionRadius = 20;
+
+	// Boolean - Whether to show a stroke for datasets
+	private boolean datasetStroke = true;
+
+	// Number - Pixel width of dataset stroke
+	private int datasetStrokeWidth = 2;
+
+	// Boolean - Whether to fill the dataset with a colour
+	private boolean datasetFill = true;
 
 	// String - A legend template
-	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
+	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color=<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
+
+	public boolean isScaleShowLine() {
+		return scaleShowLine;
+	}
+
+	public void setScaleShowLine(boolean scaleShowLine) {
+		this.scaleShowLine = scaleShowLine;
+	}
+
+	public boolean isAngleShowLineOut() {
+		return angleShowLineOut;
+	}
+
+	public void setAngleShowLineOut(boolean angleShowLineOut) {
+		this.angleShowLineOut = angleShowLineOut;
+	}
+
+	public boolean isScaleShowLabels() {
+		return scaleShowLabels;
+	}
+
+	public void setScaleShowLabels(boolean scaleShowLabels) {
+		this.scaleShowLabels = scaleShowLabels;
+	}
 
 	public boolean isScaleBeginAtZero() {
 		return scaleBeginAtZero;
@@ -56,76 +101,108 @@ public class RadarChartOptions extends ChartOptions {
 		this.scaleBeginAtZero = scaleBeginAtZero;
 	}
 
-	public boolean isScaleShowGridLines() {
-		return scaleShowGridLines;
+	public String getAngleLineColor() {
+		return DatenConverter.convertToJSColor(angleLineColor);
 	}
 
-	public void setScaleShowGridLines(boolean scaleShowGridLines) {
-		this.scaleShowGridLines = scaleShowGridLines;
+	public void setAngleLineColor(Color angleLineColor) {
+		this.angleLineColor = angleLineColor;
 	}
 
-	public String getScaleGridLineColor() {
-		return DatenConverter.convertToJSColor(scaleGridLineColor);
+	public int getAngleLineWidth() {
+		return angleLineWidth;
 	}
 
-	public void setScaleGridLineColor(Color scaleGridLineColor) {
-		this.scaleGridLineColor = scaleGridLineColor;
+	public void setAngleLineWidth(int angleLineWidth) {
+		this.angleLineWidth = angleLineWidth;
 	}
 
-	public int getScaleGridLineWidth() {
-		return scaleGridLineWidth;
+	public String getPointLabelFontFamily() {
+		return pointLabelFontFamily;
 	}
 
-	public void setScaleGridLineWidth(int scaleGridLineWidth) {
-		this.scaleGridLineWidth = scaleGridLineWidth;
+	public void setPointLabelFontFamily(String pointLabelFontFamily) {
+		this.pointLabelFontFamily = pointLabelFontFamily;
 	}
 
-	public boolean isScaleShowHorizontalLines() {
-		return scaleShowHorizontalLines;
+	public String getPointLabelFontStyle() {
+		return pointLabelFontStyle;
 	}
 
-	public void setScaleShowHorizontalLines(boolean scaleShowHorizontalLines) {
-		this.scaleShowHorizontalLines = scaleShowHorizontalLines;
+	public void setPointLabelFontStyle(String pointLabelFontStyle) {
+		this.pointLabelFontStyle = pointLabelFontStyle;
 	}
 
-	public boolean isScaleShowVerticalLines() {
-		return scaleShowVerticalLines;
+	public int getPointLabelFontSize() {
+		return pointLabelFontSize;
 	}
 
-	public void setScaleShowVerticalLines(boolean scaleShowVerticalLines) {
-		this.scaleShowVerticalLines = scaleShowVerticalLines;
+	public void setPointLabelFontSize(int pointLabelFontSize) {
+		this.pointLabelFontSize = pointLabelFontSize;
 	}
 
-	public boolean isBarShowStroke() {
-		return barShowStroke;
+	public String getPointLabelFontColor() {
+		return pointLabelFontColor;
 	}
 
-	public void setBarShowStroke(boolean barShowStroke) {
-		this.barShowStroke = barShowStroke;
+	public void setPointLabelFontColor(String pointLabelFontColor) {
+		this.pointLabelFontColor = pointLabelFontColor;
 	}
 
-	public int getBarStrokeWidth() {
-		return barStrokeWidth;
+	public boolean isPointDot() {
+		return pointDot;
 	}
 
-	public void setBarStrokeWidth(int barStrokeWidth) {
-		this.barStrokeWidth = barStrokeWidth;
+	public void setPointDot(boolean pointDot) {
+		this.pointDot = pointDot;
 	}
 
-	public int getBarValueSpacing() {
-		return barValueSpacing;
+	public int getPointDotRadius() {
+		return pointDotRadius;
 	}
 
-	public void setBarValueSpacing(int barValueSpacing) {
-		this.barValueSpacing = barValueSpacing;
+	public void setPointDotRadius(int pointDotRadius) {
+		this.pointDotRadius = pointDotRadius;
 	}
 
-	public int getBarDatasetSpacing() {
-		return barDatasetSpacing;
+	public int getPointDotStrokeWidth() {
+		return pointDotStrokeWidth;
 	}
 
-	public void setBarDatasetSpacing(int barDatasetSpacing) {
-		this.barDatasetSpacing = barDatasetSpacing;
+	public void setPointDotStrokeWidth(int pointDotStrokeWidth) {
+		this.pointDotStrokeWidth = pointDotStrokeWidth;
+	}
+
+	public int getPointHitDetectionRadius() {
+		return pointHitDetectionRadius;
+	}
+
+	public void setPointHitDetectionRadius(int pointHitDetectionRadius) {
+		this.pointHitDetectionRadius = pointHitDetectionRadius;
+	}
+
+	public boolean isDatasetStroke() {
+		return datasetStroke;
+	}
+
+	public void setDatasetStroke(boolean datasetStroke) {
+		this.datasetStroke = datasetStroke;
+	}
+
+	public int getDatasetStrokeWidth() {
+		return datasetStrokeWidth;
+	}
+
+	public void setDatasetStrokeWidth(int datasetStrokeWidth) {
+		this.datasetStrokeWidth = datasetStrokeWidth;
+	}
+
+	public boolean isDatasetFill() {
+		return datasetFill;
+	}
+
+	public void setDatasetFill(boolean datasetFill) {
+		this.datasetFill = datasetFill;
 	}
 
 	public String getLegendTemplate() {

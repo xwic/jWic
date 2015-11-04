@@ -12,8 +12,13 @@ import de.jwic.controls.chart.api.ChartModel;
  */
 public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
 
-	public DoughnutChartModel(List<String> labels, List<DoughnutChartDataset> datasets) {
-		super(labels, datasets);
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6110011116843847513L;
+
+	public DoughnutChartModel(List<DoughnutChartDataset> datasets) {
+		super(null,datasets);
 	}
 
 }

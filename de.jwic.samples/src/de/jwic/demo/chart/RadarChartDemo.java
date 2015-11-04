@@ -37,14 +37,14 @@ public class RadarChartDemo extends ControlContainer {
 			throws ChartInconsistencyException {
 		super(container);
 		List<String> labels = new ArrayList<String>();
-		labels.add("1");
-		labels.add("2");
-		labels.add("3");
-		labels.add("4");
-		labels.add("5");
-		labels.add("6");
-		labels.add("7");
-		labels.add("8");
+		labels.add("Eating");
+		labels.add("Drinking");
+		labels.add("Sleeping");
+		labels.add("Testing");
+		labels.add("Driving");
+		labels.add("Working");
+		labels.add("Sweeming");
+		labels.add("Running");
 		RadarChartModel model = new RadarChartModel(labels, createDatasets());
 
 		this.chart = new RadarChart(this, "chart", model);
@@ -96,14 +96,14 @@ public class RadarChartDemo extends ControlContainer {
 		datasets.add(chartd1);
 
 		List<String> values2 = new ArrayList<String>();
-		values2.add("2");
-		values2.add("2");
-		values2.add("3");
-		values2.add("4");
 		values2.add("5");
-		values2.add("6");
-		values2.add("7");
+		values2.add("4");
+		values2.add("12");
 		values2.add("8");
+		values2.add("7");
+		values2.add("4");
+		values2.add("2");
+		values2.add("10");
 
 		RadarChartDataset chartd2 = new RadarChartDataset("Second", values2);
 		datasets.add(chartd2);
