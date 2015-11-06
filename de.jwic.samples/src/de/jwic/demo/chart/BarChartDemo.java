@@ -46,6 +46,9 @@ public class BarChartDemo extends ControlContainer {
 
 		this.chart = new BarChart(this, "chart", model);
 	
+		chart.getModel().getDatasetAsList().get(0).getData().set(2, 50);
+		
+		
 
 		// Change chart visibility
 		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");
