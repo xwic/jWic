@@ -3,6 +3,7 @@ package de.jwic.controls.chart.impl.doughnut;
 import java.awt.Color;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ChartType;
@@ -17,12 +18,6 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  */
 @JavaScriptSupport
 public class DoughnutChart extends Chart<DoughnutChartModel> {
-
-	public DoughnutChart(IControlContainer container, String name,
-			DoughnutChartModel model) throws ChartInconsistencyException {
-		super(container, name, ChartType.DOUGHNUT, model);
-
-	}
 
 	// Boolean - Whether we should show a stroke on each segment
 	private boolean segmentShowStroke = true;
@@ -52,6 +47,13 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 	// String - A legend template
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color=<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
+	public DoughnutChart(IControlContainer container, String name,
+			DoughnutChartModel model) throws ChartInconsistencyException {
+		super(container, name, ChartType.DOUGHNUT, model);
+
+	}
+
+	@IncludeJsOption(jsPropertyName = "segmentShowStroke")
 	public boolean isSegmentShowStroke() {
 		return segmentShowStroke;
 	}
@@ -60,6 +62,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.segmentShowStroke = segmentShowStroke;
 	}
 
+	@IncludeJsOption(jsPropertyName = "segmentStrokeColor")
 	public String getSegmentStrokeColor() {
 		return DatenConverter.convertToJSColor(segmentStrokeColor);
 	}
@@ -68,6 +71,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.segmentStrokeColor = segmentStrokeColor;
 	}
 
+	@IncludeJsOption(jsPropertyName = "segmentStrokeWidth")
 	public int getSegmentStrokeWidth() {
 		return segmentStrokeWidth;
 	}
@@ -76,6 +80,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.segmentStrokeWidth = segmentStrokeWidth;
 	}
 
+	@IncludeJsOption(jsPropertyName = "percentageInnerCutout")
 	public int getPercentageInnerCutout() {
 		return percentageInnerCutout;
 	}
@@ -84,6 +89,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.percentageInnerCutout = percentageInnerCutout;
 	}
 
+	@IncludeJsOption(jsPropertyName = "animationSteps")
 	public int getAnimationSteps() {
 		return animationSteps;
 	}
@@ -92,6 +98,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.animationSteps = animationSteps;
 	}
 
+	@IncludeJsOption(jsPropertyName = "animationEasing")
 	public String getAnimationEasing() {
 		return animationEasing;
 	}
@@ -100,6 +107,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.animationEasing = animationEasing;
 	}
 
+	@IncludeJsOption(jsPropertyName = "scaleBeginAtZero")
 	public boolean isAnimateRotate() {
 		return animateRotate;
 	}
@@ -108,6 +116,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.animateRotate = animateRotate;
 	}
 
+	@IncludeJsOption(jsPropertyName = "animateScale")
 	public boolean isAnimateScale() {
 		return animateScale;
 	}
@@ -116,10 +125,13 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 		this.animateScale = animateScale;
 	}
 
+	@Override
 	public String getLegendTemplate() {
+
 		return legendTemplate;
 	}
 
+	@Override
 	public void setLegendTemplate(String legendTemplate) {
 		this.legendTemplate = legendTemplate;
 	}

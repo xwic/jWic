@@ -46,7 +46,7 @@ public class BarChartDemo extends ControlContainer {
 
 		this.chart = new BarChart(this, "chart", model);
 	
-		chart.getModel().getDatasetAsList().get(0).getData().set(2, 50);
+		//chart.getModel().getDatasetAsList().get(0).getData().add("2");
 		
 		
 

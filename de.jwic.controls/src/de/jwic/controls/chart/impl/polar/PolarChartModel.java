@@ -18,7 +18,7 @@ public class PolarChartModel extends ChartModel<PolarChartDataset> {
 	private static final long serialVersionUID = -4238619025328662192L;
 
 	public PolarChartModel(List<PolarChartDataset> datasets) {
-		super(null, datasets);
+		super(datasets);
 	}
 
 }

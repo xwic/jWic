@@ -18,7 +18,7 @@ public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
 	private static final long serialVersionUID = 6110011116843847513L;
 
 	public DoughnutChartModel(List<DoughnutChartDataset> datasets) {
-		super(null,datasets);
+		super(datasets);
 	}
 
 }

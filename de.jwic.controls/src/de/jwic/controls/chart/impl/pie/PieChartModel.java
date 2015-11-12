@@ -13,7 +13,7 @@ import de.jwic.controls.chart.api.ChartModel;
 public class PieChartModel extends ChartModel<PieChartDataset> {
 
 	public PieChartModel(List<PieChartDataset> datasets) {
-		super(null, datasets);
+		super(datasets);
 	}
 
 }

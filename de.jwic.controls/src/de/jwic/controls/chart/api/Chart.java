@@ -1,15 +1,22 @@
 package de.jwic.controls.chart.api;
 
+import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.chart.api.configuration.GlobalChartConfiguration;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
+import de.jwic.controls.chart.impl.util.DatenConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
@@ -22,8 +29,7 @@ import de.jwic.events.SelectionListener;
  * @date 19.10.2015
  */
 @JavaScriptSupport
-public abstract class Chart<M extends ChartModel>
-		extends Control {
+public abstract class Chart<M extends ChartModel> extends Control {
 
 	/**
 	 * 
@@ -41,13 +47,11 @@ public abstract class Chart<M extends ChartModel>
 
 	public Chart(IControlContainer container, String name, ChartType type,
 			M model) throws ChartInconsistencyException {
-
 		super(container, name);
-
 		content = new Field(this, "chartContent");
+		setTemplateName(Chart.class.getName());
 		this.chartType = type;
 		this.model = model;
-		
 
 	}
 
@@ -127,14 +131,31 @@ public abstract class Chart<M extends ChartModel>
 		this.content = content;
 	}
 
-	public GlobalChartConfiguration getGlobal() {
+	public String getGlobal() {
+
+		try {
+			return DatenConverter.convertToJson(global);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "{}";
+
+	}
+
+	public GlobalChartConfiguration getGlobalConfiguration() {
 		return global;
 	}
 
 	public void setGlobal(GlobalChartConfiguration global) {
 		this.global = global;
 	}
-
 
 	/**
 	 * Register a listener that will be notified when an element has been
@@ -159,5 +180,10 @@ public abstract class Chart<M extends ChartModel>
 			elementSelectedListeners.remove(listener);
 		}
 	}
+
+	@IncludeJsOption(jsPropertyName = "legendTemplate")
+	public abstract String getLegendTemplate();
+
+	public abstract void setLegendTemplate(String legendTemplate);
 
 }

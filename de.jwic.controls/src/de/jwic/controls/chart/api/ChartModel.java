@@ -18,22 +18,14 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
 public abstract class ChartModel<Dataset extends ChartDataset> implements
 		Serializable {
 
-	private List<String> labels;
-
+	
 	private List<Dataset> datasets;
 
-	public ChartModel(List<String> labels, List<Dataset> datasets) {
-		this.labels = labels;
+	public ChartModel( List<Dataset> datasets) {
+	
 		this.datasets = datasets;
 	}
 
-	public void setLabels(List<String> labels) {
-		this.labels = labels;
-	}
-
-	public String getLabels() {
-		return DatenConverter.convertToJSArray(labels);
-	}
 
 	public String getDatasets() {
 		try {

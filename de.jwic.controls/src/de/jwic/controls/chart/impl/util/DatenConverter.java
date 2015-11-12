@@ -59,4 +59,11 @@ public class DatenConverter {
 		 return  mapper.writeValueAsString(datasets);
 		
 	}
+	
+	public static String convertToJson(Object obj)
+			throws JsonGenerationException, JsonMappingException, IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		 return  mapper.writeValueAsString(obj);
+		
+	}
 }
