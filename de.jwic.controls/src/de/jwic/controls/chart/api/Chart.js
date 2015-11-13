@@ -20,6 +20,7 @@
 					    labels: $control.model.labelsJson,
 					    datasets: $control.model.datasetsJson
 					};
+			  debugger;
 			chartImpl = chart.Bar(chartData, options);
 		}else if (chartType=='pie'){
 			chartData = $control.model.datasetsJson;

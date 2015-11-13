@@ -25,22 +25,22 @@ public class BarChart extends Chart<BarChartModel> {
 	// Boolean - Whether grid lines are shown across the chart
 	private boolean scaleShowGridLines = true;
 	// String - Colour of the grid lines
-	private Color scaleGridLineColor = new Color(0, 0, 0);
+	private Color scaleGridLineColor = Color.RED;
 	// Number - Width of the grid lines
-	private int scaleGridLineWidth = 1;
+	private int scaleGridLineWidth = 100;
 	// Boolean - Whether to show horizontal lines (except X
 	// axis)
-	private boolean scaleShowHorizontalLines = true;
+	private boolean scaleShowHorizontalLines = false;
 	// Boolean - Whether to show vertical lines (except Y axis)
-	private boolean scaleShowVerticalLines = true;
+	private boolean scaleShowVerticalLines = false;
 	// Boolean - If there is a stroke on each bar
 	private boolean barShowStroke = true;
 	// Number - Pixel width of the bar stroke
-	private int barStrokeWidth = 2;
+	private int barStrokeWidth = 200;
 	// Number - Spacing between each of the X value sets
-	private int barValueSpacing = 5;
+	private int barValueSpacing = 55;
 	// Number - Spacing between data sets within X values
-	private int barDatasetSpacing = 1;
+	private int barDatasetSpacing = 150;
 	// String - A legend template
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
@@ -142,6 +142,7 @@ public class BarChart extends Chart<BarChartModel> {
 	}
 
 	@Override
+	@IncludeJsOption(jsPropertyName = "legendTemplate")
 	public String getLegendTemplate() {
 		return legendTemplate;
 	}

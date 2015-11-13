@@ -1,21 +1,14 @@
 package de.jwic.demo.chart;
 
-import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.ImageRef;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.Label;
 import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ChartModel;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.bar.BarChart;
-import de.jwic.controls.chart.impl.bar.BarChartDataset;
-import de.jwic.controls.chart.impl.bar.BarChartModel;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
 import de.jwic.controls.tableviewer.TableModelAdapter;
@@ -26,7 +19,14 @@ import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
+import de.jwic.samples.controls.propeditor.PropertyEditorView;
 
+/**
+ * 
+ * @author Karolina Marek (karolina-marek.eu)
+ *
+ * @date 13.11.2015
+ */
 public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 		ControlContainer {
 	/**
@@ -58,6 +58,8 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 				inputBox.setText(param);
 			}
 		});
+		chart.setWidth(400);
+		chart.setHeight(400);
 
 		// chart.getModel().addDataToModel("Danny", datasetNumber, value);
 		// chart.getModel().removeDataFromModel(label, datasetNumber);
@@ -67,8 +69,21 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 
 		// Change chart visibility
 		createListOfProperties();
-
+		createProperties();
 		createTable();
+	}
+
+	private void createProperties() {
+		PropertyEditorView propEditor = new PropertyEditorView(this,
+				"propertyEditor") {
+			@Override
+			public void loadValues() {
+				super.loadValues();
+				chart.requireRedraw();
+			}
+		};
+		propEditor.setBean(chart);
+
 	}
 
 	protected abstract T createChart(M model);

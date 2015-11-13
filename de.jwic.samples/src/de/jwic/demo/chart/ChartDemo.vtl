@@ -2,31 +2,32 @@
 
 <table width="100%">
  <tr>
- <td width="20%"><b>Chart presentation</b></td>
-  <td width="80%">$insert.control("chart")</td>
+      <td width="50%"><h1>Chart presentation</h1></td>	
+	  <td width="50%"><h1>Settings</h1></td>	
  </tr>
  <tr>
-  <td width="20%"></td>	
-		<td width="80%"><h1>Settings</h1></td>	
+      <td width="50%">$insert.control("chart")</td>
+       <td width="50%">
+          <table width="100%">
+            <tr>
+               <td width="20%"><b>Chart Data Model</b></td>	
+			   <td width="80%">$insert.control("table")</td>	
+            </tr>
+            <tr>
+		       <td width="20%"><b>Change Visibility of the chart</b></td>
+		       <td width="80%">$insert.control("btVisible")</td>
+			</tr>
+	        <tr>
+		       <td width="20%"><b>Chart selection listener</b></td>	
+			   <td width="80%">Last selected element is: $insert.control("inputBox")</td>	
+	       </tr>
+	        <tr>
+		       <td width="20%"><b>Property editor</b></td>	
+			   <td width="80%">Last selected element is: $insert.control("propertyEditor")</td>	
+	       </tr>
+          </table>
+       </td>	
  </tr>
- <tr>
-  <td width="20%"></td>	
-		<td width="80%"><hr/></td>	
-
- <hr/>
- <tr> 
-    <td width="20%"><b>Chart Data Model</b></td>	
-		<td width="80%">$insert.control("table")</td>	
-	</tr>
-	<tr>
-		 <td width="20%"><b>Change Visibility of the chart</b></td>
-		<td width="80%">$insert.control("btVisible")</td>
-	
-	</tr>
-	<tr>
-		     <td width="20%"><b>Chart selection listener</b></td>	
-			<td width="80%">Last selected element is: $insert.control("inputBox")</td>	
-	</tr>
 </table>
 
 
