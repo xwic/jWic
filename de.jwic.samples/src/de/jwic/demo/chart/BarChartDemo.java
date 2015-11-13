@@ -4,17 +4,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.ListBoxControl;
-import de.jwic.controls.chart.api.Chart;
-import de.jwic.controls.chart.api.ChartType;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.bar.BarChart;
 import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.bar.BarChartModel;
-import de.jwic.events.ElementSelectedEvent;
-import de.jwic.events.ElementSelectedListener;
+import de.jwic.controls.chart.impl.line.LineChartDataset;
 
 /**
  * 
@@ -22,17 +16,27 @@ import de.jwic.events.ElementSelectedListener;
  *
  * @date 19.10.2015
  */
-public class BarChartDemo extends ControlContainer {
+public class BarChartDemo extends ChartDemo<BarChart, BarChartModel> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
-	private BarChart chart;
 
-	public BarChartDemo(IControlContainer container)
-			throws ChartInconsistencyException {
+	public BarChartDemo(IControlContainer container) {
 		super(container);
+
+		// chart.getModel().addDataToModel("Danny", datasetNumber, value);
+		// chart.getModel().removeDataFromModel(label, datasetNumber);
+		// chart.getModel().changeDataByModel(label, datasetNumber);
+
+		// chart.getModel().getDatasetAsList().get(0).getData().add("2");
+
+		// Change chart visibility
+
+	}
+
+	protected BarChartModel createModel() {
 		List<String> labels = new ArrayList<String>();
 		labels.add("Danny");
 		labels.add("Karo");
@@ -42,46 +46,7 @@ public class BarChartDemo extends ControlContainer {
 		labels.add("6");
 		labels.add("7");
 		labels.add("8");
-		BarChartModel model = new BarChartModel(labels, createDatasets());
 
-		this.chart = new BarChart(this, "chart", model);
-	
-		//chart.getModel().getDatasetAsList().get(0).getData().add("2");
-		
-		
-
-		// Change chart visibility
-		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");
-		lbVisible.addElement("True", "true");
-		lbVisible.addElement("False", "false");
-		lbVisible.setSelectedKey(chart.isVisible() ? "true" : "false");
-		lbVisible.setChangeNotification(true);
-		lbVisible.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				chart.setVisible(event.getElement().equals("true"));
-			};
-		});
-
-		// Change Chart Type
-		ListBoxControl lbType = new ListBoxControl(this, "btChartType");
-		lbType.addElement(ChartType.BAR.getChartName());
-		lbType.addElement(ChartType.DOUGHNUT.getChartName());
-		lbType.addElement(ChartType.LINE.getChartName());
-		lbType.addElement(ChartType.PIE.getChartName());
-		lbType.addElement(ChartType.POLAR.getChartName());
-		lbType.addElement(ChartType.RADAR.getChartName());
-		lbType.setSelectedKey(chart.getChartType());
-		lbType.setChangeNotification(true);
-		lbType.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				ChartType type = ChartType.fromName((String) event.getElement());
-				chart.setChartType(type);
-			};
-		});
-
-	}
-
-	private List<BarChartDataset> createDatasets() {
 		List<BarChartDataset> datasets = new ArrayList<BarChartDataset>();
 		List<String> values = new ArrayList<String>();
 		values.add("1");
@@ -108,7 +73,33 @@ public class BarChartDemo extends ControlContainer {
 
 		BarChartDataset chartd2 = new BarChartDataset("Second", values2);
 		datasets.add(chartd2);
-		return datasets;
+
+		BarChartModel model = new BarChartModel(labels, datasets);
+		return model;
+	}
+
+	@Override
+	protected List<TableElement> convertChartModelToTableElements() {
+		List<TableElement> elements = new ArrayList<TableElement>();
+
+		for (BarChartDataset set : model.getDatasets()) {
+			int i = 0;
+			for (String in : set.getData()) {
+				TableElement el = new TableElement();
+				el.setTitle(model.getLabels().get(i));
+				el.setValue(in);
+				elements.add(el);
+				i++;
+			}
+
+		}
+
+		return elements;
+	}
+
+	@Override
+	protected BarChart createChart(BarChartModel model) {
+		return new BarChart(this, "chart", model);
 	}
 
 }

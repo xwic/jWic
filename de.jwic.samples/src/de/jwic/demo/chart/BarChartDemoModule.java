@@ -29,13 +29,7 @@ public class BarChartDemoModule extends DemoModule {
 	@Override
 	public void createModule(IControlContainer container) {
 
-		try {
-			new BarChartDemo(container);
-			
-		} catch (ChartInconsistencyException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		new BarChartDemo(container);
 
 	}
 

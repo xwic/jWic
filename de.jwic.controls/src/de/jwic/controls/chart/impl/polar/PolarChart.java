@@ -52,7 +52,7 @@ public class PolarChart extends Chart<PolarChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
 	public PolarChart(IControlContainer container, String name,
-			PolarChartModel model) throws ChartInconsistencyException {
+			PolarChartModel model) {
 		super(container, name, ChartType.POLAR, model);
 
 	}

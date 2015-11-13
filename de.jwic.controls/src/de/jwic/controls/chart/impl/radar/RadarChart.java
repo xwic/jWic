@@ -52,7 +52,7 @@ public class RadarChart extends Chart<RadarChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
 	public RadarChart(IControlContainer container, String name,
-			RadarChartModel model) throws ChartInconsistencyException {
+			RadarChartModel model) {
 		super(container, name, ChartType.RADAR, model);
 
 	}

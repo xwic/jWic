@@ -45,10 +45,11 @@ public class BarChart extends Chart<BarChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
 	public BarChart(IControlContainer container, String name,
-			BarChartModel model) throws ChartInconsistencyException {
+			BarChartModel model) {
 		super(container, name, ChartType.BAR, model);
 
 	}
+
 
 	@IncludeJsOption(jsPropertyName = "scaleBeginAtZero")
 	public boolean isScaleBeginAtZero() {

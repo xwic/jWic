@@ -41,7 +41,7 @@ public class PieChart extends Chart<PieChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color=<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
 	public PieChart(IControlContainer container, String name,
-			PieChartModel model) throws ChartInconsistencyException {
+			PieChartModel model) {
 		super(container, name, ChartType.PIE, model);
 
 	}
@@ -108,6 +108,7 @@ public class PieChart extends Chart<PieChartModel> {
 	public void setAnimateRotate(boolean animateRotate) {
 		this.animateRotate = animateRotate;
 	}
+
 	@IncludeJsOption(jsPropertyName = "segmentStrokeColor")
 	public boolean isAnimateScale() {
 		return animateScale;
@@ -116,6 +117,7 @@ public class PieChart extends Chart<PieChartModel> {
 	public void setAnimateScale(boolean animateScale) {
 		this.animateScale = animateScale;
 	}
+
 	@IncludeJsOption(jsPropertyName = "segmentStrokeColor")
 	public String getLegendTemplate() {
 		return legendTemplate;

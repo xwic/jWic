@@ -18,16 +18,15 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
 public abstract class ChartModel<Dataset extends ChartDataset> implements
 		Serializable {
 
-	
 	private List<Dataset> datasets;
+	private Chart chart;
 
-	public ChartModel( List<Dataset> datasets) {
-	
+	public ChartModel(List<Dataset> datasets) {
+
 		this.datasets = datasets;
 	}
 
-
-	public String getDatasets() {
+	public String getDatasetsJson() {
 		try {
 			return DatenConverter.convertToJson(datasets);
 		} catch (JsonGenerationException e) {
@@ -43,12 +42,20 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 		return "{}";
 	}
 
-	public List<Dataset> getDatasetAsList() {
+	public List<Dataset> getDatasets() {
 		return datasets;
 	}
 
 	public void setDatasets(List<Dataset> datasets) {
 		this.datasets = datasets;
+	}
+
+	 void setChart(Chart chart) {
+		this.chart = chart;
+	}
+
+	public void update() {
+		chart.requireRedraw();
 	}
 
 }

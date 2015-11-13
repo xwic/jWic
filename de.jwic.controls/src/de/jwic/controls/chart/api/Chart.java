@@ -1,6 +1,5 @@
 package de.jwic.controls.chart.api;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,40 +41,39 @@ public abstract class Chart<M extends ChartModel> extends Control {
 	private ChartType chartType;
 	private M model;
 	private GlobalChartConfiguration global = new GlobalChartConfiguration();
-	protected List<SelectionListener> listeners = null;
+	protected List<SelectionListener> elementClickListeners = null;
 	private List<ElementSelectedListener> elementSelectedListeners;
 
 	public Chart(IControlContainer container, String name, ChartType type,
-			M model) throws ChartInconsistencyException {
+			M model) {
 		super(container, name);
 		content = new Field(this, "chartContent");
 		setTemplateName(Chart.class.getName());
 		this.chartType = type;
 		this.model = model;
+		model.setChart(this);
 
 	}
 
-	public void actionSelect(Object param) {
+	public void actionClick(String param) {
+		if (elementClickListeners != null) {
+			SelectionEvent e = new SelectionEvent(param, false);
+			for (Iterator<SelectionListener> it = elementClickListeners
+					.iterator(); it.hasNext();) {
+				SelectionListener osl = it.next();
+				osl.objectSelected(e);
+			}
+		}
+		System.out.println(param);
+	}
+
+	public void actionSelect(String param) {
 		if (elementSelectedListeners != null) {
 			ElementSelectedEvent e = new ElementSelectedEvent(this, param);
 			for (Iterator<ElementSelectedListener> it = elementSelectedListeners
 					.iterator(); it.hasNext();) {
 				ElementSelectedListener osl = it.next();
 				osl.elementSelected(e);
-			}
-		}
-		System.out.println(param);
-	}
-
-	// instead of data double should be data of iSelectElement
-	// add action listener for click and tooltip listener
-	public void actionClick(String param) {
-		if (listeners != null) {
-			SelectionEvent e = new SelectionEvent(param, false);
-			for (Iterator<SelectionListener> it = listeners.iterator(); it
-					.hasNext();) {
-				SelectionListener osl = it.next();
-				osl.objectSelected(e);
 			}
 		}
 		System.out.println(param);
@@ -178,6 +176,30 @@ public abstract class Chart<M extends ChartModel> extends Control {
 	public void removeElementSelectedListener(ElementSelectedListener listener) {
 		if (elementSelectedListeners != null) {
 			elementSelectedListeners.remove(listener);
+		}
+	}
+
+	/**
+	 * Register a listener that will be notified when an element has been
+	 * selected.
+	 * 
+	 * @param listener
+	 */
+	public void addSelectionListener(SelectionListener listener) {
+		if (elementClickListeners == null) {
+			elementClickListeners = new ArrayList<SelectionListener>();
+		}
+		elementClickListeners.add(listener);
+	}
+
+	/**
+	 * Removes the specified listener.
+	 * 
+	 * @param listener
+	 */
+	public void removeSelectionListener(SelectionListener listener) {
+		if (elementClickListeners != null) {
+			elementClickListeners.remove(listener);
 		}
 	}
 

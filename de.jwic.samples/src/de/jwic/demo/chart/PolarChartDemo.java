@@ -13,6 +13,7 @@ import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.bar.BarChart;
 import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.bar.BarChartModel;
+import de.jwic.controls.chart.impl.doughnut.DoughnutChartDataset;
 import de.jwic.controls.chart.impl.polar.PolarChart;
 import de.jwic.controls.chart.impl.polar.PolarChartDataset;
 import de.jwic.controls.chart.impl.polar.PolarChartModel;
@@ -25,7 +26,7 @@ import de.jwic.events.ElementSelectedListener;
  *
  * @date 19.10.2015
  */
-public class PolarChartDemo extends ControlContainer {
+public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
 
 	/**
 	 * 
@@ -36,39 +37,6 @@ public class PolarChartDemo extends ControlContainer {
 	public PolarChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
-
-		PolarChartModel model = new PolarChartModel(createDatasets());
-
-		this.chart = new PolarChart(this, "chart", model);
-
-		// Change chart visibility
-		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");
-		lbVisible.addElement("True", "true");
-		lbVisible.addElement("False", "false");
-		lbVisible.setSelectedKey(chart.isVisible() ? "true" : "false");
-		lbVisible.setChangeNotification(true);
-		lbVisible.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				chart.setVisible(event.getElement().equals("true"));
-			};
-		});
-
-		// Change Chart Type
-		ListBoxControl lbType = new ListBoxControl(this, "btChartType");
-		lbType.addElement(ChartType.BAR.getChartName());
-		lbType.addElement(ChartType.DOUGHNUT.getChartName());
-		lbType.addElement(ChartType.LINE.getChartName());
-		lbType.addElement(ChartType.PIE.getChartName());
-		lbType.addElement(ChartType.POLAR.getChartName());
-		lbType.addElement(ChartType.RADAR.getChartName());
-		lbType.setSelectedKey(chart.getChartType());
-		lbType.setChangeNotification(true);
-		lbType.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				ChartType type = ChartType.fromName((String) event.getElement());
-				chart.setChartType(type);
-			};
-		});
 
 	}
 
@@ -95,6 +63,32 @@ public class PolarChartDemo extends ControlContainer {
 		datasets.add(chartd5);
 		datasets.add(chartd6);
 		return datasets;
+	}
+
+	@Override
+	protected PolarChart createChart(PolarChartModel model) {
+
+		return new PolarChart(this, "chart", model);
+
+	}
+
+	@Override
+	protected PolarChartModel createModel() {
+		return new PolarChartModel(createDatasets());
+
+	}
+
+	@Override
+	protected List<TableElement> convertChartModelToTableElements() {
+		List<TableElement> elements = new ArrayList<TableElement>();
+		for (PolarChartDataset set : model.getDatasets()) {
+			TableElement el = new TableElement();
+			el.setTitle(set.getLabel());
+			el.setValue(set.getValue());
+			elements.add(el);
+		}
+
+		return elements;
 	}
 
 }

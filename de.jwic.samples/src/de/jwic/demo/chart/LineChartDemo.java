@@ -1,25 +1,18 @@
 package de.jwic.demo.chart;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.ListBoxControl;
 import de.jwic.controls.chart.api.Chart;
-import de.jwic.controls.chart.api.ChartType;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.bar.BarChart;
 import de.jwic.controls.chart.impl.bar.BarChartDataset;
-import de.jwic.controls.chart.impl.bar.BarChartModel;
 import de.jwic.controls.chart.impl.line.LineChart;
 import de.jwic.controls.chart.impl.line.LineChartDataset;
 import de.jwic.controls.chart.impl.line.LineChartModel;
-import de.jwic.events.ElementSelectedEvent;
-import de.jwic.events.ElementSelectedListener;
+import de.jwic.controls.chart.impl.pie.PieChartDataset;
 
-public class LineChartDemo extends ControlContainer {
+public class LineChartDemo extends ChartDemo<LineChart, LineChartModel> {
 
 	/**
 	 * 
@@ -30,6 +23,11 @@ public class LineChartDemo extends ControlContainer {
 	public LineChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
+
+	}
+
+	@Override
+	protected LineChartModel createModel() {
 		List<String> labels = new ArrayList<String>();
 		labels.add("1");
 		labels.add("2");
@@ -39,25 +37,6 @@ public class LineChartDemo extends ControlContainer {
 		labels.add("6");
 		labels.add("7");
 		labels.add("8");
-		LineChartModel model = new LineChartModel(labels, createDatasets());
-
-		this.chart = new LineChart(this, "chart", model);
-
-		// Change chart visibility
-		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");
-		lbVisible.addElement("True", "true");
-		lbVisible.addElement("False", "false");
-		lbVisible.setSelectedKey(chart.isVisible() ? "true" : "false");
-		lbVisible.setChangeNotification(true);
-		lbVisible.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				chart.setVisible(event.getElement().equals("true"));
-			};
-		});
-
-	}
-
-	private List<LineChartDataset> createDatasets() {
 		List<LineChartDataset> datasets = new ArrayList<LineChartDataset>();
 		List<String> values = new ArrayList<String>();
 		values.add("28");
@@ -69,7 +48,7 @@ public class LineChartDemo extends ControlContainer {
 		values.add("10");
 		values.add("2");
 		LineChartDataset chartd1 = new LineChartDataset("First", values);
-	
+
 		datasets.add(chartd1);
 
 		List<String> values2 = new ArrayList<String>();
@@ -84,7 +63,35 @@ public class LineChartDemo extends ControlContainer {
 
 		LineChartDataset chartd2 = new LineChartDataset("Second", values2);
 		datasets.add(chartd2);
-		return datasets;
+
+		LineChartModel model = new LineChartModel(labels, datasets);
+		return model;
+	}
+
+	@Override
+	protected List<TableElement> convertChartModelToTableElements() {
+		List<TableElement> elements = new ArrayList<TableElement>();
+
+		for (LineChartDataset set : model.getDatasets()) {
+			int i = 0;
+			for (String in : set.getData()) {
+				TableElement el = new TableElement();
+				el.setTitle(model.getLabels().get(i));
+				el.setValue(in);
+				elements.add(el);
+				i++;
+			}
+
+		}
+
+		return elements;
+
+	}
+
+	@Override
+	protected LineChart createChart(LineChartModel model) {
+
+		return new LineChart(this, "chart", model);
 	}
 
 }

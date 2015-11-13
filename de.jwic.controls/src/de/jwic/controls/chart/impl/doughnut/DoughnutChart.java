@@ -7,7 +7,6 @@ import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ChartType;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
 /**
@@ -48,7 +47,7 @@ public class DoughnutChart extends Chart<DoughnutChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color=<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>";
 
 	public DoughnutChart(IControlContainer container, String name,
-			DoughnutChartModel model) throws ChartInconsistencyException {
+			DoughnutChartModel model) {
 		super(container, name, ChartType.DOUGHNUT, model);
 
 	}

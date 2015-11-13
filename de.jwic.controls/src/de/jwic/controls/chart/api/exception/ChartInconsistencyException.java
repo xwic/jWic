@@ -8,6 +8,10 @@ package de.jwic.controls.chart.api.exception;
  */
 public class ChartInconsistencyException extends Exception {
 
+	public ChartInconsistencyException(String message) {
+		super(message);
+	}
+
 	/**
 	 * 
 	 */

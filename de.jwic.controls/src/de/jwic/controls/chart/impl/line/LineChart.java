@@ -52,7 +52,7 @@ public class LineChart extends Chart<LineChartModel> {
 	private String legendTemplate = "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color=<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>";
 
 	public LineChart(IControlContainer container, String name,
-			LineChartModel model) throws ChartInconsistencyException {
+			LineChartModel model) {
 		super(container, name, ChartType.LINE, model);
 
 	}

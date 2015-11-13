@@ -13,6 +13,7 @@ import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.bar.BarChart;
 import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.bar.BarChartModel;
+import de.jwic.controls.chart.impl.line.LineChartDataset;
 import de.jwic.controls.chart.impl.radar.RadarChart;
 import de.jwic.controls.chart.impl.radar.RadarChartDataset;
 import de.jwic.controls.chart.impl.radar.RadarChartModel;
@@ -25,7 +26,7 @@ import de.jwic.events.ElementSelectedListener;
  *
  * @date 19.10.2015
  */
-public class RadarChartDemo extends ControlContainer {
+public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 
 	/**
 	 * 
@@ -36,47 +37,6 @@ public class RadarChartDemo extends ControlContainer {
 	public RadarChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
-		List<String> labels = new ArrayList<String>();
-		labels.add("Eating");
-		labels.add("Drinking");
-		labels.add("Sleeping");
-		labels.add("Testing");
-		labels.add("Driving");
-		labels.add("Working");
-		labels.add("Sweeming");
-		labels.add("Running");
-		RadarChartModel model = new RadarChartModel(labels, createDatasets());
-
-		this.chart = new RadarChart(this, "chart", model);
-
-		// Change chart visibility
-		ListBoxControl lbVisible = new ListBoxControl(this, "btVisible");
-		lbVisible.addElement("True", "true");
-		lbVisible.addElement("False", "false");
-		lbVisible.setSelectedKey(chart.isVisible() ? "true" : "false");
-		lbVisible.setChangeNotification(true);
-		lbVisible.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				chart.setVisible(event.getElement().equals("true"));
-			};
-		});
-
-		// Change Chart Type
-		ListBoxControl lbType = new ListBoxControl(this, "btChartType");
-		lbType.addElement(ChartType.BAR.getChartName());
-		lbType.addElement(ChartType.DOUGHNUT.getChartName());
-		lbType.addElement(ChartType.LINE.getChartName());
-		lbType.addElement(ChartType.PIE.getChartName());
-		lbType.addElement(ChartType.POLAR.getChartName());
-		lbType.addElement(ChartType.RADAR.getChartName());
-		lbType.setSelectedKey(chart.getChartType());
-		lbType.setChangeNotification(true);
-		lbType.addElementSelectedListener(new ElementSelectedListener() {
-			public void elementSelected(ElementSelectedEvent event) {
-				ChartType type = ChartType.fromName((String) event.getElement());
-				chart.setChartType(type);
-			};
-		});
 
 	}
 
@@ -108,6 +68,45 @@ public class RadarChartDemo extends ControlContainer {
 		RadarChartDataset chartd2 = new RadarChartDataset("Second", values2);
 		datasets.add(chartd2);
 		return datasets;
+	}
+
+	@Override
+	protected RadarChart createChart(RadarChartModel model) {
+		return new RadarChart(this, "chart", model);
+	}
+
+	@Override
+	protected RadarChartModel createModel() {
+		List<String> labels = new ArrayList<String>();
+		labels.add("Eating");
+		labels.add("Drinking");
+		labels.add("Sleeping");
+		labels.add("Testing");
+		labels.add("Driving");
+		labels.add("Working");
+		labels.add("Sweeming");
+		labels.add("Running");
+		return new RadarChartModel(labels, createDatasets());
+
+	}
+
+	@Override
+	protected List<TableElement> convertChartModelToTableElements() {
+		List<TableElement> elements = new ArrayList<TableElement>();
+
+		for (RadarChartDataset set : model.getDatasets()) {
+			int i = 0;
+			for (String in : set.getData()) {
+				TableElement el = new TableElement();
+				el.setTitle(model.getLabels().get(i));
+				el.setValue(in);
+				elements.add(el);
+				i++;
+			}
+
+		}
+
+		return elements;
 	}
 
 }
