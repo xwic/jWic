@@ -15,6 +15,11 @@ public class LineChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -299914253823363194L;
+
+	/**
+	 * 
+	 */
 	public LineChartDemoModule() {
 		setTitle("Line Chart");
 		setDescription("Line Chart");

@@ -15,6 +15,11 @@ public class PolarChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -8096683607011893115L;
+
+	/**
+	 * 
+	 */
 	public PolarChartDemoModule() {
 		setTitle("Polar Chart");
 		setDescription("POLAR Chart");

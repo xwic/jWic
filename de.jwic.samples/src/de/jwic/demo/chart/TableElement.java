@@ -6,6 +6,10 @@ public class TableElement
 
 implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2908277730445350249L;
 	private String title;
 	private String value;
 

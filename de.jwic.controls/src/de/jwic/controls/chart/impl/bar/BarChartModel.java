@@ -48,10 +48,7 @@ public class BarChartModel extends ChartModel<BarChartDataset> {
 	 */
 	public void addDataToModel(String label, int datasetNumber, Double value)
 			throws ChartInconsistencyException {
-		int indexOfElement = labels.indexOf(label);
-		if (indexOfElement < 0) {
-			throw new ChartInconsistencyException("No label with name:" + label);
-		}
+	
 		if (getDatasets().size() <= datasetNumber) {
 			throw new ChartInconsistencyException(
 					"Array of datasets smaller than " + datasetNumber);

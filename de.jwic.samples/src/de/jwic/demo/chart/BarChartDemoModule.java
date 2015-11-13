@@ -1,7 +1,6 @@
 package de.jwic.demo.chart;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.demo.DemoModule;
 
 /**
@@ -11,6 +10,11 @@ import de.jwic.demo.DemoModule;
  * @date 03.11.2015
  */
 public class BarChartDemoModule extends DemoModule {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 

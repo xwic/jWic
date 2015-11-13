@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.line.LineChart;
 import de.jwic.controls.chart.impl.line.LineChartDataset;
 import de.jwic.controls.chart.impl.line.LineChartModel;
-import de.jwic.controls.chart.impl.pie.PieChartDataset;
 
 public class LineChartDemo extends ChartDemo<LineChart, LineChartModel> {
 
@@ -18,7 +15,6 @@ public class LineChartDemo extends ChartDemo<LineChart, LineChartModel> {
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
-	private Chart chart;
 
 	public LineChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
@@ -92,6 +88,27 @@ public class LineChartDemo extends ChartDemo<LineChart, LineChartModel> {
 	protected LineChart createChart(LineChartModel model) {
 
 		return new LineChart(this, "chart", model);
+	}
+
+	@Override
+	protected void addElementToTheChart(TableElement element)
+			throws ChartInconsistencyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateElementInChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void deleteElementFromChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

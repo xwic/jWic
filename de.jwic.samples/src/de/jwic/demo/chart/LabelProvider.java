@@ -13,6 +13,11 @@ import de.jwic.controls.tableviewer.TableColumn;
  */
 class LabelProvider implements ITableLabelProvider {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8307789961126792391L;
+
 	/*
 	 * (non-Javadoc)
 	 * 

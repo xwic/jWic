@@ -4,17 +4,23 @@ import java.util.List;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.Button;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.Label;
 import de.jwic.controls.ListBoxControl;
+import de.jwic.controls.ToolBar;
+import de.jwic.controls.ToolBarGroup;
+import de.jwic.controls.actions.Action;
+import de.jwic.controls.actions.IAction;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ChartModel;
+import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
+import de.jwic.controls.dialogs.DialogAdapter;
+import de.jwic.controls.dialogs.DialogEvent;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
-import de.jwic.controls.tableviewer.TableModelAdapter;
-import de.jwic.controls.tableviewer.TableModelEvent;
 import de.jwic.controls.tableviewer.TableViewer;
-import de.jwic.data.ListContentProvider;
+import de.jwic.demo.ImageLibrary;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
@@ -27,17 +33,20 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
  *
  * @date 13.11.2015
  */
-public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
+public abstract class ChartDemo<T extends Chart<M>, M extends ChartModel> extends
 		ControlContainer {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
-	private T chart;
-	private ListContentProvider<TableElement> contentProvider;
+	protected T chart;
+	private TableElementContentProvider contentProvider;
 	private TableViewer viewer;
 	private InputBox inputBox;
 	protected M model;
+	private IAction deleteElement;
+	private IAction updateElement;
+	private TableElement selectedTableElement;
 
 	public ChartDemo(IControlContainer container) {
 		super(container);
@@ -58,16 +67,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 				inputBox.setText(param);
 			}
 		});
-		chart.setWidth(400);
-		chart.setHeight(400);
 
-		// chart.getModel().addDataToModel("Danny", datasetNumber, value);
-		// chart.getModel().removeDataFromModel(label, datasetNumber);
-		// chart.getModel().changeDataByModel(label, datasetNumber);
-
-		// chart.getModel().getDatasetAsList().get(0).getData().add("2");
-
-		// Change chart visibility
 		createListOfProperties();
 		createProperties();
 		createTable();
@@ -82,6 +82,8 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 				chart.requireRedraw();
 			}
 		};
+		chart.setWidth(400);
+		chart.setHeight(400);
 		propEditor.setBean(chart);
 
 	}
@@ -124,10 +126,9 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 	}
 
 	private void createTable() {
-		// create the viewer
 		viewer = new TableViewer(this, "table");
 
-		contentProvider = new ListContentProvider<TableElement>(
+		contentProvider = new TableElementContentProvider(
 				convertChartModelToTableElements());
 		viewer.setContentProvider(contentProvider);
 		viewer.setTableLabelProvider(new LabelProvider());
@@ -142,17 +143,107 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 		tableModel.setMaxLines(50); // all
 
 		BarSelectedElementListener listener = new BarSelectedElementListener();
-
-		// add listener to demonstrate sorting/images
-		tableModel.addTableModelListener(new TableModelAdapter() {
-			public void columnSelected(TableModelEvent event) {
-
-			}
-		});
 		tableModel.setSelectionMode(TableModel.SELECTION_SINGLE);
 		createColumns();
 
+		ToolBar tb = new ToolBar(this, "toolbar");
+		tb.setCssClass("j-toolbar ui-corner-top");
+		ToolBarGroup group = tb.addGroup();
+		Button btNew = group.addButton();
+		btNew.setTitle("Add Task");
+		btNew.setIconEnabled(ImageLibrary.IMG_ADD);
+		btNew.addSelectionListener(new SelectionListener() {
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				addTableElement();
+			}
+		});
+
+		createActions();
+		group.addAction(deleteElement);
+		group.addAction(updateElement);
+		tableModel.addElementSelectedListener(listener);
+
 	}
+
+	/**
+	 * @param task
+	 */
+	public void refreshActions(TableElement tableElement) {
+
+		deleteElement.setEnabled(tableElement != null);
+		updateElement.setEnabled(tableElement != null);
+	}
+
+	private void createActions() {
+
+		deleteElement = new Action() {
+			public void run() {
+
+				try {
+					deleteElementFromChart(selectedTableElement);
+					requireRedraw();
+				} catch (ChartInconsistencyException e) {
+					getSessionContext().notifyMessage(e.getMessage());
+				}
+
+			}
+		};
+		deleteElement.setTitle("Delete");
+		deleteElement.setIconEnabled(ImageLibrary.IMG_CROSS);
+
+		updateElement = new Action() {
+			public void run() {
+
+				try {
+					updateElementInChart(selectedTableElement);
+					chart.requireRedraw();
+				} catch (ChartInconsistencyException e) {
+					getSessionContext().notifyMessage(e.getMessage());
+				}
+
+			}
+
+		};
+		updateElement.setTitle("Update");
+		updateElement.setIconEnabled(ImageLibrary.IMG_LIST_VIEW);
+
+		refreshActions(null);
+	}
+
+	protected void addTableElement() {
+
+		AddTableElementDialog dialog = new AddTableElementDialog(
+				viewer.getContainer());
+		dialog.addDialogListener(new DialogAdapter() {
+			public void dialogFinished(DialogEvent event) {
+				AddTableElementDialog dialog = ((AddTableElementDialog) event
+						.getEventSource());
+				TableElement element = dialog.getTableElement();
+				contentProvider.addElement(element);
+				try {
+					addElementToTheChart(element);
+				} catch (ChartInconsistencyException e) {
+					getSessionContext().notifyMessage(e.getMessage());
+				}
+				viewer.setRequireRedraw(true);
+			}
+
+		});
+		dialog.openAsPage();
+
+	}
+
+	protected abstract void addElementToTheChart(TableElement element)
+			throws ChartInconsistencyException;
+
+	protected abstract void updateElementInChart(
+			TableElement selectedTableElement)
+			throws ChartInconsistencyException;
+
+	protected abstract void deleteElementFromChart(
+			TableElement selectedTableElement)
+			throws ChartInconsistencyException;
 
 	/**
 	 * @return
@@ -164,13 +255,15 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 
 			if (event.getElement() == null) {
 			} else {
-				TableElement task = contentProvider
+				TableElement el = contentProvider
 						.getObjectFromKey((String) event.getElement());
-				if (task != null) {
+				refreshActions(el);
+				selectedTableElement = el;
+				if (el != null) {
 
 					if (event.isDblClick()) {
 						getSessionContext().notifyMessage(
-								"Element Selected: " + task.getTitle());
+								"Element Selected: " + el.getTitle());
 					}
 				}
 			}

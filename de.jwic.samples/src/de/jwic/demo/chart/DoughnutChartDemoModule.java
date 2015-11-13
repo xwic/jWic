@@ -15,6 +15,11 @@ public class DoughnutChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 7104108590012784537L;
+
+	/**
+	 * 
+	 */
 	public DoughnutChartDemoModule() {
 		setTitle("Doughnut Chart");
 		setDescription("Chart");

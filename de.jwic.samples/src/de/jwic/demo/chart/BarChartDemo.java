@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.bar.BarChart;
 import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.bar.BarChartModel;
-import de.jwic.controls.chart.impl.line.LineChartDataset;
 
 /**
  * 
@@ -25,14 +25,6 @@ public class BarChartDemo extends ChartDemo<BarChart, BarChartModel> {
 
 	public BarChartDemo(IControlContainer container) {
 		super(container);
-
-		// chart.getModel().addDataToModel("Danny", datasetNumber, value);
-		// chart.getModel().removeDataFromModel(label, datasetNumber);
-		// chart.getModel().changeDataByModel(label, datasetNumber);
-
-		// chart.getModel().getDatasetAsList().get(0).getData().add("2");
-
-		// Change chart visibility
 
 	}
 
@@ -100,6 +92,28 @@ public class BarChartDemo extends ChartDemo<BarChart, BarChartModel> {
 	@Override
 	protected BarChart createChart(BarChartModel model) {
 		return new BarChart(this, "chart", model);
+	}
+
+	@Override
+	protected void addElementToTheChart(TableElement element)
+			throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(), 1,
+				Double.valueOf(element.getValue()));
+
+	}
+
+	@Override
+	protected void updateElementInChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
+
+	}
+
+	@Override
+	protected void deleteElementFromChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
+		model.removeDataFromModel(selectedTableElement.getTitle());
+
 	}
 
 }

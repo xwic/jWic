@@ -15,6 +15,11 @@ public class RadarChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 2647851157518864725L;
+
+	/**
+	 * 
+	 */
 	public RadarChartDemoModule() {
 		setTitle("Radar Chart");
 		setDescription("RADAR Chart");

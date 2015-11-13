@@ -15,6 +15,11 @@ public class PieChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = -5121835342369183226L;
+
+	/**
+	 * 
+	 */
 	public PieChartDemoModule() {
 		setTitle("Pie Chart");
 		setDescription("Pie Chart");
