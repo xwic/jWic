@@ -33,7 +33,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
  *
  * @date 13.11.2015
  */
-public abstract class ChartDemo<T extends Chart<M>, M extends ChartModel> extends
+public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 		ControlContainer {
 	/**
 	 * 
@@ -82,9 +82,9 @@ public abstract class ChartDemo<T extends Chart<M>, M extends ChartModel> extend
 				chart.requireRedraw();
 			}
 		};
-		chart.setWidth(400);
-		chart.setHeight(400);
-		propEditor.setBean(chart);
+		
+		propEditor.setBean(chart.getLocalChartConfiguration());
+		
 
 	}
 

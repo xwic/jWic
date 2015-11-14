@@ -8,8 +8,6 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import de.jwic.controls.chart.api.ChartDataset;
-
 /**
  * 
  * @author Karolina Marek (karolina-marek.eu)
@@ -43,9 +41,27 @@ public class DatenConverter {
 		return builder.toString();
 	}
 
-	public static String convertToJSColor(Color color) {
-		return "rgba(" + color.getRed() + "," + color.getGreen() + ","
-				+ color.getBlue() + ",.1)";
+	public static String convertToJSColor(Color scaleLineColor) {
+		return "rgba(" + scaleLineColor.getRed() + ","
+				+ scaleLineColor.getGreen() + "," + scaleLineColor.getBlue()
+				+ ",.1)";
+	}
+
+	public static String convertToJSColor(String color) {
+		if (color == null) {
+			return null;
+		}
+		if (color.startsWith("#")) {
+			return color;
+		}
+		if (color.contains(";")) {
+			String[] arr = color.split(";");
+			if (arr.length >= 3) {
+
+			}
+			return null;
+		}
+		return null;
 	}
 
 	public static String convertToJSColor(Color color, String alfa) {
@@ -56,14 +72,14 @@ public class DatenConverter {
 	public static String convertToJson(List<? extends Object> datasets)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		 return  mapper.writeValueAsString(datasets);
-		
+		return mapper.writeValueAsString(datasets);
+
 	}
-	
+
 	public static String convertToJson(Object obj)
 			throws JsonGenerationException, JsonMappingException, IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		 return  mapper.writeValueAsString(obj);
-		
+		return mapper.writeValueAsString(obj);
+
 	}
 }

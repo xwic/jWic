@@ -10,8 +10,17 @@
 		var chartType='$control.chartType';	
 		var canvas = document.getElementById('chart');
 		var ctx = document.getElementById('chart').getContext("2d");	
-		var options = '$control.buildJsonOptions()';
 		var chart = new Chart(ctx);
+		 var functionOptions = {
+    		 onAnimationProgress:function() {
+// JWic.fireAction('$control.controlID', 'animationInProgress');
+	    		 },
+// onAnimationComplete:function(){
+// JWic.fireAction('$control.controlID', 'animationComplete');
+// }
+	    }
+	    var localOptions = $control.getConfigurationJSON();
+	    var options = extend(localOptions,functionOptions);
 		var chartImpl = undefined;
 		var chartData = undefined;
 		
@@ -20,7 +29,6 @@
 					    labels: $control.model.labelsJson,
 					    datasets: $control.model.datasetsJson
 					};
-			  debugger;
 			chartImpl = chart.Bar(chartData, options);
 		}else if (chartType=='pie'){
 			chartData = $control.model.datasetsJson;
@@ -65,6 +73,12 @@
 				}				     
 			}
 			
+	 function extend(a, b){
+		    for(var key in b)
+		        if(b.hasOwnProperty(key))
+		            a[key] = b[key];
+		    return a;
+		 }
 	 
 	 function prepareOperation(evt){
 		 var activeElement;  

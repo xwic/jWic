@@ -10,7 +10,7 @@ import de.jwic.demo.DemoModule;
  *
  * @date 03.11.2015
  */
-public class DoughnutChartDemoModule extends DemoModule {
+public class CircleChartDemoModule extends DemoModule {
 
 	/**
 	 * 
@@ -20,8 +20,8 @@ public class DoughnutChartDemoModule extends DemoModule {
 	/**
 	 * 
 	 */
-	public DoughnutChartDemoModule() {
-		setTitle("Doughnut Chart");
+	public CircleChartDemoModule() {
+		setTitle("Circle Chart");
 		setDescription("Chart");
 		setGroup("Chart");
 	}
@@ -35,8 +35,8 @@ public class DoughnutChartDemoModule extends DemoModule {
 	public void createModule(IControlContainer container) {
 
 		try {
-			new DoughnutChartDemo(container);
-			
+			new CircleChartDemo(container);
+
 		} catch (ChartInconsistencyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

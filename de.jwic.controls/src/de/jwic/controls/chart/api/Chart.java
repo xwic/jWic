@@ -1,5 +1,6 @@
 package de.jwic.controls.chart.api;
 
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,10 +12,8 @@ import org.codehaus.jackson.map.JsonMappingException;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.chart.api.configuration.GlobalChartConfiguration;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
+import de.jwic.controls.chart.api.configuration.ChartConfiguration;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -28,21 +27,22 @@ import de.jwic.events.SelectionListener;
  * @date 19.10.2015
  */
 @JavaScriptSupport
-public abstract class Chart<M extends ChartModel> extends Control {
+public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
+		extends Control {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8011236594229480026L;
 	protected Field content;
-	private int width = 800;
-	private int height = 800;
-	private boolean enabled = true;
+
 	private ChartType chartType;
 	private M model;
-	private GlobalChartConfiguration global = new GlobalChartConfiguration();
 	protected List<SelectionListener> elementClickListeners = null;
 	private List<ElementSelectedListener> elementSelectedListeners;
+	private List<ActionListener> animationCompleteListeners;
+	private List<ActionListener> animationInProgressListeners;
+	private L localConfiguration;
 
 	public Chart(IControlContainer container, String name, ChartType type,
 			M model) {
@@ -54,6 +54,34 @@ public abstract class Chart<M extends ChartModel> extends Control {
 		model.setChart(this);
 
 	}
+
+	public L getLocalChartConfiguration() {
+		return localConfiguration;
+	}
+
+	protected void setLocalChartConfiguration(L configuration) {
+		this.localConfiguration = configuration;
+	}
+
+	public void actionAnimationInProgress() {
+		if (animationInProgressListeners != null) {
+			for (Iterator<ActionListener> it = animationInProgressListeners
+					.iterator(); it.hasNext();) {
+				ActionListener osl = it.next();
+				osl.actionPerformed(null);
+			}
+		}
+	}
+
+//	public void actionAnimationComplete() {
+//		if (animationCompleteListeners != null) {
+//			for (Iterator<ActionListener> it = animationCompleteListeners
+//					.iterator(); it.hasNext();) {
+//				ActionListener osl = it.next();
+//				osl.actionPerformed(null);
+//			}
+//		}
+//	}
 
 	public void actionClick(String param) {
 		if (elementClickListeners != null) {
@@ -77,30 +105,6 @@ public abstract class Chart<M extends ChartModel> extends Control {
 			}
 		}
 		System.out.println(param);
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public String getChartType() {
@@ -127,32 +131,6 @@ public abstract class Chart<M extends ChartModel> extends Control {
 
 	public void setContent(Field content) {
 		this.content = content;
-	}
-
-	public String getGlobal() {
-
-		try {
-			return DatenConverter.convertToJson(global);
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "{}";
-
-	}
-
-	public GlobalChartConfiguration getGlobalConfiguration() {
-		return global;
-	}
-
-	public void setGlobal(GlobalChartConfiguration global) {
-		this.global = global;
 	}
 
 	/**
@@ -203,9 +181,20 @@ public abstract class Chart<M extends ChartModel> extends Control {
 		}
 	}
 
-	@IncludeJsOption(jsPropertyName = "legendTemplate")
-	public abstract String getLegendTemplate();
-
-	public abstract void setLegendTemplate(String legendTemplate);
+	public String getConfigurationJSON() {
+		try {
+			return DatenConverter.convertToJson(localConfiguration);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "{}";
+	}
 
 }

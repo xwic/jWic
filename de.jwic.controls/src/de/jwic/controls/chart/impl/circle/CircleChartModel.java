@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.impl.doughnut;
+package de.jwic.controls.chart.impl.circle;
 
 import java.awt.Color;
 import java.util.List;
@@ -12,14 +12,14 @@ import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
  *
  * @date 29.10.2015
  */
-public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
+public class CircleChartModel extends ChartModel<CircleChartDataset> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6110011116843847513L;
 
-	public DoughnutChartModel(List<DoughnutChartDataset> datasets) {
+	public CircleChartModel(List<CircleChartDataset> datasets) {
 		super(datasets);
 	}
 
@@ -36,7 +36,7 @@ public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		DoughnutChartDataset dataset = new DoughnutChartDataset(label,
+		CircleChartDataset dataset = new CircleChartDataset(label,
 				value.toString(), color, highlightColor);
 		getDatasets().add(dataset);
 		update();
@@ -59,7 +59,7 @@ public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		DoughnutChartDataset dataset = getDatasets().get(datasetNumber);
+		CircleChartDataset dataset = getDatasets().get(datasetNumber);
 		dataset.setLabel(label);
 		dataset.setValue(newValue.toString());
 		update();
@@ -75,8 +75,8 @@ public class DoughnutChartModel extends ChartModel<DoughnutChartDataset> {
 	 */
 	public void removeDataFromModel(String label)
 			throws ChartInconsistencyException {
-		DoughnutChartDataset datasetToRemove = null;
-		for (DoughnutChartDataset dataset : getDatasets()) {
+		CircleChartDataset datasetToRemove = null;
+		for (CircleChartDataset dataset : getDatasets()) {
 			if (dataset.getLabel().equals(label)) {
 				datasetToRemove = dataset;
 			}

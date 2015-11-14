@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.impl.doughnut;
+package de.jwic.controls.chart.impl.circle;
 
 import java.awt.Color;
 
@@ -11,7 +11,7 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  *
  * @date 03.11.2015
  */
-public class DoughnutChartDataset extends ChartDataset {
+public class CircleChartDataset extends ChartDataset {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class DoughnutChartDataset extends ChartDataset {
 	private Color color;
 	private Color highlight;
 // as double alwazs the value						
-	public DoughnutChartDataset(String label, String value, Color color,
+	public CircleChartDataset(String label, String value, Color color,
 			Color highlight) {
 		super(label);
 		this.value = value;
