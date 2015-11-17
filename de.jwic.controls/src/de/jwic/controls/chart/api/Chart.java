@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.json.JSONException;
 
 import de.jwic.base.Control;
 import de.jwic.base.Field;
@@ -92,7 +93,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 				osl.objectSelected(e);
 			}
 		}
-		System.out.println(param);
 	}
 
 	public void actionSelect(String param) {
@@ -183,7 +183,18 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	public String getConfigurationJSON() {
 		try {
-			return DatenConverter.convertToJson(localConfiguration);
+			try {
+				return DatenConverter.convertToJson(localConfiguration, chartType);
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

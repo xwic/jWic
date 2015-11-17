@@ -31,8 +31,8 @@ public class PolarChartModel extends ChartModel<PolarChartDataset> {
 	 * @param value
 	 * @throws ChartInconsistencyException
 	 */
-	public void addDataToModel(String label, Double value, Color color,
-			Color highlightColor) throws ChartInconsistencyException {
+	public void addDataToModel(String label, Double value, String color,
+			String highlightColor) throws ChartInconsistencyException {
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}

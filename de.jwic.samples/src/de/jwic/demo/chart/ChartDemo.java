@@ -150,7 +150,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 		tb.setCssClass("j-toolbar ui-corner-top");
 		ToolBarGroup group = tb.addGroup();
 		Button btNew = group.addButton();
-		btNew.setTitle("Add Task");
+		btNew.setTitle("Add Chart element");
 		btNew.setIconEnabled(ImageLibrary.IMG_ADD);
 		btNew.addSelectionListener(new SelectionListener() {
 			@Override

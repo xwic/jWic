@@ -33,7 +33,7 @@ public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
 		List<PolarChartDataset> datasets = new ArrayList<PolarChartDataset>();
 
 		PolarChartDataset chartd1 = new PolarChartDataset("First", "1",
-				Color.red, Color.BLUE);
+				);
 		PolarChartDataset chartd2 = new PolarChartDataset("Second", "2",
 				Color.black, Color.BLUE);
 		PolarChartDataset chartd3 = new PolarChartDataset("Third", "3",
@@ -83,22 +83,23 @@ public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
 	@Override
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.addDataToModel(element.getTitle(),
+				Double.valueOf(element.getValue()), "#ffffff", "10;20;10;0.1");
+
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
+
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.removeDataFromModel(selectedTableElement.getTitle());
+
 	}
 
 }

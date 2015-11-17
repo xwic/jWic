@@ -30,9 +30,9 @@
 					    datasets: $control.model.datasetsJson
 					};
 			chartImpl = chart.Bar(chartData, options);
-		}else if (chartType=='pie'){
+		}else if (chartType=='circle'){
 			chartData = $control.model.datasetsJson;
-			chartImpl = chart.Pie(chartData,options);
+			chartImpl = chart.Doughnut(chartData,options);
 		}else if (chartType=='line'){
 			 chartData = {
 				    labels: $control.model.labelsJson,
@@ -45,9 +45,6 @@
 				    datasets:$control.model.datasetsJson
 			}
 			chartImpl = chart.Radar(chartData, options);
-		}else if (chartType=='doughnut'){
-			 chartData = $control.model.datasetsJson;
-			chartImpl = chart.Doughnut(chartData,options);	
 		}else if (chartType=='polar'){
 			chartData = $control.model.datasetsJson;
 			chartImpl = chart.PolarArea(chartData, options);

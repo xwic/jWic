@@ -23,7 +23,6 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-
 	public RadarChartDemo(IControlContainer container)
 			throws ChartInconsistencyException {
 		super(container);
@@ -102,22 +101,23 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	@Override
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.addDataToModel(element.getTitle(), 1,
+				Double.valueOf(element.getValue()));
+
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
+
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.removeDataFromModel(selectedTableElement.getTitle());
+
 	}
 
 }

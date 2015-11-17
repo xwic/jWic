@@ -20,7 +20,7 @@ public class CircleChart extends
 
 	public CircleChart(IControlContainer container, String name,
 			CircleChartModel model) {
-		super(container, name, ChartType.DOUGHNUT, model);
+		super(container, name, ChartType.CIRCLE, model);
 		setLocalChartConfiguration(new CircleChartConfiguration());
 
 	}

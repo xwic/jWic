@@ -1,8 +1,5 @@
 package de.jwic.controls.chart.impl.polar;
 
-import java.awt.Color;
-import java.util.List;
-
 import de.jwic.controls.chart.api.ChartDataset;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
@@ -14,16 +11,21 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  */
 public class PolarChartDataset extends ChartDataset {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String value;
-	private Color color;
-	private Color highlight;
+	private String color;
+	private String highlight;
 
-	public PolarChartDataset(String label, String value, Color color,
-			Color highlight) {
+	public PolarChartDataset(String label, String value, String color,
+			String highlight) {
 		super(label);
 		this.value = value;
-		this.color = color;
-		this.highlight = highlight;
+		this.color = DatenConverter.convertToJSColor(color);
+		;
+		this.highlight = DatenConverter.convertToJSColor(highlight);
 	}
 
 	public String getValue() {
@@ -38,16 +40,16 @@ public class PolarChartDataset extends ChartDataset {
 		return DatenConverter.convertToJSColor(color);
 	}
 
-	public void setColor(Color color) {
-		this.color = color;
+	public void setColor(String color) {
+		this.color = DatenConverter.convertToJSColor(color);
 	}
 
 	public String getHighlight() {
-		return DatenConverter.convertToJSColor(highlight);
+		return highlight;
 	}
 
-	public void setHighlight(Color highlight) {
-		this.highlight = highlight;
+	public void setHighlight(String highlight) {
+		this.highlight = DatenConverter.convertToJSColor(highlight);
 	}
 
 }
