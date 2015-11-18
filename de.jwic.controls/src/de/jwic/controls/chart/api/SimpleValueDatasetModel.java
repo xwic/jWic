@@ -1,25 +1,22 @@
-package de.jwic.controls.chart.impl.circle;
+package de.jwic.controls.chart.api;
 
-import java.awt.Color;
 import java.util.List;
 
-import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 
 /**
  * 
  * @author Karolina Marek (karolina-marek.eu)
  *
- * @date 29.10.2015
+ * @date 18.11.2015
  */
-public class CircleChartModel extends ChartModel<CircleChartDataset> {
-
+public class SimpleValueDatasetModel extends ChartModel<SimpleValueDataset> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6110011116843847513L;
 
-	public CircleChartModel(List<CircleChartDataset> datasets) {
+	public SimpleValueDatasetModel(List<SimpleValueDataset> datasets) {
 		super(datasets);
 	}
 
@@ -31,13 +28,13 @@ public class CircleChartModel extends ChartModel<CircleChartDataset> {
 	 * @param value
 	 * @throws ChartInconsistencyException
 	 */
-	public void addDataToModel(String label, Double value, Color color,
-			Color highlightColor) throws ChartInconsistencyException {
+	public void addDataToModel(String label, Double value, String color,
+			String highlightColor) throws ChartInconsistencyException {
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		CircleChartDataset dataset = new CircleChartDataset(label,
-				value.toString(), color, highlightColor);
+		SimpleValueDataset dataset = new SimpleValueDataset(label, value,
+				color, highlightColor);
 		getDatasets().add(dataset);
 		update();
 	}
@@ -59,9 +56,9 @@ public class CircleChartModel extends ChartModel<CircleChartDataset> {
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		CircleChartDataset dataset = getDatasets().get(datasetNumber);
+		SimpleValueDataset dataset = getDatasets().get(datasetNumber);
 		dataset.setLabel(label);
-		dataset.setValue(newValue.toString());
+		dataset.setValue(newValue);
 		update();
 
 	}
@@ -75,8 +72,8 @@ public class CircleChartModel extends ChartModel<CircleChartDataset> {
 	 */
 	public void removeDataFromModel(String label)
 			throws ChartInconsistencyException {
-		CircleChartDataset datasetToRemove = null;
-		for (CircleChartDataset dataset : getDatasets()) {
+		SimpleValueDataset datasetToRemove = null;
+		for (SimpleValueDataset dataset : getDatasets()) {
 			if (dataset.getLabel().equals(label)) {
 				datasetToRemove = dataset;
 			}

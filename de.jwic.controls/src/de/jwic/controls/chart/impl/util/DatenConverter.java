@@ -49,12 +49,6 @@ public class DatenConverter {
 		return builder.toString();
 	}
 
-	public static String convertToJSColor(Color scaleLineColor) {
-		return "rgba(" + scaleLineColor.getRed() + ","
-				+ scaleLineColor.getGreen() + "," + scaleLineColor.getBlue()
-				+ ",.1)";
-	}
-
 	public static String convertToJSColor(String color) {
 		if (color == null) {
 			return null;
@@ -62,10 +56,10 @@ public class DatenConverter {
 		if (color.startsWith("#")) {
 			return color;
 		}
-		if (color.contains(";")) {
-			String[] arr = color.split(";");
+		if (color.contains(",")) {
+			String[] arr = color.split(",");
 			if (arr.length >= 3) {
-
+				return "rgba(" + color + ")";
 			}
 			return null;
 		}
@@ -94,17 +88,16 @@ public class DatenConverter {
 	public static String convertToJson(ChartConfiguration obj, ChartType type)
 			throws JsonGenerationException, JsonMappingException, IOException,
 			JSONException, IllegalArgumentException, IllegalAccessException {
-		// ObjectMapper mapper = new ObjectMapper();
-		// JSONObject jsonAccountInquiry;
-		// jsonAccountInquiry = new JSONObject(mapper.writeValueAsString(obj));
 
 		JSONObject object = new JSONObject();
-		for (Field field : obj.getClass().getDeclaredFields()) {
+		for (Field field : obj.getClass().getFields()) {
 			String fieldName = getNameForChartType(type, field);
-			field.setAccessible(true);
-			Object fieldValue = field.get(obj);
-			field.setAccessible(false);
-			object.append(fieldName, fieldValue);
+			if (!StringUtils.isEmpty(fieldName)) {
+				field.setAccessible(true);
+				Object fieldValue = field.get(obj);
+				field.setAccessible(false);
+				object.append(fieldName, fieldValue);
+			}
 		}
 		return object.toString();
 	}
@@ -116,20 +109,24 @@ public class DatenConverter {
 			switch (type) {
 			case BAR:
 				value = col.bar();
+				break;
 			case CIRCLE:
-				;
+				value = col.circle();
+				break;
 			case LINE:
-				;
+				value = col.line();
+				break;
 			case POLAR:
-				;
+				value = col.polar();
+				break;
 			case RADAR:
-				;
+				value = col.radar();
+				break;
 			default:
-				return field.getName();
+				value = null;
 
 			}
-		}
-		if (StringUtils.isEmpty(value)) {
+		} else {
 			value = field.getName();
 		}
 		return value;

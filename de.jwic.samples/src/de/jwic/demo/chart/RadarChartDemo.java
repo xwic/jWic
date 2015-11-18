@@ -1,6 +1,5 @@
 package de.jwic.demo.chart;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		values.add("7");
 		values.add("8");
 		RadarChartDataset chartd1 = new RadarChartDataset("First", values);
-		chartd1.setFillColor(Color.RED);
+		chartd1.setFillColor("#3366cc");
 		datasets.add(chartd1);
 
 		List<String> values2 = new ArrayList<String>();

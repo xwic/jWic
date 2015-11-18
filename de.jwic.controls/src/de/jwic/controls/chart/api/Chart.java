@@ -41,7 +41,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private M model;
 	protected List<SelectionListener> elementClickListeners = null;
 	private List<ElementSelectedListener> elementSelectedListeners;
-	private List<ActionListener> animationCompleteListeners;
 	private List<ActionListener> animationInProgressListeners;
 	private L localConfiguration;
 
@@ -52,7 +51,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		setTemplateName(Chart.class.getName());
 		this.chartType = type;
 		this.model = model;
-		model.setChart(this);
+		this.model.setChart(this);
 
 	}
 

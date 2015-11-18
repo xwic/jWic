@@ -1,7 +1,6 @@
 package de.jwic.controls.chart.impl.bar;
 
 import de.jwic.controls.chart.api.configuration.ChartConfiguration;
-import de.jwic.controls.chart.impl.util.DatenConverter;
 
 /**
  * 
@@ -17,11 +16,7 @@ public class BarChartConfiguration extends ChartConfiguration {
 	}
 
 	private boolean scaleBeginAtZero = true;
-
-
-
 	private int barValueSpacing = 1;
-	// Number - Spacing between data sets within X values
 	private int barDatasetSpacing = 1;
 
 	/**
@@ -40,9 +35,6 @@ public class BarChartConfiguration extends ChartConfiguration {
 		this.scaleBeginAtZero = scaleBeginAtZero;
 	}
 
-	
-
-	
 
 	/**
 	 * 

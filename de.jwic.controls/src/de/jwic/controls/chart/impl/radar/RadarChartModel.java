@@ -4,7 +4,6 @@ import java.util.List;
 
 import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.bar.BarChartDataset;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
 /**

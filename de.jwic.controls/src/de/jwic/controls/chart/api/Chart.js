@@ -19,8 +19,8 @@
 // JWic.fireAction('$control.controlID', 'animationComplete');
 // }
 	    }
-	    var localOptions = $control.getConfigurationJSON();
-	    var options = extend(localOptions,functionOptions);
+	    var options = $control.getConfigurationJSON();
+	   // var options = extend(localOptions,functionOptions);
 		var chartImpl = undefined;
 		var chartData = undefined;
 		

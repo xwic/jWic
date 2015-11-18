@@ -7,6 +7,7 @@ import java.util.List;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
+import de.jwic.controls.chart.api.configuration.ChartConfiguration;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
 /**
@@ -22,7 +23,6 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 	private Chart chart;
 
 	public ChartModel(List<Dataset> datasets) {
-
 		this.datasets = datasets;
 	}
 
@@ -57,5 +57,6 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 	public void update() {
 		chart.requireRedraw();
 	}
+	
 
 }

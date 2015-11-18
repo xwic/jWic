@@ -1,14 +1,14 @@
 package de.jwic.demo.chart;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.SimpleValueDataset;
+import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.polar.PolarChart;
-import de.jwic.controls.chart.impl.polar.PolarChartDataset;
-import de.jwic.controls.chart.impl.polar.PolarChartModel;
+import de.jwic.demo.chart.util.DataModelCreator;
 
 /**
  * 
@@ -16,7 +16,8 @@ import de.jwic.controls.chart.impl.polar.PolarChartModel;
  *
  * @date 19.10.2015
  */
-public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
+public class PolarChartDemo extends
+		ChartDemo<PolarChart, SimpleValueDatasetModel> {
 
 	/**
 	 * 
@@ -29,51 +30,26 @@ public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
 
 	}
 
-	private List<PolarChartDataset> createDatasets() {
-		List<PolarChartDataset> datasets = new ArrayList<PolarChartDataset>();
-
-		PolarChartDataset chartd1 = new PolarChartDataset("First", "1",
-				);
-		PolarChartDataset chartd2 = new PolarChartDataset("Second", "2",
-				Color.black, Color.BLUE);
-		PolarChartDataset chartd3 = new PolarChartDataset("Third", "3",
-				Color.CYAN, Color.BLUE);
-		PolarChartDataset chartd4 = new PolarChartDataset("Fourth", "4",
-				Color.yellow, Color.BLUE);
-		PolarChartDataset chartd5 = new PolarChartDataset("Fifth", "5",
-				Color.DARK_GRAY, Color.BLUE);
-		PolarChartDataset chartd6 = new PolarChartDataset("Sexsth", "6",
-				Color.CYAN, Color.BLUE);
-
-		datasets.add(chartd1);
-		datasets.add(chartd2);
-		datasets.add(chartd3);
-		datasets.add(chartd4);
-		datasets.add(chartd5);
-		datasets.add(chartd6);
-		return datasets;
-	}
-
 	@Override
-	protected PolarChart createChart(PolarChartModel model) {
+	protected PolarChart createChart(SimpleValueDatasetModel model) {
 
 		return new PolarChart(this, "chart", model);
 
 	}
 
 	@Override
-	protected PolarChartModel createModel() {
-		return new PolarChartModel(createDatasets());
+	protected SimpleValueDatasetModel createModel() {
+		return DataModelCreator.getSimpleValueDatasetModel();
 
 	}
 
 	@Override
 	protected List<TableElement> convertChartModelToTableElements() {
 		List<TableElement> elements = new ArrayList<TableElement>();
-		for (PolarChartDataset set : model.getDatasets()) {
+		for (SimpleValueDataset set : model.getDatasets()) {
 			TableElement el = new TableElement();
 			el.setTitle(set.getLabel());
-			el.setValue(set.getValue());
+			el.setValue(set.getValue().toString());
 			elements.add(el);
 		}
 
@@ -84,7 +60,7 @@ public class PolarChartDemo extends ChartDemo<PolarChart, PolarChartModel> {
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
 		model.addDataToModel(element.getTitle(),
-				Double.valueOf(element.getValue()), "#ffffff", "10;20;10;0.1");
+				Double.valueOf(element.getValue()), "#3366cc", "#66ff33");
 
 	}
 

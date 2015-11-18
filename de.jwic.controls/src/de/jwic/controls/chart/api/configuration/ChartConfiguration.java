@@ -1,5 +1,7 @@
 package de.jwic.controls.chart.api.configuration;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
 
 import de.jwic.controls.chart.impl.util.DatenConverter;
@@ -10,8 +12,12 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
  *
  * @date 13.11.2015
  */
-public abstract class ChartConfiguration {
+public abstract class ChartConfiguration implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5537745123026930381L;
 	private static final Logger LOGGER = Logger
 			.getLogger(ChartConfiguration.class);
 	private int width = 500;
@@ -24,7 +30,7 @@ public abstract class ChartConfiguration {
 	private AnimationEffect animationEasing = AnimationEffect.EASEINOUTBOUNCE;
 	private boolean showScale = true;
 	private boolean scaleOverride = false;
-	private String scaleLineColor = "rgba(0;0;0;1)";
+	private String scaleLineColor = "rgba(0,0,0,1)";
 	private int scaleLineWidth = 1;
 	private boolean scaleShowLabels = true;
 	private String scaleLabel = "<%=value%>";
@@ -36,7 +42,7 @@ public abstract class ChartConfiguration {
 	private String scaleFontColor = "#666";
 	private boolean maintainAspectRatio = true;
 	private boolean showTooltips = true;
-	private String tooltipFillColor = "rgba(0;0;0;0.8)";
+	private String tooltipFillColor = "rgba(0,0,0,0.8)";
 	private String tooltipFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
 	private int tooltipFontSize = 14;
 	private String tooltipFontStyle = "normal";
@@ -54,13 +60,13 @@ public abstract class ChartConfiguration {
 
 	private String legendTemplate;
 
-	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "", radar = "segmentShowStroke")
+	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke")
 	private boolean showStroke = true;
 
-	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "", radar = "segmentStrokeColor")
-	private String strokeColor = "rgba()";
+	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor")
+	private String strokeColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "", radar = "segmentStrokeWidth")
+	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth")
 	private int segmentStrokeWidth = 2;
 
 	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "")
@@ -73,7 +79,7 @@ public abstract class ChartConfiguration {
 	private boolean scaleShowGridLines = true;
 
 	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "")
-	private String scaleGridLineColor = "rgba(0;0;0,1)";
+	private String scaleGridLineColor = "rgba(0,0,0,1)";
 
 	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "")
 	private int scaleGridLineWidth = 1;
@@ -195,7 +201,14 @@ public abstract class ChartConfiguration {
 	 *            String - The colour of each segment stroke
 	 */
 	public void setStrokeColor(String strokeColor) {
-		this.strokeColor = strokeColor;
+		String color = DatenConverter.convertToJSColor(strokeColor);
+		if (color != null) {
+			this.strokeColor = color;
+		} else {
+			LOGGER.warn("strokeColor  can not be set with value: "
+					+ strokeColor);
+		}
+
 	}
 
 	/**
@@ -270,7 +283,7 @@ public abstract class ChartConfiguration {
 	 * @return String - Color of the grid lines
 	 */
 	public String getScaleGridLineColor() {
-		return DatenConverter.convertToJSColor(scaleGridLineColor);
+		return scaleGridLineColor;
 	}
 
 	/**
@@ -279,7 +292,13 @@ public abstract class ChartConfiguration {
 	 * @param scaleGridLineColor
 	 */
 	public void setScaleGridLineColor(String scaleGridLineColor) {
-		this.scaleGridLineColor = scaleGridLineColor;
+		String color = DatenConverter.convertToJSColor(scaleGridLineColor);
+		if (color != null) {
+			this.scaleGridLineColor = color;
+		} else {
+			LOGGER.warn("scaleGridLineColor  can not be set with value: "
+					+ scaleGridLineColor);
+		}
 	}
 
 	/**
@@ -586,7 +605,13 @@ public abstract class ChartConfiguration {
 	 *            String - Scale label font colour
 	 */
 	public void setScaleFontColor(String scaleFontColor) {
-		this.scaleFontColor = scaleFontColor;
+		String color = DatenConverter.convertToJSColor(scaleFontColor);
+		if (color != null) {
+			this.scaleFontColor = color;
+		} else {
+			LOGGER.warn("Scale Line color  can not be set with value: "
+					+ scaleFontColor);
+		}
 	}
 
 	/**
@@ -642,7 +667,13 @@ public abstract class ChartConfiguration {
 	 *            - String - Tooltip background colour
 	 */
 	public void setTooltipFillColor(String tooltipFillColor) {
-		this.tooltipFillColor = tooltipFillColor;
+		String color = DatenConverter.convertToJSColor(tooltipFillColor);
+		if (color != null) {
+			this.tooltipFillColor = color;
+		} else {
+			LOGGER.warn("Tooltoip fill color  can not be set with value: "
+					+ tooltipFillColor);
+		}
 	}
 
 	/**
@@ -761,6 +792,7 @@ public abstract class ChartConfiguration {
 	 *            - String - Tooltip title font weight style
 	 */
 	public void setTooltipTitleFontStyle(String tooltipTitleFontStyle) {
+
 		this.tooltipTitleFontStyle = tooltipTitleFontStyle;
 	}
 
@@ -778,7 +810,14 @@ public abstract class ChartConfiguration {
 	 *            String - Tooltip title font colour
 	 */
 	public void setTooltipTitleFontColor(String tooltipTitleFontColor) {
-		this.tooltipTitleFontColor = tooltipTitleFontColor;
+		String color = DatenConverter.convertToJSColor(tooltipTitleFontColor);
+		if (color != null) {
+			this.tooltipTitleFontColor = color;
+		} else {
+			LOGGER.warn("Tooltoip title color  can not be set with value: "
+					+ tooltipTitleFontColor);
+		}
+
 	}
 
 	/**

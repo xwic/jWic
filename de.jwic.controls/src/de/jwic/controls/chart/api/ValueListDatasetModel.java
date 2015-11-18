@@ -1,27 +1,26 @@
-package de.jwic.controls.chart.impl.bar;
+package de.jwic.controls.chart.api;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
-import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.util.DatenConverter;
 
 /**
  * 
- * @author karolina
+ * @author Karolina Marek (karolina-marek.eu)
  *
+ * @date 18.11.2015
  */
-public class BarChartModel extends ChartModel<BarChartDataset> {
+public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8317049871668813963L;
+	private static final long serialVersionUID = -2421385147478923715L;
 	private List<String> labels;
 
-	public BarChartModel(List<String> labels, List<BarChartDataset> datasets) {
+	public ValueListDatasetModel(List<String> labels,
+			List<ValueListDataset> datasets) {
 		super(datasets);
 		this.labels = labels;
 	}
@@ -48,7 +47,10 @@ public class BarChartModel extends ChartModel<BarChartDataset> {
 	 */
 	public void addDataToModel(String label, int datasetNumber, Double value)
 			throws ChartInconsistencyException {
-	
+		int indexOfElement = labels.indexOf(label);
+		if (indexOfElement < 0) {
+			throw new ChartInconsistencyException("No label with name:" + label);
+		}
 		if (getDatasets().size() <= datasetNumber) {
 			throw new ChartInconsistencyException(
 					"Array of datasets smaller than " + datasetNumber);
@@ -56,7 +58,7 @@ public class BarChartModel extends ChartModel<BarChartDataset> {
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		BarChartDataset dataset = getDatasets().get(datasetNumber);
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
 		labels.add(label);
 		dataset.getData().add(value.toString());
 		update();
@@ -83,7 +85,7 @@ public class BarChartModel extends ChartModel<BarChartDataset> {
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		BarChartDataset dataset = getDatasets().get(datasetNumber);
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
 		dataset.getData().set(indexOfElement, newValue.toString());
 		update();
 
@@ -116,7 +118,7 @@ public class BarChartModel extends ChartModel<BarChartDataset> {
 		}
 
 		labels.remove(indexOfElement);
-		for (BarChartDataset dataset : getDatasets()) {
+		for (ValueListDataset dataset : getDatasets()) {
 			dataset.getData().remove(indexOfElement);
 		}
 		update();
