@@ -22,7 +22,7 @@ public class RadarChart extends Chart<RadarChartModel, RadarChartConfiguration> 
 	public RadarChart(IControlContainer container, String name,
 			RadarChartModel model) {
 		super(container, name, ChartType.RADAR, model);
-		setLocalChartConfiguration(new RadarChartConfiguration());
+		setConfiguration(new RadarChartConfiguration());
 
 	}
 

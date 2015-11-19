@@ -18,7 +18,7 @@ public class BarChart extends Chart<ValueListDatasetModel, BarChartConfiguration
 	public BarChart(IControlContainer container, String name,
 			ValueListDatasetModel model) {
 		super(container, name, ChartType.BAR, model);
-		setLocalChartConfiguration(new BarChartConfiguration());
+		setConfiguration(new BarChartConfiguration());
 
 	}
 

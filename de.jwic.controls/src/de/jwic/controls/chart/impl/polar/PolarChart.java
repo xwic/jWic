@@ -24,7 +24,7 @@ public class PolarChart extends
 	public PolarChart(IControlContainer container, String name,
 			SimpleValueDatasetModel model) {
 		super(container, name, ChartType.POLAR, model);
-		setLocalChartConfiguration(new PolarChartConfiguration());
+		setConfiguration(new PolarChartConfiguration());
 
 	}
 

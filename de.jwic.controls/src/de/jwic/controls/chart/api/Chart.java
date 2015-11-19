@@ -42,7 +42,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	protected List<SelectionListener> elementClickListeners = null;
 	private List<ElementSelectedListener> elementSelectedListeners;
 	private List<ActionListener> animationInProgressListeners;
-	private L localConfiguration;
+	private L configuration;
 
 	public Chart(IControlContainer container, String name, ChartType type,
 			M model) {
@@ -55,12 +55,12 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	}
 
-	public L getLocalChartConfiguration() {
-		return localConfiguration;
+	public L getConfiguration() {
+		return configuration;
 	}
 
-	protected void setLocalChartConfiguration(L configuration) {
-		this.localConfiguration = configuration;
+	protected void setConfiguration(L configuration) {
+		this.configuration = configuration;
 	}
 
 	public void actionAnimationInProgress() {
@@ -73,15 +73,15 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
-//	public void actionAnimationComplete() {
-//		if (animationCompleteListeners != null) {
-//			for (Iterator<ActionListener> it = animationCompleteListeners
-//					.iterator(); it.hasNext();) {
-//				ActionListener osl = it.next();
-//				osl.actionPerformed(null);
-//			}
-//		}
-//	}
+	// public void actionAnimationComplete() {
+	// if (animationCompleteListeners != null) {
+	// for (Iterator<ActionListener> it = animationCompleteListeners
+	// .iterator(); it.hasNext();) {
+	// ActionListener osl = it.next();
+	// osl.actionPerformed(null);
+	// }
+	// }
+	// }
 
 	public void actionClick(String param) {
 		if (elementClickListeners != null) {
@@ -121,6 +121,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	public void setModel(M model) {
 		this.model = model;
+		model.setChart(this);
 		requireRedraw();
 	}
 
@@ -183,7 +184,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	public String getConfigurationJSON() {
 		try {
 			try {
-				return DatenConverter.convertToJson(localConfiguration, chartType);
+				return DatenConverter.convertToJson(configuration, chartType);
 			} catch (IllegalArgumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

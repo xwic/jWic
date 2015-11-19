@@ -24,7 +24,7 @@ public class LineChart extends
 	public LineChart(IControlContainer container, String name,
 			ValueListDatasetModel model) {
 		super(container, name, ChartType.LINE, model);
-		setLocalChartConfiguration(new LineChartConfiguration());
+		setConfiguration(new LineChartConfiguration());
 
 	}
 

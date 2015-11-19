@@ -22,7 +22,7 @@ public class CircleChart extends
 	public CircleChart(IControlContainer container, String name,
 			SimpleValueDatasetModel model) {
 		super(container, name, ChartType.CIRCLE, model);
-		setLocalChartConfiguration(new CircleChartConfiguration());
+		setConfiguration(new CircleChartConfiguration());
 
 	}
 
