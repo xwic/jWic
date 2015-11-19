@@ -83,7 +83,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 			}
 		};
 		
-		propEditor.setBean(chart.getLocalChartConfiguration());
+		propEditor.setBean(chart.getConfiguration());
 		
 
 	}

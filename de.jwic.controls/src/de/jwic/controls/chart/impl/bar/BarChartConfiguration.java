@@ -10,31 +10,18 @@ import de.jwic.controls.chart.api.configuration.ChartConfiguration;
  */
 public class BarChartConfiguration extends ChartConfiguration {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6725463428120345942L;
+
 	public BarChartConfiguration() {
 		super(
 				"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>");
 	}
 
-	private boolean scaleBeginAtZero = true;
 	private int barValueSpacing = 1;
 	private int barDatasetSpacing = 1;
-
-	/**
-	 * @return Boolean - Whether the scale should start at zero, or // an order
-	 *         of magnitude down from the lowest value
-	 */
-	public boolean isScaleBeginAtZero() {
-		return scaleBeginAtZero;
-	}
-
-	/**
-	 * Whether the scale should start at zero, or // an order of magnitude down
-	 * from the lowest value
-	 */
-	public void setScaleBeginAtZero(boolean scaleBeginAtZero) {
-		this.scaleBeginAtZero = scaleBeginAtZero;
-	}
-
 
 	/**
 	 * 

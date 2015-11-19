@@ -9,9 +9,11 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.jwic.controls.chart.api.ChartDataset;
 import de.jwic.controls.chart.api.ChartType;
 import de.jwic.controls.chart.api.configuration.ChartConfiguration;
 import de.jwic.controls.chart.api.configuration.JsonChartName;
@@ -71,10 +73,28 @@ public class DatenConverter {
 				+ color.getBlue() + "," + alfa + ")";
 	}
 
-	public static String convertToJson(List<? extends Object> datasets)
-			throws JsonGenerationException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		return mapper.writeValueAsString(datasets);
+	public static String convertToJson(List<? extends ChartDataset> datasets,
+			ChartType type) throws JsonGenerationException,
+			JsonMappingException, IOException, IllegalArgumentException,
+			IllegalAccessException, JSONException {
+
+		JSONArray array = new JSONArray();
+		for (ChartDataset dataset : datasets) {
+			JSONObject object = new JSONObject();
+			for (Field field : dataset.getClass().getFields()) {
+				String fieldName = getNameForChartType(type, field);
+				if (StringUtils.isEmpty(fieldName)) {
+					fieldName = field.getName();
+				}
+				field.setAccessible(true);
+				Object fieldValue = field.get(dataset);
+				field.setAccessible(false);
+				object.append(fieldName, fieldValue);
+
+			}
+			array.put(object);
+		}
+		return array.toString();
 
 	}
 

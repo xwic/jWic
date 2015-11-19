@@ -90,11 +90,7 @@ public abstract class ChartConfiguration implements Serializable {
 	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate")
 	private boolean animateRotate = true;
 
-	/**
-	 * 
-	 * @param legend
-	 *            - set default for each chart
-	 */
+
 	public ChartConfiguration(String legend) {
 		this.legendTemplate = legend;
 	}
@@ -108,9 +104,9 @@ public abstract class ChartConfiguration implements Serializable {
 	}
 
 	/**
-	 * A legend template, format for the legend tooltip
 	 * 
-	 * @param legendTemplate
+	 * @param legend
+	 *            - set default for each chart
 	 */
 	public void setLegendTemplate(String legendTemplate) {
 		this.legendTemplate = legendTemplate;

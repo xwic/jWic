@@ -12,8 +12,7 @@ import de.jwic.controls.chart.impl.util.DatenConverter;
 public class RadarChartConfiguration extends ChartConfiguration {
 
 	private boolean scaleShowLabelBackdrop = true;
-	private String scaleBackdropColor = "255;255;255;0,1";
-	private boolean scaleBeginAtZero = true;
+	private String scaleBackdropColor = "rgba(255,255,255,0,1)";
 	private int scaleBackdropPaddingY = 2;
 	private int scaleBackdropPaddingX = 2;
 	private boolean scaleShowLine = true;
@@ -62,20 +61,7 @@ public class RadarChartConfiguration extends ChartConfiguration {
 
 	}
 
-	/**
-	 * @return Boolean - Whether the scale should begin at zero
-	 */
-	public boolean isScaleBeginAtZero() {
-		return scaleBeginAtZero;
-	}
 
-	/**
-	 * @param scaleBeginAtZero
-	 *            Boolean - Whether the scale should begin at zero
-	 */
-	public void setScaleBeginAtZero(boolean scaleBeginAtZero) {
-		this.scaleBeginAtZero = scaleBeginAtZero;
-	}
 
 	/**
 	 * 

@@ -10,6 +10,11 @@ import de.jwic.controls.chart.api.configuration.ChartConfiguration;
  */
 public class LineChartConfiguration extends ChartConfiguration {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5669716044735403107L;
+
 	public LineChartConfiguration() {
 		super(
 				"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color=<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>");
@@ -30,5 +35,61 @@ public class LineChartConfiguration extends ChartConfiguration {
 	private int pointHitDetectionRadius = 20;
 	// Boolean - Whether to fill the dataset with a colour
 	private boolean datasetFill = true;
+
+	public boolean isBezierCurve() {
+		return bezierCurve;
+	}
+
+	public void setBezierCurve(boolean bezierCurve) {
+		this.bezierCurve = bezierCurve;
+	}
+
+	public double getBezierCurveTension() {
+		return bezierCurveTension;
+	}
+
+	public void setBezierCurveTension(double bezierCurveTension) {
+		this.bezierCurveTension = bezierCurveTension;
+	}
+
+	public boolean isPointDot() {
+		return pointDot;
+	}
+
+	public void setPointDot(boolean pointDot) {
+		this.pointDot = pointDot;
+	}
+
+	public int getPointDotRadius() {
+		return pointDotRadius;
+	}
+
+	public void setPointDotRadius(int pointDotRadius) {
+		this.pointDotRadius = pointDotRadius;
+	}
+
+	public int getPointDotStrokeWidth() {
+		return pointDotStrokeWidth;
+	}
+
+	public void setPointDotStrokeWidth(int pointDotStrokeWidth) {
+		this.pointDotStrokeWidth = pointDotStrokeWidth;
+	}
+
+	public int getPointHitDetectionRadius() {
+		return pointHitDetectionRadius;
+	}
+
+	public void setPointHitDetectionRadius(int pointHitDetectionRadius) {
+		this.pointHitDetectionRadius = pointHitDetectionRadius;
+	}
+
+	public boolean isDatasetFill() {
+		return datasetFill;
+	}
+
+	public void setDatasetFill(boolean datasetFill) {
+		this.datasetFill = datasetFill;
+	}
 
 }
