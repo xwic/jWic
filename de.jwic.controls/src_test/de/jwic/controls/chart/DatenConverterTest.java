@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import de.jwic.controls.chart.api.ChartDataset;
 import de.jwic.controls.chart.api.ValueListDataset;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 public class DatenConverterTest {
 
@@ -28,7 +28,7 @@ public class DatenConverterTest {
 		list.add("May");
 		list.add("June");
 		list.add("July");
-		System.out.println(DatenConverter.convertToJSArray(list));
+		System.out.println(DataConverter.convertToJSArray(list));
 	}
 
 	@Test
@@ -60,6 +60,6 @@ public class DatenConverterTest {
 		ChartDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);
 
-		System.out.println(DatenConverter.convertToJson(datasets));
+		System.out.println(DataConverter.convertToJson(datasets));
 	}
 }

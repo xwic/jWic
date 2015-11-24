@@ -1,7 +1,7 @@
 package de.jwic.controls.chart.impl.radar;
 
 import de.jwic.controls.chart.api.configuration.ChartConfiguration;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class RadarChartConfiguration extends ChartConfiguration {
 	 *            - String - The colour of the label backdrop
 	 */
 	public void setScaleBackdropColor(String scaleBackdropColor) {
-		String color = DatenConverter.convertToJSColor(scaleBackdropColor);
+		String color = DataConverter.convertToJSColor(scaleBackdropColor);
 		if (color != null) {
 			this.scaleBackdropColor = color;
 		}

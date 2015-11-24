@@ -3,7 +3,7 @@ package de.jwic.controls.chart.impl.radar;
 import java.util.List;
 
 import de.jwic.controls.chart.api.ValueListDataset;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class RadarChartDataset extends ValueListDataset {
 	}
 
 	public void setPointColor(String pointColor) {
-		String color = DatenConverter.convertToJSColor(pointColor);
+		String color = DataConverter.convertToJSColor(pointColor);
 		this.pointColor = color;
 
 	}
@@ -41,7 +41,7 @@ public class RadarChartDataset extends ValueListDataset {
 	}
 
 	public void setPointStrokeColor(String pointStrokeColor) {
-		String color = DatenConverter.convertToJSColor(pointStrokeColor);
+		String color = DataConverter.convertToJSColor(pointStrokeColor);
 		this.pointStrokeColor = color;
 	}
 

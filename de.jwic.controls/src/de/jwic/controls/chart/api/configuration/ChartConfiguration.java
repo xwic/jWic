@@ -2,9 +2,7 @@ package de.jwic.controls.chart.api.configuration;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
-
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -17,9 +15,6 @@ public abstract class ChartConfiguration implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5537745123026930381L;
-	private static final Logger LOGGER = Logger
-			.getLogger(ChartConfiguration.class);
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;
@@ -89,7 +84,6 @@ public abstract class ChartConfiguration implements Serializable {
 
 	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate")
 	private boolean animateRotate = true;
-
 
 	public ChartConfiguration(String legend) {
 		this.legendTemplate = legend;
@@ -197,14 +191,10 @@ public abstract class ChartConfiguration implements Serializable {
 	 *            String - The colour of each segment stroke
 	 */
 	public void setStrokeColor(String strokeColor) {
-		String color = DatenConverter.convertToJSColor(strokeColor);
+		String color = DataConverter.convertToJSColor(strokeColor);
 		if (color != null) {
 			this.strokeColor = color;
-		} else {
-			LOGGER.warn("strokeColor  can not be set with value: "
-					+ strokeColor);
 		}
-
 	}
 
 	/**
@@ -288,12 +278,9 @@ public abstract class ChartConfiguration implements Serializable {
 	 * @param scaleGridLineColor
 	 */
 	public void setScaleGridLineColor(String scaleGridLineColor) {
-		String color = DatenConverter.convertToJSColor(scaleGridLineColor);
+		String color = DataConverter.convertToJSColor(scaleGridLineColor);
 		if (color != null) {
 			this.scaleGridLineColor = color;
-		} else {
-			LOGGER.warn("scaleGridLineColor  can not be set with value: "
-					+ scaleGridLineColor);
 		}
 	}
 
@@ -383,9 +370,6 @@ public abstract class ChartConfiguration implements Serializable {
 		AnimationEffect anim = AnimationEffect.getAfterName(animationEasing);
 		if (anim != null) {
 			this.animationEasing = anim;
-		} else {
-			LOGGER.warn("Animation easing can not be set with value: "
-					+ animationEasing);
 		}
 	}
 
@@ -438,12 +422,9 @@ public abstract class ChartConfiguration implements Serializable {
 	 * @param scaleLineColor
 	 */
 	public void setScaleLineColor(String scaleLineColor) {
-		String color = DatenConverter.convertToJSColor(scaleLineColor);
+		String color = DataConverter.convertToJSColor(scaleLineColor);
 		if (color != null) {
 			this.scaleLineColor = color;
-		} else {
-			LOGGER.warn("Scale Line color  can not be set with value: "
-					+ scaleLineColor);
 		}
 	}
 
@@ -601,12 +582,9 @@ public abstract class ChartConfiguration implements Serializable {
 	 *            String - Scale label font colour
 	 */
 	public void setScaleFontColor(String scaleFontColor) {
-		String color = DatenConverter.convertToJSColor(scaleFontColor);
+		String color = DataConverter.convertToJSColor(scaleFontColor);
 		if (color != null) {
 			this.scaleFontColor = color;
-		} else {
-			LOGGER.warn("Scale Line color  can not be set with value: "
-					+ scaleFontColor);
 		}
 	}
 
@@ -663,12 +641,9 @@ public abstract class ChartConfiguration implements Serializable {
 	 *            - String - Tooltip background colour
 	 */
 	public void setTooltipFillColor(String tooltipFillColor) {
-		String color = DatenConverter.convertToJSColor(tooltipFillColor);
+		String color = DataConverter.convertToJSColor(tooltipFillColor);
 		if (color != null) {
 			this.tooltipFillColor = color;
-		} else {
-			LOGGER.warn("Tooltoip fill color  can not be set with value: "
-					+ tooltipFillColor);
 		}
 	}
 
@@ -806,14 +781,10 @@ public abstract class ChartConfiguration implements Serializable {
 	 *            String - Tooltip title font colour
 	 */
 	public void setTooltipTitleFontColor(String tooltipTitleFontColor) {
-		String color = DatenConverter.convertToJSColor(tooltipTitleFontColor);
+		String color = DataConverter.convertToJSColor(tooltipTitleFontColor);
 		if (color != null) {
 			this.tooltipTitleFontColor = color;
-		} else {
-			LOGGER.warn("Tooltoip title color  can not be set with value: "
-					+ tooltipTitleFontColor);
 		}
-
 	}
 
 	/**

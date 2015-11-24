@@ -38,7 +38,7 @@ public class DataModelCreator {
 		values.add("12");
 		values.add("8");
 		ValueListDataset chartd1 = new ValueListDataset("First", values);
-		chartd1.setFillColor("255,102,0,0.2");
+		chartd1.setFillColor("0, 51, 153,0.9");
 		datasets.add(chartd1);
 
 		List<String> values2 = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class DataModelCreator {
 
 		ValueListDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);
-		chartd2.setFillColor("102,204,255,0.1");
+		chartd2.setFillColor("204, 0, 0,0.9");
 		ValueListDatasetModel model = new ValueListDatasetModel(labels,
 				datasets);
 		return model;

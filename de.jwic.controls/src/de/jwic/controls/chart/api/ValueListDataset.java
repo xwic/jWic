@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.controls.chart.api.configuration.JsonChartName;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -43,7 +43,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	public void setStrokeColor(String strokeColor) {
-		String color = DatenConverter.convertToJSColor(strokeColor);
+		String color = DataConverter.convertToJSColor(strokeColor);
 		if (color != null)
 			this.strokeColor = color;
 	}
@@ -53,7 +53,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	public void setHighlightStroke(String highlightStroke) {
-		String color = DatenConverter.convertToJSColor(highlightStroke);
+		String color = DataConverter.convertToJSColor(highlightStroke);
 		if (color != null)
 			this.highlightStroke = color;
 	}
@@ -67,7 +67,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	public void setFillColor(String fillColor) {
-		String color = DatenConverter.convertToJSColor(fillColor);
+		String color = DataConverter.convertToJSColor(fillColor);
 		if (color != null)
 			this.fillColor = color;
 	}
@@ -77,7 +77,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	public void setHighlightColor(String highlightColor) {
-		String color = DatenConverter.convertToJSColor(highlightColor);
+		String color = DataConverter.convertToJSColor(highlightColor);
 		if (color != null)
 			this.highlightColor = color;
 	}

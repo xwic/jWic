@@ -3,7 +3,7 @@ package de.jwic.controls.chart.api;
 import java.util.List;
 
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	}
 
 	public String getLabelsJson() {
-		return DatenConverter.convertToJSArray(labels);
+		return DataConverter.convertToJSArray(labels);
 	}
 
 	public List<String> getLabels() {

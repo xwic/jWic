@@ -15,7 +15,7 @@ import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.chart.api.configuration.ChartConfiguration;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
@@ -103,7 +103,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 				osl.elementSelected(e);
 			}
 		}
-		System.out.println(param);
 	}
 
 	public String getChartType() {
@@ -183,27 +182,8 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	public String getConfigurationJSON() {
 		try {
-			try {
-				return DatenConverter.convertToJson(configuration, chartType);
-			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return DataConverter.convertToJson(configuration, chartType);
+		} catch (Exception e) {
 		}
 		return "{}";
 	}

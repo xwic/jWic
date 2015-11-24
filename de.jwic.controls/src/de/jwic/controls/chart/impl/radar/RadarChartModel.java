@@ -4,7 +4,7 @@ import java.util.List;
 
 import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -30,7 +30,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	}
 
 	public String getLabelsJson() {
-		return DatenConverter.convertToJSArray(labels);
+		return DataConverter.convertToJSArray(labels);
 	}
 	
 	public List<String> getLabels() {

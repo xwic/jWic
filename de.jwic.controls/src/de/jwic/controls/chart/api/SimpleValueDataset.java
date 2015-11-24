@@ -2,7 +2,7 @@ package de.jwic.controls.chart.api;
 
 import org.apache.log4j.Logger;
 
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -26,8 +26,8 @@ public class SimpleValueDataset extends ChartDataset {
 			String highlight) {
 		super(label);
 		this.value = data;
-		this.color = DatenConverter.convertToJSColor(color);
-		this.highlight = DatenConverter.convertToJSColor(highlight);
+		this.color = DataConverter.convertToJSColor(color);
+		this.highlight = DataConverter.convertToJSColor(highlight);
 
 	}
 
@@ -44,7 +44,7 @@ public class SimpleValueDataset extends ChartDataset {
 	}
 
 	public void setColor(String color) {
-		String col = DatenConverter.convertToJSColor(color);
+		String col = DataConverter.convertToJSColor(color);
 		if (color != null) {
 			this.color = col;
 		} else {
@@ -58,7 +58,7 @@ public class SimpleValueDataset extends ChartDataset {
 	}
 
 	public void setHighlight(String highlight) {
-		String color = DatenConverter.convertToJSColor(highlight);
+		String color = DataConverter.convertToJSColor(highlight);
 		if (color != null) {
 			this.highlight = color;
 		} else {

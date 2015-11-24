@@ -10,11 +10,6 @@ import de.jwic.controls.chart.api.configuration.ChartConfiguration;
  */
 public class BarChartConfiguration extends ChartConfiguration {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6725463428120345942L;
-
 	public BarChartConfiguration() {
 		super(
 				"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>");

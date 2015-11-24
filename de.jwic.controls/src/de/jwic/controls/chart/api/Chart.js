@@ -7,50 +7,46 @@
 	 */
 	afterUpdate: function(element) {
 		var field = jQuery(document.getElementById('${control.controlID}'));
-		var chartType='$control.chartType';	
 		var canvas = document.getElementById('chart');
 		var ctx = document.getElementById('chart').getContext("2d");	
 		var chart = new Chart(ctx);
-		 var functionOptions = {
-    		 onAnimationProgress:function() {
-// JWic.fireAction('$control.controlID', 'animationInProgress');
-	    		 },
-// onAnimationComplete:function(){
-// JWic.fireAction('$control.controlID', 'animationComplete');
-// }
-	    }
 	    var options = $control.getConfigurationJSON();
-	   // var options = extend(localOptions,functionOptions);
 		var chartImpl = undefined;
 		var chartData = undefined;
 		
-		if (chartType=='bar'){
+		#if($control.chartType=='bar')
 			  chartData = {
 					    labels: $control.model.labelsJson,
 					    datasets: $control.model.datasetsJson
 					};
 			chartImpl = chart.Bar(chartData, options);
-		}else if (chartType=='circle'){
+		#end
+		
+		#if($control.chartType=='circle')
 			chartData = $control.model.datasetsJson;
 			chartImpl = chart.Doughnut(chartData,options);
-		}else if (chartType=='line'){
+		#end
+			
+		#if($control.chartType=='line')
 			 chartData = {
 				    labels: $control.model.labelsJson,
 				    datasets:$control.model.datasetsJson
 				};
 			chartImpl = chart.Line(chartData, options);
-		}else if (chartType=='radar'){
+		#end
+		
+		#if($control.chartType=='radar')
 			chartData = {
 				    labels: $control.model.labelsJson,
 				    datasets:$control.model.datasetsJson
 			}
 			chartImpl = chart.Radar(chartData, options);
-		}else if (chartType=='polar'){
+		#end
+		
+		#if($control.chartType=='polar')
 			chartData = $control.model.datasetsJson;
 			chartImpl = chart.PolarArea(chartData, options);
-		}else {
-			alert('wrong chart type defined');
-		}
+		#end
 		
 		
 		canvas.onclick = function(evt){

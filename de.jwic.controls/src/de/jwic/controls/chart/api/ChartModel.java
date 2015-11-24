@@ -8,7 +8,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
 import de.jwic.controls.chart.api.configuration.ChartConfiguration;
-import de.jwic.controls.chart.impl.util.DatenConverter;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -28,7 +28,7 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 
 	public String getDatasetsJson() {
 		try {
-			return DatenConverter.convertToJson(datasets);
+			return DataConverter.convertToJson(datasets);
 		} catch (JsonGenerationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -24,7 +24,7 @@ import de.jwic.controls.chart.api.configuration.JsonChartName;
  *
  * @date 29.10.2015
  */
-public class DatenConverter {
+public class DataConverter {
 
 	/**
 	 * convert list to the position like :
@@ -110,13 +110,25 @@ public class DatenConverter {
 			JSONException, IllegalArgumentException, IllegalAccessException {
 
 		JSONObject object = new JSONObject();
-		for (Field field : obj.getClass().getFields()) {
+		for (Field field : obj.getClass().getDeclaredFields()) {
 			String fieldName = getNameForChartType(type, field);
 			if (!StringUtils.isEmpty(fieldName)) {
 				field.setAccessible(true);
 				Object fieldValue = field.get(obj);
 				field.setAccessible(false);
-				object.append(fieldName, fieldValue);
+				object.put(fieldName, fieldValue);
+			}
+		}
+		if (obj.getClass().getSuperclass() != null) {
+			for (Field field : obj.getClass().getSuperclass()
+					.getDeclaredFields()) {
+				String fieldName = getNameForChartType(type, field);
+				if (!StringUtils.isEmpty(fieldName)) {
+					field.setAccessible(true);
+					Object fieldValue = field.get(obj);
+					field.setAccessible(false);
+					object.put(fieldName, fieldValue);
+				}
 			}
 		}
 		return object.toString();
@@ -147,7 +159,9 @@ public class DatenConverter {
 
 			}
 		} else {
+
 			value = field.getName();
+
 		}
 		return value;
 
