@@ -58,22 +58,22 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 	@Override
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.addDataToModel(element.getTitle(), 1,
+				Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.removeDataFromModel(selectedTableElement.getTitle());
 	}
 
 }

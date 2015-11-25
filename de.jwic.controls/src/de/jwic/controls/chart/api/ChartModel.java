@@ -1,13 +1,9 @@
 package de.jwic.controls.chart.api;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-
-import de.jwic.controls.chart.api.configuration.ChartConfiguration;
+import org.apache.log4j.Logger;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
@@ -18,7 +14,7 @@ import de.jwic.controls.chart.impl.util.DataConverter;
  */
 public abstract class ChartModel<Dataset extends ChartDataset> implements
 		Serializable {
-
+	private static final Logger LOG = Logger.getLogger(ChartModel.class);
 	private List<Dataset> datasets;
 	private Chart chart;
 
@@ -29,15 +25,8 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 	public String getDatasetsJson() {
 		try {
 			return DataConverter.convertToJson(datasets);
-		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
 		}
 		return "{}";
 	}
@@ -50,13 +39,12 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 		this.datasets = datasets;
 	}
 
-	 void setChart(Chart chart) {
+	void setChart(Chart chart) {
 		this.chart = chart;
 	}
 
 	public void update() {
 		chart.requireRedraw();
 	}
-	
 
 }
