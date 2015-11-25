@@ -23,12 +23,10 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements
 	}
 
 	public String getDatasetsJson() {
-		try {
+	
 			return DataConverter.convertToJson(datasets);
-		} catch (Exception e) {
-			LOG.error(e.getMessage());
-		}
-		return "{}";
+		
+	
 	}
 
 	public List<Dataset> getDatasets() {

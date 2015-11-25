@@ -1,14 +1,9 @@
 package de.jwic.controls.chart.api;
 
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.json.JSONException;
 
 import de.jwic.base.Control;
 import de.jwic.base.Field;
@@ -73,16 +68,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
-	// public void actionAnimationComplete() {
-	// if (animationCompleteListeners != null) {
-	// for (Iterator<ActionListener> it = animationCompleteListeners
-	// .iterator(); it.hasNext();) {
-	// ActionListener osl = it.next();
-	// osl.actionPerformed(null);
-	// }
-	// }
-	// }
-
 	public void actionClick(String param) {
 		if (elementClickListeners != null) {
 			SelectionEvent e = new SelectionEvent(param, false);
@@ -109,6 +94,11 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		return chartType.getChartName();
 	}
 
+	/**
+	 * set the chart type using enumeration ChartType
+	 * 
+	 * @param chartType
+	 */
 	public void setChartType(ChartType chartType) {
 		this.chartType = chartType;
 		setRequireRedraw(true);
@@ -118,6 +108,12 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		return model;
 	}
 
+	/**
+	 * set the model data for chart. Can be also set after presentation. Refresh
+	 * is not needed anymore
+	 * 
+	 * @param model
+	 */
 	public void setModel(M model) {
 		this.model = model;
 		model.setChart(this);
@@ -181,11 +177,9 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	}
 
 	public String getConfigurationJSON() {
-		try {
-			return DataConverter.convertToJson(configuration, chartType);
-		} catch (Exception e) {
-		}
-		return "{}";
+
+		return DataConverter.convertToJson(configuration, chartType);
+
 	}
 
 }

@@ -64,7 +64,7 @@ public class SimpleValueDatasetModel extends ChartModel<SimpleValueDataset> {
 	}
 
 	/**
-	 * sets the element under given label in indicated dataset to 0
+	 * set the element under given label in indicated dataset to 0
 	 * 
 	 * @param label
 	 * @param datasetNumber
