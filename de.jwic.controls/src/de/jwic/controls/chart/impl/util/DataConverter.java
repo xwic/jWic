@@ -57,6 +57,8 @@ public class DataConverter {
 		}
 		if (color.startsWith("#")) {
 			return color;
+		} else if (color.startsWith("rgba")) {
+			return color;
 		}
 		if (color.contains(",")) {
 			String[] arr = color.split(",");
