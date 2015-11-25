@@ -13,7 +13,6 @@
 	    var options = $control.getConfigurationJSON();
 		var chartImpl = undefined;
 		var chartData = undefined;
-		
 		#if($control.chartType=='bar')
 			  chartData = {
 					    labels: $control.model.labelsJson,
@@ -74,20 +73,31 @@
 		 }
 	 
 	 function prepareOperation(evt){
-		 var activeElement;  
-			if (chartType=='bar'){
+		 var activeElement = undefined;  
+			#if($control.chartType=='bar')
 				activeElement = chartImpl.getBarsAtEvent(evt);
-			}else if (chartType=='pie'){
+			#end
+			
+			#if($control.chartType=='pie')
 				activeElement = chartImpl.getSegmentsAtEvent(evt);
-			}else if (chartType=='line'){
+			#end
+			
+			#if($control.chartType=='line')
 				activeElement = chartImpl.getPointsAtEvent(evt);
-			}else if (chartType=='radar'){
+			#end
+			
+			#if($control.chartType=='radar')
 				activeElement = chartImpl.getPointsAtEvent(evt);
-			}else if (chartType=='doughnut'){
+			#end
+			
+			#if($control.chartType=='doughnut')
 				activeElement = chartImpl.getSegmentsAtEvent(evt);
-			}else if (chartType=='polar'){
+			#end
+			
+			#if($control.chartType=='polar')
 				activeElement = chartImpl.getSegmentsAtEvent(evt);
-			}
+			#end
+			
 			if(activeElement) {
 				var chartElem = undefined;
 				if (Array.isArray(activeElement)){
