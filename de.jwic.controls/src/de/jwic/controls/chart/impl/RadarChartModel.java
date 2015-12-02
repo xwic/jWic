@@ -1,9 +1,9 @@
-package de.jwic.controls.chart.impl.radar;
+package de.jwic.controls.chart.impl;
 
 import java.util.List;
 
+import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ChartModel;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**

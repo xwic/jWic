@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.api.configuration;
+package de.jwic.controls.chart.api;
 
 import java.io.Serializable;
 

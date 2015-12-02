@@ -2,7 +2,6 @@ package de.jwic.controls.chart.api;
 
 import java.util.List;
 
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**

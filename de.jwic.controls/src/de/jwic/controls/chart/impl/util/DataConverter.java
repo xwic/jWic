@@ -10,10 +10,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import de.jwic.controls.chart.api.ChartConfiguration;
 import de.jwic.controls.chart.api.ChartDataset;
 import de.jwic.controls.chart.api.ChartType;
-import de.jwic.controls.chart.api.configuration.ChartConfiguration;
-import de.jwic.controls.chart.api.configuration.JsonChartName;
+import de.jwic.controls.chart.api.JsonChartName;
 
 /**
  * 

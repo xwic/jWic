@@ -3,7 +3,6 @@ package de.jwic.controls.chart.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.jwic.controls.chart.api.configuration.JsonChartName;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**

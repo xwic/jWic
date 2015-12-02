@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.api.exception;
+package de.jwic.controls.chart.api;
 
 /**
  * 

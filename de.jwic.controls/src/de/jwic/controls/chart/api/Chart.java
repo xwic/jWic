@@ -9,7 +9,6 @@ import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.chart.api.configuration.ChartConfiguration;
 import de.jwic.controls.chart.impl.util.DataConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;

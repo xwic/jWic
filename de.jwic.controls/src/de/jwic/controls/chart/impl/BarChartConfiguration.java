@@ -1,6 +1,6 @@
-package de.jwic.controls.chart.impl.bar;
+package de.jwic.controls.chart.impl;
 
-import de.jwic.controls.chart.api.configuration.ChartConfiguration;
+import de.jwic.controls.chart.api.ChartConfiguration;
 
 /**
  * 

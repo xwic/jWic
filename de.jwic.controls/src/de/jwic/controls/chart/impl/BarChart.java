@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.impl.bar;
+package de.jwic.controls.chart.impl;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;

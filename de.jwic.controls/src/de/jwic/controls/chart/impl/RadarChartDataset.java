@@ -1,4 +1,4 @@
-package de.jwic.controls.chart.impl.radar;
+package de.jwic.controls.chart.impl;
 
 import java.util.List;
 
