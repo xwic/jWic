@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright 2015 xWic group (http://www.xwic.de)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License").
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * 		http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ *  
+ *******************************************************************************/
 /**
  * 
  */
@@ -36,9 +52,11 @@ import de.jwic.demo.container.TabStripDemoModule;
 import de.jwic.demo.container.WindowDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
+import de.jwic.demo.model.ColorDemo;
 import de.jwic.demo.tbv.BasicTBVDemoModule;
 import de.jwic.demo.tbv.FileTreeDemoModule;
 import de.jwic.demo.tbv.TableViewerDemoModule;
+import de.jwic.demo.wizard.WizardDemo;
 
 /**
  * Demonstrates jWic controls. Creates the root control of the application.
@@ -90,6 +108,9 @@ public class DemoApplication extends Application {
 		modules.add(new FileTreeDemoModule());
 		modules.add(new ErrorWariningDemoModule());
 		modules.add(new LazyTooltipDemoModule());
+		modules.add(new WizardDemo());
+
+		modules.add(new ColorDemo());
 
 		// Sort demos by group and title
 		Collections.sort(modules);

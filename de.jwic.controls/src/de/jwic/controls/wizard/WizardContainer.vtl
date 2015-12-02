@@ -1,18 +1,17 @@
-<div class="contentPanel">
-	<div class="panelHeader roundTop">
-		<div class="panelTitle">
-		  <h2>$insert.control("lblPageTitle")</h2>
+<div class="j-wizard ui-widget ui-widget-content ui-corner-all">
+	<div class="j-wizard-header">
+		<div class="j-wizard-page-title">
+		  $insert.control("lblPageTitle")
 		</div>
-	  	<div class="panelSubtitle">$insert.control("lblPageSubTitle")</div>
+		<div class="j-wizard-page-subtitle">$insert.control("lblPageSubTitle")</div>
 	</div>
-	<div class="panelBody roundBottom">
+	
+	<div class="j-wizard-content">
 		$insert.control("errorWarning")
 		$insert.control("pages")
 	</div>
-</div>
-
-<div class="wizardButtonBar">
-	<div class="wizardButtonBarBox">
+	<div class="j-wizard-buttons ui-widget ui-corner-bottom">
 		$insert.control("btBack") $insert.control("btNext") &nbsp;&nbsp; $insert.control("btFinish") $insert.control("btAbort")
 	</div>
-</div>      
+</div>
+

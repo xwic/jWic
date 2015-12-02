@@ -18,7 +18,7 @@
 
 	<group name="jWic Core">
 		<project name="jWic Main Source">
-			<source path="../src_core"/>
+			<source path="../../de.jwic.core/src"/>
 			<source name="tests" path="../src_tests"/>
 			<source name="compatibility" path="../src_compatibility"/>
 			<folder name="web" path="../web"/>
