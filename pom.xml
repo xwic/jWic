@@ -90,15 +90,11 @@
 		<jwicUpdateVersion />
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>../.target-mvn/jacoco.exec</sonar.jacoco.reportPath>				
-	</properties>
-
+		<sonar.jacoco.reportPath>../.target-mvn/jacoco.exec</sonar.jacoco.reportPath>
         <pathMavenRoot>${project.basedir}/..</pathMavenRoot>
-        <pathTargetFolder>${pathMavenRoot}/.target-mvn</pathTargetFolder>
-
-
-    </properties>
-
+        <pathTargetFolder>${pathMavenRoot}/.target-mvn</pathTargetFolder>				
+	</properties>
+	
 	<build>
         <directory>${pathTargetFolder}/${project.artifactId}</directory>
 		<sourceDirectory>src</sourceDirectory>
