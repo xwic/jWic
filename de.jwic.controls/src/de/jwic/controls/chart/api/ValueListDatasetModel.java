@@ -18,20 +18,37 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	private static final long serialVersionUID = -2421385147478923715L;
 	private List<String> labels;
 
+	/**
+	 * 
+	 * @param labels
+	 * @param datasets
+	 */
 	public ValueListDatasetModel(List<String> labels,
 			List<ValueListDataset> datasets) {
 		super(datasets);
 		this.labels = labels;
 	}
 
+	/**
+	 * 
+	 * @param labels
+	 */
 	public void setLabels(List<String> labels) {
 		this.labels = labels;
 	}
 
+	/**
+	 *  returns the labels as json which will be rendered on java script site
+	 * @return
+	 */
 	public String getLabelsJson() {
 		return DataConverter.convertToJSArray(labels);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getLabels() {
 		return labels;
 	}

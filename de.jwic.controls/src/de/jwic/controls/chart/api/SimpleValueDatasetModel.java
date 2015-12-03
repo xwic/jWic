@@ -14,6 +14,10 @@ public class SimpleValueDatasetModel extends ChartModel<SimpleValueDataset> {
 	 */
 	private static final long serialVersionUID = 6110011116843847513L;
 
+	/**
+	 * 
+	 * @param datasets
+	 */
 	public SimpleValueDatasetModel(List<SimpleValueDataset> datasets) {
 		super(datasets);
 	}

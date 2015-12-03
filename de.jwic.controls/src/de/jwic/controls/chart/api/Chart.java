@@ -38,6 +38,13 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private List<ActionListener> animationInProgressListeners;
 	private L configuration;
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param type
+	 * @param model
+	 */
 	public Chart(IControlContainer container, String name, ChartType type,
 			M model) {
 		super(container, name);
@@ -49,14 +56,25 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public L getConfiguration() {
 		return configuration;
 	}
-
+    
+	/**
+	 * 
+	 * @param configuration
+	 */
 	protected void setConfiguration(L configuration) {
 		this.configuration = configuration;
 	}
 
+	/**
+	 * process some events during animation i the chart
+	 */
 	public void actionAnimationInProgress() {
 		if (animationInProgressListeners != null) {
 			for (Iterator<ActionListener> it = animationInProgressListeners
@@ -67,6 +85,10 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
+	/**
+	 * process listener after clicking in the chart area
+	 * @param param
+	 */
 	public void actionClick(String param) {
 		if (elementClickListeners != null) {
 			SelectionEvent e = new SelectionEvent(param, false);
@@ -78,6 +100,11 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
+	/**
+	 * process listener after selecting chart area 
+	 * still not working
+	 * @param param
+	 */
 	public void actionSelect(String param) {
 		if (elementSelectedListeners != null) {
 			ElementSelectedEvent e = new ElementSelectedEvent(this, param);
@@ -89,6 +116,10 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getChartType() {
 		return chartType.getChartName();
 	}
@@ -103,6 +134,10 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		setRequireRedraw(true);
 	}
 
+	/**
+	 * the model containing data in the chart
+	 * @return
+	 */
 	public M getModel() {
 		return model;
 	}
@@ -119,10 +154,18 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		requireRedraw();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Field getContent() {
 		return content;
 	}
 
+	/**
+	 * 
+	 * @param content
+	 */
 	public void setContent(Field content) {
 		this.content = content;
 	}
@@ -175,6 +218,10 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
+	/**
+	 *  returns the configuration as json array, which will be used directly on java script site
+	 * @return
+	 */
 	public String getConfigurationJSON() {
 
 		return DataConverter.convertToJson(configuration, chartType);

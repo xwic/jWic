@@ -50,6 +50,12 @@ public class DataConverter {
 		return builder.toString();
 	}
 
+	/**
+	 * convert the color into the appropriate one used on java sript site
+	 * 
+	 * @param color
+	 * @return
+	 */
 	public static String convertToJSColor(String color) {
 		if (color == null) {
 			return null;
@@ -69,13 +75,23 @@ public class DataConverter {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param color
+	 * @param alfa
+	 * @return
+	 */
 	public static String convertToJSColor(Color color, String alfa) {
-		return "rgba(" + color.getRed() + "," + color.getGreen() + ","
-				+ color.getBlue() + "," + alfa + ")";
+		return "rgba(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + alfa + ")";
 	}
 
-	public static String convertToJson(List<? extends ChartDataset> datasets,
-			ChartType type) {
+	/**
+	 * 
+	 * @param datasets
+	 * @param type
+	 * @return
+	 */
+	public static String convertToJson(List<? extends ChartDataset> datasets, ChartType type) {
 		try {
 			JSONArray array = new JSONArray();
 			for (ChartDataset dataset : datasets) {
@@ -95,25 +111,35 @@ public class DataConverter {
 			}
 			return array.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
 	public static String convertToJson(Object obj) {
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 
 	}
 
+	/**
+	 * convert the configuration into the json array
+	 * 
+	 * @param obj
+	 * @param type
+	 * @return
+	 */
 	public static String convertToJson(ChartConfiguration obj, ChartType type) {
 		try {
 			JSONObject object = new JSONObject();
@@ -127,8 +153,7 @@ public class DataConverter {
 				}
 			}
 			if (obj.getClass().getSuperclass() != null) {
-				for (Field field : obj.getClass().getSuperclass()
-						.getDeclaredFields()) {
+				for (Field field : obj.getClass().getSuperclass().getDeclaredFields()) {
 					String fieldName = getNameForChartType(type, field);
 					if (!StringUtils.isEmpty(fieldName)) {
 						field.setAccessible(true);
@@ -140,12 +165,17 @@ public class DataConverter {
 			}
 			return object.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 	}
 
+	/**
+	 * 
+	 * @param type
+	 * @param field
+	 * @return
+	 */
 	private static String getNameForChartType(ChartType type, Field field) {
 		JsonChartName col;
 		String value = null;

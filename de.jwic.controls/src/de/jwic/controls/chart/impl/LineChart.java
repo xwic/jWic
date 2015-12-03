@@ -21,6 +21,12 @@ public class LineChart extends
 	 */
 	private static final long serialVersionUID = -7439174125607228687L;
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param model
+	 */
 	public LineChart(IControlContainer container, String name,
 			ValueListDatasetModel model) {
 		super(container, name, ChartType.LINE, model);

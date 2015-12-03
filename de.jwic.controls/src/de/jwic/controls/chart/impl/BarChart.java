@@ -15,6 +15,12 @@ import de.jwic.controls.chart.api.ValueListDatasetModel;
 @JavaScriptSupport()
 public class BarChart extends Chart<ValueListDatasetModel, BarChartConfiguration> {
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param model
+	 */
 	public BarChart(IControlContainer container, String name,
 			ValueListDatasetModel model) {
 		super(container, name, ChartType.BAR, model);

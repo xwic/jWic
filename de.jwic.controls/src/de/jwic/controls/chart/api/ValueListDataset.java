@@ -27,54 +27,99 @@ public class ValueListDataset extends ChartDataset {
 	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke")
 	private String highlightStroke = "#ffffcc";
 
+	/**
+	 * 
+	 * @param label
+	 * @param values
+	 */
 	public ValueListDataset(String label, List<String> values) {
 		super(label);
 		if (values != null)
 			this.data.addAll(values);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getData() {
 		return data;
 	}
 
+	/**
+	 * 
+	 * @param data
+	 */
 	public void setData(List<String> data) {
 		this.data = data;
 	}
 
+	/**
+	 * 
+	 * @param strokeColor
+	 */
 	public void setStrokeColor(String strokeColor) {
 		String color = DataConverter.convertToJSColor(strokeColor);
 		if (color != null)
 			this.strokeColor = color;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getHighlightStroke() {
 		return highlightStroke;
 	}
 
+	/**
+	 * 
+	 * @param highlightStroke
+	 */
 	public void setHighlightStroke(String highlightStroke) {
 		String color = DataConverter.convertToJSColor(highlightStroke);
 		if (color != null)
 			this.highlightStroke = color;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getStrokeColor() {
 		return strokeColor;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getFillColor() {
 		return fillColor;
 	}
 
+	/**
+	 * 
+	 * @param fillColor
+	 */
 	public void setFillColor(String fillColor) {
 		String color = DataConverter.convertToJSColor(fillColor);
 		if (color != null)
 			this.fillColor = color;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getHighlightColor() {
 		return highlightColor;
 	}
 
+	/**
+	 * 
+	 * @param highlightColor
+	 */
 	public void setHighlightColor(String highlightColor) {
 		String color = DataConverter.convertToJSColor(highlightColor);
 		if (color != null)

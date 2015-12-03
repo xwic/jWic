@@ -19,6 +19,12 @@ public class RadarChart extends Chart<RadarChartModel, RadarChartConfiguration> 
 	 */
 	private static final long serialVersionUID = -2415451817006044807L;
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param model
+	 */
 	public RadarChart(IControlContainer container, String name,
 			RadarChartModel model) {
 		super(container, name, ChartType.RADAR, model);

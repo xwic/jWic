@@ -21,6 +21,12 @@ public class PolarChart extends
 	 */
 	private static final long serialVersionUID = -198765787479863595L;
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param model
+	 */
 	public PolarChart(IControlContainer container, String name,
 			SimpleValueDatasetModel model) {
 		super(container, name, ChartType.POLAR, model);

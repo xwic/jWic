@@ -20,24 +20,40 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	private static final long serialVersionUID = 5147442172614245742L;
 	private List<String> labels;
 
+	/**
+	 * 
+	 * @param labels
+	 * @param datasets
+	 */
 	public RadarChartModel(List<String> labels, List<RadarChartDataset> datasets) {
 		super(datasets);
 		this.labels = labels;
 	}
 
+	/**
+	 * 
+	 * @param labels
+	 */
 	public void setLabels(List<String> labels) {
 		this.labels = labels;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getLabelsJson() {
 		return DataConverter.convertToJSArray(labels);
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 */
 	public List<String> getLabels() {
 		return labels;
 	}
-	
-	
+
 	/**
 	 * adds new data to the model with the new label name
 	 * 
@@ -46,15 +62,9 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param value
 	 * @throws ChartInconsistencyException
 	 */
-	public void addDataToModel(String label, int datasetNumber, Double value)
-			throws ChartInconsistencyException {
-//		int indexOfElement = labels.indexOf(label);
-//		if (indexOfElement < 0) {
-//			throw new ChartInconsistencyException("No label with name:" + label);
-//		}
+	public void addDataToModel(String label, int datasetNumber, Double value) throws ChartInconsistencyException {
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException(
-					"Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
@@ -73,15 +83,13 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param newValue
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeDataByModel(String label, int datasetNumber,
-			Double newValue) throws ChartInconsistencyException {
+	public void changeDataByModel(String label, int datasetNumber, Double newValue) throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);
 		}
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException(
-					"Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
@@ -99,8 +107,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param datasetNumber
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label, int datasetNumber)
-			throws ChartInconsistencyException {
+	public void removeDataFromModel(String label, int datasetNumber) throws ChartInconsistencyException {
 		changeDataByModel(label, datasetNumber, 0D);
 
 	}
@@ -111,8 +118,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param label
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label)
-			throws ChartInconsistencyException {
+	public void removeDataFromModel(String label) throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);

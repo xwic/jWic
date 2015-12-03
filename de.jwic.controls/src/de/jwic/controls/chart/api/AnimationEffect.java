@@ -32,16 +32,23 @@ public enum AnimationEffect {
 		this.name = name;
 	}
 
+	/**
+	 * get the AninamtionEffect enumeration after the name property
+	 * @param name
+	 * @return
+	 */
 	public static AnimationEffect getAfterName(String name) {
 		return AnimationEffect.valueOf(name.toUpperCase());
 	}
 
+	/**
+	 * 
+	 * @return property name
+	 */
 	public String getName() {
 		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+    
+	
 
 }

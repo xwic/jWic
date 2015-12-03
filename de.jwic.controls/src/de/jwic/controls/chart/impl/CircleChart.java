@@ -19,6 +19,12 @@ public class CircleChart extends
 	 */
 	private static final long serialVersionUID = 5777810923589673770L;
 
+	/**
+	 * 
+	 * @param container
+	 * @param name
+	 * @param model
+	 */
 	public CircleChart(IControlContainer container, String name,
 			SimpleValueDatasetModel model) {
 		super(container, name, ChartType.CIRCLE, model);

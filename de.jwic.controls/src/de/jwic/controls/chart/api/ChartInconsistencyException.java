@@ -8,6 +8,12 @@ package de.jwic.controls.chart.api;
  */
 public class ChartInconsistencyException extends Exception {
 
+	/**
+	 * checked exception thrown when chart configuration or dataset is not
+	 * correctly defined
+	 * 
+	 * @param message
+	 */
 	public ChartInconsistencyException(String message) {
 		super(message);
 	}

@@ -22,6 +22,13 @@ public class SimpleValueDataset extends ChartDataset {
 	private String color;
 	private String highlight;
 
+	/**
+	 * 
+	 * @param label
+	 * @param data
+	 * @param color
+	 * @param highlight
+	 */
 	public SimpleValueDataset(String label, Double data, String color,
 			String highlight) {
 		super(label);
@@ -31,18 +38,34 @@ public class SimpleValueDataset extends ChartDataset {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Double getValue() {
 		return value;
 	}
 
+	/**
+	 * 
+	 * @param value
+	 */
 	public void setValue(Double value) {
 		this.value = value;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getColor() {
 		return color;
 	}
 
+	/**
+	 * 
+	 * @param color
+	 */
 	public void setColor(String color) {
 		String col = DataConverter.convertToJSColor(color);
 		if (color != null) {
@@ -53,10 +76,18 @@ public class SimpleValueDataset extends ChartDataset {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getHighlight() {
 		return highlight;
 	}
 
+	/**
+	 * 
+	 * @param highlight
+	 */
 	public void setHighlight(String highlight) {
 		String color = DataConverter.convertToJSColor(highlight);
 		if (color != null) {
