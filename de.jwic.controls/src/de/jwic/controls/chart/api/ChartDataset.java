@@ -17,15 +17,27 @@ public class ChartDataset implements Serializable {
 
 	private String label;
 
+	/**
+	 * 
+	 * @param label
+	 */
 	public ChartDataset(String label) {
 		this.label = label;
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getLabel() {
 		return label;
 	}
 
+	/**
+	 * 
+	 * @param label
+	 */
 	public void setLabel(String label) {
 		this.label = label;
 	}

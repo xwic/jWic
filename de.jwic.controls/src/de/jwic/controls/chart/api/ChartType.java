@@ -14,10 +14,19 @@ public enum ChartType {
 		this.name = name;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getChartName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @param element
+	 * @return
+	 */
 	public static ChartType fromName(String element) {
 		if (element != null) {
 			if (LINE.name.equals(element)) {
