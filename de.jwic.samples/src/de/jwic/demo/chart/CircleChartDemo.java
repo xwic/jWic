@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.circle.CircleChart;
+import de.jwic.controls.chart.impl.CircleChart;
 import de.jwic.demo.chart.util.DataModelCreator;
 
 /**
@@ -47,6 +47,8 @@ public class CircleChartDemo extends
 			TableElement el = new TableElement();
 			el.setTitle(set.getLabel());
 			el.setValue(set.getValue().toString());
+			el.setFillColor(set.getColor());
+			el.setHighlightColor(set.getHighlight());
 			elements.add(el);
 		}
 

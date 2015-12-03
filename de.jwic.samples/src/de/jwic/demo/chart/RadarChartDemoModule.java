@@ -1,7 +1,7 @@
 package de.jwic.demo.chart;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
+import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.demo.DemoModule;
 
 /**

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.line.LineChart;
+import de.jwic.controls.chart.impl.LineChart;
 import de.jwic.demo.chart.util.DataModelCreator;
 
 public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
@@ -38,6 +38,10 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 			for (String in : set.getData()) {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
+				el.setFillColor(set.getFillColor());
+				el.setHighlightColor(set.getHighlightColor());
+				el.setHighlightStroke(set.getHighlightStroke());
+				el.setStrokeColor(set.getStrokeColor());
 				el.setValue(in);
 				elements.add(el);
 				i++;

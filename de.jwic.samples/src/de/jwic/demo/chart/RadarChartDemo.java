@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.radar.RadarChart;
-import de.jwic.controls.chart.impl.radar.RadarChartDataset;
-import de.jwic.controls.chart.impl.radar.RadarChartModel;
+import de.jwic.controls.chart.api.ChartInconsistencyException;
+import de.jwic.controls.chart.impl.RadarChart;
+import de.jwic.controls.chart.impl.RadarChartDataset;
+import de.jwic.controls.chart.impl.RadarChartModel;
 
 /**
  * 
@@ -22,8 +22,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-	public RadarChartDemo(IControlContainer container)
-			throws ChartInconsistencyException {
+	public RadarChartDemo(IControlContainer container) throws ChartInconsistencyException {
 		super(container);
 
 	}
@@ -88,6 +87,10 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in);
+				el.setFillColor(set.getFillColor());
+				el.setHighlightColor(set.getHighlightColor());
+				el.setHighlightStroke(set.getHighlightStroke());
+				el.setStrokeColor(set.getStrokeColor());
 				elements.add(el);
 				i++;
 			}
@@ -98,23 +101,19 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	}
 
 	@Override
-	protected void addElementToTheChart(TableElement element)
-			throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), 1,
-				Double.valueOf(element.getValue()));
+	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
-	protected void updateElementInChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
-	protected void deleteElementFromChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
 	}

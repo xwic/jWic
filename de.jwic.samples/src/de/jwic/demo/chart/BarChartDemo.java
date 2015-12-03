@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
-import de.jwic.controls.chart.api.exception.ChartInconsistencyException;
-import de.jwic.controls.chart.impl.bar.BarChart;
+import de.jwic.controls.chart.impl.BarChart;
 import de.jwic.demo.chart.util.DataModelCreator;
 
 /**
@@ -43,6 +43,11 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in);
+				el.setFillColor(set.getFillColor());
+				el.setHighlightColor(set.getHighlightColor());
+				el.setHighlightStroke(set.getHighlightStroke());
+				el.setStrokeColor(set.getStrokeColor());
+
 				elements.add(el);
 				i++;
 			}
@@ -58,23 +63,19 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 	}
 
 	@Override
-	protected void addElementToTheChart(TableElement element)
-			throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), 1,
-				Double.valueOf(element.getValue()));
+	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
-	protected void updateElementInChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
-	protected void deleteElementFromChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
 	}
