@@ -20,6 +20,8 @@ public class AddTableElementDialog extends BasicDialog {
 
 	private InputBox ibLabel = null;
 	private InputBox ibValue = null;
+	private InputBox ibFillColor;
+	private InputBox ibHighlightColor;
 
 	/**
 	 * @param parent
@@ -53,6 +55,16 @@ public class AddTableElementDialog extends BasicDialog {
 
 		ibValue = new InputBox(layout);
 
+		LabelControl fillColorLbl = new LabelControl(layout);
+		fillColorLbl.setText("Table element fill color: ");
+
+		ibFillColor = new InputBox(layout);
+
+		LabelControl highlightColorLbl = new LabelControl(layout);
+		highlightColorLbl.setText("Table element highlight color: ");
+
+		ibHighlightColor = new InputBox(layout);
+
 		Button abort = new Button(layout, "abort");
 		abort.setTitle("Abort");
 		abort.addSelectionListener(new SelectionListener() {
@@ -75,8 +87,9 @@ public class AddTableElementDialog extends BasicDialog {
 	 */
 	public TableElement getTableElement() {
 
-		TableElement tableElement = new TableElement(ibLabel.getText(),
-				ibValue.getText());
+		TableElement tableElement = new TableElement(ibLabel.getText(), ibValue.getText());
+		tableElement.setFillColor(ibFillColor.getText());
+		tableElement.setHighlightColor(ibHighlightColor.getText());
 		return tableElement;
 	}
 }

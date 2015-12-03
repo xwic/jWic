@@ -89,16 +89,14 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 				el.setValue(in);
 				el.setFillColor(set.getFillColor());
 				el.setHighlightColor(set.getHighlightColor());
-				el.setHighlightStroke(set.getHighlightStroke());
-				el.setStrokeColor(set.getStrokeColor());
 				elements.add(el);
 				i++;
 			}
 
 		}
-
 		return elements;
 	}
+	
 
 	@Override
 	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
@@ -116,6 +114,18 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
+	}
+
+	@Override
+	protected void changeFillColor(String color) throws ChartInconsistencyException {
+		model.changeFillColor(1, color);
+		
+	}
+
+	@Override
+	protected void changeHighColor(String color) throws ChartInconsistencyException {
+		model.changeHightlightColor(1, color);
+		
 	}
 
 }

@@ -77,4 +77,16 @@ public class CircleChartDemo extends
 
 	}
 
+	@Override
+	protected void changeFillColor(String text) {
+		// not in this chart
+		
+	}
+
+	@Override
+	protected void changeHighColor(String text) {
+		// not in this chart
+		
+	}
+
 }

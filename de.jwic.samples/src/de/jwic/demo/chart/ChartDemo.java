@@ -33,8 +33,7 @@ import de.jwic.samples.controls.propeditor.PropertyEditorView;
  *
  * @date 13.11.2015
  */
-public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
-		ControlContainer {
+public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends ControlContainer {
 	/**
 	 * 
 	 */
@@ -43,10 +42,14 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 	private TableElementContentProvider contentProvider;
 	private TableViewer viewer;
 	private InputBox inputBox;
+	private InputBox fillColor;
+	private InputBox highlightColor;
 	protected M model;
 	private IAction deleteElement;
 	private IAction updateElement;
 	private TableElement selectedTableElement;
+	private Button addFill;
+	private Button addHigh;
 
 	public ChartDemo(IControlContainer container) {
 		super(container);
@@ -74,17 +77,15 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 	}
 
 	private void createProperties() {
-		PropertyEditorView propEditor = new PropertyEditorView(this,
-				"propertyEditor") {
+		PropertyEditorView propEditor = new PropertyEditorView(this, "propertyEditor") {
 			@Override
 			public void loadValues() {
 				super.loadValues();
 				chart.requireRedraw();
 			}
 		};
-		
+
 		propEditor.setBean(chart.getConfiguration());
-		
 
 	}
 
@@ -104,7 +105,44 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 		Label label = new Label(this, "label");
 		label.setText("Last selected element on the chart is: ");
 		inputBox = new InputBox(this, "inputBox");
+
+		fillColor = new InputBox(this, "fillColor");
+
+		highlightColor = new InputBox(this, "highlightColor");
+
+		addFill = new Button(this, "addFill");
+		addFill.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				fillColor.getText();
+				try {
+					changeFillColor(fillColor.getText());
+				} catch (ChartInconsistencyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		addHigh = new Button(this, "addHigh");
+		addHigh.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void objectSelected(SelectionEvent event) {
+				try {
+					changeHighColor(highlightColor.getText());
+				} catch (ChartInconsistencyException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		});
 	}
+
+	protected abstract void changeFillColor(String text) throws ChartInconsistencyException;
+
+	protected abstract void changeHighColor(String text) throws ChartInconsistencyException;
 
 	protected abstract M createModel();
 
@@ -128,8 +166,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 	private void createTable() {
 		viewer = new TableViewer(this, "table");
 
-		contentProvider = new TableElementContentProvider(
-				convertChartModelToTableElements());
+		contentProvider = new TableElementContentProvider(convertChartModelToTableElements());
 		viewer.setContentProvider(contentProvider);
 		viewer.setTableLabelProvider(new LabelProvider());
 		viewer.setScrollable(true);
@@ -213,12 +250,10 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 
 	protected void addTableElement() {
 
-		AddTableElementDialog dialog = new AddTableElementDialog(
-				viewer.getContainer());
+		AddTableElementDialog dialog = new AddTableElementDialog(viewer.getContainer());
 		dialog.addDialogListener(new DialogAdapter() {
 			public void dialogFinished(DialogEvent event) {
-				AddTableElementDialog dialog = ((AddTableElementDialog) event
-						.getEventSource());
+				AddTableElementDialog dialog = ((AddTableElementDialog) event.getEventSource());
 				TableElement element = dialog.getTableElement();
 				contentProvider.addElement(element);
 				try {
@@ -234,15 +269,11 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 
 	}
 
-	protected abstract void addElementToTheChart(TableElement element)
-			throws ChartInconsistencyException;
+	protected abstract void addElementToTheChart(TableElement element) throws ChartInconsistencyException;
 
-	protected abstract void updateElementInChart(
-			TableElement selectedTableElement)
-			throws ChartInconsistencyException;
+	protected abstract void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException;
 
-	protected abstract void deleteElementFromChart(
-			TableElement selectedTableElement)
+	protected abstract void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException;
 
 	/**
@@ -255,15 +286,13 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends
 
 			if (event.getElement() == null) {
 			} else {
-				TableElement el = contentProvider
-						.getObjectFromKey((String) event.getElement());
+				TableElement el = contentProvider.getObjectFromKey((String) event.getElement());
 				refreshActions(el);
 				selectedTableElement = el;
 				if (el != null) {
 
 					if (event.isDblClick()) {
-						getSessionContext().notifyMessage(
-								"Element Selected: " + el.getTitle());
+						getSessionContext().notifyMessage("Element Selected: " + el.getTitle());
 					}
 				}
 			}

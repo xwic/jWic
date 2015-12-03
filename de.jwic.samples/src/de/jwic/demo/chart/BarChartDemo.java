@@ -45,9 +45,6 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 				el.setValue(in);
 				el.setFillColor(set.getFillColor());
 				el.setHighlightColor(set.getHighlightColor());
-				el.setHighlightStroke(set.getHighlightStroke());
-				el.setStrokeColor(set.getStrokeColor());
-
 				elements.add(el);
 				i++;
 			}
@@ -55,6 +52,14 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 		}
 
 		return elements;
+	}
+
+	public void changeFillColorOfTheDataset(String color) throws ChartInconsistencyException {
+		model.changeFillColor(1, color);
+	}
+
+	public void changeHightlightColorOfTheDataset(String color) throws ChartInconsistencyException {
+		model.changeHightlightColor(1, color);
 	}
 
 	@Override
@@ -78,6 +83,18 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
+	}
+
+	@Override
+	protected void changeFillColor(String color) throws ChartInconsistencyException {
+		model.changeFillColor(1, color);
+		
+	}
+
+	@Override
+	protected void changeHighColor(String color) throws ChartInconsistencyException {
+		model.changeHightlightColor(1, color);
+		
 	}
 
 }

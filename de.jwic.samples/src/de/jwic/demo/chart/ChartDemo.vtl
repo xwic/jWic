@@ -7,7 +7,16 @@
 	  <td width="50%"><h1>Settings</h1></td>	
  </tr>
  <tr>
-      <td width="50%" valign="top">$insert.control("chart")</td>
+      <td width="50%" valign="top">$insert.control("chart")
+        <table width="100%">
+        <tr>
+        </tr>
+        <tr>
+        <td>  Fill Color for dataset 1: $insert.control("fillColor") $insert.control("addFill")</td>
+         <td>  Highlight Color for dataset 1: $insert.control("highlightColor") $insert.control("addHigh")</td>
+        </tr>
+        </table>
+      </td>
        <td width="50%">
           <table width="100%">
            <tr>
@@ -32,7 +41,10 @@
             <tr>
 			  
           </table>
-       </td>	
+       </td>
+    
+      
+       	
  </tr>
 </table>
 

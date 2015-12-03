@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ChartModel;
+import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
@@ -130,6 +131,38 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 		}
 		update();
 
+	}
+	
+	/**
+	 * Changes the highlight color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeHightlightColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setHighlightColor(color);
+		update();
+	}
+
+	/**
+	 * Changes the fill color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeFillColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setFillColor(color);
+		update();
 	}
 
 }

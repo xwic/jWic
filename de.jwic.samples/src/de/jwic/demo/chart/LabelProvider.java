@@ -26,8 +26,7 @@ class LabelProvider implements ITableLabelProvider {
 	 * .ecolib.tableviewer.CellLabel, java.lang.Object,
 	 * de.jwic.ecolib.tableviewer.TableColumn)
 	 */
-	public CellLabel getCellLabel(Object row, TableColumn column,
-			RowContext context) {
+	public CellLabel getCellLabel(Object row, TableColumn column, RowContext context) {
 		CellLabel cellLabel = new CellLabel();
 
 		TableElement task = (TableElement) row;
@@ -37,6 +36,12 @@ class LabelProvider implements ITableLabelProvider {
 			break;
 		case 1: // task
 			cellLabel.text = task.getValue();
+			break;
+		case 2: // task
+			cellLabel.text = task.getFillColor();
+			break;
+		case 3: // task
+			cellLabel.text = task.getHighlightColor();
 			break;
 
 		}

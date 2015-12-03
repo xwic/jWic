@@ -23,8 +23,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param labels
 	 * @param datasets
 	 */
-	public ValueListDatasetModel(List<String> labels,
-			List<ValueListDataset> datasets) {
+	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets) {
 		super(datasets);
 		this.labels = labels;
 	}
@@ -38,7 +37,8 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	}
 
 	/**
-	 *  returns the labels as json which will be rendered on java script site
+	 * returns the labels as json which will be rendered on java script site
+	 * 
 	 * @return
 	 */
 	public String getLabelsJson() {
@@ -61,11 +61,9 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param value
 	 * @throws ChartInconsistencyException
 	 */
-	public void addDataToModel(String label, int datasetNumber, Double value)
-			throws ChartInconsistencyException {
+	public void addDataToModel(String label, int datasetNumber, Double value) throws ChartInconsistencyException {
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException(
-					"Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
@@ -77,6 +75,70 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	}
 
 	/**
+	 * Changes the highlight color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeHightlightColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setHighlightColor(color);
+		update();
+	}
+
+	/**
+	 * Changes the fill color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeFillColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setFillColor(color);
+		update();
+	}
+
+	/**
+	 * Changes the stroke color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeStrokeColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setStrokeColor(color);
+		update();
+	}
+
+	/**
+	 * Changes the highlight stroke color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeHighlightColorStroke(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+		}
+		ValueListDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setHighlightStroke(color);
+		update();
+	}
+
+	/**
 	 * change the value of the given dataset at defined label
 	 * 
 	 * @param label
@@ -84,15 +146,13 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param newValue
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeDataByModel(String label, int datasetNumber,
-			Double newValue) throws ChartInconsistencyException {
+	public void changeDataByModel(String label, int datasetNumber, Double newValue) throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);
 		}
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException(
-					"Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
@@ -110,8 +170,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param datasetNumber
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label, int datasetNumber)
-			throws ChartInconsistencyException {
+	public void removeDataFromModel(String label, int datasetNumber) throws ChartInconsistencyException {
 		changeDataByModel(label, datasetNumber, 0D);
 
 	}
@@ -122,8 +181,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param label
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label)
-			throws ChartInconsistencyException {
+	public void removeDataFromModel(String label) throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);

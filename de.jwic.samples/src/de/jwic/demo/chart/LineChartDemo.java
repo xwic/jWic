@@ -40,8 +40,6 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 				el.setTitle(model.getLabels().get(i));
 				el.setFillColor(set.getFillColor());
 				el.setHighlightColor(set.getHighlightColor());
-				el.setHighlightStroke(set.getHighlightStroke());
-				el.setStrokeColor(set.getStrokeColor());
 				el.setValue(in);
 				elements.add(el);
 				i++;
@@ -78,6 +76,18 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
+	}
+
+	@Override
+	protected void changeFillColor(String color) throws ChartInconsistencyException {
+		model.changeFillColor(1, color);
+		
+	}
+
+	@Override
+	protected void changeHighColor(String color) throws ChartInconsistencyException {
+		model.changeHightlightColor(1, color);
+		
 	}
 
 }
