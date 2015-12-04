@@ -33,6 +33,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+        	<groupId>de.xwic.jwic</groupId>
+        	<artifactId>jwic-controls</artifactId>
+        	<version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

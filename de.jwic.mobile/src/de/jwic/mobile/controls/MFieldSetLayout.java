@@ -2,13 +2,26 @@ package de.jwic.mobile.controls;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.common.visible.Visible;
 
 /**
  * Created by boogie on 10/30/14.
  */
-public final class MFieldSetLayout extends ControlContainer implements Visible{
+public final class MFieldSetLayout extends ControlContainer {
 
+	public static enum Type{
+		Horizontal("horizontal"),
+		Vertical("vertical");
+
+		private final String name;
+		Type(String type) {
+			this.name= type;
+		}
+
+		public String getName() {
+			return name;
+		}
+	}
+	
 	private Type type = Type.Vertical;
 
 	public MFieldSetLayout(IControlContainer container) {
@@ -27,27 +40,4 @@ public final class MFieldSetLayout extends ControlContainer implements Visible{
 		return type;
 	}
 
-	@Override
-	public void show() {
-		this.setVisible(true);
-	}
-
-	@Override
-	public void hide() {
-		this.setVisible(false);
-	}
-
-	public static enum Type{
-		Horizontal("horizontal"),
-		Vertical("vertical");
-
-		private final String name;
-		Type(String type) {
-			this.name= type;
-		}
-
-		public String getName() {
-			return name;
-		}
-	}
 }

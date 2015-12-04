@@ -1,18 +1,18 @@
 package de.jwic.mobile.controls;
 
+import org.apache.commons.lang.StringUtils;
+
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IOuterLayout;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.common.properties.WithTextProperty;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by boogie on 10/27/14.
  */
 @JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MPage")
-public class MPage extends ControlContainer implements IOuterLayout, WithTextProperty{
+public class MPage extends ControlContainer implements IOuterLayout {
 	private final ControlContainer header;
 	private String text;
 
@@ -35,13 +35,11 @@ public class MPage extends ControlContainer implements IOuterLayout, WithTextPro
 		return MPage.class.getName();
 	}
 
-	@Override
 	public void setText(String title) {
 		this.text = title;
 		this.requireRedraw();
 	}
 
-	@Override
 	public String getText() {
 		return this.text;
 	}
