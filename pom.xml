@@ -90,11 +90,13 @@
 		<jwicUpdateVersion />
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
-		<sonar.jacoco.reportPath>../.target-mvn/jacoco.exec</sonar.jacoco.reportPath>				
+		<sonar.jacoco.reportPath>../.target-mvn/jacoco.exec</sonar.jacoco.reportPath>
+        <pathMavenRoot>${project.basedir}/..</pathMavenRoot>
+        <pathTargetFolder>${pathMavenRoot}/.target-mvn</pathTargetFolder>				
 	</properties>
-
+	
 	<build>
-
+        <directory>${pathTargetFolder}/${project.artifactId}</directory>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>src_test</testSourceDirectory>
 		<scriptSourceDirectory>scripts</scriptSourceDirectory>
@@ -466,7 +468,14 @@
 				<version>5.0</version>
 			</dependency>
 
-			<dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20090211</version>
+            </dependency>
+
+
+            <dependency>
 				<!-- Common Public License 1.0 -->
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -477,10 +486,11 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>de.jwic.core</module>
+    <module>de.jwic.core</module>
 
 		<module>de.jwic.controls</module>
-		<module>de.jwic.compatibility</module>
+        <module>de.jwic.mobile</module>
+        <module>de.jwic.compatibility</module>
 		<module>de.jwic.web</module>
 
 		<module>de.jwic.samples</module>

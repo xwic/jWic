@@ -1,0 +1,11 @@
+#parse("jwic-mobile/include.header.vtl")
+
+	## add your custom META, SCRIPT or LINK tags here
+
+#parse("jwic-mobile/include.body.vtl")
+
+<!-- content -->
+$content.render()
+<!-- /content -->
+
+#parse("jwic-mobile/include.footer.vtl")

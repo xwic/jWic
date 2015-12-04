@@ -23,6 +23,46 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+        <id>intellij-jetty</id>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>maven-jetty-plugin</artifactId>
+
+                    <version>6.1.26</version>
+                    <configuration>
+                        <scanIntervalSeconds>0</scanIntervalSeconds>
+                        <webAppSourceDirectory>web_root</webAppSourceDirectory>
+                        <classesDirectory>${pathTargetFolder}/jwic-samples/classes</classesDirectory>
+                        <webAppConfig>
+                            <extraClasspath>${pathTargetFolder}/jwic-compatibility/clases;${pathTargetFolder}/jwic-controls/classes;${pathTargetFolder}/jwic-core/classes;${pathTargetFolder}/jwic-maildemo/classes;${pathTargetFolder}/jwic-mobile/classes;$pathTargetFolder}/jwic-samples/classes;${pathTargetFolder}/jwic-sourceviewer/classes;${pathTargetFolder}/jwic-web/classes</extraClasspath>
+                        </webAppConfig>
+                        <connectors>
+                            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                                <port>8088</port>
+                                <maxIdleTime>60000</maxIdleTime>
+                            </connector>
+                        </connectors>
+
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+        <dependencies>
+            <dependency>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
+            </dependency>
+        </dependencies>
+    </profile>
+
+
+    </profiles>
+
     <dependencies>
 		<!-- Related projects -->
         <dependency>
@@ -35,6 +75,13 @@
             <artifactId>jwic-controls</artifactId>
             <version>5.2.12-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>de.xwic.jwic</groupId>
+            <artifactId>jwic-mobile</artifactId>
+            <version>5.2.12-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-compatibility</artifactId>
