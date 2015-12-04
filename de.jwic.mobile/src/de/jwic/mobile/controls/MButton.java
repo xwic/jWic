@@ -16,7 +16,8 @@ import de.jwic.events.SelectionListener;
  * Created by boogie on 10/27/14.
  */
 @JavaScriptSupport
-public class MButton extends Control implements Selectable, Visible, WithTextProperty, Enableable{
+public class MButton extends Control {
+	
 	private final SelectionHandler handler;
 	private final EnableableHandler enableableHandler;
 	private String value = "";

@@ -278,22 +278,6 @@ public abstract class Control implements Serializable, IControl {
 	}
 
 	/**
-	 *
-	 */
-	@Override
-	public void show() {
-		this.setVisible(true);
-	}
-
-	/**
-	 *
-	 */
-	@Override
-	public void hide() {
-		this.setVisible(false);
-	}
-
-	/**
 	 * This method is used to give the control a connection to the Container object
 	 * when it's added to a container.
 	 */
