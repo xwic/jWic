@@ -20,6 +20,7 @@ import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IHaveEnabled;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.events.ValueChangedListener;
 
 /**
@@ -80,6 +81,7 @@ public class CheckBox extends Control implements IHaveEnabled {
 	 * Returns true if this checkbox is checked.
 	 * @return
 	 */
+	@IncludeJsOption
 	public boolean isChecked() {
 		if (value == null) {	// might be null during deserialization, so we need to take care..
 			return false;
@@ -118,6 +120,7 @@ public class CheckBox extends Control implements IHaveEnabled {
 	 * to the server on change. This is set automatically to true if listeners are registered.
 	 * @return the changeNotification
 	 */
+	@IncludeJsOption
 	public boolean isChangeNotification() {
 		return changeNotification;
 	}
@@ -136,6 +139,7 @@ public class CheckBox extends Control implements IHaveEnabled {
 	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enabled;
 	}

@@ -10,8 +10,6 @@ import de.jwic.controls.CheckBox;
 @JavaScriptSupport
 public class MCheckBox extends CheckBox {
 
-	private String text;
-
 	/**
 	 * Constructs a new control instance and adds it to the specified
 	 * container with the specified name. If the name is <code>null</code>,
@@ -23,5 +21,6 @@ public class MCheckBox extends CheckBox {
 	public MCheckBox(IControlContainer container, String name) {
 		super(container, name);
 	}
+
 
 }

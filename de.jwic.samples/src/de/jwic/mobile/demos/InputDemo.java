@@ -3,12 +3,11 @@ package de.jwic.mobile.demos;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.InputBox;
 import de.jwic.controls.Label;
+import de.jwic.events.ValueChangedEvent;
+import de.jwic.events.ValueChangedListener;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.common.blurable.BlurListener;
-import de.jwic.common.blurable.Blurable;
-import de.jwic.mobile.controls.MInputArea;
-import de.jwic.mobile.controls.MInputBox;
 
 /**
  * Created by boogie on 10/29/14.
@@ -24,25 +23,29 @@ public class InputDemo extends MobileDemoModule{
 		ControlContainer container = new ControlContainer(controlContainer);
 		final Label labelForTextInput = new Label(container, "labelForTextInput");
 		labelForTextInput.setText("Basic Text Input");
-		final MInputBox textInput = new MInputBox(container, "textInput");
+		final InputBox textInput = new InputBox(container, "textInput");
+		textInput.setText("Hi Lea");
 
 		final Label labelForTextInputWithUpdateOnBlur = new Label(container, "labelForTextInputWithUpdateOnBlur");
 		labelForTextInputWithUpdateOnBlur.setText("Text Input With Update on blur");
 		final Label labelForTextInputWithUpdateOnBlur2 = new Label(container, "labelForTextInputWithUpdateOnBlur2");
 
-		final MInputBox textInputWithUpdateOnBlur = new MInputBox(container, "textInputWithUpdateOnBlur");
+		final InputBox textInputWithUpdateOnBlur = new InputBox(container, "textInputWithUpdateOnBlur");
 		textInputWithUpdateOnBlur.setUpdateOnBlur(true);
-		textInputWithUpdateOnBlur.addBlurListener(new BlurListener() {
-
+		textInputWithUpdateOnBlur.addValueChangedListener(new ValueChangedListener() {
+			
 			@Override
-			public void onBlur(Blurable eventSource) {
+			public void valueChanged(ValueChangedEvent event) {
 				labelForTextInputWithUpdateOnBlur2.setText(textInputWithUpdateOnBlur.getText());
 			}
 		});
 
 		final Label labelForTextArea = new Label(container, "labelForTextArea");
 		labelForTextArea.setText("Multline TextArea");
-		final MInputArea multLineTextArea = new MInputArea(container, "multLineTextArea");
+		
+		InputBox multiLine = new InputBox(container, "multiline");
+		multiLine.setMultiLine(true);
+		multiLine.setRows(5);
 
 
 		return container;

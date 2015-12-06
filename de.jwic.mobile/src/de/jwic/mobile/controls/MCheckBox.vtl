@@ -1,3 +1,6 @@
-<label>
-    <input id="$control.controlID" name="$control.controlID" type="checkbox" #if($control.toggled) checked #end/>$control.text
+#set($field = $control.getField("value"))
+<input type="hidden" id="$field.id" name="$field.id" value="$jwic.formatInp($field.value)">
+<label #if($control.infoText) title="$jwic.formatInp($control.infoText)" #end>
+<input id="$control.controlID" type="checkbox" name="chk_${field.id}" value="1" onClickXX="this.form.elements['$field.id'].value = this.checked ? '1' : '';" #if ( $field.value == "1" ) checked #end #if ( !$control.isEnabled()) disabled #end>
+#if($control.label)$jwic.formatHtml($control.label) #end
 </label>
