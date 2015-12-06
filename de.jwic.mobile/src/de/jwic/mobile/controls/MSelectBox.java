@@ -34,7 +34,7 @@ public class MSelectBox<T> extends Control implements Selectable, Visible, Enabl
 	/**
 	 * Constructs a new control instance and adds it to the specified
 	 * container with the specified name. If the name is <code>null</code>,
-	 * a unique name will be choosen by the container.
+	 * a unique name will be chosen by the container.
 	 *
 	 * @param container
 	 * @param name

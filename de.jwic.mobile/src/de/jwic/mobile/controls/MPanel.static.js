@@ -5,6 +5,8 @@ JWic.mobile.Panel = (function($, JWic){
              var button = control.find('#btn'),
                  panel = control.find('#panel');
 
+             console.warn(options);
+
              panel.panel({
                 open : function(){
                     JWic.fireAction(options.controlID, 'open')
@@ -12,12 +14,13 @@ JWic.mobile.Panel = (function($, JWic){
                 close : function(){
                     JWic.fireAction(options.controlID, 'close')
                 },
-                animate : false,
-
+                animate : options.animate,
+                position : options.position,
+                display : options.display,
                 disabled : !options.enabled
             });
 
-            console.warn(panel);
+            //console.warn(panel);
             var parent = panel.parent();
             //find the page that this panel belongs to
             //or just stop at the body

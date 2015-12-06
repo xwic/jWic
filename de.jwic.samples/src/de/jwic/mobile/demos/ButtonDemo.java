@@ -3,7 +3,9 @@ package de.jwic.mobile.demos;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.Button;
 import de.jwic.controls.Label;
+import de.jwic.demo.ImageLibrary;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.mobile.MobileDemoModule;
@@ -24,7 +26,7 @@ public final class ButtonDemo extends MobileDemoModule{
 		final Label label = new Label(container, "label");
 		label.setText("Click the button");
 		final MButton MButton = new MButton(container, "button");
-		MButton.setText("Click me");
+		MButton.setTitle("Click me");
 		MButton.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -34,8 +36,15 @@ public final class ButtonDemo extends MobileDemoModule{
 		});
 
 		final MButton disabled = new MButton(container, "disabled");
-		disabled.disable();
-		disabled.setText("I'm Disabled :(");
+		disabled.setEnabled(false);
+		disabled.setTitle("I'm Disabled :(");
+		
+		// place a regular button, to show the difference
+		Button normalButton = new Button(container);
+		normalButton.setTitle("I am a normal button");
+		normalButton.setIconEnabled(ImageLibrary.IMG_ADD);
+		normalButton.setTooltip("This is a tooltip");
+		
 		return container;
 	}
 }

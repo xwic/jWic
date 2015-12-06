@@ -23,19 +23,21 @@ public class MobileDemoPage extends MPage {
 		final ControlContainer contentContainer = new ControlContainer(this, "content");
 
 		final MPanel menu = new MPanel(this.getHeaderContainer(), "menu");
-		menu.setText("Open Menu");
+		menu.setTitle("Open Menu");
+		//menu.setPosition(MPanel.Position.RIGHT);
+		menu.setDisplay(MPanel.Display.OVERLAY);
 
 		for(int i =0; i<modules.size(); i++){
 			final MButton MButton = new MButton(menu, "module" + i);
 			final MobileDemoModule module = modules.get(i);
 
-			MButton.setText(module.getTitle());
+			MButton.setTitle(module.getTitle());
 			MButton.addSelectionListener(new SelectionListener() {
 
 				@Override
 				public void objectSelected(SelectionEvent event) {
 					createPage(contentContainer, module);
-					menu.setToggled(false);
+					menu.close();
 				}
 			});
 		}
