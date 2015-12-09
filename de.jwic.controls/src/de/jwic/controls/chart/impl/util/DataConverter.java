@@ -1,6 +1,9 @@
 package de.jwic.controls.chart.impl.util;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 
@@ -82,7 +85,8 @@ public class DataConverter {
 	 * @return
 	 */
 	public static String convertToJSColor(Color color, String alfa) {
-		return "rgba(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + alfa + ")";
+		return "rgba(" + color.getRed() + "," + color.getGreen() + ","
+				+ color.getBlue() + "," + alfa + ")";
 	}
 
 	/**
@@ -91,7 +95,8 @@ public class DataConverter {
 	 * @param type
 	 * @return
 	 */
-	public static String convertToJson(List<? extends ChartDataset> datasets, ChartType type) {
+	public static String convertToJson(List<? extends ChartDataset> datasets,
+			ChartType type) {
 		try {
 			JSONArray array = new JSONArray();
 			for (ChartDataset dataset : datasets) {
@@ -111,7 +116,8 @@ public class DataConverter {
 			}
 			return array.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: "
+					+ e.getMessage());
 			return "{}";
 		}
 
@@ -127,7 +133,8 @@ public class DataConverter {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: "
+					+ e.getMessage());
 			return "{}";
 		}
 
@@ -153,7 +160,8 @@ public class DataConverter {
 				}
 			}
 			if (obj.getClass().getSuperclass() != null) {
-				for (Field field : obj.getClass().getSuperclass().getDeclaredFields()) {
+				for (Field field : obj.getClass().getSuperclass()
+						.getDeclaredFields()) {
 					String fieldName = getNameForChartType(type, field);
 					if (!StringUtils.isEmpty(fieldName)) {
 						field.setAccessible(true);
@@ -165,7 +173,8 @@ public class DataConverter {
 			}
 			return object.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: "
+					+ e.getMessage());
 			return "{}";
 		}
 	}
@@ -208,4 +217,6 @@ public class DataConverter {
 		return value;
 
 	}
+
+	
 }

@@ -49,6 +49,8 @@ import de.jwic.demo.chart.CircleChartDemoModule;
 import de.jwic.demo.chart.LineChartDemoModule;
 import de.jwic.demo.chart.PolarChartDemoModule;
 import de.jwic.demo.chart.RadarChartDemoModule;
+import de.jwic.demo.chart.ScatterChartDemoModule;
+import de.jwic.demo.chart.StackedBarChartModule;
 import de.jwic.demo.container.AccordionDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
@@ -111,6 +113,8 @@ public class DemoApplication extends Application {
 		modules.add(new BarChartDemoModule());
 		modules.add(new LineChartDemoModule());
 		modules.add(new RadarChartDemoModule());
+		modules.add(new ScatterChartDemoModule());
+		modules.add(new StackedBarChartModule());
 		modules.add(new PolarChartDemoModule());
 		modules.add(new CircleChartDemoModule());
 		modules.add(new ToolBarDemoModule());

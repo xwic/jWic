@@ -7,6 +7,8 @@ import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
+import de.jwic.controls.chart.impl.ScatterChartDataset;
+import de.jwic.controls.chart.impl.ScatterChartModel;
 
 /**
  * 
@@ -28,28 +30,28 @@ public class DataModelCreator {
 		labels.add("August");
 
 		List<ValueListDataset> datasets = new ArrayList<ValueListDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("10");
-		values.add("20");
-		values.add("14.4");
-		values.add("4");
-		values.add("8");
-		values.add("6");
-		values.add("12");
-		values.add("8");
+		List<Double> values = new ArrayList<Double>();
+		values.add(10D);
+		values.add(20D);
+		values.add(14.4);
+		values.add(4D);
+		values.add(8D);
+		values.add(6D);
+		values.add(12D);
+		values.add(8D);
 		ValueListDataset chartd1 = new ValueListDataset("First", values);
 		chartd1.setFillColor("0, 51, 153,0.9");
 		datasets.add(chartd1);
 
-		List<String> values2 = new ArrayList<String>();
-		values2.add("20");
-		values2.add("22");
-		values2.add("3.5");
-		values2.add("8");
-		values2.add("12");
-		values2.add("16");
-		values2.add("7");
-		values2.add("4");
+		List<Double> values2 = new ArrayList<Double>();
+		values2.add(20D);
+		values2.add(22D);
+		values2.add(3.5);
+		values2.add(8D);
+		values2.add(12D);
+		values2.add(16D);
+		values2.add(7D);
+		values2.add(4D);
 
 		ValueListDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);
@@ -72,7 +74,7 @@ public class DataModelCreator {
 				"#ffcc66", "#66ff33");
 		SimpleValueDataset chartd5 = new SimpleValueDataset("Fifth", 5D,
 				"#ff66cc", "#66ff33");
-		SimpleValueDataset chartd6 = new SimpleValueDataset("Sexsth", 6D,
+		SimpleValueDataset chartd6 = new SimpleValueDataset("Sixsth", 6D,
 				"#003300", "#66ff33");
 
 		datasets.add(chartd1);
@@ -82,6 +84,12 @@ public class DataModelCreator {
 		datasets.add(chartd5);
 		datasets.add(chartd6);
 		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets);
+		return model;
+	}
+
+	public static ScatterChartModel getScatterChartModel() {
+		List<ScatterChartDataset> datasets = new ArrayList<ScatterChartDataset>();
+		ScatterChartModel model = new ScatterChartModel(datasets );
 		return model;
 	}
 }

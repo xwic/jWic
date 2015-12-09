@@ -17,7 +17,7 @@ public class ValueListDataset extends ChartDataset {
 	 * 
 	 */
 	private static final long serialVersionUID = 375389814468058669L;
-	private List<String> data = new ArrayList<String>();
+	private List<Double> data = new ArrayList<Double>();
 	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor")
 	private String fillColor = "#66ccff";
 	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill")
@@ -32,7 +32,7 @@ public class ValueListDataset extends ChartDataset {
 	 * @param label
 	 * @param values
 	 */
-	public ValueListDataset(String label, List<String> values) {
+	public ValueListDataset(String label, List<Double> values) {
 		super(label);
 		if (values != null)
 			this.data.addAll(values);
@@ -42,7 +42,7 @@ public class ValueListDataset extends ChartDataset {
 	 * 
 	 * @return
 	 */
-	public List<String> getData() {
+	public List<Double> getData() {
 		return data;
 	}
 
@@ -50,7 +50,7 @@ public class ValueListDataset extends ChartDataset {
 	 * 
 	 * @param data
 	 */
-	public void setData(List<String> data) {
+	public void setData(List<Double> data) {
 		this.data = data;
 	}
 

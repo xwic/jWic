@@ -22,35 +22,36 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-	public RadarChartDemo(IControlContainer container) throws ChartInconsistencyException {
+	public RadarChartDemo(IControlContainer container)
+			throws ChartInconsistencyException {
 		super(container);
 
 	}
 
 	private List<RadarChartDataset> createDatasets() {
 		List<RadarChartDataset> datasets = new ArrayList<RadarChartDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("1");
-		values.add("2");
-		values.add("3");
-		values.add("4");
-		values.add("5");
-		values.add("6");
-		values.add("7");
-		values.add("8");
+		List<Double> values = new ArrayList<Double>();
+		values.add(1D);
+		values.add(2D);
+		values.add(3D);
+		values.add(4D);
+		values.add(5D);
+		values.add(6D);
+		values.add(7D);
+		values.add(10D);
 		RadarChartDataset chartd1 = new RadarChartDataset("First", values);
 		chartd1.setFillColor("#3366cc");
 		datasets.add(chartd1);
 
-		List<String> values2 = new ArrayList<String>();
-		values2.add("5");
-		values2.add("4");
-		values2.add("12");
-		values2.add("8");
-		values2.add("7");
-		values2.add("4");
-		values2.add("2");
-		values2.add("10");
+		List<Double> values2 = new ArrayList<Double>();
+		values2.add(5D);
+		values2.add(4D);
+		values2.add(12D);
+		values2.add(8D);
+		values2.add(7D);
+		values2.add(4D);
+		values2.add(2D);
+		values2.add(10D);
 
 		RadarChartDataset chartd2 = new RadarChartDataset("Second", values2);
 		datasets.add(chartd2);
@@ -83,10 +84,10 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 
 		for (RadarChartDataset set : model.getDatasets()) {
 			int i = 0;
-			for (String in : set.getData()) {
+			for (Double in : set.getData()) {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
-				el.setValue(in);
+				el.setValue(in.toString());
 				el.setFillColor(set.getFillColor());
 				el.setHighlightColor(set.getHighlightColor());
 				elements.add(el);
@@ -96,36 +97,41 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		}
 		return elements;
 	}
-	
 
 	@Override
-	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
+	protected void addElementToTheChart(TableElement element)
+			throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(), 1,
+				Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
-	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
+	protected void updateElementInChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
 		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
-	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
+	protected void deleteElementFromChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
 	}
 
 	@Override
-	protected void changeFillColor(String color) throws ChartInconsistencyException {
+	protected void changeFillColor(String color)
+			throws ChartInconsistencyException {
 		model.changeFillColor(1, color);
-		
+
 	}
 
 	@Override
-	protected void changeHighColor(String color) throws ChartInconsistencyException {
+	protected void changeHighColor(String color)
+			throws ChartInconsistencyException {
 		model.changeHightlightColor(1, color);
-		
+
 	}
 
 }

@@ -63,16 +63,18 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param value
 	 * @throws ChartInconsistencyException
 	 */
-	public void addDataToModel(String label, int datasetNumber, Double value) throws ChartInconsistencyException {
+	public void addDataToModel(String label, int datasetNumber, Double value)
+			throws ChartInconsistencyException {
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
 		}
 		if (value == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
 		RadarChartDataset dataset = getDatasets().get(datasetNumber);
 		labels.add(label);
-		dataset.getData().add(value.toString());
+		dataset.getData().add(value);
 		update();
 	}
 
@@ -84,19 +86,21 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param newValue
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeDataByModel(String label, int datasetNumber, Double newValue) throws ChartInconsistencyException {
+	public void changeDataByModel(String label, int datasetNumber,
+			Double newValue) throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);
 		}
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
 		}
 		if (newValue == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
 		RadarChartDataset dataset = getDatasets().get(datasetNumber);
-		dataset.getData().set(indexOfElement, newValue.toString());
+		dataset.getData().set(indexOfElement, newValue);
 		update();
 
 	}
@@ -108,7 +112,8 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param datasetNumber
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label, int datasetNumber) throws ChartInconsistencyException {
+	public void removeDataFromModel(String label, int datasetNumber)
+			throws ChartInconsistencyException {
 		changeDataByModel(label, datasetNumber, 0D);
 
 	}
@@ -119,7 +124,8 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param label
 	 * @throws ChartInconsistencyException
 	 */
-	public void removeDataFromModel(String label) throws ChartInconsistencyException {
+	public void removeDataFromModel(String label)
+			throws ChartInconsistencyException {
 		int indexOfElement = labels.indexOf(label);
 		if (indexOfElement < 0) {
 			throw new ChartInconsistencyException("No label with name:" + label);
@@ -132,7 +138,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 		update();
 
 	}
-	
+
 	/**
 	 * Changes the highlight color of defined dataset
 	 * 
@@ -140,9 +146,11 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param color
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeHightlightColor(int datasetNumber, String color) throws ChartInconsistencyException {
+	public void changeHightlightColor(int datasetNumber, String color)
+			throws ChartInconsistencyException {
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
 		dataset.setHighlightColor(color);
@@ -156,9 +164,11 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param color
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeFillColor(int datasetNumber, String color) throws ChartInconsistencyException {
+	public void changeFillColor(int datasetNumber, String color)
+			throws ChartInconsistencyException {
 		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
 		dataset.setFillColor(color);

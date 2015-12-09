@@ -2,28 +2,28 @@ package de.jwic.demo.chart;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
-import de.jwic.controls.chart.impl.BarChart;
+import de.jwic.controls.chart.impl.StackedBarChart;
 import de.jwic.demo.chart.util.DataModelCreator;
 
 /**
  * 
  * @author Karolina Marek (karolina-marek.eu)
  *
- * @date 19.10.2015
+ * @date 09.12.2015
  */
-public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
+public class StackedBarDemo extends
+		ChartDemo<StackedBarChart, ValueListDatasetModel> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-	public BarChartDemo(IControlContainer container) {
+	public StackedBarDemo(IControlContainer container) {
 		super(container);
 
 	}
@@ -54,58 +54,52 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 		return elements;
 	}
 
-	public void changeFillColorOfTheDataset(String color)
+	public void changePointColorOfTheDataset(String color)
 			throws ChartInconsistencyException {
-		model.changeFillColor(1, color);
+		// model.changePointColor(1, color);
 	}
 
 	public void changeHightlightColorOfTheDataset(String color)
 			throws ChartInconsistencyException {
-		model.changeHightlightColor(1, color);
+		// model.changeHightlightColor(1, color);
 	}
 
 	@Override
-	protected BarChart createChart(ValueListDatasetModel model) {
-		BarChart chart = new BarChart(this, "chart", model);
-		chart.getConfiguration().setCustomTootlip(true);
-		chart.getConfiguration().setCustomTooltipFile("CustomTooltip.html");
-		return chart;
+	protected StackedBarChart createChart(ValueListDatasetModel model) {
+		return new StackedBarChart(this, "chart", model);
+	}
+
+	@Override
+	protected void changeHighColor(String color)
+			throws ChartInconsistencyException {
+
+	}
+
+	@Override
+	protected void changeFillColor(String text)
+			throws ChartInconsistencyException {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), 1,
-				Double.valueOf(element.getValue()));
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		model.removeDataFromModel(selectedTableElement.getTitle());
+		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	protected void changeFillColor(String color)
-			throws ChartInconsistencyException {
-		model.changeFillColor(1, color);
-
-	}
-
-	@Override
-	protected void changeHighColor(String color)
-			throws ChartInconsistencyException {
-		model.changeHightlightColor(1, color);
-
-	}
-
 }

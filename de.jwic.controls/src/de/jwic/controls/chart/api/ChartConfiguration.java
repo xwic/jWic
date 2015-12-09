@@ -2,6 +2,7 @@ package de.jwic.controls.chart.api;
 
 import java.io.Serializable;
 
+import de.jwic.controls.chart.api.util.ChartHelper;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
@@ -15,6 +16,7 @@ public abstract class ChartConfiguration implements Serializable {
 	/**
 	 * 
 	 */
+	private boolean customTootlip = true;
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;
@@ -53,6 +55,8 @@ public abstract class ChartConfiguration implements Serializable {
 	private int tooltipXOffset = 10;
 	private String tooltipTemplate = "<%if (label){%><%=label%>= <%}%><%= value %>";
 
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "")
+	private String customTooltipFile;
 	private String legendTemplate;
 
 	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke")
@@ -888,4 +892,21 @@ public abstract class ChartConfiguration implements Serializable {
 	public void setTooltipTemplate(String tooltipTemplate) {
 		this.tooltipTemplate = tooltipTemplate;
 	}
+
+	public boolean isCustomTootlip() {
+		return customTootlip;
+	}
+
+	public void setCustomTootlip(boolean customTootlip) {
+		this.customTootlip = customTootlip;
+	}
+
+	public String getCustomTooltipHtml() {
+		return ChartHelper.getFileContent(customTooltipFile);
+	}
+
+	public void setCustomTooltipFile(String customTooltipHtml) {
+		this.customTooltipFile = customTooltipHtml;
+	}
+
 }

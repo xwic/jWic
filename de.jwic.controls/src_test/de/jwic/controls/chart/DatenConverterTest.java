@@ -35,27 +35,27 @@ public class DatenConverterTest {
 	public void convertToJsonTest() throws JsonGenerationException,
 			JsonMappingException, IOException {
 		List<ChartDataset> datasets = new ArrayList<ChartDataset>();
-		List<String> values = new ArrayList<String>();
-		values.add("1");
-		values.add("2");
-		values.add("3");
-		values.add("4");
-		values.add("5");
-		values.add("6");
-		values.add("7");
-		values.add("8");
+		List<Double> values = new ArrayList<Double>();
+		values.add(1D);
+		values.add(2D);
+		values.add(3D);
+		values.add(4D);
+		values.add(5D);
+		values.add(6D);
+		values.add(7D);
+		values.add(8D);
 		ValueListDataset chartd1 = new ValueListDataset("First", values);
 		datasets.add(chartd1);
 
-		List<String> values2 = new ArrayList<String>();
-		values2.add("10");
-		values2.add("22");
-		values2.add("33");
-		values2.add("4");
-		values2.add("5");
-		values2.add("6");
-		values2.add("7");
-		values2.add("8");
+		List<Double> values2 = new ArrayList<Double>();
+		values2.add(10D);
+		values2.add(22D);
+		values2.add(33D);
+		values2.add(4D);
+		values2.add(5D);
+		values2.add(6D);
+		values2.add(7D);
+		values2.add(8D);
 
 		ChartDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);

@@ -70,7 +70,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
 		labels.add(label);
-		dataset.getData().add(value.toString());
+		dataset.getData().add(value);
 		update();
 	}
 
@@ -158,7 +158,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.getData().set(indexOfElement, newValue.toString());
+		dataset.getData().set(indexOfElement, newValue);
 		update();
 
 	}

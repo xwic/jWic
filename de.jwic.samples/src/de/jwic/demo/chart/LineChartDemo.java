@@ -35,12 +35,12 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 
 		for (ValueListDataset set : model.getDatasets()) {
 			int i = 0;
-			for (String in : set.getData()) {
+			for (Double in : set.getData()) {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setFillColor(set.getFillColor());
 				el.setHighlightColor(set.getHighlightColor());
-				el.setValue(in);
+				el.setValue(in.toString());
 				elements.add(el);
 				i++;
 			}

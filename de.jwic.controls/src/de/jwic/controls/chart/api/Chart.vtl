@@ -1,5 +1,12 @@
 
 #set($field = $control.getField("chartContent"))
 <div id="$control.controlID" style="width:${control.getConfiguration().height}; height: ${control.getConfiguration().width}">
-<canvas id="chart" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px"></canvas>
+<canvas id="chart" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px">
+</canvas>
 </div>
+#if($control.getConfiguration().isCustomTootlip())
+ <div id="chartjs-tooltip"> 
+ </div>
+ #end
+
+

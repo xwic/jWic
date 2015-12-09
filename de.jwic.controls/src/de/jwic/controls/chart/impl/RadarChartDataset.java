@@ -21,7 +21,7 @@ public class RadarChartDataset extends ValueListDataset {
 	private String pointColor = "rgba(50,50,0,1)";
 	private String pointStrokeColor = "rgba(60,60,0,1)";
 
-	public RadarChartDataset(String label, List<String> values) {
+	public RadarChartDataset(String label, List<Double> values) {
 		super(label, values);
 
 	}

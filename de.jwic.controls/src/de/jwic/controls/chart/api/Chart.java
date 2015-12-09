@@ -38,6 +38,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private List<ActionListener> animationInProgressListeners;
 	private L configuration;
 
+
 	/**
 	 * 
 	 * @param container
@@ -63,7 +64,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	public L getConfiguration() {
 		return configuration;
 	}
-    
+
 	/**
 	 * 
 	 * @param configuration
@@ -87,6 +88,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	/**
 	 * process listener after clicking in the chart area
+	 * 
 	 * @param param
 	 */
 	public void actionClick(String param) {
@@ -100,9 +102,13 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		}
 	}
 
+	public void actionMove(String param) {
+		System.out.println("Move action" + param);
+	}
+
 	/**
-	 * process listener after selecting chart area 
-	 * still not working
+	 * process listener after selecting chart area still not working
+	 * 
 	 * @param param
 	 */
 	public void actionSelect(String param) {
@@ -136,6 +142,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	/**
 	 * the model containing data in the chart
+	 * 
 	 * @return
 	 */
 	public M getModel() {
@@ -219,7 +226,9 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	}
 
 	/**
-	 *  returns the configuration as json array, which will be used directly on java script site
+	 * returns the configuration as json array, which will be used directly on
+	 * java script site
+	 * 
 	 * @return
 	 */
 	public String getConfigurationJSON() {
@@ -227,5 +236,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		return DataConverter.convertToJson(configuration, chartType);
 
 	}
+
+	
 
 }
