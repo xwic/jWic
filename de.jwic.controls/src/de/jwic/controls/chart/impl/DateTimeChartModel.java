@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ChartModel;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
@@ -11,16 +12,30 @@ import de.jwic.controls.chart.api.ChartModel;
  *
  * @date 08.12.2015
  */
-public class ScatterChartModel extends ChartModel<ScatterChartDataset> {
+public class DateTimeChartModel extends ChartModel<DateTimeChartDataset> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7014827274374612553L;
 
-	public ScatterChartModel(List<ScatterChartDataset> datasets) {
+	public DateTimeChartModel(List<DateTimeChartDataset> datasets) {
 		super(datasets);
 	}
+	
+	
+	/**
+	 * returns the dataset as json array which will be rendered directly on java
+	 * script site
+	 * 
+	 * @return
+	 */
+	public String getDatasetsJson() {
+
+		return DataConverter.convertDateTimeModelToJson(getDatasets());
+
+	}
+
 
 	/**
 	 * adds new data to the model with the new label name
@@ -35,7 +50,7 @@ public class ScatterChartModel extends ChartModel<ScatterChartDataset> {
 		if (newValueX == null) {
 			throw new ChartInconsistencyException("Value can not be empty ");
 		}
-		ScatterChartDataset dataset = getDatasets().get(datasetNumber);
+		DateTimeChartDataset dataset = getDatasets().get(datasetNumber);
 		dataset.add(newValueX, newValueY);
 		getDatasets().add(dataset);
 		update();

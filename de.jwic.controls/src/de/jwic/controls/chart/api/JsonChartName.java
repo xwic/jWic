@@ -24,5 +24,7 @@ public @interface JsonChartName {
 	String radar();
 
 	String polar();
+	
+	String dateTime();
 
 }

@@ -6,12 +6,9 @@ import java.util.Map.Entry;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
-import de.jwic.controls.chart.api.ValueListDataset;
-import de.jwic.controls.chart.api.ValueListDatasetModel;
-import de.jwic.controls.chart.impl.BarChart;
-import de.jwic.controls.chart.impl.ScatterChart;
-import de.jwic.controls.chart.impl.ScatterChartDataset;
-import de.jwic.controls.chart.impl.ScatterChartModel;
+import de.jwic.controls.chart.impl.DateTimeChart;
+import de.jwic.controls.chart.impl.DateTimeChartDataset;
+import de.jwic.controls.chart.impl.DateTimeChartModel;
 import de.jwic.demo.chart.util.DataModelCreator;
 
 /**
@@ -20,19 +17,19 @@ import de.jwic.demo.chart.util.DataModelCreator;
  *
  * @date 08.12.2015
  */
-public class ScatterChartDemo extends ChartDemo<ScatterChart, ScatterChartModel> {
+public class DateTimeChartDemo extends ChartDemo<DateTimeChart, DateTimeChartModel> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-	public ScatterChartDemo(IControlContainer container) {
+	public DateTimeChartDemo(IControlContainer container) {
 		super(container);
 
 	}
 
-	protected ScatterChartModel createModel() {
+	protected DateTimeChartModel createModel() {
 
 		return DataModelCreator.getScatterChartModel();
 	}
@@ -41,9 +38,9 @@ public class ScatterChartDemo extends ChartDemo<ScatterChart, ScatterChartModel>
 	protected List<TableElement> convertChartModelToTableElements() {
 		List<TableElement> elements = new ArrayList<TableElement>();
 
-		for (ScatterChartDataset set : model.getDatasets()) {
+		for (DateTimeChartDataset set : model.getDatasets()) {
 			int i = 0;
-			for (Entry<String, String> in : set.getValues().entrySet()) {
+			for (Entry<String, Double> in : set.getValues().entrySet()) {
 				TableElement el = new TableElement();
 				el.setTitle(in.getKey());
 				el.setValue(in.toString());
@@ -67,8 +64,8 @@ public class ScatterChartDemo extends ChartDemo<ScatterChart, ScatterChartModel>
 	}
 
 	@Override
-	protected ScatterChart createChart(ScatterChartModel model) {
-		return new ScatterChart(this, "chart", model);
+	protected DateTimeChart createChart(DateTimeChartModel model) {
+		return new DateTimeChart(this, "chart", model);
 	}
 
 

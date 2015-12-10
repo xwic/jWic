@@ -6,17 +6,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import de.jwic.controls.chart.api.ChartConfiguration;
 import de.jwic.controls.chart.api.ChartDataset;
 import de.jwic.controls.chart.api.ChartType;
 import de.jwic.controls.chart.api.JsonChartName;
+import de.jwic.controls.chart.impl.DateTimeChartDataset;
 
 /**
  * 
@@ -141,6 +144,40 @@ public class DataConverter {
 	}
 
 	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static String convertDateTimeModelToJson(List<DateTimeChartDataset> list) {
+		JSONArray array = new JSONArray();
+		try {
+
+			for (DateTimeChartDataset ds : list) {
+				JSONObject obj = new JSONObject();
+				obj.put("label", ds.getLabel());
+
+				obj.put("pointColor", ds.getPointColor());
+
+				obj.put("pointStrokeColor", ds.getPointStrokeColor());
+				obj.put("strokeColor", ds.getStrokeColor());
+				JSONArray ar = new JSONArray();
+				for (Entry<String, Double> mapEntry : ds.getValues().entrySet()) {
+					JSONObject entry = new JSONObject();
+					entry.put("x", "new Date(" + mapEntry.getKey() + ")");
+					entry.put("y", mapEntry.getValue());
+					ar.put(entry);
+				}
+				obj.put("data", ar);
+
+			}
+		} catch (JSONException e) {
+			LOGGER.error("Can not parse model for chart because of error: "
+					+ e.getMessage());
+		}
+		return array.toString();
+	}
+
+	/**
 	 * convert the configuration into the json array
 	 * 
 	 * @param obj
@@ -218,5 +255,4 @@ public class DataConverter {
 
 	}
 
-	
 }

@@ -12,7 +12,7 @@ import de.jwic.controls.chart.impl.util.DataConverter;
  *
  * @date 08.12.2015
  */
-public class ScatterChartDataset extends ChartDataset {
+public class DateTimeChartDataset extends ChartDataset {
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class ScatterChartDataset extends ChartDataset {
 
 	private String strokeColor = "#F16220";
 
-	public ScatterChartDataset(String label, Map<String, Double> dataModel) {
+	public DateTimeChartDataset(String label, Map<String, Double> dataModel) {
 		super(label);
 		this.values = dataModel;
 

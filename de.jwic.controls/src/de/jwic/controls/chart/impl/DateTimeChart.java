@@ -10,8 +10,8 @@ import de.jwic.controls.chart.api.ChartType;
  *
  * @date 08.12.2015
  */
-public class ScatterChart extends
-		Chart<ScatterChartModel, ScatterChartConfiguration> {
+public class DateTimeChart extends
+		Chart<DateTimeChartModel, DateTimeChartConfiguration> {
 
 	/**
 	 * 
@@ -24,10 +24,10 @@ public class ScatterChart extends
 	 * @param name
 	 * @param model
 	 */
-	public ScatterChart(IControlContainer container, String name,
-			ScatterChartModel model) {
-		super(container, name, ChartType.SCATTER, model);
-		setConfiguration(new ScatterChartConfiguration());
+	public DateTimeChart(IControlContainer container, String name,
+			DateTimeChartModel model) {
+		super(container, name, ChartType.DATE_TIME, model);
+		setConfiguration(new DateTimeChartConfiguration());
 
 	}
 

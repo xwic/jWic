@@ -18,13 +18,13 @@ public class ValueListDataset extends ChartDataset {
 	 */
 	private static final long serialVersionUID = 375389814468058669L;
 	private List<Double> data = new ArrayList<Double>();
-	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor")
+	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "")
 	private String fillColor = "#66ccff";
-	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill")
+	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "")
 	private String highlightColor = "#66ff33";
-	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor")
+	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "")
 	private String strokeColor = "#ffff00";
-	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke")
+	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "")
 	private String highlightStroke = "#ffffcc";
 
 	/**

@@ -6,7 +6,7 @@ package de.jwic.controls.chart.api;
  *
  */
 public enum ChartType {
-	LINE("line"), BAR("bar"), RADAR("radar"), POLAR("polar"), CIRCLE("circle"), SCATTER(
+	LINE("line"), BAR("bar"), RADAR("radar"), POLAR("polar"), CIRCLE("circle"), DATE_TIME(
 			"scatter"), ERROR_BAR("errorbar"), ERROR_LINE("errorline"), STACKED_BAR(
 			"stackedbar");
 
@@ -45,8 +45,8 @@ public enum ChartType {
 				return ERROR_BAR;
 			} else if (ERROR_LINE.name.equals(element)) {
 				return ERROR_LINE;
-			} else if (SCATTER.name.equals(element)) {
-				return SCATTER;
+			} else if (DATE_TIME.name.equals(element)) {
+				return DATE_TIME;
 			} else if (STACKED_BAR.name.equals(element)) {
 				return STACKED_BAR;
 			}

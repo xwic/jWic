@@ -33,7 +33,7 @@ public class ScatterChartDemoModule extends DemoModule {
 	@Override
 	public void createModule(IControlContainer container) {
 
-		new ScatterChartDemo(container);
+		new DateTimeChartDemo(container);
 
 	}
 

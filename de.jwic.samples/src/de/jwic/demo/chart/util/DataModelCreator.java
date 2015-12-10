@@ -1,14 +1,16 @@
 package de.jwic.demo.chart.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
-import de.jwic.controls.chart.impl.ScatterChartDataset;
-import de.jwic.controls.chart.impl.ScatterChartModel;
+import de.jwic.controls.chart.impl.DateTimeChartDataset;
+import de.jwic.controls.chart.impl.DateTimeChartModel;
 
 /**
  * 
@@ -87,9 +89,12 @@ public class DataModelCreator {
 		return model;
 	}
 
-	public static ScatterChartModel getScatterChartModel() {
-		List<ScatterChartDataset> datasets = new ArrayList<ScatterChartDataset>();
-		ScatterChartModel model = new ScatterChartModel(datasets );
+	public static DateTimeChartModel getScatterChartModel() {
+		List<DateTimeChartDataset> datasets = new ArrayList<DateTimeChartDataset>();
+		DateTimeChartModel model = new DateTimeChartModel(datasets );
+		Map<String, Double> map = new HashMap<String,Double>();
+		DateTimeChartDataset e = new DateTimeChartDataset("Temperatures Munich", map );
+		datasets.add(e );
 		return model;
 	}
 }

@@ -55,38 +55,38 @@ public abstract class ChartConfiguration implements Serializable {
 	private int tooltipXOffset = 10;
 	private String tooltipTemplate = "<%if (label){%><%=label%>= <%}%><%= value %>";
 
-	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "")
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "")
 	private String customTooltipFile;
 	private String legendTemplate;
 
-	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke")
+	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "")
 	private boolean showStroke = true;
 
-	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor")
+	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "")
 	private String strokeColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth")
+	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "")
 	private int segmentStrokeWidth = 2;
 
-	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "")
+	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "", dateTime = "scaleShowHorizontalLines")
 	private boolean scaleShowHorizontalLines = false;
 
-	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "")
+	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "", dateTime = "scaleShowVerticalLines")
 	private boolean scaleShowVerticalLines = false;
 
-	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "")
+	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "", dateTime = "scaleShowGridLines")
 	private boolean scaleShowGridLines = true;
 
-	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "")
+	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "", dateTime = "scaleGridLineColor")
 	private String scaleGridLineColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "")
+	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "", dateTime = "scaleGridLineWidth")
 	private int scaleGridLineWidth = 1;
 
-	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale")
+	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale", dateTime = "")
 	private boolean animateScale = false;
 
-	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate")
+	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate", dateTime = "")
 	private boolean animateRotate = true;
 
 	public ChartConfiguration(String legend) {
