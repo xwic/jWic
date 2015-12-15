@@ -1,5 +1,6 @@
 package de.jwic.controls.chart.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ public class DateTimeChartDataset extends ChartDataset {
 	 */
 	private static final long serialVersionUID = -5542485131372000461L;
 
-	private Map<String, Double> values = new HashMap<String, Double>();
+	private Map<Date, Double> values = new HashMap<Date, Double>();
 
 	private String pointColor = "#F16220";
 
@@ -27,7 +28,7 @@ public class DateTimeChartDataset extends ChartDataset {
 
 	private String strokeColor = "#F16220";
 
-	public DateTimeChartDataset(String label, Map<String, Double> dataModel) {
+	public DateTimeChartDataset(String label, Map<Date, Double> dataModel) {
 		super(label);
 		this.values = dataModel;
 
@@ -37,7 +38,7 @@ public class DateTimeChartDataset extends ChartDataset {
 	 * 
 	 * @return
 	 */
-	public Map<String, Double> getValues() {
+	public Map<Date, Double> getValues() {
 		return values;
 	}
 
@@ -45,11 +46,11 @@ public class DateTimeChartDataset extends ChartDataset {
 	 * 
 	 * @param values
 	 */
-	public void setValues(Map<String, Double> values) {
+	public void setValues(Map<Date, Double> values) {
 		this.values = values;
 	}
 
-	public void add(String label, Double value) {
+	public void add(Date label, Double value) {
 		values.put(label, value);
 	}
 

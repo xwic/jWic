@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -148,7 +149,8 @@ public class DataConverter {
 	 * @param obj
 	 * @return
 	 */
-	public static String convertDateTimeModelToJson(List<DateTimeChartDataset> list) {
+	public static String convertDateTimeModelToJson(
+			List<DateTimeChartDataset> list) {
 		JSONArray array = new JSONArray();
 		try {
 
@@ -161,20 +163,24 @@ public class DataConverter {
 				obj.put("pointStrokeColor", ds.getPointStrokeColor());
 				obj.put("strokeColor", ds.getStrokeColor());
 				JSONArray ar = new JSONArray();
-				for (Entry<String, Double> mapEntry : ds.getValues().entrySet()) {
+				for (Entry<Date, Double> mapEntry : ds.getValues().entrySet()) {
 					JSONObject entry = new JSONObject();
-					entry.put("x", "new Date(" + mapEntry.getKey() + ")");
+					entry.put("x", "new Date('" + mapEntry.getKey() + "')");
 					entry.put("y", mapEntry.getValue());
 					ar.put(entry);
 				}
 				obj.put("data", ar);
-
+				array.put(obj);
 			}
+
 		} catch (JSONException e) {
 			LOGGER.error("Can not parse model for chart because of error: "
 					+ e.getMessage());
 		}
-		return array.toString();
+		String json = array.toString();
+	//	json = json.replaceAll("\"new", "new");
+	//	json = json.replaceAll("')\"", "')");
+		return json;
 	}
 
 	/**

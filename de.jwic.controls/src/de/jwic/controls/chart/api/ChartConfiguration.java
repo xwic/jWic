@@ -16,7 +16,7 @@ public abstract class ChartConfiguration implements Serializable {
 	/**
 	 * 
 	 */
-	private boolean customTootlip = true;
+	private boolean customTootlip = false;
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;

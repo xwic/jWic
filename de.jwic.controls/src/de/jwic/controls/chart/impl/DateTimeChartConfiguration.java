@@ -17,18 +17,18 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	private Boolean xScaleOverride = false;
 
-	private Integer xScaleSteps = null;
+	private int xScaleSteps = 1;
 
-	private Integer xScaleStepWidth = null;
+	private int xScaleStepWidth = 1;
 
-	private Integer xScaleStartValue = null;
+	private int xScaleStartValue = 1;
 
 	// VERTICAL SCALE RANGE
-	private Integer scaleSteps = null;
+	private int scaleSteps = 1;
 
-	private Integer scaleStepWidth = null;
+	private int scaleStepWidth = 1;
 
-	private Integer scaleStartValue = null;
+	private int scaleStartValue = 1;
 
 	private String scaleType = "date";
 
@@ -117,7 +117,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 * @return Required if scaleOverride is true - Number - The number of steps
 	 *         in a hard coded x scale
 	 */
-	public Integer getxScaleSteps() {
+	public int getxScaleSteps() {
 		return xScaleSteps;
 	}
 
@@ -127,7 +127,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 *            - Required if scaleOverride is true - Number - The number of
 	 *            steps in a hard coded x scale
 	 */
-	public void setxScaleSteps(Integer xScaleSteps) {
+	public void setxScaleSteps(int xScaleSteps) {
 		this.xScaleSteps = xScaleSteps;
 	}
 
@@ -136,7 +136,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 * @return Required if scaleOverride is true - Number - The value jump in
 	 *         the hard coded x scale
 	 */
-	public Integer getxScaleStepWidth() {
+	public int getxScaleStepWidth() {
 		return xScaleStepWidth;
 	}
 
@@ -146,7 +146,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 *            - Required if scaleOverride is true - Number - The value jump
 	 *            in the hard coded x scale
 	 */
-	public void setxScaleStepWidth(Integer xScaleStepWidth) {
+	public void setxScaleStepWidth(int xScaleStepWidth) {
 		this.xScaleStepWidth = xScaleStepWidth;
 	}
 
@@ -155,7 +155,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 * @return Required if scaleOverride is true - Number - The x scale starting
 	 *         value
 	 */
-	public Integer getxScaleStartValue() {
+	public int getxScaleStartValue() {
 		return xScaleStartValue;
 	}
 
@@ -165,27 +165,27 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 *            Required if scaleOverride is true - Number - The x scale
 	 *            starting value
 	 */
-	public void setxScaleStartValue(Integer xScaleStartValue) {
+	public void setxScaleStartValue(int xScaleStartValue) {
 		this.xScaleStartValue = xScaleStartValue;
 	}
 
-	public Integer getScaleSteps() {
+	public int getScaleSteps() {
 		return scaleSteps;
 	}
 
-	public void setScaleSteps(Integer scaleSteps) {
+	public void setScaleSteps(int scaleSteps) {
 		this.scaleSteps = scaleSteps;
 	}
 
-	public Integer getScaleStepWidth() {
+	public int getScaleStepWidth() {
 		return scaleStepWidth;
 	}
 
-	public void setScaleStepWidth(Integer scaleStepWidth) {
+	public void setScaleStepWidth(int scaleStepWidth) {
 		this.scaleStepWidth = scaleStepWidth;
 	}
 
-	public Integer getScaleStartValue() {
+	public int getScaleStartValue() {
 		return scaleStartValue;
 	}
 
@@ -194,7 +194,7 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 * @param scaleStartValue
 	 *            - String - scale type= "number" or "date"
 	 */
-	public void setScaleStartValue(Integer scaleStartValue) {
+	public void setScaleStartValue(int scaleStartValue) {
 		this.scaleStartValue = scaleStartValue;
 	}
 
