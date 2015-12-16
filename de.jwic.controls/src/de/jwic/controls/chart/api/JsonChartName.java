@@ -26,5 +26,7 @@ public @interface JsonChartName {
 	String polar();
 	
 	String dateTime();
+	
+	String stacked();
 
 }

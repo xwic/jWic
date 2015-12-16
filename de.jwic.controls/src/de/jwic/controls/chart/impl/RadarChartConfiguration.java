@@ -18,9 +18,7 @@ public class RadarChartConfiguration extends ChartConfiguration {
 	private boolean scaleShowLine = true;
 
 	public RadarChartConfiguration() {
-		super(
-				"<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>");
-
+		super("<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>");
 	}
 
 	/**
@@ -60,8 +58,6 @@ public class RadarChartConfiguration extends ChartConfiguration {
 		}
 
 	}
-
-
 
 	/**
 	 * 

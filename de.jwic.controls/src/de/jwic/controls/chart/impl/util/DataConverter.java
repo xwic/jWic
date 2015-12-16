@@ -5,6 +5,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
@@ -29,6 +31,8 @@ import de.jwic.controls.chart.impl.DateTimeChartDataset;
  * @date 29.10.2015
  */
 public class DataConverter {
+
+	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 	private static final Logger LOGGER = Logger.getLogger(DataConverter.class);
 
@@ -89,8 +93,7 @@ public class DataConverter {
 	 * @return
 	 */
 	public static String convertToJSColor(Color color, String alfa) {
-		return "rgba(" + color.getRed() + "," + color.getGreen() + ","
-				+ color.getBlue() + "," + alfa + ")";
+		return "rgba(" + color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + alfa + ")";
 	}
 
 	/**
@@ -99,8 +102,7 @@ public class DataConverter {
 	 * @param type
 	 * @return
 	 */
-	public static String convertToJson(List<? extends ChartDataset> datasets,
-			ChartType type) {
+	public static String convertToJson(List<? extends ChartDataset> datasets, ChartType type) {
 		try {
 			JSONArray array = new JSONArray();
 			for (ChartDataset dataset : datasets) {
@@ -120,8 +122,7 @@ public class DataConverter {
 			}
 			return array.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 
@@ -137,8 +138,7 @@ public class DataConverter {
 			ObjectMapper mapper = new ObjectMapper();
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 
@@ -149,8 +149,7 @@ public class DataConverter {
 	 * @param obj
 	 * @return
 	 */
-	public static String convertDateTimeModelToJson(
-			List<DateTimeChartDataset> list) {
+	public static String convertDateTimeModelToJson(List<DateTimeChartDataset> list) {
 		JSONArray array = new JSONArray();
 		try {
 
@@ -165,7 +164,8 @@ public class DataConverter {
 				JSONArray ar = new JSONArray();
 				for (Entry<Date, Double> mapEntry : ds.getValues().entrySet()) {
 					JSONObject entry = new JSONObject();
-					entry.put("x", "new Date('" + mapEntry.getKey() + "')");
+
+					entry.put("x", DF.format(mapEntry.getKey()));
 					entry.put("y", mapEntry.getValue());
 					ar.put(entry);
 				}
@@ -174,12 +174,11 @@ public class DataConverter {
 			}
 
 		} catch (JSONException e) {
-			LOGGER.error("Can not parse model for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse model for chart because of error: " + e.getMessage());
 		}
 		String json = array.toString();
-	//	json = json.replaceAll("\"new", "new");
-	//	json = json.replaceAll("')\"", "')");
+		// json = json.replaceAll("\"new", "new");
+		// json = json.replaceAll("')\"", "')");
 		return json;
 	}
 
@@ -203,8 +202,7 @@ public class DataConverter {
 				}
 			}
 			if (obj.getClass().getSuperclass() != null) {
-				for (Field field : obj.getClass().getSuperclass()
-						.getDeclaredFields()) {
+				for (Field field : obj.getClass().getSuperclass().getDeclaredFields()) {
 					String fieldName = getNameForChartType(type, field);
 					if (!StringUtils.isEmpty(fieldName)) {
 						field.setAccessible(true);
@@ -216,8 +214,7 @@ public class DataConverter {
 			}
 			return object.toString();
 		} catch (Exception e) {
-			LOGGER.error("Can not parse configuration for chart because of error: "
-					+ e.getMessage());
+			LOGGER.error("Can not parse configuration for chart because of error: " + e.getMessage());
 			return "{}";
 		}
 	}
@@ -247,6 +244,12 @@ public class DataConverter {
 				break;
 			case RADAR:
 				value = col.radar();
+				break;
+			case STACKED_BAR:
+				value = col.stacked();
+				break;
+			case DATE_TIME:
+				value = col.dateTime();
 				break;
 			default:
 				value = null;

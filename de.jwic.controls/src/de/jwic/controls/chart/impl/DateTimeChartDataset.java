@@ -112,4 +112,9 @@ public class DateTimeChartDataset extends ChartDataset {
 		}
 	}
 
+	public void remove(Date newValueX) {
+		values.remove(newValueX);
+
+	}
+
 }

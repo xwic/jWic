@@ -1,6 +1,9 @@
+
+
 #set($fld = $control.getField("content"))
 {
-
+	
+	
 	/**
 	 * Invoked after the DOM element was updated. This function is NOT updated
 	 * if the custom doUpdate function returned true.
@@ -30,8 +33,18 @@
 	    			tooltipEl.removeClass('above below');
 	    			tooltipEl.addClass(tooltip.yAlign);
 
-// // Set Text
-    			tooltipEl.html($control.getConfiguration().getCustomTooltipHtml());
+	    	// Set Text
+	    			var innerHtml='';
+	    		  
+	    		if (tooltip.labels){
+	    				  for (var i = tooltip.labels.length - 1; i >= 0; i--) {
+	    					  
+	    			        	innerHtml += [$control.getConfiguration().getCustomTooltipHtml()].join('');;
+	    				  }
+	    			} else {
+	    				innerHtml = $control.getConfiguration().getCustomTooltipHtml();
+	    			}
+	    		tooltipEl.html(innerHtml);
 
 	        // Find Y Location on page
 	    			var top;
@@ -90,87 +103,20 @@
 		#end
 		
 		#if($control.chartType=='scatter')
-		
-			options ={
-				bezierCurve: true,
-				showTooltips: true,
-				scaleShowHorizontalLines: true,
-				scaleShowLabels: true,
-				scaleType: "date",
-				scaleLabel: "<%=value%> C"
-		}
-			
-		// chartData =$control.model.datasetsJson;
-		// debugger;
-		
-		  chartData = [
-			          				{
-			        					label: 'temperature',
-			        					strokeColor: '#A31515',
-			        					data: [
-			        						{
-			        							x: '2011-04-11T11:45:00',
-			        							y: 25
-			        						},
-			        						{
-			        							x: '2011-04-11T12:51:00',
-			        							y: 28
-			        						},
-			        						{
-			        							x: '2011-04-11T14:10:00',
-			        							y: 22
-			        						},
-			        						{
-			        							x: '2011-04-11T15:15:00',
-			        							y: 18
-			        						},
-			        						{
-			        							x: '2011-04-11T17:00:00',
-			        							y: 25
-			        						},
-			        						{
-			        							x: '2011-04-11T21:00:00',
-			        							y: 24
-			        						},
-			        						{
-			        							x: '2011-04-12T13:00:00',
-			        							y: 24
-			        						}
-			        					]
-			        				}];
-			chartImpl = chart.Scatter(chartData, options);
+			debugger;
+		 chartData =convertToDate($control.model.datasetsJson);
+		chartImpl = chart.Scatter(chartData, options);
 		#end
 		
 		#if($control.chartType=='stackedbar')
-			var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-			var randomColorFactor = function(){ return Math.round(Math.random()*255)};
-
-		chartData = {
-				labels : ["January","February","March","April","May","June","July"],
-				datasets : [
-					{
-						fillColor : "rgba(220,220,220,0.5)",
-						strokeColor : "rgba(220,220,220,0.8)",
-						highlightFill: "rgba(220,220,220,0.75)",
-						highlightStroke: "rgba(220,220,220,1)",
-						data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-					},
-					{
-						fillColor : "rgba(151,187,205,0.5)",
-						strokeColor : "rgba(151,187,205,0.8)",
-						highlightFill : "rgba(151,187,205,0.75)",
-						highlightStroke : "rgba(151,187,205,1)",
-						data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-					},
-					{
-						fillColor : "rgba(240,73,73,0.5)",
-						strokeColor : "rgba(240,73,73,0.8)",
-						highlightFill : "rgba(240,73,73,0.75)",
-						highlightStroke : "rgba(240,73,73,1)",
-						data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-					}
-				]
-			};
+			
+			
+			  
+			  chartData = {
+					    labels: $control.model.labelsJson,
+					    datasets: $control.model.datasetsJson
+					};	
+			
 			chartImpl = chart.StackedBar(chartData, options);
 		#end
 
@@ -182,22 +128,23 @@
 					 
 				}
 			}
-		canvas.mousemove = function(handler){
-			debugger;
-			 var element = prepareOperation(evt);
-				if (element!=undefined){
-					
-					     JWic.fireAction('$control.controlID', 'move', element);
-					 
-				}
-		}
-		
-	 canvas.onmouseover = function(evt){
-	           var element = prepareOperation(evt);
-				if (element!=undefined){
-					JWic.fireAction('$control.controlID', 'select', element);
-				}				     
-			}
+// canvas.mousemove = function(handler){
+// debugger;
+// var element = prepareOperation(evt);
+// if (element!=undefined){
+//					
+// JWic.fireAction('$control.controlID', 'move', element);
+//					 
+// }
+// }
+//		
+// canvas.onmouseover = function(evt){
+// debugger;
+// var element = prepareOperation(evt);
+// if (element!=undefined){
+// JWic.fireAction('$control.controlID', 'select', element);
+// }
+// }
 			
 	 function extend(a, b){
 		    for(var key in b)
@@ -205,6 +152,30 @@
 		            a[key] = b[key];
 		    return a;
 		 }
+	 
+	 function convertToDate(jsonArray){
+		 jQuery.each(jsonArray, function(i, val) {
+			 jQuery.each(val.data, function(i, data) {
+			
+			var newDate =  convertValueToDate(data.x);
+			data.x = newDate;
+				});
+		 });
+		 return jsonArray;
+	 }
+	 
+	 function convertValueToDate(value){
+		 var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})/;
+		 var dateArray = reggie.exec(value); 
+		 var dateObject = new Date(
+		     (+dateArray[1]),
+		     (+dateArray[2])-1, // Careful, month starts at 0!
+		     (+dateArray[3]),
+		     (+dateArray[4]),
+		     (+dateArray[5])
+		 );
+		 return dateObject;
+	 }
 	 
 	 function prepareOperation(evt){
 		 var activeElement = undefined;  
@@ -237,7 +208,7 @@
 			#end
 			
 			#if($control.chartType=='stackedbar')
-				activeElement = chartImpl.getSegmentsAtEvent(evt);
+				activeElement = chartImpl.getBarsAtEvent(evt);
 			#end
 			
 			
@@ -255,6 +226,7 @@
 				}
 			}
 	 }
+
 	
 	}
 

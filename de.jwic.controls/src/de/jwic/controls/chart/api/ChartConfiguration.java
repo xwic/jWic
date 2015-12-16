@@ -2,7 +2,6 @@ package de.jwic.controls.chart.api;
 
 import java.io.Serializable;
 
-import de.jwic.controls.chart.api.util.ChartHelper;
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
@@ -17,31 +16,32 @@ public abstract class ChartConfiguration implements Serializable {
 	 * 
 	 */
 	private boolean customTootlip = false;
+	private String customTooltipHtml;
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;
 	private boolean responsive = false;
-
+	private boolean zoomEnabled = true;
 	private boolean animation = true;
 	private int animationSteps = 60;
 	private AnimationEffect animationEasing = AnimationEffect.EASEINOUTBOUNCE;
 	private boolean showScale = true;
 	private boolean scaleOverride = false;
 	private String scaleLineColor = "rgba(0,0,0,1)";
-	private int scaleLineWidth = 1;
+	private int scaleLineWidth = 0;
 	private boolean scaleShowLabels = true;
 	private String scaleLabel = "<%=value%>";
 	private boolean scaleIntegersOnly = true;
 	private boolean scaleBeginAtZero = false;
 	private String scaleFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
-	private int scaleFontSize = 12;
+	private int scaleFontSize = 11;
 	private String scaleFontStyle = "normal";
 	private String scaleFontColor = "#666";
 	private boolean maintainAspectRatio = true;
 	private boolean showTooltips = true;
 	private String tooltipFillColor = "rgba(0,0,0,0.8)";
 	private String tooltipFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
-	private int tooltipFontSize = 14;
+	private int tooltipFontSize = 11;
 	private String tooltipFontStyle = "normal";
 	private String tooltipFontColor = "#fff";
 	private String tooltipTitleFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
@@ -50,43 +50,41 @@ public abstract class ChartConfiguration implements Serializable {
 	private String tooltipTitleFontColor = "#fff";
 	private int tooltipYPadding = 6;
 	private int tooltipXPadding = 6;
-	private int tooltipCaretSize = 8;
+	private int tooltipCaretSize = 0;
 	private int tooltipCornerRadius = 6;
-	private int tooltipXOffset = 10;
+	private int tooltipXOffset = 0;
 	private String tooltipTemplate = "<%if (label){%><%=label%>= <%}%><%= value %>";
 
-	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "")
-	private String customTooltipFile;
 	private String legendTemplate;
 
-	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "datasetStroke")
+	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "datasetStroke", stacked = "barShowStroke")
 	private boolean showStroke = true;
 
-	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "")
+	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "", stacked = "")
 	private String strokeColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "datasetStrokeWidth")
+	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "datasetStrokeWidth", stacked = "barStrokeWidth")
 	private int segmentStrokeWidth = 2;
 
-	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "", dateTime = "scaleShowHorizontalLines")
+	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "", dateTime = "scaleShowHorizontalLines", stacked = "scaleShowHorizontalLines")
 	private boolean scaleShowHorizontalLines = false;
 
-	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "", dateTime = "scaleShowVerticalLines")
+	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "", dateTime = "scaleShowVerticalLines", stacked = "scaleShowVerticalLines")
 	private boolean scaleShowVerticalLines = false;
 
-	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "", dateTime = "scaleShowGridLines")
+	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "", dateTime = "scaleShowGridLines", stacked = "scaleShowGridLines")
 	private boolean scaleShowGridLines = true;
 
-	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "", dateTime = "scaleGridLineColor")
+	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "", dateTime = "scaleGridLineColor", stacked = "scaleGridLineColor")
 	private String scaleGridLineColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "", dateTime = "scaleGridLineWidth")
+	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "", dateTime = "scaleGridLineWidth", stacked = "scaleGridLineWidth")
 	private int scaleGridLineWidth = 1;
 
-	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale", dateTime = "")
+	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale", dateTime = "", stacked = "")
 	private boolean animateScale = false;
 
-	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate", dateTime = "")
+	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate", dateTime = "", stacked = "")
 	private boolean animateRotate = true;
 
 	public ChartConfiguration(String legend) {
@@ -902,11 +900,21 @@ public abstract class ChartConfiguration implements Serializable {
 	}
 
 	public String getCustomTooltipHtml() {
-		return ChartHelper.getFileContent(customTooltipFile);
+		return customTooltipHtml;
 	}
 
-	public void setCustomTooltipFile(String customTooltipHtml) {
-		this.customTooltipFile = customTooltipHtml;
+	public void setCustomTooltipHtml(String customTooltipHtml) {
+		this.customTooltipHtml = customTooltipHtml;
 	}
+
+	public boolean isZoomEnabled() {
+		return zoomEnabled;
+	}
+
+	public void setZoomEnabled(boolean zoomEnabled) {
+		this.zoomEnabled = zoomEnabled;
+	}
+	
+	
 
 }

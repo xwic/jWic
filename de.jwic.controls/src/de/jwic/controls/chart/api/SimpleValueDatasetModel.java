@@ -89,4 +89,40 @@ public class SimpleValueDatasetModel extends ChartModel<SimpleValueDataset> {
 		update();
 	}
 
+	/**
+	 * Changes the color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeColor(int datasetNumber, String color)
+			throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
+		}
+		SimpleValueDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setColor(color);
+		update();
+	}
+
+	/**
+	 * Changes the highlight color of defined dataset
+	 * 
+	 * @param datasetNumber
+	 * @param color
+	 * @throws ChartInconsistencyException
+	 */
+	public void changeHighlightColor(int datasetNumber, String color)
+			throws ChartInconsistencyException {
+		if (getDatasets().size() <= datasetNumber) {
+			throw new ChartInconsistencyException(
+					"Array of datasets smaller than " + datasetNumber);
+		}
+		SimpleValueDataset dataset = getDatasets().get(datasetNumber);
+		dataset.setHighlight(color);
+		update();
+	}
+
 }

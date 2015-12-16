@@ -8,7 +8,9 @@ import java.util.List;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IResourceControl;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.chart.api.util.ChartHelper;
 import de.jwic.controls.chart.impl.util.DataConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -23,7 +25,7 @@ import de.jwic.events.SelectionListener;
  */
 @JavaScriptSupport
 public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
-		extends Control {
+		extends Control implements IResourceControl {
 
 	/**
 	 * 
@@ -37,8 +39,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private List<ElementSelectedListener> elementSelectedListeners;
 	private List<ActionListener> animationInProgressListeners;
 	private L configuration;
-
-
+	
 	/**
 	 * 
 	 * @param container

@@ -17,9 +17,9 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	private Boolean xScaleOverride = false;
 
-	private int xScaleSteps = 1;
+	private int xScaleSteps = 5;
 
-	private int xScaleStepWidth = 1;
+	private int xScaleStepWidth = 5;
 
 	private int xScaleStartValue = 1;
 
@@ -36,13 +36,13 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	private String scaleDateFormat = "mmm d";
 
-	private String scaleTimeFormat = "h=MM";
+	private String scaleTimeFormat = "HH:MM";
 
-	private String scaleDateTimeFormat = "mmm d, yyyy, hh=MM";
+	private String scaleDateTimeFormat = "mmm :dd: yyyy, HH:MM";
 
 	private String datasetStrokeColor = "#007ACC";
 
-	private String datasetPointStrokeColor = "white";
+	private String datasetPointStrokeColor = "057ACC";
 
 	private boolean bezierCurve = true;
 
@@ -50,15 +50,12 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	// Interpolated JS string - can access point fields=
 	// argLabel, valueLabel, arg, value, datasetLabel, size
-	private String tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>= <%}%><%=argLabel%>; <%=valueLabel%>";
-
-	// Interpolated JS string - can access point fields=
-	// argLabel, valueLabel, arg, value, datasetLabel, size
 	private String multiTooltipTemplate = "<%=argLabel%>; <%=valueLabel%>";
 
 	public DateTimeChartConfiguration() {
-		super(
-				"<ul class=\"<%=name.toLowerCase()%>-legend\"><%for(var i=0;i<datasets.length;i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-marker\" style=\"background-color=<%=datasets[i].strokeColor%>\"></span><%=datasets[i].label%></li><%}%></ul>");
+		super("<ul class=\"<%=name.toLowerCase()%>-legend\"><%for(var i=0;i<datasets.length;i++){%><li><span class=\"<%=name.toLowerCase()%>-legend-marker\" style=\"background-color=<%=datasets[i].strokeColor%>\"></span><%=datasets[i].label%></li><%}%></ul>");
+
+		super.setTooltipTemplate("<%if (datasetLabel){%><%=datasetLabel%>= <%}%><%=argLabel%>; <%=valueLabel%>");
 	}
 
 	/**
@@ -169,51 +166,55 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 		this.xScaleStartValue = xScaleStartValue;
 	}
 
+	/**
+	 * 
+	 * @return - The number of steps in a hard coded scale
+	 */
 	public int getScaleSteps() {
 		return scaleSteps;
 	}
 
+	/**
+	 * 
+	 * @param scaleSteps - The number of steps in a hard coded scale
+	 */
 	public void setScaleSteps(int scaleSteps) {
 		this.scaleSteps = scaleSteps;
 	}
 
+	/**
+	 * 
+	 * @return - The value jump in the hard coded scale
+	 */
 	public int getScaleStepWidth() {
 		return scaleStepWidth;
 	}
 
+	/**
+	 * 
+	 * @param scaleStepWidth - The value jump in the hard coded scale
+	 */
 	public void setScaleStepWidth(int scaleStepWidth) {
 		this.scaleStepWidth = scaleStepWidth;
 	}
 
+	/**
+	 * 
+	 * @return - The scale starting value
+	 */
 	public int getScaleStartValue() {
 		return scaleStartValue;
 	}
 
 	/**
 	 * 
-	 * @param scaleStartValue
-	 *            - String - scale type= "number" or "date"
+	 * @param scaleStartValue - The scale starting value
+	 *            
 	 */
 	public void setScaleStartValue(int scaleStartValue) {
 		this.scaleStartValue = scaleStartValue;
 	}
 
-	/**
-	 * 
-	 * @return String - scale type= "number" or "date"
-	 */
-	public String getScaleType() {
-		return scaleType;
-	}
-
-	/**
-	 * 
-	 * @param scaleType
-	 *            String - scale type= "number" or "date"
-	 */
-	public void setScaleType(String scaleType) {
-		this.scaleType = scaleType;
-	}
 
 	/**
 	 * 
@@ -225,7 +226,8 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param useUtc - Boolean - Whether to use UTC dates instead local
+	 * @param useUtc
+	 *            - Boolean - Whether to use UTC dates instead local
 	 */
 	public void setUseUtc(Boolean useUtc) {
 		this.useUtc = useUtc;
@@ -241,7 +243,8 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param scaleDateFormat - String - short date format (used for scale labels)
+	 * @param scaleDateFormat
+	 *            - String - short date format (used for scale labels)
 	 */
 	public void setScaleDateFormat(String scaleDateFormat) {
 		this.scaleDateFormat = scaleDateFormat;
@@ -257,7 +260,8 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param scaleTimeFormat - String - short time format (used for scale labels)
+	 * @param scaleTimeFormat
+	 *            - String - short time format (used for scale labels)
 	 */
 	public void setScaleTimeFormat(String scaleTimeFormat) {
 		this.scaleTimeFormat = scaleTimeFormat;
@@ -273,7 +277,8 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param scaleDateTimeFormat - String - full date format (used for point labels)
+	 * @param scaleDateTimeFormat
+	 *            - String - full date format (used for point labels)
 	 */
 	public void setScaleDateTimeFormat(String scaleDateTimeFormat) {
 		this.scaleDateTimeFormat = scaleDateTimeFormat;
@@ -289,14 +294,15 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param datasetStrokeColor - String - Color of dataset stroke
+	 * @param datasetStrokeColor
+	 *            - String - Color of dataset stroke
 	 */
 	public void setDatasetStrokeColor(String datasetStrokeColor) {
 		String color = DataConverter.convertToJSColor(datasetStrokeColor);
 		if (color != null) {
 			this.datasetStrokeColor = color;
 		}
-		
+
 	}
 
 	/**
@@ -309,14 +315,15 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 
 	/**
 	 * 
-	 * @param datasetPointStrokeColor - String - Color of dataset stroke
+	 * @param datasetPointStrokeColor
+	 *            - String - Color of dataset stroke
 	 */
 	public void setDatasetPointStrokeColor(String datasetPointStrokeColor) {
 		String color = DataConverter.convertToJSColor(datasetPointStrokeColor);
 		if (color != null) {
 			this.datasetPointStrokeColor = color;
 		}
-		
+
 	}
 
 	/**
@@ -351,14 +358,6 @@ public class DateTimeChartConfiguration extends ChartConfiguration {
 	 */
 	public void setBezierCurveTension(Double bezierCurveTension) {
 		this.bezierCurveTension = bezierCurveTension;
-	}
-
-	public String getTooltipTemplate() {
-		return tooltipTemplate;
-	}
-
-	public void setTooltipTemplate(String tooltipTemplate) {
-		this.tooltipTemplate = tooltipTemplate;
 	}
 
 	public String getMultiTooltipTemplate() {
