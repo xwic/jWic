@@ -11,10 +11,25 @@
         <table width="100%">
         <tr>
         </tr>
+      
         <tr>
-        <td>  Fill Color for dataset 1: $insert.control("fillColor") $insert.control("addFill")</td>
-         <td>  Highlight Color for dataset 1: $insert.control("highlightColor") $insert.control("addHigh")</td>
+        <td> <b> Fill Color for dataset 1: </b> </td>
+        
+        <td>  $insert.control("fillColor") $insert.control("addFill")</td> 
         </tr>
+        <tr>
+          <td> <b>Highlight Color for dataset 1:  </b></td>
+          <td> $insert.control("highlightColor") $insert.control("addHigh")</td>
+        </tr>
+      
+         <tr>
+			   <td><b>Chart selection listener</b></td>
+			   <td>$insert.control("inputBox")</td>	
+	      </tr>
+	         <tr>
+			   <td colspan="2">
+			   $insert.control("table")</td>	
+            </tr>
         </table>
       </td>
        <td width="50%">
@@ -24,20 +39,13 @@
 			   <b>Property editor</b>
 			   $insert.control("propertyEditor")</td>	
 	       </tr>
-	        <tr>
-			   <td>
-			   <b>Chart selection listener</b>
-			   Last selected element is: $insert.control("inputBox")</td>	
-	       </tr>
+	       
 	        <td>
               <b>Chart Data Model</b>
 			   $insert.control("toolbar")
 	          </td>	
                </tr>
-	        <tr>
-			   <td>
-			   $insert.control("table")</td>	
-            </tr>
+	     
             <tr>
 			  
           </table>

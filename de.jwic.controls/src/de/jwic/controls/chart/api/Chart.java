@@ -18,6 +18,7 @@ import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
 /**
+ * Coomon implementation of the all chart types 
  * 
  * @author Karolina Marek (karolina-marek.eu)
  *

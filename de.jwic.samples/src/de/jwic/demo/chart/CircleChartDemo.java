@@ -78,15 +78,15 @@ public class CircleChartDemo extends
 	}
 
 	@Override
-	protected void changeFillColor(String text) {
-		// not in this chart
-		
+	protected void changeFillColor(String color) {
+		model.getDatasets().get(1).setColor(color);
+
 	}
 
 	@Override
-	protected void changeHighColor(String text) {
-		// not in this chart
-		
+	protected void changeHighColor(String highlight) {
+		model.getDatasets().get(1).setHighlight(highlight);
+
 	}
 
 }

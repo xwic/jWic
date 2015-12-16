@@ -54,56 +54,46 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 		return elements;
 	}
 
-	public void changeFillColorOfTheDataset(String color)
-			throws ChartInconsistencyException {
+	public void changeFillColorOfTheDataset(String color) throws ChartInconsistencyException {
 		model.changeFillColor(1, color);
 	}
 
-	public void changeHightlightColorOfTheDataset(String color)
-			throws ChartInconsistencyException {
+	public void changeHightlightColorOfTheDataset(String color) throws ChartInconsistencyException {
 		model.changeHightlightColor(1, color);
 	}
 
 	@Override
 	protected BarChart createChart(ValueListDatasetModel model) {
 		BarChart chart = new BarChart(this, "chart", model);
-		chart.getConfiguration().setCustomTootlip(true);
-		chart.getConfiguration().setCustomTooltipFile("CustomTooltip.html");
 		return chart;
 	}
 
 	@Override
-	protected void addElementToTheChart(TableElement element)
-			throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), 1,
-				Double.valueOf(element.getValue()));
+	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
-	protected void updateElementInChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
-	protected void deleteElementFromChart(TableElement selectedTableElement)
-			throws ChartInconsistencyException {
+	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
 	}
 
 	@Override
-	protected void changeFillColor(String color)
-			throws ChartInconsistencyException {
+	protected void changeFillColor(String color) throws ChartInconsistencyException {
 		model.changeFillColor(1, color);
 
 	}
 
 	@Override
-	protected void changeHighColor(String color)
-			throws ChartInconsistencyException {
+	protected void changeHighColor(String color) throws ChartInconsistencyException {
 		model.changeHightlightColor(1, color);
 
 	}

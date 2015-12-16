@@ -6,6 +6,10 @@ import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * 
+ * Common configuration for all chart types. The specific values have been
+ * adnotated because sometimes each chart has its own name of the config
+ * property
+ * 
  * @author Karolina Marek (karolina-marek.eu)
  *
  * @date 13.11.2015
@@ -914,7 +918,5 @@ public abstract class ChartConfiguration implements Serializable {
 	public void setZoomEnabled(boolean zoomEnabled) {
 		this.zoomEnabled = zoomEnabled;
 	}
-	
-	
 
 }

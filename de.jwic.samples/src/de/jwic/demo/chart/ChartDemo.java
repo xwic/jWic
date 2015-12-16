@@ -111,6 +111,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends C
 		highlightColor = new InputBox(this, "highlightColor");
 
 		addFill = new Button(this, "addFill");
+		addFill.setTitle("Change");
 		addFill.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -125,6 +126,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends C
 			}
 		});
 		addHigh = new Button(this, "addHigh");
+		addHigh.setTitle("Change");
 		addHigh.addSelectionListener(new SelectionListener() {
 
 			@Override

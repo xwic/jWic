@@ -1,6 +1,9 @@
 package de.jwic.demo.chart;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -18,6 +21,9 @@ import de.jwic.demo.chart.util.DataModelCreator;
  * @date 08.12.2015
  */
 public class DateTimeChartDemo extends ChartDemo<DateTimeChart, DateTimeChartModel> {
+
+	
+	private static final DateFormat DF = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	/**
 	 * 
@@ -40,9 +46,9 @@ public class DateTimeChartDemo extends ChartDemo<DateTimeChart, DateTimeChartMod
 
 		for (DateTimeChartDataset set : model.getDatasets()) {
 			int i = 0;
-			for (Entry<String, Double> in : set.getValues().entrySet()) {
+			for (Entry<Date, Double> in : set.getValues().entrySet()) {
 				TableElement el = new TableElement();
-				el.setTitle(in.getKey());
+				el.setTitle(DF.format(in.getKey()));
 				el.setValue(in.toString());
 				el.setFillColor(set.getPointColor());
 				el.setHighlightColor(set.getPointStrokeColor());

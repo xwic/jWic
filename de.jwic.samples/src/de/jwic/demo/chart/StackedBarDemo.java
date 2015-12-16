@@ -2,6 +2,7 @@ package de.jwic.demo.chart;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -54,52 +55,45 @@ public class StackedBarDemo extends
 		return elements;
 	}
 
-	public void changePointColorOfTheDataset(String color)
-			throws ChartInconsistencyException {
-		// model.changePointColor(1, color);
-	}
-
-	public void changeHightlightColorOfTheDataset(String color)
-			throws ChartInconsistencyException {
-		// model.changeHightlightColor(1, color);
-	}
-
 	@Override
 	protected StackedBarChart createChart(ValueListDatasetModel model) {
-		return new StackedBarChart(this, "chart", model);
+		StackedBarChart cahrt = new StackedBarChart(this, "chart", model);
+		cahrt.getConfiguration().setScaleBeginAtZero(true);
+		return cahrt;
 	}
 
 	@Override
 	protected void changeHighColor(String color)
 			throws ChartInconsistencyException {
-
+		model.changeHightlightColor(1, color);
 	}
 
 	@Override
-	protected void changeFillColor(String text)
+	protected void changeFillColor(String color)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.changeFillColor(1, color);
 
 	}
 
 	@Override
 	protected void addElementToTheChart(TableElement element)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.addDataToModel(element.getTitle(), 1,
+				Double.valueOf(element.getValue()));
 
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement)
 			throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.removeDataFromModel(selectedTableElement.getTitle());
 	}
+
 }

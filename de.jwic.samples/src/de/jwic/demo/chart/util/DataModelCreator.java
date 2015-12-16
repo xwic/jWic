@@ -1,9 +1,12 @@
 package de.jwic.demo.chart.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
@@ -92,8 +95,20 @@ public class DataModelCreator {
 	public static DateTimeChartModel getScatterChartModel() {
 		List<DateTimeChartDataset> datasets = new ArrayList<DateTimeChartDataset>();
 		DateTimeChartModel model = new DateTimeChartModel(datasets );
-		Map<String, Double> map = new HashMap<String,Double>();
+		Map<Date, Double> map = new TreeMap<Date,Double>();
+		Calendar cal = Calendar.getInstance();
+		map.put(cal.getTime(), 14d);
+		cal.add(Calendar.HOUR, 2);
+		map.put(cal.getTime(), 18d);
+		cal.add(Calendar.HOUR, 2);
+		map.put(cal.getTime(), 22d);
+		cal.add(Calendar.HOUR, 2);
+		map.put(cal.getTime(), 11d);
 		DateTimeChartDataset e = new DateTimeChartDataset("Temperatures Munich", map );
+		e.setPointColor("#007ACC");
+		e.setStrokeColor("#ffcc66");
+		e.setPointStrokeColor("#003300");
+	
 		datasets.add(e );
 		return model;
 	}

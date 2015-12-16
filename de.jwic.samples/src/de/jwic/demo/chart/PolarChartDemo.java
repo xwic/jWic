@@ -16,14 +16,16 @@ import de.jwic.demo.chart.util.DataModelCreator;
  *
  * @date 19.10.2015
  */
-public class PolarChartDemo extends ChartDemo<PolarChart, SimpleValueDatasetModel> {
+public class PolarChartDemo extends
+		ChartDemo<PolarChart, SimpleValueDatasetModel> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1899059941525891198L;
 
-	public PolarChartDemo(IControlContainer container) throws ChartInconsistencyException {
+	public PolarChartDemo(IControlContainer container)
+			throws ChartInconsistencyException {
 		super(container);
 
 	}
@@ -58,33 +60,37 @@ public class PolarChartDemo extends ChartDemo<PolarChart, SimpleValueDatasetMode
 	}
 
 	@Override
-	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
-		model.addDataToModel(element.getTitle(), Double.valueOf(element.getValue()), "#3366cc", "#66ff33");
+	protected void addElementToTheChart(TableElement element)
+			throws ChartInconsistencyException {
+		model.addDataToModel(element.getTitle(),
+				Double.valueOf(element.getValue()), "#3366cc", "#66ff33");
 
 	}
 
 	@Override
-	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
+	protected void updateElementInChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
 		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 
 	}
 
 	@Override
-	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
+	protected void deleteElementFromChart(TableElement selectedTableElement)
+			throws ChartInconsistencyException {
 		model.removeDataFromModel(selectedTableElement.getTitle());
 
 	}
 
 	@Override
-	protected void changeFillColor(String text) {
-		// not in this chart
-		
+	protected void changeFillColor(String color) {
+		model.getDatasets().get(1).setColor(color);
+
 	}
 
 	@Override
-	protected void changeHighColor(String text) {
-		// not in this chart
-		
+	protected void changeHighColor(String highlight) {
+		model.getDatasets().get(1).setHighlight(highlight);
+
 	}
 
 }
