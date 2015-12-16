@@ -3,6 +3,7 @@ package de.jwic.controls.chart.api;
 import java.io.Serializable;
 
 /**
+ * Common implementation of the chart dataset. Valid for all chart types .
  * 
  * @author Karolina Marek (karolina-marek.eu)
  *
