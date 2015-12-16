@@ -39,7 +39,7 @@ public class CheckBoxDemo extends ControlContainer {
 		
 		checkBox = new CheckBox(this, "control");
 		checkBox.setLabel("Click Me");
-		checkBox.setInfoText("The checkbox will toggle if you click on this element! Be carefull!!!");
+		checkBox.setInfoText("The checkbox will toggle if you select on this element! Be carefull!!!");
 		
 		// create the property editor
 		final PropertyEditorView propEditor = new PropertyEditorView(this, "propEditor");

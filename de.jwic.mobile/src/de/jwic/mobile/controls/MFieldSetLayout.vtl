@@ -1,0 +1,7 @@
+<form>
+    <fieldset data-role="controlgroup" data-type="$control.type.name">
+        #foreach($ctrl in $control.controls)
+            $insert.control($ctrl.name)
+        #end
+    </fieldset>
+</form>

@@ -1,9 +1,6 @@
-
-
 #set($fld = $control.getField("content"))
 {
-	
-	
+
 	/**
 	 * Invoked after the DOM element was updated. This function is NOT updated
 	 * if the custom doUpdate function returned true.
@@ -103,7 +100,7 @@
 		#end
 		
 		#if($control.chartType=='scatter')
-			debugger;
+			
 		 chartData =convertToDate($control.model.datasetsJson);
 		chartImpl = chart.Scatter(chartData, options);
 		#end

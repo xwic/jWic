@@ -1,0 +1,40 @@
+	</form>
+
+## Execute script fragments that have been in the update.
+<script data-name="initialScripts" language="JavaScript">
+
+(function(){
+    JWic.initialScripts = {
+        statics :
+        [       #set($comma = 0)
+                #foreach($script in $renderContext.getRequiredStaticJs())
+                    #if($comma == 0)
+                        #set($comma = 1)
+                    #else
+                        ,
+                    #end
+                    "$script"
+                #end
+             ]
+        ,
+        scripts : {
+            #set($comma = 0)
+                #foreach($script in $renderContext.scripts.entrySet())
+                    #if($comma == 0)
+                        #set($comma = 1)
+                    #else
+                        ,
+                    #end
+                    "$script.key" : $script.value
+            #end
+        }
+    }
+
+     // re-set values to avoid the memory effect in firefox.
+     document.forms['jwicform']._msid.value = '$context.sessionId';
+     document.forms['jwicform'].__ticket.value = '$context.getRequestTicket($layerid)';
+
+}());
+</script> 
+</body>
+</html>

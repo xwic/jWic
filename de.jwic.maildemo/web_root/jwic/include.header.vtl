@@ -57,13 +57,12 @@
 	#* PRODUCTION-MINIFY-END *#	
 	
 	<script language="JavaScript">
-		var _contextPath = "$contextPath";
 		JWic.contextPath = "$contextPath";
 
 		//fix for IE7 parse problem
 		//native parsing on IE7 is realy slow
 		//jQuery does a check to see if there is a native parser available
-		//and uses it if its found, but the one on IE7 its very slow
+		//and uses it if it's found, but the one on IE7 its very slow
 		jQuery(document).ready(function(){
 			if(isIE){
 				window.JSON = false;

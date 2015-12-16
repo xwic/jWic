@@ -15,10 +15,12 @@
 target/
 target-ide/
 target-test/
+.target-mvn/
 
 #project specific
 logs/
-*.log*
+*.log
+*.log.*
 sessions/
 */_dist/*
 */bin/*

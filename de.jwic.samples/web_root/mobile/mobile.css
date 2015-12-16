@@ -1,0 +1,119 @@
+/**
+ * This file customizes the demo application itself.
+ */
+
+body {
+	margin:0;
+	padding:0;
+	border:0;			/* This removes the border around the viewport in old versions of IE */
+	width:100%;
+	background:#fff;
+	min-width:600px;		/* Minimum width of layout - remove line if not required */
+					/* The min-width property does not work in old versions of Internet Explorer */
+}
+
+#demo_header {
+	clear:both;
+	float:left;
+	width:100%;
+}
+
+/* column container */
+.colmask {
+   clear: both;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+   }
+ 
+
+/* 2 Column settings */
+
+.leftmenu .colright {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-left: 1px solid #808080;
+    float: left;
+    left: 250px;
+    position: relative;
+    width: 200%;
+}
+.leftmenu .col1wrap {
+    float: right;
+    padding-bottom: 1em;
+    position: relative;
+    right: 250px;
+    width: 50%;
+}
+.leftmenu .col1 {
+    margin: 0 15px 0 265px;
+    overflow: hidden;
+    position: relative;
+    right: 100%;
+}
+.leftmenu .col2 {
+    float: left;
+    position: relative;
+    right: 235px;
+    width: 220px;
+}
+
+/* Footer styles */
+#footer {
+	clear:both;
+	float:left;
+	width:100%;
+	border-top:1px solid #000;
+	background-color: #fff;
+	text-align: center;
+	font-size: 8pt;
+	
+}
+
+.demo_module_selector {
+	margin: 20px 0px;
+}
+.demo_module_selector ul {
+	padding: 0;
+	margin: 0;
+}
+.demo_module_selector li {
+	
+	list-style: none;
+	padding: 5px 5px;
+	margin: 0;
+	
+}
+
+.demo_debug_actions {
+	margin: 20px 0px;
+}
+.demo_debug_actions ul {
+	padding: 0;
+	margin: 0;
+}
+.demo_debug_actions li {
+	
+	list-style: none;
+	padding: 5px 5px;
+	margin: 0;
+	
+}
+
+
+
+h1.demoTitle {
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+.demoDescription {
+	color: #808080;
+	padding-top: 2px;
+	margin-top: 0px;
+}
+.demoContent {
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+.ui-page { -webkit-backface-visibility: hidden; }
