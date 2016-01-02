@@ -1,0 +1,24 @@
+<table data-role="table" data-mode="columntoggle" class="ui-responsive ui-shadow" data-column-btn-text="Columns" id="${control.controlID}">
+ <thead>
+   <tr>
+ 	#foreach ( $column in $control.model.columns )    		
+	    	<th data-priority="${column.priority}" class="${column.priority}">
+	    	$column.name
+	    	</th>  
+	    	#end
+    </tr>
+  </thead>
+  <tbody> 
+    #foreach ( $row in $control.model.rows )    	
+    <tr>
+    #foreach ( $column in $control.model.columns )    
+    <td>
+    $control.render($column, $row)
+  <!--$control.model.renderer.getCell($column.fieldName,$row); -->
+     </td>
+        #end
+    </tr>
+    #end
+ 
+  </tbody>
+</table>

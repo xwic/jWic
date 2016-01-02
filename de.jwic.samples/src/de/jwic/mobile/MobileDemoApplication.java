@@ -3,13 +3,17 @@ package de.jwic.mobile;
 import de.jwic.base.Application;
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
+import de.jwic.mobile.controls.mlistview.MListView;
 import de.jwic.mobile.demos.AlexDemo;
 import de.jwic.mobile.demos.ButtonDemo;
 import de.jwic.mobile.demos.CheckBoxDemo;
 import de.jwic.mobile.demos.DatePickerDemo;
+import de.jwic.mobile.demos.GridDemo;
 import de.jwic.mobile.demos.InputDemo;
+import de.jwic.mobile.demos.MListViewDemo;
 import de.jwic.mobile.demos.RadioButtonDemo;
 import de.jwic.mobile.demos.SelectBoxDemo;
+import de.jwic.mobile.demos.TableDemo;
 import de.jwic.mobile.demos.ToggleableGroupsDemo;
 
 import java.util.ArrayList;
@@ -32,7 +36,9 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new ToggleableGroupsDemo());
 		mobileDemoModules.add(new AlexDemo());
 		mobileDemoModules.add(new SelectBoxDemo());
-
+		mobileDemoModules.add(new TableDemo());
+		mobileDemoModules.add(new GridDemo());
+		mobileDemoModules.add(new MListViewDemo());
 
 		return new MobileDemoPage(container, "demoPage", mobileDemoModules);
 	}
