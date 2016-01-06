@@ -10,4 +10,12 @@
     <li data-filtertext="NASDAQ:MSFT Microsoft Corporation"><a href="#">Microsoft</a></li>
     <li data-filtertext="NASDAQ:YHOO Yahoo! Inc."><a href="#">Yahoo</a></li>
     <li data-filtertext="USA U.S.A. United States of America"><a href="#">United States</a></li>
+  #foreach ( $element in $control.model.elements )   
+    #if($control.filter) 
+     <li data-filtertext="$element.getTextForFilter()">$control.render($element)</li>
+   #else
+     <li>$control.render($element)</li>
+   #end
+  #end
+
 </ul>

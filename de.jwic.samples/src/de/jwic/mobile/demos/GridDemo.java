@@ -5,6 +5,7 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.mobile.MobileDemoModule;
 import de.jwic.mobile.controls.mgrid.MGrid;
+import de.jwic.mobile.controls.mgrid.MGrid.GridColumns;
 
 /**
  * 
@@ -23,7 +24,8 @@ public class GridDemo extends MobileDemoModule {
 		final ControlContainer container = new ControlContainer(
 				controlContainer);
 
-		final MGrid mtable = new MGrid(container, "mGrid");
+		GridColumns columns = null;
+		final MGrid mtable = new MGrid(container, "mGrid", columns );
 		mtable.setText("grid example");
 
 		return container;
