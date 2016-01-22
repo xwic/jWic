@@ -12,7 +12,7 @@
 
 <fieldset>
   <div data-role="fieldcontain">
-    <label for="$control.controlID">xx</label>
+    #if($control.label) <label for="$control.controlID">$control.label</label> #end
     <input type="checkbox" id="$control.controlID" data-role="flipswitch" value="1" #if ( $field.value == "1" ) checked #end #if ( !$control.isEnabled()) disabled #end>
   </div>
 </fieldset>
