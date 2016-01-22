@@ -1,9 +1,18 @@
 #set($field = $control.getField("value"))
 <input type="hidden" id="chkVal_$field.id" name="$field.id" value="$jwic.formatInp($field.value)">
 
+#*
 <div class="ui-flipswitch ui-shadow-inset ui-bar-inherit ui-corner-all #if($field.value == "1") ui-flipswitch-active #end">
 	<span tabindex="1" class="ui-flipswitch-on ui-btn ui-shadow ui-btn-inherit">On</span>
 	<span class="ui-flipswitch-off">Off</span>
 	<input data-enhanced="true" data-role="flipswitch" class="ui-flipswitch-input" id="$control.controlID" type="checkbox" name="chk_${field.id}" value="1" #if ( $field.value == "1" ) checked #end #if ( !$control.isEnabled()) disabled #end>
 </div>
+*#
 
+
+<fieldset>
+  <div data-role="fieldcontain">
+    <label for="$control.controlID">xx</label>
+    <input type="checkbox" id="$control.controlID" data-role="flipswitch" value="1" #if ( $field.value == "1" ) checked #end #if ( !$control.isEnabled()) disabled #end>
+  </div>
+</fieldset>

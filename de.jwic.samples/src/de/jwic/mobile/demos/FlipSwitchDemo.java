@@ -17,6 +17,8 @@ import de.jwic.mobile.controls.MFlipSwitch;
  */
 public class FlipSwitchDemo extends MobileDemoModule{
 
+	private Label label;
+
 	public FlipSwitchDemo() {
 		super("FlipSwitch Demo");
 	}
@@ -25,8 +27,6 @@ public class FlipSwitchDemo extends MobileDemoModule{
 	public Control createPage(IControlContainer controlContainer) {
 		final ControlContainer container = new ControlContainer(controlContainer);
 
-		final Label label = new Label(container, "label");
-		label.setText("CheckBox is not checked");
 
 		final MFlipSwitch checkBox = new MFlipSwitch(container, "checkBox");
 		checkBox.addValueChangedListener(new ValueChangedListener() {
@@ -37,6 +37,10 @@ public class FlipSwitchDemo extends MobileDemoModule{
 				label.setText("FlipSwitch is " + (state ? "checked" : "not checked"));
 			}
 		});
+
+		label = new Label(container, "label");
+		label.setText("");
+
 		
 		final MButton toggleFromJava = new MButton(container, "toggleFromJava");
 		toggleFromJava.setTitle("Toggle From Java");
