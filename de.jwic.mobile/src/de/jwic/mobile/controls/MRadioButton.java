@@ -2,12 +2,13 @@ package de.jwic.mobile.controls;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.controls.RadioButton;
 
 /**
- * Created by boogie on 10/30/14.
+ * A single radio button that can be linked with other radio buttons on a page in a mobile design.
  */
-@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MCheckBox")
-public class MRadioButton extends MCheckBox {
+@JavaScriptSupport
+public class MRadioButton extends RadioButton {
 
 	/**
 	 * Constructs a new control instance and adds it to the specified
@@ -20,4 +21,15 @@ public class MRadioButton extends MCheckBox {
 	public MRadioButton(IControlContainer container, String name) {
 		super(container, name);
 	}
+
+	/**
+	 * @param container
+	 * @param name
+	 * @param linkedButton
+	 */
+	public MRadioButton(IControlContainer container, String name, MRadioButton linkedButton) {
+		super(container, name, linkedButton);
+	}
+	
+	
 }

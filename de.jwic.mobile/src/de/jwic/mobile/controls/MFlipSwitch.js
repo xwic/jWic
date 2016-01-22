@@ -1,6 +1,6 @@
 {
     afterUpdate : function(){
-        var control = JWic.$('ctrl_$control.controlID').find('input');
-        JWic.mobile.FlipSwitch.initialize(control, $control.buildJsonOptions());
+        var control = JWic.$('$control.controlID');
+        JWic.mobile.FlipSwitch.initialize(control, $control.buildJsonOptions(), '$control.getField("value").getId()');
     }
 }

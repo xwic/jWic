@@ -1,12 +1,14 @@
 package de.jwic.mobile;
 
+import java.io.Serializable;
+
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 
 /**
  * Created by boogie on 10/29/14.
  */
-public abstract class MobileDemoModule {
+public abstract class MobileDemoModule implements Serializable {
 
 	private final String title;
 

@@ -53,6 +53,11 @@ var JWic = {
 	beforeRequestCallbacks : {},
 	
 	/**
+	 * List of functions that get invoked on each control that is updated.
+	 */
+	runAfterUpdate : [],
+	
+	/**
 	 * Returns a jQuery encapsulated document element. The element is retrieved
 	 * using document.getElementById and then extended with jQuery. This eliminates the
 	 * need to escape the control ID when using jQuery's native $/jQuery function. 
@@ -226,6 +231,15 @@ var JWic = {
 						}
 					}
 				}
+				
+				for (var i = 0; i < JWic.runAfterUpdate.length; i++) {
+					try {
+						JWic.runAfterUpdate[i](control);
+					} catch (e) {
+						JWic.log("Error in runAfterUpdate #" + i + ": " + e);
+					}
+				}
+				
 			}
 		}
 	},

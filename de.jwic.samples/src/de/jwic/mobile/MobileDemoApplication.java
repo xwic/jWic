@@ -8,7 +8,9 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.mobile.demos.ButtonDemo;
 import de.jwic.mobile.demos.CheckBoxDemo;
+import de.jwic.mobile.demos.FlipSwitchDemo;
 import de.jwic.mobile.demos.InputDemo;
+import de.jwic.mobile.demos.RadioButtonDemo;
 
 /**
  * Created by boogie on 10/27/14.
@@ -22,8 +24,9 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new ButtonDemo());
 		mobileDemoModules.add(new InputDemo());
 		mobileDemoModules.add(new CheckBoxDemo());
-		/*
 		mobileDemoModules.add(new RadioButtonDemo());
+		mobileDemoModules.add(new FlipSwitchDemo());
+		/*
 		mobileDemoModules.add(new DatePickerDemo());
 		mobileDemoModules.add(new ToggleableGroupsDemo());
 		mobileDemoModules.add(new AlexDemo());

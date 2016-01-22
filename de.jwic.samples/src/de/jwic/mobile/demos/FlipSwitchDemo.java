@@ -10,15 +10,15 @@ import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 import de.jwic.mobile.MobileDemoModule;
 import de.jwic.mobile.controls.MButton;
-import de.jwic.mobile.controls.MCheckBox;
+import de.jwic.mobile.controls.MFlipSwitch;
 
 /**
  * Created by boogie on 10/30/14.
  */
-public class CheckBoxDemo extends MobileDemoModule{
+public class FlipSwitchDemo extends MobileDemoModule{
 
-	public CheckBoxDemo() {
-		super("CheckBox Demo");
+	public FlipSwitchDemo() {
+		super("FlipSwitch Demo");
 	}
 
 	@Override
@@ -28,14 +28,13 @@ public class CheckBoxDemo extends MobileDemoModule{
 		final Label label = new Label(container, "label");
 		label.setText("CheckBox is not checked");
 
-		final MCheckBox checkBox = new MCheckBox(container, "checkBox");
-		checkBox.setLabel("Toggle Me!");
+		final MFlipSwitch checkBox = new MFlipSwitch(container, "checkBox");
 		checkBox.addValueChangedListener(new ValueChangedListener() {
 			
 			@Override
 			public void valueChanged(ValueChangedEvent event) {
 				final boolean state = checkBox.isChecked();
-				label.setText("CheckBox is " + (state ? "checked" : "not checked"));
+				label.setText("FlipSwitch is " + (state ? "checked" : "not checked"));
 			}
 		});
 		

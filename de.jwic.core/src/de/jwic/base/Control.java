@@ -377,10 +377,12 @@ public abstract class Control implements Serializable, IControl {
 	}
 	
 	/**
-	 * Builds Json object string of all methods marked with 
-	 * IncludeJsOption Annotation.
-	 * If Enums are used getCode needs to be implemented, which returns the value
-	 * @return
+	 * Builds JSON object string of all methods marked with IncludeJsOption 
+	 * Annotation. Enum properties are converted to their <code>toString()</code>
+	 * representation. If this is not wanted, a <code>getCode()</code> method
+	 * can be implemented on the enum to return a custom value.
+	 * 
+	 * @return JSON conform string.
 	 */
 	public String buildJsonOptions(){
 		try{
@@ -397,31 +399,35 @@ public abstract class Control implements Serializable, IControl {
 				if(getter != null && pd.getReadMethod().getAnnotation(IncludeJsOption.class) != null){
 					Object o = getter.invoke(this);
 					if(o != null){
+						Object value = o; 
 						if(o instanceof Enum){
-							Method m = o.getClass().getMethod("getCode", null);
-							if(m != null){
-								writer.key(pd.getDisplayName()).value(m.invoke(o));
-								continue;
+							try {
+								Method m = o.getClass().getMethod("getCode", new Class<?>[0]);
+								value = m.invoke(o);
+							} catch (NoSuchMethodException nsme) {
+								value = o.toString(); // simply use the default. 
 							}
 						}else if(o instanceof Date){
-							writer.key(pd.getDisplayName()).value(new JsDateString((Date)o, getSessionContext().getTimeZone()));
-							continue;
+							value = new JsDateString((Date)o, getSessionContext().getTimeZone());
 						}
 						
-						// if name has been changed use that one.
-						IncludeJsOption annotation = pd.getReadMethod().getAnnotation(IncludeJsOption.class);
-						if(annotation.jsPropertyName() != null && annotation.jsPropertyName().length() > 0){
-							writer.key(annotation.jsPropertyName());
-						}else {
-							writer.key(pd.getDisplayName());
+						if (value != null) {
+							// if name has been changed use that one.
+							IncludeJsOption annotation = pd.getReadMethod().getAnnotation(IncludeJsOption.class);
+							if(annotation.jsPropertyName() != null && annotation.jsPropertyName().length() > 0){
+								writer.key(annotation.jsPropertyName());
+							}else {
+								writer.key(pd.getDisplayName());
+							}
+							writer.value(value);
 						}
-						writer.value(o);						
 					}
 				}
 			}
 			writer.endObject();
 			return sw.toString();
 		}catch (Exception e) {
+			log.debug("Error building JSON options", e);
 			throw new RuntimeException("Error while configuring Json Option for " + this.getClass().getName());
 		}
 	}
