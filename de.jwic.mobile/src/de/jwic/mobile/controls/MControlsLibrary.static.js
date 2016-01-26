@@ -24,6 +24,10 @@ JWic.mobile = {
 	            control.button({
 	            	disabled: !options.enabled
 	            });
+	        },
+	        
+	        destroy: function(control) {
+	        	control.destroy();
 	        }
 		},
 		
@@ -71,7 +75,10 @@ JWic.mobile = {
 		 */
 		InputBox : {
 			initialize : function(control, options) {
-				control.textinput();
+				control.textinput( {
+							autogrow : options.autogrow
+						}
+					);
 			}
 		},
 		/**
