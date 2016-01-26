@@ -1,6 +1,6 @@
 {
     afterUpdate : function ButtonAfterUpdate(){
-        var button = JWic.$('ctrl_$control.controlID').find('input'),
+        var button = JWic.$('$control.controlID'),
             options = $control.buildJsonOptions();
         JWic.mobile.Button.initialize(button, options);
     }

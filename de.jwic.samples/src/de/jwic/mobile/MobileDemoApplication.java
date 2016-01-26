@@ -19,6 +19,7 @@ public class MobileDemoApplication extends Application {
 
 	@Override
 	public Control createRootControl(IControlContainer container) {
+		
 		final List<MobileDemoModule> mobileDemoModules = new ArrayList<MobileDemoModule>();
 
 		mobileDemoModules.add(new ButtonDemo());

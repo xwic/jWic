@@ -22,7 +22,8 @@ public final class ButtonDemo extends MobileDemoModule{
 	public Control createPage(IControlContainer controlContainer) {
 		final ControlContainer container = new ControlContainer(controlContainer, "buttonContainer");
 		final Label label = new Label(container, "label");
-		label.setText("Click the button");
+		label.setText(controlContainer.getSessionContext().getUserAgent().getUserAgentID());
+		
 		final MButton MButton = new MButton(container, "button");
 		MButton.setTitle("Click me");
 		MButton.addSelectionListener(new SelectionListener() {
@@ -36,7 +37,7 @@ public final class ButtonDemo extends MobileDemoModule{
 		final MButton disabled = new MButton(container, "disabled");
 		disabled.setEnabled(false);
 		disabled.setTitle("I'm Disabled :(");
-		
+	
 		return container;
 	}
 }

@@ -1,4 +1,4 @@
 <div class="ui-btn ui-input-btn ui-shadow ui-corner-all #if(!$control.enabled) ui-state-disabled #end">
   $!control.title
-  <input type="button" data-corners="false" data-enhanced="true" value="$!control.title" #if(!$control.enabled) disabled #end></input>
+  <input id="$control.controlID" type="button" data-corners="false" data-enhanced="true" value="$!control.title" #if(!$control.enabled) disabled #end></input>
 </div>

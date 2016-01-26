@@ -30,9 +30,10 @@ public class RadioButtonDemo extends MobileDemoModule{
 		final MRadioButton radio1 = new MRadioButton(container, "radio1");
 		radio1.setTitle("Option A");
 		
+		new Label(container).setText("Bla");
+
 		MRadioButton radio2 = new MRadioButton(container, "radio2", radio1);
 		radio2.setTitle("Option B");
-		
 		
 		
 		MButton btToggle = new MButton(container, "btToggle");
