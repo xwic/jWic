@@ -1,0 +1,36 @@
+#if($control.getConfiguration().isZoomEnabled())
+<script>
+function zoom() {
+        var div = document.getElementById ("zoom");
+ 
+      if ('zoom' in div.style) {
+         var value = div.style.zoom;
+           if(value != '200%'){
+          		div.style.zoom = '200%';
+         } 
+         else 
+         {
+          	div.style.zoom = '100%';
+         } 
+         	
+       }         
+     } 
+</script>
+ #end
+#set($field = $control.getField("chartContent"))
+#if($control.getConfiguration().isZoomEnabled())
+<div id="zoom" ondblclick="zoom()">
+#end
+<div id="$control.controlID" style="width:${control.getConfiguration().height}; height: ${control.getConfiguration().width}">
+<canvas id="chart" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px">
+</canvas>
+</div>
+#if($control.getConfiguration().isZoomEnabled())
+ </div>
+#end
+#if($control.getConfiguration().isCustomTootlip())
+ <div id="chartjs-tooltip"> 
+ </div>
+ #end
+
+

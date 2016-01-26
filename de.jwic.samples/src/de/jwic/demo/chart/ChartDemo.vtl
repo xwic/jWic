@@ -1,0 +1,62 @@
+<p>This control is based upon the  <a href="http://www.chartjs.org/">Chart.js | Open source HTML5 Charts</a>
+<p>The documentation for the chart can be found <a href="docu/ChartDocumentation.pdf">here</a></p>
+
+<table width="100%">
+ <tr>
+      <td width="50%"><h1>Chart presentation</h1></td>	
+	  <td width="50%"><h1>Settings</h1></td>	
+ </tr>
+ <tr>
+      <td width="50%" valign="top">$insert.control("chart")
+        <table width="100%">
+        <tr>
+        </tr>
+      
+        <tr>
+        <td> <b> Fill Color for dataset 1: </b> </td>
+        
+        <td>  $insert.control("fillColor") $insert.control("addFill")</td> 
+        </tr>
+        <tr>
+          <td> <b>Highlight Color for dataset 1:  </b></td>
+          <td> $insert.control("highlightColor") $insert.control("addHigh")</td>
+        </tr>
+      
+         <tr>
+			   <td><b>Chart selection listener</b></td>
+			   <td>$insert.control("inputBox")</td>	
+	      </tr>
+	         <tr>
+			   <td colspan="2">
+			   $insert.control("table")</td>	
+            </tr>
+        </table>
+      </td>
+       <td width="50%">
+          <table width="100%">
+           <tr>
+			   <td>
+			   <b>Property editor</b>
+			   $insert.control("propertyEditor")</td>	
+	       </tr>
+	       
+	        <td>
+              <b>Chart Data Model</b>
+			   $insert.control("toolbar")
+	          </td>	
+               </tr>
+	     
+            <tr>
+			  
+          </table>
+       </td>
+    
+      
+       	
+ </tr>
+</table>
+
+
+
+
+

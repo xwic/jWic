@@ -44,6 +44,13 @@ import de.jwic.demo.basics.ListBoxDemoModule;
 import de.jwic.demo.basics.MenuDemoModule;
 import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.basics.ToolBarDemoModule;
+import de.jwic.demo.chart.BarChartDemoModule;
+import de.jwic.demo.chart.CircleChartDemoModule;
+import de.jwic.demo.chart.LineChartDemoModule;
+import de.jwic.demo.chart.PolarChartDemoModule;
+import de.jwic.demo.chart.RadarChartDemoModule;
+import de.jwic.demo.chart.DateTimeChartDemoModule;
+import de.jwic.demo.chart.StackedBarChartModule;
 import de.jwic.demo.container.AccordionDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
@@ -72,8 +79,12 @@ public class DemoApplication extends Application {
 
 	}
 
-	/* (non-Javadoc)
-	 * @see de.jwic.base.Application#createRootControl(de.jwic.base.IControlContainer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.jwic.base.Application#createRootControl(de.jwic.base.IControlContainer
+	 * )
 	 */
 	@Override
 	public Control createRootControl(IControlContainer container) {
@@ -99,6 +110,13 @@ public class DemoApplication extends Application {
 		modules.add(new ScrollableContainerDemoModule());
 		modules.add(new StackedContainerDemoModule());
 		modules.add(new CKEditorDemoModule());
+		modules.add(new BarChartDemoModule());
+		modules.add(new LineChartDemoModule());
+		modules.add(new RadarChartDemoModule());
+		modules.add(new DateTimeChartDemoModule());
+		modules.add(new StackedBarChartModule());
+		modules.add(new PolarChartDemoModule());
+		modules.add(new CircleChartDemoModule());
 		modules.add(new ToolBarDemoModule());
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
@@ -114,11 +132,11 @@ public class DemoApplication extends Application {
 
 		// Sort demos by group and title
 		Collections.sort(modules);
-		
+
 		DemoPage demoPage = new DemoPage(container, modules);
-		
+
 		return demoPage;
-		
+
 	}
 
 }
