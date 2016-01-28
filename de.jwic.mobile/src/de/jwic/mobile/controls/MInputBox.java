@@ -30,15 +30,20 @@ public class MInputBox extends InputBox {
 	private Theme theme = null;
 
 	/**
-	 * @param container
+	 * Constructs a new control instance and adds it to the specified container.
+	 * 
+	 * @param container container of the input box
 	 */
 	public MInputBox(IControlContainer container) {
 		super(container);
 	}
 
 	/**
-	 * @param container
-	 * @param name
+	 * Constructs a new control instance and adds it to the specified container with the specified name. If the name is <code>null</code>, a
+	 * unique name will be chosen by the container.
+	 * 
+	 * @param container container of the input box
+	 * @param name name of the input box
 	 */
 	public MInputBox(IControlContainer container, String name) {
 		super(container, name);
@@ -46,7 +51,9 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the autogrow
+	 * This option is provided by the autogrow extension. 
+	 * Whether to update the size of the textarea element upon first appearance, as well as upon a change in the content of the element. 
+	 * This option applies only to textinput widgets based on textarea elements.
 	 */
 	@IncludeJsOption
 	public boolean isAutogrow() {
@@ -55,7 +62,9 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param autogrow the autogrow to set
+	 * This option is provided by the autogrow extension. 
+	 * Whether to update the size of the textarea element upon first appearance, as well as upon a change in the content of the element. 
+	 * This option applies only to textinput widgets based on textarea elements.
 	 */
 	public void setAutogrow(boolean autogrow) {
 		if (autogrow != this.autogrow)
@@ -65,7 +74,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the clearBtn
+	 * This option is provided by the clearButton extension. Adds a clear button to the input when set to true. 
+	 * This option applies only to textinput widgets based on input elements.
 	 */
 	@IncludeJsOption
 	public boolean isClearBtn() {
@@ -74,7 +84,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param clearBtn the clearBtn to set
+	 * This option is provided by the clearButton extension. Adds a clear button to the input when set to true. 
+	 * This option applies only to textinput widgets based on input elements.
 	 */
 	public void setClearBtn(boolean clearBtn) {
 		if (clearBtn != this.clearBtn)
@@ -84,7 +95,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the corners
+	 * Applies the theme border radius if set to true by adding the class ui-corner-all to the textinput widget's outermost element.
 	 */
 	@IncludeJsOption
 	public boolean isCorners() {
@@ -93,7 +104,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param corners the corners to set
+	 * Applies the theme border radius if set to true by adding the class ui-corner-all to the textinput widget's outermost element.
 	 */
 	public void setCorners(boolean corners) {
 		if (corners != this.corners)
@@ -103,7 +114,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the mini
+	 * If set to true, this will display a more compact version of the textinput that uses less vertical height by applying the ui-mini class to the outermost element of the textinput widget.
 	 */
 	@IncludeJsOption
 	public boolean isMini() {
@@ -112,7 +123,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param mini the mini to set
+	 * If set to true, this will display a more compact version of the textinput that uses less vertical height by applying the ui-mini class to the outermost element of the textinput widget.
 	 */
 	public void setMini(boolean mini) {
 		if (mini != this.mini)
@@ -122,7 +133,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the preventFocusZoom
+	 * Attempts to prevent the device from focusing in on the input element when the element receives the focus.
 	 */
 	@IncludeJsOption
 	public boolean isPreventFocusZoom() {
@@ -131,7 +142,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param preventFocusZoom the preventFocusZoom to set
+	 * Attempts to prevent the device from focusing in on the input element when the element receives the focus.
 	 */
 	public void setPreventFocusZoom(boolean preventFocusZoom) {
 		if (preventFocusZoom != this.preventFocusZoom)
@@ -141,7 +152,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the clearBtnText
+	 * This option is provided by the clearButton extension. The text description for the optional clear button, useful for assistive technologies like screen readers. 
+	 * This option applies only to textinput widgets based on input elements.
 	 */
 	@IncludeJsOption
 	public String getClearBtnText() {
@@ -150,7 +162,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param clearBtnText the clearBtnText to set
+	 * This option is provided by the clearButton extension. The text description for the optional clear button, useful for assistive technologies like screen readers. 
+	 * This option applies only to textinput widgets based on input elements.
 	 */
 	public void setClearBtnText(String clearBtnText) {
 		if (!clearBtnText.equals(this.clearBtnText))
@@ -179,7 +192,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the keyupTimeoutBuffer
+	 * This option is provided by the autogrow extension. The amount of time (in milliseconds) to wait between the occurence of a keystroke and the resizing of the textarea element. 
+	 * If another keystroke occurs within this time, the resizing is postponed by another period of time of the same length. This option applies only to textinput widgets based on textarea elements.
 	 */
 	@IncludeJsOption
 	public int getKeyupTimeoutBuffer() {
@@ -188,7 +202,8 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param keyupTimeoutBuffer the keyupTimeoutBuffer to set
+	 * This option is provided by the autogrow extension. The amount of time (in milliseconds) to wait between the occurence of a keystroke and the resizing of the textarea element. 
+	 * If another keystroke occurs within this time, the resizing is postponed by another period of time of the same length. This option applies only to textinput widgets based on textarea elements.
 	 */
 	public void setKeyupTimeoutBuffer(int keyupTimeoutBuffer) {
 		if (keyupTimeoutBuffer != this.keyupTimeoutBuffer)
@@ -198,7 +213,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @return the theme
+	 * The value of this option is a string containing a space-separated list of classes to be applied to the outermost element of the textinput widget.
 	 */
 	@IncludeJsOption
 	public Theme getTheme() {
@@ -207,7 +222,7 @@ public class MInputBox extends InputBox {
 
 	
 	/**
-	 * @param theme the theme to set
+	 * The value of this option is a string containing a space-separated list of classes to be applied to the outermost element of the textinput widget.
 	 */
 	public void setTheme(Theme theme) {
 		if (!theme.equals(this.theme))

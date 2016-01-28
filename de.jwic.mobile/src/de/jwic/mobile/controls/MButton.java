@@ -27,15 +27,15 @@ public class MButton extends Button {
 	 * Constructs a new control instance and adds it to the specified container with the specified name. If the name is <code>null</code>, a
 	 * unique name will be chosen by the container.
 	 *
-	 * @param container
-	 * @param name
+	 * @param container container of the button
+	 * @param name name of the button
 	 */
 	public MButton(IControlContainer container, String name) {
 		super(container, name);
 	}
 
 	/**
-	 * @return the corners
+	 * Applies the theme button border-radius if set to true
 	 */
 	@IncludeJsOption
 	public boolean isCorners() {
@@ -43,8 +43,7 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param corners
-	 *            the corners to set
+	 * Applies the theme button border-radius if set to true
 	 */
 	public void setCorners(boolean corners) {
 		if (corners != this.corners)
@@ -53,7 +52,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the inline
+	 * If set to true, this will make the button act like an inline button so the width is determined by the button's text. 
+	 * By default, this is null (false) so the button is full width, regardless of the feedback content.
 	 */
 	@IncludeJsOption
 	public boolean isInline() {
@@ -61,8 +61,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param inline
-	 *            the inline to set
+	 * If set to true, this will make the button act like an inline button so the width is determined by the button's text. 
+	 * By default, this is null (false) so the button is full width, regardless of the feedback content.
 	 */
 	public void setInline(boolean inline) {
 		if (inline != this.inline)
@@ -71,7 +71,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the mini
+	 * If set to true, this will display a more compact version of the button that uses less vertical h
+	 * eight by applying the ui-mini class to the outermost element of the button widget
 	 */
 	@IncludeJsOption
 	public boolean isMini() {
@@ -79,8 +80,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param mini
-	 *            the mini to set
+	 * If set to true, this will display a more compact version of the button that uses less vertical h
+	 * eight by applying the ui-mini class to the outermost element of the button widget
 	 */
 	public void setMini(boolean mini) {
 		if (mini != this.mini)
@@ -89,7 +90,7 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the shadow
+	 * Applies the drop shadow style to the button if set to true.
 	 */
 	@IncludeJsOption
 	public boolean isShadow() {
@@ -97,8 +98,7 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param shadow
-	 *            the shadow to set
+	 * Applies the drop shadow style to the button if set to true.
 	 */
 	public void setShadow(boolean shadow) {
 		if (shadow != this.shadow)
@@ -108,7 +108,8 @@ public class MButton extends Button {
 	
 	
 	/**
-	 * @return the iconClass
+	 * Applies an icon from the icon set. 
+	 * The <a href="http://api.jquerymobile.com/buttonMarkup/">.buttonMarkup()</a> documentation contains a reference of all the icons available in the default theme.
 	 */
 	@IncludeJsOption
 	public Icon getIconClass() {
@@ -117,7 +118,8 @@ public class MButton extends Button {
 
 	
 	/**
-	 * @param iconClass the iconClass to set
+	 * Applies an icon from the icon set. 
+	 * The <a href="http://api.jquerymobile.com/buttonMarkup/">.buttonMarkup()</a> documentation contains a reference of all the icons available in the default theme.
 	 */
 	public void setIconClass(Icon iconClass) {
 		if (iconClass != this.iconClass)
@@ -126,7 +128,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the iconpos
+	 * Positions the icon in the button. Possible values: left, right, top, bottom, none, notext. 
+	 * The notext value will display an icon-only button with no text feedback.
 	 */
 	@IncludeJsOption
 	public IconPos getIconpos() {
@@ -134,8 +137,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param iconpos
-	 *            the iconpos to set
+	 * Positions the icon in the button. Possible values: left, right, top, bottom, none, notext. 
+	 * The notext value will display an icon-only button with no text feedback.
 	 */
 	public void setIconpos(IconPos iconpos) {
 		if (!iconpos.equals(this.iconpos))
@@ -144,7 +147,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the theme
+	 * Sets the color scheme (swatch) for the button widget. 
+	 * It accepts a single letter from a-z that maps to the swatches included in your theme. Possible values: swatch letter (a-z).
 	 */
 	@IncludeJsOption
 	public Theme getTheme() {
@@ -152,8 +156,8 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param theme
-	 *            the theme to set
+	 * Sets the color scheme (swatch) for the button widget. 
+	 * It accepts a single letter from a-z that maps to the swatches included in your theme. Possible values: swatch letter (a-z).
 	 */
 	public void setTheme(Theme theme) {
 		if (!theme.equals(this.theme))
@@ -162,7 +166,7 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @return the wrapperClass
+	 * Allows you to specify CSS classes to be set on the button's wrapper element.
 	 */
 	@IncludeJsOption
 	public String getWrapperClass() {
@@ -170,8 +174,7 @@ public class MButton extends Button {
 	}
 
 	/**
-	 * @param wrapperClass
-	 *            the wrapperClass to set
+	 * Allows you to specify CSS classes to be set on the button's wrapper element.
 	 */
 	public void setWrapperClass(String wrapperClass) {
 		if (!wrapperClass.equals(this.wrapperClass))
