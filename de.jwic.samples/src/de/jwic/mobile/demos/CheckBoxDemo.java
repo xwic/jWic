@@ -9,6 +9,7 @@ import de.jwic.events.SelectionListener;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 import de.jwic.mobile.MobileDemoModule;
+import de.jwic.mobile.controls.IconPos;
 import de.jwic.mobile.controls.MButton;
 import de.jwic.mobile.controls.MCheckBox;
 
@@ -40,13 +41,17 @@ public class CheckBoxDemo extends MobileDemoModule{
 		});
 		
 		final MButton toggleFromJava = new MButton(container, "toggleFromJava");
-		toggleFromJava.setTitle("Toggle From Java");
+		toggleFromJava.setTitle("Enable/Disable Mini");
 		toggleFromJava.addSelectionListener(new SelectionListener() {
 			
 			@Override
 			public void objectSelected(SelectionEvent event) {
 				System.out.println("Toggle?");
 				checkBox.setChecked(!checkBox.isChecked());
+				if (checkBox.isMini())
+					checkBox.setMini(false);
+				else
+					checkBox.setMini(true);
 			}
 		});
 

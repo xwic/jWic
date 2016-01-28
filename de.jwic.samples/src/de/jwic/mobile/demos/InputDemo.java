@@ -24,24 +24,27 @@ public class InputDemo extends MobileDemoModule{
 		ControlContainer container = new ControlContainer(controlContainer);
 
 		final Label labelForTextInput = new Label(container, "labelForTextInput");
-		labelForTextInput.setText("Basic Text Input");
+		labelForTextInput.setText("Text Input With Clear Button");
 		
 		final MInputBox textInput = new MInputBox(container, "textInput");
 		textInput.setText("Hi Lea");
+		textInput.setClearBtn(true);
 
 		final Label lblEmail = new Label(container);
-		lblEmail.setText("Email");
+		lblEmail.setText("Text Input Without Corners");
 		
 		final MInputBox textEmail = new MInputBox(container, "textEmail");
-		textEmail.setType(InputType.EMAIL);
+		textEmail.setType(InputType.TEXT);
+		textEmail.setCorners(false);
 
 		
 		final Label labelForTextInputWithUpdateOnBlur = new Label(container, "labelForTextInputWithUpdateOnBlur");
-		labelForTextInputWithUpdateOnBlur.setText("Text Input With Update on blur");
+		labelForTextInputWithUpdateOnBlur.setText("Text Input With Mini and Update on Blur");
 		final Label labelForTextInputWithUpdateOnBlur2 = new Label(container, "labelForTextInputWithUpdateOnBlur2");
 
 		final MInputBox textInputWithUpdateOnBlur = new MInputBox(container, "textInputWithUpdateOnBlur");
 		textInputWithUpdateOnBlur.setUpdateOnBlur(true);
+		textInputWithUpdateOnBlur.setMini(true);
 		textInputWithUpdateOnBlur.addValueChangedListener(new ValueChangedListener() {
 			
 			@Override
@@ -51,11 +54,12 @@ public class InputDemo extends MobileDemoModule{
 		});
 
 		final Label labelForTextArea = new Label(container, "labelForTextArea");
-		labelForTextArea.setText("Multline TextArea");
+		labelForTextArea.setText("Multline TextArea Without Autogrow");
 		
 		MInputBox multiLine = new MInputBox(container, "multiline");
 		multiLine.setMultiLine(true);
 		multiLine.setRows(5);
+		multiLine.setAutogrow(false);
 
 
 		return container;

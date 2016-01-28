@@ -1,7 +1,7 @@
 #set($radId = "rad_${control.controlID}")
 #set($field = $control.getFormField())
 
-<div class="ui-radio">
-  <label class="ui-btn ui-btn-inherit ui-btn-icon-left #if ( $control.isSelected() ) ui-radio-on #else ui-radio-off #end " for="$radId">$!control.title</label>
+<div class="ui-radio #if($control.mini) ui-mini #end">
+  <label class="ui-btn ui-btn-inherit #if ( $control.isSelected() ) ui-radio-on #else ui-radio-off #end " for="$radId">$!control.title</label>
   <input data-enhanced="true" data-corners="false" id="$radId" name="$field.id" type="radio" #if ( $control.isSelected() ) checked #end value="$control.controlID" #if ( ! $control.isEnabled()) disabled  #end>
 </div>

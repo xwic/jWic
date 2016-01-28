@@ -22,7 +22,15 @@ JWic.mobile = {
 	                control.on('click', clickHandler);
 	            }
 	            control.button({
-	            	disabled: !options.enabled
+	            	disabled : !options.enabled,
+	            	corners : options.corners,
+	            	mini : options.mini,
+	            	shadow : options.shadow,
+	            	inline : options.inline,
+	            	iconpos : options.iconpos,
+	            	theme : options.theme,
+	            	wrapperClass : options.wrapperClass,
+	            	icon : options.iconClass
 	            });
 	        },
 	        
@@ -53,7 +61,10 @@ JWic.mobile = {
 	            control.data('fieldId', fieldId);
 	            control.data('options', options);
 	            control.checkboxradio({
-	                disabled : !options.enabled
+	                disabled : !options.enabled,
+	                mini : options.mini,
+	            	iconpos : options.iconpos,
+	            	wrapperClass : options.wrapperClass
 	            });
 	            control.on('change', clickHandler);
 	            
@@ -66,7 +77,10 @@ JWic.mobile = {
 		    initialize : function(control, options) {
 	            control.data('id', options.controlID);
 	            control.checkboxradio({
-	                disabled : !options.enabled
+	                disabled : !options.enabled,
+	                mini : options.mini,
+	            	iconpos : options.iconpos,
+	            	wrapperClass : options.wrapperClass
 	            });
 		    }
 		},
@@ -76,10 +90,22 @@ JWic.mobile = {
 		InputBox : {
 			initialize : function(control, options) {
 				control.textinput( {
-							autogrow : options.autogrow
+							autogrow : options.autogrow,
+							clearBtn : options.clearBtn,
+							clearBtnText : options.clearBtnText,
+							corners : options.corners,
+							keyupTimeoutBuffer : options.keyupTimeoutBuffer,
+							mini : options.mini,
+							preventFocusZoom : options.preventFocusZoom,
+							theme : options.theme,
+							wrapperClass : options.wrapperClass
 						}
 					);
-			}
+			},
+		
+			destroy: function(control) {
+	        	control.destroy();
+	        }
 		},
 		/**
 		 * FlipSwitch helper methods
@@ -107,5 +133,15 @@ JWic.mobile = {
 	            });
 	            control.on('change', clickHandler);
 			}
-		}
+		},
+		/**
+		 * Combo helper methods.
+		 */
+		Combo : {
+	        initialize : function(control, options) {
+	            control.combo({
+	            	disabled : !options.enabled
+	            });
+	        }
+		},
 };

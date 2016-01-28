@@ -7,6 +7,7 @@ import de.jwic.controls.Label;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.mobile.MobileDemoModule;
+import de.jwic.mobile.controls.IconPos;
 import de.jwic.mobile.controls.MButton;
 import de.jwic.mobile.controls.MRadioButton;
 
@@ -29,11 +30,13 @@ public class RadioButtonDemo extends MobileDemoModule{
 		
 		final MRadioButton radio1 = new MRadioButton(container, "radio1");
 		radio1.setTitle("Option A");
+		radio1.setMini(true);
 		
 		new Label(container).setText("Bla");
 
 		MRadioButton radio2 = new MRadioButton(container, "radio2", radio1);
 		radio2.setTitle("Option B");
+		radio2.setIconpos(IconPos.RIGHT);
 		
 		
 		MButton btToggle = new MButton(container, "btToggle");
