@@ -19,7 +19,7 @@ public abstract class ChartConfiguration implements Serializable {
 	/**
 	 * 
 	 */
-	private boolean customTootlip = false;
+	private boolean customTooltip = false;
 	private String customTooltipHtml;
 	private int width = 500;
 	private int height = 500;
@@ -895,12 +895,12 @@ public abstract class ChartConfiguration implements Serializable {
 		this.tooltipTemplate = tooltipTemplate;
 	}
 
-	public boolean isCustomTootlip() {
-		return customTootlip;
+	public boolean isCustomTooltip() {
+		return customTooltip;
 	}
 
-	public void setCustomTootlip(boolean customTootlip) {
-		this.customTootlip = customTootlip;
+	public void setCustomTooltip(boolean customTootlip) {
+		this.customTooltip = customTootlip;
 	}
 
 	public String getCustomTooltipHtml() {
