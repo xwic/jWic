@@ -605,7 +605,7 @@ span.j-listColSel-clearSearch {
 }
 
 
- #chartjs-tooltip {
+ div.chartjs-tooltip {
         opacity: 1;
         position: absolute;
         background: rgba(0, 0, 0, .7);
@@ -618,11 +618,11 @@ span.j-listColSel-clearSearch {
         -webkit-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
     }
-    #chartjs-tooltip.below {
+    div.chartjs-tooltip.below {
         -webkit-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
     }
-    #chartjs-tooltip.below:before {
+    div.chartjs-tooltip.below:before {
         border: solid;
         border-color: #111 transparent;
         border-color: rgba(0, 0, 0, .8) transparent;
@@ -636,11 +636,11 @@ span.j-listColSel-clearSearch {
         -webkit-transform: translate(-50%, -100%);
         transform: translate(-50%, -100%);
     }
-    #chartjs-tooltip.above {
+    div.chartjs-tooltip.above {
         -webkit-transform: translate(-50%, -100%);
         transform: translate(-50%, -100%);
     }
-    #chartjs-tooltip.above:before {
+    div.chartjs-tooltip.above:before {
         border: solid;
         border-color: #111 transparent;
         border-color: rgba(0, 0, 0, .8) transparent;
@@ -655,3 +655,8 @@ span.j-listColSel-clearSearch {
         -webkit-transform: translate(-50%, 0);
         transform: translate(-50%, 0);
     }
+    .chartjs-tooltip-key{
+   		display:inline-block;
+   		width:10px;
+   		height:10px;
+   	}

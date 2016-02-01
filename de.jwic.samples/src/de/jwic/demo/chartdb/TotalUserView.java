@@ -36,10 +36,10 @@ public class TotalUserView extends ReportView<ValueListDatasetModel, LineChartCo
 		ValueListDatasetModel dataSet = model.getDataProvider().getTotalUsers(model.getYear());
 		LineChart chart = new LineChart(this, "chart", dataSet);
 		LineChartConfiguration cfg = chart.getConfiguration();
+		
+		
 		cfg.setCustomTooltip(true);
-		cfg.setCustomTooltipHtml("'<div class=\"chartjs-tooltip-section\">"
-						+ "	<span class=\"chartjs-tooltip-key\" style=\"background-color:' + tooltip.legendColors[i].fill + '\"></span>"
-						+ "	<span class=\"chartjs-tooltip-value\">' + tooltip.labels[i] + '</span>" + "</div>'");
+		cfg.setCustomTooltipGenerator("JWic.controls.Chart.customTooltipGenerators.standardList");
 		
 		cfg.setResponsive(true);
 		cfg.setAnimationSteps(20);

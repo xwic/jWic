@@ -2,60 +2,20 @@
 
 	$.extend(JWic.controls, {
 		Chart : {
-
+			openTooltipId : null,
+			
 			initialize : function(controlID, options, config, labelData, dataset) {
 				var canvas = document.getElementById('chart_' + controlID);
 				var ctx = canvas.getContext("2d");	
 				var chart = new Chart(ctx);
 			    
 				if(config.customTooltip) {
-			    	
-					Chart.defaults.global.customTooltips = function(tooltip) {
-				    	// Tooltip Element
-						var tooltipEl = JWic.$('ctt_' + controlID);
-	
-				        // Hide if no tooltip
-		    			if (!tooltip) {
-							tooltipEl.css({
-								opacity: 0
-							});
-							return;
-		    			}
-	
-				        // Set caret Position
-		    			tooltipEl.removeClass('above below');
-		    			tooltipEl.addClass(tooltip.yAlign);
-	
-				    	// Set Text
-				    	var innerHtml='';
-				    		  
-				    	if (tooltip.labels) {
-				    		for (var i = tooltip.labels.length - 1; i >= 0; i--) {
-				    			innerHtml += [config.customTooltipHtml].join('');;
-				    		}
-				    	} else {
-				    		innerHtml = config.customTooltipHtml;
-				    	}
-				    	tooltipEl.html(innerHtml);
-	
-				        // Find Y Location on page
-		    			var top;
-		    			if (tooltip.yAlign == 'above') {
-		    				top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
-		    			} else {
-		    				top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
-		    			}
-	
-				        // Display, position, and set styles for font
-		    			tooltipEl.css({
-		    				opacity: 1,
-		    				left: tooltip.chart.canvas.offsetLeft + tooltip.x + 'px',
-		    				top: tooltip.chart.canvas.offsetTop + top + 'px',
-		    				fontFamily: tooltip.fontFamily,
-		    				fontSize: tooltip.fontSize,
-		    				fontStyle: tooltip.fontStyle
-		    			});
-			    	};
+					try {
+						chart.__customTooltipGenerator = eval(config.customTooltipGenerator);
+						config.customTooltips = JWic.controls.Chart.customTooltipHandler;
+					} catch (e) {
+						JWic.log("ERROR: Can't find CustomTooltipGenerator function: " + e);
+					}
 				}
 
 				var chartImpl = undefined;
@@ -117,6 +77,8 @@
 					JWic.log("ERROR: Unsupported charttype: " + options.chartType)
 				}
 
+				chart.__controlID = controlID; //remember the control id
+				
 				canvas.onclick = function(evt){
 					 var activeElement = findElement.call(chartImpl, evt);
 					 if (activeElement) {
@@ -132,6 +94,83 @@
 					 }
 				}
 			
+			},
+			
+			customTooltipHandler : function(tooltip) {
+
+				if (tooltip == false) {
+					// hide the current tooltip
+					if (JWic.controls.Chart.openTooltipId != null) {
+						var tooltipEl = JWic.$('ctt_' + JWic.controls.Chart.openTooltipId);
+						if (tooltipEl) {
+							tooltipEl.css({
+								display : "none"
+							})
+						}
+					}
+					return;
+				}
+				
+				var controlID = tooltip.chart.__controlID;
+				
+		    	// Tooltip Element
+				var tooltipEl = JWic.$('ctt_' + controlID);
+				
+		        // Set caret Position
+    			tooltipEl.removeClass('above below');
+    			tooltipEl.addClass(tooltip.yAlign);
+
+		    	// Set Text
+		    	var innerHtml='';
+		    	var generator = tooltip.chart.__customTooltipGenerator; 
+		    	if (generator != undefined) {
+		    		innerHtml = generator(tooltip);
+		    	}
+		    	
+		    	tooltipEl.html(innerHtml);
+
+		        // Find Y Location on page
+    			var top;
+    			console.log(tooltip);
+    			
+//    			if (tooltip.yAlign == 'above') {
+//    				top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
+//    			} else {
+//    				top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
+//    			}
+    			
+    			var position = jQuery(tooltip.chart.canvas).position();
+    			
+    			top = tooltip.y;
+
+		        // Display, position, and set styles for font
+    			tooltipEl.css({
+    				opacity: 1,
+    				display: "block",
+    				left: (position.left + tooltip.x) + 'px',
+    				top: (position.top + top - 20) + 'px',
+    				fontFamily: tooltip.fontFamily,
+    				fontSize: tooltip.fontSize,
+    				fontStyle: tooltip.fontStyle
+    			});
+    			JWic.controls.Chart.openTooltipId = controlID;
+			},
+			
+			customTooltipGenerators : {
+				standardList : function(tooltip) {
+					var innerHtml = "";
+					if (tooltip.labels) {
+			    		for (var i = tooltip.labels.length - 1; i >= 0; i--) {
+			    			innerHtml += "<div class=\"chartjs-tooltip-section\">"
+								+ "	<span class=\"chartjs-tooltip-key\" style=\"background-color:" + tooltip.legendColors[i].fill + "\"></span>"
+								+ "	<span class=\"chartjs-tooltip-value\">" + tooltip.labels[i] + "</span></div>";
+			    		}
+			    	} else {
+			    		console.log(tooltip);
+			    		innerHtml = tooltip.text;
+			    	}
+					return innerHtml; 
+				}
 			},
 			
 			zoom : function(div) {
