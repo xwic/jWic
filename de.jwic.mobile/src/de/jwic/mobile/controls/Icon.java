@@ -3,16 +3,15 @@
  */
 package de.jwic.mobile.controls;
 
-
 /**
  * 
- * Enum for all the icons in jquery.mobile library
+ * Class for all the icons in jquery.mobile library
  * 
  * @author vedad
  *
  */
 public class Icon {
-	
+
 	public static final Icon ACTION = new Icon("action");
 	public static final Icon ALERT = new Icon("alert");
 	public static final Icon ARROWD = new Icon("arrow-d");
@@ -62,8 +61,8 @@ public class Icon {
 	public static final Icon TAG = new Icon("tag");
 	public static final Icon USER = new Icon("user");
 	public static final Icon VIDEO = new Icon("video");
-	
-	private String code;
+
+	private final String code;
 
 	/**
 	 * @param code
@@ -72,8 +71,10 @@ public class Icon {
 		this.code = code;
 	}
 
-	@Override
-	public String toString() {
+	/**
+	 * @return the code
+	 */
+	public String getCode() {
 		return code;
 	}
 
