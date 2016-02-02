@@ -24,6 +24,7 @@ import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IHaveEnabled;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.events.ValueChangedListener;
 
 /**
@@ -171,6 +172,7 @@ public class RadioButton extends Control implements IHaveEnabled {
 	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -215,6 +217,7 @@ public class RadioButton extends Control implements IHaveEnabled {
 	/**
 	 * @return the cssClass
 	 */
+	@IncludeJsOption
 	public String getCssClass() {
 		return cssClass;
 	}

@@ -56,8 +56,6 @@ public class DatePicker extends InputBox {
 	private boolean iconTriggered = false;
 	private TimeZone timeZone;
 
-	private static final Logger log = Logger.getLogger(DatePicker.class);
-
 	/**
 	 * @param container
 	 */

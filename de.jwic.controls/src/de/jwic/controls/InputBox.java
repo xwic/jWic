@@ -27,6 +27,7 @@ import java.util.List;
 import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.base.Page;
 import de.jwic.base.SessionContext;
@@ -42,6 +43,22 @@ import de.jwic.events.ValueChangedListener;
 @JavaScriptSupport
 public class InputBox extends HTMLElement {
 
+	/**
+	 * Defines possible input types that are available in HTML5. Note that not 
+	 * all browsers may support them, so always be prepared to handle regular
+	 * text input.
+	 */
+	public enum InputType {
+		COLOR,
+		EMAIL,
+		NUMBER,
+		PASSWORD,
+		SEARCH,
+		TEL,
+		TEXT,
+		URL
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private final static String ACTION_KEYPRESSED = "keyPressed";
 
@@ -50,13 +67,17 @@ public class InputBox extends HTMLElement {
 	protected int cols = 20;
 	protected boolean multiLine = false;
 	protected boolean readonly = false;
+	
+	/** @deprecated - use the type property instead. */
 	protected boolean password = false;
+	
 	protected boolean updateOnBlur = false;
 	protected int listenKeyCode = 0;	// 0 == dont listen to any keycode
 	
 	protected String emptyInfoText = null;
 	protected boolean flagAsError = false;
 	
+	protected InputType type = InputType.TEXT;
 	
 	protected Field field = null;
 	
@@ -241,15 +262,24 @@ public class InputBox extends HTMLElement {
 	 * @return Returns true if the input field is of type "password".
 	 */
 	public boolean isPassword() {
-		return password;
+		return InputType.PASSWORD.equals(type);
 	}
 	/**
 	 * Set to true if the input field should be of type "password". This property
 	 * applies only to non-multiline fields.
+	 * 
+	 * <p>Calling this method with a <code>true</code> argument will set the type to PASSWORD,
+	 * calling it with <code>false</code> will set the type to TEXT.
+	 * 
 	 * @param password boolean
+	 * @deprecated Use setType(..) instead. 
 	 */
 	public void setPassword(boolean password) {
-		this.password = password;
+		if (password) {
+			setType(InputType.PASSWORD);
+		} else {
+			setType(InputType.TEXT);
+		}
 		requireRedraw();
 	}
 	
@@ -286,6 +316,7 @@ public class InputBox extends HTMLElement {
 	/**
 	 * @return Returns the readonly.
 	 */
+	@IncludeJsOption
 	public boolean isReadonly() {
 		return readonly;
 	}
@@ -300,6 +331,7 @@ public class InputBox extends HTMLElement {
 	 * @see #setUpdateOnBlur(boolean)
 	 * @return the updateOnBlur
 	 */
+	@IncludeJsOption
 	public boolean isUpdateOnBlur() {
 		return updateOnBlur;
 	}
@@ -334,6 +366,7 @@ public class InputBox extends HTMLElement {
 	/**
 	 * @return the flagAsError
 	 */
+	@IncludeJsOption
 	public boolean isFlagAsError() {
 		return flagAsError;
 	}
@@ -345,6 +378,28 @@ public class InputBox extends HTMLElement {
 			this.flagAsError = flagAsError;
 			requireRedraw();
 		}
+	}
+	
+	/**
+	 * @return the type
+	 */
+	@IncludeJsOption
+	public InputType getType() {
+		return type;
+	}
+	
+	/**
+	 * Set the type of input the field accepts. The value will define the 'type' attribute
+	 * of the 'input' element, so that HTML5 capable browsers can provide respective input
+	 * fields. A tablet for example may offer the user different keys for an email field than
+	 * for a regular text field.
+	 * 
+	 * <p>Note that the type only applies to non-multiline fields</p>
+	 * 
+	 * @param type the type to set
+	 */
+	public void setType(InputType type) {
+		this.type = type;
 	}
 	
 }

@@ -1,9 +1,13 @@
-<div data-role="page" id="$control.name" class="ui-page ui-page-theme-a ui-page-active" style="overflow:auto;">
+## 
+## The jQuery mobile page does disable automated enhancement of children. This needs to be done by the
+## controls itself, to avoid a 'loss' of the layout after individual elements are updated.
+##
+<div data-role="page" id="$control.controlID" class="ui-page ui-page-theme-a ui-page-active" style="overflow:auto;">
     <div data-role="header">
         <h1>$control.text</h1>
         $insert.control('header')
     </div>
-    <div data-role="content">
+    <div data-role="content" data-enhance="false">
         $content.render()
     </div>
 </div>

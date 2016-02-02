@@ -1,0 +1,23 @@
+<div id="$control.controlID" data-role="tabs" class="ui-tabs ui-corner-all">
+	<div data-role="navbar" class="ui-navbar" role="navigation">
+	
+		<ul class="ui-grid-b ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+		#foreach($tab in $control.tabs)
+			#set($counter = $control.getCounter($foreach.index))
+			<li class="ui-block-$counter ui-state-default ui-corner-top" id="tab_li_${tab.controlID}" role="tab" aria-labelledby="ui-id-tab_a_${tab.controlID}">
+			<a href="#tab_${tab.controlID}" class="ui-link ui-btn ui-tabs-anchor" role="presentation" id="tab_a_${tab.controlID}">$tab.title</a>
+			</li>
+		#end
+		</ul>
+	</div>
+	
+	#foreach($tab in $control.tabs)
+		<div id="tab_${tab.controlID}" role="tabpanel" class="ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-tab_${tab.controlID}">
+		#if($tab.name == $control.activeTabName)
+			$insert.control($tab.name)
+		#else
+			<span id="ctrl_${tab.controlID}"></span>
+		#end
+		</div>
+	#end
+</div>

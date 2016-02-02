@@ -1,0 +1,18 @@
+#if ( $control.multiLine )
+<textarea name="${control.field.id}" rows="${control.rows}" cols="${control.cols}" id="${control.controlID}"
+    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)"#end
+	#if ( $control.readonly )readonly #end	
+	#if ( !$control.enabled ) disabled #end>$jwic.formatInp( ${control.field.value} )</textarea>
+#else
+<input 
+    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
+	type="$control.type"
+	#if ( !$control.enabled )disabled #end
+	#if ( $control.readonly )readonly #end	
+	#if ( $control.maxLength != 0 )maxlength="$control.maxLength" #end
+	#if ( $control.cols != 0 ) size="${control.cols}" #end
+	name="${control.field.id}"
+	id="${control.controlID}"
+	value="$jwic.formatInp(${control.field.value})"
+>
+#end

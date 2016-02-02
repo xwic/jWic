@@ -1,1 +1,10 @@
-<button data-rel="button" #if(!$control.enabled) disabled #end onclick="return false;">$!control.title</button>
+<div class="#if($control.theme) ui-btn-$!control.theme #else ui-btn #end ui-input-btn
+			#if($control.corners) ui-corner-all #end 
+			#if($control.inline) ui-btn-inline #end 
+			#if(!$control.enabled) ui-state-disabled #end
+			#if($control.mini) ui-mini #end
+			#if($control.shadow) ui-shadow #end #if($control.iconClass) ui-icon-$control.iconClass.code ui-btn-icon-$control.iconpos #end">
+  #if($control.iconPath != "")<img src="$control.iconPath"/>#end
+  $!control.title
+  <input id="$control.controlID" type="button" data-enhanced="true" value="$!control.title" #if(!$control.enabled) disabled #end></input>
+</div>
