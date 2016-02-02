@@ -173,7 +173,6 @@ public class WebEngine  {
 			veprop.setProperty("file.resource.loader.path", rootDir);
 			veprop.setProperty("file.resource.loader.cache", "true");
 			veprop.setProperty("file.resource.loader.modificationCheckInterval", "2");
-			veprop.setProperty("class.resource.loader.path", "/cp");
 		}
 		ve.init(veprop);
 		
@@ -609,7 +608,7 @@ public class WebEngine  {
 		ctx.put("layerid", layerid == null ? "" : layerid);
 		ctx.put("reloaded", markReloaded ? "1" : "0");
 		ctx.put("contextPath", req.getContextPath());
-		ctx.put("cpPath", req.getContextPath() + ve.getProperty("class.resource.loader.path"));
+		ctx.put("cpPath", req.getContextPath());
 		ctx.put("renderContext", context);
 		List<String> scriptQueue = sc.getScriptQueue();
 		if (!scriptQueue.isEmpty()) {
