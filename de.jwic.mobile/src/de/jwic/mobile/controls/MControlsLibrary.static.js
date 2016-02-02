@@ -140,8 +140,37 @@ JWic.mobile = {
 		Combo : {
 	        initialize : function(control, options) {
 	            control.combo({
-	            	disabled : !options.enabled
+	            	disabled : !options.enabled,
+	            	autodividers: options.autodividers,
+	            	defaults : options.defaults,
+	            	filter : options.filter,
+	            	hideDividers : options.hideDividers,
+	            	inset : options.inset,
+	            	icon : options.iconClass,
+	            	splitIcon : options.splitIcon,
+	            	dividerTheme : options. dividerTheme,
+	            	splitTheme : options.splitTheme,
+	            	theme : options.theme
 	            });
 	        }
 		},
+		/**
+		 * TabStrip helper methods.
+		 */
+		TabStrip : {
+	        initialize : function(control, options) {
+	            control.tabs({
+	            	active : options.active,
+	            	collapsible : options.collapsible,
+	            	hide : options.hide,
+	            	show : options.show,
+	            	heightStyle : options.heightStyle,
+	            	counter :  options.counter
+	            });
+	        },
+	        
+	        destroy: function(control) {
+	        	control.destroy();
+	        }
+		}
 };
