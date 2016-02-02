@@ -660,3 +660,44 @@ span.j-listColSel-clearSearch {
    		width:10px;
    		height:10px;
    	}
+   	
+   	div.chartjs-legend {
+   		background-color: #000;
+   		opacity: 0.5;
+   		color: #fff;
+   		padding: 2px;
+   		box-sizing:border-box;
+   	}
+
+   	div.chartjs-legend-top {
+   		text-align: center;
+   		margin-bottom: 5px;
+   	}
+
+   	div.chartjs-legend-bottom {
+   		text-align: center;
+   		margin-top: 5px;
+   	}
+   	
+   	div.chartjs-legend ul {
+   		margin: 0px;
+   		padding: 0px;
+   	}
+   	
+   	div.chartjs-legend li {
+   		display: inline;
+   		text-decoration:none;
+   		margin: 0px 5px 0px 0px;
+   		vertical-align: middle;
+   	}
+   	
+   	div.chartjs-legend .chartjs-colbox {
+   		display: inline-block;
+   		width: 15px;
+   		height: 15px;
+   		border-radius: 3px;
+   		border: 1px solid #fff;
+   		margin-right: 4px;
+   		margin-top: 4px;
+   	}
+   	

@@ -6,6 +6,7 @@ package de.jwic.demo.chartdb;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
+import de.jwic.controls.chart.api.Chart.LegendLocation;
 import de.jwic.controls.chart.impl.CircleChart;
 import de.jwic.controls.chart.impl.CircleChartConfiguration;
 
@@ -40,6 +41,8 @@ public class UserTypeView extends ReportView<SimpleValueDatasetModel, CircleChar
 		
 		cfg.setResponsive(true);
 		cfg.setAnimationSteps(20);
+		
+		chart.setLegendLocation(LegendLocation.RIGHT);
 		
 		return chart;
 	}

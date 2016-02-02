@@ -24,9 +24,19 @@ import de.jwic.events.SelectionListener;
  * @date 19.10.2015
  */
 @JavaScriptSupport
-public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
-		extends Control implements IResourceControl {
+public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> extends Control implements IResourceControl {
 
+	public enum LegendLocation {
+		NONE,
+		LEFT,
+		RIGHT,
+		TOP,
+		BOTTOM;
+		public String getCode() {
+			return name();
+		}
+	}
+	
 	/**
 	 * 
 	 */
@@ -38,6 +48,8 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private List<ElementSelectedListener> elementSelectedListeners;
 	private List<ActionListener> animationInProgressListeners;
 	private L configuration;
+	
+	private LegendLocation legendLocation = LegendLocation.NONE;
 	
 	/**
 	 * 
@@ -221,6 +233,19 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	}
 
-	
+	/**
+	 * @return the legendLocation
+	 */
+	@IncludeJsOption
+	public LegendLocation getLegendLocation() {
+		return legendLocation;
+	}
+
+	/**
+	 * @param legendLocation the legendLocation to set
+	 */
+	public void setLegendLocation(LegendLocation legendLocation) {
+		this.legendLocation = legendLocation;
+	}
 
 }

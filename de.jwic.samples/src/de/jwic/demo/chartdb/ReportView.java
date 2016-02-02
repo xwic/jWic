@@ -52,6 +52,7 @@ public abstract class ReportView<M extends ChartModel<?>, L extends ChartConfigu
 		
 		if (chart != null) {
 			removeControl(chart.getName());
+			removeControl("legend");
 		}
 		chart = createChart();
 		

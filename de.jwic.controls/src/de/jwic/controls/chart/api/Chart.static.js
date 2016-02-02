@@ -93,6 +93,27 @@
 						}
 					 }
 				}
+				
+				// create legend
+				if (options.legendLocation != "NONE") {
+					var legendDiv = JWic.$("legend_" + controlID);
+					if(legendDiv) {
+						var innerHtml = "<ul>";
+						var dataset = undefined;
+						if (chartData.hasOwnProperty('datasets')) {
+							dataset = chartData.datasets;
+						} else {
+							dataset = chartData;
+						}
+						dataset.forEach(function(ds, i) {
+							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + (ds.hasOwnProperty('strokeColor') ? ds.strokeColor : ds.color) + "\">&nbsp;</span>" + ds.label + "</li>";
+						});
+						innerHtml += "</ul>";
+						legendDiv.html(innerHtml);
+					} else {
+						JWic.log("ERROR: No legend div found for " + controlID);
+					}
+				}
 			
 			},
 			

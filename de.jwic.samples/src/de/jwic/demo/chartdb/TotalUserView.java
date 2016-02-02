@@ -6,6 +6,7 @@ package de.jwic.demo.chartdb;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
+import de.jwic.controls.chart.api.Chart.LegendLocation;
 import de.jwic.controls.chart.impl.LineChart;
 import de.jwic.controls.chart.impl.LineChartConfiguration;
 
@@ -37,12 +38,17 @@ public class TotalUserView extends ReportView<ValueListDatasetModel, LineChartCo
 		LineChart chart = new LineChart(this, "chart", dataSet);
 		LineChartConfiguration cfg = chart.getConfiguration();
 		
+		chart.setLegendLocation(LegendLocation.BOTTOM);
 		
 		cfg.setCustomTooltip(true);
 		cfg.setCustomTooltipGenerator("JWic.controls.Chart.customTooltipGenerators.standardList");
 		
 		cfg.setResponsive(true);
 		cfg.setAnimationSteps(20);
+		
+
+		cfg.setWidth(300);
+		cfg.setHeight(300);
 
 		return chart;
 	}
