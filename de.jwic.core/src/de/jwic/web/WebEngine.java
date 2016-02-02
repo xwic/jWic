@@ -608,7 +608,6 @@ public class WebEngine  {
 		ctx.put("layerid", layerid == null ? "" : layerid);
 		ctx.put("reloaded", markReloaded ? "1" : "0");
 		ctx.put("contextPath", req.getContextPath());
-		ctx.put("cpPath", req.getContextPath());
 		ctx.put("renderContext", context);
 		List<String> scriptQueue = sc.getScriptQueue();
 		if (!scriptQueue.isEmpty()) {
