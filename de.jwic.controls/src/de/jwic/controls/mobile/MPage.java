@@ -11,7 +11,7 @@ import de.jwic.base.JavaScriptSupport;
 /**
  * Created by boogie on 10/27/14.
  */
-@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MPage")
+@JavaScriptSupport(jsTemplate = "de.jwic.controls.mobile.MPage")
 public class MPage extends ControlContainer implements IOuterLayout {
 	private final ControlContainer header;
 	private String text;
