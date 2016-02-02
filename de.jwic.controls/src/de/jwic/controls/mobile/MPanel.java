@@ -12,7 +12,7 @@ import de.jwic.base.JavaScriptSupport;
  * Representation of the jQuery Mobile Panel control (http://demos.jquerymobile.com/1.4.5/panel/)
  * 
  */
-@JavaScriptSupport(jsTemplate = "de.jwic.mobile.controls.MPanel")
+@JavaScriptSupport(jsTemplate = "de.jwic.controls.mobile.MPanel")
 public class MPanel extends ControlContainer implements IOuterLayout{
 
 	/**
