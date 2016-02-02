@@ -9,19 +9,16 @@
     <name>JWIC::WEB</name>
 
     <artifactId>jwic-web</artifactId>
-    <packaging>war</packaging>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <warName>jwic</warName>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+     <packaging>jar</packaging>
+	<profiles>    
+		<profile>
+			<id>hacky</id>
+			<build>
+				<finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
+			</build>
+		</profile>
+    </profiles>
+    
     <dependencies>
 		<!-- Related projects -->
         <dependency>
@@ -35,40 +32,6 @@
             <version>5.2.12-SNAPSHOT</version>
         </dependency>
 		
-		<!-- General dependencies -->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-        </dependency>
-
     </dependencies>
 
 </project>

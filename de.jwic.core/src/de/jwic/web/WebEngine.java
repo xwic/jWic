@@ -21,6 +21,7 @@
 package de.jwic.web;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -161,7 +162,8 @@ public class WebEngine  {
 		ve = new VelocityEngine();
 		Properties veprop = new Properties();
 		try {
-			veprop.load(new FileInputStream(rootDir + "WEB-INF/jwic/velocity.WebEngine.properties"));
+			File fRootDir = new File(rootDir);
+			veprop.load(new FileInputStream(new File(fRootDir, "WEB-INF/jwic/velocity.WebEngine.properties")));
 			ConfigurationTool.insertRootPath(veprop);
 		} catch (Exception ex) {
 			log.warn("WEB-INF/jwic/velocity.WebEngine.properties not found, using defaults");
@@ -171,6 +173,7 @@ public class WebEngine  {
 			veprop.setProperty("file.resource.loader.path", rootDir);
 			veprop.setProperty("file.resource.loader.cache", "true");
 			veprop.setProperty("file.resource.loader.modificationCheckInterval", "2");
+			veprop.setProperty("class.resource.loader.path", "/cp");
 		}
 		ve.init(veprop);
 		
@@ -606,6 +609,7 @@ public class WebEngine  {
 		ctx.put("layerid", layerid == null ? "" : layerid);
 		ctx.put("reloaded", markReloaded ? "1" : "0");
 		ctx.put("contextPath", req.getContextPath());
+		ctx.put("cpPath", req.getContextPath() + ve.getProperty("class.resource.loader.path"));
 		ctx.put("renderContext", context);
 		List<String> scriptQueue = sc.getScriptQueue();
 		if (!scriptQueue.isEmpty()) {

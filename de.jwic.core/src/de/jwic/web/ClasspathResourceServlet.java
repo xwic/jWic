@@ -19,6 +19,7 @@ package de.jwic.web;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -40,9 +41,10 @@ public class ClasspathResourceServlet extends HttpServlet {
 
 	protected final Log log = LogFactory.getLog(getClass());
     
-    private String[] allowedTypes =  { ".gif", ".jpeg", ".js", ".css", ".png" };
+    private String[] allowedTypes =  { ".gif", ".jpeg", ".js", ".css", ".png", ".vtl", ".html"};
     private String servletId = "/cp/";
 	private long startup = 0;
+	private boolean isClassResource = false;
 	
 	/**
 	 * Default constructor.
@@ -57,12 +59,20 @@ public class ClasspathResourceServlet extends HttpServlet {
 		
 	}
 	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		isClassResource = Boolean.parseBoolean(config.getInitParameter("classresource"));
+	}
+	
 	/* (non-Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
+		
+		String ctxPath  = req.getContextPath();
 		
 		String fileLocation = getFileLocation(req);
 		String fileName;
@@ -77,7 +87,7 @@ public class ClasspathResourceServlet extends HttpServlet {
 			return;
 		}
 		
-		if (!isAllowedType(fileName)) {
+		if (!isClassResource && !isAllowedType(fileName)) {
 			res.sendError(HttpServletResponse.SC_FORBIDDEN);
 			return;
 		}
@@ -160,7 +170,7 @@ public class ClasspathResourceServlet extends HttpServlet {
 		if (pos != -1) {
 			suffix = fileName.substring(pos);
 		}
-		
+
 		for (int i = 0; i < allowedTypes.length; i++) {
 			if (allowedTypes[i].equals(suffix)) {
 				return true;
@@ -177,11 +187,11 @@ public class ClasspathResourceServlet extends HttpServlet {
 	private String getFileLocation(HttpServletRequest req) {
 		
 		String uri = req.getRequestURI();
-		int i = uri.indexOf(servletId);
-		if (i != -1) {
-			return uri.substring(i + servletId.length());
+		if (isClassResource) {
+			return uri.substring(req.getContextPath().length() + 1);
+		} else {
+			return uri.substring(req.getContextPath().length() + servletId.length());
 		}
-		return null;
 		
 	}
 	/**
