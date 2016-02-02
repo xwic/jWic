@@ -1,36 +1,22 @@
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.common.enableable.Enableable;
-import de.jwic.common.enableable.EnableableHandler;
-import de.jwic.common.properties.PropertiesHandler;
-import de.jwic.common.properties.PropertyChangedListener;
-import de.jwic.common.properties.PropertyObservable;
-import de.jwic.common.selectable.Selectable;
-import de.jwic.common.selectable.SelectionHandler;
-import de.jwic.common.visible.Visible;
-import de.jwic.events.SelectionListener;
-
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by boogie on 11/11/14.
  */
 @JavaScriptSupport
-public class MSelectBox<T> extends Control implements Selectable, Visible, Enableable, PropertyObservable{
+public class MSelectBox<T> extends Control {
+	/*
 	private final EnableableHandler enableableHandler;
 	private final SelectionHandler selectionHandler;
 	private final PropertiesHandler propertiesHandler;
 	private final Map<String, T> possibleSelections;
 	private final LabelEvaluator<T> evaluator;
 
-	private T currentSelection;
+	private T currentSelection;*/
 	/**
 	 * Constructs a new control instance and adds it to the specified
 	 * container with the specified name. If the name is <code>null</code>,
@@ -39,16 +25,17 @@ public class MSelectBox<T> extends Control implements Selectable, Visible, Enabl
 	 * @param container
 	 * @param name
 	 */
-	public MSelectBox(IControlContainer container, String name, LabelEvaluator<T> evaluator) {
+	public MSelectBox(IControlContainer container, String name) {
 		super(container, name);
-		this.enableableHandler = new EnableableHandler(this);
+		/*this.enableableHandler = new EnableableHandler(this);
 		this.selectionHandler = new SelectionHandler<MSelectBox>(this);
 		this.propertiesHandler = new PropertiesHandler(this);
 		this.possibleSelections = new LinkedHashMap<String, T>();
 
-		this.evaluator = evaluator;
+		this.evaluator = evaluator;*/
 	}
 
+	/*
 	@Override
 	public void actionPerformed(String actionId, String parameter) {
 		if(!this.isEnabled()){
@@ -156,4 +143,5 @@ public class MSelectBox<T> extends Control implements Selectable, Visible, Enabl
 			return obj == null ? "" : obj.toString();
 		}
 	}
+	*/
 }

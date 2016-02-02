@@ -8,8 +8,8 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.LabelControl;
 import de.jwic.controls.Tab;
+import de.jwic.controls.mobile.MTabStrip;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.mobile.controls.MTabStrip;
 
 /**
  * @author vedad

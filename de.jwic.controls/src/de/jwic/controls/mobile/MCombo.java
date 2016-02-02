@@ -1,9 +1,9 @@
 /**
  * 
  */
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
-import static de.jwic.mobile.controls.Icon.CARATR;
+import static de.jwic.controls.mobile.Icon.CARATR;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;

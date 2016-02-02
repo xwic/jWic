@@ -3,11 +3,11 @@ package de.jwic.mobile;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.mobile.MButton;
+import de.jwic.controls.mobile.MPage;
+import de.jwic.controls.mobile.MPanel;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
-import de.jwic.mobile.controls.MButton;
-import de.jwic.mobile.controls.MPage;
-import de.jwic.mobile.controls.MPanel;
 
 import java.util.List;
 

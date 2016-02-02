@@ -489,7 +489,6 @@
     <module>de.jwic.core</module>
 
 		<module>de.jwic.controls</module>
-        <module>de.jwic.mobile</module>
         <module>de.jwic.compatibility</module>
 		<module>de.jwic.web</module>
 

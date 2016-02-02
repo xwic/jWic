@@ -5,10 +5,10 @@ import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Label;
 import de.jwic.controls.InputBox.InputType;
+import de.jwic.controls.mobile.MInputBox;
 import de.jwic.events.ValueChangedEvent;
 import de.jwic.events.ValueChangedListener;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.mobile.controls.MInputBox;
 
 /**
  * Created by boogie on 10/29/14.

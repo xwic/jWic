@@ -1,4 +1,4 @@
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;

@@ -1,17 +1,16 @@
 package de.jwic.mobile.demos;
 
+import java.util.Date;
+
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Label;
+import de.jwic.controls.mobile.MButton;
+import de.jwic.controls.mobile.MDatePicker;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.common.properties.PropertyChangedListener;
-import de.jwic.mobile.controls.MButton;
-import de.jwic.mobile.controls.MDatePicker;
-
-import java.util.Date;
 
 /**
  * Created by boogie on 10/31/14.
@@ -32,7 +31,7 @@ public class DatePickerDemo extends MobileDemoModule{
 		final MDatePicker MDatePicker = new MDatePicker(content, "datePicker");
 
 		final MButton getDateMButton = new MButton(content, "getDateButton");
-		getDateMButton.setText("Get Date From Above DatePicker");
+		getDateMButton.setTitle("Get Date From Above DatePicker");
 		getDateMButton.addSelectionListener(new SelectionListener() {
 
 			@Override
@@ -49,6 +48,7 @@ public class DatePickerDemo extends MobileDemoModule{
 		updateOnBlur.setUpdateOnBlur(true);
 
 
+		/*
 		final PropertyChangedListener listener = new PropertyChangedListener() {
 
 			@Override
@@ -67,7 +67,7 @@ public class DatePickerDemo extends MobileDemoModule{
 
 		updateOnBlur.addPropertyChangedListener(listener);
 		MDatePicker.addPropertyChangedListener(listener);
-
+		 */
 
 
 		return content;

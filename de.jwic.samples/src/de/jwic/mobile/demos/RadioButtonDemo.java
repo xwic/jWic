@@ -4,12 +4,12 @@ import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Label;
+import de.jwic.controls.mobile.IconPos;
+import de.jwic.controls.mobile.MButton;
+import de.jwic.controls.mobile.MRadioButton;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.mobile.MobileDemoModule;
-import de.jwic.mobile.controls.IconPos;
-import de.jwic.mobile.controls.MButton;
-import de.jwic.mobile.controls.MRadioButton;
 
 /**
  * Created by boogie on 10/30/14.

@@ -1,32 +1,16 @@
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
-import de.jwic.base.Control;
-import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.events.ValueChangedEvent;
-import de.jwic.events.ValueChangedListener;
-import de.jwic.common.visible.Visible;
-import de.jwic.common.blurable.BlurHandler;
-import de.jwic.common.blurable.BlurListener;
-import de.jwic.common.blurable.Blurable;
-import de.jwic.common.enableable.Enableable;
-import de.jwic.common.enableable.EnableableHandler;
-import de.jwic.common.properties.PropertiesHandler;
-import de.jwic.common.properties.PropertyChangedListener;
-import de.jwic.common.properties.PropertyObservable;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import de.jwic.controls.DatePicker;
 
 /**
  * Created by boogie on 10/31/14.
  */
 @JavaScriptSupport
-public class MDatePicker extends Control implements PropertyObservable, Blurable, Visible, Enableable{
+public class MDatePicker extends DatePicker {
 
+	/*
 	private static final String DEFAULT_DATE_FORMAT = "MM/dd/yyyy";
 	private static final String DATE = "date";
 
@@ -35,7 +19,7 @@ public class MDatePicker extends Control implements PropertyObservable, Blurable
 	private final BlurHandler blurHandler;
 
 	private final Field field;
-	private String dateFormat;
+	private String dateFormat;*/
 
 	/**
 	 *
@@ -44,16 +28,17 @@ public class MDatePicker extends Control implements PropertyObservable, Blurable
 	 */
 	public MDatePicker(IControlContainer container, String name) {
 		super(container, name);
-		this.propertiesHandler = new PropertiesHandler(this);
+		/*this.propertiesHandler = new PropertiesHandler(this);
 		this.enableableHandler = new EnableableHandler(this);
 		this.blurHandler = new BlurHandler<MDatePicker>(this);
 
 		this.field = new Field(this, "textField");
 		this.field.addValueChangedListener(new DatePickerFieldValueChangedListener(this));
 
-		this.dateFormat = DEFAULT_DATE_FORMAT;
+		this.dateFormat = DEFAULT_DATE_FORMAT;*/
 	}
 
+	/*
 	@Override
 	public void enable() {
 		enableableHandler.enable();
@@ -211,5 +196,5 @@ public class MDatePicker extends Control implements PropertyObservable, Blurable
 		}
 
 
-	}
+	}*/
 }

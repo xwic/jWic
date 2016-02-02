@@ -1,4 +1,4 @@
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
 import org.apache.commons.lang.StringUtils;
 

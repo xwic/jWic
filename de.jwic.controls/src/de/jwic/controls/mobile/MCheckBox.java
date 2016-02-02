@@ -1,15 +1,15 @@
-package de.jwic.mobile.controls;
+package de.jwic.controls.mobile;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.RadioButton;
+import de.jwic.controls.CheckBox;
 
 /**
- * A single radio button that can be linked with other radio buttons on a page in a mobile design.
+ * Created by boogie on 10/30/14.
  */
 @JavaScriptSupport
-public class MRadioButton extends RadioButton {
+public class MCheckBox extends CheckBox {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,20 +21,11 @@ public class MRadioButton extends RadioButton {
 	 * Constructs a new control instance and adds it to the specified container with the specified name. If the name is <code>null</code>, a
 	 * unique name will be choosen by the container.
 	 *
-	 * @param container container of the radio button
-	 * @param name name of the radio button
+	 * @param container container of the check box
+	 * @param name name of the check box
 	 */
-	public MRadioButton(IControlContainer container, String name) {
+	public MCheckBox(IControlContainer container, String name) {
 		super(container, name);
-	}
-
-	/**
-	 * @param container container of the radio button
-	 * @param name name of the radio button
-	 * @param linkedButton radio button linked with existing one
-	 */
-	public MRadioButton(IControlContainer container, String name, MRadioButton linkedButton) {
-		super(container, name, linkedButton);
 	}
 
 	/**
