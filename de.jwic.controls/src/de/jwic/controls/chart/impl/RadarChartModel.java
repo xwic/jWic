@@ -43,6 +43,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * 
 	 * @return
 	 */
+	@Override
 	public String getLabelsJson() {
 		return DataConverter.convertToJSArray(labels);
 	}

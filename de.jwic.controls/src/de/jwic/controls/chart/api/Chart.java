@@ -6,11 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import de.jwic.base.Control;
-import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.controls.chart.api.util.ChartHelper;
 import de.jwic.controls.chart.impl.util.DataConverter;
 import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
@@ -25,14 +24,23 @@ import de.jwic.events.SelectionListener;
  * @date 19.10.2015
  */
 @JavaScriptSupport
-public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
-		extends Control implements IResourceControl {
+public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> extends Control implements IResourceControl {
 
+	public enum LegendLocation {
+		NONE,
+		LEFT,
+		RIGHT,
+		TOP,
+		BOTTOM;
+		public String getCode() {
+			return name();
+		}
+	}
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8011236594229480026L;
-	protected Field content;
 
 	private ChartType chartType;
 	private M model;
@@ -40,6 +48,8 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	private List<ElementSelectedListener> elementSelectedListeners;
 	private List<ActionListener> animationInProgressListeners;
 	private L configuration;
+	
+	private LegendLocation legendLocation = LegendLocation.NONE;
 	
 	/**
 	 * 
@@ -51,7 +61,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	public Chart(IControlContainer container, String name, ChartType type,
 			M model) {
 		super(container, name);
-		content = new Field(this, "chartContent");
 		setTemplateName(Chart.class.getName());
 		this.chartType = type;
 		this.model = model;
@@ -128,6 +137,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 	 * 
 	 * @return
 	 */
+	@IncludeJsOption
 	public String getChartType() {
 		return chartType.getChartName();
 	}
@@ -161,22 +171,6 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 		this.model = model;
 		model.setChart(this);
 		requireRedraw();
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Field getContent() {
-		return content;
-	}
-
-	/**
-	 * 
-	 * @param content
-	 */
-	public void setContent(Field content) {
-		this.content = content;
 	}
 
 	/**
@@ -239,6 +233,19 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration>
 
 	}
 
-	
+	/**
+	 * @return the legendLocation
+	 */
+	@IncludeJsOption
+	public LegendLocation getLegendLocation() {
+		return legendLocation;
+	}
+
+	/**
+	 * @param legendLocation the legendLocation to set
+	 */
+	public void setLegendLocation(LegendLocation legendLocation) {
+		this.legendLocation = legendLocation;
+	}
 
 }

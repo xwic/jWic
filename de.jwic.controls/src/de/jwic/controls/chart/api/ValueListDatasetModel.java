@@ -41,6 +41,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * 
 	 * @return
 	 */
+	@Override
 	public String getLabelsJson() {
 		return DataConverter.convertToJSArray(labels);
 	}

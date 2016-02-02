@@ -54,11 +54,9 @@ public class LineChartDemo extends ChartDemo<LineChart, ValueListDatasetModel> {
 	protected LineChart createChart(ValueListDatasetModel model) {
 
 		LineChart chart = new LineChart(this, "chart", model);
-		chart.getConfiguration().setCustomTootlip(true);
+		chart.getConfiguration().setCustomTooltip(true);
 		chart.getConfiguration()
-				.setCustomTooltipHtml("'<div class=\"chartjs-tooltip-section\">"
-						+ "	<span class=\"chartjs-tooltip-key\" style=\"background-color:' + tooltip.legendColors[i].fill + '\"></span>"
-						+ "	<span class=\"chartjs-tooltip-value\">' + tooltip.labels[i] + '</span>" + "</div>'");
+			.setCustomTooltipGenerator("JWic.controls.Chart.customTooltipGenerators.standardList");
 
 		return chart;
 	}

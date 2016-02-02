@@ -115,3 +115,34 @@ h1.demoTitle {
 	margin-top: 10px;
 	padding-top: 10px;
 }
+
+/** ChartDB Styles **/
+/*div.chartdb-filter {
+	
+}*/
+div.chartdb-content {
+	padding-top:20px;
+}
+
+div.chartdb-view {
+/*	border: 1px solid #808080;
+	padding: 0px;
+	background-color: #eeeeee;
+*/
+	margin-right: 10px;
+	margin-top: 10px;
+	width: 500px;
+	float: left;
+}
+
+div.chartdb-view .chartdb-title {
+	/*
+	background-color: #D0D0D0;
+	color: #008;
+	*/
+	padding: 4px;
+	font-weight: bold;
+}
+div.chartdb-view .chartdb-chart {
+	/* padding: 4px; */
+}

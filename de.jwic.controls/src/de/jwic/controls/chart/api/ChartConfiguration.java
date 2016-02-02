@@ -19,8 +19,8 @@ public abstract class ChartConfiguration implements Serializable {
 	/**
 	 * 
 	 */
-	private boolean customTootlip = false;
-	private String customTooltipHtml;
+	private boolean customTooltip = false;
+	private String customTooltipGenerator;
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;
@@ -895,20 +895,34 @@ public abstract class ChartConfiguration implements Serializable {
 		this.tooltipTemplate = tooltipTemplate;
 	}
 
-	public boolean isCustomTootlip() {
-		return customTootlip;
+	public boolean isCustomTooltip() {
+		return customTooltip;
 	}
 
-	public void setCustomTootlip(boolean customTootlip) {
-		this.customTootlip = customTootlip;
+	public void setCustomTooltip(boolean customTootlip) {
+		this.customTooltip = customTootlip;
 	}
 
-	public String getCustomTooltipHtml() {
-		return customTooltipHtml;
+	/**
+	 * Returns the JavaScript function handle that will generate the HTML for the
+	 * custom tooltip.
+	 * @return
+	 */
+	public String getCustomTooltipGenerator() {
+		return customTooltipGenerator;
 	}
 
-	public void setCustomTooltipHtml(String customTooltipHtml) {
-		this.customTooltipHtml = customTooltipHtml;
+	/**
+	 * Specifies a JavaScript function handle that will generate the HTML for the
+	 * custom tooltip. You can point to a custom implementation or use one of the
+	 * build in ones:
+	 * <ul>
+	 * <li>JWic.controls.Chart.customTooltipGenerators.standardList
+	 * </ul>
+	 * @param customTooltipHtml
+	 */
+	public void setCustomTooltipGenerator(String customTooltipHtml) {
+		this.customTooltipGenerator = customTooltipHtml;
 	}
 
 	public boolean isZoomEnabled() {

@@ -51,6 +51,7 @@ import de.jwic.demo.chart.PolarChartDemoModule;
 import de.jwic.demo.chart.RadarChartDemoModule;
 import de.jwic.demo.chart.DateTimeChartDemoModule;
 import de.jwic.demo.chart.StackedBarChartModule;
+import de.jwic.demo.chartdb.ChartDashboardDemo;
 import de.jwic.demo.container.AccordionDemoModule;
 import de.jwic.demo.container.GroupControlDemoModule;
 import de.jwic.demo.container.ScrollableContainerDemoModule;
@@ -127,7 +128,7 @@ public class DemoApplication extends Application {
 		modules.add(new ErrorWariningDemoModule());
 		modules.add(new LazyTooltipDemoModule());
 		modules.add(new WizardDemo());
-
+		modules.add(new ChartDashboardDemo());
 		modules.add(new ColorDemo());
 
 		// Sort demos by group and title

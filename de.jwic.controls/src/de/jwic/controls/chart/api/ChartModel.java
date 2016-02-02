@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+
 import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
@@ -35,6 +36,15 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements Serial
 
 		return DataConverter.convertToJson(datasets);
 
+	}
+	
+	/**
+	 * Returns the labels as a json array. The default implementation returns an empty
+	 * array.
+	 * @return
+	 */
+	public String getLabelsJson() {
+		return "{}";
 	}
 
 	/**

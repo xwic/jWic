@@ -1,36 +1,37 @@
-#if($control.getConfiguration().isZoomEnabled())
-<script>
-function zoom() {
-        var div = document.getElementById ("zoom");
- 
-      if ('zoom' in div.style) {
-         var value = div.style.zoom;
-           if(value != '200%'){
-          		div.style.zoom = '200%';
-         } 
-         else 
-         {
-          	div.style.zoom = '100%';
-         } 
-         	
-       }         
-     } 
-</script>
- #end
 #set($field = $control.getField("chartContent"))
 #if($control.getConfiguration().isZoomEnabled())
-<div id="zoom" ondblclick="zoom()">
+<div id="zoom__$control.controlID" ondblclick="JWic.controls.Chart.zoom(this)">
 #end
-<div id="$control.controlID" style="width:${control.getConfiguration().height}; height: ${control.getConfiguration().width}">
-<canvas id="chart" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px">
-</canvas>
+
+#if($control.legendLocation == "TOP")
+<div class="chartjs-legend chartjs-legend-top" id="legend_$control.controlID"></div>
+#end
+
+#if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT")
+<div>
+	#if($control.legendLocation == "RIGHT")
+	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-right" style="width: 20%; float: right;">
+	</div>
+	#end
+#end
+	<div id="$control.controlID" #if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT") style="box-sizing:border-box; width: 80%; #if($control.legendLocation == "LEFT") float: right; #else float:left; #end" #end>
+		<canvas id="chart_$control.controlID" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px">
+		</canvas>
+	</div>
+#if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT")
+	#if($control.legendLocation == "LEFT")
+	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-left" style="width: 20%;">
+	</div>
+	#end
+	<div style="clear: both;"></div>
 </div>
+#end
+#if($control.legendLocation == "BOTTOM")
+<div class="chartjs-legend chartjs-legend-bottom" id="legend_$control.controlID"></div>
+#end
+
 #if($control.getConfiguration().isZoomEnabled())
  </div>
 #end
-#if($control.getConfiguration().isCustomTootlip())
- <div id="chartjs-tooltip"> 
- </div>
- #end
-
-
+<div id="ctt_$control.controlID" class="chartjs-tooltip" style="display:none;"> 
+</div>

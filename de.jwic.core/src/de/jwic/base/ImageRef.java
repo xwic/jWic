@@ -172,6 +172,50 @@ public class ImageRef implements Serializable {
 	public void setText(String text) {
 		this.text = text;
 	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (bundled ? 1231 : 1237);
+		result = prime * result + height;
+		result = prime * result + ((path == null) ? 0 : path.hashCode());
+		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + width;
+		return result;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ImageRef other = (ImageRef) obj;
+		if (bundled != other.bundled)
+			return false;
+		if (height != other.height)
+			return false;
+		if (path == null) {
+			if (other.path != null)
+				return false;
+		} else if (!path.equals(other.path))
+			return false;
+		if (text == null) {
+			if (other.text != null)
+				return false;
+		} else if (!text.equals(other.text))
+			return false;
+		if (width != other.width)
+			return false;
+		return true;
+	}
 	
 	
 }
