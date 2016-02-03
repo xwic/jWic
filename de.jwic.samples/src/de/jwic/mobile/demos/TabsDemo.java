@@ -40,7 +40,10 @@ public final class TabsDemo extends MobileDemoModule {
 
 		Tab thirdtab = tabstrip.addTab("Third Tab", "thirdtab");
 		LabelControl lbl3 = new LabelControl(thirdtab);
-		lbl3.setText("Another random text for the third tab.");
+		lbl3.setText("Another random text for the third tab. "
+				+ "This tab is set as active");
+		
+		tabstrip.setActiveTabName("thirdtab");
 		
 		return container;
 	}

@@ -8,7 +8,8 @@ import de.jwic.controls.accordion.Accordion.HeightStyle;
 
 /**
  * 
- * The MTabs offers the same functionality as the base TabStrip, but renders as a basic HTML tabbar that inherits the default jQuery Mobile
+ * The MTabs offers the same functionality as the base TabStrip, but renders as
+ * a basic HTML tabbar that inherits the default jQuery Mobile
  * 
  * @author vedad
  *
@@ -18,7 +19,6 @@ public class MTabStrip extends TabStrip {
 
 	private static final long serialVersionUID = 1L;
 
-	private boolean active = false;
 	private boolean collapsible = false;
 	private boolean hide = false;
 	private boolean show = false;
@@ -26,8 +26,9 @@ public class MTabStrip extends TabStrip {
 	private int counter = 97;
 
 	/**
-	 * Constructs a new control instance and adds it to the specified container with the specified name. If the name is <code>null</code>, a
-	 * unique name will be chosen by the container.
+	 * Constructs a new control instance and adds it to the specified container
+	 * with the specified name. If the name is <code>null</code>, a unique name
+	 * will be chosen by the container.
 	 * 
 	 * @param container
 	 * @param name
@@ -43,26 +44,6 @@ public class MTabStrip extends TabStrip {
 	 */
 	public MTabStrip(IControlContainer container) {
 		super(container);
-	}
-
-	/**
-	 * @return the active
-	 */
-	@IncludeJsOption
-	public boolean isActive() {
-		return active;
-	}
-
-	/**
-	 * @param active
-	 *            the active to set
-	 */
-	public void setActive(boolean active) {
-		if (active != this.active)
-			requireRedraw();
-		if (!active)
-			setCollapsible(true);
-		this.active = active;
 	}
 
 	/**
@@ -137,17 +118,17 @@ public class MTabStrip extends TabStrip {
 		this.heightStyle = heightStyle;
 	}
 
-	
 	/**
-	 * returns counter incremented for the position in foreach loop in the vtl file
+	 * returns counter incremented for the position in foreach loop in the vtl
+	 * file
 	 * 
 	 * @return the counter
 	 */
 	@IncludeJsOption
 	public char getCounter(int increment) {
-		return (char)(counter+increment);
+		return (char) (counter + increment);
 	}
-	
+
 	/**
 	 * @return the counter
 	 */

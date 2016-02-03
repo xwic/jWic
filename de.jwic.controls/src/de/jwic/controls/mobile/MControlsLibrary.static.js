@@ -8,169 +8,218 @@
  */
 
 JWic.mobile = {
-		
-		/**
-		 * Button helper methods.
-		 */
-		Button : {
-	        initialize : function(control, options) {
-	            control.data('id', options.controlID);
-	            if(options.enabled){
-	    		    var clickHandler = function ButtonClickHandler() {
-	    		        JWic.fireAction(jQuery(this).data('id'), 'click');
-	    		    };
-	                control.on('click', clickHandler);
-	            }
-	            control.button({
-	            	disabled : !options.enabled,
-	            	corners : options.corners,
-	            	mini : options.mini,
-	            	shadow : options.shadow,
-	            	inline : options.inline,
-	            	iconpos : options.iconpos,
-	            	theme : options.theme,
-	            	wrapperClass : options.wrapperClass,
-	            	icon : options.iconClass
-	            });
-	        },
-	        
-	        destroy: function(control) {
-	        	control.destroy();
-	        }
+
+	/**
+	 * Button helper methods.
+	 */
+	Button : {
+		initialize : function(control, options) {
+			control.data('id', options.controlID);
+			if (options.enabled) {
+				var clickHandler = function ButtonClickHandler() {
+					JWic.fireAction(jQuery(this).data('id'), 'click');
+				};
+				control.on('click', clickHandler);
+			}
+			control.button({
+				disabled : !options.enabled,
+				corners : options.corners,
+				mini : options.mini,
+				shadow : options.shadow,
+				inline : options.inline,
+				iconpos : options.iconpos,
+				theme : options.theme,
+				wrapperClass : options.wrapperClass,
+				icon : options.iconClass
+			});
 		},
-		
-		/**
-		 * CheckBox helper methods
-		 */
-		CheckBox : {
-		    initialize : function(control, options, fieldId) {
-			    var clickHandler = function (evnt){
-			    	var cb = jQuery(this);
-			    	var field = JWic.$("chkVal_" + cb.data('fieldId'));
-			    	if (field.length > 0) {
-			    		field[0].value = cb[0].checked ? "1" : "";
-			    		if (cb.data('options').changeNotification) {
-			    			JWic.fireAction(cb.data('id'), 'clicked', '');
-			    		}
-			    	} else {
-			    		JWic.log("WARN: Cannot find hidden field for checkbox value 'chkVal_" + cb.data('fieldId'));
-			    	}
-			        return true;
-			    };
-	            control.data('id', options.controlID);
-	            control.data('fieldId', fieldId);
-	            control.data('options', options);
-	            control.checkboxradio({
-	                disabled : !options.enabled,
-	                mini : options.mini,
-	            	iconpos : options.iconpos,
-	            	wrapperClass : options.wrapperClass
-	            });
-	            control.on('change', clickHandler);
-	            
-		    }
+
+		destroy : function(control) {
+			control.destroy();
+		}
+	},
+
+	/**
+	 * CheckBox helper methods
+	 */
+	CheckBox : {
+		initialize : function(control, options, fieldId) {
+			var clickHandler = function(evnt) {
+				var cb = jQuery(this);
+				var field = JWic.$("chkVal_" + cb.data('fieldId'));
+				if (field.length > 0) {
+					field[0].value = cb[0].checked ? "1" : "";
+					if (cb.data('options').changeNotification) {
+						JWic.fireAction(cb.data('id'), 'clicked', '');
+					}
+				} else {
+					JWic
+							.log("WARN: Cannot find hidden field for checkbox value 'chkVal_"
+									+ cb.data('fieldId'));
+				}
+				return true;
+			};
+			control.data('id', options.controlID);
+			control.data('fieldId', fieldId);
+			control.data('options', options);
+			control.checkboxradio({
+				disabled : !options.enabled,
+				mini : options.mini,
+				iconpos : options.iconpos,
+				wrapperClass : options.wrapperClass
+			});
+			control.on('change', clickHandler);
+
+		}
+	},
+	/**
+	 * CheckBox helper methods
+	 */
+	RadioButton : {
+		initialize : function(control, options) {
+			control.data('id', options.controlID);
+			control.checkboxradio({
+				disabled : !options.enabled,
+				mini : options.mini,
+				iconpos : options.iconpos,
+				wrapperClass : options.wrapperClass
+			});
+		}
+	},
+	/**
+	 * InputBox helper methods
+	 */
+	InputBox : {
+		initialize : function(control, options) {
+			control.textinput({
+				autogrow : options.autogrow,
+				clearBtn : options.clearBtn,
+				clearBtnText : options.clearBtnText,
+				corners : options.corners,
+				keyupTimeoutBuffer : options.keyupTimeoutBuffer,
+				mini : options.mini,
+				preventFocusZoom : options.preventFocusZoom,
+				theme : options.theme,
+				wrapperClass : options.wrapperClass
+			});
 		},
-		/**
-		 * CheckBox helper methods
-		 */
-		RadioButton : {
-		    initialize : function(control, options) {
-	            control.data('id', options.controlID);
-	            control.checkboxradio({
-	                disabled : !options.enabled,
-	                mini : options.mini,
-	            	iconpos : options.iconpos,
-	            	wrapperClass : options.wrapperClass
-	            });
-		    }
+
+		destroy : function(control) {
+			control.destroy();
+		}
+	},
+	/**
+	 * FlipSwitch helper methods
+	 */
+	FlipSwitch : {
+		initialize : function(control, options, fieldId) {
+			var clickHandler = function(evnt) {
+				var cb = jQuery(this);
+				var field = JWic.$("chkVal_" + cb.data('fieldId'));
+				if (field.length > 0) {
+					field[0].value = cb[0].checked ? "1" : "";
+					if (cb.data('options').changeNotification) {
+						JWic.fireAction(cb.data('id'), 'clicked', '');
+					}
+				} else {
+					JWic
+							.log("WARN: Cannot find hidden field for checkbox value 'chkVal_"
+									+ cb.data('fieldId'));
+				}
+				return true;
+			};
+			control.data('id', options.controlID);
+			control.data('fieldId', fieldId);
+			control.data('options', options);
+			control.flipswitch({
+				disabled : !options.enabled
+			});
+			control.on('change', clickHandler);
+		}
+	},
+	/**
+	 * Combo helper methods.
+	 */
+	Combo : {
+		initialize : function(control, options) {
+			control.combo({
+				disabled : !options.enabled,
+				autodividers : options.autodividers,
+				defaults : options.defaults,
+				filter : options.filter,
+				hideDividers : options.hideDividers,
+				inset : options.inset,
+				icon : options.iconClass,
+				splitIcon : options.splitIcon,
+				dividerTheme : options.dividerTheme,
+				splitTheme : options.splitTheme,
+				theme : options.theme
+			});
+		}
+	},
+	/**
+	 * TabStrip helper methods.
+	 */
+	TabStrip : {
+		internalActivate : false,
+
+		initialize : function(tabStrip, options, activeIndex) {
+			tabStrip.tabs({
+				beforeActivate : JWic.mobile.TabStrip.activateHandler,
+				active : activeIndex,
+				collapsible : options.collapsible,
+				hide : options.hide,
+				show : options.show,
+				heightStyle : options.heightStyle,
+				counter : options.counter
+			});
 		},
-		/**
-		 * InputBox helper methods
-		 */
-		InputBox : {
-			initialize : function(control, options) {
-				control.textinput( {
-							autogrow : options.autogrow,
-							clearBtn : options.clearBtn,
-							clearBtnText : options.clearBtnText,
-							corners : options.corners,
-							keyupTimeoutBuffer : options.keyupTimeoutBuffer,
-							mini : options.mini,
-							preventFocusZoom : options.preventFocusZoom,
-							theme : options.theme,
-							wrapperClass : options.wrapperClass
+
+		activateHandler : function(event, ui) {
+			if (JWic.mobile.TabStrip.internalActivate) {
+				return;
+			}
+			if (ui.newPanel) {
+				var tabStripId = ui.newPanel.attr("jwicTabStripId"), tabName = ui.newPanel
+						.attr("jwicTabName"), oldTabName = ui.oldPanel
+						.attr("jwicTabName"), oldH = ui.oldPanel.height();
+
+				// find index of new panel
+				var widget = JWic.$(tabStripId).tabs("widget");
+				var newPanelIdx = -1;
+				var tabs = widget.find("div.ui-tabs-panel");
+				var count = 0;
+				for (var i = 0; i < tabs.length; i++) {
+					if (jQuery(tabs[i]).attr("jwicTabStripId") == tabStripId) {
+						if (jQuery(tabs[i]).attr("jwicTabName") == tabName) {
+							newPanelIdx = count;
+							break;
 						}
-					);
-			},
-		
-			destroy: function(control) {
-	        	control.destroy();
-	        }
-		},
-		/**
-		 * FlipSwitch helper methods
-		 */
-		FlipSwitch : {
-			initialize : function(control, options, fieldId) {
-			    var clickHandler = function (evnt){
-			    	var cb = jQuery(this);
-			    	var field = JWic.$("chkVal_" + cb.data('fieldId'));
-			    	if (field.length > 0) {
-			    		field[0].value = cb[0].checked ? "1" : "";
-			    		if (cb.data('options').changeNotification) {
-			    			JWic.fireAction(cb.data('id'), 'clicked', '');
-			    		}
-			    	} else {
-			    		JWic.log("WARN: Cannot find hidden field for checkbox value 'chkVal_" + cb.data('fieldId'));
-			    	}
-			        return true;
-			    };
-	            control.data('id', options.controlID);
-	            control.data('fieldId', fieldId);
-	            control.data('options', options);
-				control.flipswitch({
-	                disabled : !options.enabled
-	            });
-	            control.on('change', clickHandler);
+						count++;
+					}
+				}
+
+				JWic.fireAction(tabStripId, "activateTab", tabName, function() {
+					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "."
+							+ oldTabName + "\"><div style=\"height: " + oldH
+							+ "px;\"></div></span>");
+					JWic.mobile.TabStrip.activate(tabStripId, newPanelIdx);
+				});
+
+				event.preventDefault();
 			}
 		},
-		/**
-		 * Combo helper methods.
-		 */
-		Combo : {
-	        initialize : function(control, options) {
-	            control.combo({
-	            	disabled : !options.enabled,
-	            	autodividers: options.autodividers,
-	            	defaults : options.defaults,
-	            	filter : options.filter,
-	            	hideDividers : options.hideDividers,
-	            	inset : options.inset,
-	            	icon : options.iconClass,
-	            	splitIcon : options.splitIcon,
-	            	dividerTheme : options. dividerTheme,
-	            	splitTheme : options.splitTheme,
-	            	theme : options.theme
-	            });
-	        }
+
+		activate : function(controlId, panelIdx) {
+			var tabStrip = JWic.$(controlId);
+			JWic.mobile.TabStrip.internalActivate = true;
+			tabStrip.tabs("option", "active", panelIdx);
+			tabStrip.tabs("refresh");
+			JWic.mobile.TabStrip.internalActivate = false;
 		},
-		/**
-		 * TabStrip helper methods.
-		 */
-		TabStrip : {
-	        initialize : function(control, options) {
-	            control.tabs({
-	            	active : options.active,
-	            	collapsible : options.collapsible,
-	            	hide : options.hide,
-	            	show : options.show,
-	            	heightStyle : options.heightStyle,
-	            	counter :  options.counter
-	            });
-	        },
-	        
-	        destroy: function(control) {
-	        	control.destroy();
-	        }
+
+		destroy : function(control) {
+			control.destroy();
 		}
+	}
 };
