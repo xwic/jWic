@@ -143,7 +143,6 @@ JWic.mobile = {
 	Combo : {
 		initialize : function(control, options) {
 			control.combo({
-				disabled : !options.enabled,
 				autodividers : options.autodividers,
 				defaults : options.defaults,
 				filter : options.filter,

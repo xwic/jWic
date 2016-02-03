@@ -12,7 +12,8 @@ import de.jwic.controls.combo.Combo;
 
 /**
  * 
- * The MCombo offers the same functionality as the base Combo, but renders as a basic HTML combo that inherits the default jQuery Mobile
+ * The MCombo offers the same functionality as the base Combo, but renders as a
+ * basic HTML combo that inherits the default jQuery Mobile
  * 
  * @author vedad
  *
@@ -24,7 +25,6 @@ public class MCombo extends Combo<Object> {
 
 	private boolean autodividers = false;
 	private boolean defaults = false;
-	private boolean filter = false;
 	private boolean hideDividers = false;
 	private boolean inset = false;
 	private Icon iconClass = CARATR;
@@ -34,14 +34,16 @@ public class MCombo extends Combo<Object> {
 	private Theme theme = null;
 
 	/**
-	 * Constructs a new control instance and adds it to the specified container with the specified name. If the name is <code>null</code>, a
-	 * unique name will be chosen by the container.
+	 * Constructs a new control instance and adds it to the specified container
+	 * with the specified name. If the name is <code>null</code>, a unique name
+	 * will be chosen by the container.
 	 * 
 	 * @param container
 	 * @param name
 	 */
 	public MCombo(IControlContainer container, String name) {
 		super(container, name);
+		setTemplateName(MCombo.class.getName());
 	}
 
 	/**
@@ -78,24 +80,6 @@ public class MCombo extends Combo<Object> {
 		if (defaults != this.defaults)
 			requireRedraw();
 		this.defaults = defaults;
-	}
-
-	/**
-	 * @return the filter
-	 */
-	@IncludeJsOption
-	public boolean isFilter() {
-		return filter;
-	}
-
-	/**
-	 * @param filter
-	 *            the filter to set
-	 */
-	public void setFilter(boolean filter) {
-		if (filter != this.filter)
-			requireRedraw();
-		this.filter = filter;
 	}
 
 	/**

@@ -8,6 +8,7 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.mobile.demos.ButtonDemo;
 import de.jwic.mobile.demos.CheckBoxDemo;
+import de.jwic.mobile.demos.ComboDemo;
 import de.jwic.mobile.demos.FlipSwitchDemo;
 import de.jwic.mobile.demos.InputDemo;
 import de.jwic.mobile.demos.RadioButtonDemo;
@@ -29,6 +30,7 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new RadioButtonDemo());
 		mobileDemoModules.add(new FlipSwitchDemo());
 		mobileDemoModules.add(new TabsDemo());
+		mobileDemoModules.add(new ComboDemo());
 		/*
 		mobileDemoModules.add(new DatePickerDemo());
 		mobileDemoModules.add(new ToggleableGroupsDemo());
