@@ -662,8 +662,9 @@ span.j-listColSel-clearSearch {
    	}
    	
    	div.chartjs-legend {
-   		background-color: #000;
-   		opacity: 0.5;
+   		background-color: #888;
+   		border-radius: 3px;
+   		opacity: 1;
    		color: #fff;
    		padding: 2px;
    		box-sizing:border-box;
@@ -673,22 +674,42 @@ span.j-listColSel-clearSearch {
    		text-align: center;
    		margin-bottom: 5px;
    	}
-
-   	div.chartjs-legend-bottom {
-   		text-align: center;
-   		margin-top: 5px;
+   	
+   	div.chartjs-legend-top li {
+   		display: inline;
    	}
    	
+   	div.chartjs-legend-bottom {
+ 		text-align: center;
+   		margin-top: 5px;
+   	}
+   	div.chartjs-legend-bottom li {
+   		display: inline;
+   	}
+ 
+    div.chartjs-legend-left li {
+   		text-align: left;
+   		margin-top: 2px;
+   		margin-bottom: 2px;
+   		display: block;
+   	}
+    div.chartjs-legend-right li {
+   		text-align: left;
+   		margin-top: 2px;
+   		margin-bottom: 2px;
+   		display: block;
+   	}
+    	  	
    	div.chartjs-legend ul {
    		margin: 0px;
    		padding: 0px;
    	}
    	
-   	div.chartjs-legend li {
-   		display: inline;
+   	.chartjs-legend li {
    		text-decoration:none;
    		margin: 0px 5px 0px 0px;
    		vertical-align: middle;
+   		white-space: nowrap;
    	}
    	
    	div.chartjs-legend .chartjs-colbox {
@@ -698,6 +719,5 @@ span.j-listColSel-clearSearch {
    		border-radius: 3px;
    		border: 1px solid #fff;
    		margin-right: 4px;
-   		margin-top: 4px;
    	}
    	

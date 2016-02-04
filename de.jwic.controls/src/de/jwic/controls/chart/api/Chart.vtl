@@ -1,3 +1,5 @@
+#set($legendWidth = $control.legendWidth)
+#set($chartWidth = 100 - $legendWidth)
 #set($field = $control.getField("chartContent"))
 #if($control.getConfiguration().isZoomEnabled())
 <div id="zoom__$control.controlID" ondblclick="JWic.controls.Chart.zoom(this)">
@@ -10,17 +12,17 @@
 #if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT")
 <div>
 	#if($control.legendLocation == "RIGHT")
-	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-right" style="width: 20%; float: right;">
+	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-right" style="width: ${legendWidth}%; float: right;">
 	</div>
 	#end
 #end
-	<div id="$control.controlID" #if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT") style="box-sizing:border-box; width: 80%; #if($control.legendLocation == "LEFT") float: right; #else float:left; #end" #end>
+	<div id="$control.controlID" #if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT") style="box-sizing:border-box; width: ${chartWidth}%; #if($control.legendLocation == "LEFT") float: right; #else float:left; #end" #end>
 		<canvas id="chart_$control.controlID" height="${control.getConfiguration().height}px" width="${control.getConfiguration().getWidth()}px">
 		</canvas>
 	</div>
 #if($control.legendLocation == "LEFT" || $control.legendLocation == "RIGHT")
 	#if($control.legendLocation == "LEFT")
-	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-left" style="width: 20%;">
+	<div id="legend_$control.controlID" class="chartjs-legend chartjs-legend-left" style="width: ${legendWidth}%;">
 	</div>
 	#end
 	<div style="clear: both;"></div>

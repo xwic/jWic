@@ -3,9 +3,8 @@ package de.jwic.controls.chart.api;
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import de.jwic.controls.chart.impl.util.DataConverter;
+import de.jwic.util.SerObservable;
 
 /**
  * 
@@ -13,10 +12,8 @@ import de.jwic.controls.chart.impl.util.DataConverter;
  *
  * @date 29.10.2015
  */
-public abstract class ChartModel<Dataset extends ChartDataset> implements Serializable {
-	private static final Logger LOG = Logger.getLogger(ChartModel.class);
+public abstract class ChartModel<Dataset extends ChartDataset> extends SerObservable implements Serializable {
 	private List<Dataset> datasets;
-	private Chart chart;
 
 	/**
 	 * 
@@ -64,18 +61,11 @@ public abstract class ChartModel<Dataset extends ChartDataset> implements Serial
 	}
 
 	/**
-	 * 
-	 * @param chart
-	 */
-	void setChart(Chart chart) {
-		this.chart = chart;
-	}
-
-	/**
 	 * action called after adding, removing or updating new data in the chart
 	 */
 	public void update() {
-		chart.requireRedraw();
+		setChanged();
+		notifyObservers();
 	}
 
 }
