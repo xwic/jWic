@@ -113,6 +113,9 @@ public abstract class AbstractFolderViewer extends Control implements IObjectVie
 	 */
 	public String fixComment(String comment) {
 		
+		if (comment == null) {
+			return null;
+		}
 		Pattern p = Pattern.compile("<sv:link name=\"([^\"]*)\">([^<]*)</sv:link>", Pattern.MULTILINE | Pattern.CASE_INSENSITIVE);
 		String replace = "<a href=\"" + createActionURL("select", "$1") + "\">$2</a>";
 		comment = p.matcher(comment).replaceAll(replace);

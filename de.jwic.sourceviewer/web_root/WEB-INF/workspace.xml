@@ -14,22 +14,27 @@
 			<folder name="web" path="../web/maildemo"/>
 		</project>
 		
-	</group>
-
-	<group name="jWic Core">
-		<project name="jWic Main Source">
-			<source path="../../de.jwic.core/src"/>
-			<source name="tests" path="../src_tests"/>
-			<source name="compatibility" path="../src_compatibility"/>
-			<folder name="web" path="../web"/>
-		</project>
-	</group>
-	
-	<group name="Tools">
 		<project name="SourceViewer">
 			<source path="../src"/>
 			<folder name="web" path="sv"/>
 		</project>
+
 	</group>
+
+	<group name="jWic">
+		<project name="jWic Core">
+			<source path="../../de.jwic.core/src"/>
+			<source name="tests" path="../src_tests"/>
+		</project>
+		<project name="jWic Controls">
+			<source path="../../de.jwic.controls/src"/>
+			<source name="tests" path="../../de.jwic.controls/src_tests"/>
+			<folder name="web" path="../web"/>
+		</project>
+		<project name="jWic Web">
+			<folder name="web" path="../../de.jwic.web/src"/>
+		</project>
+	</group>
+	
 	
 </workspace>
