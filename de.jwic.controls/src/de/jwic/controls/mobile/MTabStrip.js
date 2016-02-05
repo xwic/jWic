@@ -7,6 +7,6 @@
     
     destroy : function(element) {
 		var button = JWic.$('$control.controlID');
-		JWic.mobile.Button.destroy(button);
+		JWic.mobile.TabStrip.destroy(button);
 	}
 }
