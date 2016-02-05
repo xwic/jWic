@@ -15,6 +15,8 @@ import de.jwic.events.ElementSelectedEvent;
 import de.jwic.events.ElementSelectedListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
+import de.jwic.util.SerObservable;
+import de.jwic.util.SerObserver;
 
 /**
  * Coomon implementation of the all chart types 
@@ -24,7 +26,7 @@ import de.jwic.events.SelectionListener;
  * @date 19.10.2015
  */
 @JavaScriptSupport
-public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> extends Control implements IResourceControl {
+public abstract class Chart<M extends ChartModel<?>, L extends ChartConfiguration> extends Control implements IResourceControl {
 
 	public enum LegendLocation {
 		NONE,
@@ -50,6 +52,7 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> 
 	private L configuration;
 	
 	private LegendLocation legendLocation = LegendLocation.NONE;
+	private int legendWidth = 25;
 	
 	/**
 	 * 
@@ -64,7 +67,14 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> 
 		setTemplateName(Chart.class.getName());
 		this.chartType = type;
 		this.model = model;
-		this.model.setChart(this);
+
+		// add a listener to "refresh" when data was modified.
+		this.model.addObserver(new SerObserver() {
+			@Override
+			public void update(SerObservable o, Object arg) {
+				requireRedraw();
+			}
+		});
 
 	}
 
@@ -169,7 +179,12 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> 
 	 */
 	public void setModel(M model) {
 		this.model = model;
-		model.setChart(this);
+		model.addObserver(new SerObserver() {
+			@Override
+			public void update(SerObservable o, Object arg) {
+				requireRedraw();
+			}
+		});
 		requireRedraw();
 	}
 
@@ -242,10 +257,27 @@ public abstract class Chart<M extends ChartModel, L extends ChartConfiguration> 
 	}
 
 	/**
+	 * The location of the legend. Is set to NONE by default.
 	 * @param legendLocation the legendLocation to set
 	 */
 	public void setLegendLocation(LegendLocation legendLocation) {
 		this.legendLocation = legendLocation;
+	}
+
+	/**
+	 * @return the legendWidth
+	 */
+	public int getLegendWidth() {
+		return legendWidth;
+	}
+
+	/**
+	 * The width of the legend in % of the total width. Applies only to legends
+	 * displayed either left or right of the chart. Default value is 10.
+	 * @param legendWidth the legendWidth to set
+	 */
+	public void setLegendWidth(int legendWidth) {
+		this.legendWidth = legendWidth;
 	}
 
 }

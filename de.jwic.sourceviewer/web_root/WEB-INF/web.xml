@@ -30,6 +30,14 @@
       <servlet-name>cpres</servlet-name>
       <servlet-class>de.jwic.web.ClasspathResourceServlet</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>jwicres</servlet-name>
+      <servlet-class>de.jwic.web.ClasspathResourceServlet</servlet-class>
+      <init-param>
+	      <param-name>classresource</param-name>
+	      <param-value>true</param-value>
+      </init-param>
+  </servlet>
 
   <!-- map the servlet to all files ending with .wic -->
   <servlet-mapping>
@@ -41,6 +49,11 @@
   <servlet-mapping>
     <servlet-name>cpres</servlet-name>
     <url-pattern>/cp/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>jwicres</servlet-name>
+    <url-pattern>/jwic/*</url-pattern>
   </servlet-mapping>
 
   <welcome-file-list>

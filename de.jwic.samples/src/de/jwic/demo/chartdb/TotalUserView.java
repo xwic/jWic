@@ -38,7 +38,7 @@ public class TotalUserView extends ReportView<ValueListDatasetModel, LineChartCo
 		LineChart chart = new LineChart(this, "chart", dataSet);
 		LineChartConfiguration cfg = chart.getConfiguration();
 		
-		chart.setLegendLocation(LegendLocation.BOTTOM);
+		chart.setLegendLocation(LegendLocation.RIGHT);
 		
 		cfg.setCustomTooltip(true);
 		cfg.setCustomTooltipGenerator("JWic.controls.Chart.customTooltipGenerators.standardList");

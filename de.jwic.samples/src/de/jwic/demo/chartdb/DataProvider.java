@@ -24,14 +24,14 @@ public class DataProvider {
 	};
 	
 	private final static String[] USER_TYPES = {
-		"Commercial", "Education", "Personal", "Unknown"
+		"Commercial", "Education", "Personal Use", "Unknown"
 	};
 	private final static String[] COLORS = {
+		"#3333ee",
 		"#6666ff",
+		"#9999ff",
+		"#BBffbb",
 		"#66ff66",
-		"#ff6666",
-		"#ff66ff",
-		"#66ffff",
 		"#ffff66"
 	};
 	
@@ -66,7 +66,7 @@ public class DataProvider {
 		}
 		
 		ValueListDataset chartd1 = new ValueListDataset("Users", values);
-		chartd1.setFillColor("50, 110, 203,0.9");
+		chartd1.setFillColor("70, 130, 223,0.9");
 		chartd1.setStrokeColor("0, 91, 153,0.9");
 		datasets.add(chartd1);
 

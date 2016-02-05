@@ -1,7 +1,7 @@
 <h4>Project Description</h4>
 <p class="pdesc">
-#if ($!control.project.comment != "")
-	$control.fixComment($control.project.comment)
+#if ($control.project.comment)
+	$!control.fixComment($control.project.comment)
 #else
 	There is no description available.
 #end
