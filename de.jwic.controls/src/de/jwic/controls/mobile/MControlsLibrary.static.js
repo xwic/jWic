@@ -143,17 +143,15 @@ JWic.mobile = {
 	Combo : {
 		initialize : function(control, options) {
 			control.combo({
-				autodividers : options.autodividers,
+				disabled : !options.enabled,
 				defaults : options.defaults,
-				filter : options.filter,
-				hideDividers : options.hideDividers,
-				inset : options.inset,
-				icon : options.iconClass,
-				splitIcon : options.splitIcon,
-				dividerTheme : options.dividerTheme,
-				splitTheme : options.splitTheme,
-				theme : options.theme
+				enhanced : options.enhanced,
+				filterReveal : options.filterReveal,
+				input : options.input
 			});
+		},
+		destroy : function(control) {
+			control.destroy();
 		}
 	},
 	/**
@@ -161,6 +159,7 @@ JWic.mobile = {
 	 */
 	TabStrip : {
 		internalActivate : false,
+		selectedTabLink : null,
 
 		initialize : function(tabStrip, options, activeIndex) {
 			tabStrip.tabs({
@@ -172,6 +171,8 @@ JWic.mobile = {
 				heightStyle : options.heightStyle,
 				counter : options.counter
 			});
+			tabStrip[0].children[0].firstElementChild.children[activeIndex].children[0].classList.add("ui-btn-active");
+			selectedTabLink = tabStrip[0].children[0].firstElementChild.children[activeIndex].children[0];
 		},
 
 		activateHandler : function(event, ui) {
@@ -197,7 +198,12 @@ JWic.mobile = {
 						count++;
 					}
 				}
-
+				
+				if (selectedTabLink) {
+					selectedTabLink.classList.remove("ui-btn-active");
+					selectedTab = null;
+				}
+				
 				JWic.fireAction(tabStripId, "activateTab", tabName, function() {
 					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "."
 							+ oldTabName + "\"><div style=\"height: " + oldH
@@ -217,6 +223,32 @@ JWic.mobile = {
 			JWic.mobile.TabStrip.internalActivate = false;
 		},
 
+		destroy : function(control) {
+			control.destroy();
+		}
+	},
+	/**
+	 * Combo helper methods.
+	 */
+	SelectMenu : {
+		initialize : function(control, options) {
+			control.selectmenu({
+				disabled : options.enabled,
+				corners : options.corners,
+				mini : options.mini,
+				shadow : options.shadow,
+				inline : options.inline,
+				iconpos : options.iconpos,
+				theme : options.theme,
+				icon : options.iconClass,
+				closeText : options.closeText,
+				nativeMenu : options.nativeMenu,
+				preventFocusZoom : options.preventFocusZoom,
+				dividerTheme : options.dividerTheme,
+				overlayTheme : options.overlayTheme,
+				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems
+			});
+		},
 		destroy : function(control) {
 			control.destroy();
 		}
