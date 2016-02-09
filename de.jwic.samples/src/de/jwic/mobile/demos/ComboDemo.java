@@ -29,7 +29,8 @@ public final class ComboDemo extends MobileDemoModule {
 		final ControlContainer container = new ControlContainer(controlContainer, "controlContainer");
 		
 		MCombo firstcombo = new MCombo(container, "firstcombo");
-		firstcombo.setEmptyInfoText("Empty Info Text");
+		firstcombo.setInset(true);
+		firstcombo.setIcon(Icon.ARROWDL);
 		
 		return container;
 	}
