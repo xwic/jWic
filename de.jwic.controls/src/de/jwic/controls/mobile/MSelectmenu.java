@@ -46,6 +46,9 @@ public class MSelectmenu extends DropDown {
 		setTemplateName(MSelectmenu.class.getName());
 	}
 	
+	/**
+	 * Returns all the elements of select menu	
+	 */
 	@IncludeJsOption
 	public List<ISelectElement> getElements() {
 		return super.elements;
@@ -53,7 +56,9 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the closeText
+	 * Customizes the text of the close button which is helpful for translating this into different languages. 
+	 * The close button is displayed as an icon-only button by default so the text isn't visible on-screen, 
+	 * but is read by screen readers so this is an important accessibility feature.
 	 */
 	@IncludeJsOption
 	public String getCloseText() {
@@ -62,7 +67,9 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param closeText the closeText to set
+	 * Customizes the text of the close button which is helpful for translating this into different languages. 
+	 * The close button is displayed as an icon-only button by default so the text isn't visible on-screen, 
+	 * but is read by screen readers so this is an important accessibility feature.
 	 */
 	public void setCloseText(String closeText) {
 		if (closeText.equals(closeText))
@@ -72,7 +79,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the corners
+	 * Applies the theme button border-radius to the select button if set to true.
 	 */
 	@IncludeJsOption
 	public boolean isCorners() {
@@ -81,7 +88,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param corners the corners to set
+	 * Applies the theme button border-radius to the select button if set to true.
 	 */
 	public void setCorners(boolean corners) {
 		if (corners != this.corners)
@@ -91,7 +98,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the defaults
+	 * Seting this option to true indicates that other widgets options have default values and causes jQuery Mobile's widget autoenhancement code to omit the step 
+	 * where it retrieves option values from data attributes. This can improve startup time.
 	 */
 	@IncludeJsOption
 	public boolean isDefaults() {
@@ -100,7 +108,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param defaults the defaults to set
+	 * Seting this option to true indicates that other widgets options have default values and causes jQuery Mobile's widget autoenhancement code to omit the step 
+	 * where it retrieves option values from data attributes. This can improve startup time.
 	 */
 	public void setDefaults(boolean defaults) {
 		if (defaults != this.defaults)
@@ -110,7 +119,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the inline
+	 * If set to true, this will make the select button act like an inline button so the width is determined by the button's text. 
+	 * By default, this is null (false) so the select button is full width, regardless of the feedback content.
 	 */
 	@IncludeJsOption
 	public boolean isInline() {
@@ -119,7 +129,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param inline the inline to set
+	 * If set to true, this will make the select button act like an inline button so the width is determined by the button's text. 
+	 * By default, this is null (false) so the select button is full width, regardless of the feedback content.
 	 */
 	public void setInline(boolean inline) {
 		if (inline != this.inline)
@@ -129,7 +140,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the mini
+	 * If set to true, this will display a more compact version of the selectmenu that uses less vertical height by applying the ui-mini class to the outermost element of the selectmenu widget.
 	 */
 	@IncludeJsOption
 	public boolean isMini() {
@@ -138,7 +149,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param mini the mini to set
+	 * If set to true, this will display a more compact version of the selectmenu that uses less vertical height by applying the ui-mini class to the outermost element of the selectmenu widget.
 	 */
 	public void setMini(boolean mini) {
 		if (mini != this.mini)
@@ -148,7 +159,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the nativeMenu
+	 * When set to true, clicking the custom-styled select menu will open the native select menu which is best for performance. 
+	 * If set to false, the custom select menu style will be used instead of the native menu.
 	 */
 	@IncludeJsOption
 	public boolean isNativeMenu() {
@@ -157,7 +169,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param nativeMenu the nativeMenu to set
+	 * When set to true, clicking the custom-styled select menu will open the native select menu which is best for performance. 
+	 * If set to false, the custom select menu style will be used instead of the native menu.
 	 */
 	public void setNativeMenu(boolean nativeMenu) {
 		if (nativeMenu != this.nativeMenu)
@@ -167,7 +180,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the preventFocusZoom
+	 * This option disables page zoom temporarily when a custom select is focused, which prevents iOS devices from zooming the page into the select. 
+	 * By default, iOS often zooms into form controls, and the behavior is often unnecessary and intrusive in mobile-optimized layouts.
 	 */
 	@IncludeJsOption
 	public boolean isPreventFocusZoom() {
@@ -176,7 +190,8 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param preventFocusZoom the preventFocusZoom to set
+	 * This option disables page zoom temporarily when a custom select is focused, which prevents iOS devices from zooming the page into the select. 
+	 * By default, iOS often zooms into form controls, and the behavior is often unnecessary and intrusive in mobile-optimized layouts.
 	 */
 	public void setPreventFocusZoom(boolean preventFocusZoom) {
 		if (preventFocusZoom != this.preventFocusZoom)
@@ -186,7 +201,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the shadow
+	 * Applies the drop shadow style to the select button if set to true.
 	 */
 	@IncludeJsOption
 	public boolean isShadow() {
@@ -195,7 +210,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param shadow the shadow to set
+	 * Applies the drop shadow style to the select button if set to true.
 	 */
 	public void setShadow(boolean shadow) {
 		if (shadow != this.shadow)
@@ -205,7 +220,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the theme
+	 * Sets the color scheme (swatch) for the selectmenu widget. It accepts a single letter from a-z that maps to the swatches included in your theme.
 	 */
 	@IncludeJsOption
 	public Theme getTheme() {
@@ -214,7 +229,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param theme the theme to set
+	 * Sets the color scheme (swatch) for the selectmenu widget. It accepts a single letter from a-z that maps to the swatches included in your theme.
 	 */
 	public void setTheme(Theme theme) {
 		if (theme.equals(theme))
@@ -224,7 +239,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the dividerTheme
+	 * Sets the color scheme (swatch) for the listview dividers that represent the optgroup headers. It accepts a single letter from a-z that maps to the swatches included in your theme.
 	 */
 	@IncludeJsOption
 	public Theme getDividerTheme() {
@@ -233,7 +248,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param dividerTheme the dividerTheme to set
+	 * Sets the color scheme (swatch) for the listview dividers that represent the optgroup headers. It accepts a single letter from a-z that maps to the swatches included in your theme.
 	 */
 	public void setDividerTheme(Theme dividerTheme) {
 		if (dividerTheme.equals(dividerTheme))
@@ -243,7 +258,9 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the overlayTheme
+	 * Sets the color of the overlay layer for the dialog-based custom select menus and the outer border of the smaller custom menus. 
+	 * It accepts a single letter from a-z that maps to the swatches included in your theme. 
+	 * By default, the content block colors for the overlay will be inherited from the parent of the select.
 	 */
 	@IncludeJsOption
 	public Theme getOverlayTheme() {
@@ -252,7 +269,9 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param overlayTheme the overlayTheme to set
+	 * Sets the color of the overlay layer for the dialog-based custom select menus and the outer border of the smaller custom menus. 
+	 * It accepts a single letter from a-z that maps to the swatches included in your theme. 
+	 * By default, the content block colors for the overlay will be inherited from the parent of the select.
 	 */
 	public void setOverlayTheme(Theme overlayTheme) {
 		if (overlayTheme.equals(overlayTheme))
@@ -262,7 +281,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the hidePlaceholderMenuItems
+	 * Sets whether placeholder menu items are hidden. When true, the menu item used as the placeholder for the select menu widget will not appear in the list of choices.
 	 */
 	@IncludeJsOption
 	public boolean isHidePlaceholderMenuItems() {
@@ -271,7 +290,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param hidePlaceholderMenuItems the hidePlaceholderMenuItems to set
+	 * Sets whether placeholder menu items are hidden. When true, the menu item used as the placeholder for the select menu widget will not appear in the list of choices.
 	 */
 	public void setHidePlaceholderMenuItems(boolean hidePlaceholderMenuItems) {
 		if (hidePlaceholderMenuItems != this.hidePlaceholderMenuItems)
@@ -281,7 +300,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the icon
+	 * Replaces the default icon "carat-d" with an icon from the icon set. Setting this attribute to "false" suppresses the icon.
 	 */
 	@IncludeJsOption
 	public Icon getIcon() {
@@ -290,7 +309,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param icon the icon to set
+	 * Replaces the default icon "carat-d" with an icon from the icon set. Setting this attribute to "false" suppresses the icon.
 	 */
 	public void setIcon(Icon icon) {
 		if (icon.equals(icon))
@@ -300,7 +319,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @return the iconpos
+	 * Position of the icon in the select button. Possible values: left, right, top, bottom, notext. The notext value will display the select as an icon-only button with no text feedback.
 	 */
 	@IncludeJsOption
 	public IconPos getIconpos() {
@@ -309,7 +328,7 @@ public class MSelectmenu extends DropDown {
 
 
 	/**
-	 * @param iconpos the iconpos to set
+	 * Position of the icon in the select button. Possible values: left, right, top, bottom, notext. The notext value will display the select as an icon-only button with no text feedback.
 	 */
 	public void setIconpos(IconPos iconpos) {
 		if (iconpos.equals(iconpos))
