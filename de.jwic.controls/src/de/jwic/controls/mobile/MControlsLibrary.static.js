@@ -142,12 +142,18 @@ JWic.mobile = {
 	 */
 	Combo : {
 		initialize : function(control, options) {
-			control.combo({
+			control.listview({
 				disabled : !options.enabled,
+				autodividers : options.autodividers,
 				defaults : options.defaults,
-				enhanced : options.enhanced,
-				filterReveal : options.filterReveal,
-				input : options.input
+				hideDividers : options.hideDividers,
+				inset : options.inset,
+				countTheme : options.countTheme,
+				dividerTheme : options.dividerTheme,
+				splitTheme : options.splitTheme,
+				theme : options.theme,
+				icon : options.icon,
+				splitIcon : options.splitIcon
 			});
 		},
 		destroy : function(control) {
@@ -228,7 +234,7 @@ JWic.mobile = {
 		}
 	},
 	/**
-	 * Combo helper methods.
+	 * SelectMenu helper methods.
 	 */
 	SelectMenu : {
 		initialize : function(control, options) {
@@ -246,7 +252,8 @@ JWic.mobile = {
 				preventFocusZoom : options.preventFocusZoom,
 				dividerTheme : options.dividerTheme,
 				overlayTheme : options.overlayTheme,
-				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems
+				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems,
+				elements : options.elements
 			});
 		},
 		destroy : function(control) {

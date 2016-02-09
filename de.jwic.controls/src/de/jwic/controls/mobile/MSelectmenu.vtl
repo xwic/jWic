@@ -1,0 +1,6 @@
+<label for="$control.controlID" class="ui-hidden-accessible">Shipping method:</label>
+<select name="$control.name" id="$control.controlID">
+	#foreach($element in $control.elements)
+		<option value="$element.title">$element.key</option>
+	#end
+</select>
