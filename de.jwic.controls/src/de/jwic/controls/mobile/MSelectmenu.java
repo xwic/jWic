@@ -51,7 +51,7 @@ public class MSelectmenu extends DropDown {
 	 */
 	@IncludeJsOption
 	public List<ISelectElement> getElements() {
-		return super.elements;
+		return elements;
 	}
 
 
