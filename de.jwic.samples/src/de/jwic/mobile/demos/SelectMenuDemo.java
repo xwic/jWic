@@ -36,7 +36,7 @@ public final class SelectMenuDemo extends MobileDemoModule {
 		
 		MSelectmenu selectmenuinline = new MSelectmenu(container, "selectmenuinline");
 		selectmenuinline.setInline(true);
-		selectmenuinline.addElement("values", "First Inline");
+		selectmenuinline.addElement("firstiteminline", "First Inline");
 		selectmenuinline.addElement("seconditeminline", "Second Inline");
 		selectmenuinline.addElement("thirditeminline", "Third Inline");
 		selectmenuinline.addElement("fourthiteminline", "Fourth Inline");

@@ -1,10 +1,14 @@
 package de.jwic.controls.mobile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.combo.Combo;
 import de.jwic.data.ISelectElement;
+import de.jwic.data.SelectElement;
 
 /**
  * 
@@ -29,7 +33,7 @@ public class MCombo extends Combo<ISelectElement> {
 	private Theme theme = null;
 	private Icon icon = Icon.CARATR;
 	private Icon splitIcon = Icon.CARATR;
-
+	private List<ISelectElement> elements = null;
 	/**
 	 * Constructs a new control instance and adds it to the specified container
 	 * with the specified name. If the name is <code>null</code>, a unique name
@@ -41,6 +45,46 @@ public class MCombo extends Combo<ISelectElement> {
 	public MCombo(IControlContainer container, String name) {
 		super(container, name);
 		setTemplateName(MCombo.class.getName());
+	}
+	
+	/**
+	 * Returns all the elements of select menu	
+	 */
+	@IncludeJsOption
+	public List<ISelectElement> getElements() {
+		return elements;
+	}
+	
+	/**
+	 * Add an element.
+	 * @param element
+	 */
+	public void addElement(ISelectElement element) {
+		if (elements == null) {
+			elements = new ArrayList<ISelectElement>();
+		}
+		elements.add(element);
+	}
+
+	/**
+	 * Add an element. The key will automatically be assigned.
+	 * @param title
+	 */
+	public ISelectElement addElement(String title) {
+		SelectElement elm = new SelectElement(title);
+		addElement(elm);
+		return elm;
+	}
+	
+	/**
+	 * Add the element with a custom key.
+	 * @param title
+	 * @param key
+	 */
+	public ISelectElement addElement(String title, String key) {
+		SelectElement elm = new SelectElement(title, key);
+		addElement(elm);
+		return elm;
 	}
 
 	/**

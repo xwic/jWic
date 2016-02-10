@@ -141,9 +141,22 @@ JWic.mobile = {
 	 * Combo helper methods.
 	 */
 	Combo : {
+		selectedItem : null,
+		
 		initialize : function(control, options) {
+			var clickHandler = function ComboClickHandler() {
+				if(selectedItem == null){
+					this.children[0].classList.add("ui-btn-active");
+					selectedItem = this.children[0];
+				} else {
+					selectedItem.classList.remove("ui-btn-active");
+					this.children[0].classList.add("ui-btn-active");
+					selectedItem = this.children[0];
+				}
+			};
+			control.on('click', 'li', clickHandler);
+			selectedItem = null;
 			control.listview({
-				disabled : !options.enabled,
 				autodividers : options.autodividers,
 				defaults : options.defaults,
 				hideDividers : options.hideDividers,
@@ -153,7 +166,8 @@ JWic.mobile = {
 				splitTheme : options.splitTheme,
 				theme : options.theme,
 				icon : options.icon,
-				splitIcon : options.splitIcon
+				splitIcon : options.splitIcon,
+				elements : options.elements
 			});
 		},
 		destroy : function(control) {

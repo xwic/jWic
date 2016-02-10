@@ -31,6 +31,10 @@ public final class ComboDemo extends MobileDemoModule {
 		MCombo firstcombo = new MCombo(container, "firstcombo");
 		firstcombo.setInset(true);
 		firstcombo.setIcon(Icon.ARROWDL);
+		firstcombo.addElement("firstiteminline", "First Inline");
+		firstcombo.addElement("seconditeminline", "Second Inline");
+		firstcombo.addElement("thirditeminline", "Third Inline");
+		firstcombo.addElement("fourthiteminline", "Fourth Inline");
 		
 		return container;
 	}

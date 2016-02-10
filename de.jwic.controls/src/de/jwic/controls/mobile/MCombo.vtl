@@ -1,8 +1,7 @@
 <div id="$control.controlID" role="main" class="ui-content" style="margin: 0em;">
 	<ul data-role="listview" class="ui-listview" style="margin: 0em;">
-		<li class="ui-first-child"><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">Acura</a></li>
-		<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">Audi</a></li>
-		<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">BMW</a></li>
-		<li class="ui-last-child"><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">Volvo</a></li>
+		#foreach($element in $control.elements)
+		<li #if($foreach.index==0)class="ui-first-child" #elseif(!$foreach.hasNext) class="ui-last-child" #else #end><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">$element.key</a></li>
+		#end
 	</ul>
 </div>
