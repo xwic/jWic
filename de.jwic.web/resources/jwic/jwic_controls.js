@@ -2058,7 +2058,7 @@ JWic.controls = {
 		 * 'Constructor'-like function
 		 */
 		initialize : function(options) {
-			var tooltipDiv = JWic.$('ctrl_'+options.controlId).find('#tooltip');
+			var tooltipDiv = JWic.$('tooltip_'+options.controlId);
 			//unique context object for each LazyTooltipControl
 			//this object gets passed around via closures
 			//we don't want to expose stuff on window (or anywhere thats globaly visible for that matter)
@@ -2103,8 +2103,8 @@ JWic.controls = {
 					func;
 				
 				if(attr != undefined && jQuery.inArray(attr,context.providers) !== -1){
-					func = compose([makeCall(context, handleMouseover, target), mapAttr]);
-					map(target,func);
+					var callFunc = makeCall(context, handleMouseover, target);
+					callFunc(mapAttr(target[0]));
 				}
 			}
 				
