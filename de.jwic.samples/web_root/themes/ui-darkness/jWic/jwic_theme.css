@@ -90,4 +90,18 @@ div.j-listColSel div.j-colRow {
 		background-color: #505050;
 		background-image: none;
 }
- 
+
+#click_blocker_message {
+	overflow: auto;
+	display: none; 
+	top: 0px; 
+	left: 0px; 
+	z-index: 9001; 
+	position: absolute;
+}
+
+#click_blocker_message div.loadingIcon {
+	background-image: url("../jWic/images/loading3.gif");
+	width: 35px;
+	height: 35px;
+}
