@@ -1957,9 +1957,8 @@ JWic.controls = {
 			},
 			
 			activateHandler : function (event, ui) {
-				
 				var elm =  jQuery(event.target);
-				var accordionId = elm.accordion("option", "active");
+				var accordionId = elm.accordion("option", "active") || -1;
 				JWic.fireAction(elm.attr('id'), "activeAccordion", accordionId);
 			},
 			activate : function(controlId, panelIdx) {
