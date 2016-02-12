@@ -141,13 +141,33 @@ JWic.mobile = {
 	 * Combo helper methods.
 	 */
 	Combo : {
+		selectedItem : null,
+		
 		initialize : function(control, options) {
-			control.combo({
-				disabled : !options.enabled,
+			var clickHandler = function ComboClickHandler() {
+				if(selectedItem == null){
+					this.children[0].classList.add("ui-btn-active");
+					selectedItem = this.children[0];
+				} else {
+					selectedItem.classList.remove("ui-btn-active");
+					this.children[0].classList.add("ui-btn-active");
+					selectedItem = this.children[0];
+				}
+			};
+			control.on('click', 'li', clickHandler);
+			selectedItem = null;
+			control.listview({
+				autodividers : options.autodividers,
 				defaults : options.defaults,
-				enhanced : options.enhanced,
-				filterReveal : options.filterReveal,
-				input : options.input
+				hideDividers : options.hideDividers,
+				inset : options.inset,
+				countTheme : options.countTheme,
+				dividerTheme : options.dividerTheme,
+				splitTheme : options.splitTheme,
+				theme : options.theme,
+				icon : options.icon,
+				splitIcon : options.splitIcon,
+				elements : options.elements
 			});
 		},
 		destroy : function(control) {
@@ -228,7 +248,7 @@ JWic.mobile = {
 		}
 	},
 	/**
-	 * Combo helper methods.
+	 * SelectMenu helper methods.
 	 */
 	SelectMenu : {
 		initialize : function(control, options) {
@@ -246,7 +266,8 @@ JWic.mobile = {
 				preventFocusZoom : options.preventFocusZoom,
 				dividerTheme : options.dividerTheme,
 				overlayTheme : options.overlayTheme,
-				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems
+				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems,
+				elements : options.elements
 			});
 		},
 		destroy : function(control) {

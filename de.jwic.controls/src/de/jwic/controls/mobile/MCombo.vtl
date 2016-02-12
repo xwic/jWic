@@ -1,25 +1,7 @@
-#set($fld = $control.getField("text"))
-#set($fldKey = $control.getField("key"))
-<div id="$control.controlID" class="ui-input-search ui-shadow-inset ui-input-has-clear ui-body-inherit ui-corner-all">
-#if($control.comboBehavior.showOpenBoxIcon)
-<a id="${control.controlID}_open" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" href="#" #if ( $control.enabled ) onClick="JWic.controls.Combo.openContentBox('$control.controlID');return false;" #end></a>
-#end
-<input
-    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
-    #if($fld.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
-	#if ( !$control.enabled )disabled #end
-	#if ( $control.readonly )readonly #end	
-	name="${fld.id}"
-	id="${fld.id}"
-	value="$jwic.formatInp(${fld.value})"
-	##style="width: 200px;"
-	j-controlId="$control.controlID"
->
-<input type="hidden" name="$fldKey.id" id="$fldKey.id" value="$jwic.formatInp($fldKey.value)">
-#if($control.sessionContext.userAgent.isIE() && $control.sessionContext.userAgent.getMajorVersion() < 7) 
-<iframe src="javascript:'&lt;html&gt;&lt;/html&gt;';" scrolling="no" frameborder="0" id="win_${control.controlID}_blocker"
-  style="position:absolute;height:120px;top:0px;left:0px;border:none;display:none;z-index:0"></iframe>
-#end
-</div>
-<div id="win_$control.controlID" class='j-combo_contentBox'>
+<div id="$control.controlID" role="main" class="ui-content" style="margin: 0em;">
+	<ul data-role="listview" class="ui-listview" style="margin: 0em;">
+		#foreach($element in $control.elements)
+		<li #if($foreach.index==0)class="ui-first-child" #elseif(!$foreach.hasNext) class="ui-last-child" #else #end><a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">$element.key</a></li>
+		#end
+	</ul>
 </div>

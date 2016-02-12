@@ -1,14 +1,14 @@
-/**
- * 
- */
 package de.jwic.controls.mobile;
 
-import static de.jwic.controls.mobile.Icon.CARATR;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.combo.Combo;
+import de.jwic.data.ISelectElement;
+import de.jwic.data.SelectElement;
 
 /**
  * 
@@ -19,20 +19,21 @@ import de.jwic.controls.combo.Combo;
  *
  */
 @JavaScriptSupport
-public class MCombo extends Combo<Object> {
+public class MCombo extends Combo<ISelectElement> {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private boolean autodividers = false;
 	private boolean defaults = false;
 	private boolean hideDividers = false;
 	private boolean inset = false;
-	private Icon iconClass = CARATR;
-	private Icon splitIcon = Icon.CARATR;
+	private Theme countTheme = null;
 	private Theme dividerTheme = null;
 	private Theme splitTheme = null;
 	private Theme theme = null;
-
+	private Icon icon = Icon.CARATR;
+	private Icon splitIcon = Icon.CARATR;
+	private List<ISelectElement> elements = null;
 	/**
 	 * Constructs a new control instance and adds it to the specified container
 	 * with the specified name. If the name is <code>null</code>, a unique name
@@ -45,6 +46,46 @@ public class MCombo extends Combo<Object> {
 		super(container, name);
 		setTemplateName(MCombo.class.getName());
 	}
+	
+	/**
+	 * Returns all the elements of select menu	
+	 */
+	@IncludeJsOption
+	public List<ISelectElement> getElements() {
+		return elements;
+	}
+	
+	/**
+	 * Add an element.
+	 * @param element
+	 */
+	public void addElement(ISelectElement element) {
+		if (elements == null) {
+			elements = new ArrayList<ISelectElement>();
+		}
+		elements.add(element);
+	}
+
+	/**
+	 * Add an element. The key will automatically be assigned.
+	 * @param title
+	 */
+	public ISelectElement addElement(String title) {
+		SelectElement elm = new SelectElement(title);
+		addElement(elm);
+		return elm;
+	}
+	
+	/**
+	 * Add the element with a custom key.
+	 * @param title
+	 * @param key
+	 */
+	public ISelectElement addElement(String title, String key) {
+		SelectElement elm = new SelectElement(title, key);
+		addElement(elm);
+		return elm;
+	}
 
 	/**
 	 * @return the autodividers
@@ -55,8 +96,7 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param autodividers
-	 *            the autodividers to set
+	 * @param autodividers the autodividers to set
 	 */
 	public void setAutodividers(boolean autodividers) {
 		if (autodividers != this.autodividers)
@@ -73,8 +113,7 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param defaults
-	 *            the defaults to set
+	 * @param defaults the defaults to set
 	 */
 	public void setDefaults(boolean defaults) {
 		if (defaults != this.defaults)
@@ -91,8 +130,7 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param hideDividers
-	 *            the hideDividers to set
+	 * @param hideDividers the hideDividers to set
 	 */
 	public void setHideDividers(boolean hideDividers) {
 		if (hideDividers != this.hideDividers)
@@ -109,8 +147,7 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param inset
-	 *            the inset to set
+	 * @param inset the inset to set
 	 */
 	public void setInset(boolean inset) {
 		if (inset != this.inset)
@@ -119,39 +156,20 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @return the iconClass
+	 * @return the countTheme
 	 */
 	@IncludeJsOption
-	public Icon getIconClass() {
-		return iconClass;
+	public Theme getCountTheme() {
+		return countTheme;
 	}
 
 	/**
-	 * @param iconClass
-	 *            the iconClass to set
+	 * @param countTheme the countTheme to set
 	 */
-	public void setIconClass(Icon iconClass) {
-		if (iconClass != this.iconClass)
+	public void setCountTheme(Theme countTheme) {
+		if (countTheme.equals(countTheme))
 			requireRedraw();
-		this.iconClass = iconClass;
-	}
-
-	/**
-	 * @return the splitIcon
-	 */
-	@IncludeJsOption
-	public Icon getSplitIcon() {
-		return splitIcon;
-	}
-
-	/**
-	 * @param splitIcon
-	 *            the splitIcon to set
-	 */
-	public void setSplitIcon(Icon splitIcon) {
-		if (splitIcon != this.splitIcon)
-			requireRedraw();
-		this.splitIcon = splitIcon;
+		this.countTheme = countTheme;
 	}
 
 	/**
@@ -163,11 +181,10 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param dividerTheme
-	 *            the dividerTheme to set
+	 * @param dividerTheme the dividerTheme to set
 	 */
 	public void setDividerTheme(Theme dividerTheme) {
-		if (dividerTheme != this.dividerTheme)
+		if (dividerTheme.equals(dividerTheme))
 			requireRedraw();
 		this.dividerTheme = dividerTheme;
 	}
@@ -181,11 +198,10 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param splitTheme
-	 *            the splitTheme to set
+	 * @param splitTheme the splitTheme to set
 	 */
 	public void setSplitTheme(Theme splitTheme) {
-		if (splitTheme != this.splitTheme)
+		if (splitTheme.equals(splitTheme))
 			requireRedraw();
 		this.splitTheme = splitTheme;
 	}
@@ -199,13 +215,46 @@ public class MCombo extends Combo<Object> {
 	}
 
 	/**
-	 * @param theme
-	 *            the theme to set
+	 * @param theme the theme to set
 	 */
 	public void setTheme(Theme theme) {
-		if (theme != this.theme)
+		if (theme.equals(theme))
 			requireRedraw();
 		this.theme = theme;
+	}
+
+	/**
+	 * @return the icon
+	 */
+	@IncludeJsOption
+	public Icon getIcon() {
+		return icon;
+	}
+
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(Icon icon) {
+		if (icon.equals(icon))
+			requireRedraw();
+		this.icon = icon;
+	}
+
+	/**
+	 * @return the splitIcon
+	 */
+	@IncludeJsOption
+	public Icon getSplitIcon() {
+		return splitIcon;
+	}
+
+	/**
+	 * @param splitIcon the splitIcon to set
+	 */
+	public void setSplitIcon(Icon splitIcon) {
+		if (splitIcon.equals(splitIcon))
+			requireRedraw();
+		this.splitIcon = splitIcon;
 	}
 
 }

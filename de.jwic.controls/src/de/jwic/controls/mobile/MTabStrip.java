@@ -47,7 +47,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @return the collapsible
+	 * When set to true, the active panel can be closed.
 	 */
 	@IncludeJsOption
 	public boolean isCollapsible() {
@@ -55,8 +55,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @param collapsible
-	 *            the collapsible to set
+	 * When set to true, the active panel can be closed.
 	 */
 	public void setCollapsible(boolean collapsible) {
 		if (collapsible != this.collapsible)
@@ -65,7 +64,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @return the hide
+	 * When set to false, no animation will be used and the panel will be hidden immediately. When set to true, the panel will fade out with the default duration and the default easing.
 	 */
 	@IncludeJsOption
 	public boolean isHide() {
@@ -73,8 +72,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @param hide
-	 *            the hide to set
+	 * When set to false, no animation will be used and the panel will be hidden immediately. When set to true, the panel will fade out with the default duration and the default easing.
 	 */
 	public void setHide(boolean hide) {
 		if (hide != this.hide)
@@ -83,7 +81,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @return the show
+	 * When set to false, no animation will be used and the panel will be shown immediately. When set to true, the panel will fade in with the default duration and the default easing.
 	 */
 	@IncludeJsOption
 	public boolean isShow() {
@@ -91,8 +89,7 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @param show
-	 *            the show to set
+	 * When set to false, no animation will be used and the panel will be shown immediately. When set to true, the panel will fade in with the default duration and the default easing.
 	 */
 	public void setShow(boolean show) {
 		if (show != this.show)
@@ -101,7 +98,10 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @return the heightStyle
+	 * Controls the height of the tabs widget and each panel. Possible values:
+	 * "auto": All panels will be set to the height of the tallest panel.
+	 * "fill": Expand to the available height based on the tabs' parent height. 
+	 * "content": Each panel will be only as tall as its content.
 	 */
 	@IncludeJsOption
 	public HeightStyle getHeightStyle() {
@@ -109,8 +109,10 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
-	 * @param heightStyle
-	 *            the heightStyle to set
+	 * Controls the height of the tabs widget and each panel. Possible values:
+	 * "auto": All panels will be set to the height of the tallest panel.
+	 * "fill": Expand to the available height based on the tabs' parent height. 
+	 * "content": Each panel will be only as tall as its content.
 	 */
 	public void setHeightStyle(HeightStyle heightStyle) {
 		if (heightStyle != this.heightStyle)
@@ -130,6 +132,8 @@ public class MTabStrip extends TabStrip {
 	}
 
 	/**
+	 * default get method for counter
+	 * 
 	 * @return the counter
 	 */
 	@IncludeJsOption
