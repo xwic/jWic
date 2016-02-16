@@ -1,6 +1,6 @@
 {
     afterUpdate : function ComboAfterUpdate(){
-        var combo = JWic.$('$control.controlID'),
+        var combo = JWic.$('$control.controlID')
             options = $control.buildJsonOptions();
         JWic.mobile.Combo.initialize(combo, options);
     },

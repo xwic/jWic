@@ -141,33 +141,25 @@ JWic.mobile = {
 	 * Combo helper methods.
 	 */
 	Combo : {
-		selectedItem : null,
-		
 		initialize : function(control, options) {
-			var clickHandler = function ComboClickHandler() {
-				if(selectedItem == null){
-					this.children[0].classList.add("ui-btn-active");
-					selectedItem = this.children[0];
-				} else {
-					selectedItem.classList.remove("ui-btn-active");
-					this.children[0].classList.add("ui-btn-active");
-					selectedItem = this.children[0];
-				}
-			};
-			control.on('click', 'li', clickHandler);
-			selectedItem = null;
 			control.listview({
-				autodividers : options.autodividers,
+				disabled : !options.enabled,
+				elements : options.elements,
 				defaults : options.defaults,
+				enhanced : options.enhanced,
+				filter : options.filter,
+				filterReveal : options.filterReveal,
+				input : options.input,
+				filterPlaceholder : options.filterPlaceholder,
+				autodividers : options.autodividers,
 				hideDividers : options.hideDividers,
 				inset : options.inset,
-				countTheme : options.countTheme,
-				dividerTheme : options.dividerTheme,
-				splitTheme : options.splitTheme,
-				theme : options.theme,
-				icon : options.icon,
 				splitIcon : options.splitIcon,
-				elements : options.elements
+				icon : options.icon,
+				dividerTheme : options.dividerTheme,
+				filterTheme : options.filterTheme,
+				splitTheme : options.splitTheme,
+				theme : options.theme
 			});
 		},
 		destroy : function(control) {
