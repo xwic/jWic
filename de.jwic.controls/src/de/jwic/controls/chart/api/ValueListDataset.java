@@ -30,16 +30,16 @@ public class ValueListDataset extends ChartDataset {
 	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "")
 	private String highlightStroke = "#ffffcc";
 
-	@JsonChartName(bar = "", circle = "", line = "pointColor", polar = "", radar = "", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "", line = "pointColor", polar = "", radar = "pointColor", dateTime = "pointColor", stacked = "")
 	private String pointColor = "#ffff00";
 
-	@JsonChartName(bar = "", circle = "", line = "pointStrokeColor", polar = "", radar = "", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "", line = "pointStrokeColor", polar = "", radar = "pointStrokeColor", dateTime = "pointStrokeColor", stacked = "")
 	private String pointStrokeColor = "#fff";
 
-	@JsonChartName(bar = "", circle = "", line = "pointHighlightFill", polar = "", radar = "", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "", line = "pointHighlightFill", polar = "", radar = "pointHighlightFill", dateTime = "pointHighlightFill", stacked = "")
 	private String pointHighlightFill = "#fff";
 
-	@JsonChartName(bar = "", circle = "", line = "pointHighlightStroke", polar = "", radar = "", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "", line = "pointHighlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "pointHighlightStroke", stacked = "")
 	private String pointHighlightStroke = "#00a6ed";
 
 	/**
