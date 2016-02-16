@@ -141,34 +141,58 @@ public class ValueListDataset extends ChartDataset {
 			this.highlightColor = color;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPointColor() {
 		return pointColor;
 	}
 
+	/**
+	 * @param pointColor
+	 */
 	public void setPointColor(String pointColor) {
 		this.pointColor = pointColor;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPointStrokeColor() {
 		return pointStrokeColor;
 	}
 
+	/**
+	 * @param pointStrokeColor
+	 */
 	public void setPointStrokeColor(String pointStrokeColor) {
 		this.pointStrokeColor = pointStrokeColor;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPointHighlightFill() {
 		return pointHighlightFill;
 	}
 
+	/**
+	 * @param pointHighlightFill
+	 */
 	public void setPointHighlightFill(String pointHighlightFill) {
 		this.pointHighlightFill = pointHighlightFill;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getPointHighlightStroke() {
 		return pointHighlightStroke;
 	}
 
+	/**
+	 * @param pointHighlightStroke
+	 */
 	public void setPointHighlightStroke(String pointHighlightStroke) {
 		this.pointHighlightStroke = pointHighlightStroke;
 	}
