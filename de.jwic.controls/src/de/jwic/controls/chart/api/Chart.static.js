@@ -106,7 +106,11 @@
 							dataset = chartData;
 						}
 						dataset.forEach(function(ds, i) {
-							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + (ds.hasOwnProperty('strokeColor') ? ds.strokeColor : ds.color) + "\">&nbsp;</span>" + ds.label + "</li>";
+							var legendColor = ds.hasOwnProperty('fillColor')
+								? ds.fillColor
+								: (ds.hasOwnProperty('strokeColor')
+								    ? ds.strokeColor : ds.color);
+							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
 						});
 						innerHtml += "</ul>";
 						legendDiv.html(innerHtml);
