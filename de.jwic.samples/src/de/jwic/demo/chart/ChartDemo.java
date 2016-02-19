@@ -61,6 +61,7 @@ public abstract class ChartDemo<T extends Chart, M extends ChartModel> extends C
 		model = createModel();
 
 		this.chart = createChart(model);
+		this.chart.setLegendLocation(Chart.LegendLocation.RIGHT);
 		setTemplateName(ChartDemo.class.getName());
 		chart.addSelectionListener(new SelectionListener() {
 

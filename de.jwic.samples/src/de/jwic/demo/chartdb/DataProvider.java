@@ -11,6 +11,7 @@ import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
+import de.jwic.controls.chart.impl.util.DataConverter;
 
 /**
  * Provides the data based upon filter criteria.
@@ -74,7 +75,40 @@ public class DataProvider {
 		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets);
 		return model;
 	}
-	
+
+	/**
+	 * Returns the user distribution by year and type.
+	 * @param year
+	 * @return
+	 */
+	public ValueListDatasetModel getTotalUsersByType(String year) {
+		List<String> labels = new ArrayList<String>();
+		for (String m : MONTH) {
+			labels.add(m + "-" + year);
+		}
+
+		List<ValueListDataset> datasets = new ArrayList<ValueListDataset>();
+
+
+		for (int i = 0 ; i < USER_TYPES.length; i++) {
+			List<Double> values = new ArrayList<Double>();
+			// add some random data.
+			Random rnd = new Random(year.hashCode()+i);
+			int total = rnd.nextInt(10);
+			for (int iM = 0; iM < 12; iM++) {
+				values.add((double) total);
+				total += rnd.nextInt(10);
+			}
+
+			ValueListDataset chartd = new ValueListDataset(USER_TYPES[i], values);
+			chartd.setFillColor(DataConverter.convertToJSColor(COLORS[i]));
+			datasets.add(chartd);
+		}
+
+		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets);
+		return model;
+	}
+
 	/**
 	 * Returns the user distribution.
 	 * @return
