@@ -142,25 +142,70 @@ JWic.mobile = {
 	 */
 	Combo : {
 		initialize : function(control, options) {
-			control.listview({
+			control.filterable({
 				disabled : !options.enabled,
-				elements : options.elements,
+				children : options.children,
+//				elements : options.elements,
 				defaults : options.defaults,
 				enhanced : options.enhanced,
-				filter : options.filter,
+//				filter : options.filter,
 				filterReveal : options.filterReveal,
 				input : options.input,
 				filterPlaceholder : options.filterPlaceholder,
-				autodividers : options.autodividers,
-				hideDividers : options.hideDividers,
-				inset : options.inset,
-				splitIcon : options.splitIcon,
-				icon : options.icon,
-				dividerTheme : options.dividerTheme,
-				filterTheme : options.filterTheme,
-				splitTheme : options.splitTheme,
-				theme : options.theme
+//				autodividers : options.autodividers,
+//				hideDividers : options.hideDividers,
+//				inset : options.inset,
+//				splitIcon : options.splitIcon,
+//				icon : options.icon,
+//				dividerTheme : options.dividerTheme,
+				filterTheme : options.filterTheme
+//				splitTheme : options.splitTheme,
+//				theme : options.theme
 			});
+			
+			var filterHandler = function (e, data) {
+				var $ul = jQuery(this),
+				$input = data.input, 
+				value = $input.val(),
+				html = "";
+				$ul.html( "" );
+				if ( value && value.length > 2 ) {
+					$ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
+					$ul.filterable( "refresh" );
+					jQuery.ajax({
+						url: "http://gd.geobytes.com/AutoCompleteCity",
+						dataType: "jsonp",
+						crossDomain: true,
+						data: {
+							q: $input.val()
+						}
+					})
+					.then( function ( response ) {
+						var size = response.length;
+						html += "<div class=\"ui-controlgroup-controls\">";
+						jQuery.each( response, function ( i, val ) {
+							if (i==size)
+								html += "<div class=\"ui-checkbox\">" +
+										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-last-child\">"+ val +"</label>" +
+										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
+							else if(i==0)
+								html += "<div class=\"ui-checkbox\">" +
+										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off\">"+ val +"</label>" +
+										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
+							else
+								html += "<div class=\"ui-checkbox\">" +
+										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child\">"+ val +"</label>" +
+										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
+						});
+						html += "</div>";
+						$ul.html( html );
+						$ul.filterable("refresh");
+						$ul.trigger("updatelayout");
+					});
+				}
+			};
+			
+			control.on("filterablebeforefilter", filterHandler);
 		},
 		destroy : function(control) {
 			control.destroy();

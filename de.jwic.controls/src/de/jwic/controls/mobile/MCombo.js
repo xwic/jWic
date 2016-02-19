@@ -8,5 +8,5 @@
     destroy : function(element) {
 		var combo = JWic.$('$control.controlID');
 		JWic.mobile.Combo.destroy(combo);
-	}
+	}	
 }

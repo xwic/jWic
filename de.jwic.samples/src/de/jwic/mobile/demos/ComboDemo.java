@@ -28,13 +28,8 @@ public final class ComboDemo extends MobileDemoModule {
 		final ControlContainer container = new ControlContainer(controlContainer, "controlContainer");
 		
 		MCombo firstcombo = new MCombo(container, "firstcombo");
-		firstcombo.setFilter(true);
 		firstcombo.setFilterReveal(true);
-		firstcombo.setInset(true);
-		firstcombo.setFilterPlaceholder("Enter a Car Name");
-		firstcombo.addElement("Acura");
-		firstcombo.addElement("BMW");
-		firstcombo.addElement("Lada");
+		firstcombo.setFilterPlaceholder("Enter City Name");
 		
 		return container;
 	}

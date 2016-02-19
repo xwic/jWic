@@ -1,13 +1,1 @@
-<form class="ui-filterable">
-	<div class="ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
-		<input id="$control.name" data-type="search" placeholder="$control.filterPlaceholder">
-		<a href="#" tabindex="-1" aria-hidden="true" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>
-	</div>
-</form>
-<ul id="$control.controlID" data-role="listview" data-filter-placeholder="$control.filterPlaceholder" data-filter-reveal="$control.filterReveal" data-input="#$control.name" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
-	#foreach($element in $control.elements)
-	<li class="#if($foreach.index==0)ui-first-child #end #if(!$foreach.hasNext)ui-last-child #end">
-		<a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">$element.title</a>
-	</li>
-	#end
-</ul>
+<ul id="$control.controlID" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow"></ul>
