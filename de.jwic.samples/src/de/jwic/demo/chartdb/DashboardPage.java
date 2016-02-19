@@ -37,6 +37,7 @@ public class DashboardPage extends ControlContainer {
 		
 		new TotalUserView(this, "totalUser", model);
 		new UserTypeView(this,  "userType", model);
+		new MonthUserTypeView(this, "monthUserType", model);
 		
 		
 	}
