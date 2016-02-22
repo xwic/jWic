@@ -30,6 +30,7 @@ public final class ComboDemo extends MobileDemoModule {
 		MCombo firstcombo = new MCombo(container, "firstcombo");
 		firstcombo.setFilterReveal(true);
 		firstcombo.setFilterPlaceholder("Enter City Name");
+		firstcombo.setRemoteDataURL("http://gd.geobytes.com/AutoCompleteCity");
 		
 		return container;
 	}

@@ -173,7 +173,7 @@ JWic.mobile = {
 					$ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
 					$ul.filterable( "refresh" );
 					jQuery.ajax({
-						url: "http://gd.geobytes.com/AutoCompleteCity",
+						url: options.remoteDataURL,
 						dataType: "jsonp",
 						crossDomain: true,
 						data: {
@@ -205,7 +205,27 @@ JWic.mobile = {
 				}
 			};
 			
+			var liClickHandler = function () {
+				var clickedItem = this;
+				var items = document.getElementsByTagName("label");
+				if (!clickedItem.classList.contains("ui-checkbox-on")){
+					for(i=0; i<items.length; i++){
+						if (items[i].classList.contains("ui-checkbox-on")){
+							items[i].classList.remove("ui-checkbox-on");
+							items[i].classList.add("ui-checkbox-off");
+							break;
+						}
+					}
+					clickedItem.classList.remove("ui-checkbox-off");
+					clickedItem.classList.add("ui-checkbox-on");
+				} else {
+					clickedItem.classList.remove("ui-checkbox-on");
+					clickedItem.classList.add("ui-checkbox-off");
+				}
+			};
+			
 			control.on("filterablebeforefilter", filterHandler);
+			control.on("click", "LABEL", liClickHandler);
 		},
 		destroy : function(control) {
 			control.destroy();

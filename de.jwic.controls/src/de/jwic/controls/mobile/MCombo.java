@@ -36,7 +36,8 @@ public class MCombo extends Combo<Object> {
 //	private Theme theme = null;
 	private String input = null;
 	private String filterPlaceholder = "Filter Items...";
-	private String children = null; 
+	private String children = null;
+	private String remoteDataURL = null;
 
 	/**
 	 * Constructs a new control instance and adds it to the specified container
@@ -386,5 +387,20 @@ public class MCombo extends Combo<Object> {
 //			requireRedraw();
 //		this.theme = theme;
 //	}
+
+	/**
+	 * @return the remoteDataURL
+	 */
+	@IncludeJsOption
+	public String getRemoteDataURL() {
+		return remoteDataURL;
+	}
+
+	/**
+	 * @param remoteDataURL the remoteDataURL to set
+	 */
+	public void setRemoteDataURL(String remoteDataURL) {
+		this.remoteDataURL = remoteDataURL;
+	}
 
 }
