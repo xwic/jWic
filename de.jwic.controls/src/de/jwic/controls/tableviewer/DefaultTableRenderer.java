@@ -91,9 +91,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			if (!tc.isVisible()) {
 				continue;
 			}
-			if (tc.getWidth() == 0) {
-				tc.setWidth(100);
-			}
 			tblWidth += tc.getWidth();
 		}
 		
@@ -165,18 +162,21 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			sbTblSelAttrs.append(" tbvSelMode=\"none\"");
 		}
 		}
-
-		writer.print("<table");
-		writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
-		writer.print(" id=\"tblViewData_" + viewer.getControlID() + "\"");
-		writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\"");
-		if (viewer.isScrollable()) {
-			// must add a width attribute, otherwise table-layout: fixed isnt working on Mozilla
-			writer.print(" width=\"" + tblWidth + "\" ");
+		
+		if (viewer.isShowHeader() || !viewer.isScrollable()) {
+		
+			writer.print("<table");
+			writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
+			writer.print(" id=\"tblViewData_" + viewer.getControlID() + "\"");
+			writer.print(" class=\"tblData\" cellspacing=\"0\" cellpadding=\"0\" ");
+			if (viewer.isScrollable()) {
+				// must add a width attribute, otherwise table-layout: fixed isnt working on Mozilla
+				writer.print(" width=\"" + tblWidth + "\" ");
+			}
+			writer.print(sbTblSelAttrs);
+			writer.println(">");
 		}
-		writer.print(sbTblSelAttrs);
-		writer.println(">");
-
+		
 		// render HEADER columns
 		if (viewer.isShowHeader()) {
 			renderHeader(writer, model, viewer, tblvGfxPath);
@@ -191,11 +191,9 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				dataHeight -= 18;
 			}
 			int dataWidth = viewer.getWidth() != 0 ? viewer.getWidth() : 300;
-			writer.print("</TABLE>");
 			if (viewer.isShowHeader()) {
-				writer.print("</DIV>");
+				writer.println("</TABLE></DIV>");
 			}
-			writer.println();
 			writer.print("<DIV onscroll=\"JWic.controls.TableViewer.handleScroll(event, '" + viewer.getControlID() + "')\" style=\"");
 			writer.print("width: " + dataWidth + "px; height: " + dataHeight + "px; overflow: auto;");
 			writer.print("\" id=\"tblViewDataLayer_" + viewer.getControlID() + "\" class=\"tblViewDataLayer\" ");
@@ -290,6 +288,11 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			if (!column.isVisible()) {
 				continue;
 			}
+
+			if (isResizable && column.getWidth() == 0) {
+				// must set a default width if resizeable columns is activated
+				column.setWidth(150);
+			}
 			
 			writer.print("<th");
 			int innerWidth = 0;
@@ -356,7 +359,11 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		// if the width is fixed, we must render an empty column at the end so that the
 		// browser will not adjust the columns width
 		if (viewer.getWidth() != 0) {
-			writer.println("<TH width=\"" + viewer.getWidth() + "\">&nbsp;</TH>");
+			if (viewer.isScrollable()) {
+				writer.println("<TH width=\"" + viewer.getWidth() + "\">&nbsp;</TH>");
+			} else {
+				writer.println("<TH>&nbsp;</TH>");
+			}
 		}
 		
 		writer.println("</tr>");
@@ -479,7 +486,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			}
 			// if its a fixed width, must render an empty column that fills up the space.
 			if (viewer.getWidth() != 0) {
-				writer.println("<TD style=\"max-width:" + viewer.getWidth() + "px;\">&nbsp;</TD>");
+				writer.println("<TD>&nbsp;</TD>");
 			}
 			writer.println(" </tr>");
 			

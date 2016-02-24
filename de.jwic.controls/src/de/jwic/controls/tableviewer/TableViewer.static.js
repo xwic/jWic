@@ -305,7 +305,7 @@
 						//clientseitige verschiebung
 						JWic.controls.TableViewer.resizeOnClientSide(g.colIdx,newWidth);
 						//serverseitige verschiebung
-						JWic.fireAction(g.ctrlId, 'resizeColumn', g.colIdx + ";" + newWidth);
+						JWic.fireAction(g.ctrlId, 'resizeColumnWithoutRedraw', g.colIdx + ";" + newWidth);
 			
 					}
 				},
