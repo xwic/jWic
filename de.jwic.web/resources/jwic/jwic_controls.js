@@ -2172,6 +2172,7 @@ JWic.controls = {
 			case "over":
 				_top = target.offset().top - win.scrollTop() + 10;
 				break;
+            case "auto":
 			default:
 				// position is auto
 				_top = target.offset().top - win.scrollTop() + target.height() + 10;
