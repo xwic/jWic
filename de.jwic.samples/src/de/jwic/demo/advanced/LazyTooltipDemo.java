@@ -28,6 +28,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.lazytooltip.ILazyTooltip;
 import de.jwic.controls.lazytooltip.ILazyTooltipProvider;
 import de.jwic.controls.lazytooltip.LazyTooltipControl;
+import de.jwic.controls.lazytooltip.LazyTooltipControl.LazyTooltipControlPosition;
 
 public class LazyTooltipDemo extends ControlContainer implements Serializable{
 	private final List<BlueBox> blueBoxes = new ArrayList<BlueBox>();
@@ -60,7 +61,7 @@ public class LazyTooltipDemo extends ControlContainer implements Serializable{
 			
 		}
 		
-		
+		lazyTooltipControl.setPosition(LazyTooltipControlPosition.ABOVE);
 		
 		lazyTooltipControl.addLazyTooltipProvider("demoProvider", new ILazyTooltipProvider() {
 			
@@ -96,6 +97,9 @@ public class LazyTooltipDemo extends ControlContainer implements Serializable{
 		});
 		
 		final LazyTooltipControl lazyTooltipControl2 = new LazyTooltipControl(this,"lazyTooltipControl2");
+		
+		lazyTooltipControl2.setPosition(LazyTooltipControlPosition.OVER);
+		
 		lazyTooltipControl2.addLazyTooltipProvider("demoProvider2", new ILazyTooltipProvider() {
 			
 			@Override
