@@ -39,7 +39,10 @@ import de.jwic.json.JsonResourceControl;
 public class LazyTooltipControl extends JsonResourceControl{
 	
 	private final Map<String, ILazyTooltipProvider> tooltipMap;
-	private LazyTooltipControlPosition position = LazyTooltipControlPosition.AUTO;
+	/**
+	 * Position to place tooltip, below hover element by default.
+	 */
+	private TooltipPosition position = TooltipPosition.AUTO;
 	
 	/**
 	 * Constructor
@@ -114,7 +117,7 @@ public class LazyTooltipControl extends JsonResourceControl{
 	 * @return
 	 */
 	@IncludeJsOption
-	public LazyTooltipControlPosition getPosition() {
+	public TooltipPosition getPosition() {
 		return position;
 	}
 
@@ -122,7 +125,7 @@ public class LazyTooltipControl extends JsonResourceControl{
 	 * 
 	 * @param position
 	 */
-	public void setPosition(LazyTooltipControlPosition position) {
+	public void setPosition(TooltipPosition position) {
 		this.position = position;
 	}
 
@@ -131,8 +134,7 @@ public class LazyTooltipControl extends JsonResourceControl{
 	 * @author emir
 	 *
 	 */
-	public enum LazyTooltipControlPosition {
-		
+	public enum TooltipPosition {
 		/**
 		 * Default position.
 		 */
@@ -149,10 +151,12 @@ public class LazyTooltipControl extends JsonResourceControl{
 		 * Position above the hover element.
 		 */
 		ABOVE("above");
+		/**
+		 * String position value.
+		 */
+		private final String code;
 
-		private String code;
-
-		private LazyTooltipControlPosition(String c) {
+		private TooltipPosition(String c) {
 			code = c;
 		}
 
@@ -169,5 +173,5 @@ public class LazyTooltipControl extends JsonResourceControl{
 			return getCode();
 		}
 	}
-	
+
 }
