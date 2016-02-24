@@ -2159,7 +2159,8 @@ JWic.controls = {
 			context.tooltip.empty().css({
 				top : target.offset().top - win.scrollTop() + target.height() + 10,
 				left : target.offset().left - win.scrollLeft() + 10,
-				position : 'fixed'
+				position : 'fixed',
+				'pointer-events' : 'none'
 			}).append(provider(data.data)).show();
 			
 			offset = context.tooltip.offset();
@@ -2169,7 +2170,7 @@ JWic.controls = {
 			};
 			
 			if((offset.top + size.height - win.scrollTop()) > win.height()){
-				offset.top -=  (size.height + 20);
+				offset.top -=  (size.height - 10);
 			}
 			if((offset.left + size.width - win.scrollLeft()) > win.width()){
 				offset.left -=  (size.width + 20);
