@@ -247,7 +247,18 @@ public class TableViewerDemo extends ControlContainer {
 			};
 		});
 
-		
+		// Change Show header
+		ListBoxControl lbHeaderMode = new ListBoxControl(this, "lbHeaderMode");
+		lbHeaderMode.addElement("True",  "true");
+		lbHeaderMode.addElement("False", "false");
+		lbHeaderMode.setSelectedKey(viewer.isShowHeader() + "");
+		lbHeaderMode.setChangeNotification(true);
+		lbHeaderMode.addElementSelectedListener(new ElementSelectedListener() {
+			public void elementSelected(ElementSelectedEvent event) {
+				viewer.setShowHeader(Boolean.parseBoolean((String)event.getElement()));
+				viewer.setRequireRedraw(true);
+			};
+		});
 		btEnabled = new Button(this, "btEnabled");
 		btEnabled.setTitle(viewer.isEnabled() ? "Disable" : "Enable");
 		btEnabled.addSelectionListener(new SelectionListener() {
