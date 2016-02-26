@@ -142,66 +142,54 @@ JWic.mobile = {
 	 */
 	Combo : {
 		initialize : function(control, options) {
+			var comboBox = document.getElementById(options.controlID);
+			
 			control.filterable({
 				disabled : !options.enabled,
 				children : options.children,
-//				elements : options.elements,
+				elements : options.elements,
 				defaults : options.defaults,
 				enhanced : options.enhanced,
-//				filter : options.filter,
+				filter : options.filter,
 				filterReveal : options.filterReveal,
 				input : options.input,
 				filterPlaceholder : options.filterPlaceholder,
-//				autodividers : options.autodividers,
-//				hideDividers : options.hideDividers,
-//				inset : options.inset,
-//				splitIcon : options.splitIcon,
-//				icon : options.icon,
-//				dividerTheme : options.dividerTheme,
-				filterTheme : options.filterTheme
-//				splitTheme : options.splitTheme,
-//				theme : options.theme
+				autodividers : options.autodividers,
+				hideDividers : options.hideDividers,
+				inset : options.inset,
+				splitIcon : options.splitIcon,
+				icon : options.icon,
+				dividerTheme : options.dividerTheme,
+				filterTheme : options.filterTheme,
+				splitTheme : options.splitTheme,
+				theme : options.theme
 			});
 			
 			var filterHandler = function (e, data) {
 				var $ul = jQuery(this),
 				$input = data.input, 
 				value = $input.val(),
-				html = "";
+				_requestIndexCall = 0;
 				$ul.html( "" );
-				if ( value && value.length > 2 ) {
+				if ( value && value.length >= comboBox.minSearchKeyLength ) {
 					$ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
 					$ul.filterable( "refresh" );
-					jQuery.ajax({
-						url: options.remoteDataURL,
-						dataType: "jsonp",
-						crossDomain: true,
-						data: {
-							q: $input.val()
+					var param = {};
+					param["action"] = "load";
+					param["filter"] = value;
+					_requestIndexCall++;
+					var myIndex = _requestIndexCall;
+					JWic.resourceRequest(options.controlID, function(ajaxResponse) {
+						try {
+							if (myIndex == _requestIndexCall) {
+								JWic.mobile.Combo._handleResponse(ajaxResponse, $ul);
+							} else {
+								JWic.log("Ignored AjaxResponse due to invalid request index.");
+							}
+						} catch (x) {
+							alert(x);
 						}
-					})
-					.then( function ( response ) {
-						var size = response.length;
-						html += "<div class=\"ui-controlgroup-controls\">";
-						jQuery.each( response, function ( i, val ) {
-							if (i==size)
-								html += "<div class=\"ui-checkbox\">" +
-										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-last-child\">"+ val +"</label>" +
-										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
-							else if(i==0)
-								html += "<div class=\"ui-checkbox\">" +
-										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off\">"+ val +"</label>" +
-										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
-							else
-								html += "<div class=\"ui-checkbox\">" +
-										"<label for=\""+ val +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child\">"+ val +"</label>" +
-										"<input type=\"checkbox\" id=\""+ val +"\"></div>";
-						});
-						html += "</div>";
-						$ul.html( html );
-						$ul.filterable("refresh");
-						$ul.trigger("updatelayout");
-					});
+					}, param);
 				}
 			};
 			
@@ -224,8 +212,34 @@ JWic.mobile = {
 				}
 			};
 			
-			control.on("filterablebeforefilter", filterHandler);
-			control.on("click", "LABEL", liClickHandler);
+			if (!comboElm.clientSideFilter){
+				control.on("filterablebeforefilter", filterHandler);
+				control.on("click", "LABEL", liClickHandler);
+			};
+			
+		},
+		_handleResponse : function(ajaxResponse, $ul) {
+			var html = "";
+			var response = jQuery.parseJSON(ajaxResponse.responseText);
+			var size = response.data.length;
+			html += "<div class=\"ui-controlgroup-controls\">";
+			jQuery.each( response.data, function ( i, val ) {
+				if (i==size)
+					html += "<div class=\"ui-checkbox\">" +
+							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-last-child\">"+ val.title +"</label>" +
+							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
+				else if(i==0)
+					html += "<div class=\"ui-checkbox\">" +
+							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off\">"+ val.title +"</label>" +
+							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
+				else
+					html += "<div class=\"ui-checkbox\">" +
+							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child\">"+ val.title +"</label>" +
+							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
+			});
+			html += "</div>";
+			$ul.html( html );
+			$ul.trigger("updatelayout");
 		},
 		destroy : function(control) {
 			control.destroy();

@@ -1,1 +1,7 @@
-<ul id="$control.controlID" data-role="listview" class="ui-listview ui-listview-inset ui-corner-all ui-shadow"></ul>
+<ul id="$control.controlID" data-role="listview" data-filter="$control.filter" data-filter-reveal="$control.filterReveal" class="ui-listview ui-listview-inset ui-corner-all ui-shadow">
+#foreach($element in $control.elements)
+<li class="#if($foreach.index==0)ui-first-child #end #if(!$foreach.hasNext)ui-last-child #end">
+	<a href="#" class="ui-btn ui-btn-icon-right ui-icon-$control.icon.code">$element.title</a>
+</li>
+#end
+</ul>

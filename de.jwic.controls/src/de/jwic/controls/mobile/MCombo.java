@@ -1,10 +1,15 @@
 package de.jwic.controls.mobile;
 
-import de.jwic.base.Control;
+import java.util.ArrayList;
+import java.util.List;
+
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.combo.Combo;
+import de.jwic.controls.combo.ComboBehavior;
+import de.jwic.data.ISelectElement;
+import de.jwic.data.SelectElement;
 
 /**
  * 
@@ -12,32 +17,32 @@ import de.jwic.controls.combo.Combo;
  * basic HTML combo that inherits the default jQuery Mobile
  * 
  * @author vedad
+ * @param <A>
  *
  */
 @JavaScriptSupport
-public class MCombo extends Combo<Object> {
+public class MCombo<A> extends Combo<A> {
 
 	private static final long serialVersionUID = 1L;
 	
-//	private List<ISelectElement> elements = null;
 	private boolean defaults = false;
 	private boolean enhanced = false;
 	private boolean enabled = true;
-//	private boolean autodividers = false;
-//	private boolean hideDividers = false;
-//	private boolean inset = false;
-//	private boolean filter = false;
+	private boolean autodividers = false;
+	private boolean hideDividers = false;
+	private boolean inset = false;
+	private boolean filter = false;
 	private boolean filterReveal = false;
-//	private Icon splitIcon = Icon.CARATR;
-//	private Icon icon = Icon.CARATR;
-//	private Theme dividerTheme = null;
+	private boolean remote = getComboBehavior().isClientSideFilter();
+	private Icon splitIcon = Icon.CARATR;
+	private Icon icon = Icon.CARATR;
+	private Theme dividerTheme = null;
 	private Theme filterTheme = null;
-//	private Theme splitTheme = null;
-//	private Theme theme = null;
+	private Theme splitTheme = null;
+	private Theme theme = null;
 	private String input = null;
 	private String filterPlaceholder = "Filter Items...";
 	private String children = null;
-	private String remoteDataURL = null;
 
 	/**
 	 * Constructs a new control instance and adds it to the specified container
@@ -50,55 +55,13 @@ public class MCombo extends Combo<Object> {
 	public MCombo(IControlContainer container, String name) {
 		super(container, name);
 		setTemplateName(MCombo.class.getName());
+		getComboBehavior().setMaxFetchRows(20);
+		getComboBehavior().setMinSearchKeyLength(3); 
+		getComboBehavior().setCacheData(false);
+		getComboBehavior().setClientSideFilter(false); 
+		getComboBehavior().setKeyDelayTime(500);
 	}
 	
-//	/**
-//	 * Add an element.
-//	 * @param element
-//	 */
-//	public void addElement(ISelectElement element) {
-//		if (elements == null) {
-//			elements = new ArrayList<ISelectElement>();
-//		}
-//		elements.add(element);
-//	}
-//
-//	/**
-//	 * Add an element. The key will automatically be assigned.
-//	 * @param title
-//	 */
-//	public ISelectElement addElement(String title) {
-//		SelectElement elm = new SelectElement(title);
-//		addElement(elm);
-//		return elm;
-//	}
-//	
-//	/**
-//	 * Add the element with a custom key.
-//	 * @param title
-//	 * @param key
-//	 */
-//	public ISelectElement addElement(String title, String key) {
-//		SelectElement elm = new SelectElement(title, key);
-//		addElement(elm);
-//		return elm;
-//	}
-//
-//	/**
-//	 * @return the elements
-//	 */
-//	@IncludeJsOption
-//	public List<ISelectElement> getElements() {
-//		return elements;
-//	}
-//
-//	/**
-//	 * @param elements the elements to set
-//	 */
-//	public void setElements(List<ISelectElement> elements) {
-//		this.elements = elements;
-//	}
-
 	/**
 	 * @return the defaults
 	 */
@@ -201,98 +164,113 @@ public class MCombo extends Combo<Object> {
 		this.enabled = enabled;
 	}
 
-//	/**
-//	 * @return the autodividers
-//	 */
-//	@IncludeJsOption
-//	public boolean isAutodividers() {
-//		return autodividers;
-//	}
-//
-//	/**
-//	 * @param autodividers the autodividers to set
-//	 */
-//	public void setAutodividers(boolean autodividers) {
-//		if (autodividers != this.autodividers)
-//			requireRedraw();
-//		this.autodividers = autodividers;
-//	}
-//
-//	/**
-//	 * @return the hideDividers
-//	 */
-//	@IncludeJsOption
-//	public boolean isHideDividers() {
-//		return hideDividers;
-//	}
-//
-//	/**
-//	 * @return the filter
-//	 */
-//	@IncludeJsOption
-//	public boolean isFilter() {
-//		return filter;
-//	}
-//
-//	/**
-//	 * @param filter the filter to set
-//	 */
-//	public void setFilter(boolean filter) {
-//		if (filter != this.filter)
-//			requireRedraw();
-//		this.filter = filter;
-//	}
-//
-//	/**
-//	 * @param hideDividers the hideDividers to set
-//	 */
-//	public void setHideDividers(boolean hideDividers) {
-//		if (hideDividers != this.hideDividers)
-//			requireRedraw();
-//		this.hideDividers = hideDividers;
-//	}
-//
-//	/**
-//	 * @return the inset
-//	 */
-//	@IncludeJsOption
-//	public boolean isInset() {
-//		return inset;
-//	}
-//
-//	/**
-//	 * @param inset the inset to set
-//	 */
-//	public void setInset(boolean inset) {
-//		if (inset != this.inset)
-//			requireRedraw();
-//		this.inset = inset;
-//	}
-//
-//	/**
-//	 * @return the splitIcon
-//	 */
-//	@IncludeJsOption
-//	public Icon getSplitIcon() {
-//		return splitIcon;
-//	}
-//
-//	/**
-//	 * @param splitIcon the splitIcon to set
-//	 */
-//	public void setSplitIcon(Icon splitIcon) {
-//		if (splitIcon.equals(this.splitIcon))
-//			requireRedraw();
-//		this.splitIcon = splitIcon;
-//	}
-//
-//	/**
-//	 * @return the icon
-//	 */
-//	@IncludeJsOption
-//	public Icon getIcon() {
-//		return icon;
-//	}
+	/**
+	 * @return the autodividers
+	 */
+	@IncludeJsOption
+	public boolean isAutodividers() {
+		return autodividers;
+	}
+
+	/**
+	 * @return the remote
+	 */
+	@IncludeJsOption
+	public boolean isRemote() {
+		return remote;
+	}
+
+	/**
+	 * @param remote the remote to set
+	 */
+	public void setRemote(boolean remote) {
+		this.remote = remote;
+	}
+
+	/**
+	 * @param autodividers the autodividers to set
+	 */
+	public void setAutodividers(boolean autodividers) {
+		if (autodividers != this.autodividers)
+			requireRedraw();
+		this.autodividers = autodividers;
+	}
+
+	/**
+	 * @return the hideDividers
+	 */
+	@IncludeJsOption
+	public boolean isHideDividers() {
+		return hideDividers;
+	}
+
+	/**
+	 * @return the filter
+	 */
+	@IncludeJsOption
+	public boolean isFilter() {
+		return filter;
+	}
+
+	/**
+	 * @param filter the filter to set
+	 */
+	public void setFilter(boolean filter) {
+		if (filter != this.filter)
+			requireRedraw();
+		this.filter = filter;
+	}
+
+	/**
+	 * @param hideDividers the hideDividers to set
+	 */
+	public void setHideDividers(boolean hideDividers) {
+		if (hideDividers != this.hideDividers)
+			requireRedraw();
+		this.hideDividers = hideDividers;
+	}
+
+	/**
+	 * @return the inset
+	 */
+	@IncludeJsOption
+	public boolean isInset() {
+		return inset;
+	}
+
+	/**
+	 * @param inset the inset to set
+	 */
+	public void setInset(boolean inset) {
+		if (inset != this.inset)
+			requireRedraw();
+		this.inset = inset;
+	}
+
+	/**
+	 * @return the splitIcon
+	 */
+	@IncludeJsOption
+	public Icon getSplitIcon() {
+		return splitIcon;
+	}
+
+	/**
+	 * @param splitIcon the splitIcon to set
+	 */
+	public void setSplitIcon(Icon splitIcon) {
+		if (splitIcon.equals(this.splitIcon))
+			requireRedraw();
+		this.splitIcon = splitIcon;
+	}
+
+	/**
+	 * @return the icon
+	 */
+	@IncludeJsOption
+	public Icon getIcon() {
+		return icon;
+	}
 
 	/**
 	 * @return the children
@@ -311,32 +289,32 @@ public class MCombo extends Combo<Object> {
 		this.children = children;
 	}
 
-//	/**
-//	 * @param icon the icon to set
-//	 */
-//	public void setIcon(Icon icon) {
-//		if (icon.equals(this.icon))
-//			requireRedraw();
-//		this.icon = icon;
-//	}
-//
-//	/**
-//	 * @return the dividerTheme
-//	 */
-//	@IncludeJsOption
-//	public Theme getDividerTheme() {
-//		return dividerTheme;
-//	}
-//
-//	/**
-//	 * @param dividerTheme the dividerTheme to set
-//	 */
-//	public void setDividerTheme(Theme dividerTheme) {
-//		if (dividerTheme.equals(this.dividerTheme))
-//			requireRedraw();
-//		this.dividerTheme = dividerTheme;
-//	}
-//
+	/**
+	 * @param icon the icon to set
+	 */
+	public void setIcon(Icon icon) {
+		if (icon.equals(this.icon))
+			requireRedraw();
+		this.icon = icon;
+	}
+
+	/**
+	 * @return the dividerTheme
+	 */
+	@IncludeJsOption
+	public Theme getDividerTheme() {
+		return dividerTheme;
+	}
+
+	/**
+	 * @param dividerTheme the dividerTheme to set
+	 */
+	public void setDividerTheme(Theme dividerTheme) {
+		if (dividerTheme.equals(this.dividerTheme))
+			requireRedraw();
+		this.dividerTheme = dividerTheme;
+	}
+
 	/**
 	 * @return the filterTheme
 	 */
@@ -353,54 +331,38 @@ public class MCombo extends Combo<Object> {
 			requireRedraw();
 		this.filterTheme = filterTheme;
 	}
-//
-//	/**
-//	 * @return the splitTheme
-//	 */
-//	@IncludeJsOption
-//	public Theme getSplitTheme() {
-//		return splitTheme;
-//	}
-//
-//	/**
-//	 * @param splitTheme the splitTheme to set
-//	 */
-//	public void setSplitTheme(Theme splitTheme) {
-//		if (splitTheme.equals(this.splitTheme))
-//			requireRedraw();
-//		this.splitTheme = splitTheme;
-//	}
-//
-//	/**
-//	 * @return the theme
-//	 */
-//	@IncludeJsOption
-//	public Theme getTheme() {
-//		return theme;
-//	}
-//
-//	/**
-//	 * @param theme the theme to set
-//	 */
-//	public void setTheme(Theme theme) {
-//		if (theme.equals(this.theme))
-//			requireRedraw();
-//		this.theme = theme;
-//	}
 
 	/**
-	 * @return the remoteDataURL
+	 * @return the splitTheme
 	 */
 	@IncludeJsOption
-	public String getRemoteDataURL() {
-		return remoteDataURL;
+	public Theme getSplitTheme() {
+		return splitTheme;
 	}
 
 	/**
-	 * @param remoteDataURL the remoteDataURL to set
+	 * @param splitTheme the splitTheme to set
 	 */
-	public void setRemoteDataURL(String remoteDataURL) {
-		this.remoteDataURL = remoteDataURL;
+	public void setSplitTheme(Theme splitTheme) {
+		if (splitTheme.equals(this.splitTheme))
+			requireRedraw();
+		this.splitTheme = splitTheme;
 	}
 
+	/**
+	 * @return the theme
+	 */
+	@IncludeJsOption
+	public Theme getTheme() {
+		return theme;
+	}
+
+	/**
+	 * @param theme the theme to set
+	 */
+	public void setTheme(Theme theme) {
+		if (theme.equals(this.theme))
+			requireRedraw();
+		this.theme = theme;
+	}
 }
