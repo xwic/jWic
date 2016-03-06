@@ -1,0 +1,11 @@
+<table width="100%" class="pojoEditTable">
+	<colgroup>
+		<col width="200">
+	</colgroup>
+#foreach($field in $control.fields)
+	<tr>
+		<th>$field.title</th>
+		<td>$insert.control($field.control.name)</td>
+	</tr>
+#end
+</table>

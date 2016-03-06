@@ -61,6 +61,7 @@ import de.jwic.demo.container.WindowDemoModule;
 import de.jwic.demo.framework.AsyncRenderDemoModule;
 import de.jwic.demo.framework.BlockOnWaitDemo;
 import de.jwic.demo.model.ColorDemo;
+import de.jwic.demo.pojoedit.PojoEditorDemo;
 import de.jwic.demo.tbv.BasicTBVDemoModule;
 import de.jwic.demo.tbv.FileTreeDemoModule;
 import de.jwic.demo.tbv.TableViewerDemoModule;
@@ -130,6 +131,7 @@ public class DemoApplication extends Application {
 		modules.add(new WizardDemo());
 		modules.add(new ChartDashboardDemo());
 		modules.add(new ColorDemo());
+		modules.add(new PojoEditorDemo());
 
 		// Sort demos by group and title
 		Collections.sort(modules);

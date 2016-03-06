@@ -146,3 +146,13 @@ div.chartdb-view .chartdb-title {
 div.chartdb-view .chartdb-chart {
 	/* padding: 4px; */
 }
+
+/** PojoEditor */
+
+.pojoEditTable th {
+	text-align: right;
+	padding-right: 10px;
+}
+.pojoEditTable tr {
+	height: 30px;
+}
