@@ -419,7 +419,13 @@ var JWic = {
 				JWic.handleResponse(jqXHR, cmd.callBack);
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
-				alert("An exception has occured processing the server response: " + errorThrown, "Error Notification.");
+                if(jqXHR.status == 404 && jqXHR.statusText == "Not Found") {
+                    alert("The requested resource was not found on the server. Please try again.");
+                } else if(jqXHR.status == 0 && textStatus == "error") {
+                    alert("The server did not respond to the request. Please check your network connectivity and try again.");
+                } else {
+					alert("An exception has occured processing the server response: " + errorThrown, "Error Notification.");
+				}
 				JWic.endRequest();
 			}
 		});
@@ -460,7 +466,11 @@ var JWic = {
 				if (jqXHR.status == 404) { 
 					callBack(jqXHR);
 				} else {
-					alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
+                    if(jqXHR.status == 0 && textStatus == "error") {
+                        alert("The server did not respond to the request. Please check your network connectivity and try again.");
+                    } else {
+                        alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
+                    }
 				}
 			}
 		});
