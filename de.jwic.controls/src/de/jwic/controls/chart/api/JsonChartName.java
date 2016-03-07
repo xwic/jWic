@@ -28,5 +28,7 @@ public @interface JsonChartName {
 	String dateTime();
 	
 	String stacked();
+	
+	String overlay();
 
 }

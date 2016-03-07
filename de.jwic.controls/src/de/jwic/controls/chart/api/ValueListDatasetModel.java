@@ -17,6 +17,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 */
 	private static final long serialVersionUID = -2421385147478923715L;
 	private List<String> labels;
+	private List<YAxes> yaxes;
 
 	/**
 	 * 
@@ -26,6 +27,17 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets) {
 		super(datasets);
 		this.labels = labels;
+	}
+	
+	/**
+	 * 
+	 * @param labels
+	 * @param datasets
+	 */
+	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets, List<YAxes> yaxes) {
+		super(datasets);
+		this.labels = labels;
+		this.yaxes = yaxes;
 	}
 
 	/**
@@ -53,6 +65,30 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	public List<String> getLabels() {
 		return labels;
 	}
+	
+	/**
+	 * @return the yaxes
+	 */
+	public List<YAxes> getYaxes() {
+		return yaxes;
+	}
+	
+	/**
+	 * returns the yaxes as json which will be rendered on java script site
+	 * 
+	 * @return
+	 */
+	public String getYaxesJson() {
+		return DataConverter.convertToJson(yaxes);
+	}
+
+	/**
+	 * @param yaxes the yaxes to set
+	 */
+	public void setYaxes(List<YAxes> yaxes) {
+		this.yaxes = yaxes;
+	}
+
 
 	/**
 	 * adds new data to the model with the new label name

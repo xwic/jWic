@@ -4,7 +4,7 @@
 		Chart : {
 			openTooltipId : null,
 			
-			initialize : function(controlID, options, config, labelData, dataset) {
+			initialize : function(controlID, options, config, labelData, dataset, yaxes) {
 				var canvas = document.getElementById('chart_' + controlID);
 				var ctx = canvas.getContext("2d");	
 				var chart = new Chart(ctx);
@@ -25,11 +25,13 @@
 				if (options.chartType == 'bar' ||
 					options.chartType == 'line' ||
 					options.chartType == 'radar' ||
-					options.chartType == 'stackedbar') {
+					options.chartType == 'stackedbar' ||
+					options.chartType == 'overlay') {
 					
 					chartData = {
 							    labels: labelData,
-							    datasets: dataset
+							    datasets: dataset,
+							    yAxes: yaxes
 							};
 				} else if (options.chartType == 'scatter') {
 					chartData = JWic.controls.Chart.convertToDate(dataset);
@@ -70,6 +72,11 @@
 					
 				case 'stackedbar':
 					chartImpl = chart.StackedBar(chartData, options);
+					findElement = chartImpl.getBarsAtEvent;
+					break;
+				
+				case 'overlay':
+					chartImpl = chart.Overlay(chartData, config);
 					findElement = chartImpl.getBarsAtEvent;
 					break;
 					

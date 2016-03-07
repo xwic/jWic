@@ -18,14 +18,18 @@ public class ValueListDataset extends ChartDataset {
 	 */
 	private static final long serialVersionUID = 375389814468058669L;
 	private List<Double> data = new ArrayList<Double>();
-	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "", stacked = "")
+	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "", stacked = "", overlay = "fillColor")
 	private String fillColor = "#66ccff";
-	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "", stacked = "")
+	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "", stacked = "", overlay = "highlightFill")
 	private String highlightColor = "#66ff33";
-	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "", stacked = "")
+	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "", stacked = "", overlay = "strokeColor")
 	private String strokeColor = "#ffff00";
-	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "")
+	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "", overlay = "highlightStroke")
 	private String highlightStroke = "#ffffcc";
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "type")
+	private String type = null;
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "yAxesGroup")
+	private String yAxesGroup = null;
 
 	/**
 	 * 
@@ -124,6 +128,34 @@ public class ValueListDataset extends ChartDataset {
 		String color = DataConverter.convertToJSColor(highlightColor);
 		if (color != null)
 			this.highlightColor = color;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the yAxesGroup
+	 */
+	public String getyAxesGroup() {
+		return yAxesGroup;
+	}
+
+	/**
+	 * @param yAxesGroup the yAxesGroup to set
+	 */
+	public void setyAxesGroup(String yAxesGroup) {
+		this.yAxesGroup = yAxesGroup;
 	}
 
 }

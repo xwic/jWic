@@ -10,8 +10,9 @@
 		var options = $control.buildJsonOptions();
 		var labelData = $control.model.labelsJson;
 		var dataset = $control.model.datasetsJson;
+		var yaxes = $control.model.yaxesJson;
 		
-		JWic.controls.Chart.initialize('$control.controlID', options, config, labelData, dataset);
+		JWic.controls.Chart.initialize('$control.controlID', options, config, labelData, dataset, yaxes);
 	}
 
 }
