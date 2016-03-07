@@ -24,6 +24,7 @@ import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IHaveEnabled;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.events.ValueChangedListener;
 
 /**
  * Wrapps the CKeditor control.
@@ -178,5 +179,15 @@ public class CKEditor extends Control implements IHaveEnabled {
 	public void setFullRedraw(boolean fullRedraw) {
 		this.fullRedraw = fullRedraw;
 	}
-	
+
+	/**
+	 * Add a value changed listener to the <b>field</b> used by this
+	 * input box control.
+	 * @param listener
+	 */
+	public void addValueChangedListener(ValueChangedListener listener) {
+		content.addValueChangedListener(listener);
+	}
+
+
 }
