@@ -57,7 +57,12 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	/** default icon used for collapse image */
 	public final static ImageRef ICON_COLLAPSE = new ImageRef("/jwic/gfx/collapse.png"); 
 	/** default icon used for indention */
-	public final static ImageRef ICON_CLEAR = new ImageRef("/jwic/gfx/clear.gif"); 
+	public final static ImageRef ICON_CLEAR = new ImageRef("/jwic/gfx/clear.gif");
+    /**
+     * Default value for table column.
+     * Used if column width is not defined or 0.
+     */
+	private static final int DEFAULT_COLUMN_WIDTH = 100;
 
 	protected transient Log log = LogFactory.getLog(getClass()); 
 	
@@ -91,10 +96,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			if (!tc.isVisible()) {
 				continue;
 			}
-			if (tc.getWidth() == 0) {
-				tc.setWidth(100);
-			}
-			tblWidth += tc.getWidth();
+			tblWidth += getEffectiveWidth(tc);;
 		}
 		
 		// Add resizer div 
@@ -273,6 +275,11 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		}
 		
 	}
+
+	private int getEffectiveWidth(TableColumn tc) {
+		return tc.getWidth() == 0 ? DEFAULT_COLUMN_WIDTH : tc.getWidth();
+	}
+
 	/**
 	 * 
 	 */
@@ -292,14 +299,11 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			}
 			
 			writer.print("<th");
-			int innerWidth = 0;
-			if (column.getWidth() > 0) {
-				writer.print(" width=\"" + column.getWidth() + "\"");
-				innerWidth = column.getWidth() - (viewer.isResizeableColumns() ? 5 : 0);
-				innerWidth = innerWidth - (column.getSortIcon() != TableColumn.SORT_ICON_NONE ? 8 : 0);
-				if (innerWidth < 3) {
-					innerWidth = 3;
-				}
+			writer.print(" width=\"" + getEffectiveWidth(column) + "\"");
+			int innerWidth = getEffectiveWidth(column) - (viewer.isResizeableColumns() ? 5 : 0);
+			innerWidth = innerWidth - (column.getSortIcon() != TableColumn.SORT_ICON_NONE ? 8 : 0);
+			if (innerWidth < 3) {
+				innerWidth = 3;
 			}
 			writer.print(" colIdx=\"" + column.getIndex() + "\"");
 			
@@ -410,9 +414,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				CellLabel cell = labelProvider.getCellLabel(row, column, new RowContext(expanded, level));
 				
 				writer.print("<td");
-				if (column.getWidth() > 0) {
-					writer.print(" width=\"" + column.getWidth() + "\"");
-				}
+				writer.print(" width=\"" + getEffectiveWidth(column) + "\"");
 				if (cell.cssClass != null) {
 					writer.print(" class=\"" + cell.cssClass + "\"");
 				}
