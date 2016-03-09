@@ -28,31 +28,25 @@ import de.jwic.renderer.self.SelfRenderer;
 import de.jwic.util.IHTMLElement;
 
 /**
- * Main control used to display data in a table. The control uses a
- * ContentProvider and ITableLabelProvider to render the table. It supports the
- * following features:
+ * Main control used to display data in a table. The control uses a ContentProvider and ITableLabelProvider
+ * to render the table. It supports the following features:
  * <ul>
  * <li>resizable columns</li>
  * <li>expandable rows (tree like)</li>
  * <li>scrollable (both horizontal and vertical)</li>
- * <li>StatusBar to use paging and configure the max. number of lines to display
- * </li>
+ * <li>StatusBar to use paging and configure the max. number of lines to display</li>
  * <li>columns can be clicked for sorting/filtering</li>
  * <li>single- or multiselection</li>
  * <li>clean and easy to use backend architecture</li>
  * <li>layout customizing via css</li>
  * </ul>
  * 
- * <p>
- * In the default configuration, most of the features are disabled. To enable
- * expandable rows, the expandableColumn must be set to the column that should
- * contain the expand icon.
- * </p>
+ * <p>In the default configuration, most of the features are disabled. To enable
+ * expandable rows, the expandableColumn must be set to the column that should 
+ * contain the expand icon.</p>
  * 
- * <p>
- * To use resizable columns, all TableColumns must have a fixed width. If a
- * column has no width specified, a default value is assigned.
- * </p>
+ * <p>To use resizable columns, all TableColumns must have a fixed width. If a column
+ * has no width specified, a default value is assigned.</p>
  * 
  * @author Florian Lippisch
  */
@@ -64,19 +58,17 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private TableModel model = new TableModel();
 	private ITableRenderer tableRenderer = new DefaultTableRenderer();
 	private ITableLabelProvider tableLabelProvider = null;
-
+	
 	private String cssClass = "tblViewer";
-	private String mCssClass = "ui-responsive table-stroke ui-table ui-table-columntoggle";
 	private int height = 0;
 	private int width = 0;
-	private int rowHeightHint = 18;
+	private int rowHeightHint = 18; 
 	private int expandableColumn = -1; // disabled by default
 
 	private boolean fillWidth = false;
 	private boolean enabled = true;
 	private boolean showHeader = true;
-	private boolean isMobile = false;
-
+	
 	private boolean resizeableColumns = false;
 	private boolean selectableColumns = true;
 	private boolean scrollable = false;
@@ -84,15 +76,15 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private boolean showAllInRangeSelector = false;
 
 	private StatusBarControl statusBar = null;
-
+	
 	private Menu menu = null;
-
+	
 	/**
 	 * @param container
 	 */
 	public TableViewer(IControlContainer container) {
 		this(container, null);
-
+		
 	}
 
 	/**
@@ -102,7 +94,8 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	public TableViewer(IControlContainer container, String name) {
 		super(container, name);
 		setRendererId(SelfRenderer.RENDERER_ID);
-
+		
+		
 		new Field(this, "left");
 		new Field(this, "top");
 
@@ -123,7 +116,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	public void setTableLabelProvider(ITableLabelProvider labelProvider) {
 		tableLabelProvider = labelProvider;
 	}
-
+	
 	/**
 	 * @return the label provider
 	 */
@@ -131,22 +124,17 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		return tableLabelProvider;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see de.jwic.renderer.self.ISelfRenderingControl#render(de.jwic.base.
-	 * RenderContext)
+	/* (non-Javadoc)
+	 * @see de.jwic.renderer.self.ISelfRenderingControl#render(de.jwic.base.RenderContext)
 	 */
 	public void render(RenderContext renderContext) {
-		if (!isMobile())
-			tableRenderer.renderTable(renderContext, this, getModel(), tableLabelProvider);
-		else
-			tableRenderer.renderMTable(renderContext, this, getModel(), tableLabelProvider);
+		
+		tableRenderer.renderTable(renderContext, this, getModel(), tableLabelProvider);
+		
 	}
 
 	/**
 	 * A user selected a row.
-	 * 
 	 * @param rowKey
 	 */
 	public void actionSelection(String rowKey) {
@@ -155,26 +143,24 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * A user selected a row.
-	 * 
 	 * @param rowKey
 	 */
 	public void actionDblClick(String rowKey) {
 		getModel().selection(rowKey, true); // delegate to the model.
 	}
-
+	
+	
 	/**
 	 * Expand a row.
-	 * 
 	 * @param rowKey
 	 */
 	public void actionExpand(String rowKey) {
 		getModel().expand(rowKey);
 		requireRedraw();
 	}
-
+	
 	/**
 	 * Collapse a row.
-	 * 
 	 * @param rowKey
 	 */
 	public void actionCollapse(String rowKey) {
@@ -184,7 +170,6 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * Resize a column.
-	 * 
 	 * @param keySize
 	 * @return
 	 */
@@ -198,38 +183,33 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		}
 		return false;
 	}
-
+	
 	/**
 	 * Resize a column.
-	 * 
-	 * @param keySize
-	 *            String with "colIdx;width"
+	 * @param keySize String with "colIdx;width"
 	 */
 	public void actionResizeColumn(String keySize) {
 		if (resizeColumn(keySize)) {
 			requireRedraw();
 		}
 	}
-
+	
 	/**
 	 * Resize a column.
-	 * 
-	 * @param keySize
-	 *            String with "colIdx;width"
+	 * @param keySize String with "colIdx;width"
 	 */
 	public void actionResizeColumnWithoutRedraw(String keySize) {
 		resizeColumn(keySize);
 	}
-
+	
 	/**
 	 * A column got selected.
-	 * 
 	 * @param columnIndex
 	 */
 	public void actionColumnSelection(String columnIndex) {
 		getModel().selectColumn(Integer.parseInt(columnIndex));
 	}
-
+	
 	/**
 	 * @return the tableRenderer
 	 */
@@ -238,8 +218,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param tableRenderer
-	 *            the tableRenderer to set
+	 * @param tableRenderer the tableRenderer to set
 	 */
 	public void setTableRenderer(ITableRenderer tableRenderer) {
 		this.tableRenderer = tableRenderer;
@@ -253,33 +232,14 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param cssClass
-	 *            the cssClass to set
+	 * @param cssClass the cssClass to set
 	 */
 	public void setCssClass(String cssClass) {
 		this.cssClass = cssClass;
 		requireRedraw();
 	}
 
-	/**
-	 * @return the mCssClass
-	 */
-	public String getmCssClass() {
-		return mCssClass;
-	}
-
-	/**
-	 * @param mCssClass
-	 *            the mCssClass to set
-	 */
-	public void setmCssClass(String mCssClass) {
-		this.mCssClass = mCssClass;
-		requireRedraw();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
 	@Override
@@ -287,9 +247,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		return enabled;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see de.jwic.base.IHaveEnabled#setEnabled(boolean)
 	 */
 	@Override
@@ -307,22 +265,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @return the isMobile
-	 */
-	public boolean isMobile() {
-		return isMobile;
-	}
-
-	/**
-	 * @param isMobile the isMobile to set
-	 */
-	public void setMobile(boolean isMobile) {
-		this.isMobile = isMobile;
-	}
-
-	/**
-	 * @param fillWidth
-	 *            the fillWidth to set
+	 * @param fillWidth the fillWidth to set
 	 */
 	public void setFillWidth(boolean fillWidth) {
 		this.fillWidth = fillWidth;
@@ -337,8 +280,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param height
-	 *            the height to set
+	 * @param height the height to set
 	 */
 	public void setHeight(int height) {
 		this.height = height;
@@ -353,17 +295,14 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param width
-	 *            the width to set
+	 * @param width the width to set
 	 */
 	public void setWidth(int width) {
 		this.width = width;
 		requireRedraw();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see de.jwic.controls.IHTMLElement#forceFocus()
 	 */
 	public boolean forceFocus() {
@@ -390,13 +329,11 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	public StatusBarControl getStatusBar() {
 		return statusBar;
 	}
-
+	
 	/**
-	 * If set to true, the status bar with the paging and rowsPerPage control is
-	 * displayed.
-	 * 
-	 * @param showStatusBar
-	 *            the showStatusBar to set
+	 * If set to true, the status bar with the paging and rowsPerPage control
+	 * is displayed.
+	 * @param showStatusBar the showStatusBar to set
 	 */
 	public void setShowStatusBar(boolean showStatusBar) {
 		statusBar.setVisible(showStatusBar);
@@ -411,8 +348,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param resizeableColumns
-	 *            the resizeableColumns to set
+	 * @param resizeableColumns the resizeableColumns to set
 	 */
 	public void setResizeableColumns(boolean resizeableColumns) {
 		this.resizeableColumns = resizeableColumns;
@@ -428,9 +364,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * Set to true, if the table should be placed inside a scrollable container.
-	 * 
-	 * @param scrollable
-	 *            the scrollable to set
+	 * @param scrollable the scrollable to set
 	 */
 	public void setScrollable(boolean scrollable) {
 		this.scrollable = scrollable;
@@ -439,7 +373,6 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * Returns true if the columns can be selected (clicked) by the user.
-	 * 
 	 * @return the selectableColumns
 	 */
 	public boolean isSelectableColumns() {
@@ -448,15 +381,13 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * Set to true if the columns can be selected (clicked) by the user.
-	 * 
-	 * @param selectableColumns
-	 *            the selectableColumns to set
+	 * @param selectableColumns the selectableColumns to set
 	 */
 	public void setSelectableColumns(boolean selectableColumns) {
 		this.selectableColumns = selectableColumns;
 		requireRedraw();
 	}
-
+	
 	/**
 	 * @return the showHeader
 	 */
@@ -465,8 +396,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param showHeader
-	 *            the showHeader to set
+	 * @param showHeader the showHeader to set
 	 */
 	public void setShowHeader(boolean showHeader) {
 		this.showHeader = showHeader;
@@ -481,8 +411,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * @param expandableColumn
-	 *            the expandableColumn to set
+	 * @param expandableColumn the expandableColumn to set
 	 */
 	public void setExpandableColumn(int expandableColumn) {
 		this.expandableColumn = expandableColumn;
@@ -496,11 +425,8 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	}
 
 	/**
-	 * This "hint" helps the TableViewer to calculate the number of rows that
-	 * can be displayed if the user selected '- Auto -' size.
-	 * 
-	 * @param rowHeightHint
-	 *            the rowHeightHint to set
+	 * This "hint" helps the TableViewer to calculate the number of rows that can be displayed if the user selected '- Auto -' size. 
+	 * @param rowHeightHint the rowHeightHint to set
 	 */
 	public void setRowHeightHint(int rowHeightHint) {
 		this.rowHeightHint = rowHeightHint;
@@ -515,9 +441,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	/**
 	 * Set a menu that is used as a context-menu on the rows.
-	 * 
-	 * @param menu
-	 *            the menu to set
+	 * @param menu the menu to set
 	 */
 	public void setMenu(Menu menu) {
 		this.menu = menu;
@@ -531,5 +455,4 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		this.showAllInRangeSelector = showAllInRangeSelector;
 		statusBar.populateSelectionCombo(this.showAllInRangeSelector);
 	}
-
 }

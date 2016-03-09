@@ -26,6 +26,4 @@ public interface ITableRenderer {
 
 	public void renderTable(RenderContext renderContext, TableViewer viewer, TableModel model, ITableLabelProvider tableLabelProvider);
 	
-	public void renderMTable(RenderContext renderContext, TableViewer viewer, TableModel model, ITableLabelProvider tableLabelProvider);
-	
 }

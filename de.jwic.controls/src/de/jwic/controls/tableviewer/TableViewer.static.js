@@ -645,16 +645,6 @@
 				}				
 		
 			} //TableViewer
-	
-			MTableViewer : {
-				
-				/**
-				 * Initialize the TableViewer.
-				 */
-				initialize : function(element, viewerCtrlId, options) {
-					
-				}
-			}
 		}
 	);
 })(jQuery);
