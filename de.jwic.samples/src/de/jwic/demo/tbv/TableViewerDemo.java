@@ -370,7 +370,7 @@ public class TableViewerDemo extends ControlContainer {
 		
 		col = new TableColumn("Owner");
 		col.setUserObject("owner");
-		col.setWidth(120);
+		col.setWidth(0);
 		model.addColumn(col);
 		
 		col = new TableColumn("Complete");
