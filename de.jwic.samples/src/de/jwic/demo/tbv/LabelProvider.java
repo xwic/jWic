@@ -26,7 +26,7 @@ import de.jwic.controls.tableviewer.TableColumn;
  * Used to transform the object into renderable data.
  * @author Florian Lippisch
  */
-class LabelProvider implements ITableLabelProvider {
+public class LabelProvider implements ITableLabelProvider {
 	
 	private static ImageRef IMG_CHECKED = new ImageRef(LabelProvider.class.getPackage(), "checked.gif");
 	private static ImageRef IMG_UNCHECKED = new ImageRef(LabelProvider.class.getPackage(), "unchecked.gif");

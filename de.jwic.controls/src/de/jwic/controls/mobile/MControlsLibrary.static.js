@@ -143,7 +143,7 @@ JWic.mobile = {
 	Combo : {
 		initialize : function(control, options) {
 			var comboBox = document.getElementById(options.controlID);
-			
+
 			control.filterable({
 				disabled : !options.enabled,
 				children : options.children,
@@ -164,41 +164,47 @@ JWic.mobile = {
 				splitTheme : options.splitTheme,
 				theme : options.theme
 			});
-			
-			var filterHandler = function (e, data) {
-				var $ul = jQuery(this),
-				$input = data.input, 
-				value = $input.val(),
-				_requestIndexCall = 0;
-				$ul.html( "" );
-				if ( value && value.length >= comboBox.minSearchKeyLength ) {
-					$ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
-					$ul.filterable( "refresh" );
+
+			var filterHandler = function(e, data) {
+				var $ul = jQuery(this), $input = data.input, value = $input
+						.val(), _requestIndexCall = 0;
+				$ul.html("");
+				if (value && value.length >= comboBox.minSearchKeyLength) {
+					$ul
+							.html("<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>");
+					$ul.filterable("refresh");
 					var param = {};
 					param["action"] = "load";
 					param["filter"] = value;
 					_requestIndexCall++;
 					var myIndex = _requestIndexCall;
-					JWic.resourceRequest(options.controlID, function(ajaxResponse) {
-						try {
-							if (myIndex == _requestIndexCall) {
-								JWic.mobile.Combo._handleResponse(ajaxResponse, $ul);
-							} else {
-								JWic.log("Ignored AjaxResponse due to invalid request index.");
-							}
-						} catch (x) {
-							alert(x);
-						}
-					}, param);
+					JWic
+							.resourceRequest(
+									options.controlID,
+									function(ajaxResponse) {
+										try {
+											if (myIndex == _requestIndexCall) {
+												JWic.mobile.Combo
+														._handleResponse(
+																ajaxResponse,
+																$ul);
+											} else {
+												JWic
+														.log("Ignored AjaxResponse due to invalid request index.");
+											}
+										} catch (x) {
+											alert(x);
+										}
+									}, param);
 				}
 			};
-			
-			var liClickHandler = function () {
+
+			var liClickHandler = function() {
 				var clickedItem = this;
 				var items = document.getElementsByTagName("label");
-				if (!clickedItem.classList.contains("ui-checkbox-on")){
-					for(i=0; i<items.length; i++){
-						if (items[i].classList.contains("ui-checkbox-on")){
+				if (!clickedItem.classList.contains("ui-checkbox-on")) {
+					for (i = 0; i < items.length; i++) {
+						if (items[i].classList.contains("ui-checkbox-on")) {
 							items[i].classList.remove("ui-checkbox-on");
 							items[i].classList.add("ui-checkbox-off");
 							break;
@@ -211,34 +217,50 @@ JWic.mobile = {
 					clickedItem.classList.add("ui-checkbox-off");
 				}
 			};
-			
-			if (!comboElm.clientSideFilter){
+
+			if (!comboElm.clientSideFilter) {
 				control.on("filterablebeforefilter", filterHandler);
 				control.on("click", "LABEL", liClickHandler);
-			};
-			
+			}
+			;
+
 		},
 		_handleResponse : function(ajaxResponse, $ul) {
 			var html = "";
 			var response = jQuery.parseJSON(ajaxResponse.responseText);
 			var size = response.data.length;
 			html += "<div class=\"ui-controlgroup-controls\">";
-			jQuery.each( response.data, function ( i, val ) {
-				if (i==size)
-					html += "<div class=\"ui-checkbox\">" +
-							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-last-child\">"+ val.title +"</label>" +
-							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
-				else if(i==0)
-					html += "<div class=\"ui-checkbox\">" +
-							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off\">"+ val.title +"</label>" +
-							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
-				else
-					html += "<div class=\"ui-checkbox\">" +
-							"<label for=\""+ val.title +"\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child\">"+ val.title +"</label>" +
-							"<input type=\"checkbox\" id=\""+ val.title +"\"></div>";
-			});
+			jQuery
+					.each(
+							response.data,
+							function(i, val) {
+								if (i == size)
+									html += "<div class=\"ui-checkbox\">"
+											+ "<label for=\""
+											+ val.title
+											+ "\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-last-child\">"
+											+ val.title + "</label>"
+											+ "<input type=\"checkbox\" id=\""
+											+ val.title + "\"></div>";
+								else if (i == 0)
+									html += "<div class=\"ui-checkbox\">"
+											+ "<label for=\""
+											+ val.title
+											+ "\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off\">"
+											+ val.title + "</label>"
+											+ "<input type=\"checkbox\" id=\""
+											+ val.title + "\"></div>";
+								else
+									html += "<div class=\"ui-checkbox\">"
+											+ "<label for=\""
+											+ val.title
+											+ "\" class=\"ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child\">"
+											+ val.title + "</label>"
+											+ "<input type=\"checkbox\" id=\""
+											+ val.title + "\"></div>";
+							});
 			html += "</div>";
-			$ul.html( html );
+			$ul.html(html);
 			$ul.trigger("updatelayout");
 		},
 		destroy : function(control) {
@@ -262,7 +284,8 @@ JWic.mobile = {
 				heightStyle : options.heightStyle,
 				counter : options.counter
 			});
-			tabStrip[0].children[0].firstElementChild.children[activeIndex].children[0].classList.add("ui-btn-active");
+			tabStrip[0].children[0].firstElementChild.children[activeIndex].children[0].classList
+					.add("ui-btn-active");
 			selectedTabLink = tabStrip[0].children[0].firstElementChild.children[activeIndex].children[0];
 		},
 
@@ -289,12 +312,12 @@ JWic.mobile = {
 						count++;
 					}
 				}
-				
+
 				if (selectedTabLink) {
 					selectedTabLink.classList.remove("ui-btn-active");
 					selectedTab = null;
 				}
-				
+
 				JWic.fireAction(tabStripId, "activateTab", tabName, function() {
 					ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "."
 							+ oldTabName + "\"><div style=\"height: " + oldH
@@ -343,6 +366,18 @@ JWic.mobile = {
 		},
 		destroy : function(control) {
 			control.destroy();
+		}
+	},
+	TableViewer : {
+
+		/**
+		 * Initialize the TableViewer.
+		 */
+		initialize : function(tableviewer, viewerCtrlId, options) {
+			tableviewer.table({
+				defaults : options.defaults,
+				disabled : options.disabled
+			});
 		}
 	}
 };
