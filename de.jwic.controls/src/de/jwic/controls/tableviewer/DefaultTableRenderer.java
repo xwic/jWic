@@ -121,7 +121,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
 		writer.println("<TBODY>");
 		try {
-			int count = renderRows(0, false, writer, contentProvider.getContentIterator(range), viewer, labelProvider);
+			int count = renderMRows(0, false, writer, contentProvider.getContentIterator(range), viewer, labelProvider);
 
 			if (count == 0) {
 				renderEmptyRow(writer, viewer);
@@ -473,7 +473,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
 		writer.println("<THEAD>");
 
-		writer.println("<tr>");
 		for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
 			TableColumn column = itC.next();
 
@@ -564,7 +563,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			}
 		}
 
-		writer.println("</tr>");
 		writer.println("</THEAD>");
 
 	}
@@ -682,6 +680,92 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				}
 				if (innerTable) {
 					writer.print("</td></tr></table>");
+				}
+				writer.println("</td>");
+
+			}
+			// if its a fixed width, must render an empty column that fills up
+			// the space.
+			if (viewer.getWidth() != 0) {
+				writer.println("<TD>&nbsp;</TD>");
+			}
+			writer.println(" </tr>");
+
+			if (contentProvider.hasChildren(row) && expanded) {
+				renderRows(level + 1, hasNext || it.hasNext(), writer, contentProvider.getChildren(row), viewer,
+						labelProvider);
+			}
+
+		}
+		return count;
+	}
+	
+	/**
+	 * @param writer
+	 * @param rootIterator
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected int renderMRows(int level, boolean hasNext, PrintWriter writer, Iterator<?> it, TableViewer viewer,
+			ITableLabelProvider labelProvider) {
+
+		TableModel model = viewer.getModel();
+		IContentProvider contentProvider = model.getContentProvider();
+
+		int count = 0;
+		while (it.hasNext()) {
+			Object row = it.next();
+			count++;
+			String key = contentProvider.getUniqueKey(row);
+			boolean expanded = model.isExpanded(key);
+			writer.print("<tr");
+			String rowCssClass = "";
+			if (!(it.hasNext() || hasNext || contentProvider.hasChildren(row))) {
+				rowCssClass = "lastRow";
+			}
+
+			// handle selection
+			writer.print(" tbvRowKey=\"" + key + "\"");
+			if (rowCssClass.length() != 0) {
+				writer.print(" class=\"" + rowCssClass + "\"");
+			}
+			writer.println(">");
+			for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
+				TableColumn column = itC.next();
+				if (!column.isVisible()) {
+					continue;
+				}
+
+				CellLabel cell = labelProvider.getCellLabel(row, column, new RowContext(expanded, level));
+
+				writer.print("<td");
+				if (column.getWidth() > 0) {
+					writer.print(" width=\"" + column.getWidth() + "\"");
+				}
+				if (cell.cssClass != null) {
+					writer.print(" class=\"" + cell.cssClass + "\"");
+				}
+				if (cell.toolTip != null && cell.toolTip.length() > 0) {
+					writer.print(" title=\"" + cell.toolTip + "\"");
+				}
+				if (cell.colspan != null && cell.colspan.intValue() > 0) {
+					writer.print(" colspan=\"" + cell.colspan + "\"");
+				}
+
+				writer.print(">");
+
+				// print cell value
+				if (cell.image != null) {
+					writer.print(cell.image.toImgTag());
+					if (cell.text != null) {
+						writer.print("</td><td class=\"content\">");
+					}
+				}
+				if (cell.text != null) {
+					if (cell.text.length() == 0 && cell.image == null) {
+						writer.print("&nbsp;");
+					} else {
+						writer.print(cell.text);
+					}
 				}
 				writer.println("</td>");
 
