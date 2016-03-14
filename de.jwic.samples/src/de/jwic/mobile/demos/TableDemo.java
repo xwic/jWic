@@ -50,6 +50,7 @@ public class TableDemo extends MobileDemoModule {
 		TableModel model = table.getModel();
 
 		model.setSelectionMode(TableModel.SELECTION_SINGLE);
+		model.setColumnBtnText("Columns Button");
 		createColumns(table);
 
 		return container;

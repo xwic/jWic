@@ -77,7 +77,8 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 						+ (viewer.getMenu() != null ? "\'" + viewer.getMenu().getControlID() + "\'"
 								: "null" + " ,fitToParent:" + model.isFitToParent() + " ,defaults : "
 										+ viewer.getModel().isDefaults() + " ,disabled : "
-										+ viewer.getModel().isDisabled())
+										+ viewer.getModel().isDisabled() + " ,columnBtnText : \""
+										+ viewer.getModel().getColumnBtnText() + "\"")
 						+ "});}}");
 
 		String tblvGfxPath = JWicRuntime.getJWicRuntime().getContextPath() + "/jwic/gfx/";
@@ -86,17 +87,15 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
 		IContentProvider<?> contentProvider = model.getContentProvider();
 
-		int tblWidth = 0;
 		for (Iterator<TableColumn> it = model.getColumnIterator(); it.hasNext();) {
 			TableColumn tc = it.next();
 			if (!tc.isVisible()) {
 				continue;
 			}
-			tblWidth += tc.getWidth();
 		}
 
-		writer.print("<table data-role=\"table\" id=\"" + viewer.getControlID()
-				+ "\" data-mode=\"columntoggle\" class=\"" + viewer.getmCssClass() + "\">");
+		writer.print("<table data-role=\"table\" id=\"" + viewer.getControlID() + "\"" + " data-mode=\"columntoggle\""
+				+ "class=\"" + viewer.getmCssClass() + "\">");
 
 		if (viewer.isShowHeader())
 			renderMHeader(writer, model, viewer, tblvGfxPath);
@@ -136,6 +135,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		writer.println("</TBODY>");
 		writer.println("</table>");
 
+		renderMPopup(writer, model, viewer);
 	}
 
 	/*
@@ -466,10 +466,37 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	/**
 	 * 
 	 */
+	protected void renderMPopup(PrintWriter writer, TableModel model, TableViewer viewer) {
+
+		writer.println("<div class=\"ui-popup-screen ui-overlay-inherit ui-screen-hidden\" id=\""
+				+ viewer.getControlID() + "-popup-screen\"></div>");
+
+		writer.println("<div class=\"ui-popup-container ui-popup-hidden ui-popup-truncate\" id=\""
+				+ viewer.getControlID() + "-popup-popup\">");
+
+		writer.println(
+				"<div class=\"ui-table-columntoggle-popup ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all\" data-role=\"popup\" id=\""
+						+ viewer.getControlID() + "-popup\">");
+
+		writer.println("<fieldset class=\"ui-controlgroup ui-controlgroup-vertical ui-corner-all\"> "
+				+ "<div class=\"ui-controlgroup-controls\">");
+
+		for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
+			TableColumn column = itC.next();
+
+			writer.print("<div class=\"ui-checkbox\">"
+					+ "<label class=\"ui-btn ui-corner-all ui-btn-null ui-btn-icon-left ui-checkbox-on ui-first-child\">"
+					+ column.getTitle() + "</label>" + "<input type=\"checkbox\" checked=\"\">" + "</div>");
+		}
+		writer.println("</div></fieldset></div></div>");
+	}
+
+	/**
+	 * 
+	 */
 	protected void renderMHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblGfxPath) {
 
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
-		boolean isColSelectable = viewer.isSelectableColumns() && viewer.isEnabled();
 
 		writer.println("<THEAD>");
 
@@ -485,17 +512,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				column.setWidth(150);
 			}
 
-			writer.print("<th");
-			int innerWidth = 0;
-			if (column.getWidth() > 0) {
-				writer.print(" width=\"" + column.getWidth() + "\"");
-				innerWidth = column.getWidth() - (viewer.isResizeableColumns() ? 5 : 0);
-				innerWidth = innerWidth - (column.getSortIcon() != TableColumn.SORT_ICON_NONE ? 8 : 0);
-				if (innerWidth < 3) {
-					innerWidth = 3;
-				}
-			}
-			writer.print(" colIdx=\"" + column.getIndex() + "\"");
+			writer.print("<th data-priority=\"1\" class=\"ui-table-priority-1\"");
 
 			// header tooltip
 			if (column.getToolTip() != null && column.getToolTip().length() > 0) {
@@ -504,51 +521,8 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
 			writer.println(">");
 			// create cell table
-			writer.print("<TABLE class=\"tbvColHeader\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\"><TR>");
-			writer.print("<TD class=\"tbvColHeadCell\" width=\"" + innerWidth + "\"");
-			if (isColSelectable) {
-				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '"
-						+ column.getIndex() + "')\"");
-				writer.print(" onMouseDown=\"JWic.controls.TableViewer.pushColumn(" + column.getIndex() + ", '"
-						+ viewer.getControlID() + "')\"");
-				writer.print(" onMouseUp=\"JWic.controls.TableViewer.releaseColumn()\"");
-				writer.print(" onMouseOut=\"JWic.controls.TableViewer.releaseColumn()\"");
-			}
-			writer.print(">");
-			writer.print("<NOBR>");
-			if (column.getImage() != null) {
-				writer.print("<IMG SRC=\"" + column.getImage().getPath() + "\" border=0/>");
-			}
 			writer.print(column.getTitle());
-			writer.print("</NOBR>");
-			writer.print("</TD>");
-			if (column.getSortIcon() != TableColumn.SORT_ICON_NONE) {
-				ImageRef imgSort = null;
-				switch (column.getSortIcon()) {
-				case TableColumn.SORT_ICON_UP:
-					imgSort = ICON_SORTUP;
-					break;
-				case TableColumn.SORT_ICON_DOWN:
-					imgSort = ICON_SORTDOWN;
-					break;
-				}
-				if (imgSort != null) {
-					writer.print("<TD class=\"tbvColHeadCell\" width=\"8\">");
-					writer.print("<IMG SRC=\"" + imgSort.getPath() + "\" border=0>");
-					writer.print("</TD>");
-				}
-			}
-			if (isResizable) {
-				writer.print("<TD class=\"tbvColHeadCellPoint\" width=\"3\"><IMG SRC=\"" + tblGfxPath
-						+ "resizer.gif\" width=\"3\" height=\"13\"");
-				writer.print(" colIdx=\"" + column.getIndex() + "\"");
-				// writer.print("
-				// onMouseDown=\"JWic.controls.TableViewer.resizeColumn(event,
-				// '" + viewer.getControlID() + "')\"");
-				writer.print(" class=\"tblResize\" border=0>");
-				writer.print("</TD>");
-			}
-			writer.print("</TR></TABLE>");
+
 			writer.println("</th>");
 		}
 
@@ -699,7 +673,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		}
 		return count;
 	}
-	
+
 	/**
 	 * @param writer
 	 * @param rootIterator
@@ -717,18 +691,8 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 			count++;
 			String key = contentProvider.getUniqueKey(row);
 			boolean expanded = model.isExpanded(key);
-			writer.print("<tr");
-			String rowCssClass = "";
-			if (!(it.hasNext() || hasNext || contentProvider.hasChildren(row))) {
-				rowCssClass = "lastRow";
-			}
+			writer.print("<tr>");
 
-			// handle selection
-			writer.print(" tbvRowKey=\"" + key + "\"");
-			if (rowCssClass.length() != 0) {
-				writer.print(" class=\"" + rowCssClass + "\"");
-			}
-			writer.println(">");
 			for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
 				TableColumn column = itC.next();
 				if (!column.isVisible()) {
@@ -738,9 +702,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				CellLabel cell = labelProvider.getCellLabel(row, column, new RowContext(expanded, level));
 
 				writer.print("<td");
-				if (column.getWidth() > 0) {
-					writer.print(" width=\"" + column.getWidth() + "\"");
-				}
 				if (cell.cssClass != null) {
 					writer.print(" class=\"" + cell.cssClass + "\"");
 				}

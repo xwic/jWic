@@ -66,7 +66,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private ITableLabelProvider tableLabelProvider = null;
 
 	private String cssClass = "tblViewer";
-	private String mCssClass = "tblViewer";
+	private String mCssClass = "ui-responsive table-stroke ui-table ui-table-columntoggle";
 	private int height = 0;
 	private int width = 0;
 	private int rowHeightHint = 18;
