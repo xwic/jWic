@@ -373,16 +373,13 @@ JWic.mobile = {
 		/**
 		 * Initialize the TableViewer.
 		 */
-		initialize : function(tableviewer, viewerCtrlId, options) {
-			var popup = JWic.$(viewerCtrlId+"-popup");
+		initialize : function(tableviewer, controlID, options) {
 			tableviewer.table({
 				defaults : options.defaults,
 				disabled : options.disabled,
 				columnBtnText : options.columnBtnText 
 			});
-			popup.popup({
-				
-			});
+			var popupElement = JWic.$(controlID + "-popup");
 		}
 	}
 };

@@ -72,12 +72,12 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 		renderContext.addRequiredJSContent(TableViewer.class.getName().replace('.', '/') + ".static.js");
 		renderContext.addScript(viewer.getControlID(),
 				"{ afterUpdate: function(element) {JWic.mobile.TableViewer.initialize(JWic.$('" + viewer.getControlID()
-						+ "'), '" + viewer.getControlID() + "', {" + " colResize : " + viewer.isResizeableColumns()
-						+ " ,menu : "
+						+ "'), '"+ viewer.getControlID() +"', {" + " colResize : "
+						+ viewer.isResizeableColumns() + ", menu : "
 						+ (viewer.getMenu() != null ? "\'" + viewer.getMenu().getControlID() + "\'"
-								: "null" + " ,fitToParent:" + model.isFitToParent() + " ,defaults : "
-										+ viewer.getModel().isDefaults() + " ,disabled : "
-										+ viewer.getModel().isDisabled() + " ,columnBtnText : \""
+								: "null" + ", fitToParent:" + model.isFitToParent() + ", defaults : "
+										+ viewer.getModel().isDefaults() + ", disabled : "
+										+ viewer.getModel().isDisabled() + ", columnBtnText : \""
 										+ viewer.getModel().getColumnBtnText() + "\"")
 						+ "});}}");
 
@@ -134,8 +134,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 
 		writer.println("</TBODY>");
 		writer.println("</table>");
-
-		renderMPopup(writer, model, viewer);
 	}
 
 	/*
@@ -466,37 +464,10 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	/**
 	 * 
 	 */
-	protected void renderMPopup(PrintWriter writer, TableModel model, TableViewer viewer) {
-
-		writer.println("<div class=\"ui-popup-screen ui-overlay-inherit ui-screen-hidden\" id=\""
-				+ viewer.getControlID() + "-popup-screen\"></div>");
-
-		writer.println("<div class=\"ui-popup-container ui-popup-hidden ui-popup-truncate\" id=\""
-				+ viewer.getControlID() + "-popup-popup\">");
-
-		writer.println(
-				"<div class=\"ui-table-columntoggle-popup ui-popup ui-body-inherit ui-overlay-shadow ui-corner-all\" data-role=\"popup\" id=\""
-						+ viewer.getControlID() + "-popup\">");
-
-		writer.println("<fieldset class=\"ui-controlgroup ui-controlgroup-vertical ui-corner-all\"> "
-				+ "<div class=\"ui-controlgroup-controls\">");
-
-		for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
-			TableColumn column = itC.next();
-
-			writer.print("<div class=\"ui-checkbox\">"
-					+ "<label class=\"ui-btn ui-corner-all ui-btn-null ui-btn-icon-left ui-checkbox-on ui-first-child\">"
-					+ column.getTitle() + "</label>" + "<input type=\"checkbox\" checked=\"\">" + "</div>");
-		}
-		writer.println("</div></fieldset></div></div>");
-	}
-
-	/**
-	 * 
-	 */
 	protected void renderMHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblGfxPath) {
 
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
+		int counter = 1;
 
 		writer.println("<THEAD>");
 
@@ -512,18 +483,17 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				column.setWidth(150);
 			}
 
-			writer.print("<th data-priority=\"1\" class=\"ui-table-priority-1\"");
-
-			// header tooltip
-			if (column.getToolTip() != null && column.getToolTip().length() > 0) {
-				writer.print(" title=\"" + column.getToolTip() + "\"");
-			}
+			writer.print("<th data-priority=\"" + counter + "\"");
 
 			writer.println(">");
 			// create cell table
 			writer.print(column.getTitle());
 
 			writer.println("</th>");
+
+			counter++;
+			if (counter > 3)
+				counter = 1;
 		}
 
 		// if the width is fixed, we must render an empty column at the end so
