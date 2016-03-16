@@ -69,7 +69,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	public void renderMTable(RenderContext renderContext, TableViewer viewer, TableModel model,
 			ITableLabelProvider labelProvider) {
 
-		renderContext.addRequiredJSContent(TableViewer.class.getName().replace('.', '/') + ".static.js");
 		renderContext.addScript(viewer.getControlID(),
 				"{ afterUpdate: function(element) {JWic.mobile.TableViewer.initialize(JWic.$('" + viewer.getControlID()
 						+ "'), '"+ viewer.getControlID() +"', {" + " colResize : "
@@ -80,8 +79,6 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 										+ viewer.getModel().isDisabled() + ", columnBtnText : \""
 										+ viewer.getModel().getColumnBtnText() + "\"")
 						+ "});}}");
-
-		String tblvGfxPath = JWicRuntime.getJWicRuntime().getContextPath() + "/jwic/gfx/";
 
 		PrintWriter writer = renderContext.getWriter();
 
@@ -98,7 +95,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 				+ "class=\"" + viewer.getmCssClass() + "\">");
 
 		if (viewer.isShowHeader())
-			renderMHeader(writer, model, viewer, tblvGfxPath);
+			renderMHeader(writer, model, viewer);
 
 		Range range = model.getRange();
 		if (range.getMax() == 0) { // = Auto
@@ -464,7 +461,7 @@ public class DefaultTableRenderer implements ITableRenderer, Serializable {
 	/**
 	 * 
 	 */
-	protected void renderMHeader(PrintWriter writer, TableModel model, TableViewer viewer, String tblGfxPath) {
+	protected void renderMHeader(PrintWriter writer, TableModel model, TableViewer viewer) {
 
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
 		int counter = 1;

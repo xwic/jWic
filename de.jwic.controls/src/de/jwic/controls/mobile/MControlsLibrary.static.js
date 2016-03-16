@@ -369,7 +369,7 @@ JWic.mobile = {
 		}
 	},
 	TableViewer : {
-
+		
 		/**
 		 * Initialize the TableViewer.
 		 */
@@ -379,7 +379,6 @@ JWic.mobile = {
 				disabled : options.disabled,
 				columnBtnText : options.columnBtnText 
 			});
-			var popupElement = JWic.$(controlID + "-popup");
 		}
 	}
 };

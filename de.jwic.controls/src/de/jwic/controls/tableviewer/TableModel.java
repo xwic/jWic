@@ -35,6 +35,10 @@ import de.jwic.events.ElementSelectedListener;
  * 
  * @author Florian Lippisch
  */
+/**
+ * @author vedad
+ *
+ */
 public class TableModel implements Serializable {
 
 	/**
@@ -82,6 +86,10 @@ public class TableModel implements Serializable {
 	protected int lastRenderedPageSize = -1;
 	private boolean fitToParent = true;
 
+	
+	/**
+	 * Mobile TableViewer behaviors
+	 */
 	private boolean defaults = false;
 	private boolean disabled = false;
 	private String columnBtnText  = "Columns...";
