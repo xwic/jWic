@@ -3,10 +3,12 @@
  */
 package de.jwic.demo.chart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
+import de.jwic.controls.chart.api.ValueListDataset;
 import de.jwic.controls.chart.api.ValueListDatasetModel;
 import de.jwic.controls.chart.impl.OverlayChart;
 import de.jwic.demo.chart.util.DataModelCreator;
@@ -93,8 +95,23 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected List<TableElement> convertChartModelToTableElements() {
-		// TODO Auto-generated method stub
-		return null;
+		List<TableElement> elements = new ArrayList<TableElement>();
+
+		for (ValueListDataset set : model.getDatasets()) {
+			int i = 0;
+			for (Double in : set.getData()) {
+				TableElement el = new TableElement();
+				el.setTitle(model.getLabels().get(i));
+				el.setValue(in.toString());
+				el.setFillColor(set.getFillColor());
+				el.setHighlightColor(set.getHighlightColor());
+				elements.add(el);
+				i++;
+			}
+
+		}
+
+		return elements;
 	}
 
 }
