@@ -22,11 +22,7 @@ import de.jwic.controls.Button;
 import de.jwic.controls.DateTimePicker;
 import de.jwic.controls.InputBox;
 import de.jwic.controls.ListBox;
-import de.jwic.events.SelectionEvent;
-import de.jwic.events.SelectionListener;
-import de.jwic.events.ValueChangedEvent;
-import de.jwic.events.ValueChangedListener;
-import de.jwic.samples.controls.propeditor.PropertyEditorView;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,5 +101,18 @@ public class TimeZoneSelectionCombo extends ListBox {
 		}
 
 		requireRedraw();
+	}
+
+	/**
+	 * @return
+	 */
+	public TimeZone getSelectedTimeZone(boolean defaultIfEmpty) {
+		String tzId = getSelectedKey();
+
+		if (StringUtils.isEmpty(tzId)) {
+			return defaultIfEmpty ? TimeZone.getDefault() : null;
+		}
+
+		return TimeZone.getTimeZone(tzId);
 	}
 }

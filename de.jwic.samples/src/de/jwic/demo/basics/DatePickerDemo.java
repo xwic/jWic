@@ -71,7 +71,7 @@ public class DatePickerDemo extends ControlContainer {
 	 *
 	 */
 	private void onTimeZoneChanged() {
-		TimeZone tz = TimeZone.getTimeZone(cmbTimeZone.getSelectedKey());
+		TimeZone tz = cmbTimeZone.getSelectedTimeZone(true);
 
 		dtInstallationDate.setTimeZone(tz);
 
