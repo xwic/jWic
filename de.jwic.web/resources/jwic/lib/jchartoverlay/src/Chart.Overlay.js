@@ -1,9 +1,9 @@
 (function() {
     "use strict";
 
-    var root = this,
-        Chart = root.Chart,
-        helpers = Chart.helpers;
+    var root = this;
+    var Chart = root.Chart;
+    var helpers = Chart.helpers;
     //Overlay is a extention of the bar graph to allow the combination
     //of both line and bar charts on the same graph.
     //this graph extends the bar graph as the bar graphs scale is used due to 
