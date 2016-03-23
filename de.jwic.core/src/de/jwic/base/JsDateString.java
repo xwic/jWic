@@ -49,6 +49,6 @@ public class JsDateString implements JSONString {
 		long offset = timeZone != null ? timeZone.getOffset(date.getTime()) : 0;
 		long currentTime = offset + date.getTime();
 		
-		return "JWic.controls.DateTimePicker.convertDate('" + currentTime + "')";
+		return "JWic.controls.DatePicker.convertDate('" + currentTime + "')";
 	}
 }
