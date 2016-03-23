@@ -489,4 +489,9 @@ public class DatePicker extends InputBox {
 		return open;
 	}
 
+	@Override
+	@IncludeJsOption
+	public boolean isEnabled() {
+		return super.isEnabled() && !readonly;
+	}
 }
