@@ -8,7 +8,7 @@ package de.jwic.controls.chart.api;
 public enum ChartType {
 	LINE("line"), BAR("bar"), RADAR("radar"), POLAR("polar"), CIRCLE("circle"), DATE_TIME(
 			"scatter"), ERROR_BAR("errorbar"), ERROR_LINE("errorline"), STACKED_BAR(
-			"stackedbar");
+			"stackedbar"), OVERLAY("overlay");
 
 	private String name;
 
@@ -49,6 +49,8 @@ public enum ChartType {
 				return DATE_TIME;
 			} else if (STACKED_BAR.name.equals(element)) {
 				return STACKED_BAR;
+			} else if (OVERLAY.name.equals(element)) {
+				return OVERLAY;
 			}
 		}
 		return null;

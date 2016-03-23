@@ -47,6 +47,7 @@ import de.jwic.demo.basics.ToolBarDemoModule;
 import de.jwic.demo.chart.BarChartDemoModule;
 import de.jwic.demo.chart.CircleChartDemoModule;
 import de.jwic.demo.chart.LineChartDemoModule;
+import de.jwic.demo.chart.OverlayChartDemoModule;
 import de.jwic.demo.chart.PolarChartDemoModule;
 import de.jwic.demo.chart.RadarChartDemoModule;
 import de.jwic.demo.chart.DateTimeChartDemoModule;
@@ -113,6 +114,7 @@ public class DemoApplication extends Application {
 		modules.add(new StackedContainerDemoModule());
 		modules.add(new CKEditorDemoModule());
 		modules.add(new BarChartDemoModule());
+		modules.add(new OverlayChartDemoModule());
 		modules.add(new LineChartDemoModule());
 		modules.add(new RadarChartDemoModule());
 		modules.add(new DateTimeChartDemoModule());

@@ -61,34 +61,34 @@ public abstract class ChartConfiguration implements Serializable {
 
 	private String legendTemplate;
 
-	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "datasetStroke", stacked = "barShowStroke")
+	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "datasetStroke", stacked = "barShowStroke", overlay = "")
 	private boolean showStroke = true;
 
-	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "", stacked = "", overlay = "")
 	private String strokeColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "datasetStrokeWidth", stacked = "barStrokeWidth")
+	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "datasetStrokeWidth", stacked = "barStrokeWidth", overlay = "")
 	private int segmentStrokeWidth = 2;
 
-	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "", dateTime = "scaleShowHorizontalLines", stacked = "scaleShowHorizontalLines")
+	@JsonChartName(bar = "scaleShowHorizontalLines", circle = "", line = "scaleShowHorizontalLines", polar = "", radar = "", dateTime = "scaleShowHorizontalLines", stacked = "scaleShowHorizontalLines", overlay = "")
 	private boolean scaleShowHorizontalLines = false;
 
-	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "", dateTime = "scaleShowVerticalLines", stacked = "scaleShowVerticalLines")
+	@JsonChartName(bar = "scaleShowVerticalLines", circle = "", line = "scaleShowVerticalLines", polar = "", radar = "", dateTime = "scaleShowVerticalLines", stacked = "scaleShowVerticalLines", overlay = "")
 	private boolean scaleShowVerticalLines = false;
 
-	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "", dateTime = "scaleShowGridLines", stacked = "scaleShowGridLines")
+	@JsonChartName(bar = "scaleShowGridLines", circle = "", line = "scaleShowGridLines", polar = "", radar = "", dateTime = "scaleShowGridLines", stacked = "scaleShowGridLines", overlay = "")
 	private boolean scaleShowGridLines = true;
 
-	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "", dateTime = "scaleGridLineColor", stacked = "scaleGridLineColor")
+	@JsonChartName(bar = "scaleGridLineColor", circle = "", line = "scaleGridLineColor", polar = "", radar = "", dateTime = "scaleGridLineColor", stacked = "scaleGridLineColor", overlay = "")
 	private String scaleGridLineColor = "rgba(0,0,0,1)";
 
-	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "", dateTime = "scaleGridLineWidth", stacked = "scaleGridLineWidth")
+	@JsonChartName(bar = "scaleGridLineWidth", circle = "", line = "scaleGridLineWidth", polar = "", radar = "", dateTime = "scaleGridLineWidth", stacked = "scaleGridLineWidth", overlay = "")
 	private int scaleGridLineWidth = 1;
 
-	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "animateScale", line = "", polar = "animateScale", radar = "animateScale", dateTime = "", stacked = "", overlay = "")
 	private boolean animateScale = false;
 
-	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate", dateTime = "", stacked = "")
+	@JsonChartName(bar = "", circle = "animateRotate", line = "", polar = "animateRotate", radar = "animateRotate", dateTime = "", stacked = "", overlay = "")
 	private boolean animateRotate = true;
 
 	public ChartConfiguration(String legend) {
