@@ -1,6 +1,6 @@
 #set($fld = $control.getField("text"))
 #set($fldKey = $control.getField("key"))
-<div id="$control.controlID" class="$control.cssClass" style="width: ${control.width}px;">
+<div id="$control.controlID" class="$control.cssClass" #if($control.width>0) style="width: ${control.width}px;" #end>
 #if($control.comboBehavior.showOpenBoxIcon)
 <a id="${control.controlID}_open" class="${control.cssClass}_open" href="#" #if ( $control.enabled ) onClick="JWic.controls.Combo.openContentBox('$control.controlID');return false;" #end></a>
 #end

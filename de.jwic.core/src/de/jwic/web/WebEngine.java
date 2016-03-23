@@ -167,12 +167,14 @@ public class WebEngine  {
 			ConfigurationTool.insertRootPath(veprop);
 		} catch (Exception ex) {
 			log.warn("WEB-INF/jwic/velocity.WebEngine.properties not found, using defaults");
-			veprop.setProperty("resource.loader", "file");
+			veprop.setProperty("resource.loader", "file,class");
 			veprop.setProperty("file.resource.loader.description", "Velocity File Resource Loader");
 			veprop.setProperty("file.resource.loader.class", "org.apache.velocity.runtime.resource.loader.FileResourceLoader");
 			veprop.setProperty("file.resource.loader.path", rootDir);
 			veprop.setProperty("file.resource.loader.cache", "true");
 			veprop.setProperty("file.resource.loader.modificationCheckInterval", "2");
+			veprop.setProperty("class.resource.loader.description", "Velocity Classpath Resource Loader");
+			veprop.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
 		}
 		ve.init(veprop);
 		

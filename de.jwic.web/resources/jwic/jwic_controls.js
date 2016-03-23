@@ -1957,9 +1957,8 @@ JWic.controls = {
 			},
 			
 			activateHandler : function (event, ui) {
-				
 				var elm =  jQuery(event.target);
-				var accordionId = elm.accordion("option", "active");
+				var accordionId = elm.accordion("option", "active") || -1;
 				JWic.fireAction(elm.attr('id'), "activeAccordion", accordionId);
 			},
 			activate : function(controlId, panelIdx) {
@@ -2058,14 +2057,15 @@ JWic.controls = {
 		 * 'Constructor'-like function
 		 */
 		initialize : function(options) {
-			var tooltipDiv = JWic.$('ctrl_'+options.controlId).find('#tooltip');
+			var tooltipDiv = JWic.$('tooltip_'+options.controlId);
 			//unique context object for each LazyTooltipControl
 			//this object gets passed around via closures
 			//we don't want to expose stuff on window (or anywhere thats globaly visible for that matter)
 			var context = {
 					controlId : options.controlId,
 					tooltip : tooltipDiv,
-					providers : options.providers.split(',')
+					providers : options.providers.split(','),
+					position : options.position
 			};
 			//only mouseover and mouseout are passed on the document object.
 			//this is because the document object is one that actually has the events
@@ -2103,8 +2103,8 @@ JWic.controls = {
 					func;
 				
 				if(attr != undefined && jQuery.inArray(attr,context.providers) !== -1){
-					func = compose([makeCall(context, handleMouseover, target), mapAttr]);
-					map(target,func);
+					var callFunc = makeCall(context, handleMouseover, target);
+					callFunc(mapAttr(target[0]));
 				}
 			}
 				
@@ -2150,16 +2150,39 @@ JWic.controls = {
 				providerClass = data.providerClass || "DefaultLazyTooltipContentProvider",
 				provider =  JWic.controls.LazyTooltipControl[providerClass],
 				offset,
-				size;
+				size,
+				position;
 			if(!provider){
 				provider =  JWic.controls.LazyTooltipControl.DefaultLazyTooltipContentProvider;
 			}
 			
-			//empty out the tooltip container and repopulate it
+			// calculate tooltip position
+			position = context.position;
+
+			_left = target.offset().left - win.scrollLeft() + 10;
+
+			switch (position) {
+			case "below":
+				_top = target.offset().top - win.scrollTop() + target.height() + 10;
+				break;
+			case "above":
+				_top = target.offset().top - win.scrollTop() - 10;
+				break;
+			case "over":
+				_top = target.offset().top - win.scrollTop() + 10;
+				break;
+            case "auto":
+			default:
+				// position is auto
+				_top = target.offset().top - win.scrollTop() + target.height() + 10;
+			}		
+			
+			// empty out the tooltip container and repopulate it
 			context.tooltip.empty().css({
-				top : target.offset().top - win.scrollTop() + target.height() + 10,
-				left : target.offset().left - win.scrollLeft() + 10,
-				position : 'fixed'
+				top : _top,
+				left : _left,
+				position : 'fixed',
+				'pointer-events' : 'none'
 			}).append(provider(data.data)).show();
 			
 			offset = context.tooltip.offset();
@@ -2169,7 +2192,7 @@ JWic.controls = {
 			};
 			
 			if((offset.top + size.height - win.scrollTop()) > win.height()){
-				offset.top -=  (size.height + 20);
+				offset.top -=  (size.height - 10);
 			}
 			if((offset.left + size.width - win.scrollLeft()) > win.width()){
 				offset.left -=  (size.width + 20);

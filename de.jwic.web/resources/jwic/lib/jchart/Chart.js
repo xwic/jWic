@@ -2618,8 +2618,8 @@
 						value : dataPoint,
 						label : data.labels[index],
 						datasetLabel: dataset.label,
-						strokeColor : dataset.pointStrokeColor,
-						fillColor : dataset.pointColor,
+						strokeColor : dataset.strokeColor,
+						fillColor : dataset.fillColor,
 						highlightFill : dataset.pointHighlightFill || dataset.pointColor,
 						highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
 					}));
@@ -3256,8 +3256,8 @@
 						datasetLabel: dataset.label,
 						x: (this.options.animation) ? this.scale.xCenter : pointPosition.x,
 						y: (this.options.animation) ? this.scale.yCenter : pointPosition.y,
-						strokeColor : dataset.pointStrokeColor,
-						fillColor : dataset.pointColor,
+						strokeColor : dataset.strokeColor,
+						fillColor : dataset.fillColor,
 						highlightFill : dataset.pointHighlightFill || dataset.pointColor,
 						highlightStroke : dataset.pointHighlightStroke || dataset.pointStrokeColor
 					}));
