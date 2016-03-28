@@ -21,6 +21,10 @@
 //			setTimeout(function(){
 //				inpElm.datetimepicker(options.open ? 'show':'hide');
 //			},0);//small delay
+			var hidInp = jQuery("input[name=" + JWic.util.JQryEscape("${control.field.id}") + "]" );
+			if(!hidInp.val()) {
+				inpElm.val("");
+			}
 		}
 		
 	},
