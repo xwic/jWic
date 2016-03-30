@@ -5,9 +5,14 @@
 			openTooltipId : null,
 			
 			initialize : function(controlID, options, config, labelData, dataset, yaxes) {
+				var Chartv2 = Chart.noConflict();
 				var canvas = document.getElementById('chart_' + controlID);
 				var ctx = canvas.getContext("2d");	
-				var chart = new Chart(ctx);
+				if (options.chartType == "overlay"){
+					var chart = new Chartv2(ctx);
+				} else {
+					var chart = new Chart(ctx);
+				}
 			    
 				if(config.customTooltip) {
 					try {
