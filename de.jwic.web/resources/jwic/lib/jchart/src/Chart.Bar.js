@@ -7,6 +7,11 @@
 
 
 	var defaultConfig = {
+		//Function - Whether the current x-axis label should be filtered out, takes in current label and 
+        //index, return true to filter out the label return false to keep the label
+        labelsFilter: function(label, index) {
+            return false;
+        },
 		//Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
 		scaleBeginAtZero : true,
 

@@ -10,8 +10,12 @@
 		var options = $control.buildJsonOptions();
 		var labelData = $control.model.labelsJson;
 		var dataset = $control.model.datasetsJson;
+		if (options.chartType=="overlay")
+			var yaxes = $control.model.yaxesJson;
+		else
+			var yaxes = null;
 		
-		JWic.controls.Chart.initialize('$control.controlID', options, config, labelData, dataset);
+		JWic.controls.Chart.initialize('$control.controlID', options, config, labelData, dataset, yaxes);
 	}
 
 }

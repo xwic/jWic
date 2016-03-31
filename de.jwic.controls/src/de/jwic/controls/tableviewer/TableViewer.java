@@ -63,6 +63,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	private TableModel model = new TableModel();
 	private ITableRenderer tableRenderer = new DefaultTableRenderer();
+	private IMTableRenderer mtableRenderer = new DefaultMTableRenderer();
 	private ITableLabelProvider tableLabelProvider = null;
 
 	private String cssClass = "tblViewer";
@@ -142,7 +143,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		if (!isMobile())
 			tableRenderer.renderTable(renderContext, this, getModel(), tableLabelProvider);
 		else
-			tableRenderer.renderMTable(renderContext, this, getModel(), tableLabelProvider);
+			mtableRenderer.renderMTable(renderContext, this, getModel(), tableLabelProvider);
 	}
 
 	/**

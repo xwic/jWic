@@ -100,7 +100,7 @@ div.j-listColSel div.j-colRow {
 	position: absolute;
 }
 
-#click_blocker_message div.loadingIcon {
+div.loadingIcon {
 	background-image: url("../jWic/images/loading3.gif");
 	width: 35px;
 	height: 35px;

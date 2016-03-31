@@ -66,7 +66,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private boolean notifySuccess = false;
 	private long seqNum = 0;
 	
-	private ImageRef waitImage = new ImageRef("/jwic/gfx/loading3.gif");
+	private String waitImageCss = "loadingIcon";
 	private Dimension waitBlockDimension = null;
 	private String waitText = null;
 	
@@ -255,17 +255,17 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	}
 
 	/**
-	 * @return the waitImage
+	 * @return the waitImageCss
 	 */
-	public ImageRef getWaitImage() {
-		return waitImage;
+	public String getWaitImageCss() {
+		return waitImageCss;
 	}
 
 	/**
-	 * @param waitImage the waitImage to set
+	 * @param waitImageCss the waitImageCss to set
 	 */
-	public void setWaitImage(ImageRef waitImage) {
-		this.waitImage = waitImage;
+	public void setWaitImageCss(String waitImageCss) {
+		this.waitImageCss = waitImageCss;
 	}
 
 	/**

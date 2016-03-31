@@ -18,29 +18,18 @@ public class ValueListDataset extends ChartDataset {
 	 */
 	private static final long serialVersionUID = 375389814468058669L;
 	private List<Double> data = new ArrayList<Double>();
-	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "", stacked = "")
+	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "", stacked = "", overlay = "fillColor")
 	private String fillColor = "#66ccff";
-
-	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "", stacked = "")
+	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "", stacked = "", overlay = "highlightFill")
 	private String highlightColor = "#66ff33";
-
-	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "", stacked = "")
+	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "", stacked = "", overlay = "strokeColor")
 	private String strokeColor = "#ffff00";
-
-	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "")
+	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "", overlay = "highlightStroke")
 	private String highlightStroke = "#ffffcc";
-
-	@JsonChartName(bar = "", circle = "", line = "pointColor", polar = "", radar = "pointColor", dateTime = "pointColor", stacked = "")
-	private String pointColor = "#ffff00";
-
-	@JsonChartName(bar = "", circle = "", line = "pointStrokeColor", polar = "", radar = "pointStrokeColor", dateTime = "pointStrokeColor", stacked = "")
-	private String pointStrokeColor = "#fff";
-
-	@JsonChartName(bar = "", circle = "", line = "pointHighlightFill", polar = "", radar = "pointHighlightFill", dateTime = "pointHighlightFill", stacked = "")
-	private String pointHighlightFill = "#fff";
-
-	@JsonChartName(bar = "", circle = "", line = "pointHighlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "pointHighlightStroke", stacked = "")
-	private String pointHighlightStroke = "#00a6ed";
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "type")
+	private String type = null;
+	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "yAxesGroup")
+	private String yAxesGroup = null;
 
 	/**
 	 * 
@@ -54,7 +43,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 */
 	public List<Double> getData() {
@@ -62,7 +51,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param data
 	 */
 	public void setData(List<Double> data) {
@@ -70,7 +59,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param strokeColor
 	 */
 	public void setStrokeColor(String strokeColor) {
@@ -80,7 +69,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 */
 	public String getHighlightStroke() {
@@ -88,7 +77,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param highlightStroke
 	 */
 	public void setHighlightStroke(String highlightStroke) {
@@ -98,7 +87,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 */
 	public String getStrokeColor() {
@@ -106,7 +95,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 */
 	public String getFillColor() {
@@ -114,7 +103,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param fillColor
 	 */
 	public void setFillColor(String fillColor) {
@@ -124,7 +113,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @return
 	 */
 	public String getHighlightColor() {
@@ -132,7 +121,7 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 *
+	 * 
 	 * @param highlightColor
 	 */
 	public void setHighlightColor(String highlightColor) {
@@ -142,58 +131,31 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 * @return
+	 * @return the type
 	 */
-	public String getPointColor() {
-		return pointColor;
+	public String getType() {
+		return type;
 	}
 
 	/**
-	 * @param pointColor
+	 * @param type the type to set
 	 */
-	public void setPointColor(String pointColor) {
-		this.pointColor = pointColor;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	/**
-	 * @return
+	 * @return the yAxesGroup
 	 */
-	public String getPointStrokeColor() {
-		return pointStrokeColor;
+	public String getyAxesGroup() {
+		return yAxesGroup;
 	}
 
 	/**
-	 * @param pointStrokeColor
+	 * @param yAxesGroup the yAxesGroup to set
 	 */
-	public void setPointStrokeColor(String pointStrokeColor) {
-		this.pointStrokeColor = pointStrokeColor;
+	public void setyAxesGroup(String yAxesGroup) {
+		this.yAxesGroup = yAxesGroup;
 	}
 
-	/**
-	 * @return
-	 */
-	public String getPointHighlightFill() {
-		return pointHighlightFill;
-	}
-
-	/**
-	 * @param pointHighlightFill
-	 */
-	public void setPointHighlightFill(String pointHighlightFill) {
-		this.pointHighlightFill = pointHighlightFill;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getPointHighlightStroke() {
-		return pointHighlightStroke;
-	}
-
-	/**
-	 * @param pointHighlightStroke
-	 */
-	public void setPointHighlightStroke(String pointHighlightStroke) {
-		this.pointHighlightStroke = pointHighlightStroke;
-	}
 }
