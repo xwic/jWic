@@ -1,11 +1,11 @@
 (function($) {
+	var Chartv2 = Chart.noConflict();
 
 	$.extend(JWic.controls, {
 		Chart : {
 			openTooltipId : null,
 			
 			initialize : function(controlID, options, config, labelData, dataset, yaxes) {
-				var Chartv2 = Chart.noConflict();
 				var canvas = document.getElementById('chart_' + controlID);
 				var ctx = canvas.getContext("2d");	
 				if (options.chartType == "overlay"){
