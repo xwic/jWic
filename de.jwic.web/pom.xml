@@ -10,6 +10,37 @@
 
     <artifactId>jwic-web</artifactId>
      <packaging>jar</packaging>
+	
+	<build>
+        <plugins>
+            
+            <plugin>
+				<groupId>com.github.napp-com</groupId>
+				<artifactId>resource-minifier</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<id>mini</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>minify</goal>
+						</goals>
+						<configuration>
+							<processStartTag>#* PRODUCTION-MINIFY-START *#</processStartTag>
+							<processEndTag>#* PRODUCTION-MINIFY-END *#</processEndTag>
+							<inputDir>${basedir}/resources/jwic</inputDir>
+							<outputDir>${project.build.outputDirectory}/jwic</outputDir>
+							<inputHeaderFile>${basedir}/resources/jwic/include.header.vtl</inputHeaderFile>
+							<outputHeaderFile>${project.build.outputDirectory}/jwic/include.header.vtl</outputHeaderFile>
+							<minifiedCssFile>../jwic/jwic-all-css_${project.version}.css</minifiedCssFile>
+							<minifiedJsFile>../jwic/jwic-all-js_${project.version}.js</minifiedJsFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+        </plugins>
+    </build>
+	
 	<profiles>    
 		<profile>
 			<id>hacky</id>
