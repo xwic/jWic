@@ -45,7 +45,7 @@
 				<executions>
 					<execution>
 						<id>mini</id>
-						<phase>prepare-package</phase>
+						<phase>process-resources</phase>
 						<goals>
 							<goal>minify</goal>
 						</goals>
@@ -58,6 +58,31 @@
 							<outputHeaderFile>${project.build.outputDirectory}/jwic/include.header.vtl</outputHeaderFile>
 							<minifiedCssFile>$contextPath/jwic/jwic-all-css_${project.version}.css</minifiedCssFile>
 							<minifiedJsFile>$contextPath/jwic/jwic-all-js_${project.version}.js</minifiedJsFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copyminifiedfiles</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/jwic</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.build.outputDirectory}/jwic/$contextPath/jwic</directory>
+									<includes>
+										<include>jwic-all-css_${project.version}.css</include>
+										<include>jwic-all-js_${project.version}.js</include>
+									</includes>
+								</resource>
+							</resources>
 						</configuration>
 					</execution>
 				</executions>
