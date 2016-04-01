@@ -66,7 +66,7 @@ public class AsyncRenderContainer extends ControlContainer implements IResourceC
 	private boolean notifySuccess = false;
 	private long seqNum = 0;
 	
-	private String waitImageCss = "loadingIcon";
+	private String waitImageCss = "loadingIconAsync";
 	private Dimension waitBlockDimension = null;
 	private String waitText = null;
 	
