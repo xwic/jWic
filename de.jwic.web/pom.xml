@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <groupId>de.xwic.jwic</groupId>
-        <artifactId>jwic</artifactId>
-        <version>5.3.7-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <name>JWIC::WEB</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>de.xwic.jwic</groupId>
+		<artifactId>jwic</artifactId>
+		<version>5.3.7-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<name>JWIC::WEB</name>
 
-    <artifactId>jwic-web</artifactId>
-     <packaging>jar</packaging>
-	
+	<artifactId>jwic-web</artifactId>
+	<packaging>jar</packaging>
+
 	<build>
-        <plugins>
-            
-            <plugin>
+		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copyminifierresources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}/jwic/$contextPath/jwic</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/resources/jwic</directory>
+									<includes>
+										<include>**/*.js</include>
+										<include>**/*.css</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.github.napp-com</groupId>
 				<artifactId>resource-minifier</artifactId>
 				<version>1.0.0</version>
@@ -28,7 +53,7 @@
 						<configuration>
 							<processStartTag>#* PRODUCTION-MINIFY-START *#</processStartTag>
 							<processEndTag>#* PRODUCTION-MINIFY-END *#</processEndTag>
-							<inputDir>${basedir}/resources/jwic</inputDir>
+							<inputDir>${project.build.outputDirectory}/jwic</inputDir>
 							<outputDir>${project.build.outputDirectory}/jwic</outputDir>
 							<inputHeaderFile>${basedir}/resources/jwic/include.header.vtl</inputHeaderFile>
 							<outputHeaderFile>${project.build.outputDirectory}/jwic/include.header.vtl</outputHeaderFile>
@@ -38,31 +63,56 @@
 					</execution>
 				</executions>
 			</plugin>
-        </plugins>
-    </build>
-	
-	<profiles>    
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<id>deleteminifierresources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+						<configuration>
+							<excludeDefaultDirectories>true</excludeDefaultDirectories>
+							<filesets>
+								<fileset>
+									<directory>${project.build.outputDirectory}/jwic/$contextPath</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+									<followSymlinks>false</followSymlinks>
+								</fileset>
+							</filesets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
 		<profile>
 			<id>hacky</id>
 			<build>
 				<finalName>${project.artifactId}-${maven.build.timestamp}</finalName>
 			</build>
 		</profile>
-    </profiles>
-    
-    <dependencies>
+	</profiles>
+
+	<dependencies>
 		<!-- Related projects -->
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-core</artifactId>
-            <version>5.3.7-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>de.xwic.jwic</groupId>
-            <artifactId>jwic-controls</artifactId>
-            <version>5.3.7-SNAPSHOT</version>
-        </dependency>
-		
-    </dependencies>
+		<dependency>
+			<groupId>de.xwic.jwic</groupId>
+			<artifactId>jwic-core</artifactId>
+			<version>5.3.7-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>de.xwic.jwic</groupId>
+			<artifactId>jwic-controls</artifactId>
+			<version>5.3.7-SNAPSHOT</version>
+		</dependency>
+
+	</dependencies>
 
 </project>
