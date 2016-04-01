@@ -57,8 +57,8 @@
 							<outputDir>${project.build.outputDirectory}/jwic</outputDir>
 							<inputHeaderFile>${basedir}/resources/jwic/include.header.vtl</inputHeaderFile>
 							<outputHeaderFile>${project.build.outputDirectory}/jwic/include.header.vtl</outputHeaderFile>
-							<minifiedCssFile>../jwic/jwic-all-css_${project.version}.css</minifiedCssFile>
-							<minifiedJsFile>../jwic/jwic-all-js_${project.version}.js</minifiedJsFile>
+							<minifiedCssFile>$contextPath/jwic/jwic-all-css_${project.version}.css</minifiedCssFile>
+							<minifiedJsFile>$contextPath/jwic/jwic-all-js_${project.version}.js</minifiedJsFile>
 						</configuration>
 					</execution>
 				</executions>
