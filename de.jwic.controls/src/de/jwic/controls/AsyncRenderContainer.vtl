@@ -4,9 +4,8 @@
 #if($control.waitBlockDimension)
 <div style="width: ${control.waitBlockDimension.width}px; height: ${control.waitBlockDimension.height}px">
 #end
-
-#if($control.waitImage)
-$control.waitImage.toImgTag()<br/>
+#if($control.waitImageCss)
+<div class="$control.waitImageCss"></div><br/>
 #end
 #if($control.waitText)
 $!control.waitText
