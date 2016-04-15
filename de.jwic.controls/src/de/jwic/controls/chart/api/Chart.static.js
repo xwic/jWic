@@ -76,7 +76,7 @@
 					break;
 					
 				case 'stackedbar':
-					chartImpl = chart.StackedBar(chartData, options);
+					chartImpl = chart.StackedBar(chartData, config);
 					findElement = chartImpl.getBarsAtEvent;
 					break;
 				
