@@ -1,4 +1,4 @@
-<input type="hidden" name="${control.field.id}" id="${control.controlID}_field" value="$jwic.formatInp(${control.field.value})"/>
+<input type="hidden" name="${control.field.id}_field" id="${control.controlID}_field" value="$jwic.formatInp(${control.field.value})"/>
 #if ( $control.multiLine )
 <textarea name="${control.controlID}" rows="${control.rows}" cols="${control.cols}" id="${control.controlID}"
 	$jwic.generateCssProperty($control, "")
@@ -17,7 +17,7 @@
 	#if ( $control.maxLength != 0 )maxlength="$control.maxLength" #end
 	$jwic.generateCssProperty($control, "")
 	#if ( $control.cols != 0 ) size="${control.cols}" #end
-	name="${control.controlID}"
+	name="${control.field.id}"
 	id="${control.controlID}"
 >
 #end
