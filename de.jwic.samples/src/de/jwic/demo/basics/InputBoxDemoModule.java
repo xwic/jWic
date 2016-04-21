@@ -21,6 +21,9 @@ package de.jwic.demo.basics;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.Button;
 import de.jwic.controls.DatePicker;
@@ -31,6 +34,8 @@ import de.jwic.controls.NumericInputBox;
 import de.jwic.controls.ValidatedInputBox;
 import de.jwic.controls.layout.TableLayoutContainer;
 import de.jwic.demo.DemoModule;
+import de.jwic.events.KeyEvent;
+import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 
@@ -39,6 +44,8 @@ import de.jwic.events.SelectionListener;
  *
  */
 public class InputBoxDemoModule extends DemoModule {
+	
+	protected final Log log = LogFactory.getLog(getClass());
 
 	/**
 	 * 
@@ -46,10 +53,12 @@ public class InputBoxDemoModule extends DemoModule {
 	public InputBoxDemoModule() {
 		setTitle("Input Box");
 		setDescription("A control that allows the user to enter text");
-		
+
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see de.jwic.demo.DemoModule#createModule(de.jwic.base.IControlContainer)
 	 */
 	@Override
@@ -57,10 +66,18 @@ public class InputBoxDemoModule extends DemoModule {
 
 		TableLayoutContainer tlc = new TableLayoutContainer(container);
 		tlc.setColumnCount(2);
-		
+
 		new LabelControl(tlc).setText("Basic Input Field");
-		new InputBox(tlc);
-		
+		final InputBox inptBox = new InputBox(tlc);
+		inptBox.setListenKeyCode(13);
+		inptBox.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+				log.debug("Key pressed for InputBox with listen key code " + inptBox.getListenKeyCode());
+			}
+		});
+
 		new LabelControl(tlc).setText("With content");
 		InputBox txt = new InputBox(tlc);
 		txt.setWidth(500);
@@ -79,7 +96,6 @@ public class InputBoxDemoModule extends DemoModule {
 		txtArea.setHeight(100);
 		txtArea.setText("This is a multiline InputBox with specific dimensions.");
 
-		
 		new LabelControl(tlc).setText("Empty with EmptyInfoText");
 		InputBox txt2 = new InputBox(tlc);
 		txt2.setWidth(500);
@@ -91,23 +107,29 @@ public class InputBoxDemoModule extends DemoModule {
 		txt3.setFlagAsError(true);
 		txt3.setText("This is not correct.");
 
-
 		new LabelControl(tlc).setText("NumericInputBox");
-		NumericInputBox numInp = new NumericInputBox(tlc);
+		final NumericInputBox numInp = new NumericInputBox(tlc);
 		numInp.setWidth(120);
-		numInp.setNumber(120750.50d);
-		
+		numInp.setNumber(4d);
+		numInp.setListenKeyCode(13);
+		numInp.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent event) {
+				log.debug("Key pressed for NumericInputBox with listen key code " + numInp.getListenKeyCode());
+			}
+		});
+
 		new LabelControl(tlc).setText("DatePicker");
 		DatePicker datePicker = new DatePicker(tlc);
 		datePicker.setWidth(500);
 		datePicker.setEmptyInfoText("Select a date..");
-		
-		
+
 		new Label(tlc).setText("Validated Input (Here its an email address) :");
 		final ValidatedInputBox vib = new ValidatedInputBox(tlc);
-		vib.setRegExp(ValidatedInputBox.EMAIL_PATTERN); // validates an email address
-		
-		
+		vib.setRegExp(ValidatedInputBox.EMAIL_PATTERN); // validates an email
+														// address
+
 	}
 
 }

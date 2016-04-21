@@ -1,12 +1,4 @@
 <input type="hidden" name="${control.field.id}_field" id="${control.controlID}_field" value="$jwic.formatInp(${control.field.value})"/>
-#if ( $control.multiLine )
-<textarea name="${control.controlID}" rows="${control.rows}" cols="${control.cols}" id="${control.controlID}"
-	$jwic.generateCssProperty($control, "")
-    #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)"#end
-    #if($control.field.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
-	#if ( $control.readonly )readonly #end	
-	#if ( !$control.enabled ) disabled #end></textarea>
-#else
 <input 
     #if($control.emptyInfoText) placeholder="$jwic.formatInp($control.emptyInfoText)" #end
     #if($control.field.value == "") xIsEmpty="true" #else xIsEmpty="false" #end
@@ -20,4 +12,3 @@
 	name="${control.field.id}"
 	id="${control.controlID}"
 >
-#end
