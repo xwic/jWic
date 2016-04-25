@@ -851,7 +851,7 @@
 			this.stop();
 			var canvas = this.chart.canvas,
 				newWidth = getMaximumWidth(this.chart.canvas),
-				newHeight = this.options.maintainAspectRatio ? newWidth / this.chart.aspectRatio : getMaximumHeight(this.chart.canvas);
+				newHeight = this.options.maintainAspectRatio ? newWidth / this.chart.aspectRatio : newWidth;
 
 			canvas.width = this.chart.width = newWidth;
 			canvas.height = this.chart.height = newHeight;
