@@ -31,7 +31,9 @@ public class CircleChartDemo extends
 
 	@Override
 	protected CircleChart createChart(SimpleValueDatasetModel model) {
-		return new CircleChart(this, "chart", model);
+		CircleChart chart = new CircleChart(this, "chart", model);
+		
+		return chart;
 	}
 
 	@Override
