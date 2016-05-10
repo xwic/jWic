@@ -10,6 +10,8 @@
 		var options = $control.buildJsonOptions();
 		var labelData = $control.model.labelsJson;
 		var dataset = $control.model.datasetsJson;
+		var animation = $control.model.animationJson;
+		config.animation = animation;
 		if (options.chartType=="overlay")
 			var yaxes = $control.model.yaxesJson;
 		else

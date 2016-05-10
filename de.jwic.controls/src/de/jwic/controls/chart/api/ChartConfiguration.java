@@ -26,7 +26,7 @@ public abstract class ChartConfiguration implements Serializable {
 	private boolean enabled = true;
 	private boolean responsive = false;
 	private boolean zoomEnabled = true;
-	private boolean animation = true;
+	private Object animation = null;
 	private int animationSteps = 60;
 	private AnimationEffect animationEasing = AnimationEffect.EASEINOUTBOUNCE;
 	private boolean showScale = true;
@@ -329,7 +329,7 @@ public abstract class ChartConfiguration implements Serializable {
 	 * 
 	 * @return Boolean - Whether to animate the chart
 	 */
-	public boolean isAnimation() {
+	public Object getAnimation() {
 		return animation;
 	}
 
@@ -338,7 +338,7 @@ public abstract class ChartConfiguration implements Serializable {
 	 * @param animation
 	 *            Boolean - Whether to animate the chart
 	 */
-	public void setAnimation(boolean animation) {
+	public void setAnimation(Object animation) {
 		this.animation = animation;
 	}
 
