@@ -18,8 +18,8 @@ public class SimpleValueDatasetModel extends ChartModel<SimpleValueDataset> {
 	 * 
 	 * @param datasets
 	 */
-	public SimpleValueDatasetModel(List<SimpleValueDataset> datasets) {
-		super(datasets);
+	public SimpleValueDatasetModel(List<SimpleValueDataset> datasets, Animation animation) {
+		super(datasets, animation);
 	}
 
 	/**

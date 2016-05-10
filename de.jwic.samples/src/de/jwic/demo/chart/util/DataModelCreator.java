@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -63,7 +64,7 @@ public class DataModelCreator {
 		datasets.add(chartd2);
 		chartd2.setFillColor("204, 0, 0,0.9");
 		ValueListDatasetModel model = new ValueListDatasetModel(labels,
-				datasets);
+				datasets, new Animation());
 		return model;
 	}
 
@@ -89,13 +90,13 @@ public class DataModelCreator {
 		datasets.add(chartd4);
 		datasets.add(chartd5);
 		datasets.add(chartd6);
-		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets);
+		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets, new Animation());
 		return model;
 	}
 
 	public static DateTimeChartModel getScatterChartModel() {
 		List<DateTimeChartDataset> datasets = new ArrayList<DateTimeChartDataset>();
-		DateTimeChartModel model = new DateTimeChartModel(datasets );
+		DateTimeChartModel model = new DateTimeChartModel(datasets, new Animation());
 		Map<Date, Double> map = new TreeMap<Date,Double>();
 		Calendar cal = Calendar.getInstance();
 		map.put(cal.getTime(), 14d);
@@ -172,7 +173,7 @@ public class DataModelCreator {
 		chartd2.setyAxesGroup(yaxes2.getName());
 		
 		ValueListDatasetModel model = new ValueListDatasetModel(labels,
-				datasets, yaxes);
+				datasets, yaxes, new Animation());
 		return model;
 	}
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -72,7 +73,7 @@ public class DataProvider {
 		datasets.add(chartd1);
 
 
-		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets);
+		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets, new Animation());
 		return model;
 	}
 
@@ -105,7 +106,7 @@ public class DataProvider {
 			datasets.add(chartd);
 		}
 
-		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets);
+		ValueListDatasetModel model = new ValueListDatasetModel(labels, datasets, new Animation());
 		return model;
 	}
 
@@ -127,7 +128,7 @@ public class DataProvider {
 			datasets.add(valDS);
 		}
 		
-		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets);
+		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets, new Animation());
 		return model;
 	}
 

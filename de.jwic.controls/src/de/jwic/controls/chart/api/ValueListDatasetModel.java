@@ -18,15 +18,14 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	private static final long serialVersionUID = -2421385147478923715L;
 	private List<String> labels;
 	private List<YAxes> yaxes;
-	private Animation animation = new Animation();
 
 	/**
 	 * 
 	 * @param labels
 	 * @param datasets
 	 */
-	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets) {
-		super(datasets);
+	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets, Animation animation) {
+		super(datasets, animation);
 		this.labels = labels;
 	}
 	
@@ -35,8 +34,8 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 	 * @param labels
 	 * @param datasets
 	 */
-	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets, List<YAxes> yaxes) {
-		super(datasets);
+	public ValueListDatasetModel(List<String> labels, List<ValueListDataset> datasets, List<YAxes> yaxes, Animation animation) {
+		super(datasets, animation);
 		this.labels = labels;
 		this.yaxes = yaxes;
 	}
@@ -232,28 +231,4 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 		update();
 
 	}
-
-	/**
-	 * @return the animation
-	 */
-	public Animation getAnimation() {
-		return animation;
-	}
-	
-	/**
-	 * returns the animation as json which will be rendered on java script site
-	 * 
-	 * @return
-	 */
-	public String getAnimationJson() {
-		return DataConverter.convertToJson(animation);
-	}
-
-	/**
-	 * @param animation the animation to set
-	 */
-	public void setAnimation(Animation animation) {
-		this.animation = animation;
-	}
-
 }

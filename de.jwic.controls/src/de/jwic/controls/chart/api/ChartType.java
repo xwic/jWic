@@ -6,7 +6,7 @@ package de.jwic.controls.chart.api;
  *
  */
 public enum ChartType {
-	LINE("line"), BAR("bar"), RADAR("radar"), POLAR("polar"), CIRCLE("circle"), DATE_TIME(
+	LINE("line"), BAR("bar"), RADAR("radar"), POLAR("polarArea"), CIRCLE("doughnut"), DATE_TIME(
 			"scatter"), ERROR_BAR("errorbar"), ERROR_LINE("errorline"), STACKED_BAR(
 			"stackedbar"), OVERLAY("overlay");
 

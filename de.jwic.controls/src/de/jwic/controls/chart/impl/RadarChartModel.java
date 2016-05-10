@@ -2,6 +2,7 @@ package de.jwic.controls.chart.impl;
 
 import java.util.List;
 
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -26,8 +27,8 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 	 * @param labels
 	 * @param datasets
 	 */
-	public RadarChartModel(List<String> labels, List<RadarChartDataset> datasets) {
-		super(datasets);
+	public RadarChartModel(List<String> labels, List<RadarChartDataset> datasets, Animation animation) {
+		super(datasets, animation);
 		this.labels = labels;
 	}
 

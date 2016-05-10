@@ -15,16 +15,39 @@
 					    datasets: dataset,
 					    yAxes: yaxes
 				};
+				var data = {
+					    labels: [
+					        "Red",
+					        "Green",
+					        "Yellow"
+					    ],
+					    datasets: [
+					        {
+					            data: [300, 50, 100],
+					            backgroundColor: [
+					                "#FF6384",
+					                "#36A2EB",
+					                "#FFCE56"
+					            ],
+					            hoverBackgroundColor: [
+					                "#FF6384",
+					                "#36A2EB",
+					                "#FFCE56"
+					            ]
+					        }]
+				};
 				chartConfig = {
 						type : options.chartType,
-						data : chartData,
+						data : data,
 						options : config
 				};
-				if (options.chartType == "overlay"){
-					var chart = new Chartv2(ctx);
-				} else {
-					var chart = new Chart(ctx, chartConfig);
-				}
+				
+				var chart = new Chart(ctx, chartConfig);
+//				if (options.chartType == "overlay"){
+//					var chart = new Chartv2(ctx);
+//				} else {
+//					var chart = new Chart(ctx, chartConfig);
+//				}
 			    
 				if(config.customTooltip) {
 					try {

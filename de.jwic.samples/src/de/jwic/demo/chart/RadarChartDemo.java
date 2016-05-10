@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.RadarChart;
 import de.jwic.controls.chart.impl.RadarChartDataset;
@@ -74,7 +75,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		labels.add("Working");
 		labels.add("Sweeming");
 		labels.add("Running");
-		return new RadarChartModel(labels, createDatasets());
+		return new RadarChartModel(labels, createDatasets(), new Animation());
 
 	}
 
