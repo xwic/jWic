@@ -16,26 +16,30 @@
 					    yAxes: yaxes
 				};
 				var data = {
-					    labels: [
-					        "Red",
-					        "Green",
-					        "Yellow"
-					    ],
+					    labels: ["January", "February", "March", "April", "May", "June", "July"],
 					    datasets: [
 					        {
-					            data: [300, 50, 100],
-					            backgroundColor: [
-					                "#FF6384",
-					                "#36A2EB",
-					                "#FFCE56"
-					            ],
-					            hoverBackgroundColor: [
-					                "#FF6384",
-					                "#36A2EB",
-					                "#FFCE56"
-					            ]
-					        }]
-				};
+					            label: "First",
+					            //type: "bar",
+					            backgroundColor: "rgba(255,99,132,0.2)",
+					            borderColor: "rgba(255,99,132,1)",
+					            borderWidth: 1,
+					            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+					            hoverBorderColor: "rgba(255,99,132,1)",
+					            data: [65, 59, 80, 81, 56, 55, 40],
+					        },
+					        {
+					            label: "Second",
+					            //type: "line",
+					            backgroundColor: "rgba(255,99,132,0.2)",
+					            borderColor: "rgba(255,99,132,1)",
+					            borderWidth: 1,
+					            hoverBackgroundColor: "rgba(255,99,132,0.4)",
+					            hoverBorderColor: "rgba(255,99,132,1)",
+					            data: [34, 55, 67, 87, 23, 89, 34],
+					        }
+					    ]
+					};
 				chartConfig = {
 						type : options.chartType,
 						data : data,
@@ -72,69 +76,9 @@
 				} else {
 					chartData = dataset;
 				}
-				
-//				switch (options.chartType) {
-//				case 'bar':
-//					chartImpl = chart.Bar(chartData, config);
-//					findElement = chartImpl.getBarsAtEvent;
-//					break;
-//					
-//				case 'line':
-//					chartImpl = chart.Line(chartData, config);
-//					findElement = chartImpl.getPointsAtEvent;
-//					break;
-//					
-//				case 'circle':
-//					chartImpl = chart.Doughnut(chartData, config);
-//					findElement = chartImpl.getSegmentsAtEvent;
-//					break;
-//					
-//				case 'radar':
-//					chartImpl = chart.Radar(chartData, config);
-//					findElement = chartImpl.getPointsAtEvent;
-//					break;
-//					
-//				case 'polar':
-//					chartImpl = chart.PolarArea(chartData, config);
-//					findElement = chartImpl.getSegmentsAtEvent;
-//					break;
-//					
-//				case 'scatter':
-//					chartImpl = chart.Scatter(chartData, config);
-//					findElement = activeElement = chartImpl.getPointsAtEvent;
-//					break;
-//					
-//				case 'stackedbar':
-//					chartImpl = chart.StackedBar(chartData, config);
-//					findElement = chartImpl.getBarsAtEvent;
-//					break;
-//				
-//				case 'overlay':
-//					chartImpl = chart.Overlay(chartData, config);
-//					findElement = chartImpl.getBarsAtEvent;
-//					break;
-//					
-//				default:
-//					JWic.log("ERROR: Unsupported charttype: " + options.chartType)
-//				}
 
 				chart.__controlID = controlID; //remember the control id
-				
-//				canvas.onclick = function(evt){
-//					 var activeElement = findElement.call(chartImpl, evt);
-//					 if (activeElement) {
-//						 var chartElem;
-//						if (Array.isArray(activeElement)){
-//						     chartElem = activeElement[0];
-//						} else {
-//							 chartElem = activeElement;
-//						} 
-//						if (chartElem != undefined && chartElem.label != undefined){
-//							JWic.fireAction(controlID, 'click', chartElem.label);
-//						}
-//					 }
-//				}
-				
+
 				// create legend
 				if (options.legendLocation != "NONE") {
 					var legendDiv = JWic.$("legend_" + controlID);
@@ -198,12 +142,6 @@
 		        // Find Y Location on page
     			var top;
     			console.log(tooltip);
-    			
-//    			if (tooltip.yAlign == 'above') {
-//    				top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
-//    			} else {
-//    				top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
-//    			}
     			
     			var position = jQuery(tooltip.chart.canvas).position();
     			
