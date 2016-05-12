@@ -123,7 +123,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setHighlightColor(color);
+		dataset.setHoverBackgroundColor(color);
 		update();
 	}
 
@@ -139,7 +139,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setFillColor(color);
+		dataset.setBackgroundColor(color);
 		update();
 	}
 
@@ -155,7 +155,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setStrokeColor(color);
+		dataset.setBorderColor(color);
 		update();
 	}
 
@@ -171,7 +171,7 @@ public class ValueListDatasetModel extends ChartModel<ValueListDataset> {
 			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setHighlightStroke(color);
+		dataset.setHoverBorderColor(color);
 		update();
 	}
 

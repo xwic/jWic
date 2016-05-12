@@ -103,8 +103,8 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in.toString());
-				el.setFillColor(set.getFillColor());
-				el.setHighlightColor(set.getHighlightColor());
+				el.setFillColor(set.getBackgroundColor());
+				el.setHighlightColor(set.getHoverBackgroundColor());
 				elements.add(el);
 				i++;
 			}

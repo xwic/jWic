@@ -68,8 +68,8 @@ public class DataProvider {
 		}
 		
 		ValueListDataset chartd1 = new ValueListDataset("Users", values);
-		chartd1.setFillColor("70, 130, 223,0.9");
-		chartd1.setStrokeColor("0, 91, 153,0.9");
+		chartd1.setBackgroundColor("70, 130, 223,0.9");
+		chartd1.setHoverBorderColor("0, 91, 153,0.9");
 		datasets.add(chartd1);
 
 
@@ -102,7 +102,7 @@ public class DataProvider {
 			}
 
 			ValueListDataset chartd = new ValueListDataset(USER_TYPES[i], values);
-			chartd.setFillColor(DataConverter.convertToJSColor(COLORS[i]));
+			chartd.setBackgroundColor(DataConverter.convertToJSColor(COLORS[i]));
 			datasets.add(chartd);
 		}
 

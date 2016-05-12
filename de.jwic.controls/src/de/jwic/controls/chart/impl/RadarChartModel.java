@@ -155,7 +155,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 					"Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setHighlightColor(color);
+		dataset.setHoverBackgroundColor(color);
 		update();
 	}
 
@@ -173,7 +173,7 @@ public class RadarChartModel extends ChartModel<RadarChartDataset> {
 					"Array of datasets smaller than " + datasetNumber);
 		}
 		ValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setFillColor(color);
+		dataset.setBackgroundColor(color);
 		update();
 	}
 

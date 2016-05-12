@@ -18,18 +18,25 @@ public class ValueListDataset extends ChartDataset {
 	 */
 	private static final long serialVersionUID = 375389814468058669L;
 	private List<Double> data = new ArrayList<Double>();
-	@JsonChartName(bar = "fillColor", circle = "", line = "fillColor", polar = "", radar = "fillColor", dateTime = "", stacked = "", overlay = "fillColor")
-	private String fillColor = "#66ccff";
-	@JsonChartName(bar = "highlightFill", circle = "", line = "highlightFill", polar = "", radar = "pointHighlightFill", dateTime = "", stacked = "", overlay = "highlightFill")
-	private String highlightColor = "#66ff33";
-	@JsonChartName(bar = "strokeColor", circle = "", line = "strokeColor", polar = "", radar = "strokeColor", dateTime = "", stacked = "", overlay = "strokeColor")
-	private String strokeColor = "#ffff00";
-	@JsonChartName(bar = "highlightStroke", circle = "", line = "highlightStroke", polar = "", radar = "pointHighlightStroke", dateTime = "", stacked = "", overlay = "highlightStroke")
-	private String highlightStroke = "#ffffcc";
+	@JsonChartName(bar = "backgroundColor", circle = "", line = "backgroundColor", polar = "", radar = "backgroundColor", dateTime = "", stacked = "", overlay = "backgroundColor")
+	private String backgroundColor = "#66ccff";
+	@JsonChartName(bar = "borderColor", circle = "", line = "borderColor", polar = "", radar = "borderColor", dateTime = "", stacked = "", overlay = "borderColor")
+	private String borderColor = "#66ff33";
+	@JsonChartName(bar = "hoverBackgroundColor", circle = "", line = "hoverBackgroundColor", polar = "", radar = "hoverBackgroundColor", dateTime = "", stacked = "", overlay = "hoverBackgroundColor")
+	private String hoverBackgroundColor = "#ffff00";
+	@JsonChartName(bar = "hoverBorderColor", circle = "", line = "hoverBorderColor", polar = "", radar = "hoverBorderColor", dateTime = "", stacked = "", overlay = "hoverBorderColor")
+	private String hoverBorderColor = "#ffffcc";
 	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "type")
 	private String type = null;
+	@JsonChartName(bar = "borderWidth", circle = "borderWidth", line = "borderWidth", polar = "borderWidth", radar = "borderWidth", dateTime = "borderWidth", stacked = "borderWidth", overlay = "borderWidth")
+	private int borderWidth = 1;
 	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "yAxesGroup")
 	private String yAxesGroup = null;
+	
+	@JsonChartName(bar = "", circle = "backgroundColor", line = "", polar = "backgroundColor", radar = "", dateTime = "", stacked = "", overlay = "")
+	private List<String> circleBackgroundColor = new ArrayList<String>();
+	@JsonChartName(bar = "", circle = "hoverBackgroundColor", line = "", polar = "hoverBackgroundColor", radar = "", dateTime = "", stacked = "", overlay = "")
+	private List<String> circleHoverBackgroundColor = new ArrayList<String>();;
 
 	/**
 	 * 
@@ -59,75 +66,67 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
-	 * 
-	 * @param strokeColor
+	 * @return the backgroundColor
 	 */
-	public void setStrokeColor(String strokeColor) {
-		String color = DataConverter.convertToJSColor(strokeColor);
+	public String getBackgroundColor() {
+		return backgroundColor;
+	}
+
+	/**
+	 * @param backgroundColor the backgroundColor to set
+	 */
+	public void setBackgroundColor(String backgroundColor) {
+		String color = DataConverter.convertToJSColor(backgroundColor);
 		if (color != null)
-			this.strokeColor = color;
+			this.backgroundColor = color;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return the borderColor
 	 */
-	public String getHighlightStroke() {
-		return highlightStroke;
+	public String getBorderColor() {
+		return borderColor;
 	}
 
 	/**
-	 * 
-	 * @param highlightStroke
+	 * @param borderColor the borderColor to set
 	 */
-	public void setHighlightStroke(String highlightStroke) {
-		String color = DataConverter.convertToJSColor(highlightStroke);
+	public void setBorderColor(String borderColor) {
+		String color = DataConverter.convertToJSColor(borderColor);
 		if (color != null)
-			this.highlightStroke = color;
+			this.borderColor = color;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return the hoverBackgroundColor
 	 */
-	public String getStrokeColor() {
-		return strokeColor;
+	public String getHoverBackgroundColor() {
+		return hoverBackgroundColor;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @param hoverBackgroundColor the hoverBackgroundColor to set
 	 */
-	public String getFillColor() {
-		return fillColor;
-	}
-
-	/**
-	 * 
-	 * @param fillColor
-	 */
-	public void setFillColor(String fillColor) {
-		String color = DataConverter.convertToJSColor(fillColor);
+	public void setHoverBackgroundColor(String hoverBackgroundColor) {
+		String color = DataConverter.convertToJSColor(hoverBackgroundColor);
 		if (color != null)
-			this.fillColor = color;
+			this.hoverBackgroundColor = color;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return the hoverBorderColor
 	 */
-	public String getHighlightColor() {
-		return highlightColor;
+	public String getHoverBorderColor() {
+		return hoverBorderColor;
 	}
 
 	/**
-	 * 
-	 * @param highlightColor
+	 * @param hoverBorderColor the hoverBorderColor to set
 	 */
-	public void setHighlightColor(String highlightColor) {
-		String color = DataConverter.convertToJSColor(highlightColor);
+	public void setHoverBorderColor(String hoverBorderColor) {
+		String color = DataConverter.convertToJSColor(hoverBorderColor);
 		if (color != null)
-			this.highlightColor = color;
+			this.hoverBorderColor = color;
 	}
 
 	/**
@@ -145,6 +144,20 @@ public class ValueListDataset extends ChartDataset {
 	}
 
 	/**
+	 * @return the borderWidth
+	 */
+	public int getBorderWidth() {
+		return borderWidth;
+	}
+
+	/**
+	 * @param borderWidth the borderWidth to set
+	 */
+	public void setBorderWidth(int borderWidth) {
+		this.borderWidth = borderWidth;
+	}
+
+	/**
 	 * @return the yAxesGroup
 	 */
 	public String getyAxesGroup() {
@@ -157,5 +170,4 @@ public class ValueListDataset extends ChartDataset {
 	public void setyAxesGroup(String yAxesGroup) {
 		this.yAxesGroup = yAxesGroup;
 	}
-
 }

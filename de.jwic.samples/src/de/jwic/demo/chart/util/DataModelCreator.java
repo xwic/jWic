@@ -47,7 +47,7 @@ public class DataModelCreator {
 		values.add(12D);
 		values.add(8D);
 		ValueListDataset chartd1 = new ValueListDataset("First", values);
-		chartd1.setFillColor("0, 51, 153,0.9");
+		chartd1.setBackgroundColor("0, 51, 153,0.9");
 		datasets.add(chartd1);
 
 		List<Double> values2 = new ArrayList<Double>();
@@ -62,7 +62,7 @@ public class DataModelCreator {
 
 		ValueListDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);
-		chartd2.setFillColor("204, 0, 0,0.9");
+		chartd2.setBackgroundColor("204, 0, 0,0.9");
 		ValueListDatasetModel model = new ValueListDatasetModel(labels,
 				datasets, new Animation());
 		return model;
@@ -138,10 +138,10 @@ public class DataModelCreator {
 		values.add(12D);
 		values.add(8D);
 		ValueListDataset chartd1 = new ValueListDataset("First", values);
-		chartd1.setFillColor("151,137,200,0.5");
-		chartd1.setStrokeColor("151,137,200,0.8");
-		chartd1.setHighlightColor("151,137,200,0.75");
-		chartd1.setHighlightStroke("151,137,200,1");
+		chartd1.setBackgroundColor("151,137,200,0.5");
+		chartd1.setBorderColor("151,137,200,0.8");
+		chartd1.setHoverBackgroundColor("151,137,200,0.75");
+		chartd1.setHoverBorderColor("151,137,200,1");
 		chartd1.setType("bar");
 		YAxes yaxes1 = new YAxes("1");
 		yaxes1.setScaleFontColor("151,137,200,0.8");
@@ -161,10 +161,10 @@ public class DataModelCreator {
 
 		ValueListDataset chartd2 = new ValueListDataset("Second", values2);
 		datasets.add(chartd2);
-		chartd2.setFillColor("151,187,205,0.5");
-		chartd2.setStrokeColor("151,187,205,0.8");
-		chartd2.setHighlightColor("151,187,205,0.75");
-		chartd2.setHighlightStroke("151,187,205,1");
+		chartd2.setBackgroundColor("151,187,205,0.5");
+		chartd2.setBorderColor("151,187,205,0.8");
+		chartd2.setHoverBackgroundColor("151,187,205,0.75");
+		chartd2.setHoverBorderColor("151,187,205,1");
 		chartd2.setType("line");
 		YAxes yaxes2 = new YAxes("2");
 		yaxes2.setScaleFontColor("151,187,205,0.8");

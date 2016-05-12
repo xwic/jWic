@@ -41,7 +41,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		values.add(7D);
 		values.add(10D);
 		RadarChartDataset chartd1 = new RadarChartDataset("First", values);
-		chartd1.setFillColor("#3366cc");
+		chartd1.setBackgroundColor("#3366cc");
 		datasets.add(chartd1);
 
 		List<Double> values2 = new ArrayList<Double>();
@@ -89,8 +89,8 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in.toString());
-				el.setFillColor(set.getFillColor());
-				el.setHighlightColor(set.getHighlightColor());
+				el.setFillColor(set.getBackgroundColor());
+				el.setHighlightColor(set.getHoverBackgroundColor());
 				elements.add(el);
 				i++;
 			}

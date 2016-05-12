@@ -1,5 +1,4 @@
 (function($) {
-	//var Chartv2 = Chart.noConflict();
 
 	$.extend(JWic.controls, {
 		Chart : {
@@ -42,16 +41,11 @@
 					};
 				chartConfig = {
 						type : options.chartType,
-						data : data,
+						data : chartData,
 						options : config
 				};
 				
 				var chart = new Chart(ctx, chartConfig);
-//				if (options.chartType == "overlay"){
-//					var chart = new Chartv2(ctx);
-//				} else {
-//					var chart = new Chart(ctx, chartConfig);
-//				}
 			    
 				if(config.customTooltip) {
 					try {
@@ -91,10 +85,10 @@
 							dataset = chartData;
 						}
 						dataset.forEach(function(ds, i) {
-							var legendColor = ds.hasOwnProperty('fillColor')
-								? ds.fillColor
-								: (ds.hasOwnProperty('strokeColor')
-								    ? ds.strokeColor : ds.color);
+							var legendColor = ds.hasOwnProperty('backgroundColor')
+								? ds.backgroundColor
+								: (ds.hasOwnProperty('hoverBackgroundColor')
+								    ? ds.hoverBackgroundColor : ds.color);
 							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
 						});
 						innerHtml += "</ul>";
