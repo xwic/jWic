@@ -32,11 +32,6 @@ public class ValueListDataset extends ChartDataset {
 	private int borderWidth = 1;
 	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "yAxesGroup")
 	private String yAxesGroup = null;
-	
-	@JsonChartName(bar = "", circle = "backgroundColor", line = "", polar = "backgroundColor", radar = "", dateTime = "", stacked = "", overlay = "")
-	private List<String> circleBackgroundColor = new ArrayList<String>();
-	@JsonChartName(bar = "", circle = "hoverBackgroundColor", line = "", polar = "hoverBackgroundColor", radar = "", dateTime = "", stacked = "", overlay = "")
-	private List<String> circleHoverBackgroundColor = new ArrayList<String>();;
 
 	/**
 	 * 

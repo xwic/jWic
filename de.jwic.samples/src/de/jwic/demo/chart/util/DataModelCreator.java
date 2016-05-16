@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import de.jwic.controls.chart.api.Animation;
+import de.jwic.controls.chart.api.CircleValueListDataset;
+import de.jwic.controls.chart.api.CircleValueListDatasetModel;
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -174,6 +176,36 @@ public class DataModelCreator {
 		
 		ValueListDatasetModel model = new ValueListDatasetModel(labels,
 				datasets, yaxes, new Animation());
+		return model;
+	}
+	
+	public static CircleValueListDatasetModel getCircleValueListDatasetModel() {
+		List<String> labels = new ArrayList<String>();
+		labels.add("January");
+		labels.add("February");
+		labels.add("Marz");
+
+		List<CircleValueListDataset> datasets = new ArrayList<CircleValueListDataset>();
+		List<Double> values = new ArrayList<Double>();
+		List<String> backgroundColors = new ArrayList<String>();
+		List<String> hoverBackgroundColors = new ArrayList<String>();
+		values.add(10D);
+		values.add(20D);
+		values.add(14.4);
+		backgroundColors.add("0, 51, 153,0.9");
+		backgroundColors.add("151,187,205,0.8");
+		backgroundColors.add("151,187,205,1");
+		hoverBackgroundColors.add("151,187,205,0.75");
+		hoverBackgroundColors.add("151,187,205,0.5");
+		hoverBackgroundColors.add("151,137,200,0.8");
+		
+		CircleValueListDataset chartd1 = new CircleValueListDataset("First", values);
+		chartd1.setBackgroundColor(backgroundColors);
+		chartd1.setHoverBackgroundColor(hoverBackgroundColors);
+		datasets.add(chartd1);
+		
+		CircleValueListDatasetModel model = new CircleValueListDatasetModel(labels,
+				datasets, new Animation());
 		return model;
 	}
 }

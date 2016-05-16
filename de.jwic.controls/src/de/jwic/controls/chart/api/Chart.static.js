@@ -14,31 +14,6 @@
 					    datasets: dataset,
 					    yAxes: yaxes
 				};
-				var data = {
-					    labels: ["January", "February", "March", "April", "May", "June", "July"],
-					    datasets: [
-					        {
-					            label: "First",
-					            //type: "bar",
-					            backgroundColor: "rgba(255,99,132,0.2)",
-					            borderColor: "rgba(255,99,132,1)",
-					            borderWidth: 1,
-					            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-					            hoverBorderColor: "rgba(255,99,132,1)",
-					            data: [65, 59, 80, 81, 56, 55, 40],
-					        },
-					        {
-					            label: "Second",
-					            //type: "line",
-					            backgroundColor: "rgba(255,99,132,0.2)",
-					            borderColor: "rgba(255,99,132,1)",
-					            borderWidth: 1,
-					            hoverBackgroundColor: "rgba(255,99,132,0.4)",
-					            hoverBorderColor: "rgba(255,99,132,1)",
-					            data: [34, 55, 67, 87, 23, 89, 34],
-					        }
-					    ]
-					};
 				chartConfig = {
 						type : options.chartType,
 						data : chartData,
@@ -77,22 +52,41 @@
 				if (options.legendLocation != "NONE") {
 					var legendDiv = JWic.$("legend_" + controlID);
 					if(legendDiv) {
-						var innerHtml = "<ul>";
-						var dataset = undefined;
-						if (chartData.hasOwnProperty('datasets')) {
-							dataset = chartData.datasets;
+						if (options.chartType != "doughnut" && options.chartType != "polarArea"){
+							var innerHtml = "<ul>";
+							var dataset = undefined;
+							if (chartData.hasOwnProperty('datasets')) {
+								dataset = chartData.datasets;
+							} else {
+								dataset = chartData;
+							}
+							dataset.forEach(function(ds, i) {
+								var legendColor = ds.hasOwnProperty('backgroundColor')
+									? ds.backgroundColor
+									: (ds.hasOwnProperty('hoverBackgroundColor')
+									    ? ds.hoverBackgroundColor : ds.color);
+								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
+							});
+							innerHtml += "</ul>";
+							legendDiv.html(innerHtml);
 						} else {
-							dataset = chartData;
+							var innerHtml = "<ul>";
+							var dataset = undefined;
+							if (chartData.hasOwnProperty('datasets')) {
+								dataset = chartData.datasets;
+							} else {
+								dataset = chartData;
+							}
+							dataset.forEach(function(ds, i) {
+								var legendColor = ds.hasOwnProperty('backgroundColor')
+									? ds.backgroundColor[i]
+									: (ds.hasOwnProperty('hoverBackgroundColor')
+									    ? ds.hoverBackgroundColor[i] : ds.color);
+								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.data[i] + "</li>";
+							});
+							innerHtml += "</ul>";
+							legendDiv.html(innerHtml);
 						}
-						dataset.forEach(function(ds, i) {
-							var legendColor = ds.hasOwnProperty('backgroundColor')
-								? ds.backgroundColor
-								: (ds.hasOwnProperty('hoverBackgroundColor')
-								    ? ds.hoverBackgroundColor : ds.color);
-							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
-						});
-						innerHtml += "</ul>";
-						legendDiv.html(innerHtml);
 					} else {
 						JWic.log("ERROR: No legend div found for " + controlID);
 					}
