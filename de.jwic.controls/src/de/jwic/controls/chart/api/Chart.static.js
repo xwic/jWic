@@ -43,7 +43,7 @@
 				} else if (options.chartType == 'scatter') {
 					chartData = JWic.controls.Chart.convertToDate(dataset);
 				} else {
-					chartData = dataset;
+					
 				}
 
 				chart.__controlID = controlID; //remember the control id
@@ -72,17 +72,17 @@
 						} else {
 							var innerHtml = "<ul>";
 							var dataset = undefined;
-							if (chartData.hasOwnProperty('datasets')) {
-								dataset = chartData.datasets;
+							if (chartData.hasOwnProperty('labels')) {
+								dataset = chartData.labels;
 							} else {
 								dataset = chartData;
 							}
 							dataset.forEach(function(ds, i) {
-								var legendColor = ds.hasOwnProperty('backgroundColor')
-									? ds.backgroundColor[i]
-									: (ds.hasOwnProperty('hoverBackgroundColor')
-									    ? ds.hoverBackgroundColor[i] : ds.color);
-								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.data[i] + "</li>";
+								var legendColor = chartData.datasets[0].hasOwnProperty('backgroundColor')
+									? chartData.datasets[0].backgroundColor[i]
+									: (chartData.datasets[0].hasOwnProperty('hoverBackgroundColor')
+									    ? chartData.datasets[0].hoverBackgroundColor[i] : chartData.datasets[0].color);
+								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds + "</li>";
 							});
 							innerHtml += "</ul>";
 							legendDiv.html(innerHtml);
