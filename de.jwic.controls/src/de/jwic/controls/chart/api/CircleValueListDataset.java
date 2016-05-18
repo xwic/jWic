@@ -33,6 +33,21 @@ public class CircleValueListDataset extends ChartDataset {
 	
 	/**
 	 * 
+	 * @param label
+	 * @param data
+	 * @param color
+	 * @param highlight
+	 */
+	public CircleValueListDataset(String label, List<Double> data, List<String> color, List<String> hoverColor) {
+		super(label);
+		this.data = data;
+		this.backgroundColor = color;
+		this.hoverBackgroundColor = hoverColor;
+
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	public List<Double> getData() {

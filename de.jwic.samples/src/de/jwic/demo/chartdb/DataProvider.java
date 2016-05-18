@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 import de.jwic.controls.chart.api.Animation;
+import de.jwic.controls.chart.api.CircleValueListDataset;
+import de.jwic.controls.chart.api.CircleValueListDatasetModel;
 import de.jwic.controls.chart.api.SimpleValueDataset;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.ValueListDataset;
@@ -129,6 +131,38 @@ public class DataProvider {
 		}
 		
 		SimpleValueDatasetModel model = new SimpleValueDatasetModel(datasets, new Animation());
+		return model;
+	}
+	
+	/**
+	 * Returns the user distribution.
+	 * @return
+	 */
+	public CircleValueListDatasetModel getCircleUserTypeDistribution(String year) {
+		
+		List<CircleValueListDataset> datasets = new ArrayList<CircleValueListDataset>();
+		String label = "First";
+		List<String> labels = new ArrayList<String>();
+		List<String> colors = new ArrayList<String>();
+		List<String> hoverColors = new ArrayList<String>();
+		List<Double> data = new ArrayList<Double>();
+
+		Random rnd = new Random(year.hashCode());
+		
+		for (int idx = 0 ; idx < USER_TYPES.length; idx++) {
+			String ut = USER_TYPES[idx];
+			labels.add(ut);
+			String col = COLORS[idx];
+			colors.add(col);
+			double value = (double)rnd.nextInt(100);
+			data.add(new Double(value));
+			hoverColors.add("#a0a0ff");
+		}
+		
+		CircleValueListDataset valDS = new CircleValueListDataset(label, data, colors, hoverColors);
+		datasets.add(valDS);
+		
+		CircleValueListDatasetModel model = new CircleValueListDatasetModel(labels, datasets, new Animation());
 		return model;
 	}
 

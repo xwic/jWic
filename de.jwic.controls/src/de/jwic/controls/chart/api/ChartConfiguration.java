@@ -24,10 +24,9 @@ public abstract class ChartConfiguration implements Serializable {
 	private int width = 500;
 	private int height = 500;
 	private boolean enabled = true;
-	private boolean responsive = false;
+	private boolean responsive = true;
+	private int responsiveAnimationDuration = 0;
 	private boolean zoomEnabled = true;
-	private Object animation = null;
-	private int animationSteps = 60;
 	private AnimationEffect animationEasing = AnimationEffect.EASEINOUTBOUNCE;
 	private boolean showScale = true;
 	private boolean scaleOverride = false;
@@ -37,9 +36,9 @@ public abstract class ChartConfiguration implements Serializable {
 	private String scaleLabel = "<%=value%>";
 	private boolean scaleIntegersOnly = true;
 	private boolean scaleBeginAtZero = false;
-	private String scaleFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
-	private int scaleFontSize = 11;
-	private String scaleFontStyle = "normal";
+	private String defaultFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
+	private int defaultFontSize = 11;
+	private String defaultFontStyle = "normal";
 	private String scaleFontColor = "#666";
 	private boolean maintainAspectRatio = true;
 	private boolean showTooltips = true;
@@ -64,8 +63,8 @@ public abstract class ChartConfiguration implements Serializable {
 	@JsonChartName(bar = "barShowStroke", circle = "segmentShowStroke", line = "datasetStroke", polar = "segmentShowStroke", radar = "segmentShowStroke", dateTime = "datasetStroke", stacked = "barShowStroke", overlay = "")
 	private boolean showStroke = true;
 
-	@JsonChartName(bar = "", circle = "segmentStrokeColor", line = "", polar = "segmentStrokeColor", radar = "segmentStrokeColor", dateTime = "", stacked = "", overlay = "")
-	private String strokeColor = "rgba(0,0,0,1)";
+	@JsonChartName(bar = "defaultColor", circle = "defaultColor", line = "defaultColor", polar = "defaultColor", radar = "defaultColor", dateTime = "defaultColor", stacked = "defaultColor", overlay = "defaultColor")
+	private String defaultColor = "rgba(0,0,0,0.1)";
 
 	@JsonChartName(bar = "barStrokeWidth", circle = "segmentStrokeWidth", line = "datasetStrokeWidth", polar = "segmentStrokeWidth", radar = "segmentStrokeWidth", dateTime = "datasetStrokeWidth", stacked = "barStrokeWidth", overlay = "")
 	private int segmentStrokeWidth = 2;
@@ -181,26 +180,6 @@ public abstract class ChartConfiguration implements Serializable {
 	 */
 	public void setShowStroke(boolean showStroke) {
 		this.showStroke = showStroke;
-	}
-
-	/**
-	 * 
-	 * @return String - The colour of each segment stroke
-	 */
-	public String getStrokeColor() {
-		return strokeColor;
-	}
-
-	/**
-	 * 
-	 * @param strokeColor
-	 *            String - The colour of each segment stroke
-	 */
-	public void setStrokeColor(String strokeColor) {
-		String color = DataConverter.convertToJSColor(strokeColor);
-		if (color != null) {
-			this.strokeColor = color;
-		}
 	}
 
 	/**
@@ -324,39 +303,19 @@ public abstract class ChartConfiguration implements Serializable {
 	public void setResponsive(boolean responsive) {
 		this.responsive = responsive;
 	}
-
+	
 	/**
-	 * 
-	 * @return Boolean - Whether to animate the chart
+	 * @return the responsiveAnimationDuration
 	 */
-	public Object getAnimation() {
-		return animation;
+	public int getResponsiveAnimationDuration() {
+		return responsiveAnimationDuration;
 	}
 
 	/**
-	 * 
-	 * @param animation
-	 *            Boolean - Whether to animate the chart
+	 * @param responsiveAnimationDuration the responsiveAnimationDuration to set
 	 */
-	public void setAnimation(Object animation) {
-		this.animation = animation;
-	}
-
-	/**
-	 * 
-	 * @return Number - Number of animation steps
-	 */
-	public int getAnimationSteps() {
-		return animationSteps;
-	}
-
-	/**
-	 * 
-	 * @param animationSteps
-	 *            Number - Number of animation steps
-	 */
-	public void setAnimationSteps(int animationSteps) {
-		this.animationSteps = animationSteps;
+	public void setResponsiveAnimationDuration(int responsiveAnimationDuration) {
+		this.responsiveAnimationDuration = responsiveAnimationDuration;
 	}
 
 	/**
@@ -524,54 +483,62 @@ public abstract class ChartConfiguration implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @return String - Scale label font declaration for the scale label
+	 * @return the defaultFontFamily
 	 */
-	public String getScaleFontFamily() {
-		return scaleFontFamily;
+	public String getDefaultFontFamily() {
+		return defaultFontFamily;
 	}
 
 	/**
-	 * 
-	 * @param scaleFontFamily
-	 *            String - Scale label font declaration for the scale label
+	 * @param defaultFontFamily the defaultFontFamily to set
 	 */
-	public void setScaleFontFamily(String scaleFontFamily) {
-		this.scaleFontFamily = scaleFontFamily;
+	public void setDefaultFontFamily(String defaultFontFamily) {
+		this.defaultFontFamily = defaultFontFamily;
 	}
 
 	/**
-	 * 
-	 * @return Number - Scale label font size in pixels
+	 * @return the defaultColor
 	 */
-	public int getScaleFontSize() {
-		return scaleFontSize;
+	public String getDefaultColor() {
+		return defaultColor;
 	}
 
 	/**
-	 * 
-	 * @param scaleFontSize
-	 *            Number - Scale label font size in pixels
+	 * @param defaultColor the defaultColor to set
 	 */
-	public void setScaleFontSize(int scaleFontSize) {
-		this.scaleFontSize = scaleFontSize;
+	public void setDefaultColor(String defaultColor) {
+		String color = DataConverter.convertToJSColor(defaultColor);
+		if (color != null) {
+			this.defaultColor = color;
+		}
 	}
 
 	/**
-	 * 
-	 * @return Number - Scale label font weight style
+	 * @return the defaultFontSize
 	 */
-	public String getScaleFontStyle() {
-		return scaleFontStyle;
+	public int getDefaultFontSize() {
+		return defaultFontSize;
 	}
 
 	/**
-	 * 
-	 * @param scaleFontStyle
-	 *            String - Scale label font weight style
+	 * @param defaultFontSize the defaultFontSize to set
 	 */
-	public void setScaleFontStyle(String scaleFontStyle) {
-		this.scaleFontStyle = scaleFontStyle;
+	public void setDefaultFontSize(int defaultFontSize) {
+		this.defaultFontSize = defaultFontSize;
+	}
+
+	/**
+	 * @return the defaultFontStyle
+	 */
+	public String getDefaultFontStyle() {
+		return defaultFontStyle;
+	}
+
+	/**
+	 * @param defaultFontStyle the defaultFontStyle to set
+	 */
+	public void setDefaultFontStyle(String defaultFontStyle) {
+		this.defaultFontStyle = defaultFontStyle;
 	}
 
 	/**

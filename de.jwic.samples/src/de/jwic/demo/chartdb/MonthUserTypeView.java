@@ -39,7 +39,6 @@ public class MonthUserTypeView extends ReportView<ValueListDatasetModel, Stacked
 		StackedChartConfiguration cfg = chart.getConfiguration();
 		
 		cfg.setResponsive(true);
-		cfg.setAnimationSteps(20);
 		
 		chart.setLegendLocation(LegendLocation.RIGHT);
 		

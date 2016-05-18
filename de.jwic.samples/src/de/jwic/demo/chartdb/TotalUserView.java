@@ -44,7 +44,6 @@ public class TotalUserView extends ReportView<ValueListDatasetModel, LineChartCo
 		cfg.setCustomTooltipGenerator("JWic.controls.Chart.customTooltipGenerators.standardList");
 		
 		cfg.setResponsive(true);
-		cfg.setAnimationSteps(20);
 		
 
 		cfg.setWidth(300);
