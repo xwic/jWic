@@ -80,7 +80,7 @@ public class DataModelCreator {
 				"#ffcc66", "#66ff33");
 		SimpleValueDataset chartd5 = new SimpleValueDataset("Fifth", 5D,
 				"#ff66cc", "#66ff33");
-		SimpleValueDataset chartd6 = new SimpleValueDataset("Sixsth", 6D,
+		SimpleValueDataset chartd6 = new SimpleValueDataset("Sixth", 6D,
 				"#003300", "#66ff33");
 
 		datasets.add(chartd1);

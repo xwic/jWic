@@ -65,6 +65,7 @@ public class BarChartDemo extends ChartDemo<BarChart, ValueListDatasetModel> {
 	@Override
 	protected BarChart createChart(ValueListDatasetModel model) {
 		BarChart chart = new BarChart(this, "chart", model);
+		chart.getConfiguration().setResponsive(true);
 		return chart;
 	}
 
