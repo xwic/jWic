@@ -12,7 +12,9 @@
 		var dataset = $control.model.datasetsJson;
 		var animation = $control.model.animationJson;
 		config.animation = animation;
-		config.stacked = false;
+		if (options.chartType=="stackedbar"){
+			config.scales = {"xAxes": [{"stacked" : true}], "yAxes": [{"stacked": true}]};
+		}
 		if (options.chartType=="overlay")
 			var yaxes = $control.model.yaxesJson;
 		else

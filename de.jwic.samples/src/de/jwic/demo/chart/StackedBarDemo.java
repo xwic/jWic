@@ -58,7 +58,6 @@ public class StackedBarDemo extends
 	@Override
 	protected StackedBarChart createChart(ValueListDatasetModel model) {
 		StackedBarChart cahrt = new StackedBarChart(this, "chart", model);
-		cahrt.getConfiguration().setScaleBeginAtZero(true);
 		return cahrt;
 	}
 

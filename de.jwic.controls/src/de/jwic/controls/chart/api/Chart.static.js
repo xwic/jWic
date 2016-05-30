@@ -14,8 +14,12 @@
 					    datasets: dataset,
 					    yAxes: yaxes
 				};
+				if (options.chartType == "stackedbar")
+					var chartType = "bar";
+				else
+					var chartType = options.chartType;
 				chartConfig = {
-						type : options.chartType,
+						type : chartType,
 						data : chartData,
 						options : config
 				};

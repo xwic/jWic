@@ -20,7 +20,8 @@ public class StackedChartConfiguration extends ChartConfiguration {
 	private String totalColor = "#fff";
 	private String totalLabel = "Total";
 	private boolean tooltipHideZero = false;
-
+	private boolean stacked = true;
+	
 	/**
 	 * 
 	 * @return - Number - Spacing between each of the X value sets
@@ -122,6 +123,20 @@ public class StackedChartConfiguration extends ChartConfiguration {
 	 */
 	public void setTooltipHideZero(boolean tooltipHideZero) {
 		this.tooltipHideZero = tooltipHideZero;
+	}
+
+	/**
+	 * @return the stacked
+	 */
+	public boolean isStacked() {
+		return stacked;
+	}
+
+	/**
+	 * @param stacked the stacked to set
+	 */
+	public void setStacked(boolean stacked) {
+		this.stacked = stacked;
 	}
 
 }
