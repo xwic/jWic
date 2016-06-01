@@ -16,10 +16,17 @@
  *******************************************************************************/
 package de.jwic.controls;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
+import de.jwic.events.KeyEvent;
+import de.jwic.events.KeyListener;
+import de.jwic.events.SelectionListener;
 
 /**
  * Renders an overlay layer in window style, using the PWC window
@@ -52,6 +59,10 @@ public class Window extends ControlContainer {
 	protected Field width;
 	protected Field top;
 	protected Field left;
+	
+	private final static String ACTION_KEYPRESSED = "keyPressed";
+	private final static String ACTION_CLOSE = "close";
+	protected List<KeyListener> keyListeners = null;
 
 	/**
 	 * Create new default window.
@@ -72,6 +83,42 @@ public class Window extends ControlContainer {
 		width = new Field(this, "width");
 		top = new Field(this, "top");
 		left = new Field(this, "left");
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.base.IControl#actionPerformed(java.lang.String, java.lang.String)
+	 */
+	public void actionPerformed(String actionId, String parameter) {
+		
+		if (actionId.equals(ACTION_KEYPRESSED)) {
+			// notify listeners
+			if (keyListeners != null) {
+				KeyEvent event = new KeyEvent(this, Integer.parseInt(parameter));
+				for (Iterator<KeyListener> it = keyListeners.iterator(); it.hasNext(); ) {
+					KeyListener listener = it.next();
+					listener.keyPressed(event);
+				}
+			}
+		} else if (actionId.equals(ACTION_CLOSE)) {
+			if (keyListeners != null) {
+				KeyEvent event = new KeyEvent(this, Integer.parseInt("27"));
+				for (Iterator<KeyListener> it = keyListeners.iterator(); it.hasNext(); ) {
+					KeyListener listener = it.next();
+					listener.keyPressed(event);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Register a listener that will be notified when the anchor will be clicked.
+	 * @param listener
+	 */
+	public void addKeyListener(KeyListener listener) {
+		if (keyListeners == null) {
+			keyListeners = new ArrayList<KeyListener>();
+		}
+		keyListeners.add(listener);
 	}
 	
 	/**

@@ -27,6 +27,8 @@ import de.jwic.controls.Label;
 import de.jwic.controls.StackedContainer;
 import de.jwic.controls.Window;
 import de.jwic.controls.dialogs.BasicDialog;
+import de.jwic.events.KeyEvent;
+import de.jwic.events.KeyListener;
 import de.jwic.events.SelectionEvent;
 import de.jwic.events.SelectionListener;
 import de.jwic.util.Messages;
@@ -96,6 +98,13 @@ public class WizardContainer extends BasicDialog {
 			// default width
 			win.setWidth(900);
 		}
+		win.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyPressed(KeyEvent event) {
+				abort();
+			}
+		});
 
 		ControlContainer winContainer = new ControlContainer(win);
 		winContainer.setTemplateName(getClass().getName());
