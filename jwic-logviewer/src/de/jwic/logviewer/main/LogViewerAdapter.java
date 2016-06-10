@@ -13,19 +13,11 @@ public abstract class LogViewerAdapter implements ILogViewerListener {
 
 	private static final long serialVersionUID = 5808573507816882072L;
 
-	/**
-	 * 
-	 */
-	public LogViewerAdapter() {
-		// TODO Auto-generated constructor stub
-	}
-
 	/* (non-Javadoc)
 	 * @see de.jwic.logviewer.main.ILogViewerListener#logonSuccess(de.jwic.logviewer.main.LogViewerEvent)
 	 */
 	@Override
-	public void logonSuccess(LogViewerEvent event) {
-		// TODO Auto-generated method stub
+	public void loginSuccess(LogViewerEvent event) {
 
 	}
 
@@ -34,7 +26,6 @@ public abstract class LogViewerAdapter implements ILogViewerListener {
 	 */
 	@Override
 	public void logoutSuccess(LogViewerEvent event) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -43,7 +34,6 @@ public abstract class LogViewerAdapter implements ILogViewerListener {
 	 */
 	@Override
 	public void logSelected(LogViewerEvent event) {
-		// TODO Auto-generated method stub
 
 	}
 

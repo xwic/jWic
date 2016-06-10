@@ -15,7 +15,7 @@ public interface ILogViewerListener extends Serializable {
 	 * Fired when the model logged on successfully.
 	 * @param event
 	 */
-	public void logonSuccess(LogViewerEvent event);
+	public void loginSuccess(LogViewerEvent event);
 	
 	/**
 	 * Fired when the user logged out.

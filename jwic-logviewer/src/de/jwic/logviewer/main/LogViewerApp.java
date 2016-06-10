@@ -15,20 +15,55 @@ public class LogViewerApp extends Application {
 
 	private static final long serialVersionUID = 4860732768394398271L;
 
+	private LogViewerModel model = null;
+
 	/**
 	 * 
 	 */
 	public LogViewerApp() {
-		// TODO Auto-generated constructor stub
+
 	}
 
-	/* (non-Javadoc)
-	 * @see de.jwic.base.Application#createRootControl(de.jwic.base.IControlContainer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.jwic.base.Application#createRootControl(de.jwic.base.
+	 * IControlContainer)
 	 */
 	@Override
 	public Control createRootControl(IControlContainer container) {
-		// TODO Auto-generated method stub
+		getSessionContext().setExitURL("exitpage.html");
+
+		model = new LogViewerModel();
+
+		model.addLogViewerModelListener(new LogViewerAdapter() {
+
+			public void loginSuccess(LogViewerEvent event) {
+				login();
+			}
+
+			public void logoutSuccess(LogViewerEvent event) {
+				logout();
+			}
+		});
+		
 		return null;
+	}
+	
+	/**
+	 * 
+	 */
+	protected void logout() {
+		
+		getSessionContext().exit();
+	}
+
+	/**
+	 * 
+	 */
+	protected void login() {
+//		MailClientPage mcPage = new MailClientPage(getSessionContext(), model);
+//		getSessionContext().pushTopControl(mcPage);
 	}
 
 }
