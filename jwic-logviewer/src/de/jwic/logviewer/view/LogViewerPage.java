@@ -3,6 +3,7 @@
  */
 package de.jwic.logviewer.view;
 
+import de.jwic.base.Dimension;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.Page;
 import de.jwic.controls.Button;
@@ -48,6 +49,13 @@ public class LogViewerPage extends Page {
 		});
 		
 		logViewerControl = new LogViewerControl(this, "logViewerControl", model);
+	}
+	
+	@Override
+	public void setPageSize(Dimension pageSize) {
+		super.setPageSize(pageSize);
+		logViewerControl.setHeight(pageSize.height - 120);
+		logViewerControl.setWidth(pageSize.width- 80);
 	}
 
 }
