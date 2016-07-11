@@ -24,6 +24,13 @@ div.ui-dialog .ui-dialog-content {
     padding: 0;
 }
 
+.j-dialog-no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+.j-dialog-message {
+	padding: 10px;
+}
+
 div.ui-tabs .ui-tabs-panel {
     padding: 0;
 }

@@ -282,6 +282,7 @@ public class WebEngine  {
 		long start = System.currentTimeMillis();
     	boolean resourceMode = "1".equals(req.getParameter(IResourceControl.URL_RESOURCE_PARAM));
     	boolean ajaxMode = "1".equals(req.getParameter("_ajaxreq"));
+    	boolean conTest = "1".equals(req.getParameter("_jConTest"));
     	SessionContext sc = null;
 		try {
 
@@ -297,28 +298,35 @@ public class WebEngine  {
 	    			isReloaded = true;
 	    		}
 	    	} 
-	    	if (sc == null) {
-	    		sc = initSession(req); 
-	    		isNew = true;
-	    	}
-
-	    	handleAuthentication(sc, req, res);
 	    	
-	    	if (!isNew && !resourceMode && !isReloaded) {
-	    		handleAction(sc, req, res, upload); 
-	    	}
-	    	boolean render = handleRedirect(sc, req, res);
-
+	    	// This is a connection test. Do not initialize the app if it isn't initialized yet.
+	    	if (conTest) {
+	    		respondConnectionTest(sc, req, res);
+	    	} else {
 	    	
-	    	if (render) {
-	    		// render control
-	    		if (resourceMode) {
-        			renderResourceControl(sc, req, res, isReloaded);
-	        	} else if (ajaxMode) {
-	        		renderAjax(sc, req, res, isReloaded);
-	        	} else {
-	        		render(sc, req, res, isReloaded);
-	        	}
+		    	if (sc == null) {
+		    		sc = initSession(req); 
+		    		isNew = true;
+		    	}
+	
+		    	handleAuthentication(sc, req, res);
+		    	
+		    	if (!isNew && !resourceMode && !isReloaded) {
+		    		handleAction(sc, req, res, upload); 
+		    	}
+		    	boolean render = handleRedirect(sc, req, res);
+	
+		    	
+		    	if (render) {
+		    		// render control
+		    		if (resourceMode) {
+	        			renderResourceControl(sc, req, res, isReloaded);
+		        	} else if (ajaxMode) {
+		        		renderAjax(sc, req, res, isReloaded);
+		        	} else {
+		        		render(sc, req, res, isReloaded);
+		        	}
+		    	}
 	    	}
 		} catch (FileNotFoundException fnf) {
 			try {
@@ -336,6 +344,26 @@ public class WebEngine  {
 		}
 		long time = System.currentTimeMillis() - start;
 		log.debug("total processing time: " + time + "ms");
+		
+	}
+
+	/**
+	 * @param sc
+	 * @param req
+	 * @param res
+	 */
+	private void respondConnectionTest(SessionContext sc, HttpServletRequest req, HttpServletResponse res) {
+		
+		res.setContentType("text/json; charset=UTF-8");
+		try {
+			PrintWriter pw = res.getWriter();
+			pw.println("{\"sessionInitialized\":" + (sc != null) + "}");
+			pw.flush();
+			pw.close();
+			
+		} catch (IOException e) {
+			log.error("Error sending response on connection test request", e);
+		}
 		
 	}
 
