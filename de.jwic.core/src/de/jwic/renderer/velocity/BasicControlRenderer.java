@@ -22,7 +22,9 @@ package de.jwic.renderer.velocity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -42,6 +44,8 @@ import de.jwic.renderer.util.ChildRenderer;
  */
 public class BasicControlRenderer extends BaseVelocityRenderer {
 
+	protected Map<String, Boolean> jsStaticExists = new HashMap<String, Boolean>(); 
+	
 	/**
 	 * @throws Exception
 	 */
@@ -78,8 +82,7 @@ public class BasicControlRenderer extends BaseVelocityRenderer {
 				final String jsTemplateName = control.getClass().getAnnotation(JavaScriptSupport.class).jsTemplate();
 
 				final String jsTplName = jsTemplateName.length() == 0 ? tplName : jsTemplateName;
-				final Template tplJsStatic = getTemplate(jsTplName, ".static.js");
-				if (tplJsStatic != null) {
+				if (hasJsStaticFile(jsTplName)) {
 					context.addRequiredJSContent(jsTplName.replace('.', '/') + ".static.js");
 				}
 
@@ -128,5 +131,20 @@ public class BasicControlRenderer extends BaseVelocityRenderer {
 			writer.print("ERR (" + e + ")");
 		}
 
+	}
+
+	/**
+	 * Returns true if a static javascript file exists.
+	 * @param jsTplName
+	 * @return
+	 */
+	private boolean hasJsStaticFile(String jsTplName) {
+		String cpName = jsTplName.replace('.', '/') + ".static.js";
+		Boolean exists = jsStaticExists.get(cpName);
+		if (exists == null) {
+			exists = getClass().getClassLoader().getResource(cpName) != null;
+			jsStaticExists.put(cpName, exists);
+		}
+		return exists;
 	}
 }
