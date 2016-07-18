@@ -9,7 +9,7 @@ import java.util.List;
 import de.jwic.base.Control;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
-import de.jwic.base.ImageRef;
+import de.jwic.controls.tableviewer.MobileTableRenderer;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
 import de.jwic.controls.tableviewer.TableViewer;
@@ -45,7 +45,7 @@ public class TableDemo extends MobileDemoModule {
 		DemoTaskContentProvider contentProvider = new DemoTaskContentProvider(createDemoData());
 		table.setContentProvider(contentProvider);
 		table.setTableLabelProvider(new LabelProvider());
-		table.setMobile(true);
+		table.setTableRenderer(new MobileTableRenderer());
 
 		TableModel model = table.getModel();
 
