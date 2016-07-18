@@ -16,7 +16,7 @@ import de.jwic.data.Range;
 
 /**
  * 
- * Default implementation of the IMTableRenderer interface. The default renderer
+ * Default implementation of the ITableRenderer interface. The default renderer
  * generates HTML "by code", without using templates. The reason for this is
  * because its faster, costs less resources and the generated HTML is quite
  * complex so that templates would be quite ugly anyway.
@@ -24,7 +24,7 @@ import de.jwic.data.Range;
  * @author vedad
  *
  */
-public class DefaultMTableRenderer implements IMTableRenderer, Serializable {
+public class MobileTableRenderer implements ITableRenderer, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class DefaultMTableRenderer implements IMTableRenderer, Serializable {
 	 * de.jwic.controls.tableviewer.ITableLabelProvider)
 	 */
 	@Override
-	public void renderMTable(RenderContext renderContext, TableViewer viewer, TableModel model,
+	public void renderTable(RenderContext renderContext, TableViewer viewer, TableModel model,
 			ITableLabelProvider labelProvider) {
 
 		renderContext.addScript(viewer.getControlID(),

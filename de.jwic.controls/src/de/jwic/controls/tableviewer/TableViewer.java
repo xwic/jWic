@@ -63,7 +63,6 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 
 	private TableModel model = new TableModel();
 	private ITableRenderer tableRenderer = new DefaultTableRenderer();
-	private IMTableRenderer mtableRenderer = new DefaultMTableRenderer();
 	private ITableLabelProvider tableLabelProvider = null;
 
 	private String cssClass = "tblViewer";
@@ -82,8 +81,6 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private boolean scrollable = false;
 
 	private boolean showAllInRangeSelector = false;
-
-	private boolean mobile = false;
 
 	private StatusBarControl statusBar = null;
 
@@ -140,10 +137,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	 * RenderContext)
 	 */
 	public void render(RenderContext renderContext) {
-		if (!isMobile())
-			tableRenderer.renderTable(renderContext, this, getModel(), tableLabelProvider);
-		else
-			mtableRenderer.renderMTable(renderContext, this, getModel(), tableLabelProvider);
+		tableRenderer.renderTable(renderContext, this, getModel(), tableLabelProvider);
 	}
 
 	/**
@@ -517,20 +511,5 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	 */
 	public void setmCssClass(String mCssClass) {
 		this.mCssClass = mCssClass;
-	}
-
-	/**
-	 * @return the mobile
-	 */
-	public boolean isMobile() {
-		return mobile;
-	}
-
-	/**
-	 * @param mobile
-	 *            the mobile to set
-	 */
-	public void setMobile(boolean mobile) {
-		this.mobile = mobile;
-	}
+	}	
 }
