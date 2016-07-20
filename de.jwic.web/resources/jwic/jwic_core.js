@@ -58,6 +58,11 @@ var JWic = {
 	runAfterUpdate : [],
 	
 	/**
+	 * Set to true while JWic tries to reconnect to the server.
+	 */
+	reconnectMode : false,
+	
+	/**
 	 * Returns a jQuery encapsulated document element. The element is retrieved
 	 * using document.getElementById and then extended with jQuery. This eliminates the
 	 * need to escape the control ID when using jQuery's native $/jQuery function. 
@@ -92,9 +97,8 @@ var JWic = {
             jwicform.submit();
         }
 
-
 		if (ajaxResponse.status == 0 && ajaxResponse.responseText == "") {
-			refresh("The server did not respond to the request. Please check your network connectivity and try again.");
+			JWic.connectionLost();
 			return;
 		}
 
@@ -139,6 +143,122 @@ var JWic = {
 
 	},
 
+	/**
+	 * When a request to the server fails, the connection may be lost. Display a window with this information
+	 * and ask the user if he wants to retry or 
+	 */
+	connectionLost : function() {
+		var dlg = JWic.$("_JWicDialog");
+		dlg.html("<div class=\"j-dialog-message\">The connection to the server is lost, trying to reconnect" +
+				" to the server. Please check your network connectivity.<br><br>The app will continue as soon as the connection got" +
+				" re-established. You can <a href=\"javascript:JWic.restartApp()\">force a reload</a> of the content if your network is back but the page still doesnt load.</div>");
+		dlg.dialog({
+			dialogClass: "j-dialog-no-close",
+			minWidth: 350,
+			buttons:[
+//			         {
+//			        	 text: "Restart Application",
+//			        	 click: function() {
+//			        		 jQuery(this).dialog("close");
+//			        		 JWic.restartApp();
+//			        	 }
+//			         }
+			],
+			modal: true,
+			title: "Connection Lost"
+		});
+		JWic.reconnectMode = true;
+		JWic.connectionTest();
+	},
+	
+	/**
+	 * Make a 'connectionTest' request to the server.
+	 */
+	connectionTest : function() {
+		var paramData = {};
+		paramData['_jConTest'] = '1';
+		paramData['_msid'] = document.forms['jwicform'].elements['_msid'].value;
+
+		var url = document.location.href;
+		var idx = url.indexOf('#');
+		if (idx != -1) {
+			url = url.substring(0, idx);
+		}
+		
+		jQuery.ajax({
+			url: url,
+			type :'post',
+			data : paramData,
+			success : function(data, textStatus, jqXHR) { JWic.connectionTestSuccess(data, jqXHR);} ,
+			error : function(jqXHR, textStatus, errorThrown) {
+				JWic.connectionTestFailed(jqXHR, textStatus, errorThrown);
+			}
+		});
+
+	},
+	
+	connectionTestSuccess : function(data, jqXHR) {
+		JWic.log("Connection Success");
+		if (data.sessionInitialized) {
+			// the connection is available and the session is still available.
+			if (JWic.reconnectMode) {
+				var dlg = JWic.$("_JWicDialog");
+				dlg.dialog("close");
+				JWic.reconnectMode = false;
+				JWic.ui.Notify.display("Connection re-established..");
+			}
+		} else {
+			// the connection is available again, but the session is no longer available. A restart is required.
+			if (JWic.reconnectMode) {
+				var dlg = JWic.$("_JWicDialog");
+				dlg.dialog("close");
+				JWic.reconnectMode = false;
+				
+				dlg.html("<div class=\"j-dialog-message\">The Server is available again, but the session on the server is no longer available. " +
+						"Either the session has expired in the meantime or the server was restarted. The application " +
+						"will now be reloaded.</div>");
+				dlg.dialog({
+					dialogClass: "j-dialog-no-close",
+					buttons:[
+					         {
+					        	 text: "Ok",
+					        	 icons: {
+					        		primary: "ui-icon-arrowrefresh-1-w" 
+					        	 },
+					        	 click: function() {
+					        		 jQuery(this).dialog("close");
+					        		 JWic.restartApp();
+					        	 }
+					         }
+					],
+					modal: true,
+					title: "Reconnected"
+				});
+			}
+		}
+	},
+	
+	connectionTestFailed : function(jqXHR, textStatus, errorThrown) {
+		JWic.log("Connection Failed - retrying");
+		window.setTimeout("JWic.connectionTest()", 1000);
+	},
+	
+	/**
+	 * Reload the current URL, removing any hashes
+	 */
+	restartApp : function() {
+		var appUrl = window.location.href;
+		var hash = appUrl.indexOf('#');
+		if (hash >= 0) {
+			appUrl = appUrl.substring(0, hash);
+		}
+		// immediately show click blocker while reloading...
+		JWic.isProcessing = true;
+		JWic.showClickBlocker(true);
+		JWic.showLongDelay(JWic.cbSeq);
+		window.location.href = appUrl;
+	},
+	
 	/**
 	 * Update a control on the document.
 	 */
@@ -422,7 +542,7 @@ var JWic = {
                 if(jqXHR.status == 404 && jqXHR.statusText == "Not Found") {
                     alert("The requested resource was not found on the server. Please try again.");
                 } else if(jqXHR.status == 0 && textStatus == "error") {
-                    alert("The server did not respond to the request. Please check your network connectivity and try again.");
+                    JWic.connectionLost();
                 } else {
 					alert("An exception has occured processing the server response: " + errorThrown, "Error Notification.");
 				}
@@ -467,7 +587,7 @@ var JWic = {
 					callBack(jqXHR);
 				} else {
                     if(jqXHR.status == 0 && textStatus == "error") {
-                        alert("The server did not respond to the request. Please check your network connectivity and try again.");
+                    	JWic.connectionLost();
                     } else {
                         alert('resource request failed:' + jqXHR.status + " " + jqXHR.statusText);
                     }

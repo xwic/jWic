@@ -18,6 +18,7 @@ package de.jwic.controls;
 
 import java.io.StringWriter;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 
 import org.json.JSONException;
 import org.json.JSONWriter;
@@ -109,7 +110,15 @@ public class NumericInputBox extends InputBox {
 	public Double getNumber() {
 		if(field.getValue() == null || field.getValue().length() == 0)
 			return null;
-		return Double.parseDouble(field.getValue());
+		
+		try {
+			return getSessionContext().getDecimalFormat().parse(field.getValue()).doubleValue();
+		} catch (ParseException e) {
+			// the text contains a value that cannot be parsed correctly.
+			log.debug("Cannot parse " + field.getValue() + " to double");
+			return null;
+		}
+		
 	}
 
 	/**
