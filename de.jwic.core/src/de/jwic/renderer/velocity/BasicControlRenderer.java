@@ -139,6 +139,10 @@ public class BasicControlRenderer extends BaseVelocityRenderer {
 	 * @return
 	 */
 	private boolean hasJsStaticFile(String jsTplName) {
+		if(jsTplName == null) {
+			return false;
+		}
+		
 		String cpName = jsTplName.replace('.', '/') + ".static.js";
 		Boolean exists = jsStaticExists.get(cpName);
 		if (exists == null) {
