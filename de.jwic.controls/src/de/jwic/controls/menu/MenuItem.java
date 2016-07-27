@@ -53,7 +53,10 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	private List<MenuItem> menuItems = null;
 	private Menu menu;
 	
+	private String urlToOpen;
+	
 	private PropertyChangeListener actionListener = new PropertyChangeListener() {
+		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			copyActionProperties();
 		}
@@ -409,7 +412,28 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+
+	/**
+	 * @return the urlToOpen
+	 */
+	public String getUrlToOpen() {
+		return urlToOpen;
+	}
+
+	/**
+	 * Will change the behavior of this MenuItem to simply open the given URL using target='_blank'
+	 * 
+	 * @param urlToOpen the urlToOpen to set
+	 */
+	public void setUrlToOpen(String urlToOpen) {
+		this.urlToOpen = urlToOpen;
+	}
 	
-	
+	/**
+	 * @return
+	 */
+	public boolean shouldOpenUrl() {
+		return urlToOpen != null && !urlToOpen.trim().isEmpty();
+	}
 	
 }

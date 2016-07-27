@@ -1,6 +1,16 @@
 #macro(renderMenuItem $menuItem $hasIcons)
 	<li #if(!$menuItem.enabled) class="ui-state-disabled" #end>
-		<a href="#" #if($menuItem.enabled) onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;" #end>
+		<a 
+			#if($menuItem.enabled)
+				#if ($menuItem.shouldOpenUrl())
+					href="$menuItem.getUrlToOpen()" target="_blank"
+				#else
+					onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;"
+				#end
+			#else
+				href="#"
+			#end
+		>
 			#if ($hasIcons)
 				<span class="j-menu-icon"  
 					#if($menuItem.getIcon())
@@ -9,7 +19,7 @@
 				></span>
 			#end
 			$!menuItem.title		
-		</a>	
+		</a>
 		#if ($menuItem.menuItems && $menuItem.menuItems.size() > 0)
 			<ul style="#if($menuItem.width != 0) width: ${menuItem.width}px; #end">
 				#foreach ($i in $menuItem.menuItems)

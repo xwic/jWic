@@ -139,6 +139,20 @@ public class Menu extends Control {
 		item.setTitle(title);
 		return item;
 	}
+	
+	/**
+	 * Add an item which will open an URL using target='_blank'
+	 * 
+	 * @param title
+	 * @param icon
+	 * @param urlToOpen
+	 * @return
+	 */
+	public MenuItem addMenuItemToOpenURL(String title, ImageRef icon, String urlToOpen) {
+		MenuItem item = addMenuItem(title, icon);
+		item.setUrlToOpen(urlToOpen);
+		return item;
+	}
 
 	/**
 	 * Add an item with the title as specified.
