@@ -428,12 +428,4 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	public void setUrlToOpen(String urlToOpen) {
 		this.urlToOpen = urlToOpen;
 	}
-	
-	/**
-	 * @return
-	 */
-	public boolean shouldOpenUrl() {
-		return urlToOpen != null && !urlToOpen.trim().isEmpty();
-	}
-	
 }

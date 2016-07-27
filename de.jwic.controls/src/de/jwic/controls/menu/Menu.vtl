@@ -2,7 +2,7 @@
 	<li #if(!$menuItem.enabled) class="ui-state-disabled" #end>
 		<a 
 			#if($menuItem.enabled)
-				#if ($menuItem.shouldOpenUrl())
+				#if ("$!menuItem.getUrlToOpen()" != "")
 					href="$menuItem.getUrlToOpen()" target="_blank"
 				#else
 					onClick="JWic.fireAction('$control.controlID', 'click', '$menuItem.id'); return false;"
