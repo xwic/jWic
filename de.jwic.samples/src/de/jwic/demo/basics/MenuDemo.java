@@ -90,7 +90,7 @@ public class MenuDemo extends ControlContainer {
 		
 		menu.addMenuItem("Save", ImageLibrary.IMG_DISK);
 
-		menu.addMenuItemToOpenURL("Open URL", null, "http://www.google.com");
+		menu.addMenuItem("Open URL", null, "http://www.google.com");
 	}
 	
 }

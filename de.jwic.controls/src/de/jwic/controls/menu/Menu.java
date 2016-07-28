@@ -141,14 +141,16 @@ public class Menu extends Control {
 	}
 	
 	/**
-	 * Add an item which will open an URL using target='_blank'
+	 * Add an item which will open an URL using target='_blank'.
+	 * <br/>
+	 * Note: if the urlToOpen is provided, no action event will be fired when the item is clicked. 
 	 * 
 	 * @param title
 	 * @param icon
 	 * @param urlToOpen
 	 * @return
 	 */
-	public MenuItem addMenuItemToOpenURL(String title, ImageRef icon, String urlToOpen) {
+	public MenuItem addMenuItem(String title, ImageRef icon, String urlToOpen) {
 		MenuItem item = addMenuItem(title, icon);
 		item.setUrlToOpen(urlToOpen);
 		return item;

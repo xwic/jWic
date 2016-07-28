@@ -421,7 +421,10 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	}
 
 	/**
-	 * Will change the behavior of this MenuItem to simply open the given URL using target='_blank'
+	 * Sets the URL to be opened when clicking this MenuItem.
+	 * <br/>
+	 * If urlToOpen is provided, then no action event will be fired when the MenuItem is clicked. Instead, 
+	 * the given URL will be opened using target='_blank' 
 	 * 
 	 * @param urlToOpen the urlToOpen to set
 	 */
