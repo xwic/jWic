@@ -53,7 +53,10 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	private List<MenuItem> menuItems = null;
 	private Menu menu;
 	
+	private String urlToOpen;
+	
 	private PropertyChangeListener actionListener = new PropertyChangeListener() {
+		@Override
 		public void propertyChange(PropertyChangeEvent evt) {
 			copyActionProperties();
 		}
@@ -409,7 +412,23 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	
-	
-	
+
+	/**
+	 * @return the urlToOpen
+	 */
+	public String getUrlToOpen() {
+		return urlToOpen;
+	}
+
+	/**
+	 * Sets the URL to be opened when clicking this MenuItem.
+	 * <br/>
+	 * If urlToOpen is provided, then no action event will be fired when the MenuItem is clicked. Instead, 
+	 * the given URL will be opened using target='_blank' 
+	 * 
+	 * @param urlToOpen the urlToOpen to set
+	 */
+	public void setUrlToOpen(String urlToOpen) {
+		this.urlToOpen = urlToOpen;
+	}
 }

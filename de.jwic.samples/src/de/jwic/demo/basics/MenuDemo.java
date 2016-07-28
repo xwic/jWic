@@ -63,7 +63,6 @@ public class MenuDemo extends ControlContainer {
 		addDemoMenu(subMenu);
 		btMenu.setMenu(subMenu);
 		
-		
 		// And as AnchorLink
 		Menu menu3 = new Menu(this, "menu3");
 		addDemoMenu(menu3);
@@ -91,7 +90,7 @@ public class MenuDemo extends ControlContainer {
 		
 		menu.addMenuItem("Save", ImageLibrary.IMG_DISK);
 
-		
+		menu.addMenuItem("Open URL", null, "http://www.google.com");
 	}
 	
 }
