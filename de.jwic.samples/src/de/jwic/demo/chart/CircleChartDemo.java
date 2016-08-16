@@ -1,9 +1,11 @@
 package de.jwic.demo.chart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
+import de.jwic.controls.chart.api.CircleValueListDataset;
 import de.jwic.controls.chart.api.CircleValueListDatasetModel;
 import de.jwic.controls.chart.impl.CircleChart;
 import de.jwic.demo.chart.util.DataModelCreator;
@@ -41,39 +43,48 @@ public class CircleChartDemo extends
 	}
 
 	@Override
-	protected void changeFillColor(String text) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+	protected void changeFillColor(String color) throws ChartInconsistencyException {
+		model.changeFillColor(0, color);
 	}
 
 	@Override
-	protected void changeHighColor(String text) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+	protected void changeHighColor(String color) throws ChartInconsistencyException {
+		model.changeHightlightColor(0, color);
 	}
 
 	@Override
 	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
 	}
 
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 	}
 
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-		
+		model.removeDataFromModel(selectedTableElement.getTitle());
 	}
 
 	@Override
 	protected List<TableElement> convertChartModelToTableElements() {
-		// TODO Auto-generated method stub
-		return null;
+		List<TableElement> elements = new ArrayList<TableElement>();
+
+		for (CircleValueListDataset set : model.getDatasets()) {
+			int i = 0;
+			for (Double in : set.getData()) {
+				TableElement el = new TableElement();
+				el.setTitle(model.getLabels().get(i));
+				el.setValue(in.toString());
+				el.setFillColor(set.getBackgroundColor().get(i));
+				el.setHighlightColor(set.getHoverBackgroundColor().get(i));
+				elements.add(el);
+				i++;
+			}
+		}
+
+		return elements;
 	}
 
 	

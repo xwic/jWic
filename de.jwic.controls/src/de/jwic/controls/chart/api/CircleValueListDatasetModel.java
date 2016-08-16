@@ -3,6 +3,7 @@
  */
 package de.jwic.controls.chart.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.controls.chart.impl.util.DataConverter;
@@ -22,11 +23,12 @@ public class CircleValueListDatasetModel extends ChartModel<CircleValueListDatas
 	 * @param labels
 	 * @param datasets
 	 */
-	public CircleValueListDatasetModel(List<String> labels, List<CircleValueListDataset> datasets, Animation animation) {
+	public CircleValueListDatasetModel(List<String> labels, List<CircleValueListDataset> datasets,
+			Animation animation) {
 		super(datasets, animation);
 		this.labels = labels;
 	}
-	
+
 	/**
 	 * 
 	 * @param labels
@@ -52,7 +54,7 @@ public class CircleValueListDatasetModel extends ChartModel<CircleValueListDatas
 	public List<String> getLabels() {
 		return labels;
 	}
-	
+
 	/**
 	 * adds new data to the model with the new label name
 	 * 
@@ -81,13 +83,17 @@ public class CircleValueListDatasetModel extends ChartModel<CircleValueListDatas
 	 * @param color
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeHightlightColor(int datasetNumber, List<String> color) throws ChartInconsistencyException {
-		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+	public void changeHightlightColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets() != null && getDatasets().size() > 0){
+			CircleValueListDataset dataset = getDatasets().get(0);
+			if (dataset.getHoverBackgroundColor().size() <= datasetNumber) {
+				throw new ChartInconsistencyException("Array of hover background colors smaller than " + datasetNumber);
+			}
+			dataset.getBackgroundColor().set(datasetNumber, DataConverter.convertToJSColor(color));
+			update();
+		} else {
+			throw new ChartInconsistencyException("No dataset found");
 		}
-		CircleValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setHoverBackgroundColor(color);
-		update();
 	}
 
 	/**
@@ -97,45 +103,17 @@ public class CircleValueListDatasetModel extends ChartModel<CircleValueListDatas
 	 * @param color
 	 * @throws ChartInconsistencyException
 	 */
-	public void changeFillColor(int datasetNumber, List<String> color) throws ChartInconsistencyException {
-		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
+	public void changeFillColor(int datasetNumber, String color) throws ChartInconsistencyException {
+		if (getDatasets() != null && getDatasets().size() > 0){
+			CircleValueListDataset dataset = getDatasets().get(0);
+			if (dataset.getBackgroundColor().size() <= datasetNumber + 1) {
+				throw new ChartInconsistencyException("Array of background colors smaller than " + datasetNumber);
+			}
+			dataset.getBackgroundColor().set(datasetNumber, DataConverter.convertToJSColor(color));
+			update();
+		} else {
+			throw new ChartInconsistencyException("No dataset found");
 		}
-		CircleValueListDataset dataset = getDatasets().get(datasetNumber);
-		dataset.setBackgroundColor(color);
-		update();
-	}
-
-	/**
-	 * Changes the stroke color of defined dataset
-	 * 
-	 * @param datasetNumber
-	 * @param color
-	 * @throws ChartInconsistencyException
-	 */
-	public void changeStrokeColor(int datasetNumber, String color) throws ChartInconsistencyException {
-		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
-		}
-		CircleValueListDataset dataset = getDatasets().get(datasetNumber);
-		//dataset.setBorderColor(color);
-		update();
-	}
-
-	/**
-	 * Changes the highlight stroke color of defined dataset
-	 * 
-	 * @param datasetNumber
-	 * @param color
-	 * @throws ChartInconsistencyException
-	 */
-	public void changeHighlightColorStroke(int datasetNumber, String color) throws ChartInconsistencyException {
-		if (getDatasets().size() <= datasetNumber) {
-			throw new ChartInconsistencyException("Array of datasets smaller than " + datasetNumber);
-		}
-		CircleValueListDataset dataset = getDatasets().get(datasetNumber);
-		//dataset.setHoverBorderColor(color);
-		update();
 	}
 
 	/**

@@ -189,9 +189,9 @@ public class DataModelCreator {
 		List<Double> values = new ArrayList<Double>();
 		List<String> backgroundColors = new ArrayList<String>();
 		List<String> hoverBackgroundColors = new ArrayList<String>();
-		values.add(10D);
+		values.add(15D);
 		values.add(20D);
-		values.add(14.4);
+		values.add(14.4D);
 		backgroundColors.add("0, 51, 153,0.9");
 		backgroundColors.add("151,187,205,0.8");
 		backgroundColors.add("151,187,205,1");
