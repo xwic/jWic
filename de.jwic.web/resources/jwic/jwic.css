@@ -557,6 +557,10 @@ span.j-listColSel-clearSearch {
 	height:20px;	
 }
 
+.j-menu {
+	z-index: 10;
+}
+
 .default-tooltip{
 	background : #ffffff;
 	color: #000000;
