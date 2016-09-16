@@ -513,7 +513,7 @@ var JWic = {
 	        	// a real submit is required to transfer the file to the server.
 	        	// make sure that the encoding type is multipart, before the data is submitted.
 	        	jQuery(jwicform).trigger("beforeSubmit");
-	        	jwicform.encoding = 'multipart/form-data';
+	        	jwicform.encoding = 'multipart/form-data;charset=utf-8';
 	        	jwicform.submit();
 	        	return;
 	        }
