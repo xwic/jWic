@@ -343,7 +343,7 @@ public class Upload {
 		baOutStream.close();
 		
 		// save it for later
-		return baOutStream.toString("ISO-8859-1");
+		return baOutStream.toString("UTF-8");
 	}
 	/**
 	 * Sollte neben dem Dateiupload noch weitere Felder in dem HTML - Formular
