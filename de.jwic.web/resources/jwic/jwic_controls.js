@@ -864,6 +864,130 @@ JWic.controls = {
 	},
 	
 	/**
+	 * de.jwic.controls.combo.VisualSearchCombo functions.
+	 */
+	VisualSearchCombo : {
+		_requestIndexCall : 0,
+		
+		/**
+		 * Initialize a new control.
+		 */
+		initialize : function(controlId, filter) {
+			var comboBox = document.getElementById(controlId);
+			 var visualSearch = VS.init({
+			      container : jQuery('.visual_search'),
+			      query     : '',
+			      callbacks : {
+			        search       : function(query, searchCollection) {},
+			        valueMatches : function(category, searchTerm, callback) {
+			        	var comboBox = document.getElementById(controlId);
+			        	var comboValue = comboBox.innerText.split(":")[1];
+			        	comboBox.dataFilterValue = comboValue;
+						comboBox.applyFilter = true;
+			        	if (comboBox.dataFilterValue.length >= comboBox.minSearchKeyLength) {
+			        		var param = {};
+							param["action"] = "load";
+							param["selectedParent"] = category;
+							if (comboBox.applyFilter && comboBox.dataFilterValue) {
+								param["filter"] = comboBox.dataFilterValue;
+							}
+							JWic.controls.VisualSearchCombo._requestIndexCall++;
+							var myIndex = JWic.controls.VisualSearchCombo._requestIndexCall
+				        	JWic.resourceRequest(controlId, function(ajaxResponse) {
+								try {
+									JWic.log("request answer: " + myIndex);
+									if (myIndex == JWic.controls.Combo.BeanLoader._requestIndexCall) {
+										JWic.controls.VisualSearchCombo._handleResponse(ajaxResponse);
+									} else {
+										JWic.log("Ignored AjaxResponse due to invalid request index.");
+									}
+								} catch (x) {
+									alert(x);
+								}
+							}, param);
+			        	}
+			          },
+			          facetMatches : function(callback) {
+			        	var comboBox = document.getElementById(controlId);
+			        	var param = {};
+						param["action"] = "load";
+						JWic.controls.VisualSearchCombo._requestIndexCall++;
+						var myIndex = JWic.controls.VisualSearchCombo._requestIndexCall
+			        	JWic.resourceRequest(controlId, function(ajaxResponse) {
+							try {
+								JWic.log("request answer: " + myIndex);
+								if (myIndex == JWic.controls.VisualSearchCombo._requestIndexCall) {
+									JWic.controls.VisualSearchCombo._handleResponse(ajaxResponse);
+								} else {
+									JWic.log("Ignored AjaxResponse due to invalid request index.");
+								}
+							} catch (x) {
+								alert(x);
+							}
+						}, param);
+ 			            callback([
+							jQuery.each(comboBox.dataStore, function(key, value) {
+								value.title;
+							})
+			            ], {
+			                preserveOrder: true
+			            });
+			          }
+			      }
+			    });
+		},
+		
+		/**
+		 * Clean up..
+		 */
+		destroy : function(controlId) {
+			
+		},
+		
+		_handleResponse : function(ajaxResponse) {
+			JWic.log("BeanLoader._handleResponse(..)");
+			var response = jQuery.parseJSON(ajaxResponse.responseText);
+			var comboBox = document.getElementById(response.controlId);
+			comboBox.dataStore = [];
+			jQuery.each(response.data, function(key, value) {
+				comboBox.dataStore.push(value);
+			});
+			JWic.controls.VisualSearchCombo.prepareData(response.controlId);
+			comboBox.loadCompleted = comboBox.cacheData; // only
+															// set
+															// load
+															// to
+															// complete
+															// if
+															// cacheData
+															// behavior
+															// is on
+			comboBox.contentRenderer.renderData(response.controlId);
+		},
+		
+		/**
+		 * Invoked before rendering - used to apply filters, etc..
+		 */
+		prepareData : function(controlId) {
+			JWic.log("BeanLoader.prepareData(..)");
+			var comboBox = document.getElementById(controlId);
+			if (comboBox.dataStore) {
+				comboBox.dataItems = new Array();
+				if (comboBox.clientSideFilter) {
+					jQuery(comboBox.dataStore).each(function(i,obj) {
+						var title = obj.title;
+						if (!comboBox.applyFilter || (comboBox.dataFilter && comboBox.dataFilter.match(comboBox, obj))) {
+							comboBox.dataItems.push(obj);
+						}
+					});
+				} else {
+					comboBox.dataItems = comboBox.dataStore;
+				}
+			}
+		}
+	},
+	
+	/**
 	 * de.jwic.controls.combo.Combo functions.
 	 */
 	Combo : {
