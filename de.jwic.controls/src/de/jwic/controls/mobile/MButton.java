@@ -122,7 +122,7 @@ public class MButton extends Button {
 	 * The <a href="http://api.jquerymobile.com/buttonMarkup/">.buttonMarkup()</a> documentation contains a reference of all the icons available in the default theme.
 	 */
 	public void setIconClass(Icon iconClass) {
-		if (iconClass != this.iconClass)
+		if (!iconClass.equals(this.iconClass))
 			requireRedraw();
 		this.iconClass = iconClass;
 	}

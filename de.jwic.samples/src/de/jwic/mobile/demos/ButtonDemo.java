@@ -110,7 +110,7 @@ public final class ButtonDemo extends MobileDemoModule {
 		
 		final MButton mbutton5 = new MButton(container, "button5");
 		mbutton5.setTitle("Click me, I'm a icon button");
-		mbutton5.setIconClass(Icon.STAR);
+		mbutton5.setIconClass(Icon.ALERT);
 		mbutton5.setIconpos(IconPos.RIGHT);
 
 		return container;

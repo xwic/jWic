@@ -1,0 +1,5 @@
+<div id="$control.controlID" data-role="header" role="banner" class="ui-header ui-bar-inherit">
+	#foreach($group in $control.controls)
+		$insert.control($group.name)
+	#end
+</div>

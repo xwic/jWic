@@ -1,0 +1,25 @@
+#set ($infoText = $control.infoText)
+#if ($infoText.length() < 25)
+	#set ($width = "180px")
+#else
+	#set ($width = "220px")
+#end 
+#if ($control.enabled)
+<table data-role="table" data-mode="columntoggle" class="tblPageTable ui-table ui-table-columntoggle">
+	<tr>
+		<td><a href="$control.createActionURL('first', '')" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" width="16" height="16"/"></td>
+		<td><a href="$control.createActionURL('prev', '')" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" width="16" height="16"/></td>
+		<td width="$width" style="text-align:center; vertical-align:middle;">$infoText</td>
+		<td><a href="$control.createActionURL('next', '')" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-notext" width="16" height="16"/></td>
+		<td><a href="$control.createActionURL('last', '')" class="ui-btn ui-corner-all ui-icon-forward ui-btn-icon-notext" width="16" height="16"/></td>
+#else
+<table cellspacing="0" cellpadding="0" class="tblPageTableDis">
+	<tr>
+		<td><a href="$control.createActionURL('first', '')" class="ui-btn ui-corner-all ui-icon-back ui-btn-icon-notext" width="16" height="16"/"></td>
+		<td><a href="$control.createActionURL('prev', '')" class="ui-btn ui-corner-all ui-icon-carat-l ui-btn-icon-notext" width="16" height="16"/></td>
+		<td width="$width" style="text-align:center; vertical-align:middle;">$infoText</td>
+		<td><a href="$control.createActionURL('next', '')" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-notext" width="16" height="16"/></td>
+		<td><a href="$control.createActionURL('last', '')" class="ui-btn ui-corner-all ui-icon-forward ui-btn-icon-notext" width="16" height="16"/></td>
+#end
+	</tr>								
+</table>

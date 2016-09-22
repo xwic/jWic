@@ -24,6 +24,8 @@ import de.jwic.mobile.MobileDemoModule;
  */
 public class TableDemo extends MobileDemoModule {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * @param title
 	 */
@@ -42,15 +44,17 @@ public class TableDemo extends MobileDemoModule {
 		final ControlContainer container = new ControlContainer(controlContainer, "container");
 
 		final TableViewer table = new TableViewer(container, "table1");
+		
+		final TableModel model = table.getModel();
+		model.setSelectionMode(TableModel.SELECTION_SINGLE);
+		//model.setColumnBtnText("Columns Button");
+		
 		DemoTaskContentProvider contentProvider = new DemoTaskContentProvider(createDemoData());
 		table.setContentProvider(contentProvider);
 		table.setTableLabelProvider(new LabelProvider());
 		table.setTableRenderer(new MobileTableRenderer());
 
-		TableModel model = table.getModel();
-
-		model.setSelectionMode(TableModel.SELECTION_SINGLE);
-		model.setColumnBtnText("Columns Button");
+		
 		createColumns(table);
 
 		return container;

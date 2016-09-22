@@ -20,8 +20,10 @@ package de.jwic.controls.tableviewer;
 import de.jwic.base.ControlContainer;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
+import de.jwic.base.IncludeJsOption;
 import de.jwic.base.RenderContext;
 import de.jwic.controls.menu.Menu;
+import de.jwic.controls.mobile.MStatusBarControl;
 import de.jwic.data.IContentProvider;
 import de.jwic.renderer.self.ISelfRenderingControl;
 import de.jwic.renderer.self.SelfRenderer;
@@ -83,6 +85,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	private boolean showAllInRangeSelector = false;
 
 	private StatusBarControl statusBar = null;
+	private MStatusBarControl mStatusBar = null;
 
 	private Menu menu = null;
 
@@ -106,6 +109,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 		new Field(this, "top");
 
 		statusBar = new StatusBarControl(this, "statusBar", getModel(), this.showAllInRangeSelector);
+		mStatusBar = new MStatusBarControl(this, "mStatusBar", getModel(), this.showAllInRangeSelector);
 	}
 
 	/**
@@ -263,6 +267,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	 * @see de.jwic.base.IHaveEnabled#isEnabled()
 	 */
 	@Override
+	@IncludeJsOption
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -276,6 +281,7 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		statusBar.setEnabled(enabled);
+		mStatusBar.setEnabled(enabled);
 		requireRedraw();
 	}
 
@@ -511,5 +517,30 @@ public class TableViewer extends ControlContainer implements ISelfRenderingContr
 	 */
 	public void setmCssClass(String mCssClass) {
 		this.mCssClass = mCssClass;
-	}	
+	}
+
+	/**
+	 * @return the mStatusBar
+	 */
+	public MStatusBarControl getmStatusBar() {
+		return mStatusBar;
+	}
+	
+	/**
+	 * @return the showMStatusBar
+	 */
+	public boolean isShowMStatusBar() {
+		return mStatusBar.isVisible();
+	}
+	
+	/**
+	 * 
+	 * @param showMStatusBar
+	 *            the showStatusBar to set
+	 */
+	public void setShowMStatusBar(boolean showMStatusBar) {
+		mStatusBar.setVisible(showMStatusBar);
+		requireRedraw();
+	}
+	
 }

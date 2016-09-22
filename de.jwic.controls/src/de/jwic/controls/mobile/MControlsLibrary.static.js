@@ -30,7 +30,7 @@ JWic.mobile = {
 				iconpos : options.iconpos,
 				theme : options.theme,
 				wrapperClass : options.wrapperClass,
-				icon : options.iconClass
+				icon : options.icon
 			});
 		},
 
@@ -354,7 +354,7 @@ JWic.mobile = {
 				inline : options.inline,
 				iconpos : options.iconpos,
 				theme : options.theme,
-				icon : options.iconClass,
+				icon : options.icon,
 				closeText : options.closeText,
 				nativeMenu : options.nativeMenu,
 				preventFocusZoom : options.preventFocusZoom,
@@ -380,5 +380,79 @@ JWic.mobile = {
 				columnBtnText : options.columnBtnText 
 			});
 		}
+	},/**
+	 * MListBox helper methods.
+	 */
+	ListBox : {
+		initialize : function(control, options) {
+			control.selectmenu({
+				disabled : !options.enabled,
+				corners : options.corners,
+				mini : options.mini,
+				shadow : options.shadow,
+				inline : options.inline,
+				iconpos : options.iconpos,
+				theme : options.theme,
+				icon : options.icon,
+				closeText : options.closeText,
+				nativeMenu : options.nativeMenu,
+				preventFocusZoom : options.preventFocusZoom,
+				dividerTheme : options.dividerTheme,
+				overlayTheme : options.overlayTheme,
+				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems,
+				elements : options.elements
+			});
+		},
+		destroy : function(control) {
+			control.destroy();
+		}
+	},
+	
+	/**
+	 * MCheckBoxGroup helper methods.
+	 */
+	CheckBoxGroup : {
+		initialize : function(control, options) {
+			control.controlgroup({
+				disabled : !options.enabled,
+				defaults: options.defaults,
+				excludeInvisible: options.excludeInvisible,
+				corners : options.corners,
+				mini : options.mini,
+				shadow : options.shadow,
+				theme : options.theme,
+				type  : options.type
+			});
+		},
+
+		destroy : function(control) {
+			control.destroy();
+		}
+	},
+	
+	/**
+	 * MPopup helper methods.
+	 */
+	Popup : {
+		initialize : function(control, options) {
+			control.popup({
+				disabled : options.disabled,
+				defaults: options.defaults,
+				corners: options.corners,
+				dismissible : options.dismissible,
+				history : options.history,
+				shadow : options.shadow,
+				theme : options.theme,
+				tolerance : options.tolerance,
+				transition : options.transition,
+				overlayTheme : options.overlayTheme,
+				positionTo  : options.positionTo
+			});
+		},
+
+		destroy : function(control) {
+			control.destroy();
+		}
 	}
+	
 };

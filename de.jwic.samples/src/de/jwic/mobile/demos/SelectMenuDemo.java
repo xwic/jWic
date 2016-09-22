@@ -13,6 +13,8 @@ import de.jwic.mobile.MobileDemoModule;
  */
 public final class SelectMenuDemo extends MobileDemoModule {
 
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * @param title
 	 */
@@ -29,23 +31,23 @@ public final class SelectMenuDemo extends MobileDemoModule {
 		
 		MSelectmenu selectmenu = new MSelectmenu(container, "selectmenu");
 		selectmenu.setCorners(false);
-		ISelectElement firstone = selectmenu.addElement("firstitem", "First");
-		selectmenu.addElement("seconditem", "Second");
-		selectmenu.addElement("thirditem", "Third");
+		ISelectElement firstone = selectmenu.addElement("First", "firstitem");
+		selectmenu.addElement("Second", "seconditem");
+		selectmenu.addElement("Third", "thirditem");
 		selectmenu.setSelectedElement(firstone);
 		
 		MSelectmenu selectmenuinline = new MSelectmenu(container, "selectmenuinline");
 		selectmenuinline.setInline(true);
-		selectmenuinline.addElement("firstiteminline", "First Inline");
-		selectmenuinline.addElement("seconditeminline", "Second Inline");
-		selectmenuinline.addElement("thirditeminline", "Third Inline");
-		selectmenuinline.addElement("fourthiteminline", "Fourth Inline");
+		selectmenuinline.addElement("First Inline", "firstiteminline");
+		selectmenuinline.addElement("Second Inline", "seconditeminline");
+		selectmenuinline.addElement("Third Inline", "thirditeminline");
+		selectmenuinline.addElement("Fourth Inline", "fourthiteminline");
 		
 		MSelectmenu selectmenumini = new MSelectmenu(container, "selectmenumini");
 		selectmenumini.setMini(true);
-		selectmenumini.addElement("firstitemmini", "First Mini");
-		selectmenumini.addElement("seconditemmini", "Second Mini");
-		selectmenumini.addElement("thirditemmini", "Third Mini");
+		selectmenumini.addElement("First Mini", "firstitemmini");
+		selectmenumini.addElement("Second Mini", "seconditemmini");
+		selectmenumini.addElement("Third Mini", "thirditemmini");
 		
 		return container;
 	}

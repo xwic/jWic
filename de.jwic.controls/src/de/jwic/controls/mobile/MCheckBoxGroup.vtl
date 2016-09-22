@@ -1,0 +1,8 @@
+<form id="$control.controlID">
+	<fieldset data-role="controlgroup">
+		#foreach ($entry in $control.buildEntryList())
+		<input type="checkbox" name="$entry.key" id="$entry.key">
+		<label for="$entry.key">$entry.title</label>
+		#end
+	</fieldset>
+</form>

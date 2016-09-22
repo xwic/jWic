@@ -1,0 +1,11 @@
+<a href="#$control.controlID" data-rel="popup" data-role="button" role="button" class="ui-link ui-btn ui-btn-inline ui-shadow ui-corner-all">
+	$control.btnTitle
+</a>
+ 
+<div data-role="popup" id="$control.controlID">
+  #foreach($cn in $control.controls)
+		<span>
+			$insert.control($cn.name)
+		</span>
+	#end
+</div>

@@ -92,7 +92,7 @@ public class TableModel implements Serializable {
 	 */
 	private boolean defaults = false;
 	private boolean disabled = false;
-	private String columnBtnText  = "Columns...";
+	//private String columnBtnText  = "Columns...";
 
 	/**
 	 * Default constructor.
@@ -694,18 +694,18 @@ public class TableModel implements Serializable {
 		this.disabled = disabled;
 	}
 
-	/**
-	 * @return the columnBtnText
-	 */
-	public String getColumnBtnText() {
-		return columnBtnText;
-	}
-
-	/**
-	 * @param columnBtnText the columnBtnText to set
-	 */
-	public void setColumnBtnText(String columnBtnText) {
-		this.columnBtnText = columnBtnText;
-	}
+//	/**
+//	 * @return the columnBtnText
+//	 */
+//	public String getColumnBtnText() {
+//		return columnBtnText;
+//	}
+//
+//	/**
+//	 * @param columnBtnText the columnBtnText to set
+//	 */
+//	public void setColumnBtnText(String columnBtnText) {
+//		this.columnBtnText = columnBtnText;
+//	}
 
 }

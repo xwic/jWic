@@ -10,6 +10,9 @@ import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import de.jwic.base.Control;
+import de.jwic.base.IControlRenderer;
+import de.jwic.base.JWicRuntime;
 import de.jwic.base.RenderContext;
 import de.jwic.data.IContentProvider;
 import de.jwic.data.Range;
@@ -50,8 +53,7 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 						+ (viewer.getMenu() != null ? "\'" + viewer.getMenu().getControlID() + "\'"
 								: "null" + ", fitToParent:" + model.isFitToParent() + ", defaults : "
 										+ viewer.getModel().isDefaults() + ", disabled : "
-										+ viewer.getModel().isDisabled() + ", columnBtnText : \""
-										+ viewer.getModel().getColumnBtnText() + "\"")
+										+ viewer.getModel().isDisabled())
 						+ "});}}");
 
 		PrintWriter writer = renderContext.getWriter();
@@ -105,6 +107,17 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 
 		writer.println("</TBODY>");
 		writer.println("</table>");
+
+		if (viewer.isShowMStatusBar()) {
+			writer.println("<TABLE>");
+			writer.println("<TBODY>");
+			writer.println("<tr><td>");
+			// render context
+			Control sb = viewer.getControl("mStatusBar");
+			IControlRenderer renderer = JWicRuntime.getRenderer(sb.getRendererId());
+			renderer.renderControl(sb, renderContext);
+			writer.print("</td></tr>");
+		}
 	}
 
 	/**

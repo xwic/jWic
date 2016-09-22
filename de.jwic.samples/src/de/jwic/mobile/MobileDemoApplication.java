@@ -8,9 +8,12 @@ import de.jwic.base.Control;
 import de.jwic.base.IControlContainer;
 import de.jwic.mobile.demos.ButtonDemo;
 import de.jwic.mobile.demos.CheckBoxDemo;
+import de.jwic.mobile.demos.CheckBoxGroupDemo;
 import de.jwic.mobile.demos.ComboDemo;
 import de.jwic.mobile.demos.FlipSwitchDemo;
 import de.jwic.mobile.demos.InputDemo;
+import de.jwic.mobile.demos.ListBoxDemo;
+import de.jwic.mobile.demos.PopupDemo;
 import de.jwic.mobile.demos.RadioButtonDemo;
 import de.jwic.mobile.demos.SelectMenuDemo;
 import de.jwic.mobile.demos.TableDemo;
@@ -20,6 +23,8 @@ import de.jwic.mobile.demos.TabsDemo;
  * Created by boogie on 10/27/14.
  */
 public class MobileDemoApplication extends Application {
+
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public Control createRootControl(IControlContainer container) {
@@ -35,6 +40,9 @@ public class MobileDemoApplication extends Application {
 		mobileDemoModules.add(new ComboDemo());
 		mobileDemoModules.add(new SelectMenuDemo());
 		mobileDemoModules.add(new TableDemo());
+		mobileDemoModules.add(new CheckBoxGroupDemo());
+		mobileDemoModules.add(new ListBoxDemo());
+		mobileDemoModules.add(new PopupDemo());
 		/*
 		mobileDemoModules.add(new DatePickerDemo());
 		mobileDemoModules.add(new ToggleableGroupsDemo());

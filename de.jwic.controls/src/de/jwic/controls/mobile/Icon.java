@@ -3,6 +3,8 @@
  */
 package de.jwic.controls.mobile;
 
+import java.io.Serializable;
+
 /**
  * 
  * Class for all the icons in jquery.mobile library
@@ -10,8 +12,10 @@ package de.jwic.controls.mobile;
  * @author vedad
  *
  */
-public class Icon {
+public class Icon implements Serializable {
 
+	private static final long serialVersionUID = -3714789286607189117L;
+	
 	public static final Icon ACTION = new Icon("action");
 	public static final Icon ALERT = new Icon("alert");
 	public static final Icon ARROWD = new Icon("arrow-d");
@@ -42,6 +46,7 @@ public class Icon {
 	public static final Icon FORBIDDEN = new Icon("forbidden");
 	public static final Icon FORWARD = new Icon("forward");
 	public static final Icon GEAR = new Icon("gear");
+	public static final Icon GRID = new Icon("grid");
 	public static final Icon HEART = new Icon("heart");
 	public static final Icon HOME = new Icon("home");
 	public static final Icon INFO = new Icon("info");
@@ -77,5 +82,15 @@ public class Icon {
 	public String getCode() {
 		return code;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getCode();
+	}
+	
+	
 
 }

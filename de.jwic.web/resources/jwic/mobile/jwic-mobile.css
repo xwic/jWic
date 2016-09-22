@@ -1,3 +1,7 @@
 .ui-mobile, .ui-mobile body{
     height : auto;
 }
+
+.ui-table-columntoggle-btn {
+    display: none !important;
+}

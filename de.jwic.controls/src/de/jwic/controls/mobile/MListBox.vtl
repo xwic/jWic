@@ -1,0 +1,6 @@
+<label for="$control.controlID" class="ui-hidden-accessible"></label>
+<select name="$control.name" id="$control.controlID">
+	#foreach ($entry in $control.buildEntryList())
+		<option value="$entry.key">$entry.title</option>
+	#end
+</select>
