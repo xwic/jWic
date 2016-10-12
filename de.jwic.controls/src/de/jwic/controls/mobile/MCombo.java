@@ -10,6 +10,7 @@ import de.jwic.controls.combo.Combo;
 import de.jwic.controls.combo.ComboBehavior;
 import de.jwic.data.ISelectElement;
 import de.jwic.data.SelectElement;
+import de.jwic.util.Util;
 
 /**
  * 
@@ -259,7 +260,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param splitIcon the splitIcon to set
 	 */
 	public void setSplitIcon(Icon splitIcon) {
-		if (splitIcon.equals(this.splitIcon))
+		if (!Util.equals(splitIcon, this.splitIcon))
 			requireRedraw();
 		this.splitIcon = splitIcon;
 	}
@@ -293,7 +294,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param icon the icon to set
 	 */
 	public void setIcon(Icon icon) {
-		if (icon.equals(this.icon))
+		if (!Util.equals(icon, this.icon))
 			requireRedraw();
 		this.icon = icon;
 	}
@@ -310,7 +311,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param dividerTheme the dividerTheme to set
 	 */
 	public void setDividerTheme(Theme dividerTheme) {
-		if (dividerTheme.equals(this.dividerTheme))
+		if (!Util.equals(dividerTheme, this.dividerTheme))
 			requireRedraw();
 		this.dividerTheme = dividerTheme;
 	}
@@ -327,7 +328,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param filterTheme the filterTheme to set
 	 */
 	public void setFilterTheme(Theme filterTheme) {
-		if (filterTheme.equals(this.filterTheme))
+		if (!Util.equals(filterTheme, this.filterTheme))
 			requireRedraw();
 		this.filterTheme = filterTheme;
 	}
@@ -344,7 +345,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param splitTheme the splitTheme to set
 	 */
 	public void setSplitTheme(Theme splitTheme) {
-		if (splitTheme.equals(this.splitTheme))
+		if (!Util.equals(splitTheme, this.splitTheme))
 			requireRedraw();
 		this.splitTheme = splitTheme;
 	}
@@ -361,7 +362,7 @@ public class MCombo<A> extends Combo<A> {
 	 * @param theme the theme to set
 	 */
 	public void setTheme(Theme theme) {
-		if (theme.equals(this.theme))
+		if (!Util.equals(theme, this.theme))
 			requireRedraw();
 		this.theme = theme;
 	}

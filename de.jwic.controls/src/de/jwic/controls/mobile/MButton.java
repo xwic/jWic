@@ -4,6 +4,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.Button;
+import de.jwic.util.Util;
 
 /**
  * The MButton offers the same functionality as the base Button, but renders as a basic HTML button that inherits the default jQuery Mobile
@@ -32,6 +33,7 @@ public class MButton extends Button {
 	 */
 	public MButton(IControlContainer container, String name) {
 		super(container, name);
+		setCssClass("");
 	}
 
 	/**
@@ -122,7 +124,7 @@ public class MButton extends Button {
 	 * The <a href="http://api.jquerymobile.com/buttonMarkup/">.buttonMarkup()</a> documentation contains a reference of all the icons available in the default theme.
 	 */
 	public void setIconClass(Icon iconClass) {
-		if (!iconClass.equals(this.iconClass))
+		if (!Util.equals(iconClass, this.iconClass))
 			requireRedraw();
 		this.iconClass = iconClass;
 	}
@@ -141,7 +143,7 @@ public class MButton extends Button {
 	 * The notext value will display an icon-only button with no text feedback.
 	 */
 	public void setIconpos(IconPos iconpos) {
-		if (!iconpos.equals(this.iconpos))
+		if (!Util.equals(iconpos, this.iconpos))
 			requireRedraw();
 		this.iconpos = iconpos;
 	}
@@ -160,7 +162,7 @@ public class MButton extends Button {
 	 * It accepts a single letter from a-z that maps to the swatches included in your theme. Possible values: swatch letter (a-z).
 	 */
 	public void setTheme(Theme theme) {
-		if (!theme.equals(this.theme))
+		if (!Util.equals(theme, this.theme))
 			requireRedraw();
 		this.theme = theme;
 	}

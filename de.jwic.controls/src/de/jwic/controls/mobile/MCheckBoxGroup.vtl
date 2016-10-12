@@ -1,8 +1,14 @@
-<form id="$control.controlID">
-	<fieldset data-role="controlgroup">
-		#foreach ($entry in $control.buildEntryList())
-		<input type="checkbox" name="$entry.key" id="$entry.key">
-		<label for="$entry.key">$entry.title</label>
-		#end
-	</fieldset>
-</form>
+#set($field = $control.getField("values"))
+<fieldset id="$control.controlID">
+	#foreach ($entry in $control.buildEntryList())
+	#set($selected = $control.isKeySelected($entry.key))
+	#set($keyValue = $jwic.formatInp($entry.key))
+	#set($radId = "rad_${velocityCount}_${control.controlID}")
+	<input type="hidden" name="$field.id" id="hf_$radId" value="#if($selected)${keyValue}#end">
+	<input id="$radId" 
+		onclick="JWic.mobile.CheckBoxGroup.handleChange('$control.controlID', 'hf_$radId', this);
+		#if($control.changeNotification)JWic.fireAction('$control.controlID', 'valuechanged', '')#end" 
+		type="checkbox" name="$entry.key" value="$keyValue">
+	<label for="$radId">$entry.title</label>
+	#end
+</fieldset>

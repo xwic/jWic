@@ -1,6 +1,23 @@
+#set($field = $control.getField("values"))
 <label for="$control.controlID" class="ui-hidden-accessible"></label>
-<select name="$control.name" id="$control.controlID">
+<select name="$field.id" id="$control.controlID"
+#if ( $control.changeNotification )
+#if ( "$!control.confirmMsg" != "")
+	onChange="if(confirm('$control.confirmMsg')){this._oldIdx=this.selectedIndex;$control.createActionURL('valuechanged', '');}else{this.selectedIndex=this._oldIdx}"
+#else
+	onChange="$control.createActionURL('valuechanged', '')"
+#end
+#else
+#if ( $control.confirmMsg != "" )
+	onChange="if(!confirm('$control.confirmMsg')){this.selectedIndex=this._oldIdx}else{this._oldIdx=this.selectedIndex}"
+#end
+#end
+	onDblClick="$control.createActionURL('selected', 'dblClick')"
+#if ( $control.isMultiSelect()) multiple  #end
+#if ( ! $control.isEnabled()) disabled  #end>
+	#if ($control.size == 1 && $field.value == "" && !$control.getElementsKeys().contains("")) <option value="" selected></option> #end
+	
 	#foreach ($entry in $control.buildEntryList())
-		<option value="$entry.key">$entry.title</option>
+		<option #if ( $control.isKeySelected($entry.key) ) selected #end value="$jwic.formatInp($entry.key)">$jwic.formatHtml($entry.title)</option>
 	#end
 </select>

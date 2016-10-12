@@ -14,11 +14,13 @@ import de.jwic.base.JavaScriptSupport;
 @JavaScriptSupport(jsTemplate = "de.jwic.controls.mobile.MPage")
 public class MPage extends ControlContainer implements IOuterLayout {
 	private final ControlContainer header;
+	private final ControlContainer footer;
 	private String text;
 
 	public MPage(IControlContainer container, String name) {
 		super(container, name);
 		this.header = new ControlContainer(this, "header");
+		this.footer = new ControlContainer(this, "footer");
 
 		this.setRendererId(Control.DEFAULT_OUTER_RENDERER);
 		this.setTemplateName(ControlContainer.class.getName());
@@ -47,4 +49,13 @@ public class MPage extends ControlContainer implements IOuterLayout {
 	public ControlContainer getHeaderContainer() {
 		return header;
 	}
+
+	/**
+	 * @return the footer
+	 */
+	public ControlContainer getFooterContainer() {
+		return footer;
+	}
+	
+	
 }

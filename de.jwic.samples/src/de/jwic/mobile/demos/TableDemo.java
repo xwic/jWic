@@ -4,6 +4,7 @@
 package de.jwic.mobile.demos;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import de.jwic.base.Control;
@@ -12,10 +13,14 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.tableviewer.MobileTableRenderer;
 import de.jwic.controls.tableviewer.TableColumn;
 import de.jwic.controls.tableviewer.TableModel;
+import de.jwic.controls.tableviewer.TableModelAdapter;
+import de.jwic.controls.tableviewer.TableModelEvent;
 import de.jwic.controls.tableviewer.TableViewer;
 import de.jwic.demo.tbv.DemoTask;
 import de.jwic.demo.tbv.DemoTaskContentProvider;
 import de.jwic.demo.tbv.LabelProvider;
+import de.jwic.events.ElementSelectedEvent;
+import de.jwic.events.ElementSelectedListener;
 import de.jwic.mobile.MobileDemoModule;
 
 /**
@@ -25,6 +30,9 @@ import de.jwic.mobile.MobileDemoModule;
 public class TableDemo extends MobileDemoModule {
 
 	private static final long serialVersionUID = 1L;
+	
+	private TableViewer table;
+	private DemoTaskContentProvider contentProvider;
 
 	/**
 	 * @param title
@@ -43,17 +51,25 @@ public class TableDemo extends MobileDemoModule {
 	public Control createPage(IControlContainer controlContainer) {
 		final ControlContainer container = new ControlContainer(controlContainer, "container");
 
-		final TableViewer table = new TableViewer(container, "table1");
+		table = new TableViewer(container, "table1");
 		
 		final TableModel model = table.getModel();
-		model.setSelectionMode(TableModel.SELECTION_SINGLE);
-		//model.setColumnBtnText("Columns Button");
 		
-		DemoTaskContentProvider contentProvider = new DemoTaskContentProvider(createDemoData());
+		contentProvider = new DemoTaskContentProvider(createDemoData());
 		table.setContentProvider(contentProvider);
 		table.setTableLabelProvider(new LabelProvider());
 		table.setTableRenderer(new MobileTableRenderer());
+		table.setWidth(700);
+		table.setHeight(200);
 
+		model.setMaxLines(-1); 
+		model.addTableModelListener(new TableModelAdapter() {
+			private static final long serialVersionUID = 1L;
+			public void columnSelected(TableModelEvent event) {
+				handleSorting(event.getTableColumn());
+			}
+		});
+		model.setSelectionMode(TableModel.SELECTION_SINGLE);
 		
 		createColumns(table);
 
@@ -102,6 +118,44 @@ public class TableDemo extends MobileDemoModule {
 		col.setWidth(80);
 		model.addColumn(col);
 
+	}
+	
+	/**
+	 * Change the sort icon.
+	 * @param tableColumn
+	 */
+	protected void handleSorting(TableColumn tableColumn) {
+		
+		if (tableColumn.getSortIcon() == TableColumn.SORT_ICON_NONE) {
+			// clear all columns
+			for (Iterator<TableColumn> it = table.getModel().getColumnIterator(); it.hasNext(); ) {
+				TableColumn col = it.next();
+				col.setSortIcon(TableColumn.SORT_ICON_NONE);
+			}
+		}
+		boolean up = true;
+		switch (tableColumn.getSortIcon()) {
+		case TableColumn.SORT_ICON_NONE: 
+			tableColumn.setSortIcon(TableColumn.SORT_ICON_UP);
+			break;
+		case TableColumn.SORT_ICON_UP:
+			tableColumn.setSortIcon(TableColumn.SORT_ICON_DOWN);
+			up = false;
+			break;
+		case TableColumn.SORT_ICON_DOWN:
+			// once sorted, the list can not be displayed in the
+			// original order as we sort the original table,
+			// therefor loosing the original order.
+			tableColumn.setSortIcon(TableColumn.SORT_ICON_UP);
+			//tableColumn.setSortIcon(TableColumn.SORT_ICON_NONE);
+			break;
+		}
+		
+		// do the sort
+		contentProvider.sortData((String)tableColumn.getUserObject(), up);
+		
+		table.setRequireRedraw(true);
+		
 	}
 
 }

@@ -15,6 +15,8 @@ public final class SelectMenuDemo extends MobileDemoModule {
 
 	private static final long serialVersionUID = 1L;
 
+	private MSelectmenu selectmenuinline;
+
 	/**
 	 * @param title
 	 */
@@ -22,33 +24,38 @@ public final class SelectMenuDemo extends MobileDemoModule {
 		super("SelectMenu Demo");
 	}
 
-	/* (non-Javadoc)
-	 * @see de.jwic.mobile.MobileDemoModule#createPage(de.jwic.base.IControlContainer)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see de.jwic.mobile.MobileDemoModule#createPage(de.jwic.base.
+	 * IControlContainer)
 	 */
 	@Override
 	public Control createPage(IControlContainer controlContainer) {
 		final ControlContainer container = new ControlContainer(controlContainer, "controlContainer");
-		
+
 		MSelectmenu selectmenu = new MSelectmenu(container, "selectmenu");
 		selectmenu.setCorners(false);
-		ISelectElement firstone = selectmenu.addElement("First", "firstitem");
+		selectmenu.setMultiSelect(true);
+		selectmenu.addElement("First", "firstitem");
 		selectmenu.addElement("Second", "seconditem");
 		selectmenu.addElement("Third", "thirditem");
-		selectmenu.setSelectedElement(firstone);
-		
-		MSelectmenu selectmenuinline = new MSelectmenu(container, "selectmenuinline");
+
+		selectmenuinline = new MSelectmenu(container, "selectmenuinline");
 		selectmenuinline.setInline(true);
 		selectmenuinline.addElement("First Inline", "firstiteminline");
 		selectmenuinline.addElement("Second Inline", "seconditeminline");
-		selectmenuinline.addElement("Third Inline", "thirditeminline");
+		ISelectElement selectedElm = selectmenuinline.addElement("Third Inline", "thirditeminline");
 		selectmenuinline.addElement("Fourth Inline", "fourthiteminline");
-		
+		selectmenuinline.setSelectedElement(selectedElm);
+
 		MSelectmenu selectmenumini = new MSelectmenu(container, "selectmenumini");
 		selectmenumini.setMini(true);
+		selectmenumini.setEmptyInfoText("Choose option");
 		selectmenumini.addElement("First Mini", "firstitemmini");
 		selectmenumini.addElement("Second Mini", "seconditemmini");
 		selectmenumini.addElement("Third Mini", "thirditemmini");
-		
+
 		return container;
 	}
 

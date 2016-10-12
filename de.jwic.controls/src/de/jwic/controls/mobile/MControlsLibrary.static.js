@@ -229,11 +229,14 @@ JWic.mobile = {
 			var html = "";
 			var response = jQuery.parseJSON(ajaxResponse.responseText);
 			var size = response.data.length;
+			var comboBox = document.getElementById(response.controlId);
+			comboBox.dataStore = [];
 			html += "<div class=\"ui-controlgroup-controls\">";
 			jQuery
 					.each(
 							response.data,
 							function(i, val) {
+								comboBox.dataStore.push(val);
 								if (i == size)
 									html += "<div class=\"ui-checkbox\">"
 											+ "<label for=\""
@@ -262,6 +265,117 @@ JWic.mobile = {
 			html += "</div>";
 			$ul.html(html);
 			$ul.trigger("updatelayout");
+		},
+		/**
+		 * Make a selection. Toggles selection if combo box is in multi select
+		 * mode.
+		 */
+		selectElement: function(controlId, title, key, isSelected) {
+			var comboBox = document.getElementById(controlId);
+			
+			if (comboBox) {
+				comboBox.suggestedObject = null;
+				var changed = false;
+				
+				if (comboBox.multiSelect) {
+					if (jQuery(comboBox.jComboField).val().length <1) {
+						jQuery(comboBox.jComboField).val("");
+						jQuery(comboBox.jComboKey).val("");
+					}
+					if (!isSelected) {
+						// add to selection;;
+						var sep = "";
+						if (jQuery(comboBox.jComboKey).val().length > 0) {
+							sep = ";"
+						}
+						jQuery(comboBox.jComboField).val(jQuery(comboBox.jComboField).val() + sep + title);
+						jQuery(comboBox.jComboKey).val(jQuery(comboBox.jComboKey).val() + sep + key);
+					} else {
+						// remove selected
+						jQuery(comboBox.jComboField).val(JWic.util.removeElement(jQuery(comboBox.jComboField).val(), title));
+						jQuery(comboBox.jComboKey).val(JWic.util.removeElement(jQuery(comboBox.jComboKey).val(), key));
+					}
+					changed = true;
+				} else {
+					comboBox.jComboField.value = title;
+					if (comboBox.jComboKey.value != key) {
+						comboBox.jComboKey.value = key;
+						changed = true;
+					}
+				}
+				
+				if (comboBox.changeNotification && changed) {
+					JWic.fireAction(controlId, 'elementSelected', key);
+				}
+				return changed;
+			}
+			return false;
+		},
+		/**
+		 * Handle the selection by key.
+		 */
+		handleSelection : function(controlId, fldKeyId) {
+			var isSelected = true;
+			var comboBox = document.getElementById(controlId);
+			var fldKey = document.getElementById(fldKeyId);
+			var keyArray = fldKey.value.split(';').filter(function(el) {return el.length != 0});
+			var key = "";
+			var title = "";
+			
+			if (comboBox.multiSelect) {
+				if (jQuery(comboBox).last().val()) {
+					if (keyArray.length > jQuery(comboBox).last().val().length) {
+						//item has been deselected
+						for (var i = 0; i < keyArray.length; i++) {
+							var foundDeselected = true;
+							for (var j = 0; j < jQuery(comboBox).last().val().length; j++) {
+								var jqElm =  jQuery(comboBox).last().val()[j];
+								if(keyArray[i] == jqElm) {
+									foundDeselected = false;
+									break;
+								}
+							}
+							if (foundDeselected) {
+								key = keyArray[i];
+								break;
+							}
+						}
+					} else if (keyArray.length < jQuery(comboBox).last().val().length) {
+						//item has been selected
+						isSelected = false;
+						for (var i = 0; i < jQuery(comboBox).last().val().length; i++) {
+							var foundSelected = true;
+							var jqElm =  jQuery(comboBox).last().val()[i];
+							for (var j = 0; j < keyArray.length; j++) {
+								if(keyArray[j] == jqElm) {
+									foundSelected = false;
+									break;
+								}
+							}
+							if (foundSelected) {
+								key = jqElm;
+								break;
+							}
+						}
+					}
+				} else {
+					key = keyArray[0];
+				}
+			} else {
+				//it is not multiselect, item has been selected
+				isSelected = false;
+				key = jQuery(comboBox).last().val();
+			}
+			for (var index = 0, len = comboBox.dataStore.length; index < len; ++index) {
+				var item = comboBox.dataStore[index];
+				if (item.value == key) {
+					title = item.text;
+					break;
+				}
+			}
+			JWic.mobile.Combo.selectElement(controlId, title, key, isSelected);
+			JWic.log("Combo: handleSelection(" + controlId + ", '" + key + "') -> title: " + title);
+			
 		},
 		destroy : function(control) {
 			control.destroy();
@@ -345,7 +459,8 @@ JWic.mobile = {
 	 * SelectMenu helper methods.
 	 */
 	SelectMenu : {
-		initialize : function(control, options) {
+		initialize : function(control, fldElm, fldKeyElm, options) {
+			var selectmenu = document.getElementById(options.controlID);
 			control.selectmenu({
 				disabled : options.enabled,
 				corners : options.corners,
@@ -362,6 +477,12 @@ JWic.mobile = {
 				overlayTheme : options.overlayTheme,
 				hidePlaceholderMenuItems : options.hidePlaceholderMenuItems,
 				elements : options.elements
+			});
+			selectmenu.dataStore = [];
+			selectmenu.jComboField = fldElm;
+			selectmenu.jComboKey = fldKeyElm;
+			jQuery.each(selectmenu.children, function(key, value) {
+				selectmenu.dataStore.push(value);
 			});
 		},
 		destroy : function(control) {
@@ -413,16 +534,23 @@ JWic.mobile = {
 	 */
 	CheckBoxGroup : {
 		initialize : function(control, options) {
-			control.controlgroup({
-				disabled : !options.enabled,
-				defaults: options.defaults,
-				excludeInvisible: options.excludeInvisible,
-				corners : options.corners,
-				mini : options.mini,
-				shadow : options.shadow,
-				theme : options.theme,
-				type  : options.type
-			});
+			if (control){
+				control.controlgroup({
+					disabled : !options.enabled,
+					defaults: options.defaults,
+					excludeInvisible: options.excludeInvisible,
+					corners : options.corners,
+					mini : options.mini,
+					shadow : options.shadow,
+					theme : options.theme,
+					type  : options.type
+				});
+			}
+		},
+		
+		handleChange : function (controlId, field, element) {
+			var field = JWic.$(field);
+			field.val(element.checked ? element.value : "");
 		},
 
 		destroy : function(control) {
@@ -435,19 +563,21 @@ JWic.mobile = {
 	 */
 	Popup : {
 		initialize : function(control, options) {
-			control.popup({
-				disabled : options.disabled,
-				defaults: options.defaults,
-				corners: options.corners,
-				dismissible : options.dismissible,
-				history : options.history,
-				shadow : options.shadow,
-				theme : options.theme,
-				tolerance : options.tolerance,
-				transition : options.transition,
-				overlayTheme : options.overlayTheme,
-				positionTo  : options.positionTo
-			});
+			if (control) {
+				control.popup({
+					disabled : options.disabled,
+					defaults: options.defaults,
+					corners: options.corners,
+					dismissible : options.dismissible,
+					history : options.history,
+					shadow : options.shadow,
+					theme : options.theme,
+					tolerance : options.tolerance,
+					transition : options.transition,
+					overlayTheme : options.overlayTheme,
+					positionTo  : options.positionTo
+				});
+			}
 		},
 
 		destroy : function(control) {

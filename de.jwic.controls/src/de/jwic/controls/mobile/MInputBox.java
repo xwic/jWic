@@ -7,6 +7,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.InputBox;
+import de.jwic.util.Util;
 
 /**
  * A textinput widget that is represented as a jQuery Mobile control. Extends
@@ -225,7 +226,7 @@ public class MInputBox extends InputBox {
 	 * The value of this option is a string containing a space-separated list of classes to be applied to the outermost element of the textinput widget.
 	 */
 	public void setTheme(Theme theme) {
-		if (!theme.equals(this.theme))
+		if (!Util.equals(theme, this.theme))
 			requireRedraw();
 		this.theme = theme;
 	}

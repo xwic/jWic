@@ -6,6 +6,7 @@ package de.jwic.controls.mobile;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IncludeJsOption;
 import de.jwic.controls.CheckBoxGroup;
+import de.jwic.util.Util;
 
 /**
  * @author vedad
@@ -142,7 +143,7 @@ public class MCheckBoxGroup extends CheckBoxGroup {
 	 *            the theme to set
 	 */
 	public void setTheme(Theme theme) {
-		if(this.theme.equals(theme))
+		if(Util.equals(theme, this.theme))
 			requireRedraw();
 		this.theme = theme;
 	}
@@ -160,7 +161,7 @@ public class MCheckBoxGroup extends CheckBoxGroup {
 	 *            the type to set
 	 */
 	public void setType(String type) {
-		if(this.type.equals(type))
+		if(Util.equals(type, this.type))
 			requireRedraw();
 		this.type = type;
 	}

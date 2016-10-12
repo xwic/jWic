@@ -12,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 
 import de.jwic.base.Control;
 import de.jwic.base.IControlRenderer;
+import de.jwic.base.ImageRef;
 import de.jwic.base.JWicRuntime;
 import de.jwic.base.RenderContext;
 import de.jwic.data.IContentProvider;
@@ -30,6 +31,11 @@ import de.jwic.data.Range;
 public class MobileTableRenderer implements ITableRenderer, Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	/** default icon used for sort-up image */
+	public final static ImageRef ICON_SORTUP = new ImageRef("/jwic/gfx/sortup.gif");
+	/** default icon used for sort-down image */
+	public final static ImageRef ICON_SORTDOWN = new ImageRef("/jwic/gfx/sortdn.gif");
 
 	protected transient Log log = LogFactory.getLog(getClass());
 
@@ -117,6 +123,8 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 			IControlRenderer renderer = JWicRuntime.getRenderer(sb.getRendererId());
 			renderer.renderControl(sb, renderContext);
 			writer.print("</td></tr>");
+			writer.println("</TABLE>");
+			writer.println("</TBODY>");
 		}
 	}
 
@@ -126,7 +134,7 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 	protected void renderMHeader(PrintWriter writer, TableModel model, TableViewer viewer) {
 
 		boolean isResizable = viewer.isResizeableColumns() && viewer.isEnabled();
-		int counter = 1;
+		boolean isColSelectable = viewer.isSelectableColumns() && viewer.isEnabled();
 
 		writer.println("<THEAD>");
 
@@ -138,21 +146,41 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 			}
 
 			if (isResizable && column.getWidth() == 0) {
-				// must set a default width if resizeable columns is activated
+				// must set a default width if resizable columns is activated
 				column.setWidth(150);
 			}
 
-			writer.print("<th data-priority=\"" + counter + "\"");
+			writer.print("<th");
+			writer.print(" colIdx=\"" + column.getIndex() + "\"");
+			if (isColSelectable) {
+				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '"
+						+ column.getIndex() + "')\"");
+				writer.print(" onMouseDown=\"JWic.controls.TableViewer.pushColumn(" + column.getIndex() + ", '"
+						+ viewer.getControlID() + "')\"");
+				writer.print(" onMouseUp=\"JWic.controls.TableViewer.releaseColumn()\"");
+				writer.print(" onMouseOut=\"JWic.controls.TableViewer.releaseColumn()\"");
+			}
 
 			writer.println(">");
 			// create cell table
 			writer.print(column.getTitle());
 
-			writer.println("</th>");
+			if (column.getSortIcon() != TableColumn.SORT_ICON_NONE) {
+				ImageRef imgSort = null;
+				switch (column.getSortIcon()) {
+				case TableColumn.SORT_ICON_UP:
+					imgSort = ICON_SORTUP;
+					break;
+				case TableColumn.SORT_ICON_DOWN:
+					imgSort = ICON_SORTDOWN;
+					break;
+				}
+				if (imgSort != null) {
+					writer.print("<IMG SRC=\"" + imgSort.getPath() + "\" border=0>");
+				}
+			}
 
-			counter++;
-			if (counter > 3)
-				counter = 1;
+			writer.println("</th>");
 		}
 
 		// if the width is fixed, we must render an empty column at the end so

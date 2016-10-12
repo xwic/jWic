@@ -1,6 +1,14 @@
-<label for="$control.controlID" class="ui-hidden-accessible">Shipping method:</label>
-<select name="$control.name" id="$control.controlID">
+#set($fld = $control.getField("text"))
+#set($fldKey = $control.getField("key"))
+#set($selectedKey = $control.getSelectedKey())
+
+<label for="$control.controlID" class="ui-hidden-accessible"></label>
+<select name="$control.name" id="$control.controlID" #if($control.multiSelect) multiple="multiple" #end onchange="JWic.mobile.Combo.handleSelection('$control.controlID', '$fldKey.id');">
+	#if($selectedKey == "" && $control.emptyInfoText)<option>$control.emptyInfoText</option> #end
 	#foreach($element in $control.elements)
-		<option value="$element.key">$element.title</option>
+		<option value="$element.key" #if($selectedKey == $element.key) selected="selected" #end>$element.title</option>
 	#end
+	
+	<input type="hidden" name="$fldKey.id" id="$fldKey.id" value="$jwic.formatInp($fldKey.value)">
+	<input type="hidden" name="$fld.id" id="$fld.id" value="$jwic.formatInp($fld.value)">
 </select>
