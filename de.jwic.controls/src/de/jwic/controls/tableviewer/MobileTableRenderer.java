@@ -74,7 +74,34 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 		}
 
 		writer.print("<table data-role=\"table\" id=\"" + viewer.getControlID() + "\"" + " data-mode=\"columntoggle\""
-				+ "class=\"" + viewer.getmCssClass() + "\">");
+				+ "class=\"" + viewer.getmCssClass() + "\"");
+		writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
+		
+		// create required table attributes.
+		StringBuffer sbTblSelAttrs = new StringBuffer();
+		switch (model.getSelectionMode()) {
+		case TableModel.SELECTION_SINGLE: {
+			String clearKey = model.getFirstSelectedKey();
+			if (clearKey == null) {
+				clearKey = "";
+			}
+			sbTblSelAttrs.append(" tbvSelKey=\"" + clearKey + "\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"single\"");
+			break;
+		}
+		case TableModel.SELECTION_MULTI: {
+			sbTblSelAttrs.append(" tbvSelKey=\"\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"multi\"");
+			break;
+		}
+		default: {
+			sbTblSelAttrs.append(" tbvSelKey=\"\"");
+			sbTblSelAttrs.append(" tbvSelMode=\"none\"");
+		}
+		}
+		
+		writer.print(sbTblSelAttrs);
+		writer.print(">");
 
 		if (viewer.isShowHeader())
 			renderMHeader(writer, model, viewer);
@@ -155,10 +182,6 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 			if (isColSelectable) {
 				writer.print(" onClick=\"JWic.fireAction('" + viewer.getControlID() + "', 'columnSelection', '"
 						+ column.getIndex() + "')\"");
-				writer.print(" onMouseDown=\"JWic.controls.TableViewer.pushColumn(" + column.getIndex() + ", '"
-						+ viewer.getControlID() + "')\"");
-				writer.print(" onMouseUp=\"JWic.controls.TableViewer.releaseColumn()\"");
-				writer.print(" onMouseOut=\"JWic.controls.TableViewer.releaseColumn()\"");
 			}
 
 			writer.println(">");
@@ -215,7 +238,21 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 			count++;
 			String key = contentProvider.getUniqueKey(row);
 			boolean expanded = model.isExpanded(key);
-			writer.print("<tr>");
+			writer.print("<tr");
+			String rowCssClass = "";
+			// handle selection
+			writer.print(" tbvRowKey=\"" + key + "\"");
+			if (model.getSelectionMode() != TableModel.SELECTION_NONE) {
+				if (viewer.isEnabled()) {
+					writer.print(" onClick=\"JWic.mobile.TableViewer.clickRow(this, event)\"");
+					writer.print(" onDblClick=\"JWic.mobile.TableViewer.clickRow(this, event, true)\"");
+				}
+				if (model.isSelected(key)) {
+					rowCssClass = rowCssClass + "selected";
+				}
+			}
+			
+			writer.print(">");
 
 			for (Iterator<TableColumn> itC = model.getColumnIterator(); itC.hasNext();) {
 				TableColumn column = itC.next();

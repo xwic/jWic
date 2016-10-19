@@ -218,7 +218,7 @@ JWic.mobile = {
 				}
 			};
 
-			if (!comboElm.clientSideFilter) {
+			if (!comboBox.clientSideFilter) {
 				control.on("filterablebeforefilter", filterHandler);
 				control.on("click", "LABEL", liClickHandler);
 			}
@@ -500,6 +500,65 @@ JWic.mobile = {
 				disabled : options.disabled,
 				columnBtnText : options.columnBtnText 
 			});
+		},
+		
+		/**
+		 * Activated by onClick event on a row.
+		 */
+		clickRow : function(tblRow, e, dblClick, callBack) {
+		
+			if (!e) e = window.event;
+			if (typeof dblClick == 'undefined') {
+				dblClick = false;
+			} else if (dblClick) {
+				JWic.util.clearSelection();
+			}
+			var rowKey = tblRow.attributes.getNamedItem("tbvRowKey").value;
+			var tableNode = tblRow.parentNode.parentNode;
+			var attributes = tableNode.attributes;
+			var tbvCtrlId = attributes.getNamedItem("tbvctrlid").value;
+			var tbvSelKey = attributes.getNamedItem("tbvSelKey").value;		
+			var tbvSelMode = attributes.getNamedItem("tbvSelMode").value;
+			var table = JWic.$(tbvCtrlId);
+			
+			JWic.log("JWic.mobile.TableViewer.ClickRow: " + tbvSelMode + "; " + tbvSelKey);
+			if (tbvSelMode == "multi") {
+				JWic.mobile.TableViewer.flipRowSelection(tblRow);
+			} else if (tbvSelMode == "single") {
+				if (tbvSelKey != rowKey) {
+					// deselect old row
+					if (tbvSelKey != "") {
+						// find selected row and deselect it.
+						for (var rowNr = 0; rowNr < tableNode.rows.length; rowNr++)  {
+							var trElm = tableNode.rows[rowNr];
+							var trKeyItem = trElm.attributes.getNamedItem("tbvRowKey");
+							if (trKeyItem != null && trKeyItem.value == tbvSelKey) {
+								JWic.mobile.TableViewer.flipRowSelection(trElm);
+								break;
+							}
+						}
+					}
+					// select
+					JWic.mobile.TableViewer.flipRowSelection(tblRow); // select row
+					tableNode.attributes.getNamedItem("tbvSelKey").value = rowKey;
+				}
+			}
+			table.enhanceWithin();
+		
+			// notify control
+			JWic.fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey, callBack);
+		
+		},
+		flipRowSelection : function(tblRow) {
+			if (tblRow.className == "selected") {
+				tblRow.className = "";
+			} else if (tblRow.className == "" || tblRow.className == "undefined") {
+				tblRow.className = "selected";
+			} else if (tblRow.className == "lastRow") {
+				tblRow.className = "lastRowselected";
+			} else if (tblRow.className == "lastRowselected") {
+				tblRow.className = "lastRow";
+			}
 		}
 	},/**
 	 * MListBox helper methods.

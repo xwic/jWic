@@ -36,7 +36,7 @@ public class MToolbar extends ToolBar {
 	@Override
 	public MToolBarGroup addGroup() {
 		MToolBarGroup grp = new MToolBarGroup(this);
-		grp.setCssClass("j-toolbar-grp-left");
+		grp.setCssClass("float:left;");
 		return grp;
 	}
 
@@ -46,7 +46,7 @@ public class MToolbar extends ToolBar {
 	@Override
 	public MToolBarGroup addRightGroup() {
 		MToolBarGroup grp = new MToolBarGroup(this);
-		grp.setCssClass("j-toolbar-grp-right");
+		grp.setCssClass("float:right;");
 		return grp;
 	}
 	
