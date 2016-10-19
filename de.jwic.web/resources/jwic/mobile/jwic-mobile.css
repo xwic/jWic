@@ -5,3 +5,8 @@
 .ui-table-columntoggle-btn {
     display: none !important;
 }
+
+.selected {
+	border: 1px solid #0A246A;
+	background-color: #B6BDD2;
+}

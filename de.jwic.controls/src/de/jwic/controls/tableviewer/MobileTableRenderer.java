@@ -75,6 +75,30 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 
 		writer.print("<table data-role=\"table\" id=\"" + viewer.getControlID() + "\"" + " data-mode=\"columntoggle\""
 				+ "class=\"" + viewer.getmCssClass() + "\"");
+		writer.print(">");
+
+		if (viewer.isShowHeader())
+			renderMHeader(writer, model, viewer);
+
+		Range range = model.getRange();
+		if (range.getMax() == 0) { // = Auto
+			int max = -1;
+			int rowSpace = viewer.getHeight() - (35 + 20);
+
+			if (rowSpace != 0) {
+				if (viewer.isShowStatusBar()) {
+					rowSpace -= 18;
+				}
+				max = rowSpace / viewer.getRowHeightHint(); //
+				if (max < 1) {
+					max = 1;
+				}
+				model.setLastRenderedPageSize(max);
+			}
+			range = new Range(range.getStart(), max);
+		}
+
+		writer.println("<TBODY");
 		writer.print(" tbvctrlid=\"" + viewer.getControlID() + "\"");
 		
 		// create required table attributes.
@@ -101,30 +125,8 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 		}
 		
 		writer.print(sbTblSelAttrs);
-		writer.print(">");
-
-		if (viewer.isShowHeader())
-			renderMHeader(writer, model, viewer);
-
-		Range range = model.getRange();
-		if (range.getMax() == 0) { // = Auto
-			int max = -1;
-			int rowSpace = viewer.getHeight() - (35 + 20);
-
-			if (rowSpace != 0) {
-				if (viewer.isShowStatusBar()) {
-					rowSpace -= 18;
-				}
-				max = rowSpace / viewer.getRowHeightHint(); //
-				if (max < 1) {
-					max = 1;
-				}
-				model.setLastRenderedPageSize(max);
-			}
-			range = new Range(range.getStart(), max);
-		}
-
-		writer.println("<TBODY>");
+		writer.println(">");
+		
 		try {
 			int count = renderMRows(0, false, writer, contentProvider.getContentIterator(range), viewer, labelProvider);
 
@@ -250,6 +252,7 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 				if (model.isSelected(key)) {
 					rowCssClass = rowCssClass + "selected";
 				}
+				writer.print(" class=\"" + rowCssClass + "\"");
 			}
 			
 			writer.print(">");

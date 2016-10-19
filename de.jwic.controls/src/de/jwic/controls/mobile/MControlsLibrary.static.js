@@ -514,7 +514,7 @@ JWic.mobile = {
 				JWic.util.clearSelection();
 			}
 			var rowKey = tblRow.attributes.getNamedItem("tbvRowKey").value;
-			var tableNode = tblRow.parentNode.parentNode;
+			var tableNode = tblRow.parentNode;
 			var attributes = tableNode.attributes;
 			var tbvCtrlId = attributes.getNamedItem("tbvctrlid").value;
 			var tbvSelKey = attributes.getNamedItem("tbvSelKey").value;		
@@ -543,7 +543,6 @@ JWic.mobile = {
 					tableNode.attributes.getNamedItem("tbvSelKey").value = rowKey;
 				}
 			}
-			table.enhanceWithin();
 		
 			// notify control
 			JWic.fireAction(tbvCtrlId, dblClick ? 'dblClick' : 'selection', rowKey, callBack);
