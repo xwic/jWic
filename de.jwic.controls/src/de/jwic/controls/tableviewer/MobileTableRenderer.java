@@ -72,6 +72,8 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 				continue;
 			}
 		}
+		
+		writer.print("<div style=\"overflow:auto; width: 100%; \">");
 
 		writer.print("<table data-role=\"table\" id=\"" + viewer.getControlID() + "\"" + " data-mode=\"columntoggle\""
 				+ "class=\"" + viewer.getmCssClass() + "\"");
@@ -142,6 +144,7 @@ public class MobileTableRenderer implements ITableRenderer, Serializable {
 
 		writer.println("</TBODY>");
 		writer.println("</table>");
+		writer.println("</div>");
 
 		if (viewer.isShowMStatusBar()) {
 			writer.println("<TABLE>");
