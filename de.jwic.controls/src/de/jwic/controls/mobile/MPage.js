@@ -1,6 +1,7 @@
 {
     afterUpdate : function PageAfterUpdate(){
        JWic.$('ctrl_$control.controlID').find('#$control.controlID').page();
-    	//JWic.log("BLA");
+       jQuery.mobile.initializePage();
+       jQuery.mobile.loading("hide");
     }
 }

@@ -1,5 +1,5 @@
 #set($field = $control.getField("values"))
-<fieldset id="$control.controlID">
+<fieldset id="$control.controlID" data-enhanced="true">
 	#foreach ($entry in $control.buildEntryList())
 	#set($selected = $control.isKeySelected($entry.key))
 	#set($keyValue = $jwic.formatInp($entry.key))
@@ -8,7 +8,7 @@
 	<input id="$radId" 
 		onclick="JWic.mobile.CheckBoxGroup.handleChange('$control.controlID', 'hf_$radId', this);
 		#if($control.changeNotification)JWic.fireAction('$control.controlID', 'valuechanged', '')#end" 
-		type="checkbox" name="$entry.key" value="$keyValue">
+		type="checkbox" name="$entry.key" value="$keyValue" #if($selected)checked="checked" #end>
 	<label for="$radId">$entry.title</label>
 	#end
 </fieldset>
