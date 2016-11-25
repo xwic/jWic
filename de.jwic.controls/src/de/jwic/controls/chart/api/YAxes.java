@@ -20,6 +20,8 @@ public class YAxes implements Serializable {
 	private boolean scalePositionLeft = false;
 	@JsonChartName(bar = "", circle = "", line = "", polar = "", radar = "", dateTime = "", stacked = "", overlay = "scaleFontColor")
 	private String scaleFontColor = null;
+	@JsonChartName(bar = "scaleLabel", circle = "", line = "scaleLabel", polar = "", radar = "", dateTime = "", stacked = "", overlay = "scaleLabel")
+	private String scaleLabel = null;
 
 	/**
 	 * 
@@ -71,6 +73,22 @@ public class YAxes implements Serializable {
 		String color = DataConverter.convertToJSColor(scaleFontColor);
 		if (color != null)
 			this.scaleFontColor = color;
+	}
+
+	
+	/**
+	 * @return the scaleLabel
+	 */
+	public String getScaleLabel() {
+		return scaleLabel;
+	}
+
+	
+	/**
+	 * @param scaleLabel the scaleLabel to set
+	 */
+	public void setScaleLabel(String scaleLabel) {
+		this.scaleLabel = scaleLabel;
 	}
 
 }
