@@ -17,6 +17,7 @@
 package de.jwic.controls;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,6 +57,28 @@ public abstract class SelectableControl extends HTMLElement {
 		}
 		selectedListeners.add(listener);
 	}
+	
+	/**
+	 * Removes the specified listener from the list of objects that are notified when the control will be clicked.
+	 * @param listener
+	 */
+	public void removeSelectionListener(SelectionListener listener) {
+		if (selectedListeners != null) {
+			selectedListeners.remove(listener);
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @return a read only list of registered listeners
+	 */
+	public List<SelectionListener> getSelectionListeners(){
+		if (null == selectedListeners){
+			selectedListeners = new ArrayList<SelectionListener>();
+		}
+		return Collections.unmodifiableList(selectedListeners);
+	} 
 	
 	/**
 	 * Called when the button was clicked by the user. If there are SelectionListeners 
