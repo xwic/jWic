@@ -55,12 +55,13 @@ public class MenuItem implements Serializable, IHaveEnabled {
 	
 	private String urlToOpen;
 	
-	private PropertyChangeListener actionListener = new PropertyChangeListener() {
-		@Override
+	private PropertyChangeListener actionListener = new ActionListener();
+	
+	private class ActionListener implements Serializable, PropertyChangeListener {
 		public void propertyChange(PropertyChangeEvent evt) {
 			copyActionProperties();
 		}
-	};
+	}
 	
 	/**
 	 * 
