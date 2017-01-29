@@ -35,7 +35,11 @@ import de.jwic.util.StringTool;
 public class Field implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+	/**
+	 * Default value for single value elements.
+	 * For example Button, Label, InputBox.
+	 */
+	private static final String[] DEFAULT_VALUE = {""};
 	private String name = null;
 	private Control control = null;
 	private String[] values = null;
@@ -170,9 +174,15 @@ public class Field implements Serializable {
 	
 	/**
 	 * Sets the values as array.
+	 * Check for default value for single value elements,
+	 * if its not equals event is not fired.
+	 *
 	 * @param values The values to set.
 	 */
 	public void setValues(String[] values) {
+		if (Arrays.equals(DEFAULT_VALUE, values)) {
+			return;
+		}
 		if (!Arrays.equals(this.values, values)) {
 			ValueChangedEvent event = new ValueChangedEvent(this, this.values, values);
 			this.values = values;
@@ -181,12 +191,17 @@ public class Field implements Serializable {
 	}
 
 	/**
-	 * Set the values of the field as array without fireing the ValueChangedEvent. The
+	 * Set the values of the field as array without firing the ValueChangedEvent. The
 	 * event is added to the ValueChangedQueue for later processing.
-	 * @param values
+	 * Check for default value for single value elements,
+	 * if its not equals event is not fired.
+	 * @param newValues The values to set.
 	 * @param queue
 	 */
 	public void batchUpdate(String[] newValues, ValueChangedQueue queue) {
+		if (Arrays.equals(DEFAULT_VALUE, values)) {
+			return;
+		}
 		if (!Arrays.equals(this.values, newValues)) {
 			ValueChangedEvent event = new ValueChangedEvent(this, this.values, newValues);
 			this.values = newValues;
