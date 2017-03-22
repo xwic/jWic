@@ -76,6 +76,14 @@
 				calculateBarX : function(barIndex){
 					return this.calculateX(barIndex);
 				},
+				calculateY : function(value){
+					var scalingFactor = this.drawingArea() / (this.min - this.max);
+					return this.endPoint - (scalingFactor * (value - this.min));
+				},
+				calculateHeight : function(value){
+					var scalingFactor = this.drawingArea() / (this.min - this.max);
+					return Math.abs(scalingFactor * (value));
+				},
 				calculateBarY : function(datasets, dsIndex, barIndex, value){
 					var offset = 0,
 						sum = 0;
@@ -122,7 +130,85 @@
 						value = value / sum * 100;
 					}
 
-					return this.calculateY(value);
+					return this.calculateHeight(value);
+				},
+				calculateScaleRange : function(valuesArray, drawingSize, textSize, startFromZero, integersOnly){
+
+					//Set a minimum step of two - a point at the top of the graph, and a point at the base
+					var minSteps = 2,
+						maxSteps = Math.floor(drawingSize/(textSize * 1.5)),
+						skipFitting = (minSteps >= maxSteps);
+
+					var maxValue = helpers.max(valuesArray),
+						minValue = helpers.min(valuesArray);
+
+					// We need some degree of seperation here to calculate the scales if all the values are the same
+					// Adding/minusing 0.5 will give us a range of 1.
+					if (maxValue === minValue){
+						maxValue += 0.5;
+						// So we don't end up with a graph with a negative start value if we've said always start from zero
+						if (minValue >= 0.5 && !startFromZero){
+							minValue -= 0.5;
+						}
+						else{
+							// Make up a whole number above the values
+							maxValue += 0.5;
+						}
+					}
+
+					var	valueRange = Math.abs(maxValue - minValue),
+						rangeOrderOfMagnitude = helpers.calculateOrderOfMagnitude(valueRange),
+						graphMax = Math.ceil(maxValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+						graphMin = (startFromZero && (minValue >= 0 )) ? 0 : Math.floor(minValue / (1 * Math.pow(10, rangeOrderOfMagnitude))) * Math.pow(10, rangeOrderOfMagnitude),
+						graphRange = graphMax - graphMin,
+						stepValue = Math.pow(10, rangeOrderOfMagnitude),
+						numberOfSteps = Math.round(graphRange / stepValue);
+
+					//If we have more space on the graph we'll use it to give more definition to the data
+					while((numberOfSteps > maxSteps || (numberOfSteps * 2) < maxSteps) && !skipFitting) {
+						if(numberOfSteps > maxSteps){
+							stepValue *=2;
+							numberOfSteps = Math.round(graphRange/stepValue);
+							// Don't ever deal with a decimal number of steps - cancel fitting and just use the minimum number of steps.
+							if (numberOfSteps % 1 !== 0){
+								skipFitting = true;
+							}
+						}
+						//We can fit in double the amount of scale points on the scale
+						else{
+							//If user has declared ints only, and the step value isn't a decimal
+							if (integersOnly && rangeOrderOfMagnitude >= 0){
+								//If the user has said integers only, we need to check that making the scale more granular wouldn't make it a float
+								if(stepValue/2 % 1 === 0){
+									stepValue /=2;
+									numberOfSteps = Math.round(graphRange/stepValue);
+								}
+								//If it would make it a float break out of the loop
+								else{
+									break;
+								}
+							}
+							//If the scale doesn't have to be an int, make the scale more granular anyway.
+							else{
+								stepValue /=2;
+								numberOfSteps = Math.round(graphRange/stepValue);
+							}
+
+						}
+					}
+
+					if (skipFitting){
+						numberOfSteps = minSteps;
+						stepValue = graphRange / numberOfSteps;
+					}
+
+					return {
+						steps : numberOfSteps,
+						stepValue : stepValue,
+						min : graphMin,
+						max	: graphMin + (numberOfSteps * stepValue)
+					};
+
 				}
 			});
 
@@ -423,16 +509,42 @@
 
 			var dataTotal = function(){
 				var values = [];
+				var min;
+				var max;
+				//compute the sum of the values for each value in all datasets
 				helpers.each(self.datasets, function(dataset) {
 					helpers.each(dataset.bars, function(bar, barIndex) {
 						if(!values[barIndex]) values[barIndex] = 0;
+						if (0 == barIndex){
+							max = min = values[barIndex];
+						}
 						if(self.options.relativeBars) {
 							values[barIndex] = 100;
 						} else {
 							values[barIndex] = +values[barIndex] + +bar.value;
+							//compute the min and the max values out of the data set
+							if (bar.value < min){
+								min = bar.value;
+							}
+							if (bar.value > max){
+								max = bar.value;
+							}
 						}
 					});
 				});
+				if(self.options.relativeBars) {
+					var maxSum = helpers.max(values);
+					var minSum = helpers.min(values);
+				
+					//make sure we have the right min and max in the values for the scale to be adjusted right
+					if (min < minSum){
+						values[0] = min;
+					}
+					
+					if (max > maxSum){
+						values[1] = max;
+					}
+				}
 				return values;
 			};
 
@@ -449,7 +561,7 @@
 				beginAtZero : this.options.scaleBeginAtZero,
 				integersOnly : this.options.scaleIntegersOnly,
 				calculateYRange: function(currentHeight){
-					var updatedRanges = helpers.calculateScaleRange(
+					var updatedRanges = this.calculateScaleRange(
 						dataTotal(),
 						currentHeight,
 						this.fontSize,
@@ -542,12 +654,22 @@
 					//Transition then draw
 					if(bar.value > 0) {
 						bar.transition({
-							base : this.scale.endPoint - (Math.abs(height) - Math.abs(y)),
+							//base : this.scale.endPoint - (Math.abs(height) - Math.abs(y)),
+							base : (Math.abs(height) + Math.abs(y)),
 							x : this.scale.calculateBarX(index),
 							y : Math.abs(y),
 							height : Math.abs(height),
 							width : this.scale.calculateBarWidth(this.datasets.length)
 						}, easingDecimal).draw();
+					}else{
+						bar.transition({
+							base : Math.abs(y),
+							x : this.scale.calculateBarX(index),
+							y : Math.abs(y)-Math.abs(height),
+							height : Math.abs(height),
+							width : this.scale.calculateBarWidth(this.datasets.length)
+						}, easingDecimal).draw();
+						
 					}
 				},this);
 			},this);
