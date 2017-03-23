@@ -95,7 +95,7 @@
 						if(i === dsIndex && value) {
 							offset += value;
 						} else {
-							offset = +offset + +datasets[i].bars[barIndex].value;
+							offset = +offset + (value >= 0 ? (datasets[i].bars[barIndex].value >= 0 ? +datasets[i].bars[barIndex].value: 0):(datasets[i].bars[barIndex].value <= 0 ? +datasets[i].bars[barIndex].value: 0));
 						}
 					}
 
@@ -532,7 +532,6 @@
 						}
 					});
 				});
-				if(self.options.relativeBars) {
 					var maxSum = helpers.max(values);
 					var minSum = helpers.min(values);
 				
@@ -544,7 +543,6 @@
 					if (max > maxSum){
 						values[1] = max;
 					}
-				}
 				return values;
 			};
 
