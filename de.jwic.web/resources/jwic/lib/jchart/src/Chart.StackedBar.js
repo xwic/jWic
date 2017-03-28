@@ -516,7 +516,12 @@
 					helpers.each(dataset.bars, function(bar, barIndex) {
 						if(!values[barIndex]) values[barIndex] = 0;
 						if (0 == barIndex){
-							max = min = values[barIndex];
+							if (!max){
+								max = values[barIndex];
+							}
+							if (!min){
+								min = values[barIndex];
+							}
 						}
 						if(self.options.relativeBars) {
 							values[barIndex] = 100;
@@ -537,12 +542,13 @@
 				
 					//make sure we have the right min and max in the values for the scale to be adjusted right
 					if (min < minSum){
-						values[0] = min;
+						values.push(min);
 					}
 					
 					if (max > maxSum){
-						values[1] = max;
+						values.push(max);
 					}
+				//the values are used only to determine the scale size
 				return values;
 			};
 
