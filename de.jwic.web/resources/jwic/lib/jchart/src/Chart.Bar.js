@@ -299,12 +299,10 @@
 								width : this.scale.calculateBarWidth(this.datasets.length)
 							}, easingDecimal).draw();
 						} else{	
-							//bar.base = this.scale.endPoint;
 							bar.base = this.scale.calculateY(bar.value);
 							//Transition then draw
 							bar.transition({
 								x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
-								//y : this.scale.calculateY(bar.value),
 								y : this.scale.calculateY(0),
 								width : this.scale.calculateBarWidth(this.datasets.length)
 							}, easingDecimal).draw();
