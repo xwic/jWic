@@ -2320,8 +2320,10 @@
 								width : this.scale.calculateBarWidth(this.datasets.length)
 							}, easingDecimal).draw();
 						} else{	
+							//The new base is the y of the value for negative values
 							bar.base = this.scale.calculateY(bar.value);
-							//Transition then draw
+							
+							//The new y is the y of 0
 							bar.transition({
 								x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
 								y : this.scale.calculateY(0),
