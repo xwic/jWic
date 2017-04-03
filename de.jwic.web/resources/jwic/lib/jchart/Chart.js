@@ -2312,7 +2312,13 @@
 				helpers.each(dataset.bars,function(bar,index){
 					if (bar.hasValue()){
 						if (bar.value >=0){
-							bar.base = this.scale.calculateY(0);
+							
+							//if the chart starts from a positive value and 0 will be not displayed  
+							if (this.scale.min > 0){
+								bar.base = this.scale.calculateY(this.scale.min);
+							}else{
+								bar.base = this.scale.calculateY(0);
+							}
 							//Transition then draw
 							bar.transition({
 								x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
@@ -2320,13 +2326,18 @@
 								width : this.scale.calculateBarWidth(this.datasets.length)
 							}, easingDecimal).draw();
 						} else{	
+							var newY = this.scale.calculateY(0);
+							//if the max value is under 0 we should not draw up to 0
+							if (this.scale.max < 0){
+								newY= this.scale.calculateY(this.scale.max);
+							}
 							//The new base is the y of the value for negative values
 							bar.base = this.scale.calculateY(bar.value);
 							
 							//The new y is the y of 0
 							bar.transition({
 								x : this.scale.calculateBarX(this.datasets.length, datasetIndex, index),
-								y : this.scale.calculateY(0),
+								y : newY,
 								width : this.scale.calculateBarWidth(this.datasets.length)
 							}, easingDecimal).draw();
 						};
