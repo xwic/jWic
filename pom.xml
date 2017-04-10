@@ -11,7 +11,7 @@
 
 	<groupId>de.xwic.jwic</groupId>
 	<artifactId>jwic</artifactId>
-	<version>5.3.27-SNAPSHOT</version>
+	<version>5.3.27</version>
 	<packaging>pom</packaging>
 
 	<name>xWic - jWic Framework</name>
@@ -32,7 +32,7 @@
 		<connection>scm:git:git@github.com:xwic/jWic.git</connection>
 		<developerConnection>scm:git:git@github.com:xwic/jWic.git</developerConnection>
 		<url>https://github.com/xwic/jWic</url>
-		<tag>jwic-5.3.8</tag>
+		<tag>jwic-5.3.27</tag>
 	</scm>
 	<developers>
 		<developer>
