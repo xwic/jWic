@@ -509,12 +509,25 @@
 
 			var dataTotal = function(){
 				var values = [];
+				//holds the sum of negative numbers 
+				var sumNegNumbers = [];
+				//holds the positive numbers sum
+				var sumPozNumbers = [];
+				
 				var min;
 				var max;
 				//compute the sum of the values for each value in all datasets
 				helpers.each(self.datasets, function(dataset) {
 					helpers.each(dataset.bars, function(bar, barIndex) {
-						if(!values[barIndex]) values[barIndex] = 0;
+						if(!values[barIndex]){ 
+							values[barIndex] = 0;
+						}
+						if(!sumPozNumbers[barIndex]){ 
+							sumPozNumbers[barIndex] = 0;
+						}
+						if(!sumNegNumbers[barIndex]){ 
+							sumNegNumbers[barIndex] = 0;
+						}
 						if (0 == barIndex){
 							if (!max){
 								max = values[barIndex];
@@ -525,7 +538,18 @@
 						}
 						if(self.options.relativeBars) {
 							values[barIndex] = 100;
+							sumPozNumbers[barIndex] = 100;
+							sumNegNumbers[barIndex] = 100;
+							
 						} else {
+							//in order to determine the right scale not affected by negative numbers we need to compute two sums
+							if (+bar.value >= 0){
+								sumPozNumbers[barIndex] = +sumPozNumbers[barIndex]+ +bar.value;
+							}else{
+								sumNegNumbers[barIndex] = +sumNegNumbers[barIndex]+ +bar.value;
+							}
+							
+							//this is the sum of all numbers
 							values[barIndex] = +values[barIndex] + +bar.value;
 							//compute the min and the max values out of the data set
 							if (bar.value < min){
@@ -540,13 +564,25 @@
 					var maxSum = helpers.max(values);
 					var minSum = helpers.min(values);
 				
+					if (helpers.max(sumPozNumbers) > maxSum){
+						maxSum = helpers.max(sumPozNumbers) ;
+					}
+					
+					if (helpers.min(sumNegNumbers) < minSum){
+						minSum = helpers.min(sumNegNumbers) ;
+					}
+					
 					//make sure we have the right min and max in the values for the scale to be adjusted right
 					if (min < minSum){
 						values.push(min);
+					}else{
+						values.push(minSum);
 					}
 					
 					if (max > maxSum){
 						values.push(max);
+					}else{
+						values.push(maxSum);
 					}
 				//the values are used only to determine the scale size
 				return values;
