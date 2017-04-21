@@ -5,9 +5,12 @@
 		var inpElm = jQuery('#'+JWic.util.JQryEscape("${control.controlID}"));
 		if (inpElm) {
 			JWic.controls.InputBoxControl.initialize(inpElm);
-			#if($control.updateOnBlur)
+			#if($control.updateOnBlur)				
 				inpElm.bind('blur',function() {
-						JWic.fireAction('$control.controlID', 'onBlur', '');
+						setTimeout(function(){
+							JWic.fireAction('$control.controlID', 'onBlur', '');
+							return false;
+						});
 					}
 				);
 			#end

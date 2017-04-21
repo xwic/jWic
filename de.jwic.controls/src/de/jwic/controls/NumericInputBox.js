@@ -10,7 +10,10 @@
 				JWic.controls.NumericInputControl.initialize(inpElm, hidden, $control.buildJsonOptions());
 				#if($control.updateOnBlur)
 					inpElm.bind('blur',function() {
-							JWic.fireAction('$control.controlID', 'onBlur', '');
+						setTimeout(function(){
+								JWic.fireAction('$control.controlID', 'onBlur', '');
+								return false;
+							});
 						}
 					);
 				#end
