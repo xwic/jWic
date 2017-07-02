@@ -1,5 +1,4 @@
 (function($) {
-	var Chartv2 = Chart.noConflict();
 
 	$.extend(JWic.controls, {
 		Chart : {
@@ -7,12 +6,25 @@
 			
 			initialize : function(controlID, options, config, labelData, dataset, yaxes) {
 				var canvas = document.getElementById('chart_' + controlID);
-				var ctx = canvas.getContext("2d");	
-				if (options.chartType == "overlay"){
-					var chart = new Chartv2(ctx);
-				} else {
-					var chart = new Chart(ctx);
-				}
+				var ctx = canvas.getContext("2d");
+				
+				var chartData = undefined;
+				chartData = {
+					    labels: labelData,
+					    datasets: dataset,
+					    yAxes: yaxes
+				};
+				if (options.chartType == "stackedbar")
+					var chartType = "bar";
+				else
+					var chartType = options.chartType;
+				chartConfig = {
+						type : chartType,
+						data : chartData,
+						options : config
+				};
+				
+				var chart = new Chart(ctx, chartConfig);
 			    
 				if(config.customTooltip) {
 					try {
@@ -24,7 +36,6 @@
 				}
 
 				var chartImpl = undefined;
-				var chartData = undefined;
 				var findElement = undefined;
 				
 				if (options.chartType == 'bar' ||
@@ -33,99 +44,53 @@
 					options.chartType == 'stackedbar' ||
 					options.chartType == 'overlay') {
 					
-					chartData = {
-							    labels: labelData,
-							    datasets: dataset,
-							    yAxes: yaxes
-							};
 				} else if (options.chartType == 'scatter') {
 					chartData = JWic.controls.Chart.convertToDate(dataset);
 				} else {
-					chartData = dataset;
-				}
-				
-				switch (options.chartType) {
-				case 'bar':
-					chartImpl = chart.Bar(chartData, config);
-					findElement = chartImpl.getBarsAtEvent;
-					break;
 					
-				case 'line':
-					chartImpl = chart.Line(chartData, config);
-					findElement = chartImpl.getPointsAtEvent;
-					break;
-					
-				case 'circle':
-					chartImpl = chart.Doughnut(chartData, config);
-					findElement = chartImpl.getSegmentsAtEvent;
-					break;
-					
-				case 'radar':
-					chartImpl = chart.Radar(chartData, config);
-					findElement = chartImpl.getPointsAtEvent;
-					break;
-					
-				case 'polar':
-					chartImpl = chart.PolarArea(chartData, config);
-					findElement = chartImpl.getSegmentsAtEvent;
-					break;
-					
-				case 'scatter':
-					chartImpl = chart.Scatter(chartData, config);
-					findElement = activeElement = chartImpl.getPointsAtEvent;
-					break;
-					
-				case 'stackedbar':
-					chartImpl = chart.StackedBar(chartData, config);
-					findElement = chartImpl.getBarsAtEvent;
-					break;
-				
-				case 'overlay':
-					chartImpl = chart.Overlay(chartData, config);
-					findElement = chartImpl.getBarsAtEvent;
-					break;
-					
-				default:
-					JWic.log("ERROR: Unsupported charttype: " + options.chartType)
 				}
 
 				chart.__controlID = controlID; //remember the control id
-				
-				canvas.onclick = function(evt){
-					 var activeElement = findElement.call(chartImpl, evt);
-					 if (activeElement) {
-						 var chartElem;
-						if (Array.isArray(activeElement)){
-						     chartElem = activeElement[0];
-						} else {
-							 chartElem = activeElement;
-						} 
-						if (chartElem != undefined && chartElem.label != undefined){
-							JWic.fireAction(controlID, 'click', chartElem.label);
-						}
-					 }
-				}
-				
+
 				// create legend
 				if (options.legendLocation != "NONE") {
 					var legendDiv = JWic.$("legend_" + controlID);
 					if(legendDiv) {
-						var innerHtml = "<ul>";
-						var dataset = undefined;
-						if (chartData.hasOwnProperty('datasets')) {
-							dataset = chartData.datasets;
+						if (options.chartType != "doughnut" && options.chartType != "polarArea"){
+							var innerHtml = "<ul>";
+							var dataset = undefined;
+							if (chartData.hasOwnProperty('datasets')) {
+								dataset = chartData.datasets;
+							} else {
+								dataset = chartData;
+							}
+							dataset.forEach(function(ds, i) {
+								var legendColor = ds.hasOwnProperty('backgroundColor')
+									? ds.backgroundColor
+									: (ds.hasOwnProperty('hoverBackgroundColor')
+									    ? ds.hoverBackgroundColor : ds.color);
+								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
+							});
+							innerHtml += "</ul>";
+							legendDiv.html(innerHtml);
 						} else {
-							dataset = chartData;
+							var innerHtml = "<ul>";
+							var dataset = undefined;
+							if (chartData.hasOwnProperty('labels')) {
+								dataset = chartData.labels;
+							} else {
+								dataset = chartData;
+							}
+							dataset.forEach(function(ds, i) {
+								var legendColor = chartData.datasets[0].hasOwnProperty('backgroundColor')
+									? chartData.datasets[0].backgroundColor[i]
+									: (chartData.datasets[0].hasOwnProperty('hoverBackgroundColor')
+									    ? chartData.datasets[0].hoverBackgroundColor[i] : chartData.datasets[0].color);
+								innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds + "</li>";
+							});
+							innerHtml += "</ul>";
+							legendDiv.html(innerHtml);
 						}
-						dataset.forEach(function(ds, i) {
-							var legendColor = ds.hasOwnProperty('fillColor')
-								? ds.fillColor
-								: (ds.hasOwnProperty('strokeColor')
-								    ? ds.strokeColor : ds.color);
-							innerHtml += "<li><span class=\"chartjs-colbox\" style=\"background-color: " + legendColor + "\">&nbsp;</span>" + ds.label + "</li>";
-						});
-						innerHtml += "</ul>";
-						legendDiv.html(innerHtml);
 					} else {
 						JWic.log("ERROR: No legend div found for " + controlID);
 					}
@@ -169,12 +134,6 @@
 		        // Find Y Location on page
     			var top;
     			console.log(tooltip);
-    			
-//    			if (tooltip.yAlign == 'above') {
-//    				top = tooltip.y - tooltip.caretHeight - tooltip.caretPadding;
-//    			} else {
-//    				top = tooltip.y + tooltip.caretHeight + tooltip.caretPadding;
-//    			}
     			
     			var position = jQuery(tooltip.chart.canvas).position();
     			

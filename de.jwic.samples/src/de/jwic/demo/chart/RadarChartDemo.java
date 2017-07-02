@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.jwic.base.IControlContainer;
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.impl.RadarChart;
 import de.jwic.controls.chart.impl.RadarChartDataset;
@@ -40,7 +41,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		values.add(7D);
 		values.add(10D);
 		RadarChartDataset chartd1 = new RadarChartDataset("First", values);
-		chartd1.setFillColor("#3366cc");
+		chartd1.setBackgroundColor("#3366cc");
 		datasets.add(chartd1);
 
 		List<Double> values2 = new ArrayList<Double>();
@@ -74,7 +75,7 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 		labels.add("Working");
 		labels.add("Sweeming");
 		labels.add("Running");
-		return new RadarChartModel(labels, createDatasets());
+		return new RadarChartModel(labels, createDatasets(), new Animation());
 
 	}
 
@@ -88,8 +89,8 @@ public class RadarChartDemo extends ChartDemo<RadarChart, RadarChartModel> {
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in.toString());
-				el.setFillColor(set.getFillColor());
-				el.setHighlightColor(set.getHighlightColor());
+				el.setFillColor(set.getBackgroundColor());
+				el.setHighlightColor(set.getHoverBackgroundColor());
 				elements.add(el);
 				i++;
 			}

@@ -42,8 +42,7 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected void changeFillColor(String text) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.changeFillColor(1, text);
 	}
 
 	/* (non-Javadoc)
@@ -51,7 +50,7 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected void changeHighColor(String text) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
+		model.changeHightlightColor(1, text);
 
 	}
 
@@ -68,8 +67,7 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected void addElementToTheChart(TableElement element) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.addDataToModel(element.getTitle(), 1, Double.valueOf(element.getValue()));
 	}
 
 	/* (non-Javadoc)
@@ -77,8 +75,7 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected void updateElementInChart(TableElement selectedTableElement) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.changeDataByModel(selectedTableElement.getTitle(), 1, 5D);
 	}
 
 	/* (non-Javadoc)
@@ -86,8 +83,7 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 	 */
 	@Override
 	protected void deleteElementFromChart(TableElement selectedTableElement) throws ChartInconsistencyException {
-		// TODO Auto-generated method stub
-
+		model.removeDataFromModel(selectedTableElement.getTitle());
 	}
 
 	/* (non-Javadoc)
@@ -103,8 +99,8 @@ public class OverlayChartDemo extends ChartDemo<OverlayChart, ValueListDatasetMo
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in.toString());
-				el.setFillColor(set.getFillColor());
-				el.setHighlightColor(set.getHighlightColor());
+				el.setFillColor(set.getBackgroundColor());
+				el.setHighlightColor(set.getHoverBackgroundColor());
 				elements.add(el);
 				i++;
 			}

@@ -9,6 +9,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.ChartType;
+import de.jwic.controls.chart.api.CircleValueListDatasetModel;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 
 /**
@@ -19,7 +20,7 @@ import de.jwic.controls.chart.api.SimpleValueDatasetModel;
  */
 @JavaScriptSupport
 public class PolarChart extends
-		Chart<SimpleValueDatasetModel, PolarChartConfiguration> {
+		Chart<CircleValueListDatasetModel, PolarChartConfiguration> {
 
 	/**
 	 * 
@@ -33,7 +34,7 @@ public class PolarChart extends
 	 * @param model
 	 */
 	public PolarChart(IControlContainer container, String name,
-			SimpleValueDatasetModel model) {
+			CircleValueListDatasetModel model) {
 		super(container, name, ChartType.POLAR, model);
 		setConfiguration(new PolarChartConfiguration());
 

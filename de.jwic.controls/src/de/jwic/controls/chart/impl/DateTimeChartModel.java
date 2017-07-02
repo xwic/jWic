@@ -3,6 +3,7 @@ package de.jwic.controls.chart.impl;
 import java.util.Date;
 import java.util.List;
 
+import de.jwic.controls.chart.api.Animation;
 import de.jwic.controls.chart.api.ChartInconsistencyException;
 import de.jwic.controls.chart.api.ChartModel;
 import de.jwic.controls.chart.impl.util.DataConverter;
@@ -20,8 +21,8 @@ public class DateTimeChartModel extends ChartModel<DateTimeChartDataset> {
 	 */
 	private static final long serialVersionUID = 7014827274374612553L;
 
-	public DateTimeChartModel(List<DateTimeChartDataset> datasets) {
-		super(datasets);
+	public DateTimeChartModel(List<DateTimeChartDataset> datasets, Animation animation) {
+		super(datasets, animation);
 	}
 
 	/**

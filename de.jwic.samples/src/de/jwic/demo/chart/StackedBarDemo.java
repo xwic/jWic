@@ -44,8 +44,8 @@ public class StackedBarDemo extends
 				TableElement el = new TableElement();
 				el.setTitle(model.getLabels().get(i));
 				el.setValue(in.toString());
-				el.setFillColor(set.getFillColor());
-				el.setHighlightColor(set.getHighlightColor());
+				el.setFillColor(set.getBackgroundColor());
+				el.setHighlightColor(set.getHoverBackgroundColor());
 				elements.add(el);
 				i++;
 			}
@@ -58,7 +58,6 @@ public class StackedBarDemo extends
 	@Override
 	protected StackedBarChart createChart(ValueListDatasetModel model) {
 		StackedBarChart cahrt = new StackedBarChart(this, "chart", model);
-		cahrt.getConfiguration().setScaleBeginAtZero(true);
 		return cahrt;
 	}
 

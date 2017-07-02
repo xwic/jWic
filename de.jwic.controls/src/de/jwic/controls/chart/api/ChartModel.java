@@ -14,13 +14,15 @@ import de.jwic.util.SerObservable;
  */
 public abstract class ChartModel<Dataset extends ChartDataset> extends SerObservable implements Serializable {
 	private List<Dataset> datasets;
+	private Animation animation;
 
 	/**
 	 * 
 	 * @param datasets
 	 */
-	public ChartModel(List<Dataset> datasets) {
+	public ChartModel(List<Dataset> datasets, Animation animation) {
 		this.datasets = datasets;
+		this.animation = animation;
 	}
 
 	/**
@@ -58,6 +60,29 @@ public abstract class ChartModel<Dataset extends ChartDataset> extends SerObserv
 	 */
 	public void setDatasets(List<Dataset> datasets) {
 		this.datasets = datasets;
+	}
+	
+	/**
+	 * @return the animation
+	 */
+	public Animation getAnimation() {
+		return animation;
+	}
+	
+	/**
+	 * returns the animation as json which will be rendered on java script site
+	 * 
+	 * @return
+	 */
+	public String getAnimationJson() {
+		return DataConverter.convertToJson(animation);
+	}
+
+	/**
+	 * @param animation the animation to set
+	 */
+	public void setAnimation(Animation animation) {
+		this.animation = animation;
 	}
 
 	/**

@@ -7,6 +7,7 @@ import de.jwic.base.IControlContainer;
 import de.jwic.controls.chart.api.Chart;
 import de.jwic.controls.chart.api.SimpleValueDatasetModel;
 import de.jwic.controls.chart.api.Chart.LegendLocation;
+import de.jwic.controls.chart.api.CircleValueListDatasetModel;
 import de.jwic.controls.chart.impl.CircleChart;
 import de.jwic.controls.chart.impl.CircleChartConfiguration;
 
@@ -16,7 +17,7 @@ import de.jwic.controls.chart.impl.CircleChartConfiguration;
  * 
  * @author lippisch
  */
-public class UserTypeView extends ReportView<SimpleValueDatasetModel, CircleChartConfiguration> {
+public class UserTypeView extends ReportView<CircleValueListDatasetModel, CircleChartConfiguration> {
 	
 	/**
 	 * @param container
@@ -32,15 +33,14 @@ public class UserTypeView extends ReportView<SimpleValueDatasetModel, CircleChar
 	 * @see de.jwic.demo.chartdb.ReportView#createChart()
 	 */
 	@Override
-	protected Chart<SimpleValueDatasetModel, CircleChartConfiguration> createChart() {
+	protected Chart<CircleValueListDatasetModel, CircleChartConfiguration> createChart() {
 
-		SimpleValueDatasetModel dsModel = model.getDataProvider().getUserTypeDistribution(model.getYear());
+		CircleValueListDatasetModel dsModel = model.getDataProvider().getCircleUserTypeDistribution(model.getYear());
 		
 		CircleChart chart = new CircleChart(this, "chart", dsModel);
 		CircleChartConfiguration cfg = chart.getConfiguration();
 		
 		cfg.setResponsive(true);
-		cfg.setAnimationSteps(20);
 		
 		chart.setLegendLocation(LegendLocation.RIGHT);
 		
