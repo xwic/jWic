@@ -37,7 +37,7 @@ public abstract class ChartConfiguration implements Serializable {
 	private String scaleLabel = "<%=value%>";
 	private boolean scaleIntegersOnly = true;
 	private boolean scaleBeginAtZero = false;
-	private String scaleFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
+	private String scaleFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
 	private int scaleFontSize = 11;
 	private String scaleFontStyle = "normal";
 	private String scaleFontColor = "#666";
@@ -48,7 +48,7 @@ public abstract class ChartConfiguration implements Serializable {
 	private int tooltipFontSize = 11;
 	private String tooltipFontStyle = "normal";
 	private String tooltipFontColor = "#fff";
-	private String tooltipTitleFontFamily = "'Helvetica Neue', 'Helvetica'; 'Arial', sans-serif";
+	private String tooltipTitleFontFamily = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif";
 	private int tooltipTitleFontSize = 14;
 	private String tooltipTitleFontStyle = "bold";
 	private String tooltipTitleFontColor = "#fff";
