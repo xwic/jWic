@@ -64,7 +64,8 @@ public class Tab extends ControlContainer {
 			super.setVisible(newVisible);
 			// The parent requires re-rendering if a tab's visibility is changed
 			if (getContainer() instanceof TabStrip) {
-				getContainer().setRequireRedraw(true);
+				TabStrip ts = (TabStrip)getContainer();
+				ts._internalTabVisibilityChange(this, newVisible);
 			}
 		}
 	}
