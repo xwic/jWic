@@ -74,7 +74,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 * @param tabName
 	 */
 	public void actionActivateTab(String tabName) {
-		
+
 		if (activeTabName != null && !activeTabName.equals(tabName)) {
 			setActiveTabName(tabName, false);
 			

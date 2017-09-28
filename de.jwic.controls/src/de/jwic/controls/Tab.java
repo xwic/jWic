@@ -55,4 +55,18 @@ public class Tab extends ControlContainer {
 		this.title = title;
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.jwic.base.Control#setVisible(boolean)
+	 */
+	@Override
+	public void setVisible(boolean newVisible) {
+		if (this.bolVisible != newVisible) {
+			super.setVisible(newVisible);
+			// The parent requires re-rendering if a tab's visibility is changed
+			if (getContainer() instanceof TabStrip) {
+				getContainer().setRequireRedraw(true);
+			}
+		}
+	}
+	
 }
