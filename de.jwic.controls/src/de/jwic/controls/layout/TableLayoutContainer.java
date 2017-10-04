@@ -202,8 +202,8 @@ public class TableLayoutContainer extends ControlContainer {
 				} else {
 					String name = it.next();
 					TableData td = getLayoutData(name);
-					spawn[column] = td.getRowSpan();
-					column += td.getColSpan();
+					spawn[column] = td != null ? td.getRowSpan() : 1;
+					column += td != null ? td.getColSpan() : 1;
 				}
 				if (column >= columnCount) {
 					column = 0;
@@ -379,12 +379,12 @@ public class TableLayoutContainer extends ControlContainer {
 			throw new IllegalArgumentException("The specified control is not member of this container.");
 		}
 		
-		if (control instanceof TableLayoutContainer) {
-			allLayoutInfos.put(control.getName(), null);
-		}
-		else {
+//		if (control instanceof TableLayoutContainer) {
+//			allLayoutInfos.put(control.getName(), null);
+//		}
+//		else {
 			allLayoutInfos.put(control.getName(), layoutData != null ? layoutData : new TableData());
-		}
+//		}
 		requireRedraw();
 		cells = null;
 	}

@@ -74,7 +74,7 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	 * @param tabName
 	 */
 	public void actionActivateTab(String tabName) {
-		
+
 		if (activeTabName != null && !activeTabName.equals(tabName)) {
 			setActiveTabName(tabName, false);
 			
@@ -229,6 +229,27 @@ public class TabStrip extends ControlContainer implements IResourceControl {
 	
 	public void removeAllListener(){
 		this.listeners.clear();
+	}
+
+	/**
+	 * Internal call back method for the Tab to notify the TabStrip when it's visibility flag was changed.
+	 * Generic controls should use a event listener architecture, but since the Tab and TabStrip are tightly 
+	 * coupled, it is more efficient. 
+	 * @param tab
+	 * @param newVisible
+	 */
+	void _internalTabVisibilityChange(Tab tab, boolean newVisible) {
+		if (newVisible == false) { // the tab is hidden.
+			if (tab.getName().equals(getActiveTabName())) {
+				for (Tab t : tabs) {
+					if (t.isVisible()) {
+						setActiveTabName(t.getName());
+						break;
+					}
+				}				
+			}
+		}
+		requireRedraw();
 	}
 
 }
