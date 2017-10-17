@@ -15613,7 +15613,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                 });
                 n.on('beforeGetData', function() {
                     if (!m && n.mode) {
-                    	console.log("beforeGetData- Setting m to TRUE");
                         m = true;
                         try {
                         	n.setData(n.getMode().getData(), null, 1);
@@ -15621,7 +15620,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
                         	console.log("error in beforeGetData: " + e);
                         	console.log(e);
                         }
-                        console.log("beforeGetData- Setting m to FALSE");
                         m = false;
                     }
                 });
