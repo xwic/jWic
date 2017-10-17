@@ -325,7 +325,7 @@ var JWic = {
 				jQuery.each(allKeys, function(key, val) {
 					
 					if (val.indexOf(elm.key) === 0) {
-						delete JWic.beforeRequestCallbacks[key];
+						delete JWic.beforeRequestCallbacks[val];
 					}
 				});
 				
@@ -502,7 +502,11 @@ var JWic = {
 		}
 
 		jQuery.each(JWic.beforeRequestCallbacks, function (key, item) {
-			item();
+			try {
+				item();
+			} catch (e) {
+				JWic.log("Error in beforeRequestCallbacks: " + e + " key: " + key + ")");
+			}
 		});
 		
 		// check for file attachments

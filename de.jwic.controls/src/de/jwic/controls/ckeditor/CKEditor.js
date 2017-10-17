@@ -113,7 +113,8 @@
 				JWic.addBeforeRequestCallback("$control.controlID", function() {
 					var editInstance = CKEDITOR.instances["$control.controlID"];
 					if (editInstance) {
-						field.val(editInstance.getData());
+						var data = editInstance.getData();
+						field.val(data);
 					}
 				});
 			#else

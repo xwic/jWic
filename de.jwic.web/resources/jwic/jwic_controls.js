@@ -1891,7 +1891,9 @@ JWic.controls = {
 					}
 					
 					JWic.fireAction(tabStripId, "activateTab", tabName, function() {
-						ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + oldTabName + "\"><div style=\"height: " + oldH + "px;\"></div></span>");
+						//removing objects from the DOM is bad, as it leaves all the listeners causing
+						//unwanted side effects. 
+						//ui.oldPanel.html("<span id=\"ctrl_" + tabStripId + "." + oldTabName + "\"><div style=\"height: " + oldH + "px;\"></div></span>");
 						JWic.controls.TabStrip.activate(tabStripId, newPanelIdx);
 					});
 					
