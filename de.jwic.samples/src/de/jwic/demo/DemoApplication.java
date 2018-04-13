@@ -46,11 +46,11 @@ import de.jwic.demo.basics.RadioGroupDemoModule;
 import de.jwic.demo.basics.ToolBarDemoModule;
 import de.jwic.demo.chart.BarChartDemoModule;
 import de.jwic.demo.chart.CircleChartDemoModule;
+import de.jwic.demo.chart.DateTimeChartDemoModule;
 import de.jwic.demo.chart.LineChartDemoModule;
 import de.jwic.demo.chart.OverlayChartDemoModule;
 import de.jwic.demo.chart.PolarChartDemoModule;
 import de.jwic.demo.chart.RadarChartDemoModule;
-import de.jwic.demo.chart.DateTimeChartDemoModule;
 import de.jwic.demo.chart.StackedBarChartModule;
 import de.jwic.demo.chartdb.ChartDashboardDemo;
 import de.jwic.demo.container.AccordionDemoModule;
@@ -66,6 +66,7 @@ import de.jwic.demo.pojoedit.PojoEditorDemo;
 import de.jwic.demo.tbv.BasicTBVDemoModule;
 import de.jwic.demo.tbv.FileTreeDemoModule;
 import de.jwic.demo.tbv.TableViewerDemoModule;
+import de.jwic.demo.tbv.slickgrid.SlickGridDemoModule;
 import de.jwic.demo.wizard.WizardDemo;
 
 /**
@@ -124,6 +125,7 @@ public class DemoApplication extends Application {
 		modules.add(new ToolBarDemoModule());
 		modules.add(new BasicTBVDemoModule());
 		modules.add(new TableViewerDemoModule());
+		modules.add(new SlickGridDemoModule());
 		modules.add(new WindowDemoModule());
 		modules.add(new MenuDemoModule());
 		modules.add(new ColumnSelectorDemoModule());

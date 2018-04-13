@@ -107,7 +107,7 @@
 			#if($control.enabled)
 				elm.html(this.content);
 			
-				var editor =  CKEDITOR.replace(elm[0], this.editorCfg);
+				var editor = CKEDITOR.replace(elm[0], this.editorCfg);
 				editor.setData(this.content);
 				
 				JWic.addBeforeRequestCallback("$control.controlID", function() {

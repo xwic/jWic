@@ -1,0 +1,316 @@
+/*
+ * Copyright (c) NetApp Inc. - All Rights Reserved
+ * 
+ * Unauthorized copying of this file, via any medium is strictly prohibited.
+ * Proprietary and confidential.
+ * 
+ * de.jwic.controls.slickgrid.SlickGridOptions 
+ */
+package de.jwic.controls.slickgrid;
+
+import java.io.Serializable;
+
+/**
+ * Explanations for these options can be found here: https://github.com/6pac/SlickGrid/wiki/Grid-Options
+ * 
+ * @author Adrian Ionescu
+ */
+public class SlickGridOptions implements Serializable {
+
+	private static final long serialVersionUID = -7037218169331241766L;
+
+	private boolean asyncEditorLoading = false;
+	private boolean autoEdit = false;
+	private boolean autoHeight = false;
+	private boolean editable = false;
+	private boolean enableAddRow = false;
+	private boolean enableCellNavigation = true;
+	private boolean enableColumnReorder = true;
+	private boolean enableTextSelectionOnCells = true;
+	private boolean forceFitColumns = false;
+	private boolean fullWidthRows = false;
+	private boolean multiColumnSort = true;
+	private boolean multiSelect = false;
+	private boolean syncColumnCellResize = true;
+
+	private String cellFlashingCssClass = "flashing";
+	private String cellHighlightCssClass = "selected";
+	private String selectedCellCssClass = "selected";
+
+	private int asyncEditorLoadDelay = 100;
+	private int defaultColumnWidth = 100;
+	private int rowHeight = 25;
+
+	/**
+	 * 
+	 */
+	public SlickGridOptions() {
+
+	}
+
+	/**
+	 * @return the asyncEditorLoading
+	 */
+	public boolean isAsyncEditorLoading() {
+		return asyncEditorLoading;
+	}
+
+	/**
+	 * @param asyncEditorLoading the asyncEditorLoading to set
+	 */
+	public void setAsyncEditorLoading(boolean asyncEditorLoading) {
+		this.asyncEditorLoading = asyncEditorLoading;
+	}
+
+	/**
+	 * @return the autoEdit
+	 */
+	public boolean isAutoEdit() {
+		return autoEdit;
+	}
+
+	/**
+	 * @param autoEdit the autoEdit to set
+	 */
+	public void setAutoEdit(boolean autoEdit) {
+		this.autoEdit = autoEdit;
+	}
+
+	/**
+	 * @return the autoHeight
+	 */
+	public boolean isAutoHeight() {
+		return autoHeight;
+	}
+
+	/**
+	 * @param autoHeight the autoHeight to set
+	 */
+	public void setAutoHeight(boolean autoHeight) {
+		this.autoHeight = autoHeight;
+	}
+
+	/**
+	 * @return the editable
+	 */
+	public boolean isEditable() {
+		return editable;
+	}
+
+	/**
+	 * @param editable the editable to set
+	 */
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	/**
+	 * @return the enableAddRow
+	 */
+	public boolean isEnableAddRow() {
+		return enableAddRow;
+	}
+
+	/**
+	 * @param enableAddRow the enableAddRow to set
+	 */
+	public void setEnableAddRow(boolean enableAddRow) {
+		this.enableAddRow = enableAddRow;
+	}
+
+	/**
+	 * @return the enableCellNavigation
+	 */
+	public boolean isEnableCellNavigation() {
+		return enableCellNavigation;
+	}
+
+	/**
+	 * @param enableCellNavigation the enableCellNavigation to set
+	 */
+	public void setEnableCellNavigation(boolean enableCellNavigation) {
+		this.enableCellNavigation = enableCellNavigation;
+	}
+
+	/**
+	 * @return the enableColumnReorder
+	 */
+	public boolean isEnableColumnReorder() {
+		return enableColumnReorder;
+	}
+
+	/**
+	 * @param enableColumnReorder the enableColumnReorder to set
+	 */
+	public void setEnableColumnReorder(boolean enableColumnReorder) {
+		this.enableColumnReorder = enableColumnReorder;
+	}
+
+	/**
+	 * @return the enableTextSelectionOnCells
+	 */
+	public boolean isEnableTextSelectionOnCells() {
+		return enableTextSelectionOnCells;
+	}
+
+	/**
+	 * @param enableTextSelectionOnCells the enableTextSelectionOnCells to set
+	 */
+	public void setEnableTextSelectionOnCells(boolean enableTextSelectionOnCells) {
+		this.enableTextSelectionOnCells = enableTextSelectionOnCells;
+	}
+
+	/**
+	 * @return the forceFitColumns
+	 */
+	public boolean isForceFitColumns() {
+		return forceFitColumns;
+	}
+
+	/**
+	 * @param forceFitColumns the forceFitColumns to set
+	 */
+	public void setForceFitColumns(boolean forceFitColumns) {
+		this.forceFitColumns = forceFitColumns;
+	}
+
+	/**
+	 * @return the fullWidthRows
+	 */
+	public boolean isFullWidthRows() {
+		return fullWidthRows;
+	}
+
+	/**
+	 * @param fullWidthRows the fullWidthRows to set
+	 */
+	public void setFullWidthRows(boolean fullWidthRows) {
+		this.fullWidthRows = fullWidthRows;
+	}
+
+	/**
+	 * @return the multiColumnSort
+	 */
+	public boolean isMultiColumnSort() {
+		return multiColumnSort;
+	}
+
+	/**
+	 * @param multiColumnSort the multiColumnSort to set
+	 */
+	public void setMultiColumnSort(boolean multiColumnSort) {
+		this.multiColumnSort = multiColumnSort;
+	}
+
+	/**
+	 * @return the multiSelect
+	 */
+	public boolean isMultiSelect() {
+		return multiSelect;
+	}
+
+	/**
+	 * @param multiSelect the multiSelect to set
+	 */
+	public void setMultiSelect(boolean multiSelect) {
+		this.multiSelect = multiSelect;
+	}
+
+	/**
+	 * @return the syncColumnCellResize
+	 */
+	public boolean isSyncColumnCellResize() {
+		return syncColumnCellResize;
+	}
+
+	/**
+	 * @param syncColumnCellResize the syncColumnCellResize to set
+	 */
+	public void setSyncColumnCellResize(boolean syncColumnCellResize) {
+		this.syncColumnCellResize = syncColumnCellResize;
+	}
+
+	/**
+	 * @return the cellFlashingCssClass
+	 */
+	public String getCellFlashingCssClass() {
+		return cellFlashingCssClass;
+	}
+
+	/**
+	 * @param cellFlashingCssClass the cellFlashingCssClass to set
+	 */
+	public void setCellFlashingCssClass(String cellFlashingCssClass) {
+		this.cellFlashingCssClass = cellFlashingCssClass;
+	}
+
+	/**
+	 * @return the cellHighlightCssClass
+	 */
+	public String getCellHighlightCssClass() {
+		return cellHighlightCssClass;
+	}
+
+	/**
+	 * @param cellHighlightCssClass the cellHighlightCssClass to set
+	 */
+	public void setCellHighlightCssClass(String cellHighlightCssClass) {
+		this.cellHighlightCssClass = cellHighlightCssClass;
+	}
+
+	/**
+	 * @return the selectedCellCssClass
+	 */
+	public String getSelectedCellCssClass() {
+		return selectedCellCssClass;
+	}
+
+	/**
+	 * @param selectedCellCssClass the selectedCellCssClass to set
+	 */
+	public void setSelectedCellCssClass(String selectedCellCssClass) {
+		this.selectedCellCssClass = selectedCellCssClass;
+	}
+
+	/**
+	 * @return the asyncEditorLoadDelay
+	 */
+	public int getAsyncEditorLoadDelay() {
+		return asyncEditorLoadDelay;
+	}
+
+	/**
+	 * @param asyncEditorLoadDelay the asyncEditorLoadDelay to set
+	 */
+	public void setAsyncEditorLoadDelay(int asyncEditorLoadDelay) {
+		this.asyncEditorLoadDelay = asyncEditorLoadDelay;
+	}
+
+	/**
+	 * @return the defaultColumnWidth
+	 */
+	public int getDefaultColumnWidth() {
+		return defaultColumnWidth;
+	}
+
+	/**
+	 * @param defaultColumnWidth the defaultColumnWidth to set
+	 */
+	public void setDefaultColumnWidth(int defaultColumnWidth) {
+		this.defaultColumnWidth = defaultColumnWidth;
+	}
+
+	/**
+	 * @return the rowHeight
+	 */
+	public int getRowHeight() {
+		return rowHeight;
+	}
+
+	/**
+	 * @param rowHeight the rowHeight to set
+	 */
+	public void setRowHeight(int rowHeight) {
+		this.rowHeight = rowHeight;
+	}
+}
