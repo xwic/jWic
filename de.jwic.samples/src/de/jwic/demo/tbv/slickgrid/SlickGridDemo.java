@@ -17,7 +17,6 @@
 package de.jwic.demo.tbv.slickgrid;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import de.jwic.base.ControlContainer;
@@ -34,8 +33,6 @@ public class SlickGridDemo extends ControlContainer {
 
 	private static final long serialVersionUID = -253541673677874852L;
 	
-	private SlickGrid<User> slickGrid;
-	
 	/**
 	 * @param container
 	 * @param name
@@ -43,79 +40,95 @@ public class SlickGridDemo extends ControlContainer {
 	public SlickGridDemo(IControlContainer container) {
 		super(container);
 
-		slickGrid = new SlickGrid<User>(this, "sg");
-		slickGrid.setWidth(957);
+		SlickGrid<CostData> slickGrid = new SlickGrid<>(this, "sg");
+		slickGrid.setWidth(982);
 		slickGrid.setHeight(300);
 		slickGrid.getOptions().setEditable(true);
+		slickGrid.getOptions().setCreatePreHeaderPanel(true);
+		slickGrid.getOptions().setShowPreHeaderPanel(true);
+		slickGrid.getOptions().setCreateFooterRow(true);
+		slickGrid.getOptions().setShowFooterRow(true);
 		
-		SlickGridModel<User> model = slickGrid.getModel();
+		SlickGridModel<CostData> model = slickGrid.getModel();
+		
 		setupColumns(model);
 		setupData(model);
 	}
-
+	
 	/**
 	 * @param model
 	 */
-	private void setupData(SlickGridModel<User> model) {
-		Calendar cal = Calendar.getInstance();
+	private void setupData(SlickGridModel<CostData> model) {
+		List<CostData> pojos = new ArrayList<>();		
+		pojos.add(new CostData("Contractor Service", "John Deer", true, false, true, 45, "Hourly", 100, 200, 300, 400));
+		pojos.add(new CostData("Contractor Service", "Jane Doe", false, true, false, 105.5, "Hourly", 500, 500, 750, 1000));
+		pojos.add(new CostData("Contractor Service", "Michael Buffalo", false, false, false, 5600, "Monthly", 5600, 5600, 5600, 5600));
+		pojos.add(new CostData("Contractor Travel", "John Deer", true, true, true, 1, "Cost $", 0, 0, 3400, 0));
+		pojos.add(new CostData("Contractor Travel", "Jane Doe", false, true, true, 1, "Cost $", 1200, 0, 0, 4500));
 		
-		List<User> pojos = new ArrayList<>();		
-		pojos.add(new User("ionescu", "Adrian", "Ionescu", "adi@burger.com", cal.getTime(), 23, true, false, true));
-		cal.add(Calendar.DAY_OF_YEAR, -3);
-		pojos.add(new User("lippisch", "Florian", "Lippisch", "flo@beer.com",  cal.getTime(), 29, false, true, false));
-		cal.add(Calendar.DAY_OF_YEAR, -12);
-		pojos.add(new User("ronnyp", "Ronny", "Pfretzschner", "ronny@steak.com", cal.getTime(), 16, true, false, false));
-		cal.add(Calendar.DAY_OF_YEAR, -450);
-		pojos.add(new User("otto", "Daniel", "Ionescu", "dani@cordonbleu.com", cal.getTime(), 26, false, false, false));
-		cal.add(Calendar.DAY_OF_YEAR, 100);
-		pojos.add(new User("georger", "George", "Morge", "gm@pommes.com", cal.getTime(), 12, true, true, true));
-		
-		SlickGridListDataProvider<User> provider = new SlickGridListDataProvider<>(pojos);
+		SlickGridListDataProvider<CostData> provider = new SlickGridListDataProvider<>(pojos);
 		model.setDataProvider(provider);
 	}
 
 	/**
 	 * @param model
 	 */
-	private void setupColumns(SlickGridModel<User> model) {
-		SlickGridColumn col = new SlickGridColumn("username", "Username", 100);
+	private void setupColumns(SlickGridModel<CostData> model) {
+		SlickGridColumn col = new SlickGridColumn("spendType", "Spend Type", 150);
 		col.setToolTip("What's here?");
 		col.setEditor(SlickGridColumn.EDITOR_TEXT);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("firstName", "First Name", 150);
+		col = new SlickGridColumn("itemName", "Item Name", 150);
 		col.setToolTip("The name!");
 		col.setEditor(SlickGridColumn.EDITOR_LONG_TEXT);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("lastName", "Last Name", 150);
-		model.addColumn(col);
-		
-		col = new SlickGridColumn("email", "Email", 150);
-		model.addColumn(col);
-		
-		col = new SlickGridColumn("registrationDate", "Registration Date", 120);
-		col.setEditor(SlickGridColumn.EDITOR_DATE);
-		col.setDateFormat("dd-MMM-yyyy");
-		model.addColumn(col);
-		
-		col = new SlickGridColumn("age", "Age", 50);
-		col.setEditor(SlickGridColumn.EDITOR_INTEGER);
-		model.addColumn(col);
-		
-		col = new SlickGridColumn("retired", "Retired", 60);
+		col = new SlickGridColumn("internal", "Internal", 60);
 		col.setEditor(SlickGridColumn.EDITOR_CHECKBOX);
 		col.setFormatter(SlickGridColumn.FORMATTER_CHECKBOX);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("suspended", "Suspended", 80);
+		col = new SlickGridColumn("approved", "Approved", 70);
+		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
+		col.setFormatter(SlickGridColumn.FORMATTER_CHECKMARK);
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("paid", "Paid", 50);
 		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
 		col.setFormatter(SlickGridColumn.FORMATTER_YES_NO);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("approved", "Approved", 80);
-		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
-		col.setFormatter(SlickGridColumn.FORMATTER_CHECKMARK);
+		col = new SlickGridColumn("rate", "Rate", 50);
+		col.setColumnGroup("Rate");
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("uom", "UOM", 100);
+		col.setColumnGroup("Rate");
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("may", "May", 100);
+		col.setColumnGroup("Q1 FY19");
+		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setCanBeSummedUp(true);
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("june", "June", 100);
+		col.setColumnGroup("Q1 FY19");
+		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setCanBeSummedUp(true);
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("july", "July", 100);
+		col.setColumnGroup("Q1 FY19");
+		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setCanBeSummedUp(true);
+		model.addColumn(col);
+		
+		col = new SlickGridColumn("august", "August", 100);
+		col.setColumnGroup("Q2 FY19");
+		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setCanBeSummedUp(true);
 		model.addColumn(col);
 	}
 }

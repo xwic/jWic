@@ -31,15 +31,23 @@ public class SlickGridOptions implements Serializable {
 	private boolean fullWidthRows = false;
 	private boolean multiColumnSort = true;
 	private boolean multiSelect = false;
-	private boolean syncColumnCellResize = true;
-
+	private boolean syncColumnCellResize = true;	
+	private boolean createPreHeaderPanel = false;
+	private boolean showPreHeaderPanel = false;
+	private boolean createFooterRow = false;
+	private boolean showFooterRow = false;
+	
 	private String cellFlashingCssClass = "flashing";
 	private String cellHighlightCssClass = "selected";
 	private String selectedCellCssClass = "selected";
+	private String totalLabel = "Total: ";
 
 	private int asyncEditorLoadDelay = 100;
 	private int defaultColumnWidth = 100;
 	private int rowHeight = 25;
+	private int headerRowHeight = 53;
+	private int preHeaderPanelHeight = 23;
+	private int footerRowHeight = 21;
 
 	/**
 	 * 
@@ -312,5 +320,117 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setRowHeight(int rowHeight) {
 		this.rowHeight = rowHeight;
+	}
+
+	/**
+	 * @return the createPreHeaderPanel
+	 */
+	public boolean isCreatePreHeaderPanel() {
+		return createPreHeaderPanel;
+	}
+
+	/**
+	 * @param createPreHeaderPanel the createPreHeaderPanel to set
+	 */
+	public void setCreatePreHeaderPanel(boolean createPreHeaderPanel) {
+		this.createPreHeaderPanel = createPreHeaderPanel;
+	}
+
+	/**
+	 * @return the showPreHeaderPanel
+	 */
+	public boolean isShowPreHeaderPanel() {
+		return showPreHeaderPanel;
+	}
+
+	/**
+	 * @param showPreHeaderPanel the showPreHeaderPanel to set
+	 */
+	public void setShowPreHeaderPanel(boolean showPreHeaderPanel) {
+		this.showPreHeaderPanel = showPreHeaderPanel;
+	}
+
+	/**
+	 * @return the preHeaderPanelHeight
+	 */
+	public int getPreHeaderPanelHeight() {
+		return preHeaderPanelHeight;
+	}
+
+	/**
+	 * @param preHeaderPanelHeight the preHeaderPanelHeight to set
+	 */
+	public void setPreHeaderPanelHeight(int preHeaderPanelHeight) {
+		this.preHeaderPanelHeight = preHeaderPanelHeight;
+	}
+
+	/**
+	 * @return the headerRowHeight
+	 */
+	public int getHeaderRowHeight() {
+		return headerRowHeight;
+	}
+
+	/**
+	 * @param headerRowHeight the headerRowHeight to set
+	 */
+	public void setHeaderRowHeight(int headerRowHeight) {
+		this.headerRowHeight = headerRowHeight;
+	}
+
+	/**
+	 * @return the createFooterRow
+	 */
+	public boolean isCreateFooterRow() {
+		return createFooterRow;
+	}
+
+	/**
+	 * @param createFooterRow the createFooterRow to set
+	 */
+	public void setCreateFooterRow(boolean createFooterRow) {
+		this.createFooterRow = createFooterRow;
+	}
+
+	/**
+	 * @return the showFooterRow
+	 */
+	public boolean isShowFooterRow() {
+		return showFooterRow;
+	}
+
+	/**
+	 * @param showFooterRow the showFooterRow to set
+	 */
+	public void setShowFooterRow(boolean showFooterRow) {
+		this.showFooterRow = showFooterRow;
+	}
+
+	/**
+	 * @return the footerRowHeight
+	 */
+	public int getFooterRowHeight() {
+		return footerRowHeight;
+	}
+
+	/**
+	 * @param footerRowHeight the footerRowHeight to set
+	 */
+	public void setFooterRowHeight(int footerRowHeight) {
+		this.footerRowHeight = footerRowHeight;
+	}
+
+	/**
+	 * @return the totalLabel
+	 */
+	public String getTotalLabel() {
+		return totalLabel;
+	}
+
+	/**
+	 * @param totalLabel the totalLabel to set
+	 */
+	public void setTotalLabel(String totalLabel) {
+		this.totalLabel = totalLabel;
 	}
 }

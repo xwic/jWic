@@ -10,6 +10,7 @@ package de.jwic.controls.slickgrid;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class SlickGridModel<T> implements Serializable {
 	/**
 	 * @return the columns
 	 */
-	public Iterable<SlickGridColumn> getColumns() {
+	public Collection<SlickGridColumn> getColumns() {
 		return columns;
 	}
 	

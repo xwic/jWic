@@ -25,48 +25,88 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		var columns = [
+		var columns = [				
 	    	#foreach ($col in $control.getModel().getColumns())
-		    	#if ($foreach.count > 1),#end
-		    	{
-		    		id : '$col.id',
-		    		field : '$col.field',
-		    		name : '$col.name',
-		    		
-		    		#if($col.cssClass)
-		    		cssClass : '$!col.cssClass',
-		    		#end
-		    		#if($col.headerCssClass)
-		    		headerCssClass : '$!col.headerCssClass',
-		    		#end
-		    		#if($col.toolTip)
-		    		toolTip : '$jwic.escapeJavaScript($!col.toolTip)',
-		    		#end
-		    		#if($col.formatter)
-		    		formatter : $!col.formatter,
-		    		#end
-		    		#if($col.editor)
-		    		editor : $!col.editor,
-		    		#end
-		    		
-		    		resizable : $col.resizable,
-		    		sortable : $col.sortable,
-		    		width : $col.width,
-		    		minWidth : $col.minWidth,
-		    		maxWidth : $col.maxWidth
-		    	}
-		    #end
-	    ];	  
-	    
+	    	#if ($foreach.count > 1),#end
+	    	{
+	    		id : '$col.id',
+	    		field : '$col.field',
+	    		name : '$col.name',
+	    		
+	    		#if($col.cssClass)
+	    		cssClass : '$!col.cssClass',
+	    		#end
+	    		#if($col.headerCssClass)
+	    		headerCssClass : '$!col.headerCssClass',
+	    		#end
+	    		#if($col.toolTip)
+	    		toolTip : '$jwic.escapeJavaScript($!col.toolTip)',
+	    		#end
+	    		#if($col.columnGroup)
+	    			columnGroup : '$jwic.escapeJavaScript($!col.columnGroup)',
+	    		#end
+	    		#if($col.formatter)
+	    		formatter : $!col.formatter,
+	    		#end
+	    		#if($col.editor)
+	    		editor : $!col.editor,
+	    		#end
+	    		
+	    		resizable : $col.resizable,
+	    		sortable : $col.sortable,
+	    		canBeSummedUp: $col.canBeSummedUp,
+	    		
+	    		width : $col.width,
+	    		minWidth : $col.minWidth,
+	    		maxWidth : $col.maxWidth
+	    	}
+	    	#end
+	    ];
 	    var options = $control.getOptionsAsJson();
-	    
 	    var data = $control.getDataAsJson();
 	    
-	    var containerDiv = jQuery(document.getElementById('${control.controlID}_thegrid'));
-	    var grid = new Slick.Grid(containerDiv, data, columns, options);
+	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
 	    
 	    grid.setSelectionModel(new Slick.CellSelectionModel());
-
+	    
+	    // *********************************************************************************
+	    // HEADER AND FOOTER
+	    // *********************************************************************************
+	    
+	    if (options.createPreHeaderPanel) {
+	    	grid.onColumnsResized.subscribe(function (e, args) {
+	    		JWic.controls.SlickGrid.createColumnGroupingRow(grid);
+	    	});
+	    	
+	    	JWic.controls.SlickGrid.createColumnGroupingRow(grid);
+	    }
+	    
+	    if (options.createFooterRow) {
+	    	JWic.controls.SlickGrid.updateAllTotals(grid, data);
+			
+		    grid.onCellChange.subscribe(function(e, args) {
+		    	JWic.controls.SlickGrid.updateTotal(args.cell, args.grid, data);
+		    });
+		    
+		    grid.onColumnsReordered.subscribe(function(e, args) {
+		    	JWic.controls.SlickGrid.updateAllTotals(args.grid, data);
+		    });
+		    
+		    // hide the footer cells for the columns that don't support summing up
+		    for (var i = 0; i < columns.length; i++) {
+		    	var col = columns[i];
+		    	var idx = grid.getColumnIndex(col.id);
+		    	var footerCell = grid.getFooterRowColumn(idx);
+		    	if (!col.canBeSummedUp) {
+		    		$(footerCell).hide();
+		    	}
+		    }
+	    }
+	    
+	    // *********************************************************************************
+	    // SORTING
+	    // *********************************************************************************
+	    
 	    if (options.multiColumnSort) {
 		    grid.onSort.subscribe(function (e, args) {
 		    	var cols = args.sortCols;
@@ -85,7 +125,7 @@
 		        grid.invalidate();
 		    });
 	    } else {
-	    	grid.onSort.subscribe(function(e, args){ // args: sort information.
+	    	grid.onSort.subscribe(function(e, args){
 				var field = args.sortCol.field;
 				
 				data.sort(function(a, b){
@@ -100,11 +140,13 @@
 				grid.invalidate();
 			});
 	    }
+	    
+	    // *********************************************************************************
 	},
 	
 	/**
 	 * Invoked when the existing element is removed from the DOM tree.
 	 */
 	destroy : function(element) {
-	}
+	}	
 }

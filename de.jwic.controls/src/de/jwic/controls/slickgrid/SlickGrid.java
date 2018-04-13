@@ -109,6 +109,13 @@ public class SlickGrid<T> extends Control {
 	public void addValueChangedListener(ValueChangedListener listener) {
 		changes.addValueChangedListener(listener);
 	}
+	
+	/**
+	 * @return
+	 */
+	public boolean hasColumnGrouping() {
+		return model.getColumns().stream().anyMatch(c -> (c.getColumnGroup() != null && !c.getColumnGroup().trim().isEmpty()));
+	}
 
 	// ***************************************************
 	// JSON related methods
@@ -118,6 +125,10 @@ public class SlickGrid<T> extends Control {
 	 * @return the options
 	 */
 	public String getOptionsAsJson() {
+		if (options.isEnableColumnReorder() && hasColumnGrouping()) {
+			// forcefully disable column reorder if we have column grouping present
+			options.setEnableColumnReorder(false);
+		}
 		String json = gson.toJson(options);
 		return json;
 	}

@@ -48,9 +48,11 @@ public class SlickGridColumn implements Serializable {
 	 * You can use one of the existing editors, defined as constants above, or write your own (see slick.editors.js)
 	 */
 	private String editor;
+	private String columnGroup;
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
+	private boolean canBeSummedUp = false;
 	
 	private int width;
 	private int minWidth = 30;
@@ -279,5 +281,33 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setDateFormat(String dateFormat) {
 		this.dateFormat = dateFormat;
+	}
+
+	/**
+	 * @return the columnGroup
+	 */
+	public String getColumnGroup() {
+		return columnGroup;
+	}
+
+	/**
+	 * @param columnGroup the columnGroup to set
+	 */
+	public void setColumnGroup(String columnGroup) {
+		this.columnGroup = columnGroup;
+	}
+
+	/**
+	 * @return the canBeSummedUp
+	 */
+	public boolean isCanBeSummedUp() {
+		return canBeSummedUp;
+	}
+
+	/**
+	 * @param canBeSummedUp the canBeSummedUp to set
+	 */
+	public void setCanBeSummedUp(boolean canBeSummedUp) {
+		this.canBeSummedUp = canBeSummedUp;
 	}
 }
