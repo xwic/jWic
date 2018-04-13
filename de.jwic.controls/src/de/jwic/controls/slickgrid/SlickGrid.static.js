@@ -34,6 +34,8 @@
 				while (columnIdx--) {
 					JWic.controls.SlickGrid.updateTotal(columnIdx, grid, data);
 				}
+				
+				JWic.controls.SlickGrid.hideNonTotalFooterCells(grid);
 			},
 			
 			updateTotal : function(columnIdx, grid, data) {
@@ -46,8 +48,21 @@
 						total += (parseInt(data[i][columnId], 10) || 0);
 					}
 					var columnElement = grid.getFooterRowColumn(columnId);
-					$(columnElement).html(grid.getOptions().totalLabel + total);
+					$(columnElement).html(column.totalLabel + total);
 				}
+			},
+			
+			hideNonTotalFooterCells : function(grid) {
+				// hide the footer cells for the columns that don't support summing up
+				var columns = grid.getColumns();
+			    for (var i = 0; i < columns.length; i++) {
+			    	var col = columns[i];
+			    	if (!col.canBeSummedUp) {
+			    		var idx = grid.getColumnIndex(col.id);
+			    		var footerCell = grid.getFooterRowColumn(idx);
+			    		$(footerCell).hide();
+			    	}
+			    }
 			}
 		}
 	});

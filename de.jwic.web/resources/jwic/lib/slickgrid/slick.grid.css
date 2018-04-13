@@ -45,7 +45,7 @@ classes should alter those!
   float: left;
 }
 
-.slick-headerrow-column.ui-state-default, .slick-footerrow-column.ui-state-default {
+.slick-headerrow-column.ui-state-default {
   padding: 4px;
 }
 

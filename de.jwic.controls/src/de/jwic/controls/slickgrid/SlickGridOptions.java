@@ -40,7 +40,6 @@ public class SlickGridOptions implements Serializable {
 	private String cellFlashingCssClass = "flashing";
 	private String cellHighlightCssClass = "selected";
 	private String selectedCellCssClass = "selected";
-	private String totalLabel = "Total: ";
 
 	private int asyncEditorLoadDelay = 100;
 	private int defaultColumnWidth = 100;
@@ -418,19 +417,5 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setFooterRowHeight(int footerRowHeight) {
 		this.footerRowHeight = footerRowHeight;
-	}
-
-	/**
-	 * @return the totalLabel
-	 */
-	public String getTotalLabel() {
-		return totalLabel;
-	}
-
-	/**
-	 * @param totalLabel the totalLabel to set
-	 */
-	public void setTotalLabel(String totalLabel) {
-		this.totalLabel = totalLabel;
 	}
 }

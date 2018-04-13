@@ -125,10 +125,6 @@ public class SlickGrid<T> extends Control {
 	 * @return the options
 	 */
 	public String getOptionsAsJson() {
-		if (options.isEnableColumnReorder() && hasColumnGrouping()) {
-			// forcefully disable column reorder if we have column grouping present
-			options.setEnableColumnReorder(false);
-		}
 		String json = gson.toJson(options);
 		return json;
 	}

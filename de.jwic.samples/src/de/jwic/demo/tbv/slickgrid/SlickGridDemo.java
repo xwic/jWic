@@ -41,7 +41,7 @@ public class SlickGridDemo extends ControlContainer {
 		super(container);
 
 		SlickGrid<CostData> slickGrid = new SlickGrid<>(this, "sg");
-		slickGrid.setWidth(982);
+		slickGrid.setWidth(1035);
 		slickGrid.setHeight(300);
 		slickGrid.getOptions().setEditable(true);
 		slickGrid.getOptions().setCreatePreHeaderPanel(true);
@@ -94,7 +94,7 @@ public class SlickGridDemo extends ControlContainer {
 		col.setFormatter(SlickGridColumn.FORMATTER_CHECKMARK);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("paid", "Paid", 50);
+		col = new SlickGridColumn("paid", "Paid", 55);
 		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
 		col.setFormatter(SlickGridColumn.FORMATTER_YES_NO);
 		model.addColumn(col);
@@ -117,12 +117,14 @@ public class SlickGridDemo extends ControlContainer {
 		col.setColumnGroup("Q1 FY19");
 		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
 		col.setCanBeSummedUp(true);
+		col.setTotalLabel("Total: ");
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("july", "July", 100);
 		col.setColumnGroup("Q1 FY19");
 		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
 		col.setCanBeSummedUp(true);
+		col.setTotalLabel("Sum: ");
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("august", "August", 100);

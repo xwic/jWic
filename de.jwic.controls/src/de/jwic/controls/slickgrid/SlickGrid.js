@@ -32,6 +32,7 @@
 	    		id : '$col.id',
 	    		field : '$col.field',
 	    		name : '$col.name',
+	    		totalLabel : '$jwic.escapeJavaScript("$!col.totalLabel")',
 	    		
 	    		#if($col.cssClass)
 	    		cssClass : '$!col.cssClass',
@@ -67,6 +68,7 @@
 	    
 	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
 	    
+	    // TODO make this configurable
 	    grid.setSelectionModel(new Slick.CellSelectionModel());
 	    
 	    // *********************************************************************************
@@ -91,16 +93,6 @@
 		    grid.onColumnsReordered.subscribe(function(e, args) {
 		    	JWic.controls.SlickGrid.updateAllTotals(args.grid, data);
 		    });
-		    
-		    // hide the footer cells for the columns that don't support summing up
-		    for (var i = 0; i < columns.length; i++) {
-		    	var col = columns[i];
-		    	var idx = grid.getColumnIndex(col.id);
-		    	var footerCell = grid.getFooterRowColumn(idx);
-		    	if (!col.canBeSummedUp) {
-		    		$(footerCell).hide();
-		    	}
-		    }
 	    }
 	    
 	    // *********************************************************************************

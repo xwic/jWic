@@ -49,6 +49,7 @@ public class SlickGridColumn implements Serializable {
 	 */
 	private String editor;
 	private String columnGroup;
+	private String totalLabel;
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
@@ -309,5 +310,19 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setCanBeSummedUp(boolean canBeSummedUp) {
 		this.canBeSummedUp = canBeSummedUp;
+	}
+	
+	/**
+	 * @return the totalLabel
+	 */
+	public String getTotalLabel() {
+		return totalLabel;
+	}
+
+	/**
+	 * @param totalLabel the totalLabel to set
+	 */
+	public void setTotalLabel(String totalLabel) {
+		this.totalLabel = totalLabel;
 	}
 }
