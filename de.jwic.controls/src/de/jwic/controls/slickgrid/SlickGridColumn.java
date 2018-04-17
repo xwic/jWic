@@ -19,20 +19,45 @@ public class SlickGridColumn implements Serializable {
 	
 	private static final long serialVersionUID = 1876300346980560080L;
 	
-	public final static String FORMATTER_YES_NO = "Slick.Formatters.YesNo";
-	public final static String FORMATTER_CHECKBOX = "Slick.Formatters.Checkbox";
-	public final static String FORMATTER_CHECKMARK = "Slick.Formatters.Checkmark";
-	public final static String FORMATTER_PERCENT_COMPLETE = "Slick.Formatters.PercentComplete";
-	public final static String FORMATTER_PERCENT_COMPLETE_BAR = "Slick.Formatters.PercentCompleteBar";
+	public enum Formatter {
+		YES_NO("Slick.Formatters.YesNo"),
+		CHECKBOX("Slick.Formatters.Checkbox"),
+		CHECKMARK("Slick.Formatters.Checkmark"),
+		PERCENT_COMPLETE("Slick.Formatters.PercentComplete"),
+		PERCENT_COMPLETE_BAR("Slick.Formatters.PercentCompleteBar");
+		
+		private String name;
+		
+		private Formatter(String name) {
+			this.name = name;
+		}
 	
-	public final static String EDITOR_TEXT = "Slick.Editors.Text";
-	public final static String EDITOR_INTEGER = "Slick.Editors.Integer";
-	public final static String EDITOR_FLOAT = "Slick.Editors.Float";
-	public final static String EDITOR_DATE = "Slick.Editors.Date";
-	public final static String EDITOR_YES_NO = "Slick.Editors.YesNoSelect";
-	public final static String EDITOR_CHECKBOX = "Slick.Editors.Checkbox";
-	public final static String EDITOR_PERCENT_COMPLETE = "Slick.Editors.PercentComplete";
-	public final static String EDITOR_LONG_TEXT = "Slick.Editors.LongText";
+		public String getName() {
+			return name;
+		}
+	}
+	
+	public enum Editor {
+		TEXT("Slick.Editors.Text"),
+		INTEGER("Slick.Editors.Integer"),
+		FLOAT("Slick.Editors.Float"),
+		DATE("Slick.Editors.Date"),
+		YES_NO("Slick.Editors.YesNoSelect"),
+		CHECKBOX("Slick.Editors.Checkbox"),
+		PERCENT_COMPLETE("Slick.Editors.PercentComplete"),
+		LONG_TEXT("Slick.Editors.LongText");
+	
+		private String name;
+		
+		private Editor(String name) {
+			this.name = name;
+		}
+	
+		public String getName() {
+			return name;
+		}
+	}
+	
 	
 	private String id;
 	private String field;
@@ -40,16 +65,17 @@ public class SlickGridColumn implements Serializable {
 	private String cssClass;
 	private String headerCssClass;
 	private String toolTip;
-	/**
-	 *  You can use one of the existing formatters, defined as constants above, or write your own (see slick.formatters.js)
-	 */
-	private String formatter;
-	/**
-	 * You can use one of the existing editors, defined as constants above, or write your own (see slick.editors.js)
-	 */
-	private String editor;
 	private String columnGroup;
 	private String totalLabel;
+	
+	/**
+	 *  You can use one of the existing formatters, or write your own (see slick.formatters.js)
+	 */
+	private Formatter formatter;
+	/**
+	 * You can use one of the existing editors, or write your own (see slick.editors.js)
+	 */
+	private Editor editor;
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
@@ -221,14 +247,14 @@ public class SlickGridColumn implements Serializable {
 	/**
 	 * @return the formatter
 	 */
-	public String getFormatter() {
+	public Formatter getFormatter() {
 		return formatter;
 	}
 
 	/**
 	 * @param formatter the formatter to set
 	 */
-	public void setFormatter(String formatter) {
+	public void setFormatter(Formatter formatter) {
 		this.formatter = formatter;
 	}
 
@@ -263,14 +289,14 @@ public class SlickGridColumn implements Serializable {
 	/**
 	 * @return the editor
 	 */
-	public String getEditor() {
+	public Editor getEditor() {
 		return editor;
 	}
 
 	/**
 	 * @param editor the editor to set
 	 */
-	public void setEditor(String editor) {
+	public void setEditor(Editor editor) {
 		this.editor = editor;
 	}
 

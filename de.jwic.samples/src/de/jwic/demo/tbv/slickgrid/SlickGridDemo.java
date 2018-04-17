@@ -26,6 +26,8 @@ import de.jwic.controls.InputBox;
 import de.jwic.controls.slickgrid.SlickGrid;
 import de.jwic.controls.slickgrid.SlickGridChange;
 import de.jwic.controls.slickgrid.SlickGridColumn;
+import de.jwic.controls.slickgrid.SlickGridColumn.Editor;
+import de.jwic.controls.slickgrid.SlickGridColumn.Formatter;
 import de.jwic.controls.slickgrid.SlickGridListDataProvider;
 import de.jwic.controls.slickgrid.SlickGridModel;
 
@@ -132,27 +134,27 @@ public class SlickGridDemo extends ControlContainer {
 	private void setupColumns(SlickGridModel<CostData> model) {
 		SlickGridColumn col = new SlickGridColumn("spendType", "Spend Type", 150);
 		col.setToolTip("What's here?");
-		col.setEditor(SlickGridColumn.EDITOR_TEXT);
+		col.setEditor(Editor.TEXT);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("itemName", "Item Name", 150);
 		col.setToolTip("The name!");
-		col.setEditor(SlickGridColumn.EDITOR_LONG_TEXT);
+		col.setEditor(Editor.LONG_TEXT);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("internal", "Internal", 60);
-		col.setEditor(SlickGridColumn.EDITOR_CHECKBOX);
-		col.setFormatter(SlickGridColumn.FORMATTER_CHECKBOX);
+		col.setEditor(Editor.CHECKBOX);
+		col.setFormatter(Formatter.CHECKBOX);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("approved", "Approved", 70);
-		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
-		col.setFormatter(SlickGridColumn.FORMATTER_CHECKMARK);
+		col.setEditor(Editor.YES_NO);
+		col.setFormatter(Formatter.CHECKMARK);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("paid", "Paid", 55);
-		col.setEditor(SlickGridColumn.EDITOR_YES_NO);
-		col.setFormatter(SlickGridColumn.FORMATTER_YES_NO);
+		col.setEditor(Editor.YES_NO);
+		col.setFormatter(Formatter.YES_NO);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("rate", "Rate", 50);
@@ -165,27 +167,27 @@ public class SlickGridDemo extends ControlContainer {
 		
 		col = new SlickGridColumn("may", "May", 100);
 		col.setColumnGroup("Q1 FY19");
-		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setEditor(Editor.FLOAT);
 		col.setCanBeSummedUp(true);
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("june", "June", 100);
 		col.setColumnGroup("Q1 FY19");
-		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setEditor(Editor.FLOAT);
 		col.setCanBeSummedUp(true);
 		col.setTotalLabel("Total: ");
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("july", "July", 100);
 		col.setColumnGroup("Q1 FY19");
-		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setEditor(Editor.FLOAT);
 		col.setCanBeSummedUp(true);
 		col.setTotalLabel("Sum: ");
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("august", "August", 100);
 		col.setColumnGroup("Q2 FY19");
-		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setEditor(Editor.FLOAT);
 		col.setCanBeSummedUp(true);
 		model.addColumn(col);
 	}

@@ -19,7 +19,7 @@ class SlickGridDataRow implements Serializable {
 	
 	private static final long serialVersionUID = 671484606921050314L;
 	
-	private static final String UNIQUE_IDENTIFIER_PROPERTY = "slick_grid_uid";
+	private static final String UNIQUE_IDENTIFIER_PROPERTY = "slickGridRowUID";
 	
 	private Map<String, Object> map;
 	

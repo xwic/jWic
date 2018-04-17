@@ -14,9 +14,9 @@
 	doUpdate: function(element) {
 		var field = JWic.$('${control.controlID}_thegrid');
 		
-		if (field.length === 0){ 
+		if (field == undefined || field.length === 0){ 
 			// if the field does not exist, the element needs to be created regulary 
-			// (jQuery objects are never null, but if the selection returned null the length prop is 0)
+			// jQuery objects are never null, but if the selection returned null the length prop is 0
 			return false;
 		}
 		
@@ -58,10 +58,10 @@
 	    			columnGroup : '$jwic.escapeJavaScript($!col.columnGroup)',
 	    		#end
 	    		#if($col.formatter)
-	    		formatter : $!col.formatter,
+	    		formatter : $!col.formatter.name,
 	    		#end
 	    		#if($col.editor)
-	    		editor : $!col.editor,
+	    		editor : $!col.editor.name,
 	    		#end
 	    		
 	    		resizable : $col.resizable,
@@ -74,120 +74,26 @@
 	    	}
 	    	#end
 	    ];
+		
 	    var options = $control.getOptionsAsJson();
 	    var data = $control.getDataAsJson();
 	    
 	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
 	    
-	    var selectionModel = '$control.options.selectionModel.toString()';
-	    if (selectionModel === 'ROW') {
-	    	grid.setSelectionModel(new Slick.RowSelectionModel());
-	    } else if (selectionModel === 'CELL') {
-	    	grid.setSelectionModel(new Slick.CellSelectionModel());	    	
-	    }
-	    
-	    // *********************************************************************************
-	    // EVENTS
-	    // *********************************************************************************
+	    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
+	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
+	    JWic.controls.SlickGrid.setupSorting(grid);
 	    
 	    grid.onClick.subscribe(function (e, args) {
-	    	var cell = grid.getCellFromEvent(e);	    	
-	    	var dataItem = grid.getDataItem(cell.row);
-	    	var uid = dataItem.slick_grid_uid;
-	    	
+	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid, e);	    	
 	    	JWic.$('${control.controlID}_fldSelection').val(uid);
 	    	JWic.fireAction('${control.controlID}', 'rowSelected', uid);
 	    });
 	    
 	    grid.onBeforeCellEditorDestroy.subscribe(function (e, args) {
-	    	var cell = grid.getActiveCell();
-	    	var dataItem = grid.getDataItem(cell.row);
-	    	
-    		var uid = dataItem.slick_grid_uid;
-    		var fieldName = grid.getColumns()[cell.cell].field;
-    		var newValue = args.editor.serializeValue();
-    		
-    		// we store the changes as JSON on a Field
-    		var fldChanges = JWic.$('${control.controlID}_fldChanges');
-    		
-    		var jsonObj = [];
-    		var changes = fldChanges.val();
-    		if (changes && changes.trim() !== '') {
-    			jsonObj = jQuery.parseJSON(changes);
-    		}
-    		
-    		var item = {};
-    	    item ["uid"] = uid;
-    	    item ["fieldName"] = fieldName;
-    	    item ["newValue"] = newValue;
-    	    jsonObj.push(item);
-    		
-    		fldChanges.val(JSON.stringify(jsonObj));
+	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');	    	
+	    	JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges,);
 	    });
-	    
-	    // *********************************************************************************
-	    // HEADER AND FOOTER
-	    // *********************************************************************************
-	    
-	    if (options.createPreHeaderPanel) {
-	    	grid.onColumnsResized.subscribe(function (e, args) {
-	    		JWic.controls.SlickGrid.createColumnGroupingRow(grid);
-	    	});
-	    	
-	    	JWic.controls.SlickGrid.createColumnGroupingRow(grid);
-	    }
-	    
-	    if (options.createFooterRow) {
-	    	JWic.controls.SlickGrid.updateAllTotals(grid, data);
-			
-		    grid.onCellChange.subscribe(function(e, args) {
-		    	JWic.controls.SlickGrid.updateTotal(args.cell, args.grid, data);
-		    });
-		    
-		    grid.onColumnsReordered.subscribe(function(e, args) {
-		    	JWic.controls.SlickGrid.updateAllTotals(args.grid, data);
-		    });
-	    }
-	    
-	    // *********************************************************************************
-	    // SORTING
-	    // *********************************************************************************
-	    
-	    if (options.multiColumnSort) {
-		    grid.onSort.subscribe(function (e, args) {
-		    	var cols = args.sortCols;
-		        data.sort(function (dataRow1, dataRow2) {
-		        	for (var i = 0, l = cols.length; i < l; i++) {
-		        		var field = cols[i].sortCol.field;
-		        		var sign = cols[i].sortAsc ? 1 : -1;
-		        		var value1 = dataRow1[field], value2 = dataRow2[field];
-		        		var result = (value1 == value2 ? 0 : (value1 > value2 ? 1 : -1)) * sign;
-		        		if (result != 0) {
-		        			return result;
-		        		}
-		        	}
-		        	return 0;
-		        });
-		        grid.invalidate();
-		    });
-	    } else {
-	    	grid.onSort.subscribe(function(e, args){
-				var field = args.sortCol.field;
-				
-				data.sort(function(a, b){
-					var result = 
-						a[field] > b[field] ? 1 :
-						a[field] < b[field] ? -1 :
-						0;
-						
-					return args.sortAsc ? result : -result;
-				});
-				
-				grid.invalidate();
-			});
-	    }
-	    
-	    // *********************************************************************************
 	},
 	
 	/**
