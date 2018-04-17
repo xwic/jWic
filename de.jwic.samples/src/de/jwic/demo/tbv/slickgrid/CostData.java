@@ -17,6 +17,8 @@ public class CostData implements Serializable {
 
 	private static final long serialVersionUID = -7221680577288515527L;
 
+	private int id;
+	
 	private String spendType;
 	private String itemName;
 	private boolean internal;
@@ -42,9 +44,10 @@ public class CostData implements Serializable {
 	 * @param july
 	 * @param august
 	 */
-	public CostData(String spendType, String itemName, boolean internal, boolean approved, boolean paid, double rate, String uom,
+	public CostData(int id, String spendType, String itemName, boolean internal, boolean approved, boolean paid, double rate, String uom,
 			double may, double june, double july, double august) {
 		super();
+		this.id = id;
 		this.spendType = spendType;
 		this.itemName = itemName;
 		this.internal = internal;
@@ -216,6 +219,20 @@ public class CostData implements Serializable {
 	 */
 	public void setPaid(boolean paid) {
 		this.paid = paid;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

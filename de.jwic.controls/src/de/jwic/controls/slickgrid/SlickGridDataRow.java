@@ -15,18 +15,21 @@ import java.util.Map;
 /**
  * @author Adrian Ionescu
  */
-public class SlickGridDataRow implements Serializable {
+class SlickGridDataRow implements Serializable {
 	
 	private static final long serialVersionUID = 671484606921050314L;
+	
+	private static final String UNIQUE_IDENTIFIER_PROPERTY = "slick_grid_uid";
 	
 	private Map<String, Object> map;
 	
 	/**
-	 * 
+	 * @param uniqueIdentifier
 	 */
-	public SlickGridDataRow() {
+	public SlickGridDataRow(String uniqueIdentifier) {
 		map = new LinkedHashMap<>();
-		
+
+		map.put(UNIQUE_IDENTIFIER_PROPERTY, uniqueIdentifier);
 	}
 	
 	/**

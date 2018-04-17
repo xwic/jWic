@@ -1,4 +1,7 @@
-#set($fld = $control.getField("changes"))
-<input id="${control.controlID}_changes" type="hidden" name="$fld.getId()" value="">
+#set($fldSelection = $control.getField("fldSelection"))
+#set($fldChanges = $control.getField("fldChanges"))
 
-<div id="${control.controlID}_thegrid" style="width:${control.width}px; height: ${control.height}px; border: 1px solid #c0c0c0"></div>
+<input id="${control.controlID}_fldSelection" type="hidden" name="$fldSelection.getId()" value="">
+<input id="${control.controlID}_fldChanges" type="hidden" name="$fldChanges.getId()" value="">
+
+<div id="${control.controlID}_thegrid" style="width:${control.options.width}px; height: ${control.options.height}px; border: 1px solid #c0c0c0"></div>

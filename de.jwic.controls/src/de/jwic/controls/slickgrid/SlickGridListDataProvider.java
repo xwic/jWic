@@ -16,7 +16,7 @@ import java.util.Iterator;
  * 
  * @author Adrian Ionescu
  */
-public class SlickGridListDataProvider<P> implements ISlickGridDataProvider<P> {
+public abstract class SlickGridListDataProvider<P> implements ISlickGridDataProvider<P> {
 	
 	private static final long serialVersionUID = 1745242796877394936L;
 	

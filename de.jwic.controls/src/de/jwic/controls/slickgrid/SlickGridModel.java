@@ -14,6 +14,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import de.jwic.base.EventSupport;
+import de.jwic.base.IEventListener;
+import de.jwic.events.ElementSelectedEvent;
+
 /**
  * @author Adrian Ionescu
  */
@@ -24,6 +28,8 @@ public class SlickGridModel<T> implements Serializable {
 	private List<SlickGridColumn> columns;
 	private ISlickGridDataProvider<T> dataProvider;
 	private ISlickGridColumnValueProvider defaultValueProvider = new SlickGridDefaultColumnValueProvider();
+	
+	private EventSupport<ElementSelectedEvent> elementSelected = new EventSupport<>();
 	
 	/**
 	 * 
@@ -62,7 +68,7 @@ public class SlickGridModel<T> implements Serializable {
 		while (iterator.hasNext()) {
 			T obj = iterator.next();
 			
-			SlickGridDataRow row = new SlickGridDataRow();
+			SlickGridDataRow row = new SlickGridDataRow(dataProvider.getUniqueIdentifier(obj));
 			rows.add(row);
 			
 			for (SlickGridColumn column : columns) {
@@ -104,5 +110,19 @@ public class SlickGridModel<T> implements Serializable {
 	 */
 	public void setDefaultLabelProvider(ISlickGridColumnValueProvider defaultLabelProvider) {
 		this.defaultValueProvider = defaultLabelProvider;
+	}
+	
+	/**
+	 * @param listener
+	 */
+	public void addElementSelectedListener(IEventListener<ElementSelectedEvent> listener) {
+		elementSelected.addListener(listener);
+	}
+
+	/**
+	 * @param rowKey
+	 */
+	public void fireRowSelectedEvent(String rowKey) {
+		elementSelected.fireEvent(new ElementSelectedEvent(this, rowKey));
 	}
 }

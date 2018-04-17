@@ -10,6 +10,8 @@ package de.jwic.controls.slickgrid;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +21,6 @@ import de.jwic.base.Control;
 import de.jwic.base.Field;
 import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
-import de.jwic.events.ValueChangedListener;
 
 /**
  * @author Adrian Ionescu
@@ -28,23 +29,16 @@ import de.jwic.events.ValueChangedListener;
 public class SlickGrid<T> extends Control {
 
 	private static final long serialVersionUID = 3616435322002219296L;
-
+	
 	private SlickGridOptions options;
 	private SlickGridModel<T> model;
 	
-	private Field changes;
+	private Field fldSelection;
+	private Field fldChanges;
+
+	private boolean clearChanges = false;
 	
-	private int width = 600;
-	private int height = 300;
-	
-	private static Gson gson;
-	
-	static {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.setPrettyPrinting().serializeNulls();
-		gsonBuilder.registerTypeAdapter(SlickGridDataRow.class, new SlickGridDataRowGsonAdapter());
-		gson = gsonBuilder.create();
-	}
+	private final Gson gson;
 	
 	/**
 	 * @param container
@@ -56,7 +50,13 @@ public class SlickGrid<T> extends Control {
 		this.options = new SlickGridOptions();
 		this.model = new SlickGridModel<T>();
 		
-		changes = new Field(this, "changes");
+		fldSelection = new Field(this, "fldSelection");
+		fldChanges = new Field(this, "fldChanges");
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.setPrettyPrinting().serializeNulls();
+		gsonBuilder.registerTypeAdapter(SlickGridDataRow.class, new SlickGridDataRowGsonAdapter());
+		this.gson = gsonBuilder.create();
 	}
 	
 	/**
@@ -74,47 +74,72 @@ public class SlickGrid<T> extends Control {
 	}
 
 	/**
-	 * @return the width
+	 * @return
 	 */
-	public int getWidth() {
-		return width;
+	public boolean hasColumnGrouping() {
+		return model.getColumns().stream().anyMatch(c -> (c.getColumnGroup() != null && !c.getColumnGroup().trim().isEmpty()));
 	}
-
-	/**
-	 * @param width the width to set
+	
+	/* (non-Javadoc)
+	 * @see de.jwic.base.Control#actionPerformed(java.lang.String, java.lang.String)
 	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	/**
-	 * @return the height
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-	/**
-	 * @param height the height to set
-	 */
-	public void setHeight(int height) {
-		this.height = height;
+	@Override
+	public void actionPerformed(String actionId, String parameter) {
+		switch (actionId) {
+		case "rowSelected":
+			model.fireRowSelectedEvent(parameter);			
+			break;
+		default:
+			super.actionPerformed(actionId, parameter);
+			break;
+		}
 	}
 	
 	/**
-	 * Add a value changed listener to the <b>field</b> used by this
-	 * input box control.
-	 * @param listener
+	 * 
 	 */
-	public void addValueChangedListener(ValueChangedListener listener) {
-		changes.addValueChangedListener(listener);
+	public String getSelectedElementUniqueId() {
+		return fldSelection.getValue();
 	}
 	
 	/**
 	 * @return
 	 */
-	public boolean hasColumnGrouping() {
-		return model.getColumns().stream().anyMatch(c -> (c.getColumnGroup() != null && !c.getColumnGroup().trim().isEmpty()));
+	public List<SlickGridChange> getChanges() {
+		String strChanges = fldChanges.getValue();
+		
+		if (strChanges == null || strChanges.trim().isEmpty()) {
+			return Collections.emptyList();
+		}
+		
+		Type listType = new TypeToken<ArrayList<SlickGridChange>>() {}.getType();
+		List<SlickGridChange> result = gson.fromJson(strChanges, listType);
+		
+		return result;
+	}
+
+	/**
+	 * 
+	 */
+	public void clearChanges() {
+		fldChanges.setValue("");
+		clearChanges = true;
+		
+		requireRedraw();
+	}
+
+	/**
+	 * @return the clearChanges
+	 */
+	public boolean isClearChanges() {
+		return clearChanges;
+	}
+	
+	/**
+	 * 
+	 */
+	public void redrawComplete() {
+		clearChanges = false;
 	}
 
 	// ***************************************************

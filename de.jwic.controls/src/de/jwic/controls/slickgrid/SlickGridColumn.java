@@ -53,12 +53,16 @@ public class SlickGridColumn implements Serializable {
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
-	private boolean canBeSummedUp = false;
 	
 	private int width;
 	private int minWidth = 30;
 	private int maxWidth;
 	
+	/**
+	 * The following properties are not part of the SlickGrid implementation, they are for support in the jWic control.
+	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized 
+	 */	
+	private boolean canBeSummedUp = false;
 	private transient String dateFormat = "dd-MMM-yyyy";
 	private transient ISlickGridColumnValueProvider valueProvider;
 	

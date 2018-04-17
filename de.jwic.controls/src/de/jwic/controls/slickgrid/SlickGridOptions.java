@@ -19,11 +19,16 @@ public class SlickGridOptions implements Serializable {
 
 	private static final long serialVersionUID = -7037218169331241766L;
 
+	public enum SelectionModel {
+		ROW,
+		CELL
+	}
+	
 	private boolean asyncEditorLoading = false;
 	private boolean autoEdit = false;
 	private boolean autoHeight = false;
 	private boolean editable = false;
-	private boolean enableAddRow = false;
+	//private boolean enableAddRow = false; not supported yet
 	private boolean enableCellNavigation = true;
 	private boolean enableColumnReorder = true;
 	private boolean enableTextSelectionOnCells = true;
@@ -31,9 +36,17 @@ public class SlickGridOptions implements Serializable {
 	private boolean fullWidthRows = false;
 	private boolean multiColumnSort = true;
 	private boolean multiSelect = false;
-	private boolean syncColumnCellResize = true;	
+	private boolean syncColumnCellResize = true;
+	/**
+	 * The following two properties need to be true in order to use column grouping
+	 * Recommended to use showColumnGrouping() as a shorthand
+	 */
 	private boolean createPreHeaderPanel = false;
 	private boolean showPreHeaderPanel = false;
+	/**
+	 * The following two properties need to be true in order to use the totals row
+	 * Recommended to use showTotalsRow() as a shorthand
+	 */
 	private boolean createFooterRow = false;
 	private boolean showFooterRow = false;
 	
@@ -47,7 +60,15 @@ public class SlickGridOptions implements Serializable {
 	private int headerRowHeight = 53;
 	private int preHeaderPanelHeight = 23;
 	private int footerRowHeight = 21;
-
+	
+	/**
+	 * The following properties are not part of the SlickGrid implementation, they are for support in the jWic control. 
+	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized
+	 */	
+	private transient int width = 600;
+	private transient int height = 300;
+	private transient SelectionModel selectionModel = SelectionModel.ROW;
+	
 	/**
 	 * 
 	 */
@@ -111,19 +132,19 @@ public class SlickGridOptions implements Serializable {
 		this.editable = editable;
 	}
 
-	/**
-	 * @return the enableAddRow
-	 */
-	public boolean isEnableAddRow() {
-		return enableAddRow;
-	}
-
-	/**
-	 * @param enableAddRow the enableAddRow to set
-	 */
-	public void setEnableAddRow(boolean enableAddRow) {
-		this.enableAddRow = enableAddRow;
-	}
+//	/**
+//	 * @return the enableAddRow
+//	 */
+//	public boolean isEnableAddRow() {
+//		return enableAddRow;
+//	}
+//
+//	/**
+//	 * @param enableAddRow the enableAddRow to set
+//	 */
+//	public void setEnableAddRow(boolean enableAddRow) {
+//		this.enableAddRow = enableAddRow;
+//	}
 
 	/**
 	 * @return the enableCellNavigation
@@ -417,5 +438,63 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setFooterRowHeight(int footerRowHeight) {
 		this.footerRowHeight = footerRowHeight;
+	}
+	
+	/**
+	 * 
+	 */
+	public void showTotalsRow(boolean b) {
+		setCreateFooterRow(b);
+		setShowFooterRow(b);		
+	}
+	
+	/**
+	 * 
+	 */
+	public void showColumnGrouping(boolean b) {
+		setCreatePreHeaderPanel(b);
+		setShowPreHeaderPanel(b);
+	}
+	
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @param width the width to set
+	 */
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
+	/**
+	 * @return the selectionModel
+	 */
+	public SelectionModel getSelectionModel() {
+		return selectionModel;
+	}
+	
+	/**
+	 * @param selectionModel the selectionModel to set
+	 */
+	public void setSelectionModel(SelectionModel selectionModel) {
+		this.selectionModel = selectionModel;
 	}
 }

@@ -12,10 +12,21 @@
 	 * true, to prevent the update.
 	 */
 	doUpdate: function(element) {
-		var field = jQuery(document.getElementById('${control.controlID}_thegrid'));
-		if (field.length === 0){ // if the field does not exist, the element needs to be created regulary. (jQuery objects are never null, but if the selection returned null the length prop is 0)
+		var field = JWic.$('${control.controlID}_thegrid');
+		
+		if (field.length === 0){ 
+			// if the field does not exist, the element needs to be created regulary 
+			// (jQuery objects are never null, but if the selection returned null the length prop is 0)
 			return false;
 		}
+		
+		if ($control.isClearChanges()) {
+			// clear the changes registered so far
+			JWic.$('${control.controlID}_fldChanges').val('');
+		}
+		
+		// call this to let the control know that rendering is complete and it should do some cleanup
+		$control.redrawComplete();
 		
 		return true;
 	},
@@ -68,8 +79,51 @@
 	    
 	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
 	    
-	    // TODO make this configurable
-	    grid.setSelectionModel(new Slick.CellSelectionModel());
+	    var selectionModel = '$control.options.selectionModel.toString()';
+	    if (selectionModel === 'ROW') {
+	    	grid.setSelectionModel(new Slick.RowSelectionModel());
+	    } else if (selectionModel === 'CELL') {
+	    	grid.setSelectionModel(new Slick.CellSelectionModel());	    	
+	    }
+	    
+	    // *********************************************************************************
+	    // EVENTS
+	    // *********************************************************************************
+	    
+	    grid.onClick.subscribe(function (e, args) {
+	    	var cell = grid.getCellFromEvent(e);	    	
+	    	var dataItem = grid.getDataItem(cell.row);
+	    	var uid = dataItem.slick_grid_uid;
+	    	
+	    	JWic.$('${control.controlID}_fldSelection').val(uid);
+	    	JWic.fireAction('${control.controlID}', 'rowSelected', uid);
+	    });
+	    
+	    grid.onBeforeCellEditorDestroy.subscribe(function (e, args) {
+	    	var cell = grid.getActiveCell();
+	    	var dataItem = grid.getDataItem(cell.row);
+	    	
+    		var uid = dataItem.slick_grid_uid;
+    		var fieldName = grid.getColumns()[cell.cell].field;
+    		var newValue = args.editor.serializeValue();
+    		
+    		// we store the changes as JSON on a Field
+    		var fldChanges = JWic.$('${control.controlID}_fldChanges');
+    		
+    		var jsonObj = [];
+    		var changes = fldChanges.val();
+    		if (changes && changes.trim() !== '') {
+    			jsonObj = jQuery.parseJSON(changes);
+    		}
+    		
+    		var item = {};
+    	    item ["uid"] = uid;
+    	    item ["fieldName"] = fieldName;
+    	    item ["newValue"] = newValue;
+    	    jsonObj.push(item);
+    		
+    		fldChanges.val(JSON.stringify(jsonObj));
+	    });
 	    
 	    // *********************************************************************************
 	    // HEADER AND FOOTER

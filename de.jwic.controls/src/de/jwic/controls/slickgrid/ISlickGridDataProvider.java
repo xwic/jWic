@@ -17,8 +17,14 @@ import java.util.Iterator;
 public interface ISlickGridDataProvider<T> extends Serializable {
 	
 	/**
+	 * An iterator throught the data provided by this data provider
 	 * @return
 	 */
 	public Iterator<T> getDataIterator();
+	
+	/**
+	 * @return
+	 */
+	public String getUniqueIdentifier(T obj);
 
 }
