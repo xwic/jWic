@@ -2,10 +2,14 @@
 	$.extend(JWic.controls, {
 		SlickGrid : {
 			
-			getSelectedRowUID : function(grid, e) {
-				var cell = grid.getCellFromEvent(e);
-		    	var dataItem = grid.getDataItem(cell.row);
-		    	var uid = dataItem.slickGridRowUID;
+			getSelectedRowUID : function(grid) {
+				var uid;
+				
+				var row = grid.getSelectedRows()[0];
+				if (row !== undefined) {
+					var dataItem = grid.getDataItem(row);
+					uid = dataItem.slickGridRowUID;
+				}
 		    	
 		    	return uid;
 			},

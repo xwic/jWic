@@ -14,7 +14,7 @@
 	doUpdate: function(element) {
 		var field = JWic.$('${control.controlID}_thegrid');
 		
-		if (field == undefined || field.length === 0){ 
+		if (field === undefined || field.length === 0){ 
 			// if the field does not exist, the element needs to be created regulary 
 			// jQuery objects are never null, but if the selection returned null the length prop is 0
 			return false;
@@ -84,10 +84,14 @@
 	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
 	    JWic.controls.SlickGrid.setupSorting(grid);
 	    
-	    grid.onClick.subscribe(function (e, args) {
-	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid, e);	    	
+	    grid.onSelectedRowsChanged.subscribe(function (e, args) {
+	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid);	    	
 	    	var currentUID = JWic.$('${control.controlID}_fldSelection').val();
 	    	if (uid !== currentUID) {
+	    		if (uid === undefined) {
+	    			// don't send junk to the server
+	    			uid = '';
+	    		}
 	    		// only fire the selection event if the row changed, as users might double-click to go into edit mode
 	    		JWic.$('${control.controlID}_fldSelection').val(uid);
 	    		JWic.fireAction('${control.controlID}', 'rowSelected', uid);
@@ -96,7 +100,7 @@
 	    
 	    grid.onBeforeCellEditorDestroy.subscribe(function (e, args) {
 	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');	    	
-	    	JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges,);
+	    	JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges);	    	
 	    });
 	},
 	
