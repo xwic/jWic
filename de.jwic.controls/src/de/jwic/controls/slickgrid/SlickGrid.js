@@ -58,10 +58,10 @@
 	    			columnGroup : '$jwic.escapeJavaScript($!col.columnGroup)',
 	    		#end
 	    		#if($col.formatter)
-	    		formatter : $!col.formatter.name,
+	    		formatter : $!col.formatter,
 	    		#end
 	    		#if($col.editor)
-	    		editor : $!col.editor.name,
+	    		editor : $!col.editor,
 	    		#end
 	    		
 	    		resizable : $col.resizable,
