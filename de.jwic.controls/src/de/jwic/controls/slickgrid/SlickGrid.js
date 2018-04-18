@@ -88,6 +88,7 @@
 	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid, e);	    	
 	    	var currentUID = JWic.$('${control.controlID}_fldSelection').val();
 	    	if (uid !== currentUID) {
+	    		// only fire the selection event if the row changed, as users might double-click to go into edit mode
 	    		JWic.$('${control.controlID}_fldSelection').val(uid);
 	    		JWic.fireAction('${control.controlID}', 'rowSelected', uid);
 	    	}
