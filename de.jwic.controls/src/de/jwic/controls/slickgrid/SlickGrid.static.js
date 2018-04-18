@@ -3,7 +3,7 @@
 		SlickGrid : {
 			
 			getSelectedRowUID : function(grid, e) {
-				var cell = grid.getCellFromEvent(e);	    	
+				var cell = grid.getCellFromEvent(e);
 		    	var dataItem = grid.getDataItem(cell.row);
 		    	var uid = dataItem.slickGridRowUID;
 		    	

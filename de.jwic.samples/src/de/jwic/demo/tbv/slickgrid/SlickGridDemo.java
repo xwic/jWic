@@ -55,6 +55,7 @@ public class SlickGridDemo extends ControlContainer {
 		slickGrid.getOptions().setWidth(1035);
 		slickGrid.getOptions().setHeight(300);
 		slickGrid.getOptions().setEditable(true);
+		slickGrid.getOptions().setAutoEdit(false);
 		slickGrid.getOptions().showColumnGrouping(true);
 		slickGrid.getOptions().showTotalsRow(true);
 		
@@ -64,10 +65,9 @@ public class SlickGridDemo extends ControlContainer {
 		setupData(model);
 		
 		model.addElementSelectedListener(l -> {
-			String text = ibSelectionData.getText();
-			text += "\n from event: " + l.getElement();
-			text += "\n from control: " + slickGrid.getSelectedElementUniqueId();
-			text += "\n";
+			String text = "from event: " + l.getElement();
+			text += "; from control: " + slickGrid.getSelectedElementUniqueId();
+			text += "\n" + ibSelectionData.getText();
 			ibSelectionData.setText(text);
 		});
 		

@@ -23,6 +23,9 @@ import de.jwic.base.IControlContainer;
 import de.jwic.base.JavaScriptSupport;
 
 /**
+ * The details of the JavaScript control behind this jWic control is found here: https://github.com/6pac/SlickGrid
+ * The source files are located in de.xwic.jwic.jwic-web/resources/jwic/lib/slickgrid
+ * 
  * @author Adrian Ionescu
  */
 @JavaScriptSupport
