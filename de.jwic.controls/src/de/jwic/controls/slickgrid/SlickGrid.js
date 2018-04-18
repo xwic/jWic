@@ -86,8 +86,11 @@
 	    
 	    grid.onClick.subscribe(function (e, args) {
 	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid, e);	    	
-	    	JWic.$('${control.controlID}_fldSelection').val(uid);
-	    	JWic.fireAction('${control.controlID}', 'rowSelected', uid);
+	    	var currentUID = JWic.$('${control.controlID}_fldSelection').val();
+	    	if (uid !== currentUID) {
+	    		JWic.$('${control.controlID}_fldSelection').val(uid);
+	    		JWic.fireAction('${control.controlID}', 'rowSelected', uid);
+	    	}
 	    });
 	    
 	    grid.onBeforeCellEditorDestroy.subscribe(function (e, args) {
