@@ -8,8 +8,8 @@
  */
 package de.jwic.controls.slickgrid;
 
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A basic data provider for the SlickGrid, having a collection of objects as the underlying data.
@@ -20,12 +20,12 @@ public abstract class SlickGridListDataProvider<P> implements ISlickGridDataProv
 	
 	private static final long serialVersionUID = 1745242796877394936L;
 	
-	private Collection<P> data;
+	private List<P> data;
 	
 	/**
-	 * 
+	 * @param data
 	 */
-	public SlickGridListDataProvider(Collection<P> data) {
+	public SlickGridListDataProvider(List<P> data) {
 		this.data = data;
 	}
 	
@@ -35,5 +35,12 @@ public abstract class SlickGridListDataProvider<P> implements ISlickGridDataProv
 	@Override
 	public Iterator<P> getDataIterator() {
 		return data.iterator();
+	}
+	
+	/**
+	 * @return the data
+	 */
+	public List<P> getList() {
+		return data;
 	}
 }

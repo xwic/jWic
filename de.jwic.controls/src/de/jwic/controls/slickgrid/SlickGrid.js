@@ -14,7 +14,7 @@
 	doUpdate: function(element) {
 		var field = JWic.$('${control.controlID}_thegrid');
 		
-		if (field === undefined || field.length === 0){ 
+		if (field === null || field === undefined || field.length === 0){ 
 			// if the field does not exist, the element needs to be created regulary 
 			// jQuery objects are never null, but if the selection returned null the length prop is 0
 			return false;
@@ -23,6 +23,14 @@
 		if ($control.isClearChanges()) {
 			// clear the changes registered so far
 			JWic.$('${control.controlID}_fldChanges').val('');
+		}
+		
+		if ($control.isReloadData()) {
+			// the grid is stored in the div element's data.. see afterUpdate(), right after the grid is created
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+			var data = $control.getDataAsJson();
+			grid.setData(data, true);
+			grid.render();
 		}
 		
 		// call this to let the control know that rendering is complete and it should do some cleanup
@@ -79,6 +87,8 @@
 	    var data = $control.getDataAsJson();
 	    
 	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
+	    // store the grid in the div element's data, so that we can fetch it back in doUpdate()
+	    JWic.$('${control.controlID}_thegrid').data('theGridInstance', grid);
 	    
 	    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
 	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
@@ -88,7 +98,7 @@
 	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid);	    	
 	    	var currentUID = JWic.$('${control.controlID}_fldSelection').val();
 	    	if (uid !== currentUID) {
-	    		if (uid === undefined) {
+	    		if (uid === null || uid === undefined) {
 	    			// don't send junk to the server
 	    			uid = '';
 	    		}

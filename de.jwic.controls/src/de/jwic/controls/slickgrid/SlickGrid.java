@@ -40,6 +40,7 @@ public class SlickGrid<T> extends Control {
 	private Field fldChanges;
 
 	private boolean clearChanges = false;
+	private boolean reloadData = false;
 	
 	private final Gson gson;
 	
@@ -127,7 +128,6 @@ public class SlickGrid<T> extends Control {
 	public void clearChanges() {
 		fldChanges.setValue("");
 		clearChanges = true;
-		
 		requireRedraw();
 	}
 
@@ -139,10 +139,28 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * @return the reloadData
+	 */
+	public boolean isReloadData() {
+		return reloadData;
+	}
+	
+	/**
+	 * Causes the JS grid to reload the data as provided by the jWic control 
+	 * Please note that this will also clear any pending changes, therefore you should process them before returning to the client
+	 */
+	public void reloadData() {
+		reloadData = true;		
+		clearChanges();
+		requireRedraw();
+	}
+	
+	/**
 	 * 
 	 */
 	public void redrawComplete() {
 		clearChanges = false;
+		reloadData = false;
 	}
 
 	// ***************************************************

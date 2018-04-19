@@ -6,7 +6,7 @@
 				var uid;
 				
 				var row = grid.getSelectedRows()[0];
-				if (row !== undefined) {
+				if (row !== null && row !== undefined) {
 					var dataItem = grid.getDataItem(row);
 					uid = dataItem.slickGridRowUID;
 				}

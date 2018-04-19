@@ -37,7 +37,6 @@ public class SlickGridDemo extends ControlContainer {
 	private static final long serialVersionUID = -253541673677874852L;
 	private InputBox ibSelectionData;
 	private InputBox ibEditData;
-	private Button btSubmitChanges;
 	private SlickGrid<CostData> slickGrid;
 	
 	/**
@@ -87,7 +86,7 @@ public class SlickGridDemo extends ControlContainer {
 		ibEditData.setWidth(400);
 		ibEditData.setHeight(150);
 		
-		btSubmitChanges = new Button(this, "btSubmitChanges");
+		Button btSubmitChanges = new Button(this, "btSubmitChanges");
 		btSubmitChanges.setTitle("Submit Changes");
 		btSubmitChanges.addSelectionListener(l -> {
 			List<SlickGridChange> changes = slickGrid.getChanges();
@@ -104,6 +103,21 @@ public class SlickGridDemo extends ControlContainer {
 		Button btDummy = new Button(this, "btDummy");
 		btDummy.setTitle("Dummy - just redraws the SlickGrid");
 		btDummy.addSelectionListener(l -> slickGrid.requireRedraw());
+		
+		Button btAddNewRow = new Button(this, "btAddNewRow");
+		btAddNewRow.setTitle("Add New Row");
+		btAddNewRow.addSelectionListener(l -> {
+			SlickGridListDataProvider<CostData> dp = (SlickGridListDataProvider<CostData>) model.getDataProvider();
+			dp.getList().add(new CostData(11, "Contractor Service", "New Guy", false, false, true, 250, "Weekly", 6700, 2300, 100, 40));
+			slickGrid.reloadData();
+		});
+		
+		Button btResetData = new Button(this, "btResetData");
+		btResetData.setTitle("Reset Data");
+		btResetData.addSelectionListener(l -> {
+			setupData(model);
+			slickGrid.reloadData();
+		});
 	}
 	
 	/**
