@@ -96,7 +96,7 @@ public class SlickGridDemo extends ControlContainer {
 					sb.append(change).append("\n");
 				}
 				ibEditData.setText(sb.toString());
-				slickGrid.clearChanges();
+				slickGrid.clearRecordedChanges();
 			}
 		});
 		

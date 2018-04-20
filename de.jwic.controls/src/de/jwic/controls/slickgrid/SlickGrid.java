@@ -107,6 +107,7 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * Returns true if the gird contains any pending changes.
 	 * @return
 	 */
 	public boolean hasChanges() {
@@ -115,6 +116,8 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * Gather the changes recorded so far on the control and return them as a list. <br/>
+	 * You need to reset the changes manually (using resetChanges()), otherwise a subsequent call to this methoid will return them again.
 	 * @return
 	 */
 	public List<SlickGridChange> getChanges() {
@@ -129,15 +132,32 @@ public class SlickGrid<T> extends Control {
 		
 		return result;
 	}
-
+	
 	/**
-	 * Clears the changes registered so far.
-	 * Please note that this doesn't reload the data on the grid, so the changes will still be visible 
-	 * in the UI. In order to update the UI, reloadData should be called
+	 * Clear the changes pending on the control. <br/>
+	 * Please note that this will not trigger a data reload on the JS grid.
 	 */
-	public void clearChanges() {
+	public void clearRecordedChanges() {
 		fldChanges.setValue("");
 		clearChanges = true;
+		requireRedraw();
+	}
+
+	/**
+	 * Clear the changes pending on the control and also trigger a data reload on the JS grid. <br/>
+	 * This method is just for convenience, it does the same thing as reloadData().
+	 */
+	public void undoChanges() {
+		reloadData();
+	}
+	
+	/**
+	 * Causes the JS grid to reload the data as provided by the jWic control. <br/> 
+	 * This will also clear any pending changes, therefore you should process them, if needed, before returning to the client.
+	 */
+	public void reloadData() {
+		reloadData = true;		
+		clearRecordedChanges();
 		requireRedraw();
 	}
 
@@ -153,16 +173,6 @@ public class SlickGrid<T> extends Control {
 	 */
 	public boolean isReloadData() {
 		return reloadData;
-	}
-	
-	/**
-	 * Causes the JS grid to reload the data as provided by the jWic control 
-	 * Please note that this will also clear any pending changes, therefore you should process them before returning to the client
-	 */
-	public void reloadData() {
-		reloadData = true;		
-		clearChanges();
-		requireRedraw();
 	}
 	
 	/**
