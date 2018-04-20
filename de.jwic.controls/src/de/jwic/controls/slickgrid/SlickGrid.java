@@ -109,6 +109,14 @@ public class SlickGrid<T> extends Control {
 	/**
 	 * @return
 	 */
+	public boolean hasChanges() {
+		String strChanges = fldChanges.getValue();
+		return strChanges != null && !strChanges.trim().isEmpty();
+	}
+	
+	/**
+	 * @return
+	 */
 	public List<SlickGridChange> getChanges() {
 		String strChanges = fldChanges.getValue();
 		
@@ -123,7 +131,9 @@ public class SlickGrid<T> extends Control {
 	}
 
 	/**
-	 * 
+	 * Clears the changes registered so far.
+	 * Please note that this doesn't reload the data on the grid, so the changes will still be visible 
+	 * in the UI. In order to update the UI, reloadData should be called
 	 */
 	public void clearChanges() {
 		fldChanges.setValue("");
