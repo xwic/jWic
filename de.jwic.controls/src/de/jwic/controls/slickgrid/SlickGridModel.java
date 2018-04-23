@@ -79,6 +79,10 @@ public class SlickGridModel<T> implements Serializable {
 					value = defaultValueProvider.getValue(column, obj);
 				}
 				row.setValue(column, value);
+				
+				if (dataProvider.disableEditing(obj, column)) {
+					row.addNonEditableProperty(column.getId());
+				}
 			}
 		}
 		return rows;

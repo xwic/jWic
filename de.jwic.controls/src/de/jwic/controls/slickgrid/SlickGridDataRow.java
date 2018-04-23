@@ -9,7 +9,9 @@
 package de.jwic.controls.slickgrid;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,8 +21,17 @@ class SlickGridDataRow implements Serializable {
 	
 	private static final long serialVersionUID = 671484606921050314L;
 	
-	private static final String UNIQUE_IDENTIFIER_PROPERTY = "slickGridRowUID";
+	/**
+	 * This name is used in JS.. see SlickGrid.static.js
+	 */
+	private static final String UNIQUE_IDENTIFIER_FIELD_NAME = "slickGridRowUID";
 	
+	/**
+	 * This name is used in JS.. see SlickGrid.js
+	 */
+	private static final String NON_EDITABLE_PROPERTIES_FIELD_NAME = "slickGridNonEditableProperties";
+	
+	private List<String> readonlyProperties = new ArrayList<>();
 	private Map<String, Object> map;
 	
 	/**
@@ -29,7 +40,8 @@ class SlickGridDataRow implements Serializable {
 	public SlickGridDataRow(String uniqueIdentifier) {
 		map = new LinkedHashMap<>();
 
-		map.put(UNIQUE_IDENTIFIER_PROPERTY, uniqueIdentifier);
+		map.put(UNIQUE_IDENTIFIER_FIELD_NAME, uniqueIdentifier);
+		map.put(NON_EDITABLE_PROPERTIES_FIELD_NAME, readonlyProperties);
 	}
 	
 	/**
@@ -38,6 +50,14 @@ class SlickGridDataRow implements Serializable {
 	 */
 	public void setValue(SlickGridColumn column, Object value) {
 		map.put(column.getField(), value);
+	}
+	
+	/**
+	 * This allows the grid to disable editing on individual cells, even if their column is marked as editable
+	 */
+	@SuppressWarnings("unchecked")
+	public void addNonEditableProperty(String property) {
+		((List<String>)map.get(NON_EDITABLE_PROPERTIES_FIELD_NAME)).add(property);
 	}
 	
 	/**

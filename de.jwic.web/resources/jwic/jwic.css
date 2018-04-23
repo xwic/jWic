@@ -732,3 +732,8 @@ span.j-listColSel-clearSearch {
    		margin-right: 4px;
    	}
    	
+   	div.slickgrid-cell-disabled {
+   		opacity: 0.5;
+     	margin-bottom: -200px;
+   	}
+   	

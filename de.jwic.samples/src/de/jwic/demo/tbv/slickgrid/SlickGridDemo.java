@@ -136,6 +136,30 @@ public class SlickGridDemo extends ControlContainer {
 			public String getUniqueIdentifier(CostData obj) {
 				return String.valueOf(obj.getId());
 			}
+			
+			@Override
+			public boolean disableEditing(CostData obj, SlickGridColumn column) {
+				if (column.getId().equalsIgnoreCase("june") && obj.getJune() > 1000) {
+					return true;
+				}
+				
+				if (obj.getItemName().equalsIgnoreCase("Michael Buffalo")) {
+					switch (column.getId()) {
+					case "itemName":
+					case "internal":
+						return true;
+					}
+				}
+				
+				if (obj.getItemName().equalsIgnoreCase("Jane Doe")) {
+					switch (column.getId()) {
+					case "approved":
+						return true;
+					}
+				}
+				
+				return super.disableEditing(obj, column);
+			}
 		};
 		model.setDataProvider(provider);
 	}

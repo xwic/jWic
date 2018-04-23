@@ -65,6 +65,7 @@ public class SlickGridOptions implements Serializable {
 	 * The following properties are not part of the SlickGrid implementation, they are for support in the jWic control. 
 	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized
 	 */	
+	private String nonEditableCellCssClass = "slickgrid-cell-disabled";
 	private transient int width = 600;
 	private transient int height = 300;
 	private transient SelectionModel selectionModel = SelectionModel.ROW;
@@ -496,5 +497,19 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setSelectionModel(SelectionModel selectionModel) {
 		this.selectionModel = selectionModel;
+	}
+
+	/**
+	 * @return the nonEditableCellCssClass
+	 */
+	public String getNonEditableCellCssClass() {
+		return nonEditableCellCssClass;
+	}
+
+	/**
+	 * @param nonEditableCellCssClass the nonEditableCellCssClass to set
+	 */
+	public void setNonEditableCellCssClass(String nonEditableCellCssClass) {
+		this.nonEditableCellCssClass = nonEditableCellCssClass;
 	}
 }

@@ -2,6 +2,22 @@
 	$.extend(JWic.controls, {
 		SlickGrid : {
 			
+			nonEditableCellFormatter : function (row, cell, value, columnDef, dataContext, grid) {
+				var result;
+				if (columnDef.origFormatter) {
+					result = columnDef.origFormatter(row, cell, value, columnDef, dataContext);
+				} else {
+					result = value;
+				}
+				
+				var colId = columnDef.id;
+		    	var props = dataContext.slickGridNonEditableProperties;
+		    	if (!columnDef.editor || props.includes(colId)) {
+		    		result = '<div class=\'' + grid.getOptions().nonEditableCellCssClass + '\'>' + result + '</div>';
+		    	}
+		    	return result;
+			},
+			
 			getSelectedRowUID : function(grid) {
 				var uid;
 				
@@ -15,26 +31,38 @@
 			},
 			
 			recordChanges : function(grid, args, fldChanges) {
-				var cell = grid.getActiveCell();
-		    	var dataItem = grid.getDataItem(cell.row);
+		    	var dataItem = grid.getDataItem(args.row);
+		    	var column = grid.getColumns()[args.cell];
 		    	
 	    		var uid = dataItem.slickGridRowUID;
-	    		var fieldName = grid.getColumns()[cell.cell].field;
-	    		var newValue = args.editor.serializeValue();
+	    		var fieldName = column.field;
+	    		var newValue = dataItem[column.id];
 	    		
-	    		var jsonObj = [];
-	    		var changes = fldChanges.val();
-	    		if (changes && changes.trim() !== '') {
-	    			jsonObj = jQuery.parseJSON(changes);
+	    		var changes = [];
+	    		var strChanges = fldChanges.val();
+	    		if (strChanges && strChanges.trim() !== '') {
+	    			changes = jQuery.parseJSON(strChanges);
 	    		}
 	    		
-	    		var item = {};
-	    	    item ["uid"] = uid;
-	    	    item ["fieldName"] = fieldName;
-	    	    item ["newValue"] = newValue;
-	    	    jsonObj.push(item);
+	    		var found = false;
+	    		for (var i = 0; i < changes.length; i++) {
+					var change = changes[i];
+					if (change["uid"] === uid && change["fieldName"] === fieldName) {
+						change["newValue"] = newValue;
+						found = true;
+						break;
+					}
+				}
 	    		
-	    		fldChanges.val(JSON.stringify(jsonObj));
+				if (!found) {
+		    		var newChange = {};
+		    		newChange["uid"] = uid;
+		    		newChange["fieldName"] = fieldName;
+		    		newChange["newValue"] = newValue;
+		    		changes.push(newChange);
+				}
+	    		
+	    		fldChanges.val(JSON.stringify(changes));
 			},
 			
 			setupSelectionModel : function(grid, selectionModel) {

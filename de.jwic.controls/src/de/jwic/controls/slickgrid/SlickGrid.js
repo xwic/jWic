@@ -44,7 +44,7 @@
 	 * the custom doUpdate function returned true.
 	 */
 	afterUpdate: function(element) {
-		var columns = [				
+		var columns = [
 	    	#foreach ($col in $control.getModel().getColumns())
 	    	#if ($foreach.count > 1),#end
 	    	{
@@ -79,11 +79,21 @@
 	    		width : $col.width,
 	    		minWidth : $col.minWidth,
 	    		maxWidth : $col.maxWidth
+	    		
+//	    		,asyncPostRender: renderReadonly
 	    	}
 	    	#end
 	    ];
 		
+		for (var i = 0; i < columns.length; i++) {
+			var col = columns[i];
+			col.origFormatter = col.formatter;
+			col.formatter = JWic.controls.SlickGrid.nonEditableCellFormatter;
+		}
+		
 	    var options = $control.getOptionsAsJson();
+//	    options["enableAsyncPostRender"] = true;
+	    
 	    var data = $control.getDataAsJson();
 	    
 	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
@@ -108,20 +118,38 @@
 	    	}
 	    });
 	    
-	    grid.onBeforeCellEditorDestroy.subscribe(function (e, args) {
-	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');	    	
-	    	JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges);	    	
+	    grid.onBeforeEditCell.subscribe(function (e, args) {
+	    	var item = args.item;
+	    	var column = args.column;
+	    	if (item.slickGridNonEditableProperties.includes(column.id)) {
+	    		return false;
+	    	}
+	    	return true;
+	    });
+	    
+	    grid.onCellChange.subscribe(function (e, args) {
+	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');
+	    	if (fldChanges !== null && fldChanges !== undefined) {
+	    		JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges);
+	    	}
 	    });
 	    
 	    JWic.addBeforeRequestCallback("$control.controlID", function() {
 	    	grid.getEditorLock().commitCurrentEdit();
-      });
-
+	    });
+	    
+//	    function renderReadonly(cellNode, row, dataContext, columnDef) {
+//	    	var colId = columnDef.id;
+//	    	var props = dataContext.slickGridNonEditableProperties;
+//	    	if (props.includes(colId) || !columnDef.editor) {
+//	    		$(cellNode).css("background-color", "red");
+//	    	}
+//		}
 	},
 	
 	/**
 	 * Invoked when the existing element is removed from the DOM tree.
 	 */
 	destroy : function(element) {
-	}	
+	}
 }

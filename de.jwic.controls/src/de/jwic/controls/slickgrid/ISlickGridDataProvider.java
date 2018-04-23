@@ -27,4 +27,13 @@ public interface ISlickGridDataProvider<T> extends Serializable {
 	 */
 	public String getUniqueIdentifier(T obj);
 
+	/**
+	 * @param obj
+	 * @param column
+	 * @return
+	 */
+	public default boolean disableEditing(T obj, SlickGridColumn column) {
+		return false;
+	}
+
 }
