@@ -112,6 +112,11 @@
 	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');	    	
 	    	JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges);	    	
 	    });
+	    
+	    JWic.addBeforeRequestCallback("$control.controlID", function() {
+	    	grid.getEditorLock().commitCurrentEdit();
+      });
+
 	},
 	
 	/**
