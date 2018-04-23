@@ -108,7 +108,7 @@ public class SlickGridDemo extends ControlContainer {
 		btAddNewRow.setTitle("Add New Row");
 		btAddNewRow.addSelectionListener(l -> {
 			SlickGridListDataProvider<CostData> dp = (SlickGridListDataProvider<CostData>) model.getDataProvider();
-			dp.getList().add(new CostData(11, "Contractor Service", "New Guy", false, false, true, 250, "Weekly", 6700, 2300, 100, 40));
+			dp.getList().add(new CostData(11, "Contractor Service", "New Guy", false, false, true, 250, "Weekly", 6700, 2300, 100, 40d));
 			slickGrid.reloadData();
 		});
 		
@@ -125,11 +125,11 @@ public class SlickGridDemo extends ControlContainer {
 	 */
 	private void setupData(SlickGridModel<CostData> model) {
 		List<CostData> pojos = new ArrayList<>();		
-		pojos.add(new CostData(1, "Contractor Service", "John Deer", true, false, true, 45, "Hourly", 100, 200, 300, 400));
-		pojos.add(new CostData(3, "Contractor Service", "Jane Doe", false, true, false, 105.5, "Hourly", 500, 500, 750, 1000));
-		pojos.add(new CostData(5, "Contractor Service", "Michael Buffalo", false, false, false, 5600, "Monthly", 5600, 5600, 5600, 5600));
-		pojos.add(new CostData(7, "Contractor Travel", "John Deer", true, true, true, 1, "Cost $", 0, 0, 3400, 0));
-		pojos.add(new CostData(9, "Contractor Travel", "Jane Doe", false, true, true, 1, "Cost $", 1200, 0, 0, 4500));
+		pojos.add(new CostData(1, "Contractor Service", "John Deer", true, false, true, 45, "Hourly", 100, 200, 300, 400d));
+		pojos.add(new CostData(3, "Contractor Service", "Jane Doe", false, true, false, 105.5, "Hourly", 500, 500, 750, 1000d));
+		pojos.add(new CostData(5, "Contractor Service", "Michael Buffalo", false, false, false, 5600, "Monthly", 5600, 5600, 5600, null));
+		pojos.add(new CostData(7, "Contractor Travel", "John Deer", true, true, true, 1, "Cost $", 0, 0, 3400, 0d));
+		pojos.add(new CostData(9, "Contractor Travel", "Jane Doe", false, true, true, 1, "Cost $", 1200, 0, 0, 4500d));
 		
 		SlickGridListDataProvider<CostData> provider = new SlickGridListDataProvider<CostData>(pojos) {
 			@Override
@@ -139,14 +139,12 @@ public class SlickGridDemo extends ControlContainer {
 			
 			@Override
 			public boolean disableEditing(CostData obj, SlickGridColumn column) {
-				if (column.getId().equalsIgnoreCase("june") && obj.getJune() > 1000) {
-					return true;
-				}
-				
 				if (obj.getItemName().equalsIgnoreCase("Michael Buffalo")) {
 					switch (column.getId()) {
 					case "itemName":
 					case "internal":
+					case "june":
+					case "august":
 						return true;
 					}
 				}

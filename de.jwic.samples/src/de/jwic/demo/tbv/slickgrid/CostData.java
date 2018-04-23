@@ -29,7 +29,7 @@ public class CostData implements Serializable {
 	private double may;
 	private double june;
 	private double july;
-	private double august;
+	private Double august;
 	
 	/**
 	 * @param spendType
@@ -45,7 +45,7 @@ public class CostData implements Serializable {
 	 * @param august
 	 */
 	public CostData(int id, String spendType, String itemName, boolean internal, boolean approved, boolean paid, double rate, String uom,
-			double may, double june, double july, double august) {
+			double may, double june, double july, Double august) {
 		super();
 		this.id = id;
 		this.spendType = spendType;
@@ -162,14 +162,14 @@ public class CostData implements Serializable {
 	/**
 	 * @return the august
 	 */
-	public double getAugust() {
+	public Double getAugust() {
 		return august;
 	}
 
 	/**
 	 * @param august the august to set
 	 */
-	public void setAugust(double august) {
+	public void setAugust(Double august) {
 		this.august = august;
 	}
 

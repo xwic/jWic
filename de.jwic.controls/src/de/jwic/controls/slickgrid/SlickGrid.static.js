@@ -10,6 +10,10 @@
 					result = value;
 				}
 				
+				if (result === null || result === undefined) {
+					result = '';
+				}
+				
 				var colId = columnDef.id;
 		    	var props = dataContext.slickGridNonEditableProperties;
 		    	if (!columnDef.editor || props.includes(colId)) {
