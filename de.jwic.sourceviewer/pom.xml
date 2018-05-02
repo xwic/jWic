@@ -3,7 +3,7 @@
     <parent>
         <groupId>de.xwic.jwic</groupId>
         <artifactId>jwic</artifactId>
-        <version>5.3.36</version>
+        <version>5.3.37-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>JWIC::WEB::SOURCEVIEWER</name>
@@ -28,17 +28,17 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.3.36</version>
+            <version>5.3.37-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-controls</artifactId>
-            <version>5.3.36</version>
+            <version>5.3.37-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-compatibility</artifactId>
-            <version>5.3.36</version>
+            <version>5.3.37-SNAPSHOT</version>
         </dependency>
 
 		<!-- General dependencies -->
@@ -99,7 +99,7 @@
         <dependency>
             <groupId>de.xwic.jwic</groupId>
             <artifactId>jwic-core</artifactId>
-            <version>5.3.36</version>
+            <version>5.3.37-SNAPSHOT</version>
             <type>test-jar</type>
             <scope>test</scope>
         </dependency>
@@ -112,7 +112,7 @@
         <dependency>
         	<groupId>de.xwic.jwic</groupId>
         	<artifactId>jwic-web</artifactId>
-        	<version>5.3.36</version>
+        	<version>5.3.37-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
