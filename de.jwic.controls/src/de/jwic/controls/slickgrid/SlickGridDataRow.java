@@ -22,9 +22,10 @@ class SlickGridDataRow implements Serializable {
 	private static final long serialVersionUID = 671484606921050314L;
 	
 	/**
-	 * This name is used in JS.. see SlickGrid.static.js
+	 * The SlickGrid data view requires a field named 'id' as unique identifier
+	 * This is also used in SlickGrid.static.js
 	 */
-	private static final String UNIQUE_IDENTIFIER_FIELD_NAME = "slickGridRowUID";
+	private static final String ID = "id";
 	
 	/**
 	 * This name is used in JS.. see SlickGrid.js
@@ -40,7 +41,7 @@ class SlickGridDataRow implements Serializable {
 	public SlickGridDataRow(String uniqueIdentifier) {
 		map = new LinkedHashMap<>();
 
-		map.put(UNIQUE_IDENTIFIER_FIELD_NAME, uniqueIdentifier);
+		map.put(ID, uniqueIdentifier);
 		map.put(NON_EDITABLE_PROPERTIES_FIELD_NAME, readonlyProperties);
 	}
 	

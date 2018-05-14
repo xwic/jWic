@@ -28,7 +28,7 @@
 				var row = grid.getSelectedRows()[0];
 				if (row !== null && row !== undefined) {
 					var dataItem = grid.getDataItem(row);
-					uid = dataItem.slickGridRowUID;
+					uid = dataItem.id;
 				}
 		    	
 		    	return uid;
@@ -38,7 +38,7 @@
 		    	var dataItem = grid.getDataItem(args.row);
 		    	var column = grid.getColumns()[args.cell];
 		    	
-	    		var uid = dataItem.slickGridRowUID;
+	    		var uid = dataItem.id;
 	    		var fieldName = column.field;
 	    		var newValue = dataItem[column.id];
 	    		
@@ -89,14 +89,14 @@
 			    }
 			    
 			    if (options.createFooterRow) {
-			    	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData());
+			    	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
 					
 				    grid.onCellChange.subscribe(function(e, args) {
-				    	JWic.controls.SlickGrid.updateTotal(args.cell, args.grid, grid.getData());
+				    	JWic.controls.SlickGrid.updateTotal(args.cell, args.grid, grid.getData().getFilteredItems());
 				    });
 				    
 				    grid.onColumnsReordered.subscribe(function(e, args) {
-				    	JWic.controls.SlickGrid.updateAllTotals(args.grid, grid.getData());
+				    	JWic.controls.SlickGrid.updateAllTotals(args.grid, grid.getData().getFilteredItems());
 				    });
 			    }
 			},
@@ -137,6 +137,37 @@
 						grid.invalidate();
 					});
 			    }
+			},
+			
+			setupFilters : function(grid, dataView, columnFilters) {
+				dataView.onRowCountChanged.subscribe(function (e, args) {
+	    	    	grid.updateRowCount();
+	    	    	grid.render();
+	    	    	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+	    	    });
+		    	
+		    	dataView.onRowsChanged.subscribe(function (e, args) {
+		    	    grid.invalidateRows(args.rows);
+		    	    grid.render();
+		    	    JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+		    	});
+		    	    
+			    $(grid.getHeaderRow()).on("change keyup", ":input", function (e) {
+			        var columnId = $(this).data("columnId");
+			        if (columnId != null) {
+			        	columnFilters[columnId] = $.trim($(this).val()).toLowerCase();
+			        	dataView.refresh();
+			        	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+			        }
+			    });
+			    
+			    grid.onHeaderRowCellRendered.subscribe(function(e, args) {
+			        $(args.node).empty();
+			        $("<input type='text' style='width:95%'>")
+			           .data("columnId", args.column.id)
+			           .val(columnFilters[args.column.id])
+			           .appendTo(args.node);
+			    });
 			},
 			
 			createColumnGroupingRow : function(grid) {
@@ -183,7 +214,8 @@
 					var total = 0;
 					var i = data.length;
 					while (i--) {
-						total += (parseInt(data[i][columnId], 10) || 0);
+						var x = data[i][columnId];
+						total += (parseFloat(data[i][columnId]) || 0);
 					}
 					var columnElement = grid.getFooterRowColumn(columnId);
 					$(columnElement).html(column.totalLabel + total);

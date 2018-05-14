@@ -33,10 +33,10 @@
 			grid.render();
 		}
 		
-		// call this to let the control know that rendering is complete and it should do some cleanup
+		// call this to let the control know that the update is complete and it should do some cleanup
 		$control.redrawComplete();
 		
-		return true;
+		return true; // if the doUpdate script didn't do any actual updates, we simply redraw the whole grid
 	},
 	
 	/**
@@ -79,8 +79,6 @@
 	    		width : $col.width,
 	    		minWidth : $col.minWidth,
 	    		maxWidth : $col.maxWidth
-	    		
-//	    		,asyncPostRender: renderReadonly
 	    	}
 	    	#end
 	    ];
@@ -92,17 +90,18 @@
 		}
 		
 	    var options = $control.getOptionsAsJson();
-//	    options["enableAsyncPostRender"] = true;
+	    options.explicitInitialization = true; // hardcode this option because we need it if using a data view
 	    
 	    var data = $control.getDataAsJson();
 	    
-	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), data, columns, options);
+	    var dataView = new Slick.Data.DataView();
+	    
+	    var columnFilters = {};
+	    
+	    var grid = new Slick.Grid(JWic.$('${control.controlID}_thegrid'), dataView, columns, options);
+	    
 	    // store the grid in the div element's data, so that we can fetch it back in doUpdate()
 	    JWic.$('${control.controlID}_thegrid').data('theGridInstance', grid);
-	    
-	    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
-	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
-	    JWic.controls.SlickGrid.setupSorting(grid);
 	    
 	    grid.onSelectedRowsChanged.subscribe(function (e, args) {
 	    	var uid = JWic.controls.SlickGrid.getSelectedRowUID(grid);	    	
@@ -138,13 +137,45 @@
 	    	grid.getEditorLock().commitCurrentEdit();
 	    });
 	    
-//	    function renderReadonly(cellNode, row, dataContext, columnDef) {
-//	    	var colId = columnDef.id;
-//	    	var props = dataContext.slickGridNonEditableProperties;
-//	    	if (props.includes(colId) || !columnDef.editor) {
-//	    		$(cellNode).css("background-color", "red");
-//	    	}
-//		}
+	    if (options.showHeaderRow) {
+	    	JWic.controls.SlickGrid.setupFilters(grid, dataView, columnFilters);
+	    }
+	    
+	    grid.init();
+	    
+	    dataView.beginUpdate();
+	    dataView.setItems(data);
+	    if (options.showHeaderRow) {
+	    	dataView.setFilter(filter);
+	    }
+	    dataView.endUpdate();
+	    
+	    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
+	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
+	    JWic.controls.SlickGrid.setupSorting(grid);
+	    
+    	grid.render();
+	    
+	    function filter(item) {
+	        for (var columnId in columnFilters) {
+	        	if (columnId === undefined || columnFilters[columnId] !== "") {
+	        		var c = grid.getColumns()[grid.getColumnIndex(columnId)];
+	        		// manipulate the value we will use for the comparison
+	        		var strCellValue = item[c.field] + '';
+	        		strCellValue = strCellValue.toLowerCase();
+	        		if (strCellValue === 'true') {
+	        			strCellValue = 'yes';
+	        		}
+	        		if (strCellValue === 'false') {
+	        			strCellValue = 'no';
+	        		}
+	        		if (!strCellValue.includes(columnFilters[columnId])) {
+	        			return false;
+	        		}
+	        	}
+	        }
+	        return true;
+	    }
 	},
 	
 	/**

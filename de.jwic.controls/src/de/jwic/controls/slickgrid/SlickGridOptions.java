@@ -37,15 +37,18 @@ public class SlickGridOptions implements Serializable {
 	private boolean multiColumnSort = true;
 	private boolean multiSelect = false;
 	private boolean syncColumnCellResize = true;
+	private boolean showHeaderRow = false;
+	
 	/**
 	 * The following two properties need to be true in order to use column grouping
-	 * Recommended to use showColumnGrouping() as a shorthand
+	 * Recommended to use the showColumnGrouping() shorthand method
 	 */
 	private boolean createPreHeaderPanel = false;
 	private boolean showPreHeaderPanel = false;
+	
 	/**
 	 * The following two properties need to be true in order to use the totals row
-	 * Recommended to use showTotalsRow() as a shorthand
+	 * Recommended to use the showTotalsRow() shorthand method
 	 */
 	private boolean createFooterRow = false;
 	private boolean showFooterRow = false;
@@ -57,7 +60,7 @@ public class SlickGridOptions implements Serializable {
 	private int asyncEditorLoadDelay = 100;
 	private int defaultColumnWidth = 100;
 	private int rowHeight = 25;
-	private int headerRowHeight = 53;
+	private int headerRowHeight = 30;
 	private int preHeaderPanelHeight = 23;
 	private int footerRowHeight = 21;
 	
@@ -351,6 +354,9 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
+	 * One of the properties that needs to be true in order to use column grouping
+	 * Don't use this setter directly, it's recommended to use the showColumnGrouping() shorthand method
+	 * 
 	 * @param createPreHeaderPanel the createPreHeaderPanel to set
 	 */
 	public void setCreatePreHeaderPanel(boolean createPreHeaderPanel) {
@@ -365,6 +371,9 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
+	 * One of the properties that needs to be true in order to use column grouping
+	 * Don't use this setter directly, it's recommended to use the showColumnGrouping() shorthand method
+	 * 
 	 * @param showPreHeaderPanel the showPreHeaderPanel to set
 	 */
 	public void setShowPreHeaderPanel(boolean showPreHeaderPanel) {
@@ -407,6 +416,9 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
+	 * One of the properties that needs to be true in order to show the totals row
+	 * Don't use this setter directly, it's recommended to use the showTotalsRow() shorthand method
+	 * 
 	 * @param createFooterRow the createFooterRow to set
 	 */
 	public void setCreateFooterRow(boolean createFooterRow) {
@@ -421,6 +433,9 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
+	 * One of the properties that needs to be true in order to show the totals row
+	 * Don't use this setter directly, it's recommended to use the showTotalsRow() shorthand method
+	 * 
 	 * @param showFooterRow the showFooterRow to set
 	 */
 	public void setShowFooterRow(boolean showFooterRow) {
@@ -511,5 +526,33 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setNonEditableCellCssClass(String nonEditableCellCssClass) {
 		this.nonEditableCellCssClass = nonEditableCellCssClass;
+	}
+
+	/**
+	 * Alias for isShowHeaderRow()
+	 */
+	public boolean isShowFilters() {
+		return showHeaderRow;
+	}
+
+	/**
+	 * Alias for setShowFilters()
+	 */
+	public void setShowFilters(boolean showHeaderRow) {
+		this.showHeaderRow = showHeaderRow;
+	}
+	
+	/**
+	 * @return the showHeaderRow
+	 */
+	public boolean isShowHeaderRow() {
+		return showHeaderRow;
+	}
+	
+	/**
+	 * @param showHeaderRow the showHeaderRow to set
+	 */
+	public void setShowHeaderRow(boolean showHeaderRow) {
+		this.showHeaderRow = showHeaderRow;
 	}
 }

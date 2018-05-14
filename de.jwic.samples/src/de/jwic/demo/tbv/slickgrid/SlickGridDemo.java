@@ -55,6 +55,7 @@ public class SlickGridDemo extends ControlContainer {
 		slickGrid.getOptions().setHeight(300);
 		slickGrid.getOptions().setEditable(true);
 		slickGrid.getOptions().setAutoEdit(false);
+		slickGrid.getOptions().setShowFilters(true);
 		slickGrid.getOptions().showColumnGrouping(true);
 		slickGrid.getOptions().showTotalsRow(true);
 		
