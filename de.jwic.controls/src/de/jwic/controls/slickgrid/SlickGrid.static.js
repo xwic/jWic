@@ -163,7 +163,7 @@
 			    
 			    grid.onHeaderRowCellRendered.subscribe(function(e, args) {
 			        $(args.node).empty();
-			        $("<input type='text' style='width:95%'>")
+			        $("<input type='text'>")
 			           .data("columnId", args.column.id)
 			           .val(columnFilters[args.column.id])
 			           .appendTo(args.node);

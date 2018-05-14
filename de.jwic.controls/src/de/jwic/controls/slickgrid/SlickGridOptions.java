@@ -41,14 +41,16 @@ public class SlickGridOptions implements Serializable {
 	
 	/**
 	 * The following two properties need to be true in order to use column grouping
-	 * Recommended to use the showColumnGrouping() shorthand method
+	 * <br/><br/>
+	 * Recommended to use the {@link #setShowColumnGrouping(boolean) showColumnGrouping} shorthand method
 	 */
 	private boolean createPreHeaderPanel = false;
 	private boolean showPreHeaderPanel = false;
 	
 	/**
 	 * The following two properties need to be true in order to use the totals row
-	 * Recommended to use the showTotalsRow() shorthand method
+	 * <br/><br/>
+	 * Recommended to use the {@link #setShowTotalsRow(boolean) showTotalsRow} shorthand method
 	 */
 	private boolean createFooterRow = false;
 	private boolean showFooterRow = false;
@@ -355,10 +357,12 @@ public class SlickGridOptions implements Serializable {
 
 	/**
 	 * One of the properties that needs to be true in order to use column grouping
-	 * Don't use this setter directly, it's recommended to use the showColumnGrouping() shorthand method
-	 * 
+	 * <br/><br/>
+	 * Don't use this method directly, it is recommended to use the {@link #setShowColumnGrouping(boolean) showColumnGrouping} shorthand method instead
+	 * <br/><br/>
 	 * @param createPreHeaderPanel the createPreHeaderPanel to set
 	 */
+	@Deprecated
 	public void setCreatePreHeaderPanel(boolean createPreHeaderPanel) {
 		this.createPreHeaderPanel = createPreHeaderPanel;
 	}
@@ -372,10 +376,12 @@ public class SlickGridOptions implements Serializable {
 
 	/**
 	 * One of the properties that needs to be true in order to use column grouping
-	 * Don't use this setter directly, it's recommended to use the showColumnGrouping() shorthand method
-	 * 
+	 * <br/><br/>
+	 * Don't use this method directly, it is recommended to use the {@link #setShowColumnGrouping(boolean) showColumnGrouping} shorthand method instead
+	 * <br/><br/>
 	 * @param showPreHeaderPanel the showPreHeaderPanel to set
 	 */
+	@Deprecated
 	public void setShowPreHeaderPanel(boolean showPreHeaderPanel) {
 		this.showPreHeaderPanel = showPreHeaderPanel;
 	}
@@ -395,16 +401,30 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
-	 * @return the headerRowHeight
+	 * Alias for the {@link #getFilterRowHeight() getFilterRowHeight} method
 	 */
 	public int getHeaderRowHeight() {
 		return headerRowHeight;
 	}
 
 	/**
-	 * @param headerRowHeight the headerRowHeight to set
+	 * Alias for the {@link #setFilterRowHeight(int) setFilterRowHeight} method
 	 */
 	public void setHeaderRowHeight(int headerRowHeight) {
+		this.headerRowHeight = headerRowHeight;
+	}
+	
+	/**
+	 * Alias for the {@link #getHeaderRowHeight() getHeaderRowHeight} method
+	 */
+	public int getFilterRowHeight() {
+		return headerRowHeight;
+	}
+
+	/**
+	 * Alias for the {@link #setHeaderRowHeight(int) setHeaderRowHeight} method
+	 */
+	public void setFilterRowHeight(int headerRowHeight) {
 		this.headerRowHeight = headerRowHeight;
 	}
 
@@ -417,10 +437,12 @@ public class SlickGridOptions implements Serializable {
 
 	/**
 	 * One of the properties that needs to be true in order to show the totals row
-	 * Don't use this setter directly, it's recommended to use the showTotalsRow() shorthand method
-	 * 
+	 * <br/><br/>
+	 * Don't use this method directly, it is recommended to use the {@link #setShowTotalsRow(boolean) showTotalsRow} shorthand method instead
+	 * <br/><br/>
 	 * @param createFooterRow the createFooterRow to set
 	 */
+	@Deprecated
 	public void setCreateFooterRow(boolean createFooterRow) {
 		this.createFooterRow = createFooterRow;
 	}
@@ -434,10 +456,12 @@ public class SlickGridOptions implements Serializable {
 
 	/**
 	 * One of the properties that needs to be true in order to show the totals row
-	 * Don't use this setter directly, it's recommended to use the showTotalsRow() shorthand method
-	 * 
+	 * <br/><br/>
+	 * Don't use this method directly, it is recommended to use the {@link #setShowTotalsRow(boolean) showTotalsRow} shorthand method instead
+	 * <br/><br/>
 	 * @param showFooterRow the showFooterRow to set
 	 */
+	@Deprecated
 	public void setShowFooterRow(boolean showFooterRow) {
 		this.showFooterRow = showFooterRow;
 	}
@@ -457,17 +481,17 @@ public class SlickGridOptions implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * Enables the total row
 	 */
-	public void showTotalsRow(boolean b) {
+	public void setShowTotalsRow(boolean b) {
 		setCreateFooterRow(b);
 		setShowFooterRow(b);		
 	}
 	
 	/**
-	 * 
+	 * Enables column grouping
 	 */
-	public void showColumnGrouping(boolean b) {
+	public void setShowColumnGrouping(boolean b) {
 		setCreatePreHeaderPanel(b);
 		setShowPreHeaderPanel(b);
 	}
@@ -529,28 +553,28 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
-	 * Alias for isShowHeaderRow()
+	 * Alias for the {@link #isShowHeaderRow() isShowHeaderRow} method
 	 */
-	public boolean isShowFilters() {
+	public boolean isShowQuickFilters() {
 		return showHeaderRow;
 	}
 
 	/**
-	 * Alias for setShowFilters()
+	 * Alias for the {@link #setShowHeaderRow(boolean) setShowHeaderRow} method
 	 */
-	public void setShowFilters(boolean showHeaderRow) {
+	public void setShowQuickFilters(boolean showHeaderRow) {
 		this.showHeaderRow = showHeaderRow;
 	}
 	
 	/**
-	 * @return the showHeaderRow
+	 * Alias for the {@link #isShowQuickFilters() isShowQuickFilters} method
 	 */
 	public boolean isShowHeaderRow() {
 		return showHeaderRow;
 	}
 	
 	/**
-	 * @param showHeaderRow the showHeaderRow to set
+	 * Alias for the {@link #setShowQuickFilters(boolean) setShowQuickFilters} method
 	 */
 	public void setShowHeaderRow(boolean showHeaderRow) {
 		this.showHeaderRow = showHeaderRow;

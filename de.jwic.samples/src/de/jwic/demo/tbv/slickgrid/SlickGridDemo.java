@@ -51,13 +51,13 @@ public class SlickGridDemo extends ControlContainer {
 		//
 		
 		slickGrid = new SlickGrid<>(this, "sg");
-		slickGrid.getOptions().setWidth(1035);
+		slickGrid.getOptions().setWidth(915);
 		slickGrid.getOptions().setHeight(300);
 		slickGrid.getOptions().setEditable(true);
 		slickGrid.getOptions().setAutoEdit(false);
-		slickGrid.getOptions().setShowFilters(true);
-		slickGrid.getOptions().showColumnGrouping(true);
-		slickGrid.getOptions().showTotalsRow(true);
+		slickGrid.getOptions().setShowQuickFilters(true);
+		slickGrid.getOptions().setShowColumnGrouping(true);
+		slickGrid.getOptions().setShowTotalsRow(true);
 		
 		SlickGridModel<CostData> model = slickGrid.getModel();
 		

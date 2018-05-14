@@ -1,6 +1,25 @@
 #set($fldSelection = $control.getField("fldSelection"))
 #set($fldChanges = $control.getField("fldChanges"))
 
+  <style>
+  	.slick-headerrow.ui-state-default {
+  		overflow: hidden;
+  	}
+    .slick-headerrow-column {
+      text-overflow: clip;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    .slick-headerrow-column input {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+  </style>
+
 <input id="${control.controlID}_fldSelection" type="hidden" name="$fldSelection.getId()" value="">
 <input id="${control.controlID}_fldChanges" type="hidden" name="$fldChanges.getId()" value="">
 
