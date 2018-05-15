@@ -143,13 +143,17 @@
 				dataView.onRowCountChanged.subscribe(function (e, args) {
 	    	    	grid.updateRowCount();
 	    	    	grid.render();
-	    	    	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+	    	    	if (grid.getOptions().createFooterRow) {
+	    	    		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+	    	    	}
 	    	    });
 		    	
 		    	dataView.onRowsChanged.subscribe(function (e, args) {
 		    	    grid.invalidateRows(args.rows);
 		    	    grid.render();
-		    	    JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+		    	    if (grid.getOptions().createFooterRow) {
+		    	    	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+		    	    }
 		    	});
 		    	    
 			    $(grid.getHeaderRow()).on("change keyup", ":input", function (e) {
@@ -157,7 +161,9 @@
 			        if (columnId != null) {
 			        	columnFilters[columnId] = $.trim($(this).val()).toLowerCase();
 			        	dataView.refresh();
-			        	JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+			        	if (grid.getOptions().createFooterRow) {
+			        		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+			        	}
 			        }
 			    });
 			    
