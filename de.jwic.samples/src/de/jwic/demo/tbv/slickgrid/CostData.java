@@ -21,6 +21,7 @@ public class CostData implements Serializable {
 	
 	private String spendType;
 	private String itemName;
+	private String comment;
 	private boolean internal;
 	private boolean approved;
 	private boolean paid;
@@ -44,12 +45,13 @@ public class CostData implements Serializable {
 	 * @param july
 	 * @param august
 	 */
-	public CostData(int id, String spendType, String itemName, boolean internal, boolean approved, boolean paid, double rate, String uom,
+	public CostData(int id, String spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid, double rate, String uom,
 			double may, double june, double july, Double august) {
 		super();
 		this.id = id;
 		this.spendType = spendType;
 		this.itemName = itemName;
+		this.setComment(comment);
 		this.internal = internal;
 		this.approved = approved;
 		this.paid = paid;
@@ -233,6 +235,20 @@ public class CostData implements Serializable {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

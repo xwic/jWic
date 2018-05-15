@@ -2,7 +2,7 @@
 	$.extend(JWic.controls, {
 		SlickGrid : {
 			
-			nonEditableCellFormatter : function (row, cell, value, columnDef, dataContext, grid) {
+			cellFormatterWithReadonlySupport : function (row, cell, value, columnDef, dataContext, grid) {
 				var result;
 				if (columnDef.origFormatter) {
 					result = columnDef.origFormatter(row, cell, value, columnDef, dataContext);

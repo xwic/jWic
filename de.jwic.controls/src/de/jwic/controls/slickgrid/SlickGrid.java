@@ -41,6 +41,7 @@ public class SlickGrid<T> extends Control {
 
 	private boolean clearChanges = false;
 	private boolean reloadData = false;
+	private boolean reloadColumns = false;
 	
 	private final Gson gson;
 	
@@ -107,7 +108,7 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
-	 * Returns true if the gird contains any pending changes.
+	 * Returns true if the grid contains any pending changes.
 	 * @return
 	 */
 	public boolean hasChanges() {
@@ -116,8 +117,8 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
-	 * Gather the changes recorded so far on the control and return them as a list. <br/>
-	 * You need to reset the changes manually (using resetChanges()), otherwise a subsequent call to this methoid will return them again.
+	 * Gather the changes recorded so far on the control and return them as a list. <br/><br/>
+	 * You need to reset the changes manually (using {@link #resetChanges() resetChanges}), otherwise a subsequent call to this methoid will return them again.
 	 * @return
 	 */
 	public List<SlickGridChange> getChanges() {
@@ -134,7 +135,7 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
-	 * Clear the changes pending on the control. <br/>
+	 * Clear the changes pending on the control. <br/><br/>
 	 * Please note that this will not trigger a data reload on the JS grid.
 	 */
 	public void clearRecordedChanges() {
@@ -145,15 +146,24 @@ public class SlickGrid<T> extends Control {
 
 	/**
 	 * Clear the changes pending on the control and also trigger a data reload on the JS grid. <br/>
-	 * This method is just for convenience, it does the same thing as reloadData().
+	 * This method is an alias for {@link #reloadData() reloadData}
 	 */
 	public void undoChanges() {
 		reloadData();
 	}
 	
 	/**
-	 * Causes the JS grid to reload the data as provided by the jWic control. <br/> 
-	 * This will also clear any pending changes, therefore you should process them, if needed, before returning to the client.
+	 * Causes the JS grid to reload the columns and the data as provided by the jWic control. <br/></br/> 
+	 * This will also clear any pending changes, therefore you should process them before returning to the client.
+	 */
+	public void reloadColumns() {
+		reloadColumns = true;
+		reloadData();
+	}
+	
+	/**
+	 * Causes the JS grid to reload the data as provided by the jWic control. <br/><br/> 
+	 * This will also clear any pending changes, therefore you should process them before returning to the client.
 	 */
 	public void reloadData() {
 		reloadData = true;		
@@ -176,11 +186,19 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * @return the reloadColumns
+	 */
+	public boolean isReloadColumns() {
+		return reloadColumns;
+	}
+	
+	/**
 	 * 
 	 */
 	public void redrawComplete() {
 		clearChanges = false;
 		reloadData = false;
+		reloadColumns = false;
 	}
 
 	// ***************************************************

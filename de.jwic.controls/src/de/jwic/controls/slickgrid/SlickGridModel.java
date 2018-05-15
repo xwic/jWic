@@ -59,6 +59,13 @@ public class SlickGridModel<T> implements Serializable {
 	}
 	
 	/**
+	 * @return the columns
+	 */
+	public void clearColumns() {
+		columns.clear();
+	}
+	
+	/**
 	 * @return the data
 	 */
 	public List<SlickGridDataRow> getDataRows() {

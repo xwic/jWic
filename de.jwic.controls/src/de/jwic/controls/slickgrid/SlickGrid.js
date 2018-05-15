@@ -1,49 +1,6 @@
 {
-	/**
-	 * Invoked before the element is updated.
-	 */ 
-	beforeUpdate: function() {
-	},
-	
-	/**
-	 * Invoked when the element needs to be updated. If this function returns
-	 * false, the existing HTML element is replaced by the rendered part that
-	 * comes from the server. If the script is doing the update, it should return
-	 * true, to prevent the update.
-	 */
-	doUpdate: function(element) {
-		var field = JWic.$('${control.controlID}_thegrid');
-		
-		if (field === null || field === undefined || field.length === 0){ 
-			// if the field does not exist, the element needs to be created regulary 
-			// jQuery objects are never null, but if the selection returned null the length prop is 0
-			return false;
-		}
-		
-		if ($control.isClearChanges()) {
-			// clear the changes registered so far
-			JWic.$('${control.controlID}_fldChanges').val('');
-		}
-		
-		if ($control.isReloadData()) {
-			// the grid is stored in the div element's data.. see afterUpdate(), right after the grid is created
-			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
-			var data = $control.getDataAsJson();
-			grid.setData(data, true);
-			grid.render();
-		}
-		
-		// call this to let the control know that the update is complete and it should do some cleanup
-		$control.redrawComplete();
-		
-		return true; // if the doUpdate script didn't do any actual updates, we simply redraw the whole grid
-	},
-	
-	/**
-	 * Invoked after the DOM element was updated. This function is NOT updated if
-	 * the custom doUpdate function returned true.
-	 */
-	afterUpdate: function(element) {
+
+	getColumns : function() {
 		var columns = [
 	    	#foreach ($col in $control.getModel().getColumns())
 	    	#if ($foreach.count > 1),#end
@@ -86,8 +43,82 @@
 		for (var i = 0; i < columns.length; i++) {
 			var col = columns[i];
 			col.origFormatter = col.formatter;
-			col.formatter = JWic.controls.SlickGrid.nonEditableCellFormatter;
+			col.formatter = JWic.controls.SlickGrid.cellFormatterWithReadonlySupport;
 		}
+		
+		return columns;
+	},
+	
+	/**
+	 * Invoked before the element is updated.
+	 */ 
+	beforeUpdate: function() {
+	},
+	
+	/**
+	 * Invoked when the element needs to be updated. If this function returns
+	 * false, the existing HTML element is replaced by the rendered part that
+	 * comes from the server. If the script is doing the update, it should return
+	 * true, to prevent the update.
+	 */
+	doUpdate: function(element) {
+		var field = JWic.$('${control.controlID}_thegrid');
+		
+		if (field === null || field === undefined || field.length === 0){ 
+			// if the field does not exist, the element needs to be created regulary 
+			// jQuery objects are never null, but if the selection returned null the length prop is 0
+			return false;
+		}
+		
+		if ($control.isClearChanges()) {
+			// clear the changes registered so far
+			JWic.$('${control.controlID}_fldChanges').val('');
+		}
+		
+		var render = false;
+		
+		if ($control.isReloadColumns()) {
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+			
+			var columns = this.getColumns();
+			grid.setColumns(columns);
+			
+			render = true;
+			
+			// note: if column reload is requested, then a data reload is automatically requested as well,
+			// therefore we don't need to do it explicitely
+		}
+		
+		if ($control.isReloadData()) {
+			// the grid is stored in the div element's data.. see afterUpdate(), right after the grid is created
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+			var data = $control.getDataAsJson();
+			
+			var dataView = grid.getData();
+			dataView.beginUpdate();
+		    dataView.setItems(data);
+		    dataView.endUpdate();
+		    
+		    render = true;
+		}
+		
+		if (render) {
+			grid.invalidate();
+			grid.render();
+		}
+		
+		// call this to let the control know that the update is complete and it should do some cleanup
+		$control.redrawComplete();
+		
+		return true;
+	},
+	
+	/**
+	 * Invoked after the DOM element was updated. This function is NOT updated if
+	 * the custom doUpdate function returned true.
+	 */
+	afterUpdate: function(element) {
+		var columns = this.getColumns();
 		
 	    var options = $control.getOptionsAsJson();
 	    options.explicitInitialization = true; // hardcode this option because we need it if using a data view
@@ -155,6 +186,10 @@
 	    JWic.controls.SlickGrid.setupSorting(grid);
 	    
     	grid.render();
+    	
+    	function getColumnFilters() {
+    		return columnFilters;
+    	}
 	    
 	    function filter(item) {
 	        for (var columnId in columnFilters) {
@@ -176,6 +211,9 @@
 	        }
 	        return true;
 	    }
+	    
+	    // just in case...
+	    $control.redrawComplete();
 	},
 	
 	/**

@@ -39,6 +39,8 @@ public class SlickGridDemo extends ControlContainer {
 	private InputBox ibEditData;
 	private SlickGrid<CostData> slickGrid;
 	
+	int idIndex = 1;
+	
 	/**
 	 * @param container
 	 * @param name
@@ -61,7 +63,7 @@ public class SlickGridDemo extends ControlContainer {
 		
 		SlickGridModel<CostData> model = slickGrid.getModel();
 		
-		setupColumns(model);
+		setupColumns(model, false);
 		setupData(model);
 		
 		model.addElementSelectedListener(l -> {
@@ -109,8 +111,15 @@ public class SlickGridDemo extends ControlContainer {
 		btAddNewRow.setTitle("Add New Row");
 		btAddNewRow.addSelectionListener(l -> {
 			SlickGridListDataProvider<CostData> dp = (SlickGridListDataProvider<CostData>) model.getDataProvider();
-			dp.getList().add(new CostData(11, "Contractor Service", "New Guy", false, false, true, 250, "Weekly", 6700, 2300, 100, 40d));
+			dp.getList().add(new CostData(idIndex++, "Contractor Service", "New Guy", "new guy's comment", false, false, true, 250, "Weekly", 6700, 2300, 100, 40d));
 			slickGrid.reloadData();
+		});
+		
+		Button btAddNewColumn = new Button(this, "btAddNewColumn");
+		btAddNewColumn.setTitle("Show 'Comment' Column");
+		btAddNewColumn.addSelectionListener(l -> {
+			setupColumns(model, true);
+			slickGrid.reloadColumns();
 		});
 		
 		Button btResetData = new Button(this, "btResetData");
@@ -126,11 +135,11 @@ public class SlickGridDemo extends ControlContainer {
 	 */
 	private void setupData(SlickGridModel<CostData> model) {
 		List<CostData> pojos = new ArrayList<>();		
-		pojos.add(new CostData(1, "Contractor Service", "John Deer", true, false, true, 45, "Hourly", 100, 200, 300, 400d));
-		pojos.add(new CostData(3, "Contractor Service", "Jane Doe", false, true, false, 105.5, "Hourly", 500, 500, 750, 1000d));
-		pojos.add(new CostData(5, "Contractor Service", "Michael Buffalo", false, false, false, 5600, "Monthly", 5600, 5600, 5600, null));
-		pojos.add(new CostData(7, "Contractor Travel", "John Deer", true, true, true, 1, "Cost $", 0, 0, 3400, 0d));
-		pojos.add(new CostData(9, "Contractor Travel", "Jane Doe", false, true, true, 1, "Cost $", 1200, 0, 0, 4500d));
+		pojos.add(new CostData(idIndex++, "Contractor Service", "John Deer", "comm1", true, false, true, 45, "Hourly", 100, 200, 300, 400d));
+		pojos.add(new CostData(idIndex++, "Contractor Service", "Jane Doe", "comm2", false, true, false, 105.5, "Hourly", 500, 500, 750, 1000d));
+		pojos.add(new CostData(idIndex++, "Contractor Service", "Michael Buffalo", "", false, false, false, 5600, "Monthly", 5600, 5600, 5600, null));
+		pojos.add(new CostData(idIndex++, "Contractor Travel", "John Deer", "", true, true, true, 1, "Cost $", 0, 0, 3400, 0d));
+		pojos.add(new CostData(idIndex++, "Contractor Travel", "Jane Doe", "something here", false, true, true, 1, "Cost $", 1200, 0, 0, 4500d));
 		
 		SlickGridListDataProvider<CostData> provider = new SlickGridListDataProvider<CostData>(pojos) {
 			@Override
@@ -166,7 +175,9 @@ public class SlickGridDemo extends ControlContainer {
 	/**
 	 * @param model
 	 */
-	private void setupColumns(SlickGridModel<CostData> model) {
+	private void setupColumns(SlickGridModel<CostData> model, boolean addCommentColumn) {
+		model.clearColumns();
+		
 		SlickGridColumn col = new SlickGridColumn("spendType", "Spend Type", 150);
 		col.setToolTip("What's here?");
 		col.setEditor(SlickGridColumn.EDITOR_TEXT);
@@ -176,6 +187,12 @@ public class SlickGridDemo extends ControlContainer {
 		col.setToolTip("The name!");
 		col.setEditor(SlickGridColumn.EDITOR_LONG_TEXT);
 		model.addColumn(col);
+		
+		if (addCommentColumn) {
+			col = new SlickGridColumn("comment", "Comment", 150);
+			col.setEditor(SlickGridColumn.EDITOR_LONG_TEXT);
+			model.addColumn(col);
+		}
 		
 		col = new SlickGridColumn("internal", "Internal", 60);
 		col.setEditor(SlickGridColumn.EDITOR_CHECKBOX);
