@@ -158,10 +158,10 @@ public class SlickGridDemo extends ControlContainer {
 		List<CostData> pojos = new ArrayList<>();
 		try {
 			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "John Deer", "comm1", true, false, true, sdf.parse("02-Feb-2018"), 45, uoms.get("h"), 100, 200, 300, 400d));
-			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, uoms.get("h"), 500, 500, 750, 1000d));
+			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, uoms.get("w"), 500, 500, 750, 1000d));
 			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, null, 5600, 5600, 5600, null));
 			pojos.add(new CostData(idIndex++, spendTypes.get("ct"), "John Deer", "", true, true, true, sdf.parse("25-Dec-2018"), 1, uoms.get("c$"), 0, 0, 3400, 0d));
-			pojos.add(new CostData(idIndex++, null, "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, uoms.get("c$"), 1200, 0, 0, 4500d));
+			pojos.add(new CostData(idIndex++, null, "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, uoms.get("m"), 1200, 0, 0, 4500d));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}

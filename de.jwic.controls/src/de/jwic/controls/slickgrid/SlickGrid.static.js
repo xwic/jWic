@@ -345,19 +345,20 @@
 //			        // the cellBox: { top, left, bottom, right, width, height, visible }
 //			    };
 			    
-			    this.getEditorValueByKey = function(key) {
-			    	for (var i = 0; i < keyTitleValues.length; i++) {
-			    		var ev = keyTitleValues[i];
-						if (ev.key === key) {
-							return ev;
-						}
-					}
-			    	
-			    	return '';
-			    }
-			    
 			    this.init();
 			},
+			
+			getTitleByKey : function (key, keyTitleValues) {
+				for (var i = 0; i < keyTitleValues.length; i++) {
+					var item = keyTitleValues[i];
+					// force toString before comparing, just in case
+					if ((item.key + '') == (key + '')) {
+						return item.title;
+					}
+				}
+				
+				return "";
+			}
 		}
 	});
 	
@@ -389,15 +390,7 @@
 			return "";
 		}
 		
-		for (var i = 0; i < columnDef.keyTitleValues.length; i++) {
-			var item = columnDef.keyTitleValues[i];
-			// force toString before comparing, just in case
-			if ((item.key + '') == (value + '')) {
-				return item.title;
-			}
-		}
-		
-		return "";
+		return JWic.controls.SlickGrid.getTitleByKey(value, columnDef.keyTitleValues);
 	}
 	
 })(jQuery);
