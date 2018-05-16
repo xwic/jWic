@@ -9,7 +9,6 @@
 package de.jwic.controls.slickgrid;
 
 import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -17,7 +16,8 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * The default value provider for the SlickGrid.
- * This only works if the name of the fields in the object match the fields of the columns.
+ * <br/><br/>
+ * This works for those members of the object whose names match the fields of the columns
  * 
  * @author Adrian Ionescu
  */
@@ -46,10 +46,8 @@ public class SlickGridDefaultColumnValueProvider implements ISlickGridColumnValu
 			}
 			field.setAccessible(true);
 			Object value = field.get(obj);
-			if (value == null || value instanceof Boolean || value instanceof Number) {
+			if (value == null || value instanceof Boolean || value instanceof Number || value instanceof Date) {
 				result = value;
-			} else if (value instanceof Date && column.getDateFormat() != null) {
-				result = new SimpleDateFormat(column.getDateFormat()).format(value);
 			} else {
 				result = value.toString();
 			}

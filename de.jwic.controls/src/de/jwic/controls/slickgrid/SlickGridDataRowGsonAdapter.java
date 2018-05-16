@@ -9,6 +9,7 @@
 package de.jwic.controls.slickgrid;
 
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.Map.Entry;
 
 import com.google.gson.JsonElement;
@@ -38,6 +39,10 @@ class SlickGridDataRowGsonAdapter implements JsonSerializer<SlickGridDataRow> {
 				obj.addProperty(key, (Boolean) value);
 			} else if (value instanceof Number) {
 				obj.addProperty(key, (Number) value);
+			} else if (value instanceof Date) {
+				// dates are sent to the client as miliseconds
+				// the grid column should have a date formatter to process them
+				obj.addProperty(key, ((Date) value).getTime());
 			} else {
 				obj.addProperty(key, value.toString());
 			}

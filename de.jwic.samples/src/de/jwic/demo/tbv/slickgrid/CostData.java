@@ -9,6 +9,7 @@
 package de.jwic.demo.tbv.slickgrid;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Adrian Ionescu
@@ -25,6 +26,7 @@ public class CostData implements Serializable {
 	private boolean internal;
 	private boolean approved;
 	private boolean paid;
+	private Date startDate;
 	private double rate;
 	private String uom;
 	private double may;
@@ -33,11 +35,14 @@ public class CostData implements Serializable {
 	private Double august;
 	
 	/**
+	 * @param id
 	 * @param spendType
 	 * @param itemName
+	 * @param comment
 	 * @param internal
 	 * @param approved
 	 * @param paid
+	 * @param startDate
 	 * @param rate
 	 * @param uom
 	 * @param may
@@ -45,7 +50,7 @@ public class CostData implements Serializable {
 	 * @param july
 	 * @param august
 	 */
-	public CostData(int id, String spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid, double rate, String uom,
+	public CostData(int id, String spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid, Date startDate, double rate, String uom,
 			double may, double june, double july, Double august) {
 		super();
 		this.id = id;
@@ -55,6 +60,7 @@ public class CostData implements Serializable {
 		this.internal = internal;
 		this.approved = approved;
 		this.paid = paid;
+		this.startDate = startDate;
 		this.rate = rate;
 		this.uom = uom;
 		this.may = may;
@@ -249,6 +255,20 @@ public class CostData implements Serializable {
 	 */
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	/**
+	 * @return the startDate
+	 */
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	/**
+	 * @param startDate the startDate to set
+	 */
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 }

@@ -379,7 +379,30 @@
 			    }
 			    
 			    this.init();
-			}
+			},
 		}
 	});
+	
+
+	$.extend(true, window, {
+	"Jwic" : {
+		"controls" : {
+			"Slickgrid" : {
+				"Formatters" : {
+					"Date" : DateFormatter
+				}
+			}
+		}
+	}
+	});
+	
+	function DateFormatter(row, cell, value, columnDef, dataContext) {
+		if (value === null) {
+			return "";
+		}
+
+		// uses jquery-dateformat.js. See https://github.com/phstc/jquery-dateFormat
+		return $.format.date(new Date(value), columnDef.dateFormat);
+	}
+	
 })(jQuery);

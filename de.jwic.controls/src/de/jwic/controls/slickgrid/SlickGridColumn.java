@@ -20,16 +20,20 @@ public class SlickGridColumn implements Serializable {
 	private static final long serialVersionUID = 1876300346980560080L;
 	
 	/**
-	 * These formatters are defined in slick.formatters.js
+	 * These formatters come with the SlickGrid implementation, defined in slick.formatters.js
 	 */
 	public final static String FORMATTER_YES_NO = "Slick.Formatters.YesNo";
 	public final static String FORMATTER_CHECKBOX = "Slick.Formatters.Checkbox";
 	public final static String FORMATTER_CHECKMARK = "Slick.Formatters.Checkmark";
 	public final static String FORMATTER_PERCENT_COMPLETE = "Slick.Formatters.PercentComplete";
 	public final static String FORMATTER_PERCENT_COMPLETE_BAR = "Slick.Formatters.PercentCompleteBar";
+	/**
+	 * These formatters are custom, defined in SlickGrid.static.js  
+	 */
+	public final static String FORMATTER_DATE = "Jwic.controls.Slickgrid.Formatters.Date";
 	
 	/**
-	 * These editors are defined in slick.editors.js
+	 * These editors come with the SlickGrid implementation, defined in slick.formatters.js
 	 */
 	public final static String EDITOR_TEXT = "Slick.Editors.Text";
 	public final static String EDITOR_INTEGER = "Slick.Editors.Integer";
@@ -40,7 +44,7 @@ public class SlickGridColumn implements Serializable {
 	public final static String EDITOR_PERCENT_COMPLETE = "Slick.Editors.PercentComplete";
 	public final static String EDITOR_LONG_TEXT = "Slick.Editors.LongText";
 	/**
-	 * These editors are custom made 
+	 * These editors are custom, defined in SlickGrid.static.js  
 	 */
 	public final static String EDITOR_DROP_DOWN = "JWic.controls.SlickGrid.DropDownEditor";
 	
@@ -67,9 +71,9 @@ public class SlickGridColumn implements Serializable {
 	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized 
 	 */	
 	private boolean canBeSummedUp = false;
-	private transient String dateFormat = "dd-MMM-yyyy";
+	private String dateFormat = "dd-MMM-yyyy";
 	private transient ISlickGridColumnValueProvider valueProvider;
-	private ISlickGridEditorValuesProvider editorValuesProvider;
+	private transient ISlickGridEditorValuesProvider editorValuesProvider;
 	
 	
 	/**
@@ -285,20 +289,6 @@ public class SlickGridColumn implements Serializable {
 	}
 
 	/**
-	 * @return the dateFormat
-	 */
-	public String getDateFormat() {
-		return dateFormat;
-	}
-
-	/**
-	 * @param dateFormat the dateFormat to set
-	 */
-	public void setDateFormat(String dateFormat) {
-		this.dateFormat = dateFormat;
-	}
-
-	/**
 	 * @return the columnGroup
 	 */
 	public String getColumnGroup() {
@@ -352,5 +342,20 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setEditorValuesProvider(ISlickGridEditorValuesProvider editorValuesProvider) {
 		this.editorValuesProvider = editorValuesProvider;
+	}
+
+	/**
+	 * @return the dateFormat
+	 */
+	public String getDateFormat() {
+		return dateFormat;
+	}
+
+	/**
+	 * @see <a href="https://github.com/phstc/jquery-dateFormat">https://github.com/phstc/jquery-dateFormat</a> for the supported formats
+	 * @param dateFormat the dateFormat to set
+	 */
+	public void setDateFormat(String dateFormat) {
+		this.dateFormat = dateFormat;
 	}
 }

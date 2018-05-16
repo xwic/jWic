@@ -25,6 +25,9 @@
 	    		#if($col.formatter)
 	    		formatter : $!col.formatter,
 	    		#end
+	    		#if($col.dateFormat)
+	    		dateFormat : '$jwic.escapeJavaScript($!col.dateFormat)',
+	    		#end
 	    		#if($col.editor)
 	    		editor : $!col.editor,
 	    		#end
