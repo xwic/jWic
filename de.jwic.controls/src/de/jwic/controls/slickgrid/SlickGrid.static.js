@@ -257,7 +257,7 @@
 					// initialize the UI control
 					keyTitleValues = args.column.keyTitleValues;
 					
-					var options;
+					var options = '';
 					for (var i = 0; i < keyTitleValues.length; i++) {
 						var val = keyTitleValues[i];
 						options += "<OPTION value='" + val.key + "'>" + val.title + "</OPTION>";
@@ -391,7 +391,7 @@
 		
 		for (var i = 0; i < columnDef.keyTitleValues.length; i++) {
 			var item = columnDef.keyTitleValues[i];
-			// force toString before comparing, just in case somebody sent an integer..
+			// force toString before comparing, just in case
 			if ((item.key + '') == (value + '')) {
 				return item.title;
 			}
