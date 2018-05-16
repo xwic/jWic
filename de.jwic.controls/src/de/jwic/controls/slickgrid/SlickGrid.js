@@ -23,13 +23,13 @@
 	    			columnGroup : '$jwic.escapeJavaScript($!col.columnGroup)',
 	    		#end
 	    		#if($col.formatter)
-	    		formatter : $!col.formatter,
+	    		formatter : $!col.formatter.jsName,
 	    		#end
 	    		#if($col.dateFormat)
 	    		dateFormat : '$jwic.escapeJavaScript($!col.dateFormat)',
 	    		#end
 	    		#if($col.editor)
-	    		editor : $!col.editor,
+	    		editor : $!col.editor.jsName,
 	    		#end
 	    		
 	    		resizable : $col.resizable,
@@ -40,7 +40,7 @@
 	    		minWidth : $col.minWidth,
 	    		maxWidth : $col.maxWidth,
 	    		
-	    		editorValues : $control.getEditorValuesAsJson($col)
+	    		keyTitleValues : $control.getKeyTitleValuesAsJson($col)
 	    	}
 	    	#end
 	    ];

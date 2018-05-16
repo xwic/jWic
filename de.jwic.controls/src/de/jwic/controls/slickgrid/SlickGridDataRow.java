@@ -32,7 +32,6 @@ class SlickGridDataRow implements Serializable {
 	 */
 	private static final String NON_EDITABLE_PROPERTIES_FIELD_NAME = "slickGridNonEditableProperties";
 	
-	private List<String> readonlyProperties = new ArrayList<>();
 	private Map<String, Object> map;
 	
 	/**
@@ -42,7 +41,7 @@ class SlickGridDataRow implements Serializable {
 		map = new LinkedHashMap<>();
 
 		map.put(ID, uniqueIdentifier);
-		map.put(NON_EDITABLE_PROPERTIES_FIELD_NAME, readonlyProperties);
+		map.put(NON_EDITABLE_PROPERTIES_FIELD_NAME, new ArrayList<>());
 	}
 	
 	/**

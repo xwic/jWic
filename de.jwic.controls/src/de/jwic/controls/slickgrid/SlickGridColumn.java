@@ -19,34 +19,51 @@ public class SlickGridColumn implements Serializable {
 	
 	private static final long serialVersionUID = 1876300346980560080L;
 	
-	/**
-	 * These formatters come with the SlickGrid implementation, defined in slick.formatters.js
-	 */
-	public final static String FORMATTER_YES_NO = "Slick.Formatters.YesNo";
-	public final static String FORMATTER_CHECKBOX = "Slick.Formatters.Checkbox";
-	public final static String FORMATTER_CHECKMARK = "Slick.Formatters.Checkmark";
-	public final static String FORMATTER_PERCENT_COMPLETE = "Slick.Formatters.PercentComplete";
-	public final static String FORMATTER_PERCENT_COMPLETE_BAR = "Slick.Formatters.PercentCompleteBar";
-	/**
-	 * These formatters are custom, defined in SlickGrid.static.js  
-	 */
-	public final static String FORMATTER_DATE = "Jwic.controls.Slickgrid.Formatters.Date";
+	public enum Formatters {
+		// these come with SlickGrid, defined in slick.formatters.js
+		YES_NO("Slick.Formatters.YesNo"),
+		CHECKBOX("Slick.Formatters.Checkbox"),
+		CHECKMARK("Slick.Formatters.Checkmark"),
+		PERCENT_COMPLETE("Slick.Formatters.PercentComplete"),
+		PERCENT_COMPLETE_BAR("Slick.Formatters.PercentCompleteBar"),
+		// these are custom made, defined in SlickGrid.static.js  
+		DATE("Jwic.controls.Slickgrid.Formatters.Date"),
+		KEY_TITLE("Jwic.controls.Slickgrid.Formatters.KeyTitle");
+		
+		private String jsName;
+		
+		private Formatters(String jsName) {
+			this.jsName = jsName;
+		}
+		
+		public String getJsName() {
+			return jsName;
+		}
+	}
 	
-	/**
-	 * These editors come with the SlickGrid implementation, defined in slick.formatters.js
-	 */
-	public final static String EDITOR_TEXT = "Slick.Editors.Text";
-	public final static String EDITOR_INTEGER = "Slick.Editors.Integer";
-	public final static String EDITOR_FLOAT = "Slick.Editors.Float";
-	public final static String EDITOR_DATE = "Slick.Editors.Date";
-	public final static String EDITOR_YES_NO = "Slick.Editors.YesNoSelect";
-	public final static String EDITOR_CHECKBOX = "Slick.Editors.Checkbox";
-	public final static String EDITOR_PERCENT_COMPLETE = "Slick.Editors.PercentComplete";
-	public final static String EDITOR_LONG_TEXT = "Slick.Editors.LongText";
-	/**
-	 * These editors are custom, defined in SlickGrid.static.js  
-	 */
-	public final static String EDITOR_DROP_DOWN = "JWic.controls.SlickGrid.DropDownEditor";
+	public enum Editors {
+		// these come with SlickGrid, defined in slick.editors.js
+		TEXT("Slick.Editors.Text"),
+		INTEGER("Slick.Editors.Integer"),
+		FLOAT("Slick.Editors.Float"),
+		DATE("Slick.Editors.Date"),
+		YES_NO("Slick.Editors.YesNoSelect"),
+		CHECKBOX("Slick.Editors.Checkbox"),
+		PERCENT_COMPLETE("Slick.Editors.PercentComplete"),
+		LONG_TEXT("Slick.Editors.LongText"),
+		// these are custom made, defined in SlickGrid.static.js  
+		KEY_TITLE_DROP_DOWN("JWic.controls.SlickGrid.KeyTitleDropDownEditor");
+		
+		private String jsName;
+		
+		private Editors(String jsName) {
+			this.jsName = jsName;
+		}
+		
+		public String getJsName() {
+			return jsName;
+		}
+	}
 	
 	private String id;
 	private String field;
@@ -56,8 +73,8 @@ public class SlickGridColumn implements Serializable {
 	private String toolTip;
 	private String columnGroup;
 	private String totalLabel;
-	private String formatter;
-	private String editor;
+	private Formatters formatter;
+	private Editors editor;
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
@@ -71,9 +88,8 @@ public class SlickGridColumn implements Serializable {
 	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized 
 	 */	
 	private boolean canBeSummedUp = false;
-	private String dateFormat = "dd-MMM-yyyy";
+	private String dateFormat = "dd/mm/yy";
 	private transient ISlickGridColumnValueProvider valueProvider;
-	private transient ISlickGridEditorValuesProvider editorValuesProvider;
 	
 	
 	/**
@@ -229,22 +245,6 @@ public class SlickGridColumn implements Serializable {
 	}
 
 	/**
-	 * @return the formatter
-	 */
-	public String getFormatter() {
-		return formatter;
-	}
-
-	/**
-	 * Use one of the existing constants defined in this class, or your own custom Formatter
-	 * 
-	 * @param formatter the formatter to set
-	 */
-	public void setFormatter(String formatter) {
-		this.formatter = formatter;
-	}
-
-	/**
 	 * @return the headerCssClass
 	 */
 	public String getHeaderCssClass() {
@@ -270,22 +270,6 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setToolTip(String toolTip) {
 		this.toolTip = toolTip;
-	}
-
-	/**
-	 * @return the editor
-	 */
-	public String getEditor() {
-		return editor;
-	}
-
-	/**
-	 * Use one of the existing constants defined in this class, or your own custom Editor
-	 * 
-	 * @param editor the editor to set
-	 */
-	public void setEditor(String editor) {
-		this.editor = editor;
 	}
 
 	/**
@@ -331,20 +315,6 @@ public class SlickGridColumn implements Serializable {
 	}
 
 	/**
-	 * @return the editorValuesProvider
-	 */
-	public ISlickGridEditorValuesProvider getEditorValuesProvider() {
-		return editorValuesProvider;
-	}
-
-	/**
-	 * @param editorValuesProvider the editorValuesProvider to set
-	 */
-	public void setEditorValuesProvider(ISlickGridEditorValuesProvider editorValuesProvider) {
-		this.editorValuesProvider = editorValuesProvider;
-	}
-
-	/**
 	 * @return the dateFormat
 	 */
 	public String getDateFormat() {
@@ -357,5 +327,33 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setDateFormat(String dateFormat) {
 		this.dateFormat = dateFormat;
+	}
+
+	/**
+	 * @return the formatter
+	 */
+	public Formatters getFormatter() {
+		return formatter;
+	}
+
+	/**
+	 * @param formatter the formatter to set
+	 */
+	public void setFormatter(Formatters formatter) {
+		this.formatter = formatter;
+	}
+
+	/**
+	 * @return the editor
+	 */
+	public Editors getEditor() {
+		return editor;
+	}
+
+	/**
+	 * @param editor the editor to set
+	 */
+	public void setEditor(Editors editor) {
+		this.editor = editor;
 	}
 }

@@ -34,15 +34,17 @@ class SlickGridDataRowGsonAdapter implements JsonSerializer<SlickGridDataRow> {
 			Object value = entry.getValue();
 			
 			if (value == null) {
-				obj.addProperty(key, (String)null);
+				obj.addProperty(key, (String) null);
 			} else if (value instanceof Boolean) {
 				obj.addProperty(key, (Boolean) value);
 			} else if (value instanceof Number) {
 				obj.addProperty(key, (Number) value);
 			} else if (value instanceof Date) {
-				// dates are sent to the client as miliseconds
+				// dates are sent to the client as milliseconds
 				// the grid column should have a date formatter to process them
 				obj.addProperty(key, ((Date) value).getTime());
+			} else if (value instanceof KeyTitlePair) {
+				obj.addProperty(key, ((KeyTitlePair) value).getKey());
 			} else {
 				obj.addProperty(key, value.toString());
 			}

@@ -15,7 +15,6 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
 import de.jwic.base.Control;
@@ -236,15 +235,17 @@ public class SlickGrid<T> extends Control {
 	 * @param col
 	 * @return
 	 */
-	public String getEditorValuesAsJson(SlickGridColumn col) {
-		List<JsonObject> values;
-		if (col.getEditorValuesProvider() != null) {
-			values = col.getEditorValuesProvider().getEditorValues();
-		} else {
+	public String getKeyTitleValuesAsJson(SlickGridColumn col) {
+		List<KeyTitlePair> values = null;
+		if (col.getValueProvider() != null) {
+			values = col.getValueProvider().getKeyTitleValues();
+		}
+		
+		if (values == null) {
 			values = Collections.emptyList();
 		}
 		
-		Type listType = new TypeToken<ArrayList<JsonObject>>() {}.getType();
+		Type listType = new TypeToken<ArrayList<KeyTitlePair>>() {}.getType();
 		String json = gson.toJson(values, listType);		
 		return json;
 	}

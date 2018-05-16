@@ -9,6 +9,7 @@
 package de.jwic.controls.slickgrid;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author Adrian Ionescu
@@ -23,5 +24,14 @@ public interface ISlickGridColumnValueProvider extends Serializable {
 	 * @return a JSON supported value: Boolean, Number or String
 	 */
 	public Object getValue(SlickGridColumn column, Object obj);
+	
+	/**
+	 * Offers a list of values to be used in the cell editor
+	 * 
+	 * @return a list of JSON objects
+	 */
+	public default List<KeyTitlePair> getKeyTitleValues() {
+		return null;
+	}
 
 }

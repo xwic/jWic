@@ -46,7 +46,7 @@ public class SlickGridDefaultColumnValueProvider implements ISlickGridColumnValu
 			}
 			field.setAccessible(true);
 			Object value = field.get(obj);
-			if (value == null || value instanceof Boolean || value instanceof Number || value instanceof Date) {
+			if (value == null || value instanceof Boolean || value instanceof Number || value instanceof Date || value instanceof KeyTitlePair) {
 				result = value;
 			} else {
 				result = value.toString();

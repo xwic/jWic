@@ -11,6 +11,8 @@ package de.jwic.demo.tbv.slickgrid;
 import java.io.Serializable;
 import java.util.Date;
 
+import de.jwic.controls.slickgrid.KeyTitlePair;
+
 /**
  * @author Adrian Ionescu
  */
@@ -20,7 +22,7 @@ public class CostData implements Serializable {
 
 	private int id;
 	
-	private String spendType;
+	private KeyTitlePair spendType;
 	private String itemName;
 	private String comment;
 	private boolean internal;
@@ -28,7 +30,7 @@ public class CostData implements Serializable {
 	private boolean paid;
 	private Date startDate;
 	private double rate;
-	private String uom;
+	private KeyTitlePair uom;
 	private double may;
 	private double june;
 	private double july;
@@ -50,11 +52,11 @@ public class CostData implements Serializable {
 	 * @param july
 	 * @param august
 	 */
-	public CostData(int id, String spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid, Date startDate, double rate, String uom,
-			double may, double june, double july, Double august) {
+	public CostData(int id, KeyTitlePair spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid,
+			Date startDate, double rate, KeyTitlePair uom, double may, double june, double july, Double august) {
 		super();
 		this.id = id;
-		this.spendType = spendType;
+		this.setSpendType(spendType);
 		this.itemName = itemName;
 		this.setComment(comment);
 		this.internal = internal;
@@ -62,25 +64,11 @@ public class CostData implements Serializable {
 		this.paid = paid;
 		this.startDate = startDate;
 		this.rate = rate;
-		this.uom = uom;
+		this.setUom(uom);
 		this.may = may;
 		this.june = june;
 		this.july = july;
 		this.august = august;
-	}
-
-	/**
-	 * @return the spendType
-	 */
-	public String getSpendType() {
-		return spendType;
-	}
-
-	/**
-	 * @param spendType the spendType to set
-	 */
-	public void setSpendType(String spendType) {
-		this.spendType = spendType;
 	}
 
 	/**
@@ -109,20 +97,6 @@ public class CostData implements Serializable {
 	 */
 	public void setRate(double rate) {
 		this.rate = rate;
-	}
-
-	/**
-	 * @return the uom
-	 */
-	public String getUom() {
-		return uom;
-	}
-
-	/**
-	 * @param uom the uom to set
-	 */
-	public void setUom(String uom) {
-		this.uom = uom;
 	}
 
 	/**
@@ -269,6 +243,34 @@ public class CostData implements Serializable {
 	 */
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	/**
+	 * @return the spendType
+	 */
+	public KeyTitlePair getSpendType() {
+		return spendType;
+	}
+
+	/**
+	 * @param spendType the spendType to set
+	 */
+	public void setSpendType(KeyTitlePair spendType) {
+		this.spendType = spendType;
+	}
+
+	/**
+	 * @return the uom
+	 */
+	public KeyTitlePair getUom() {
+		return uom;
+	}
+
+	/**
+	 * @param uom the uom to set
+	 */
+	public void setUom(KeyTitlePair uom) {
+		this.uom = uom;
 	}
 
 }

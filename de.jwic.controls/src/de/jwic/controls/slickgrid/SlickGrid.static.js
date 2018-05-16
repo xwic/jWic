@@ -42,14 +42,6 @@
 	    		var fieldName = column.field;
 	    		
 	    		var newValue = dataItem[column.id];	    		
-	    		// for drop down editors we transport the key of the newly selected element separately
-	    		// even though we clear the transport after each update, we still want to give it 
-	    		// a unique name, just in case..
-	    		var dropDownEditorNewValueKey = column.id + "_newValueKey";
-	    		if (dataItem[dropDownEditorNewValueKey] !== undefined) {
-	    			newValue = dataItem[dropDownEditorNewValueKey];
-	    			dataItem[dropDownEditorNewValueKey] = undefined;
-	    		}
 	    		
 	    		var changes = [];
 	    		var strChanges = fldChanges.val();
@@ -250,12 +242,12 @@
 			    }
 			},
 			
-			DropDownEditor : function(args) {
+			KeyTitleDropDownEditor : function(args) {
 				
 				var $select;
 				
 			    var previousValue;
-			    var editorValues;
+			    var keyTitleValues;
 			    
 			    var scope = this;
 			    
@@ -263,12 +255,11 @@
 				
 				this.init = function () {
 					// initialize the UI control
-					editorValues = args.column.editorValues;
+					keyTitleValues = args.column.keyTitleValues;
 					
 					var options;
-					for (var i = 0; i < editorValues.length; i++) {
-						var val = editorValues[i];
-						// the 'key' and 'title' field names on the object are defined in SlickGridKeyValueEditorValuesProvider
+					for (var i = 0; i < keyTitleValues.length; i++) {
+						var val = keyTitleValues[i];
 						options += "<OPTION value='" + val.key + "'>" + val.title + "</OPTION>";
 					}
 					$select = $("<SELECT tabIndex='0' class='editor-yesno'>" + options + "</SELECT>");
@@ -291,7 +282,10 @@
 
 			    this.isValueChanged = function() {
 			        // return true if the value(s) being edited by the user has/have been changed
-			    	return ($select.val() != previousValue);
+			    	if (previousValue === null || previousValue === undefined) {
+			    		return $select.val() != "";
+			    	}
+			    	return $select.val() != previousValue;
 			    };
 
 			    this.serializeValue = function() {
@@ -299,16 +293,14 @@
 			        // can be an arbitrary object
 			        // the only restriction is that it must be a simple object that can be passed around even
 			        // when the editor itself has been destroyed
-			    	
-			    	// this returns an editorValue object (key, title)
-			    	return this.getEditorValueByKey($select.val());
+			    	return $select.val();
 			    };
 
 			    this.loadValue = function(item) {
 			        // load the value(s) from the data item and update the UI
 			        // this method will be called immediately after the editor is initialized
 			        // it may also be called by the grid if if the row/cell being edited is updated via grid.updateRow/updateCell
-			    	$select.val(previousValue = this.getKeyFromTitle(item[args.column.field]));
+			    	$select.val(previousValue = item[args.column.field]);
 			        $select.select();
 			    };
 
@@ -316,10 +308,7 @@
 			        // deserialize the value(s) saved to "state" and apply them to the data item
 			        // this method may get called after the editor itself has been destroyed
 			        // treat it as an equivalent of a Java/C# "static" method - no instance variables should be accessed
-			    	
-			    	// 'state' holds an editorValue object returned by serializeValue()
-			    	item[args.column.field] = state.title;
-			    	item[args.column.field + "_newValueKey"] = state.key;
+			    	item[args.column.field] = state;
 			    };
 
 			    this.validate = function() {
@@ -357,21 +346,10 @@
 //			    };
 			    
 			    this.getEditorValueByKey = function(key) {
-			    	for (var i = 0; i < editorValues.length; i++) {
-			    		var ev = editorValues[i];
+			    	for (var i = 0; i < keyTitleValues.length; i++) {
+			    		var ev = keyTitleValues[i];
 						if (ev.key === key) {
 							return ev;
-						}
-					}
-			    	
-			    	return '';
-			    }
-			    
-			    this.getKeyFromTitle = function(title) {
-			    	for (var i = 0; i < editorValues.length; i++) {
-			    		var ev = editorValues[i];
-						if (ev.title === title) {
-							return ev.key;
 						}
 					}
 			    	
@@ -389,7 +367,8 @@
 		"controls" : {
 			"Slickgrid" : {
 				"Formatters" : {
-					"Date" : DateFormatter
+					"Date" : DateFormatter,
+					"KeyTitle" : KeyTitleFormatter
 				}
 			}
 		}
@@ -397,12 +376,28 @@
 	});
 	
 	function DateFormatter(row, cell, value, columnDef, dataContext) {
-		if (value === null) {
+		if (value === null || value === undefined) {
 			return "";
 		}
 		
 		// uses the jquery datepicker formatting. See http://api.jqueryui.com/datepicker/#utility-formatDate
 		return $.datepicker.formatDate(columnDef.dateFormat, new Date(value));
+	}
+	
+	function KeyTitleFormatter(row, cell, value, columnDef, dataContext) {
+		if (value === null || value == undefined) {
+			return "";
+		}
+		
+		for (var i = 0; i < columnDef.keyTitleValues.length; i++) {
+			var item = columnDef.keyTitleValues[i];
+			// force toString before comparing, just in case somebody sent an integer..
+			if ((item.key + '') == (value + '')) {
+				return item.title;
+			}
+		}
+		
+		return "";
 	}
 	
 })(jQuery);
