@@ -202,7 +202,7 @@ public class SlickGridDemo extends ControlContainer {
 		
 		col = new SlickGridColumn("itemName", "Item Name", 150);
 		col.setToolTip("The name!");
-		col.setEditor(SlickGridColumn.EDITOR_LONG_TEXT);
+		col.setEditor(SlickGridColumn.EDITOR_TEXT);
 		model.addColumn(col);
 		
 		if (addCommentColumn) {
@@ -244,7 +244,7 @@ public class SlickGridDemo extends ControlContainer {
 		
 		col = new SlickGridColumn("june", "June", 100);
 		col.setColumnGroup("Q1 FY19");
-		col.setEditor(SlickGridColumn.EDITOR_FLOAT);
+		col.setEditor(SlickGridColumn.EDITOR_INTEGER);
 		col.setCanBeSummedUp(true);
 		col.setTotalLabel("Total: ");
 		model.addColumn(col);

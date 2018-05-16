@@ -258,6 +258,8 @@
 			    var editorValues;
 			    
 			    var scope = this;
+			    
+			    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END, Slick.keyCode.UP, Slick.keyCode.DOWN ];
 				
 				this.init = function () {
 					// initialize the UI control

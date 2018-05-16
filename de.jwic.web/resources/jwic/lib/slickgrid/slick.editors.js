@@ -26,6 +26,10 @@
     var defaultValue;
     var scope = this;
 
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
+    
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />")
           .appendTo(args.container)
@@ -94,6 +98,10 @@
     var $input;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />");
@@ -163,6 +171,10 @@
     var $input;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />");
@@ -267,6 +279,10 @@
     var defaultValue;
     var scope = this;
     var calendarOpen = false;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />");
@@ -357,6 +373,10 @@
     var $select;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END, Slick.keyCode.UP, Slick.keyCode.DOWN ];
 
     this.init = function () {
       $select = $("<SELECT tabIndex='0' class='editor-yesno'><OPTION value='yes'>Yes</OPTION><OPTION value='no'>No</OPTION></SELECT>");
@@ -403,6 +423,10 @@
     var $select;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       $select = $("<INPUT type=checkbox value='true' class='editor-checkbox' hideFocus>");
@@ -457,6 +481,10 @@
     var $input, $picker;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       $input = $("<INPUT type=text class='editor-percentcomplete' />");
@@ -537,6 +565,10 @@
     var $input, $wrapper;
     var defaultValue;
     var scope = this;
+    
+    // AI - custom code, not part of the default SlickGrid implementation
+    // with this we ensure that hitting certain keys while editing keeps us in the editor
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
 
     this.init = function () {
       var $container = $("body");
