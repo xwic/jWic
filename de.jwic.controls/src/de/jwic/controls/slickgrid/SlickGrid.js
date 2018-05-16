@@ -89,6 +89,9 @@
 			
 			// note: if column reload is requested, then a data reload is automatically requested as well,
 			// therefore we don't need to do it explicitely
+			
+			// re-create the column groups
+			JWic.controls.SlickGrid.createColumnGroupingRow(grid);
 		}
 		
 		if ($control.isReloadData()) {
