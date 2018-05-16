@@ -35,7 +35,9 @@
 	    		
 	    		width : $col.width,
 	    		minWidth : $col.minWidth,
-	    		maxWidth : $col.maxWidth
+	    		maxWidth : $col.maxWidth,
+	    		
+	    		editorValues : $control.getEditorValuesAsJson($col)
 	    	}
 	    	#end
 	    ];

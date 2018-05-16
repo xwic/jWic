@@ -39,6 +39,10 @@ public class SlickGridColumn implements Serializable {
 	public final static String EDITOR_CHECKBOX = "Slick.Editors.Checkbox";
 	public final static String EDITOR_PERCENT_COMPLETE = "Slick.Editors.PercentComplete";
 	public final static String EDITOR_LONG_TEXT = "Slick.Editors.LongText";
+	/**
+	 * These editors are custom made 
+	 */
+	public final static String EDITOR_DROP_DOWN = "JWic.controls.SlickGrid.DropDownEditor";
 	
 	private String id;
 	private String field;
@@ -65,6 +69,8 @@ public class SlickGridColumn implements Serializable {
 	private boolean canBeSummedUp = false;
 	private transient String dateFormat = "dd-MMM-yyyy";
 	private transient ISlickGridColumnValueProvider valueProvider;
+	private ISlickGridEditorValuesProvider editorValuesProvider;
+	
 	
 	/**
 	 * @param id
@@ -332,5 +338,19 @@ public class SlickGridColumn implements Serializable {
 	 */
 	public void setTotalLabel(String totalLabel) {
 		this.totalLabel = totalLabel;
+	}
+
+	/**
+	 * @return the editorValuesProvider
+	 */
+	public ISlickGridEditorValuesProvider getEditorValuesProvider() {
+		return editorValuesProvider;
+	}
+
+	/**
+	 * @param editorValuesProvider the editorValuesProvider to set
+	 */
+	public void setEditorValuesProvider(ISlickGridEditorValuesProvider editorValuesProvider) {
+		this.editorValuesProvider = editorValuesProvider;
 	}
 }

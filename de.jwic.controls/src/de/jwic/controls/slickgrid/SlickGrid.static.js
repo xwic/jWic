@@ -40,7 +40,16 @@
 		    	
 	    		var uid = dataItem.id;
 	    		var fieldName = column.field;
-	    		var newValue = dataItem[column.id];
+	    		
+	    		var newValue = dataItem[column.id];	    		
+	    		// for drop down editors we transport the key of the newly selected element separately
+	    		// even though we clear the transport after each update, we still want to give it 
+	    		// a unique name, just in case..
+	    		var dropDownEditorNewValueKey = column.id + "_newValueKey";
+	    		if (dataItem[dropDownEditorNewValueKey] !== undefined) {
+	    			newValue = dataItem[dropDownEditorNewValueKey];
+	    			dataItem[dropDownEditorNewValueKey] = undefined;
+	    		}
 	    		
 	    		var changes = [];
 	    		var strChanges = fldChanges.val();
@@ -239,6 +248,135 @@
 			    		$(footerCell).hide();
 			    	}
 			    }
+			},
+			
+			DropDownEditor : function(args) {
+				
+				var $select;
+				
+			    var previousValue;
+			    var editorValues;
+			    
+			    var scope = this;
+				
+				this.init = function () {
+					// initialize the UI control
+					editorValues = args.column.editorValues;
+					
+					var options;
+					for (var i = 0; i < editorValues.length; i++) {
+						var val = editorValues[i];
+						// the 'key' and 'title' field names on the object are defined in SlickGridKeyValueEditorValuesProvider
+						options += "<OPTION value='" + val.key + "'>" + val.title + "</OPTION>";
+					}
+					$select = $("<SELECT tabIndex='0' class='editor-yesno'>" + options + "</SELECT>");
+					$select.appendTo(args.container);
+					$select.focus();
+			    };
+
+
+			    /*********** REQUIRED METHODS ***********/
+
+			    this.destroy = function() {
+			        // remove all data, events & dom elements created in the constructor
+			    	$select.remove();
+			    };
+
+			    this.focus = function() {
+			        // set the focus on the main input control (if any)
+			    	$select.focus();
+			    };
+
+			    this.isValueChanged = function() {
+			        // return true if the value(s) being edited by the user has/have been changed
+			    	return ($select.val() != previousValue);
+			    };
+
+			    this.serializeValue = function() {
+			        // return the value(s) being edited by the user in a serialized form
+			        // can be an arbitrary object
+			        // the only restriction is that it must be a simple object that can be passed around even
+			        // when the editor itself has been destroyed
+			    	
+			    	// this returns an editorValue object (key, title)
+			    	return this.getEditorValueByKey($select.val());
+			    };
+
+			    this.loadValue = function(item) {
+			        // load the value(s) from the data item and update the UI
+			        // this method will be called immediately after the editor is initialized
+			        // it may also be called by the grid if if the row/cell being edited is updated via grid.updateRow/updateCell
+			    	$select.val(previousValue = this.getKeyFromTitle(item[args.column.field]));
+			        $select.select();
+			    };
+
+			    this.applyValue = function(item, state) {
+			        // deserialize the value(s) saved to "state" and apply them to the data item
+			        // this method may get called after the editor itself has been destroyed
+			        // treat it as an equivalent of a Java/C# "static" method - no instance variables should be accessed
+			    	
+			    	// 'state' holds an editorValue object returned by serializeValue()
+			    	item[args.column.field] = state.title;
+			    	item[args.column.field + "_newValueKey"] = state.key;
+			    };
+
+			    this.validate = function() {
+			        // validate user input and return the result along with the validation message, if any
+			        // if the input is valid, return {valid:true,msg:null}
+			    	// if the input is not valid, return {valid:false,msg:"Some message here"}
+			        
+			    	// this editor can't really be invalid, since it's a list of values
+			    	return {
+			            valid: true,
+			            msg: null
+			        };
+			    };
+
+
+			    /*********** OPTIONAL METHODS***********/
+
+//			    this.hide = function() {
+//			        // if implemented, this will be called if the cell being edited is scrolled out of the view
+//			        // implement this if your UI is not appended to the cell itself or if you open any secondary
+//			        // selector controls (like a calendar for a datepicker input)
+//			    };
+//
+//			    this.show = function() {
+//			        // pretty much the opposite of hide
+//			    };
+//
+//			    this.position = function(cellBox) {
+//			        // if implemented, this will be called by the grid if any of the cell containers are scrolled
+//			        // and the absolute position of the edited cell is changed
+//			        // if your UI is constructed as a child of document BODY, implement this to update the
+//			        // position of the elements as the position of the cell changes
+//			        // 
+//			        // the cellBox: { top, left, bottom, right, width, height, visible }
+//			    };
+			    
+			    this.getEditorValueByKey = function(key) {
+			    	for (var i = 0; i < editorValues.length; i++) {
+			    		var ev = editorValues[i];
+						if (ev.key === key) {
+							return ev;
+						}
+					}
+			    	
+			    	return '';
+			    }
+			    
+			    this.getKeyFromTitle = function(title) {
+			    	for (var i = 0; i < editorValues.length; i++) {
+			    		var ev = editorValues[i];
+						if (ev.title === title) {
+							return ev.key;
+						}
+					}
+			    	
+			    	return '';
+			    }
+			    
+			    this.init();
 			}
 		}
 	});
