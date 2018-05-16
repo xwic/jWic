@@ -16,6 +16,7 @@
  *******************************************************************************/
 package de.jwic.demo.tbv.slickgrid;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -72,7 +73,7 @@ public class SlickGridDemo extends ControlContainer {
 		//
 		
 		slickGrid = new SlickGrid<>(this, "sg");
-		slickGrid.getOptions().setWidth(915);
+		slickGrid.getOptions().setWidth(945);
 		slickGrid.getOptions().setHeight(300);
 		slickGrid.getOptions().setEditable(true);
 		slickGrid.getOptions().setAutoEdit(false);
@@ -154,12 +155,17 @@ public class SlickGridDemo extends ControlContainer {
 	 * @param model
 	 */
 	private void setupData(SlickGridModel<CostData> model) {
-		List<CostData> pojos = new ArrayList<>();		
-		pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "John Deer", "comm1", true, false, true, new Date(), 45, UOMS.get("h"), 100, 200, 300, 400d));
-		pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "Jane Doe", "comm2", false, true, false, new Date(), 105, UOMS.get("h"), 500, 500, 750, 1000d));
-		pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "Michael Buffalo", "", false, false, false, new Date(), 5600, UOMS.get("m"), 5600, 5600, 5600, null));
-		pojos.add(new CostData(idIndex++, SPEND_TYPES.get("ct"), "John Deer", "", true, true, true, new Date(), 1, UOMS.get("c$"), 0, 0, 3400, 0d));
-		pojos.add(new CostData(idIndex++, SPEND_TYPES.get("ct"), "Jane Doe", "something here", false, true, true, new Date(), 1, UOMS.get("c$"), 1200, 0, 0, 4500d));
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+		List<CostData> pojos = new ArrayList<>();
+		try {
+			pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "John Deer", "comm1", true, false, true, sdf.parse("02-Feb-2018"), 45, UOMS.get("h"), 100, 200, 300, 400d));
+			pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, UOMS.get("h"), 500, 500, 750, 1000d));
+			pojos.add(new CostData(idIndex++, SPEND_TYPES.get("cs"), "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, UOMS.get("m"), 5600, 5600, 5600, null));
+			pojos.add(new CostData(idIndex++, SPEND_TYPES.get("ct"), "John Deer", "", true, true, true, sdf.parse("25-Dec-2018"), 1, UOMS.get("c$"), 0, 0, 3400, 0d));
+			pojos.add(new CostData(idIndex++, SPEND_TYPES.get("ct"), "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, UOMS.get("c$"), 1200, 0, 0, 4500d));
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
 		
 		SlickGridListDataProvider<CostData> provider = new SlickGridListDataProvider<CostData>(pojos) {
 			@Override
@@ -230,10 +236,10 @@ public class SlickGridDemo extends ControlContainer {
 		col.setFormatter(SlickGridColumn.FORMATTER_YES_NO);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("startDate", "Start Date", 90);
+		col = new SlickGridColumn("startDate", "Start Date", 100);
 		col.setEditor(SlickGridColumn.EDITOR_DATE);
 		col.setFormatter(SlickGridColumn.FORMATTER_DATE);
-		col.setDateFormat("dd/MM/yyyy");
+		col.setDateFormat("dd/mm/yy");
 		model.addColumn(col);
 		
 		col = new SlickGridColumn("rate", "Rate", 50);

@@ -400,9 +400,9 @@
 		if (value === null) {
 			return "";
 		}
-
-		// uses jquery-dateformat.js. See https://github.com/phstc/jquery-dateFormat
-		return $.format.date(new Date(value), columnDef.dateFormat);
+		
+		// uses the jquery datepicker formatting. See http://api.jqueryui.com/datepicker/#utility-formatDate
+		return $.datepicker.formatDate(columnDef.dateFormat, new Date(value));
 	}
 	
 })(jQuery);

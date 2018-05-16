@@ -279,11 +279,11 @@
     var defaultValue;
     var scope = this;
     var calendarOpen = false;
-    
+
     // AI - custom code, not part of the default SlickGrid implementation
     // with this we ensure that hitting certain keys while editing keeps us in the editor
-    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END ];
-
+    this.keyCaptureList = [ Slick.keyCode.HOME, Slick.keyCode.END, Slick.keyCode.LEFT, Slick.keyCode.RIGHT ];
+    
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />");
       $input.appendTo(args.container);
@@ -296,7 +296,9 @@
         },
         onClose: function () {
           calendarOpen = false
-        }
+        },
+        // the dateFormat is set all the way in SlickGridColumn.java
+        dateFormat : args.column.dateFormat
       });
       $input.width($input.width() - 18);
     };
@@ -334,14 +336,17 @@
     };
 
     this.loadValue = function (item) {
-      defaultValue = item[args.column.field];
+      // AI - we work with miliseconds
+      defaultValue = $.datepicker.formatDate(args.column.dateFormat, new Date(item[args.column.field]));
       $input.val(defaultValue);
       $input[0].defaultValue = defaultValue;
       $input.select();
     };
 
     this.serializeValue = function () {
-      return $input.val();
+      // AI - we work with miliseconds
+      var date = $.datepicker.parseDate(args.column.dateFormat, $input.val());
+      return date.getTime();
     };
 
     this.applyValue = function (item, state) {
@@ -367,7 +372,7 @@
     };
 
     this.init();
-  }
+}
 
   function YesNoSelectEditor(args) {
     var $select;

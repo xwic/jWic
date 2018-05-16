@@ -352,7 +352,7 @@ public class SlickGridColumn implements Serializable {
 	}
 
 	/**
-	 * @see <a href="https://github.com/phstc/jquery-dateFormat">https://github.com/phstc/jquery-dateFormat</a> for the supported formats
+	 * @see <a href="http://api.jqueryui.com/datepicker/#utility-formatDate">http://api.jqueryui.com/datepicker/#utility-formatDate</a> for the supported formats
 	 * @param dateFormat the dateFormat to set
 	 */
 	public void setDateFormat(String dateFormat) {

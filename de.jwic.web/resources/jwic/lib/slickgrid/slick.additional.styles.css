@@ -54,7 +54,7 @@ input.editor-text {
 }
 
 .ui-datepicker-trigger {
-  background:url("../images/calendar.gif") top left no-repeat;
+  background:url("../slickgrid/images/calendar.gif") top left no-repeat;
   width: 16px;
   height: 16px;
 
