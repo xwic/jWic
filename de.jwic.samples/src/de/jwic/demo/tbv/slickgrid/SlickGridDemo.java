@@ -19,9 +19,7 @@ package de.jwic.demo.tbv.slickgrid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.jwic.base.ControlContainer;
 import de.jwic.base.IControlContainer;
@@ -47,8 +45,8 @@ public class SlickGridDemo extends ControlContainer {
 	
 	private boolean addCommentColumn = false;
 	
-	private Map<String, KeyTitlePair> spendTypes = new LinkedHashMap<>();
-	private Map<String, KeyTitlePair> uoms = new LinkedHashMap<>();
+	private List<KeyTitlePair> spendTypes = new ArrayList<>();
+	private List<KeyTitlePair> uoms = new ArrayList<>();
 	
 	int idIndex = 1;
 	
@@ -59,13 +57,14 @@ public class SlickGridDemo extends ControlContainer {
 	public SlickGridDemo(IControlContainer container) {
 		super(container);
 		
-		spendTypes.put("cs", new KeyTitlePair("cs", "Contractor Service"));
-		spendTypes.put("ct", new KeyTitlePair("ct", "Contractor Travel"));
+		spendTypes.add(new KeyTitlePair("", ""));
+		spendTypes.add(new KeyTitlePair("cs", "Contractor Service"));
+		spendTypes.add(new KeyTitlePair("ct", "Contractor Travel"));
 		
-		uoms.put("h", new KeyTitlePair("h", "Hourly"));
-		uoms.put("w", new KeyTitlePair("w", "Weekly"));
-		uoms.put("m", new KeyTitlePair("m", "Monthly"));
-		uoms.put("c$", new KeyTitlePair("c$", "Cost $"));
+		uoms.add(new KeyTitlePair("h", "Hourly"));
+		uoms.add(new KeyTitlePair("w", "Weekly"));
+		uoms.add(new KeyTitlePair("m", "Monthly"));
+		uoms.add(new KeyTitlePair("c$", "Cost $"));
 
 		//
 		// THE GRID
@@ -130,7 +129,7 @@ public class SlickGridDemo extends ControlContainer {
 		btAddNewRow.setTitle("Add New Row");
 		btAddNewRow.addSelectionListener(l -> {
 			SlickGridListDataProvider<CostData> dp = (SlickGridListDataProvider<CostData>) model.getDataProvider();
-			dp.getList().add(new CostData(idIndex++, spendTypes.get("cs"), "New Guy", "new guy's comment", false, false, true, new Date(), 250, uoms.get("w"), 6700, 2300, 100, 40d));
+			dp.getList().add(new CostData(idIndex++, "cs", "New Guy", "new guy's comment", false, false, true, new Date(), 250, "w", 6700, 2300, 100, 40d));
 			slickGrid.reloadData();
 		});
 		
@@ -157,11 +156,11 @@ public class SlickGridDemo extends ControlContainer {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 		List<CostData> pojos = new ArrayList<>();
 		try {
-			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "John Deer", "comm1", true, false, true, sdf.parse("02-Feb-2018"), 45, uoms.get("h"), 100, 200, 300, 400d));
-			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, uoms.get("w"), 500, 500, 750, 1000d));
-			pojos.add(new CostData(idIndex++, spendTypes.get("cs"), "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, null, 5600, 5600, 5600, null));
-			pojos.add(new CostData(idIndex++, spendTypes.get("ct"), "John Deer", "", true, true, true, sdf.parse("25-Dec-2018"), 1, uoms.get("c$"), 0, 0, 3400, 0d));
-			pojos.add(new CostData(idIndex++, null, "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, uoms.get("m"), 1200, 0, 0, 4500d));
+			pojos.add(new CostData(idIndex++, "cs", "John Deer", "comm1", true, false, true, sdf.parse("02-Feb-2018"), 45, "h", 100, 200, 300, 400d));
+			pojos.add(new CostData(idIndex++, "cs", "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, "w", 500, 500, 750, 1000d));
+			pojos.add(new CostData(idIndex++, "cs", "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, null, 5600, 5600, 5600, null));
+			pojos.add(new CostData(idIndex++, "ct", "John Deer", "", true, true, true, sdf.parse("25-Dec-2018"), 1, "c$", 0, 0, 3400, 0d));
+			pojos.add(new CostData(idIndex++, null, "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, "m", 1200, 0, 0, 4500d));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -210,7 +209,7 @@ public class SlickGridDemo extends ControlContainer {
 		col.setValueProvider(new SlickGridDefaultColumnValueProvider() {
 			@Override
 			public List<KeyTitlePair> getKeyTitleValues() {
-				return new ArrayList<>(spendTypes.values());
+				return spendTypes;
 			}
 		});
 		model.addColumn(col);
@@ -259,7 +258,7 @@ public class SlickGridDemo extends ControlContainer {
 		col.setValueProvider(new SlickGridDefaultColumnValueProvider() {
 			@Override
 			public List<KeyTitlePair> getKeyTitleValues() {
-				return new ArrayList<>(uoms.values());
+				return uoms;
 			}
 		});
 		model.addColumn(col);

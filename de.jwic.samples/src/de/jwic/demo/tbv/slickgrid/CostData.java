@@ -11,8 +11,6 @@ package de.jwic.demo.tbv.slickgrid;
 import java.io.Serializable;
 import java.util.Date;
 
-import de.jwic.controls.slickgrid.KeyTitlePair;
-
 /**
  * @author Adrian Ionescu
  */
@@ -22,7 +20,7 @@ public class CostData implements Serializable {
 
 	private int id;
 	
-	private KeyTitlePair spendType;
+	private String spendType;
 	private String itemName;
 	private String comment;
 	private boolean internal;
@@ -30,7 +28,7 @@ public class CostData implements Serializable {
 	private boolean paid;
 	private Date startDate;
 	private double rate;
-	private KeyTitlePair uom;
+	private String uom;
 	private double may;
 	private double june;
 	private double july;
@@ -52,8 +50,8 @@ public class CostData implements Serializable {
 	 * @param july
 	 * @param august
 	 */
-	public CostData(int id, KeyTitlePair spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid,
-			Date startDate, double rate, KeyTitlePair uom, double may, double june, double july, Double august) {
+	public CostData(int id, String spendType, String itemName, String comment, boolean internal, boolean approved, boolean paid,
+			Date startDate, double rate, String uom, double may, double june, double july, Double august) {
 		super();
 		this.id = id;
 		this.setSpendType(spendType);
@@ -248,28 +246,28 @@ public class CostData implements Serializable {
 	/**
 	 * @return the spendType
 	 */
-	public KeyTitlePair getSpendType() {
+	public String getSpendType() {
 		return spendType;
 	}
 
 	/**
 	 * @param spendType the spendType to set
 	 */
-	public void setSpendType(KeyTitlePair spendType) {
+	public void setSpendType(String spendType) {
 		this.spendType = spendType;
 	}
 
 	/**
 	 * @return the uom
 	 */
-	public KeyTitlePair getUom() {
+	public String getUom() {
 		return uom;
 	}
 
 	/**
 	 * @param uom the uom to set
 	 */
-	public void setUom(KeyTitlePair uom) {
+	public void setUom(String uom) {
 		this.uom = uom;
 	}
 
