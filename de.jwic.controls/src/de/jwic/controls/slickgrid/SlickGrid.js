@@ -204,8 +204,8 @@
 	        	if (columnId === undefined || columnFilters[columnId] !== "") {
 	        		var c = grid.getColumns()[grid.getColumnIndex(columnId)];
 	        		// manipulate the value we will use for the comparison
-	        		var strCellValue = item[c.field] + '';
-	        		if (c.keyTitleValues) {
+	        		var strCellValue = item[c.field];
+	        		if (c.keyTitleValues && c.keyTitleValues.length > 0) {
 	        			strCellValue = JWic.controls.SlickGrid.getTitleByKey(strCellValue, c.keyTitleValues);
 	        		}
 	        		strCellValue = strCellValue.toLowerCase();
