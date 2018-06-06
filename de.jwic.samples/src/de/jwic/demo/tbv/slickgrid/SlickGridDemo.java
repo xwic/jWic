@@ -150,7 +150,7 @@ public class SlickGridDemo extends ControlContainer {
 		});
 		
 		Button btSetValuesInBackend = new Button(this, "btSetValuesInBackend");
-		btSetValuesInBackend.setTitle("Set Values In Backend");
+		btSetValuesInBackend.setTitle("Add 10 to May values");
 		btSetValuesInBackend.addSelectionListener(l -> {
 			for (Iterator<CostData> it = model.getDataProvider().getDataIterator() ; it.hasNext() ;) {
 				CostData cd = it.next();
