@@ -106,6 +106,9 @@
 			dataView.beginUpdate();
 		    dataView.setItems(data);
 		    dataView.endUpdate();
+		    if (grid.getOptions().createFooterRow) {
+        		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+        	}
 		    
 		    render = true;
 		}

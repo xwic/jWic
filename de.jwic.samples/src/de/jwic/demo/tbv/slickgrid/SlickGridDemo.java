@@ -19,6 +19,7 @@ package de.jwic.demo.tbv.slickgrid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import de.jwic.base.ControlContainer;
@@ -145,6 +146,17 @@ public class SlickGridDemo extends ControlContainer {
 		btResetData.setTitle("Reset Data");
 		btResetData.addSelectionListener(l -> {
 			setupData(model);
+			slickGrid.reloadData();
+		});
+		
+		Button btSetValuesInBackend = new Button(this, "btSetValuesInBackend");
+		btSetValuesInBackend.setTitle("Set Values In Backend");
+		btSetValuesInBackend.addSelectionListener(l -> {
+			for (Iterator<CostData> it = model.getDataProvider().getDataIterator() ; it.hasNext() ;) {
+				CostData cd = it.next();
+				cd.setMay(cd.getMay() + 10d);
+			}
+			
 			slickGrid.reloadData();
 		});
 	}
