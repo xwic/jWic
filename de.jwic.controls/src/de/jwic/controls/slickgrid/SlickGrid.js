@@ -1,5 +1,9 @@
 {
 
+	getData : function() {
+		return $control.getDataAsJson();
+	},
+	
 	getColumns : function() {
 		var columns = [
 	    	#foreach ($col in $control.getModel().getColumns())
@@ -82,7 +86,7 @@
 		
 		var render = false;
 		
-		if ($control.isReloadColumns()) {
+		#if ($control.isReloadColumns()) 
 			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
 			
 			var columns = this.getColumns();
@@ -95,12 +99,12 @@
 			
 			// re-create the column groups
 			JWic.controls.SlickGrid.createColumnGroupingRow(grid);
-		}
+		#end
 		
-		if ($control.isReloadData()) {
+		#if ($control.isReloadData()) 
 			// the grid is stored in the div element's data.. see afterUpdate(), right after the grid is created
 			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
-			var data = $control.getDataAsJson();
+			var data = this.getData();
 			
 			var dataView = grid.getData();
 			dataView.beginUpdate();
@@ -111,7 +115,7 @@
         	}
 		    
 		    render = true;
-		}
+		#end
 		
 		if (render) {
 			grid.invalidate();
@@ -134,7 +138,7 @@
 	    var options = $control.getOptionsAsJson();
 	    options.explicitInitialization = true; // hardcode this option because we need it if using a data view
 	    
-	    var data = $control.getDataAsJson();
+	    var data = this.getData();
 	    
 	    var dataView = new Slick.Data.DataView();
 	    

@@ -56,10 +56,10 @@
   }
 
   function CheckboxFormatter(row, cell, value, columnDef, dataContext) {
-    return '<img class="slick-edit-preclick" src="../jwic/lib/slickgrid/images/' + (value ? "CheckboxY" : "CheckboxN") + '.png">';
+    return '<img class="slick-edit-preclick" src="' + JWic.contextPath + '/jwic/lib/slickgrid/images/' + (value ? "CheckboxY" : "CheckboxN") + '.png">';
   }
 
   function CheckmarkFormatter(row, cell, value, columnDef, dataContext) {
-    return value ? "<img src='../jwic/lib/slickgrid/images/tick.png'>" : "";
+    return value ? '<img src="' + JWic.contextPath + '/jwic/lib/slickgrid/images/tick.png">' : '';
   }
 })(jQuery);
