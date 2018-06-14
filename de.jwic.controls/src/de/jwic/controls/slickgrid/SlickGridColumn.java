@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 
  * @author Adrian Ionescu
  */
-public class SlickGridColumn implements Serializable {
+public class SlickGridColumn<T> implements Serializable {
 	
 	private static final long serialVersionUID = 1876300346980560080L;
 	
@@ -89,7 +89,7 @@ public class SlickGridColumn implements Serializable {
 	 */	
 	private boolean canBeSummedUp = false;
 	private String dateFormat = "dd/mm/yy";
-	private transient ISlickGridColumnValueProvider valueProvider;
+	private transient ISlickGridColumnValueProvider<T> valueProvider;
 	
 	
 	/**
@@ -233,14 +233,14 @@ public class SlickGridColumn implements Serializable {
 	/**
 	 * @return the valueProvider
 	 */
-	public ISlickGridColumnValueProvider getValueProvider() {
+	public ISlickGridColumnValueProvider<T> getValueProvider() {
 		return valueProvider;
 	}
 
 	/**
 	 * @param valueProvider the valueProvider to set
 	 */
-	public void setValueProvider(ISlickGridColumnValueProvider valueProvider) {
+	public void setValueProvider(ISlickGridColumnValueProvider<T> valueProvider) {
 		this.valueProvider = valueProvider;
 	}
 

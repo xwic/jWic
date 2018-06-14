@@ -20,13 +20,13 @@ import com.google.gson.JsonSerializer;
 /**
  * @author Adrian Ionescu
  */
-class SlickGridDataRowGsonAdapter implements JsonSerializer<SlickGridDataRow> {
+class SlickGridDataRowGsonAdapter<T> implements JsonSerializer<SlickGridDataRow<T>> {
 
 	/* (non-Javadoc)
 	* @see com.google.gson.JsonSerializer#serialize(java.lang.Object, java.lang.reflect.Type, com.google.gson.JsonSerializationContext)
 	*/
 	@Override
-	public JsonElement serialize(SlickGridDataRow src, Type typeOfSrc, JsonSerializationContext context) {
+	public JsonElement serialize(SlickGridDataRow<T> src, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject obj = new JsonObject();
 		
 		for (Entry<String, Object> entry : src.getMap().entrySet()) {

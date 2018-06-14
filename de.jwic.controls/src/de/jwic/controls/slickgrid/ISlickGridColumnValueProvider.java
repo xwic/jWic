@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Adrian Ionescu
  */
-public interface ISlickGridColumnValueProvider extends Serializable {
+public interface ISlickGridColumnValueProvider<T> extends Serializable {
 	
 	/**
 	 * Offers the value of the column for the given object. In other words, the value of a particular cell.
@@ -23,7 +23,7 @@ public interface ISlickGridColumnValueProvider extends Serializable {
 	 * @param obj
 	 * @return a JSON supported value: Boolean, Number or String
 	 */
-	public Object getValue(SlickGridColumn column, Object obj);
+	public Object getValue(SlickGridColumn<T> column, T obj);
 	
 	/**
 	 * Offers a list of values to be used in the cell editor

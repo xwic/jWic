@@ -32,7 +32,7 @@ public interface ISlickGridDataProvider<T> extends Serializable {
 	 * @param column
 	 * @return
 	 */
-	public default boolean disableEditing(T obj, SlickGridColumn column) {
+	public default boolean disableEditing(T obj, SlickGridColumn<T> column) {
 		return false;
 	}
 

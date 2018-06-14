@@ -21,7 +21,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Adrian Ionescu
  */
-public class SlickGridDefaultColumnValueProvider implements ISlickGridColumnValueProvider {
+public class SlickGridDefaultColumnValueProvider<T> implements ISlickGridColumnValueProvider<T> {
 
 	private static final long serialVersionUID = -1273955457665038383L;
 	
@@ -31,7 +31,7 @@ public class SlickGridDefaultColumnValueProvider implements ISlickGridColumnValu
 	 * @see de.jwic.controls.slickgrid.ISlickGridValueProvider#getValue(de.jwic.controls.slickgrid.SlickGridColumn, java.lang.Object)
 	 */
 	@Override
-	public Object getValue(SlickGridColumn column, Object obj) {
+	public Object getValue(SlickGridColumn<T> column, T obj) {
 		if (obj == null) {
 			return "";
 		}

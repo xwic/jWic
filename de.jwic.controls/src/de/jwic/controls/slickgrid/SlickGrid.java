@@ -60,7 +60,7 @@ public class SlickGrid<T> extends Control {
 		
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.setPrettyPrinting().serializeNulls();
-		gsonBuilder.registerTypeAdapter(SlickGridDataRow.class, new SlickGridDataRowGsonAdapter());
+		gsonBuilder.registerTypeAdapter(SlickGridDataRow.class, new SlickGridDataRowGsonAdapter<T>());
 		this.gson = gsonBuilder.create();
 	}
 	
@@ -217,7 +217,7 @@ public class SlickGrid<T> extends Control {
 	 * @return
 	 */
 	public String getColumnsAsJson() {
-		Type listType = new TypeToken<ArrayList<SlickGridColumn>>() {}.getType();
+		Type listType = new TypeToken<ArrayList<SlickGridColumn<T>>>() {}.getType();
 		String json = gson.toJson(model.getColumns(), listType);
 		return json;
 	}
@@ -226,7 +226,7 @@ public class SlickGrid<T> extends Control {
 	 * @return
 	 */
 	public String getDataAsJson() {
-		Type listType = new TypeToken<ArrayList<SlickGridDataRow>>() {}.getType();
+		Type listType = new TypeToken<ArrayList<SlickGridDataRow<T>>>() {}.getType();
 		String json = gson.toJson(model.getDataRows(), listType);		
 		return json;
 	}
@@ -235,7 +235,7 @@ public class SlickGrid<T> extends Control {
 	 * @param col
 	 * @return
 	 */
-	public String getKeyTitleValuesAsJson(SlickGridColumn col) {
+	public String getKeyTitleValuesAsJson(SlickGridColumn<T> col) {
 		List<KeyTitlePair> values = null;
 		if (col.getValueProvider() != null) {
 			values = col.getValueProvider().getKeyTitleValues();

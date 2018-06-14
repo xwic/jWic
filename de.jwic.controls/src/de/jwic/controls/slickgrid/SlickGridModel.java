@@ -25,9 +25,9 @@ public class SlickGridModel<T> implements Serializable {
 	
 	private static final long serialVersionUID = 811658710857024884L;
 	
-	private List<SlickGridColumn> columns;
+	private List<SlickGridColumn<T>> columns;
 	private ISlickGridDataProvider<T> dataProvider;
-	private ISlickGridColumnValueProvider defaultValueProvider = new SlickGridDefaultColumnValueProvider();
+	private ISlickGridColumnValueProvider<T> defaultValueProvider = new SlickGridDefaultColumnValueProvider<T>();
 	
 	private EventSupport<ElementSelectedEvent> elementSelected = new EventSupport<>();
 	
@@ -41,7 +41,7 @@ public class SlickGridModel<T> implements Serializable {
 	/**
 	 * @param column
 	 */
-	public void addColumn(SlickGridColumn column) {
+	public void addColumn(SlickGridColumn<T> column) {
 		String field = column.getField();
 		
 		if (columns.stream().anyMatch(c -> c.getField().equals(field))) {
@@ -54,7 +54,7 @@ public class SlickGridModel<T> implements Serializable {
 	/**
 	 * @return the columns
 	 */
-	public Collection<SlickGridColumn> getColumns() {
+	public Collection<SlickGridColumn<T>> getColumns() {
 		return columns;
 	}
 	
@@ -68,17 +68,17 @@ public class SlickGridModel<T> implements Serializable {
 	/**
 	 * @return the data
 	 */
-	public List<SlickGridDataRow> getDataRows() {
-		List<SlickGridDataRow> rows = new ArrayList<>();
+	public List<SlickGridDataRow<T>> getDataRows() {
+		List<SlickGridDataRow<T>> rows = new ArrayList<>();
 		
 		Iterator<T> iterator = dataProvider.getDataIterator();
 		while (iterator.hasNext()) {
 			T obj = iterator.next();
 			
-			SlickGridDataRow row = new SlickGridDataRow(dataProvider.getUniqueIdentifier(obj));
+			SlickGridDataRow<T> row = new SlickGridDataRow<T>(dataProvider.getUniqueIdentifier(obj));
 			rows.add(row);
 			
-			for (SlickGridColumn column : columns) {
+			for (SlickGridColumn<T> column : columns) {
 				Object value;
 				if (column.getValueProvider() != null) {
 					value = column.getValueProvider().getValue(column, obj);
@@ -112,14 +112,14 @@ public class SlickGridModel<T> implements Serializable {
 	/**
 	 * @return the defaultLabelProvider
 	 */
-	public ISlickGridColumnValueProvider getDefaultLabelProvider() {
+	public ISlickGridColumnValueProvider<T> getDefaultLabelProvider() {
 		return defaultValueProvider;
 	}
 
 	/**
 	 * @param defaultLabelProvider the defaultLabelProvider to set
 	 */
-	public void setDefaultLabelProvider(ISlickGridColumnValueProvider defaultLabelProvider) {
+	public void setDefaultLabelProvider(ISlickGridColumnValueProvider<T> defaultLabelProvider) {
 		this.defaultValueProvider = defaultLabelProvider;
 	}
 	

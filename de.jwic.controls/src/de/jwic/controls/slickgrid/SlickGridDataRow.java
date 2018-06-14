@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author Adrian Ionescu
  */
-class SlickGridDataRow implements Serializable {
+class SlickGridDataRow<T> implements Serializable {
 	
 	private static final long serialVersionUID = 671484606921050314L;
 	
@@ -48,7 +48,7 @@ class SlickGridDataRow implements Serializable {
 	 * @param column
 	 * @param value
 	 */
-	public void setValue(SlickGridColumn column, Object value) {
+	public void setValue(SlickGridColumn<T> column, Object value) {
 		map.put(column.getField(), value);
 	}
 	
