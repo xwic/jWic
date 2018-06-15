@@ -94,6 +94,10 @@ public class SlickGrid<T> extends Control {
 		case "rowSelected":
 			model.fireRowSelectedEvent(parameter);			
 			break;
+		case "cellEdited":
+			SlickGridChange change = gson.fromJson(parameter, SlickGridChange.class);
+			model.fireCellChangedEvent(change);
+			break;
 		default:
 			super.actionPerformed(actionId, parameter);
 			break;

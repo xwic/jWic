@@ -92,6 +92,11 @@ public class SlickGridDemo extends ControlContainer {
 			ibSelectionData.setText(text);
 		});
 		
+		slickGrid.getOptions().setSendCellChangesToServer(true);
+		model.addCellChangedListener(l -> {
+			ibEditData.setText(ibEditData.getText() + "\n" + l.getChange());
+		});
+		
 		//
 		// TESTING CONTROLS
 		//
@@ -159,6 +164,7 @@ public class SlickGridDemo extends ControlContainer {
 			
 			slickGrid.reloadData();
 		});
+		
 	}
 	
 	/**

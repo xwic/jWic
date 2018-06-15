@@ -175,7 +175,7 @@
 	    grid.onCellChange.subscribe(function (e, args) {
 	    	var fldChanges = JWic.$('${control.controlID}_fldChanges');
 	    	if (fldChanges !== null && fldChanges !== undefined) {
-	    		JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges);
+	    		JWic.controls.SlickGrid.recordChanges(grid, args, fldChanges, '${control.controlID}');
 	    	}
 	    });
 	    

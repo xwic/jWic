@@ -30,6 +30,7 @@ public class SlickGridModel<T> implements Serializable {
 	private ISlickGridColumnValueProvider<T> defaultValueProvider = new SlickGridDefaultColumnValueProvider<T>();
 	
 	private EventSupport<ElementSelectedEvent> elementSelected = new EventSupport<>();
+	private EventSupport<SlickGridChangeEvent> cellChanged = new EventSupport<>();
 	
 	/**
 	 * 
@@ -129,11 +130,25 @@ public class SlickGridModel<T> implements Serializable {
 	public void addElementSelectedListener(IEventListener<ElementSelectedEvent> listener) {
 		elementSelected.addListener(listener);
 	}
+	
+	/**
+	 * @param listener
+	 */
+	public void addCellChangedListener(IEventListener<SlickGridChangeEvent> listener) {
+		cellChanged.addListener(listener);
+	}
 
 	/**
 	 * @param rowKey
 	 */
 	public void fireRowSelectedEvent(String rowKey) {
 		elementSelected.fireEvent(new ElementSelectedEvent(this, rowKey));
+	}
+	
+	/**
+	 * @param change
+	 */
+	public void fireCellChangedEvent(SlickGridChange change) {
+		cellChanged.fireEvent(new SlickGridChangeEvent(this, change));
 	}
 }

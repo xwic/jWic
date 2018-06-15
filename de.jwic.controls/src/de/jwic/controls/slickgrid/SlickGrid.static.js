@@ -34,7 +34,7 @@
 		    	return uid;
 			},
 			
-			recordChanges : function(grid, args, fldChanges) {
+			recordChanges : function(grid, args, fldChanges, controlId) {
 		    	var dataItem = grid.getDataItem(args.row);
 		    	var column = grid.getColumns()[args.cell];
 		    	
@@ -49,25 +49,29 @@
 	    			changes = jQuery.parseJSON(strChanges);
 	    		}
 	    		
-	    		var found = false;
+	    		var change = null;
 	    		for (var i = 0; i < changes.length; i++) {
-					var change = changes[i];
-					if (change["uid"] === uid && change["fieldName"] === fieldName) {
-						change["newValue"] = newValue;
-						found = true;
+					var tmp = changes[i];
+					if (tmp["uid"] === uid && tmp["fieldName"] === fieldName) {
+						change = tmp;
 						break;
 					}
 				}
 	    		
-				if (!found) {
-		    		var newChange = {};
-		    		newChange["uid"] = uid;
-		    		newChange["fieldName"] = fieldName;
-		    		newChange["newValue"] = newValue;
-		    		changes.push(newChange);
+				if (change === null) {
+		    		change = {};
+		    		change["uid"] = uid;
+		    		change["fieldName"] = fieldName;
+		    		changes.push(change);
 				}
-	    		
-	    		fldChanges.val(JSON.stringify(changes));
+				
+				if (change["newValue"] != newValue) {
+					change["newValue"] = newValue;
+					fldChanges.val(JSON.stringify(changes));
+					if (grid.getOptions().sendCellChangesToServer) {
+						JWic.fireAction(controlId, 'cellEdited', JSON.stringify(change));
+					}
+				}	    		
 			},
 			
 			setupSelectionModel : function(grid, selectionModel) {
