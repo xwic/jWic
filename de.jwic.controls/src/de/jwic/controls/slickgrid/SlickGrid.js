@@ -216,10 +216,9 @@
 	        			strCellValue = JWic.controls.SlickGrid.getTitleByKey(strCellValue, c.keyTitleValues);
 	        		}
 	        		strCellValue = strCellValue.toLowerCase();
-	        		if (strCellValue === 'true') {
+	        		if (strCellValue === 'true' || strCellValue === '1') {
 	        			strCellValue = 'yes';
-	        		}
-	        		if (strCellValue === 'false') {
+	        		} else if (strCellValue === 'false' || strCellValue === '0') {
 	        			strCellValue = 'no';
 	        		}
 	        		if (!strCellValue.includes(columnFilters[columnId])) {
