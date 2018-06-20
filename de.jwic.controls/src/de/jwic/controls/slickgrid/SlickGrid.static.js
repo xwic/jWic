@@ -373,7 +373,8 @@
 			"Slickgrid" : {
 				"Formatters" : {
 					"Date" : DateFormatter,
-					"KeyTitle" : KeyTitleFormatter
+					"KeyTitle" : KeyTitleFormatter,
+					"Decimal" : DecimalFormatter
 				}
 			}
 		}
@@ -395,6 +396,15 @@
 		}
 		
 		return JWic.controls.SlickGrid.getTitleByKey(value, columnDef.keyTitleValues);
+	}
+	
+	function DecimalFormatter(row, cell, value, columnDef, dataContext) {
+		if (value === null || value == undefined) {
+			return "";
+		}
+		
+		return value.toLocaleString('en-US', {
+		});
 	}
 	
 })(jQuery);

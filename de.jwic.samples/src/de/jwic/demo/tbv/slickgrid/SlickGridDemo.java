@@ -175,8 +175,8 @@ public class SlickGridDemo extends ControlContainer {
 		List<CostData> pojos = new ArrayList<>();
 		try {
 			pojos.add(new CostData(idIndex++, "cs", "John Deer", "comm1", true, false, true, sdf.parse("02-Feb-2018"), 45, "h", 100, 200, 300, 400d));
-			pojos.add(new CostData(idIndex++, "cs", "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, "w", 500, 500, 750, 1000d));
-			pojos.add(new CostData(idIndex++, "cs", "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, null, 5600, 5600, 5600, null));
+			pojos.add(new CostData(idIndex++, "cs", "Jane Doe", "comm2", false, true, false, sdf.parse("02-Nov-2018"), 105, "w", 500.5, 500, 750.8, 1000d));
+			pojos.add(new CostData(idIndex++, "cs", "Michael Buffalo", "", false, false, false, sdf.parse("23-Feb-2018"), 5600, null, 5600.75, 5600, 5600, null));
 			pojos.add(new CostData(idIndex++, "ct", "John Deer", "", true, true, true, sdf.parse("25-Dec-2018"), 1, "c$", 0, 0, 3400, 0d));
 			pojos.add(new CostData(idIndex++, null, "Jane Doe", "something here", false, true, true, sdf.parse("12-Feb-2018"), 1, "m", 1200, 0, 0, 4500d));
 		} catch (Exception e) {
@@ -190,7 +190,7 @@ public class SlickGridDemo extends ControlContainer {
 			}
 			
 			@Override
-			public boolean disableEditing(CostData obj, SlickGridColumn column) {
+			public boolean disableEditing(CostData obj, SlickGridColumn<CostData> column) {
 				if (obj.getItemName().equalsIgnoreCase("Michael Buffalo")) {
 					switch (column.getId()) {
 					case "itemName":
@@ -220,11 +220,11 @@ public class SlickGridDemo extends ControlContainer {
 	private void setupColumns(SlickGridModel<CostData> model) {
 		model.clearColumns();
 		
-		SlickGridColumn col = new SlickGridColumn("spendType", "Spend Type", 150);
+		SlickGridColumn<CostData> col = new SlickGridColumn<>("spendType", "Spend Type", 150);
 		col.setToolTip("What's here?");
 		col.setFormatter(SlickGridColumn.Formatters.KEY_TITLE);
 		col.setEditor(SlickGridColumn.Editors.KEY_TITLE_DROP_DOWN);
-		col.setValueProvider(new SlickGridDefaultColumnValueProvider() {
+		col.setValueProvider(new SlickGridDefaultColumnValueProvider<CostData>() {
 			@Override
 			public List<KeyTitlePair> getKeyTitleValues() {
 				return spendTypes;
@@ -232,48 +232,49 @@ public class SlickGridDemo extends ControlContainer {
 		});
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("itemName", "Item Name", 150);
+		col = new SlickGridColumn<>("itemName", "Item Name", 150);
 		col.setToolTip("The name!");
 		col.setEditor(SlickGridColumn.Editors.TEXT);
 		model.addColumn(col);
 		
 		if (addCommentColumn) {
-			col = new SlickGridColumn("comment", "Comment", 150);
+			col = new SlickGridColumn<>("comment", "Comment", 150);
 			col.setEditor(SlickGridColumn.Editors.LONG_TEXT);
 			model.addColumn(col);
 		}
 		
-		col = new SlickGridColumn("internal", "Internal", 60);
+		col = new SlickGridColumn<>("internal", "Internal", 60);
 		col.setEditor(SlickGridColumn.Editors.CHECKBOX);
 		col.setFormatter(SlickGridColumn.Formatters.CHECKBOX);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("approved", "Approved", 70);
+		col = new SlickGridColumn<>("approved", "Approved", 70);
 		col.setEditor(SlickGridColumn.Editors.YES_NO);
 		col.setFormatter(SlickGridColumn.Formatters.CHECKMARK);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("paid", "Paid", 55);
+		col = new SlickGridColumn<>("paid", "Paid", 55);
 		col.setEditor(SlickGridColumn.Editors.YES_NO);
 		col.setFormatter(SlickGridColumn.Formatters.YES_NO);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("startDate", "Start Date", 100);
+		col = new SlickGridColumn<>("startDate", "Start Date", 100);
 		col.setEditor(SlickGridColumn.Editors.DATE);
 		col.setFormatter(SlickGridColumn.Formatters.DATE);
 		col.setDateFormat("dd/mm/yy");
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("rate", "Rate", 50);
+		col = new SlickGridColumn<>("rate", "Rate", 50);
 		col.setEditor(SlickGridColumn.Editors.INTEGER);
+		col.setFormatter(SlickGridColumn.Formatters.DECIMAL);
 		col.setColumnGroup("Rate");
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("uom", "UOM", 100);
+		col = new SlickGridColumn<>("uom", "UOM", 100);
 		col.setColumnGroup("Rate");
 		col.setFormatter(SlickGridColumn.Formatters.KEY_TITLE);
 		col.setEditor(SlickGridColumn.Editors.KEY_TITLE_DROP_DOWN);
-		col.setValueProvider(new SlickGridDefaultColumnValueProvider() {
+		col.setValueProvider(new SlickGridDefaultColumnValueProvider<CostData>() {
 			@Override
 			public List<KeyTitlePair> getKeyTitleValues() {
 				return uoms;
@@ -281,29 +282,33 @@ public class SlickGridDemo extends ControlContainer {
 		});
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("may", "May", 100);
+		col = new SlickGridColumn<>("may", "May", 100);
 		col.setColumnGroup("Q1 FY19");
 		col.setEditor(SlickGridColumn.Editors.FLOAT);
+		col.setFormatter(SlickGridColumn.Formatters.DECIMAL);
 		col.setCanBeSummedUp(true);
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("june", "June", 100);
+		col = new SlickGridColumn<>("june", "June", 100);
 		col.setColumnGroup("Q1 FY19");
 		col.setEditor(SlickGridColumn.Editors.FLOAT);
+		col.setFormatter(SlickGridColumn.Formatters.DECIMAL);
 		col.setCanBeSummedUp(true);
 		col.setTotalLabel("Total: ");
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("july", "July", 100);
+		col = new SlickGridColumn<>("july", "July", 100);
 		col.setColumnGroup("Q1 FY19");
 		col.setEditor(SlickGridColumn.Editors.FLOAT);
+		col.setFormatter(SlickGridColumn.Formatters.DECIMAL);
 		col.setCanBeSummedUp(true);
 		col.setTotalLabel("Sum: ");
 		model.addColumn(col);
 		
-		col = new SlickGridColumn("august", "August", 100);
+		col = new SlickGridColumn<>("august", "August", 100);
 		col.setColumnGroup("Q2 FY19");
 		col.setEditor(SlickGridColumn.Editors.FLOAT);
+		col.setFormatter(SlickGridColumn.Formatters.DECIMAL);
 		col.setCanBeSummedUp(true);
 		model.addColumn(col);
 	}

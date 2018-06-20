@@ -28,7 +28,8 @@ public class SlickGridColumn<T> implements Serializable {
 		PERCENT_COMPLETE_BAR("Slick.Formatters.PercentCompleteBar"),
 		// these are custom made, defined in SlickGrid.static.js  
 		DATE("Jwic.controls.Slickgrid.Formatters.Date"),
-		KEY_TITLE("Jwic.controls.Slickgrid.Formatters.KeyTitle");
+		KEY_TITLE("Jwic.controls.Slickgrid.Formatters.KeyTitle"),
+		DECIMAL("Jwic.controls.Slickgrid.Formatters.Decimal");
 		
 		private String jsName;
 		
