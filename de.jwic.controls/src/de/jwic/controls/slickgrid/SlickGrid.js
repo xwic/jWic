@@ -207,6 +207,7 @@
 	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
 	    JWic.controls.SlickGrid.setupSorting(grid);
 	    
+	    grid.invalidate();
     	grid.render();
     	
     	function getColumnFilters() {
