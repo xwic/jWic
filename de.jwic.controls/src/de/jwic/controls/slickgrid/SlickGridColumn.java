@@ -89,7 +89,7 @@ public class SlickGridColumn<T> implements Serializable {
 	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized 
 	 */	
 	private boolean canBeSummedUp = false;
-	private String dateFormat = "dd/mm/yy";
+	private String dateFormat = "dd/MM/yyyy";
 	private transient ISlickGridColumnValueProvider<T> valueProvider;
 	
 	
@@ -323,7 +323,7 @@ public class SlickGridColumn<T> implements Serializable {
 	}
 
 	/**
-	 * @see <a href="http://api.jqueryui.com/datepicker/#utility-formatDate">http://api.jqueryui.com/datepicker/#utility-formatDate</a> for the supported formats
+	 * @see <a href="https://github.com/phstc/jquery-dateFormat">https://github.com/phstc/jquery-dateFormat</a> for the supported formats
 	 * @param dateFormat the dateFormat to set
 	 */
 	public void setDateFormat(String dateFormat) {

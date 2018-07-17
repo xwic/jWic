@@ -68,7 +68,7 @@
 				if (change["newValue"] != newValue) {
 					change["newValue"] = newValue;
 					fldChanges.val(JSON.stringify(changes));
-					if (grid.getOptions().sendCellChangesToServer) {
+					if (grid.getOptions().sendCellChangesImmediatelyToServer) {
 						JWic.fireAction(controlId, 'cellEdited', JSON.stringify(change));
 					}
 				}	    		
@@ -386,8 +386,9 @@
 			return "";
 		}
 		
-		// uses the jquery datepicker formatting. See http://api.jqueryui.com/datepicker/#utility-formatDate
-		return $.datepicker.formatDate(columnDef.dateFormat, new Date(value));
+		// uses the jquery formatting in dateFormat.js. 
+		// See https://github.com/phstc/jquery-dateFormat for details
+		return DateFormat.format.date(value, columnDef.dateFormat);
 	}
 	
 	function KeyTitleFormatter(row, cell, value, columnDef, dataContext) {
@@ -403,8 +404,7 @@
 			return "";
 		}
 		
-		return value.toLocaleString('en-US', {
-		});
+		return value.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
 	}
 	
 })(jQuery);

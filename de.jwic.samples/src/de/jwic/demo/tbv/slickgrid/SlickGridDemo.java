@@ -92,7 +92,7 @@ public class SlickGridDemo extends ControlContainer {
 			ibSelectionData.setText(text);
 		});
 		
-		slickGrid.getOptions().setSendCellChangesToServer(true);
+		slickGrid.getOptions().setSendCellChangesImmediatelyToServer(true);
 		model.addCellChangedListener(l -> {
 			ibEditData.setText(ibEditData.getText() + "\n" + l.getChange());
 		});

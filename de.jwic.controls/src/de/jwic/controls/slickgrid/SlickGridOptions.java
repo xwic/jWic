@@ -73,7 +73,7 @@ public class SlickGridOptions implements Serializable {
 	private String nonEditableCellCssClass = "slickgrid-cell-disabled";
 	private transient int width = 600;
 	private transient int height = 300;
-	private boolean sendCellChangesToServer = false;
+	private boolean sendCellChangesImmediatelyToServer = false;
 	private transient SelectionModel selectionModel = SelectionModel.ROW;
 	
 	/**
@@ -585,16 +585,16 @@ public class SlickGridOptions implements Serializable {
 	 * @return the sendCellChangesToServer
 	 */
 	public boolean isSendCellChangesToServer() {
-		return sendCellChangesToServer;
+		return sendCellChangesImmediatelyToServer;
 	}
 
 	/**
 	 * Set to true in order to send the cell changes to the server immediately after the cell is edited
 	 * <br/><br/>
 	 * To be used in combination with {@link SlickGridModel}.addCellChangedListener
-	 * @param sendCellChangesToServer the sendCellChangesToServer to set
+	 * @param sendCellChangesImmediatelyToServer the sendCellChangesToServer to set
 	 */
-	public void setSendCellChangesToServer(boolean sendCellChangesToServer) {
-		this.sendCellChangesToServer = sendCellChangesToServer;
+	public void setSendCellChangesImmediatelyToServer(boolean sendCellChangesImmediatelyToServer) {
+		this.sendCellChangesImmediatelyToServer = sendCellChangesImmediatelyToServer;
 	}
 }

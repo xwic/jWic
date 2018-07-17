@@ -117,6 +117,13 @@
 		    render = true;
 		#end
 		
+		#if ($control.isClearSelection()) 
+			// the grid is stored in the div element's data.. see afterUpdate(), right after the grid is created
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+		 	grid.setSelectedRows([]);
+		 	grid.resetActiveCell();
+		#end
+		
 		if (render) {
 			grid.invalidate();
 			grid.render();

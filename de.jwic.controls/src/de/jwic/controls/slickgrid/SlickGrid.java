@@ -42,6 +42,7 @@ public class SlickGrid<T> extends Control {
 	private boolean clearChanges = false;
 	private boolean reloadData = false;
 	private boolean reloadColumns = false;
+	private boolean clearSelection = false;
 	
 	private final Gson gson;
 	
@@ -166,6 +167,14 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * Causes the JS grid to clear the selected row(s) 
+	 */
+	public void clearSelection() {
+		clearSelection = true;
+		requireRedraw();
+	}
+	
+	/**
 	 * Causes the JS grid to reload the data as provided by the jWic control. <br/><br/> 
 	 * This will also clear any pending changes, therefore you should process them before returning to the client.
 	 */
@@ -197,12 +206,20 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * @return the clearSelection
+	 */
+	public boolean isClearSelection() {
+		return clearSelection;
+	}
+	
+	/**
 	 * 
 	 */
 	public void redrawComplete() {
 		clearChanges = false;
 		reloadData = false;
 		reloadColumns = false;
+		clearSelection = false;
 	}
 
 	// ***************************************************
