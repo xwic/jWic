@@ -229,7 +229,7 @@
 						total += (parseFloat(data[i][columnId]) || 0);
 					}
 					var columnElement = grid.getFooterRowColumn(columnId);
-					$(columnElement).html(column.totalLabel + total);
+					$(columnElement).html(column.totalLabel + total.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }));
 				}
 			},
 			
