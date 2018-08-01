@@ -19,7 +19,23 @@ public class SlickGridColumn<T> implements Serializable {
 	
 	private static final long serialVersionUID = 1876300346980560080L;
 	
-	public enum Formatters {
+	/**
+	 * Simple interface created to allow developers to define custom formatters
+	 * @author Adrian Ionescu
+	 */
+	public interface IFormatters {
+		public String getJsName();
+	}
+	
+	/**
+	 * Simple interface created to allow developers to define custom editors
+	 * @author Adrian Ionescu
+	 */
+	public interface IEditors {
+		public String getJsName();
+	}
+	
+	public enum Formatters implements IFormatters {
 		// these come with SlickGrid, defined in slick.formatters.js
 		YES_NO("Slick.Formatters.YesNo"),
 		CHECKBOX("Slick.Formatters.Checkbox"),
@@ -37,12 +53,13 @@ public class SlickGridColumn<T> implements Serializable {
 			this.jsName = jsName;
 		}
 		
+		@Override
 		public String getJsName() {
 			return jsName;
 		}
 	}
 	
-	public enum Editors {
+	public enum Editors implements IEditors {
 		// these come with SlickGrid, defined in slick.editors.js
 		TEXT("Slick.Editors.Text"),
 		INTEGER("Slick.Editors.Integer"),
@@ -61,6 +78,7 @@ public class SlickGridColumn<T> implements Serializable {
 			this.jsName = jsName;
 		}
 		
+		@Override
 		public String getJsName() {
 			return jsName;
 		}
@@ -74,8 +92,8 @@ public class SlickGridColumn<T> implements Serializable {
 	private String toolTip;
 	private String columnGroup;
 	private String totalLabel;
-	private Formatters formatter;
-	private Editors editor;
+	private IFormatters formatter;
+	private IEditors editor;
 	
 	private boolean resizable = true;
 	private boolean sortable = true;
@@ -333,28 +351,28 @@ public class SlickGridColumn<T> implements Serializable {
 	/**
 	 * @return the formatter
 	 */
-	public Formatters getFormatter() {
+	public IFormatters getFormatter() {
 		return formatter;
 	}
 
 	/**
 	 * @param formatter the formatter to set
 	 */
-	public void setFormatter(Formatters formatter) {
+	public void setFormatter(IFormatters formatter) {
 		this.formatter = formatter;
 	}
 
 	/**
 	 * @return the editor
 	 */
-	public Editors getEditor() {
+	public IEditors getEditor() {
 		return editor;
 	}
 
 	/**
 	 * @param editor the editor to set
 	 */
-	public void setEditor(Editors editor) {
+	public void setEditor(IEditors editor) {
 		this.editor = editor;
 	}
 }
