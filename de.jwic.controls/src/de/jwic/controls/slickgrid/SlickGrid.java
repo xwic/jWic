@@ -43,6 +43,7 @@ public class SlickGrid<T> extends Control {
 	private boolean reloadData = false;
 	private boolean reloadColumns = false;
 	private boolean clearSelection = false;
+	private boolean clearFilters = false;
 	
 	private final Gson gson;
 	
@@ -175,6 +176,14 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * 
+	 */
+	public void clearFilters() {
+		clearFilters = true;
+		requireRedraw();
+	}	
+	
+	/**
 	 * Causes the JS grid to reload the data as provided by the jWic control. <br/><br/> 
 	 * This will also clear any pending changes, therefore you should process them before returning to the client.
 	 */
@@ -213,6 +222,13 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * @return the clearFilters
+	 */
+	public boolean isClearFilters() {
+		return clearFilters;
+	}
+	
+	/**
 	 * 
 	 */
 	public void redrawComplete() {
@@ -220,6 +236,7 @@ public class SlickGrid<T> extends Control {
 		reloadData = false;
 		reloadColumns = false;
 		clearSelection = false;
+		clearFilters = false;
 	}
 
 	// ***************************************************

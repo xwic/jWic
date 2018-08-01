@@ -144,7 +144,7 @@
 			    }
 			},
 			
-			setupFilters : function(grid, dataView, columnFilters) {
+			setupFilters : function(grid, dataView, columnFilters, controlId) {
 				dataView.onRowCountChanged.subscribe(function (e, args) {
 	    	    	grid.updateRowCount();
 	    	    	grid.render();
@@ -161,23 +161,40 @@
 		    	    }
 		    	});
 		    	    
-			    $(grid.getHeaderRow()).on("change keyup", ":input", function (e) {
-			        var columnId = $(this).data("columnId");
-			        if (columnId != null) {
-			        	columnFilters[columnId] = $.trim($(this).val()).toLowerCase();
-			        	dataView.refresh();
-			        	if (grid.getOptions().createFooterRow) {
-			        		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
-			        	}
-			        }
-			    });
+		    	// we don't use the event delegating, because we didn't manage to trigger the event
+		    	// when clearing the filters in SlickGrid.js.doUpdate()
+		    	// instead, each input box will have the listener attached individually (see onHeaderRowCellRendered)
+//			    $(grid.getHeaderRow()).on("change keyup", ":input", function (e) {
+//			        var columnId = $(this).data("columnId");
+//			        if (columnId != null) {
+//			        	columnFilters[columnId] = $.trim($(this).val()).toLowerCase();
+//			        	dataView.refresh();
+//			        	if (grid.getOptions().createFooterRow) {
+//			        		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+//			        	}
+//			        }
+//			    });
 			    
 			    grid.onHeaderRowCellRendered.subscribe(function(e, args) {
 			        $(args.node).empty();
-			        $("<input type='text'>")
-			           .data("columnId", args.column.id)
+			        
+			        // the id is used when clearing filters, see SlickGrid.js.doUpdate()
+			        var input = $("<input type='text' id='" + controlId + "_filter_" + args.column.id + "'>");
+			        
+			        input.data("columnId", args.column.id)
 			           .val(columnFilters[args.column.id])
 			           .appendTo(args.node);
+			        
+			        input.on("change keyup", function (e) {
+				        var columnId = $(this).data("columnId");
+				        if (columnId != null) {
+				        	columnFilters[columnId] = $.trim($(this).val()).toLowerCase();
+				        	dataView.refresh();
+				        	if (grid.getOptions().createFooterRow) {
+				        		JWic.controls.SlickGrid.updateAllTotals(grid, grid.getData().getFilteredItems());
+				        	}
+				        }
+				    });
 			    });
 			},
 			

@@ -124,6 +124,21 @@
 		 	grid.resetActiveCell();
 		#end
 		
+		#if ($control.isClearFilters())
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+			if (grid.getOptions().showHeaderRow) {
+				var headerRow = $(grid.getHeaderRow());
+				var inputs = headerRow.find('input');
+				for (var i = 0; i < inputs.length; i++) {
+					var input = inputs[i];
+					if ($(input).val()) {
+						$(input).val("");
+						JWic.$(input.id).keyup();
+					}
+				}
+			}
+		#end
+		
 		if (render) {
 			grid.invalidate();
 			grid.render();
@@ -191,7 +206,7 @@
 	    });
 	    
 	    if (options.showHeaderRow) {
-	    	JWic.controls.SlickGrid.setupFilters(grid, dataView, columnFilters);
+	    	JWic.controls.SlickGrid.setupFilters(grid, dataView, columnFilters, '${control.controlID}');
 	    }
 	    
 	    grid.init();
@@ -210,10 +225,6 @@
 	    grid.invalidate();
     	grid.render();
     	
-    	function getColumnFilters() {
-    		return columnFilters;
-    	}
-	    
 	    function filter(item) {
 	        for (var columnId in columnFilters) {
 	        	if (columnId === undefined || columnFilters[columnId] !== "") {
