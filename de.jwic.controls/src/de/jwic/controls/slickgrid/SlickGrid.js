@@ -79,10 +79,16 @@
 			return false;
 		}
 		
-		if ($control.isClearChanges()) {
+		if ($control.isRerender()) {
+			var grid = JWic.$('${control.controlID}_thegrid').data('theGridInstance');
+			grid.destroy();
+			return false;
+		}
+		
+		#if ($control.isClearChanges())
 			// clear the changes registered so far
 			JWic.$('${control.controlID}_fldChanges').val('');
-		}
+		#end
 		
 		var render = false;
 		
@@ -145,7 +151,7 @@
 		}
 		
 		// call this to let the control know that the update is complete and it should do some cleanup
-		$control.redrawComplete();
+		$control.redrawComplete()
 		
 		return true;
 	},

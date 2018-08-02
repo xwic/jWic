@@ -44,6 +44,7 @@ public class SlickGrid<T> extends Control {
 	private boolean reloadColumns = false;
 	private boolean clearSelection = false;
 	private boolean clearFilters = false;
+	private boolean rerender = false;
 	
 	private final Gson gson;
 	
@@ -181,6 +182,14 @@ public class SlickGrid<T> extends Control {
 	public void clearFilters() {
 		clearFilters = true;
 		requireRedraw();
+	}
+	
+	/**
+	 * 
+	 */
+	public void rerender() {
+		rerender = true;
+		requireRedraw();
 	}	
 	
 	/**
@@ -229,6 +238,13 @@ public class SlickGrid<T> extends Control {
 	}
 	
 	/**
+	 * @return the rerender
+	 */
+	public boolean isRerender() {
+		return rerender;
+	}
+	
+	/**
 	 * 
 	 */
 	public void redrawComplete() {
@@ -237,6 +253,7 @@ public class SlickGrid<T> extends Control {
 		reloadColumns = false;
 		clearSelection = false;
 		clearFilters = false;
+		rerender = false;
 	}
 
 	// ***************************************************
