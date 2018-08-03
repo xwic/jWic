@@ -125,6 +125,9 @@ public class SlickGridModel<T> implements Serializable {
 	}
 	
 	/**
+	 * Please note: the row selected event will not be triggered if the grid is configured with autoEdit = true, as the 
+	 * event triggering interferes with the autoEdit functionality
+	 *  
 	 * @param listener
 	 */
 	public void addElementSelectedListener(IEventListener<ElementSelectedEvent> listener) {

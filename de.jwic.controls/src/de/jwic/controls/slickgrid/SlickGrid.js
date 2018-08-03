@@ -187,7 +187,12 @@
 	    		}
 	    		// only fire the selection event if the row changed, as users might double-click to go into edit mode
 	    		JWic.$('${control.controlID}_fldSelection').val(uid);
-	    		JWic.fireAction('${control.controlID}', 'rowSelected', uid);
+	    		if (!options.autoEdit) {
+	    			// only fire the event to the server if the grid doesn't have autoEdit enabled
+	    			// because on autoEdit we jump between rows automatically when hittin enter and sending the
+	    			// event to the server would disrupt the editing
+	    			JWic.fireAction('${control.controlID}', 'rowSelected', uid);
+	    		}
 	    	}
 	    });
 	    
