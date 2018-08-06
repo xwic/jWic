@@ -2,6 +2,11 @@
 	$.extend(JWic.controls, {
 		SlickGrid : {
 			
+			getNonEditablePropertyMarker : function (columnId) {
+				// see SlickGridDataRow.addNonEditableProperty
+				return '<' + columnId + '>'
+			},
+			
 			cellFormatterWithReadonlySupport : function (row, cell, value, columnDef, dataContext, grid) {
 				var result;
 				if (columnDef.origFormatter) {
@@ -16,7 +21,8 @@
 				
 				var colId = columnDef.id;
 		    	var props = dataContext.slickGridNonEditableProperties;
-		    	if (!columnDef.editor || props.includes(colId)) {
+		    	var colMarker = JWic.controls.SlickGrid.getNonEditablePropertyMarker(colId);
+		    	if (!columnDef.editor || props.indexOf(colMarker) > -1) {
 		    		result = '<div class=\'' + grid.getOptions().nonEditableCellCssClass + '\'>' + result + '</div>';
 		    	}
 		    	return result;

@@ -69,7 +69,8 @@ public class SlickGridOptions implements Serializable {
 	/**
 	 * The following properties are not part of the SlickGrid implementation, they are for support in the jWic control. 
 	 * The transient ones are not needed in the JS code, only in the Java/VTL one, therefore they won't be serialized
-	 */	
+	 */
+	private boolean stopRowSelectedEvent = false;
 	private String nonEditableCellCssClass = "slickgrid-cell-disabled";
 	private transient int width = 600;
 	private transient int height = 300;
@@ -105,10 +106,36 @@ public class SlickGridOptions implements Serializable {
 	}
 
 	/**
+	 * This method will also update the stopRowSelectedEvent flag to the value of autoEdit.
+	 * <br/><br/>
+	 * By default we want to fire the selection event to the server only if autoEdit = false
+	 * The reason is that on auto-editing we jump between rows with enter and sending the row selected event to the server 
+	 * would disrupt this flow.
+	 * <br/><br/>
+	 * However, if for some functionality we still need to trigger the row selection event, this flag can 
+	 * be overridden using {@link #setStopRowSelectedEvent setStopRowSelectedEvent()}
+	 * 
 	 * @param autoEdit the autoEdit to set
 	 */
 	public void setAutoEdit(boolean autoEdit) {
 		this.autoEdit = autoEdit;
+		
+		this.stopRowSelectedEvent = autoEdit;
+	}
+	
+	/**
+	 * @return the stopRowSelectedEvent
+	 */
+	public boolean isStopRowSelectedEvent() {
+		return stopRowSelectedEvent;
+	}
+	
+	/**
+	 * Stops the client from sending the row selection event to the server
+	 * @param stopRowSelectedEvent the stopRowSelectedEvent to set
+	 */
+	public void setStopRowSelectedEvent(boolean stopRowSelectedEvent) {
+		this.stopRowSelectedEvent = stopRowSelectedEvent;
 	}
 
 	/**

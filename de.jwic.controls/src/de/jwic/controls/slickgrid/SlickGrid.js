@@ -187,10 +187,7 @@
 	    		}
 	    		// only fire the selection event if the row changed, as users might double-click to go into edit mode
 	    		JWic.$('${control.controlID}_fldSelection').val(uid);
-	    		if (!options.autoEdit) {
-	    			// only fire the event to the server if the grid doesn't have autoEdit enabled
-	    			// because on autoEdit we jump between rows automatically when hittin enter and sending the
-	    			// event to the server would disrupt the editing
+	    		if (!options.stopRowSelectedEvent) {
 	    			JWic.fireAction('${control.controlID}', 'rowSelected', uid);
 	    		}
 	    	}
@@ -198,8 +195,8 @@
 	    
 	    grid.onBeforeEditCell.subscribe(function (e, args) {
 	    	var item = args.item;
-	    	var column = args.column;
-	    	if (item.slickGridNonEditableProperties.includes(column.id)) {
+	    	var colMarker = JWic.controls.SlickGrid.getNonEditablePropertyMarker(args.column.id);
+	    	if (item.slickGridNonEditableProperties.indexOf(colMarker) > -1) {
 	    		return false;
 	    	}
 	    	return true;
@@ -251,7 +248,7 @@
 	        		} else if (strCellValue === 'false' || strCellValue === '0') {
 	        			strCellValue = 'no';
 	        		}
-	        		if (!strCellValue.includes(columnFilters[columnId])) {
+	        		if (strCellValue.indexOf(columnFilters[columnId]) < 0) {
 	        			return false;
 	        		}
 	        	}
