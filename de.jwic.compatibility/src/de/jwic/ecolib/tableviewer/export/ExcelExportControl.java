@@ -30,7 +30,7 @@ import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 
 import de.jwic.base.IControlContainer;
 import de.jwic.base.IResourceControl;
@@ -86,6 +86,7 @@ public class ExcelExportControl extends Button implements IResourceControl {
 	 * 
 	 * @see de.jwic.controls.SelectableControl#click()
 	 */
+	@Override
 	public void click() {
 		super.click();
 		setShowDownload(true);
@@ -98,6 +99,7 @@ public class ExcelExportControl extends Button implements IResourceControl {
 	 * @see de.jwic.base.IResourceControl#attachResource(javax.servlet.http.HttpServletRequest,
 	 *      javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void attachResource(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try {
 			String filename = "export.xls";
@@ -119,8 +121,8 @@ public class ExcelExportControl extends Button implements IResourceControl {
 
 		// Style for title cells
 		HSSFFont font = wb.createFont();
-		font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
-		font.setColor(HSSFColor.BLUE.index);
+		font.setBold(true);
+		font.setColor(HSSFColorPredefined.BLUE.getIndex());
 
 		HSSFCellStyle styleTitle = wb.createCellStyle();
 		styleTitle.setFont(font);
