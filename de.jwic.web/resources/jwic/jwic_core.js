@@ -289,7 +289,7 @@ var JWic = {
 			}
 			var doReplace = true;
 			for ( var i = 0; i < scripts.length; i++) {
-				if (scripts[i].script.doUpdate) {
+				if (scripts[i].script.doUpdate && scripts[i].key === elm.key) {
 					try {
 						if (scripts[i].script.doUpdate(control)) {
 							doReplace = false;
