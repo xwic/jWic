@@ -105,7 +105,7 @@
 
     this.init = function () {
       $input = $("<INPUT type=text class='editor-text' />");
-
+      
       $input.on("keydown.nav", function (e) {
         if (e.keyCode === $.ui.keyCode.LEFT || e.keyCode === $.ui.keyCode.RIGHT) {
           e.stopImmediatePropagation();
@@ -132,7 +132,9 @@
     };
 
     this.serializeValue = function () {
-      return parseInt($input.val(), 10) || 0;
+    	//RPF: some people enter formated values like 5,444 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter
+      return parseInt(replaceCommaFromValue($input.val()), 10) || 0;
     };
 
     this.applyValue = function (item, state) {
@@ -144,7 +146,9 @@
     };
 
     this.validate = function () {
-      if (isNaN($input.val())) {
+    	//RPF: some people enter formated values like 5,444 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter    	
+      if (isNaN(replaceCommaFromValue($input.val()))) {
         return {
           valid: false,
           msg: "Please enter a valid integer"
@@ -152,6 +156,7 @@
       }
 
       if (args.column.validator) {
+    	  //RPF: I am not replacing the , here as I believe a custom validator is used here.. then the validator still shall get the true value entered
         var validationResults = args.column.validator($input.val());
         if (!validationResults.valid) {
           return validationResults;
@@ -165,6 +170,13 @@
     };
 
     this.init();
+  }
+  
+  /*
+   * Replace , from value with ''.
+   */
+  function replaceCommaFromValue(value) {
+	  return value ? value.replace(',', '') : '';
   }
 
   function FloatEditor(args) {
@@ -222,7 +234,9 @@
     };
 
     this.serializeValue = function () {
-      var rtn = parseFloat($input.val());
+    	//RPF: some people enter formated values like 5,444.34 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter
+      var rtn = parseFloat(replaceCommaFromValue($input.val()));
       if (FloatEditor.AllowEmptyValue) {
         if (!rtn && rtn !==0) { rtn = ''; }
       } else {
@@ -248,7 +262,9 @@
     };
 
     this.validate = function () {
-      if (isNaN($input.val())) {
+    	//RPF: some people enter formated values like 5,444.34 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter
+      if (isNaN(replaceCommaFromValue($input.val()))) {
         return {
           valid: false,
           msg: "Please enter a valid number"
@@ -256,7 +272,8 @@
       }
 
       if (args.column.validator) {
-        var validationResults = args.column.validator($input.val());
+    	  //RPF: I am not replacing the , here as I believe a custom validator is used here.. then the validator still shall get the true value entered
+       var validationResults = args.column.validator($input.val());
         if (!validationResults.valid) {
           return validationResults;
         }
