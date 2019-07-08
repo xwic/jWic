@@ -142,7 +142,7 @@
     };
 
     this.isValueChanged = function () {
-      return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+      return (!($input.val() == "" && defaultValue == null)) && (replaceCommaFromValue($input.val()) != defaultValue);
     };
 
     this.validate = function () {
@@ -176,7 +176,7 @@
    * Replace , from value with ''.
    */
   function replaceCommaFromValue(value) {
-	  return value ? value.replace(',', '') : '';
+	  return value ? value.replace(/,/g, '') : '';
   }
 
   function FloatEditor(args) {
@@ -258,7 +258,7 @@
     };
 
     this.isValueChanged = function () {
-      return (!($input.val() == "" && defaultValue == null)) && ($input.val() != defaultValue);
+      return (!($input.val() == "" && defaultValue == null)) && (replaceCommaFromValue($input.val()) != defaultValue);
     };
 
     this.validate = function () {
