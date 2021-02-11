@@ -354,10 +354,18 @@ public class WebEngine  {
 	 */
 	private void respondConnectionTest(SessionContext sc, HttpServletRequest req, HttpServletResponse res) {
 		
-		res.setContentType("text/json; charset=UTF-8");
+		res.setContentType("text/javascript; charset=UTF-8");
 		try {
 			PrintWriter pw = res.getWriter();
-			pw.println("{\"sessionInitialized\":" + (sc != null) + "}");
+			
+			String callback = req.getParameter("callback");
+			
+			if (callback != null) {
+				pw.println(callback + "({sessionInitialized:" + (sc != null) + "});");
+			} else {
+				//pw.println("{\"sessionInitialized\":" + (sc != null) + "}");
+				pw.println("var sessionInitialized = " + (sc != null) + ";");
+			}
 			pw.flush();
 			pw.close();
 			

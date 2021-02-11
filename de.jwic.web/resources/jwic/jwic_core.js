@@ -184,20 +184,29 @@ var JWic = {
 		if (idx != -1) {
 			url = url.substring(0, idx);
 		}
-		
+
 		jQuery.ajax({
 			url: url,
-			type :'post',
+			type :'get',
 			data : paramData,
-			success : function(data, textStatus, jqXHR) { JWic.connectionTestSuccess(data, jqXHR);} ,
+			crossDomain : true,
+			timeout: 2000,
+			dataType: 'jsonp',
+			jsonpCallback: "JWic.connectionTestSuccess",
+			success : function(data, textStatus, jqXHR) { JWic.connectionTestSuccess(data);} ,
 			error : function(jqXHR, textStatus, errorThrown) {
-				JWic.connectionTestFailed(jqXHR, textStatus, errorThrown);
+				if (textStatus == "parsererror") {
+					// the server responded, but we can't understand it. Usually when authentication is required again. Let's refresh
+					var x = {};
+					JWic.connectionTestSuccess(x);
+				} else {
+					JWic.connectionTestFailed(jqXHR, textStatus, errorThrown);
+				}
 			}
 		});
-
 	},
 	
-	connectionTestSuccess : function(data, jqXHR) {
+	connectionTestSuccess : function(data) {
 		JWic.log("Connection Success");
 		if (data.sessionInitialized) {
 			// the connection is available and the session is still available.
