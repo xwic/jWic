@@ -9,3 +9,4 @@ controls behavior is mostly handled via JavaScript on the client, the applicatio
 logic is running on the server side.
 
 You can read more about jWic in our [Wiki pages](https://github.com/xwic/jWic/wiki). 
+
