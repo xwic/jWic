@@ -650,12 +650,21 @@
 		</plugins>
 	</reporting>
 	
-	  <distributionManagement>
-	    <repository>
+	<distributionManagement>
+	   <!-- <repository>
 	      <id>github</id>
 	      <name>GitHub Packages</name>
 	      <url>https://maven.pkg.github.com/xwic/jWic</url>
-	    </repository>
-	  </distributionManagement>
+	    </repository> -->
 
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/groups/staging</url>
+        </repository>
+    </distributionManagement>		
+	
 </project>
