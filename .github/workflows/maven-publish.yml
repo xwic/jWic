@@ -3,8 +3,9 @@
 
 name: Java CI with Maven
 on:
-  release:
-    types: [created]
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
