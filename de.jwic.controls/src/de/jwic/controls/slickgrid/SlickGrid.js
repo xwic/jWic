@@ -165,6 +165,7 @@
 		
 	    var options = $control.getOptionsAsJson();
 	    options.explicitInitialization = true; // hardcode this option because we need it if using a data view
+		options.suppressCssChangesOnHiddenInit = true;
 	    
 	    var data = this.getData();
 	    
@@ -216,45 +217,48 @@
 	    if (options.showHeaderRow) {
 	    	JWic.controls.SlickGrid.setupFilters(grid, dataView, columnFilters, '${control.controlID}');
 	    }
-	    
-	    grid.init();
-	    
-	    dataView.beginUpdate();
-	    dataView.setItems(data);
-	    if (options.showHeaderRow) {
-	    	dataView.setFilter(filter);
-	    }
-	    dataView.endUpdate();
-	    
-	    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
-	    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
-	    JWic.controls.SlickGrid.setupSorting(grid);
-	    
-	    grid.invalidate();
-    	grid.render();
-    	
-	    function filter(item) {
-	        for (var columnId in columnFilters) {
-	        	if (columnId === undefined || columnFilters[columnId] !== "") {
-	        		var c = grid.getColumns()[grid.getColumnIndex(columnId)];
-	        		// manipulate the value we will use for the comparison
-	        		var strCellValue = item[c.field] + '';
-	        		if (c.keyTitleValues && c.keyTitleValues.length > 0) {
-	        			strCellValue = JWic.controls.SlickGrid.getTitleByKey(strCellValue, c.keyTitleValues);
-	        		}
-	        		strCellValue = strCellValue.toLowerCase();
-	        		if (strCellValue === 'true' || strCellValue === '1') {
-	        			strCellValue = 'yes';
-	        		} else if (strCellValue === 'false' || strCellValue === '0') {
-	        			strCellValue = 'no';
-	        		}
-	        		if (strCellValue.indexOf(columnFilters[columnId]) < 0) {
-	        			return false;
-	        		}
-	        	}
-	        }
-	        return true;
-	    }
+	    ## The Grid is rendered as a fixed size element, measuring the space when it renders. This must be done after all
+		## other elements got rendered. Therefore we have to delay the rendering by using window.setTimeout 
+		window.setTimeout(() => {
+		    grid.init();
+		    
+		    dataView.beginUpdate();
+		    dataView.setItems(data);
+		    if (options.showHeaderRow) {
+		    	dataView.setFilter(filter);
+		    }
+		    dataView.endUpdate();
+		    
+		    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
+		    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
+		    JWic.controls.SlickGrid.setupSorting(grid);
+		    
+		    grid.invalidate();
+	    	grid.render();
+	    	
+		    function filter(item) {
+		        for (var columnId in columnFilters) {
+		        	if (columnId === undefined || columnFilters[columnId] !== "") {
+		        		var c = grid.getColumns()[grid.getColumnIndex(columnId)];
+		        		// manipulate the value we will use for the comparison
+		        		var strCellValue = item[c.field] + '';
+		        		if (c.keyTitleValues && c.keyTitleValues.length > 0) {
+		        			strCellValue = JWic.controls.SlickGrid.getTitleByKey(strCellValue, c.keyTitleValues);
+		        		}
+		        		strCellValue = strCellValue.toLowerCase();
+		        		if (strCellValue === 'true' || strCellValue === '1') {
+		        			strCellValue = 'yes';
+		        		} else if (strCellValue === 'false' || strCellValue === '0') {
+		        			strCellValue = 'no';
+		        		}
+		        		if (strCellValue.indexOf(columnFilters[columnId]) < 0) {
+		        			return false;
+		        		}
+		        	}
+		        }
+		        return true;
+		    }
+		}, 0);	
 	    
 	    // just in case...
 	    $control.redrawComplete();

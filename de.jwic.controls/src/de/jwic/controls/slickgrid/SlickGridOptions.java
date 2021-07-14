@@ -38,6 +38,7 @@ public class SlickGridOptions implements Serializable {
 	private boolean multiSelect = false;
 	private boolean syncColumnCellResize = true;
 	private boolean showHeaderRow = false;
+	private int frozenColumn = -1;
 	
 	/**
 	 * The following two properties need to be true in order to use column grouping
@@ -623,5 +624,19 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setSendCellChangesImmediatelyToServer(boolean sendCellChangesImmediatelyToServer) {
 		this.sendCellChangesImmediatelyToServer = sendCellChangesImmediatelyToServer;
+	}
+
+	/**
+	 * @return the frozenColumn
+	 */
+	public int getFrozenColumn() {
+		return frozenColumn;
+	}
+
+	/**
+	 * @param frozenColumn the frozenColumn to set
+	 */
+	public void setFrozenColumn(int frozenColumn) {
+		this.frozenColumn = frozenColumn;
 	}
 }

@@ -411,7 +411,9 @@
 		
 		// uses the jquery formatting in dateFormat.js. 
 		// See https://github.com/phstc/jquery-dateFormat for details
-		return DateFormat.format.date(value, columnDef.dateFormat);
+		let result = $.datepicker.formatDate(columnDef.dateFormat, new Date(value));
+		console.log('DateFormatter on ' + value + ' to format ' + columnDef.dateFormat + " = " + result);
+		return result;
 	}
 	
 	function KeyTitleFormatter(row, cell, value, columnDef, dataContext) {
