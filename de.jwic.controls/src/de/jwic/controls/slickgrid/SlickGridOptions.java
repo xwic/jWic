@@ -39,6 +39,7 @@ public class SlickGridOptions implements Serializable {
 	private boolean syncColumnCellResize = true;
 	private boolean showHeaderRow = false;
 	private int frozenColumn = -1;
+	private boolean excelSelectionMode = false;
 	
 	/**
 	 * The following two properties need to be true in order to use column grouping
@@ -638,5 +639,21 @@ public class SlickGridOptions implements Serializable {
 	 */
 	public void setFrozenColumn(int frozenColumn) {
 		this.frozenColumn = frozenColumn;
+	}
+
+	
+	/**
+	 * @return the excelSelectionMode
+	 */
+	public boolean isExcelSelectionMode() {
+		return excelSelectionMode;
+	}
+
+	
+	/**
+	 * @param excelSelectionMode the excelSelectionMode to set
+	 */
+	public void setExcelSelectionMode(boolean excelSelectionMode) {
+		this.excelSelectionMode = excelSelectionMode;
 	}
 }

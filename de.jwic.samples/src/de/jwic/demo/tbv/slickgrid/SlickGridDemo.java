@@ -80,6 +80,7 @@ public class SlickGridDemo extends ControlContainer {
 		slickGrid.getOptions().setShowColumnGrouping(true);
 		slickGrid.getOptions().setShowTotalsRow(true);
 		slickGrid.getOptions().setFrozenColumn(1);
+		slickGrid.getOptions().setExcelSelectionMode(true);
 		
 		
 		SlickGridModel<CostData> model = slickGrid.getModel();
