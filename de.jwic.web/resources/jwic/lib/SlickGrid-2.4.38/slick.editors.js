@@ -139,7 +139,7 @@
     };
 
     this.serializeValue = function () {
-      return parseInt($input.val(), 10) || 0;
+      return parseInt(replaceCommaFromValue($input.val()), 10) || 0;
     };
 
     this.applyValue = function (item, state) {
@@ -147,11 +147,11 @@
     };
 
     this.isValueChanged = function () {
-      return (!($input.val() === "" && defaultValue == null)) && ($input.val() != defaultValue);
+      return (!($input.val() === "" && defaultValue == null)) && (replaceCommaFromValue($input.val()) != defaultValue);
     };
 
     this.validate = function () {
-      if (isNaN($input.val())) {
+      if (isNaN(replaceCommaFromValue($input.val()))) {
         return {
           valid: false,
           msg: "Please enter a valid integer"
@@ -172,6 +172,13 @@
     };
 
     this.init();
+  }
+
+  /*
+   * Replace , from value with ''.
+   */
+  function replaceCommaFromValue(value) {
+	  return value ? value.replace(/,/g, '') : '';
   }
 
   function FloatEditor(args) {
@@ -240,7 +247,9 @@
     };
 
     this.serializeValue = function () {
-      var rtn = parseFloat($input.val());
+    	//RPF: some people enter formated values like 5,444.34 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter
+      var rtn = parseFloat(replaceCommaFromValue($input.val()));
       if (FloatEditor.AllowEmptyValue) {
         if (!rtn && rtn !== 0) { rtn = ''; }
       } else {
@@ -266,7 +275,9 @@
     };
 
     this.validate = function () {
-      if (isNaN($input.val())) {
+    	//RPF: some people enter formated values like 5,444.34 .. to avoid an error the , will be replaced
+    	//since localization is not supported, the , means the thousand delimiter
+      if (isNaN(replaceCommaFromValue($input.val()))) {
         return {
           valid: false,
           msg: "Please enter a valid number"

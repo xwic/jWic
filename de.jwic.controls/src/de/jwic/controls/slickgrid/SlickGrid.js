@@ -229,19 +229,19 @@
 		    }
 		    dataView.endUpdate();
 		    
+	#if($control.options.excelSelectionMode)
+	    	grid.setSelectionModel(new Slick.CellSelectionModel());
+			var pluginOptions = {
+			    readOnlyMode : true,
+			    includeHeaderWhenCopying : false
+			  };
+		  	grid.registerPlugin(new Slick.CellExternalCopyManager(pluginOptions));
+	#else
 		    JWic.controls.SlickGrid.setupSelectionModel(grid, '$control.options.selectionModel.toString()');
+	#end
 		    JWic.controls.SlickGrid.setupHeaderAndFooter(grid);
 		    JWic.controls.SlickGrid.setupSorting(grid);
 
-	#if($control.options.excelSelectionMode)
-    	grid.setSelectionModel(new Slick.CellSelectionModel());
-		var pluginOptions = {
-		    readOnlyMode : true,
-		    includeHeaderWhenCopying : false
-		  };
-    	grid.registerPlugin(new Slick.CellExternalCopyManager(pluginOptions));
-		console.log('ExcelSelectionMode');
-	#end
 		    
 		    grid.invalidate();
 	    	grid.render();
