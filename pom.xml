@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-<!-- 
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
 		<artifactId>oss-parent</artifactId>
 		<version>7</version>
 	</parent>
- -->
- 
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.xwic.jwic</groupId>
 	<artifactId>jwic</artifactId>
-	<version>5.3.43</version>
+	<version>5.3.43-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>xWic - jWic Framework</name>
@@ -34,7 +32,7 @@
 		<connection>scm:git:git@github.com:xwic/jWic.git</connection>
 		<developerConnection>scm:git:git@github.com:xwic/jWic.git</developerConnection>
 		<url>https://github.com/xwic/jWic</url>
-		<tag>jwic-5.3.8</tag>
+		<tag>jwic-5.3.42</tag>
 	</scm>
 	<developers>
 		<developer>
@@ -371,7 +369,6 @@
 		</pluginManagement>
 		
 		<plugins>
-			<!-- 
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
@@ -396,8 +393,7 @@
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
 				<version>3.1.1</version>
-			</plugin>
-			 -->			
+			</plugin>			
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -649,22 +645,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-	
-	<distributionManagement>
-	   <!-- <repository>
-	      <id>github</id>
-	      <name>GitHub Packages</name>
-	      <url>https://maven.pkg.github.com/xwic/jWic</url>
-	    </repository> -->
 
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/groups/staging</url>
-        </repository>
-    </distributionManagement>		
-	
 </project>
